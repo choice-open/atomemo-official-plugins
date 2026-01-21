@@ -28,6 +28,7 @@ DIR_COUNT=$(echo "$DIRECTORIES" | wc -l | tr -d ' ')
 
 if [ "$DIR_COUNT" -gt 1 ]; then
 	echo "Error: PR involves multiple plugin directories:"
+	# shellcheck disable=SC2001
 	echo "$DIRECTORIES" | sed 's/^/  - /'
 	exit 1
 fi
@@ -54,7 +55,7 @@ echo "Target directory: ${TARGET_DIR}"
 extract_version() {
 	local dir="$1"
 	local sha="$2"
-	
+
 	# Try npm project (package.json)
 	if git show "${sha}:${dir}/package.json" &>/dev/null; then
 		git show "${sha}:${dir}/package.json" | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1
@@ -94,7 +95,7 @@ if [ -z "$S3_BUCKET" ]; then
 	exit 1
 fi
 
-PLUGIN_NAME="${TARGET_DIR#${PLUGINS_DIR}/}"
+PLUGIN_NAME="${TARGET_DIR#"${PLUGINS_DIR}/"}"
 S3_PATH="s3://${S3_BUCKET}/${S3_PREFIX}${PLUGIN_NAME}_${HEAD_VERSION}"
 
 echo "Uploading ${TARGET_DIR} to ${S3_PATH}"
