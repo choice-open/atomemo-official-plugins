@@ -86,6 +86,14 @@ if [ -n "$BASE_VERSION" ] && [ "$BASE_VERSION" = "$HEAD_VERSION" ]; then
 	exit 1
 fi
 
+# Create compressed archive
+PLUGIN_NAME="${TARGET_DIR#"${PLUGINS_DIR}/"}"
+ARCHIVE_NAME="${PLUGIN_NAME}_${HEAD_VERSION}.tar.gz"
+TEMP_ARCHIVE="/tmp/${ARCHIVE_NAME}"
+
+echo "Creating compressed archive: ${ARCHIVE_NAME}"
+tar -czf "${TEMP_ARCHIVE}" -C "${PLUGINS_DIR}" "${PLUGIN_NAME}"
+
 # Upload to S3
 S3_BUCKET="${S3_BUCKET:-}"
 S3_PREFIX="${S3_PREFIX:-plugins/}"
@@ -95,11 +103,13 @@ if [ -z "$S3_BUCKET" ]; then
 	exit 1
 fi
 
-PLUGIN_NAME="${TARGET_DIR#"${PLUGINS_DIR}/"}"
-S3_PATH="s3://${S3_BUCKET}/${S3_PREFIX}${PLUGIN_NAME}_${HEAD_VERSION}"
+S3_PATH="s3://${S3_BUCKET}/${S3_PREFIX}${ARCHIVE_NAME}"
 
-echo "Uploading ${TARGET_DIR} to ${S3_PATH}"
+echo "Uploading ${ARCHIVE_NAME} to ${S3_PATH}"
 
-aws s3 sync "${TARGET_DIR}" "${S3_PATH}" --delete
+aws s3 cp "${TEMP_ARCHIVE}" "${S3_PATH}"
+
+# Clean up temporary archive
+rm -f "${TEMP_ARCHIVE}"
 
 echo "Upload completed successfully"
