@@ -1,0 +1,62 @@
+{
+  "name": "demo-plugin",
+  "display_name": {
+    "en_US": "Testing Plugin",
+    "zh_Hans": "测试插件"
+  },
+  "description": {
+    "en_US": "A plugin for testing the plugin",
+    "zh_Hans": "一个用于测试插件的插件"
+  },
+  "icon": "🎛️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "余凡",
+  "email": "dev.yufan@gmail.com",
+  "organization_id": "U0WU1NIUiNiylJqOFCx5duSZPsFNsjj6",
+  "version": "0.1.0",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "demo-tool",
+      "display_name": {
+        "en_US": "Demo Tool",
+        "zh_Hans": "演示工具"
+      },
+      "description": {
+        "en_US": "A tool for testing the plugin",
+        "zh_Hans": "一个用于测试插件的工具"
+      },
+      "icon": "🧰",
+      "parameters": [
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "位置"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The location to test",
+              "zh_Hans": "要测试的位置"
+            },
+            "placeholder": {
+              "en_US": "Enter the location to test",
+              "zh_Hans": "输入要测试的位置"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
