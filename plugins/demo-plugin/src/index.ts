@@ -12,6 +12,7 @@ const plugin = await createPlugin({
   display_name: t("PLUGIN_DISPLAY_NAME"),
   description: t("PLUGIN_DESCRIPTION"),
   icon: "🎛️",
+  lang: "typescript",
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
   locales,
