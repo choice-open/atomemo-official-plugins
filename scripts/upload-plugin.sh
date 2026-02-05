@@ -116,3 +116,44 @@ aws s3 cp "${TEMP_ARCHIVE}" "${S3_PATH}"
 rm -f "${TEMP_ARCHIVE}"
 
 echo "Upload completed successfully"
+
+# Release plugin via API
+HUB_API_URL="${HUB_API_URL:-}"
+RELEASE_API_KEY="${RELEASE_API_KEY:-}"
+
+if [ -z "$HUB_API_URL" ]; then
+	echo "Warning: HUB_API_URL is not set, skipping release API call"
+	exit 0
+fi
+
+if [ -z "$RELEASE_API_KEY" ]; then
+	echo "Warning: RELEASE_API_KEY is not set, skipping release API call"
+	exit 0
+fi
+
+DEFINITION_FILE="${TARGET_DIR}/definition.json"
+
+if [ ! -f "$DEFINITION_FILE" ]; then
+	echo "Error: definition.json not found in ${TARGET_DIR}"
+	exit 1
+fi
+
+echo "Releasing plugin via API..."
+
+RELEASE_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+	"${HUB_API_URL}/api/v1/release/plugins" \
+	-H "Content-Type: application/json" \
+	-H "x-api-key: ${RELEASE_API_KEY}" \
+	-d @"${DEFINITION_FILE}")
+
+HTTP_CODE=$(echo "$RELEASE_RESPONSE" | tail -n1)
+RESPONSE_BODY=$(echo "$RELEASE_RESPONSE" | sed '$d')
+
+if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+	echo "Plugin released successfully"
+	echo "Response: ${RESPONSE_BODY}"
+else
+	echo "Error: Failed to release plugin (HTTP ${HTTP_CODE})"
+	echo "Response: ${RESPONSE_BODY}"
+	exit 1
+fi
