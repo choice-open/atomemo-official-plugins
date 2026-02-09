@@ -1,7 +1,7 @@
 {
   "name": "demo-plugin",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A brief description of the plugin's functionality",
   "author": "余凡 <dev.yufan@gmail.com>",
   "license": "MIT",
@@ -24,9 +24,7 @@
     "dev": "concurrently -c=cyan.bold,blue.bold --names=DEV,I18N --pad-prefix \"tsdown --watch\" \"typesafe-i18n\"",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "preversion": "bun run check && bun run build --clean",
-    "version": "bumpp package.json definition.json --commit 'v%s' --tag 'v%s'",
-    "postversion": "echo Updated to version $(node -p \"require('./package.json').version\")"
+    "release": "bumpp package.json definition.json --commit 'release demo-plugin v%s' --no-push --no-tag --yes"
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
