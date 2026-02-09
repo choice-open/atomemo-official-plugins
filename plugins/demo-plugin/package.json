@@ -20,10 +20,13 @@
   ],
   "scripts": {
     "build": "tsdown",
+    "check": "biome check . --write",
     "dev": "concurrently -c=cyan.bold,blue.bold --names=DEV,I18N --pad-prefix \"tsdown --watch\" \"typesafe-i18n\"",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "bun run build"
+    "preversion": "bun run check && bun run build --clean",
+    "version": "bumpp package.json definition.json --commit 'v%s' --tag 'v%s'",
+    "postversion": "echo Updated to version $(node -p \"require('./package.json').version\")"
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",

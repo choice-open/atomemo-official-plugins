@@ -11,16 +11,118 @@
   "icon": "🎛️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "余凡",
   "email": "dev.yufan@gmail.com",
   "organization_id": "U0WU1NIUiNiylJqOFCx5duSZPsFNsjj6",
   "version": "0.5.0",
-  "credentials": [],
-  "models": [],
+  "credentials": [
+    {
+      "name": "demo-deepseek-api-key",
+      "display_name": {
+        "en_US": "Demo DeepSeek API Key",
+        "zh_Hans": "演示DeepSeek API Key"
+      },
+      "description": {
+        "en_US": "A API Key for testing the plugin",
+        "zh_Hans": "一个用于测试插件的API Key"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "Demo DeepSeek API Key",
+            "zh_Hans": "演示DeepSeek API Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Enter the API Key for testing the plugin",
+              "zh_Hans": "输入用于测试插件的API Key"
+            },
+            "placeholder": {
+              "en_US": "Enter the API Key for testing the plugin",
+              "zh_Hans": "输入用于测试插件的API Key"
+            },
+            "sensitive": true,
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "demo-deepseek-chat",
+      "display_name": {
+        "en_US": "Demo DeepSeek Chat",
+        "zh_Hans": "演示DeepSeek Chat"
+      },
+      "description": {
+        "en_US": "A model for testing the plugin",
+        "zh_Hans": "一个用于测试插件的模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": ["text"],
+      "output_modalities": ["text"],
+      "pricing": {
+        "currency": "CNY",
+        "input": 0.28,
+        "input_cache_read": 0.028,
+        "output": 0.42
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1.3,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": [
+        "parallel_tool_calls",
+        "structured_outputs",
+        "verbosity"
+      ]
+    },
+    {
+      "name": "demo-deepseek-reasoning",
+      "display_name": {
+        "en_US": "Demo DeepSeek Reasoning",
+        "zh_Hans": "演示DeepSeek Reasoning"
+      },
+      "description": {
+        "en_US": "A model for testing the plugin",
+        "zh_Hans": "一个用于测试插件的模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": ["text"],
+      "output_modalities": ["text"],
+      "pricing": {
+        "currency": "CNY",
+        "input": 0.28,
+        "input_cache_read": 0.028,
+        "output": 0.42
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1.5,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": [
+        "parallel_tool_calls",
+        "structured_outputs",
+        "verbosity"
+      ]
+    }
+  ],
   "tools": [
     {
       "name": "demo-tool",

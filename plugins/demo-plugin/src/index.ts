@@ -1,8 +1,11 @@
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import packageJSON from "../package.json"
+import { demoCredential } from "./credentials/demo"
 import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
+import { demoModelChat } from "./models/demo-chat"
+import { demoModelReasoning } from "./models/demo-reasoning"
 import { demoTool } from "./tools/demo"
 
 await loadAllLocalesAsync()
@@ -18,6 +21,11 @@ const plugin = await createPlugin({
   locales,
   transporterOptions: {},
 })
+
+plugin.addCredential(demoCredential)
+
+plugin.addModel(demoModelChat)
+plugin.addModel(demoModelReasoning)
 
 plugin.addTool(demoTool)
 
