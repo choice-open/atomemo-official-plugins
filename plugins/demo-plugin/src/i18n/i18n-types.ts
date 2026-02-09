@@ -24,6 +24,38 @@ type RootTranslation = {
    */
   PLUGIN_DESCRIPTION: string
   /**
+   * A​ ​m​o​d​e​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   */
+  DEMO_DEEPSEEK_CHAT_DESCRIPTION: string
+  /**
+   * D​e​m​o​ ​D​e​e​p​S​e​e​k​ ​C​h​a​t
+   */
+  DEMO_DEEPSEEK_CHAT_DISPLAY_NAME: string
+  /**
+   * A​ ​m​o​d​e​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   */
+  DEMO_DEEPSEEK_REASONING_DESCRIPTION: string
+  /**
+   * D​e​m​o​ ​D​e​e​p​S​e​e​k​ ​R​e​a​s​o​n​i​n​g
+   */
+  DEMO_DEEPSEEK_REASONING_DISPLAY_NAME: string
+  /**
+   * D​e​m​o​ ​D​e​e​p​S​e​e​k​ ​A​P​I​ ​K​e​y
+   */
+  DEMO_DEEPSEEK_API_KEY_DISPLAY_NAME: string
+  /**
+   * A​ ​A​P​I​ ​K​e​y​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   */
+  DEMO_DEEPSEEK_API_KEY_DESCRIPTION: string
+  /**
+   * E​n​t​e​r​ ​t​h​e​ ​A​P​I​ ​K​e​y​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   */
+  DEMO_DEEPSEEK_API_KEY_HINT: string
+  /**
+   * E​n​t​e​r​ ​t​h​e​ ​A​P​I​ ​K​e​y​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   */
+  DEMO_DEEPSEEK_API_KEY_PLACEHOLDER: string
+  /**
    * D​e​m​o​ ​T​o​o​l
    */
   DEMO_TOOL_DISPLAY_NAME: string
@@ -54,6 +86,38 @@ export type TranslationFunctions = {
    * A plugin for testing the plugin
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
+  /**
+   * A model for testing the plugin
+   */
+  DEMO_DEEPSEEK_CHAT_DESCRIPTION: () => LocalizedString
+  /**
+   * Demo DeepSeek Chat
+   */
+  DEMO_DEEPSEEK_CHAT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * A model for testing the plugin
+   */
+  DEMO_DEEPSEEK_REASONING_DESCRIPTION: () => LocalizedString
+  /**
+   * Demo DeepSeek Reasoning
+   */
+  DEMO_DEEPSEEK_REASONING_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Demo DeepSeek API Key
+   */
+  DEMO_DEEPSEEK_API_KEY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * A API Key for testing the plugin
+   */
+  DEMO_DEEPSEEK_API_KEY_DESCRIPTION: () => LocalizedString
+  /**
+   * Enter the API Key for testing the plugin
+   */
+  DEMO_DEEPSEEK_API_KEY_HINT: () => LocalizedString
+  /**
+   * Enter the API Key for testing the plugin
+   */
+  DEMO_DEEPSEEK_API_KEY_PLACEHOLDER: () => LocalizedString
   /**
    * Demo Tool
    */
