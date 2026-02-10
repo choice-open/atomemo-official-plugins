@@ -22,15 +22,15 @@ export const demoCredential = {
       },
     },
   ],
-  async authenticate({ args: { credentials, parameters } }) {
-    const model = parameters.model ?? "deepseek-chat"
+  async authenticate({ args: { credential, extra } }) {
+    const model = extra.model ?? "deepseek-chat"
 
     return {
       adapter: "deepseek",
       endpoint: "https://api.deepseek.com/chat/completions",
       model,
       headers: {
-        Authorization: `Bearer ${credentials.api_key}`,
+        Authorization: `Bearer ${credential.api_key}`,
       },
     }
   },
