@@ -3,7 +3,6 @@ import packageJSON from "../package.json"
 import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
-import { demoTool } from "./tools/demo"
 
 await loadAllLocalesAsync()
 
@@ -18,7 +17,5 @@ const plugin = await createPlugin({
   locales,
   transporterOptions: {},
 })
-
-plugin.addTool(demoTool)
 
 plugin.run()

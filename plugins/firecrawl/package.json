@@ -6,7 +6,7 @@
   "author": "Xavier <zhqjiang@outlook.com>",
   "license": "MIT",
   "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl#readme",
-  "repository":  "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
+  "repository": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
   "exports": {
     ".": {
       "development": "./src/index.ts",
