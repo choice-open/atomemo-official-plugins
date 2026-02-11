@@ -1,8 +1,6 @@
 import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 
-const MODEL_PREFIX = "openai-"
-
 export const openaiCredential = {
   name: "openai-api-key",
   display_name: t("OPENAI_API_KEY_DISPLAY_NAME"),

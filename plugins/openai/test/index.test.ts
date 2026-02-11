@@ -81,7 +81,7 @@ describe("openai plugin", () => {
           parameters: expect.arrayContaining([
             expect.objectContaining({
               name: "api_key",
-              type: "string",
+              type: "encrypted_string",
               required: true,
             }),
             expect.objectContaining({
@@ -108,7 +108,7 @@ describe("openai plugin", () => {
             organization_id: "org_123",
             project_id: "proj_456",
           },
-          extra: { model: "openai-gpt-4o" },
+          extra: { model: "gpt-4o" },
         },
       })
 
