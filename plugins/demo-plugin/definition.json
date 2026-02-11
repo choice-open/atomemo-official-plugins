@@ -15,7 +15,7 @@
   "author": "余凡",
   "email": "dev.yufan@gmail.com",
   "organization_id": "U0WU1NIUiNiylJqOFCx5duSZPsFNsjj6",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "credentials": [
     {
       "name": "demo-deepseek-api-key",
