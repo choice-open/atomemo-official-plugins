@@ -10,6 +10,20 @@ const en_US = {
   OPENAI_API_KEY_HINT: "Enter your OpenAI API key",
   OPENAI_API_KEY_PLACEHOLDER: "sk-...",
 
+  OPENAI_ORGANIZATION_ID_DISPLAY_NAME: "Organization ID",
+  OPENAI_ORGANIZATION_ID_DESCRIPTION:
+    "Optional OpenAI organization ID, sent as OpenAI-Organization header.",
+  OPENAI_ORGANIZATION_ID_HINT:
+    "Enter your OpenAI organization ID if you need to target a specific organization",
+  OPENAI_ORGANIZATION_ID_PLACEHOLDER: "org_...",
+
+  OPENAI_PROJECT_ID_DISPLAY_NAME: "Project ID",
+  OPENAI_PROJECT_ID_DESCRIPTION:
+    "Optional OpenAI project ID, sent as OpenAI-Project header.",
+  OPENAI_PROJECT_ID_HINT:
+    "Enter your OpenAI project ID if you need to target a specific project",
+  OPENAI_PROJECT_ID_PLACEHOLDER: "proj_...",
+
   OPENAI_GPT_5_2_DISPLAY_NAME: "GPT-5.2",
   OPENAI_GPT_5_2_DESCRIPTION:
     "GPT-5.2 frontier model for coding and agents (chat completions).",

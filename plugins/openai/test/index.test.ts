@@ -84,6 +84,16 @@ describe("openai plugin", () => {
               type: "string",
               required: true,
             }),
+            expect.objectContaining({
+              name: "organization_id",
+              type: "string",
+              required: false,
+            }),
+            expect.objectContaining({
+              name: "project_id",
+              type: "string",
+              required: false,
+            }),
           ]),
         }),
       )
@@ -93,7 +103,11 @@ describe("openai plugin", () => {
       const apiKey = "sk-test"
       const result = await openaiCredential.authenticate({
         args: {
-          credential: { api_key: apiKey },
+          credential: {
+            api_key: apiKey,
+            organization_id: "org_123",
+            project_id: "proj_456",
+          },
           extra: { model: "openai-gpt-4o" },
         },
       })
@@ -105,6 +119,8 @@ describe("openai plugin", () => {
           model: "gpt-4o",
           headers: expect.objectContaining({
             Authorization: `Bearer ${apiKey}`,
+            "OpenAI-Organization": "org_123",
+            "OpenAI-Project": "proj_456",
           }),
         }),
       )

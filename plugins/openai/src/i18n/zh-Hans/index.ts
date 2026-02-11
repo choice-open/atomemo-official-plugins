@@ -9,6 +9,18 @@ const zh_Hans = {
   OPENAI_API_KEY_HINT: "输入 OpenAI API Key",
   OPENAI_API_KEY_PLACEHOLDER: "sk-...",
 
+  OPENAI_ORGANIZATION_ID_DISPLAY_NAME: "Organization ID",
+  OPENAI_ORGANIZATION_ID_DESCRIPTION:
+    "可选的 OpenAI 组织 ID，将作为 OpenAI-Organization 请求头发送。",
+  OPENAI_ORGANIZATION_ID_HINT: "如需指定组织范围，请填写对应的 Organization ID",
+  OPENAI_ORGANIZATION_ID_PLACEHOLDER: "org_...",
+
+  OPENAI_PROJECT_ID_DISPLAY_NAME: "Project ID",
+  OPENAI_PROJECT_ID_DESCRIPTION:
+    "可选的 OpenAI 项目 ID，将作为 OpenAI-Project 请求头发送。",
+  OPENAI_PROJECT_ID_HINT: "如需指定项目范围，请填写对应的 Project ID",
+  OPENAI_PROJECT_ID_PLACEHOLDER: "proj_...",
+
   OPENAI_GPT_5_2_DISPLAY_NAME: "GPT-5.2",
   OPENAI_GPT_5_2_DESCRIPTION:
     "用于编码和智能体的 GPT-5.2 前沿模型（Chat Completions）。",

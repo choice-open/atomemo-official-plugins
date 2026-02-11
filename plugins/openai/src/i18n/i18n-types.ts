@@ -40,6 +40,38 @@ type RootTranslation = {
    */
   OPENAI_API_KEY_PLACEHOLDER: string
   /**
+   * O​r​g​a​n​i​z​a​t​i​o​n​ ​I​D
+   */
+  OPENAI_ORGANIZATION_ID_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​O​p​e​n​A​I​ ​o​r​g​a​n​i​z​a​t​i​o​n​ ​I​D​,​ ​s​e​n​t​ ​a​s​ ​O​p​e​n​A​I​-​O​r​g​a​n​i​z​a​t​i​o​n​ ​h​e​a​d​e​r​.
+   */
+  OPENAI_ORGANIZATION_ID_DESCRIPTION: string
+  /**
+   * E​n​t​e​r​ ​y​o​u​r​ ​O​p​e​n​A​I​ ​o​r​g​a​n​i​z​a​t​i​o​n​ ​I​D​ ​i​f​ ​y​o​u​ ​n​e​e​d​ ​t​o​ ​t​a​r​g​e​t​ ​a​ ​s​p​e​c​i​f​i​c​ ​o​r​g​a​n​i​z​a​t​i​o​n
+   */
+  OPENAI_ORGANIZATION_ID_HINT: string
+  /**
+   * o​r​g​_​.​.​.
+   */
+  OPENAI_ORGANIZATION_ID_PLACEHOLDER: string
+  /**
+   * P​r​o​j​e​c​t​ ​I​D
+   */
+  OPENAI_PROJECT_ID_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​O​p​e​n​A​I​ ​p​r​o​j​e​c​t​ ​I​D​,​ ​s​e​n​t​ ​a​s​ ​O​p​e​n​A​I​-​P​r​o​j​e​c​t​ ​h​e​a​d​e​r​.
+   */
+  OPENAI_PROJECT_ID_DESCRIPTION: string
+  /**
+   * E​n​t​e​r​ ​y​o​u​r​ ​O​p​e​n​A​I​ ​p​r​o​j​e​c​t​ ​I​D​ ​i​f​ ​y​o​u​ ​n​e​e​d​ ​t​o​ ​t​a​r​g​e​t​ ​a​ ​s​p​e​c​i​f​i​c​ ​p​r​o​j​e​c​t
+   */
+  OPENAI_PROJECT_ID_HINT: string
+  /**
+   * p​r​o​j​_​.​.​.
+   */
+  OPENAI_PROJECT_ID_PLACEHOLDER: string
+  /**
    * G​P​T​-​5​.​2
    */
   OPENAI_GPT_5_2_DISPLAY_NAME: string
@@ -242,6 +274,38 @@ export type TranslationFunctions = {
    * sk-...
    */
   OPENAI_API_KEY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Organization ID
+   */
+  OPENAI_ORGANIZATION_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional OpenAI organization ID, sent as OpenAI-Organization header.
+   */
+  OPENAI_ORGANIZATION_ID_DESCRIPTION: () => LocalizedString
+  /**
+   * Enter your OpenAI organization ID if you need to target a specific organization
+   */
+  OPENAI_ORGANIZATION_ID_HINT: () => LocalizedString
+  /**
+   * org_...
+   */
+  OPENAI_ORGANIZATION_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Project ID
+   */
+  OPENAI_PROJECT_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional OpenAI project ID, sent as OpenAI-Project header.
+   */
+  OPENAI_PROJECT_ID_DESCRIPTION: () => LocalizedString
+  /**
+   * Enter your OpenAI project ID if you need to target a specific project
+   */
+  OPENAI_PROJECT_ID_HINT: () => LocalizedString
+  /**
+   * proj_...
+   */
+  OPENAI_PROJECT_ID_PLACEHOLDER: () => LocalizedString
   /**
    * GPT-5.2
    */
