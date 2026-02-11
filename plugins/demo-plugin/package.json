@@ -1,7 +1,7 @@
 {
   "name": "demo-plugin",
   "type": "module",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A brief description of the plugin's functionality",
   "author": "余凡 <dev.yufan@gmail.com>",
   "license": "MIT",
