@@ -118,16 +118,28 @@ rm -f "${TEMP_ARCHIVE}"
 echo "Upload completed successfully"
 
 # Release plugin via API
-HUB_API_URL="${HUB_API_URL:-}"
-RELEASE_API_KEY="${RELEASE_API_KEY:-}"
+STAGING_HUB_API_URL="${STAGING_HUB_API_URL:-}"
+STAGING_RELEASE_API_KEY="${STAGING_RELEASE_API_KEY:-}"
+PRODUCTION_HUB_API_URL="${PRODUCTION_HUB_API_URL:-}"
+PRODUCTION_RELEASE_API_KEY="${PRODUCTION_RELEASE_API_KEY:-}"
 
-if [ -z "$HUB_API_URL" ]; then
-	echo "Warning: HUB_API_URL is not set, skipping release API call"
+if [ -z "$STAGING_HUB_API_URL" ]; then
+	echo "Warning: STAGING_HUB_API_URL is not set, skipping release API call"
 	exit 0
 fi
 
-if [ -z "$RELEASE_API_KEY" ]; then
-	echo "Warning: RELEASE_API_KEY is not set, skipping release API call"
+if [ -z "$STAGING_RELEASE_API_KEY" ]; then
+	echo "Warning: STAGING_RELEASE_API_KEY is not set, skipping release API call"
+	exit 0
+fi
+
+if [ -z "$PRODUCTION_HUB_API_URL" ]; then
+	echo "Warning: PRODUCTION_HUB_API_URL is not set, skipping release API call"
+	exit 0
+fi
+
+if [ -z "$PRODUCTION_RELEASE_API_KEY" ]; then
+	echo "Warning: PRODUCTION_RELEASE_API_KEY is not set, skipping release API call"
 	exit 0
 fi
 
@@ -138,22 +150,42 @@ if [ ! -f "$DEFINITION_FILE" ]; then
 	exit 1
 fi
 
-echo "Releasing plugin via API..."
+echo "Releasing plugin on staging environment via API..."
 
-RELEASE_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-	"${HUB_API_URL}/api/v1/release/plugins" \
+STAGING_RELEASE_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+	"${STAGING_HUB_API_URL}/api/v1/release/plugins" \
 	-H "Content-Type: application/json" \
-	-H "x-api-key: ${RELEASE_API_KEY}" \
+	-H "x-api-key: ${STAGING_RELEASE_API_KEY}" \
 	-d @"${DEFINITION_FILE}")
 
-HTTP_CODE=$(echo "$RELEASE_RESPONSE" | tail -n1)
-RESPONSE_BODY=$(echo "$RELEASE_RESPONSE" | sed '$d')
+STAGING_HTTP_CODE=$(echo "$STAGING_RELEASE_RESPONSE" | tail -n1)
+STAGING_RESPONSE_BODY=$(echo "$STAGING_RELEASE_RESPONSE" | sed '$d')
 
-if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-	echo "Plugin released successfully"
-	echo "Response: ${RESPONSE_BODY}"
+if [ "$STAGING_HTTP_CODE" -ge 200 ] && [ "$STAGING_HTTP_CODE" -lt 300 ]; then
+	echo "Plugin released on staging environment successfully"
+	echo "Response: ${STAGING_RESPONSE_BODY}"
 else
-	echo "Error: Failed to release plugin (HTTP ${HTTP_CODE})"
-	echo "Response: ${RESPONSE_BODY}"
+	echo "Error: Failed to release plugin on staging environment (HTTP ${STAGING_HTTP_CODE})"
+	echo "Response: ${STAGING_RESPONSE_BODY}"
+	exit 1
+fi
+
+echo "Releasing plugin on production environment via API..."
+
+PRODUCTION_RELEASE_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+	"${PRODUCTION_HUB_API_URL}/api/v1/release/plugins" \
+	-H "Content-Type: application/json" \
+	-H "x-api-key: ${PRODUCTION_RELEASE_API_KEY}" \
+	-d @"${DEFINITION_FILE}")
+
+PRODUCTION_HTTP_CODE=$(echo "$PRODUCTION_RELEASE_RESPONSE" | tail -n1)
+PRODUCTION_RESPONSE_BODY=$(echo "$PRODUCTION_RELEASE_RESPONSE" | sed '$d')
+
+if [ "$PRODUCTION_HTTP_CODE" -ge 200 ] && [ "$PRODUCTION_HTTP_CODE" -lt 300 ]; then
+	echo "Plugin released on production environment successfully"
+	echo "Response: ${PRODUCTION_RESPONSE_BODY}"
+else
+	echo "Error: Failed to release plugin on production environment (HTTP ${PRODUCTION_HTTP_CODE})"
+	echo "Response: ${PRODUCTION_RESPONSE_BODY}"
 	exit 1
 fi
