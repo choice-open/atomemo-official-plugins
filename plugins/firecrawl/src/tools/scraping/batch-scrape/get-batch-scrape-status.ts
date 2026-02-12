@@ -1,4 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../../i18n/i18n-node"
 import {
   batchIdParameter,
   firecrawlCredentialParameter,
@@ -7,14 +8,8 @@ import { notImplementedToolInvoke } from "../../_shared-invoke"
 
 export const GetBatchScrapeStatusTool: ToolDefinition = {
   name: "firecrawl-batch-scrape-status",
-  display_name: {
-    en_US: "Firecrawl Get Batch Scrape Status",
-    zh_Hans_CN: "Firecrawl 获取批量爬取状态",
-  },
-  description: {
-    en_US: "Retrieve the status of a batch scrape job.",
-    zh_Hans_CN: "检索批量爬取作业的状态。",
-  },
+  display_name: t("TOOL_BATCH_SCRAPE_STATUS_DISPLAY_NAME"),
+  description: t("TOOL_BATCH_SCRAPE_STATUS_DESCRIPTION"),
   icon: "📊",
   parameters: [firecrawlCredentialParameter, batchIdParameter],
   invoke: notImplementedToolInvoke,

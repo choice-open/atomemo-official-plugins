@@ -1,53 +1,35 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { notImplementedToolInvoke } from "../_shared-invoke"
+import { t } from "../../i18n/i18n-node"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
 
 export const PreviewCrawlParamsTool: ToolDefinition = {
   name: "firecrawl-preview-crawl-params",
-  display_name: {
-    en_US: "Firecrawl Preview Crawl Params",
-    zh_Hans_CN: "Firecrawl 预览爬取参数",
-  },
-  description: {
-    en_US: "Preview how Firecrawl would interpret the crawl parameters.",
-    zh_Hans_CN: "预览 Firecrawl 解析爬取参数的方式。",
-  },
+  display_name: t("TOOL_PREVIEW_CRAWL_PARAMS_DISPLAY_NAME"),
+  description: t("TOOL_PREVIEW_CRAWL_PARAMS_DESCRIPTION"),
   icon: "🔍",
   parameters: [
     firecrawlCredentialParameter,
     {
       type: "string",
       name: "url",
-      display_name: {
-        en_US: "URL",
-        zh_Hans_CN: "URL",
-      },
+      display_name: t("PARAM_PREVIEW_URL_LABEL"),
       required: true,
       ui: {
         component: "input",
-        hint: {
-          en_US: "The URL to crawl (base URL).",
-          zh_Hans_CN: "要爬取的基础 URL。",
-        },
+        hint: t("HINT_PREVIEW_URL"),
         support_expression: true,
       },
     },
     {
       type: "string",
       name: "prompt",
-      display_name: {
-        en_US: "Prompt",
-        zh_Hans_CN: "提示词",
-      },
+      display_name: t("PARAM_PREVIEW_PROMPT_LABEL"),
       required: true,
       max_length: 10000,
       ui: {
         component: "textarea",
-        hint: {
-          en_US:
-            "Natural language description of what to crawl. Max length 10000 characters.",
-          zh_Hans_CN: "用自然语言描述要爬取的内容。最大长度 10000 字符。",
-        },
+          hint: t("HINT_PREVIEW_PROMPT"),
         support_expression: true,
       },
     },

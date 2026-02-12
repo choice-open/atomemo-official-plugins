@@ -1,12 +1,10 @@
 import type { PropertyArray } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 export const parsersParameter: PropertyArray<"parsers"> = {
   name: "parsers",
   type: "array",
-  display_name: {
-    en_US: "Parsers",
-    zh_Hans_CN: "解析器",
-  },
+  display_name: t("PARAM_PARSERS_LABEL"),
   items: {
     name: "parser",
     type: "string",
@@ -16,10 +14,7 @@ export const parsersParameter: PropertyArray<"parsers"> = {
     component: "multi-select",
     options: [
       {
-        label: {
-          en_US: "PDF",
-          zh_Hans_CN: "PDF",
-        },
+        label: t("OPTION_PARSER_PDF"),
         value: "pdf",
       },
     ],

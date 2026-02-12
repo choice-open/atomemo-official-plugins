@@ -1,13 +1,11 @@
 import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 // Custom Body
 export const customBodyParameter: PropertyString<"customBody"> = {
   name: "customBody",
   type: "string",
-  display_name: {
-    en_US: "Request Body",
-    zh_Hans_CN: "请求体",
-  },
+  display_name: t("PARAM_REQUEST_BODY_LABEL"),
   ui: {
     component: "code-editor",
     language: "json",

@@ -1,4 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../../i18n/i18n-node"
 import {
   batchIdParameter,
   firecrawlCredentialParameter,
@@ -7,14 +8,8 @@ import { notImplementedToolInvoke } from "../../_shared-invoke"
 
 export const CancelBatchScrapeTool: ToolDefinition = {
   name: "firecrawl-cancel-batch-scrape",
-  display_name: {
-    en_US: "Firecrawl Cancel Batch Scrape",
-    zh_Hans_CN: "Firecrawl 取消批量爬取",
-  },
-  description: {
-    en_US: "Cancel a Firecrawl batch scrape job.",
-    zh_Hans_CN: "取消 Firecrawl 批量爬取作业。",
-  },
+  display_name: t("TOOL_CANCEL_BATCH_SCRAPE_DISPLAY_NAME"),
+  description: t("TOOL_CANCEL_BATCH_SCRAPE_DESCRIPTION"),
   icon: "🛑",
   parameters: [firecrawlCredentialParameter, batchIdParameter],
   invoke: notImplementedToolInvoke,

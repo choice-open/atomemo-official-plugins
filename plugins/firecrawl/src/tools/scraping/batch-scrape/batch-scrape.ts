@@ -10,6 +10,7 @@ import {
   scrapeOptionsParameter,
 } from "../../_shared-parameters"
 import { notImplementedToolInvoke } from "../../_shared-invoke"
+import { t } from "../../../i18n/i18n-node"
 
 const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
   name: "options",
@@ -26,10 +27,7 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
         {
           name: "useCustomBody",
           type: "boolean",
-          display_name: {
-            en_US: "Use Custom Body",
-            zh_Hans_CN: "使用自定义请求体",
-          },
+          display_name: t("LABEL_USE_CUSTOM_BODY"),
           constant: false,
         },
         parsersParameter,
@@ -55,10 +53,7 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
 const urlsParameter: PropertyString<"urls"> = {
   type: "string",
   name: "urls",
-  display_name: {
-    en_US: "URLs",
-    zh_Hans_CN: "URL列表",
-  },
+  display_name: t("LABEL_URLS"),
   required: true,
   ui: {
     component: "textarea",
@@ -71,14 +66,8 @@ const urlsParameter: PropertyString<"urls"> = {
 
 export const BatchScrapeTool: ToolDefinition = {
   name: "firecrawl-batch-scrape",
-  display_name: {
-    en_US: "Firecrawl Batch Scrape",
-    zh_Hans_CN: "Firecrawl 批量爬取",
-  },
-  description: {
-    en_US: "Scrape multiple URLs in a batch job.",
-    zh_Hans_CN: "在批量作业中爬取多个 URL。",
-  },
+  display_name: t("TOOL_BATCH_SCRAPE_DISPLAY_NAME"),
+  description: t("TOOL_BATCH_SCRAPE_DESCRIPTION"),
   icon: "📡",
   parameters: [firecrawlCredentialParameter, urlsParameter, options],
   invoke: notImplementedToolInvoke,

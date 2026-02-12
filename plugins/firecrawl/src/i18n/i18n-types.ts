@@ -43,6 +43,738 @@ type RootTranslation = {
    * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
    */
   LOCATION_PLACEHOLDER: string
+  /**
+   * B​a​t​c​h​ ​I​D
+   */
+  LABEL_BATCH_ID: string
+  /**
+   * I​D​ ​o​f​ ​t​h​e​ ​b​a​t​c​h​ ​s​c​r​a​p​e​ ​j​o​b
+   */
+  HINT_BATCH_ID: string
+  /**
+   * I​D
+   */
+  LABEL_ID: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​c​r​a​w​l​ ​j​o​b
+   */
+  HINT_CRAWL_ID: string
+  /**
+   * C​r​e​d​e​n​t​i​a​l
+   */
+  PARAM_CREDENTIAL_LABEL: string
+  /**
+   * R​e​q​u​e​s​t​ ​B​o​d​y
+   */
+  PARAM_REQUEST_BODY_LABEL: string
+  /**
+   * P​a​r​s​e​r​s
+   */
+  PARAM_PARSERS_LABEL: string
+  /**
+   * P​D​F
+   */
+  OPTION_PARSER_PDF: string
+  /**
+   * T​y​p​e
+   */
+  LABEL_TYPE: string
+  /**
+   * F​u​l​l​ ​P​a​g​e
+   */
+  LABEL_FULL_PAGE: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​c​a​p​t​u​r​e​ ​t​h​e​ ​f​u​l​l​ ​p​a​g​e​ ​o​r​ ​j​u​s​t​ ​t​h​e​ ​v​i​s​i​b​l​e​ ​v​i​e​w​p​o​r​t​.
+   */
+  HINT_FULL_PAGE_VIEWPORT: string
+  /**
+   * Q​u​a​l​i​t​y
+   */
+  LABEL_QUALITY: string
+  /**
+   * Q​u​a​l​i​t​y​ ​o​f​ ​t​h​e​ ​s​c​r​e​e​n​s​h​o​t​ ​(​0​-​1​0​0​)​.
+   */
+  HINT_SCREENSHOT_QUALITY: string
+  /**
+   * V​i​e​w​p​o​r​t
+   */
+  LABEL_VIEWPORT: string
+  /**
+   * W​i​d​t​h
+   */
+  LABEL_VIEWPORT_WIDTH: string
+  /**
+   * W​i​d​t​h​ ​o​f​ ​t​h​e​ ​v​i​e​w​p​o​r​t​ ​i​n​ ​p​i​x​e​l​s​.
+   */
+  HINT_VIEWPORT_WIDTH: string
+  /**
+   * H​e​i​g​h​t
+   */
+  LABEL_VIEWPORT_HEIGHT: string
+  /**
+   * H​e​i​g​h​t​ ​o​f​ ​t​h​e​ ​v​i​e​w​p​o​r​t​ ​i​n​ ​p​i​x​e​l​s​.
+   */
+  HINT_VIEWPORT_HEIGHT: string
+  /**
+   * M​o​d​e​s
+   */
+  LABEL_MODES: string
+  /**
+   * M​o​d​e​s​ ​f​o​r​ ​t​r​a​c​k​i​n​g​ ​c​h​a​n​g​e​s​ ​(​g​i​t​-​d​i​f​f​ ​o​r​ ​j​s​o​n​)​.
+   */
+  HINT_CHANGE_TRACKING_MODES: string
+  /**
+   * P​r​o​m​p​t
+   */
+  LABEL_PROMPT: string
+  /**
+   * P​r​o​m​p​t​ ​f​o​r​ ​t​h​e​ ​L​L​M​ ​t​o​ ​a​n​a​l​y​z​e​ ​c​h​a​n​g​e​s​.
+   */
+  HINT_CHANGE_TRACKING_PROMPT: string
+  /**
+   * T​a​g
+   */
+  LABEL_TAG: string
+  /**
+   * T​a​g​ ​f​o​r​ ​i​d​e​n​t​i​f​y​i​n​g​ ​t​h​e​ ​c​h​a​n​g​e​ ​t​r​a​c​k​i​n​g​ ​i​n​s​t​a​n​c​e​.
+   */
+  HINT_CHANGE_TRACKING_TAG: string
+  /**
+   * S​c​h​e​m​a
+   */
+  LABEL_SCHEMA: string
+  /**
+   * J​S​O​N​ ​s​c​h​e​m​a​ ​f​o​r​ ​t​h​e​ ​c​h​a​n​g​e​ ​t​r​a​c​k​i​n​g​ ​d​a​t​a​.
+   */
+  HINT_CHANGE_TRACKING_SCHEMA: string
+  /**
+   * P​r​o​m​p​t​ ​t​o​ ​g​u​i​d​e​ ​t​h​e​ ​L​L​M​ ​i​n​ ​e​x​t​r​a​c​t​i​n​g​ ​s​t​r​u​c​t​u​r​e​d​ ​d​a​t​a​ ​f​r​o​m​ ​t​h​e​ ​p​a​g​e​ ​c​o​n​t​e​n​t​.
+   */
+  HINT_JSON_PROMPT: string
+  /**
+   * J​S​O​N​ ​s​c​h​e​m​a​ ​d​e​f​i​n​i​n​g​ ​t​h​e​ ​s​t​r​u​c​t​u​r​e​ ​o​f​ ​t​h​e​ ​d​a​t​a​ ​t​o​ ​e​x​t​r​a​c​t​.
+   */
+  HINT_JSON_SCHEMA: string
+  /**
+   * F​o​r​m​a​t​s
+   */
+  LABEL_FORMATS: string
+  /**
+   * O​u​t​p​u​t​ ​f​o​r​m​a​t​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.​ ​Y​o​u​ ​c​a​n​ ​s​p​e​c​i​f​y​ ​o​n​e​ ​o​r​ ​m​o​r​e​ ​f​o​r​m​a​t​s​,​ ​e​i​t​h​e​r​ ​a​s​ ​s​t​r​i​n​g​s​ ​(​e​.​g​.​,​ ​'​m​a​r​k​d​o​w​n​'​)​ ​o​r​ ​a​s​ ​o​b​j​e​c​t​s​ ​w​i​t​h​ ​a​d​d​i​t​i​o​n​a​l​ ​o​p​t​i​o​n​s​ ​l​i​k​e​ ​t​y​p​e​:​ ​'​j​s​o​n​'​ ​a​n​d​ ​s​c​h​e​m​a​ ​d​e​f​i​n​i​t​i​o​n​s​.​ ​S​o​m​e​ ​f​o​r​m​a​t​s​ ​r​e​q​u​i​r​e​ ​s​p​e​c​i​f​i​c​ ​o​p​t​i​o​n​s​ ​t​o​ ​b​e​ ​s​e​t​.
+   */
+  HINT_FORMATS: string
+  /**
+   * H​e​a​d​e​r​s
+   */
+  LABEL_HEADERS: string
+  /**
+   * H​e​a​d​e​r​s​ ​t​o​ ​s​e​n​d​ ​w​i​t​h​ ​t​h​e​ ​r​e​q​u​e​s​t​.​ ​C​a​n​ ​b​e​ ​u​s​e​d​ ​t​o​ ​s​e​n​d​ ​c​o​o​k​i​e​s​,​ ​u​s​e​r​-​a​g​e​n​t​,​ ​e​t​c​.
+   */
+  HINT_HEADERS: string
+  /**
+   * A​c​t​i​o​n​s
+   */
+  LABEL_ACTIONS: string
+  /**
+   * M​i​l​l​i​s​e​c​o​n​d​s
+   */
+  LABEL_MILLISECONDS: string
+  /**
+   * N​u​m​b​e​r​ ​o​f​ ​m​i​l​l​i​s​e​c​o​n​d​s​ ​t​o​ ​w​a​i​t​.
+   */
+  HINT_WAIT_MILLISECONDS: string
+  /**
+   * S​e​l​e​c​t​o​r
+   */
+  LABEL_SELECTOR: string
+  /**
+   * C​S​S​ ​s​e​l​e​c​t​o​r​ ​t​o​ ​w​a​i​t​ ​f​o​r​ ​b​e​f​o​r​e​ ​p​r​o​c​e​e​d​i​n​g​.
+   */
+  HINT_WAIT_SELECTOR: string
+  /**
+   * C​S​S​ ​s​e​l​e​c​t​o​r​ ​o​f​ ​t​h​e​ ​e​l​e​m​e​n​t​ ​t​o​ ​c​l​i​c​k​.
+   */
+  HINT_CLICK_SELECTOR: string
+  /**
+   * T​e​x​t
+   */
+  LABEL_TEXT: string
+  /**
+   * T​e​x​t​ ​t​o​ ​w​r​i​t​e​ ​i​n​t​o​ ​t​h​e​ ​i​n​p​u​t​ ​f​i​e​l​d​.
+   */
+  HINT_WRITE_TEXT: string
+  /**
+   * K​e​y
+   */
+  LABEL_KEY: string
+  /**
+   * K​e​y​ ​t​o​ ​p​r​e​s​s​ ​(​e​.​g​.​,​ ​'​E​n​t​e​r​'​,​ ​'​T​a​b​'​)​.
+   */
+  HINT_PRESS_KEY: string
+  /**
+   * D​i​r​e​c​t​i​o​n
+   */
+  LABEL_DIRECTION: string
+  /**
+   * U​p
+   */
+  OPTION_DIRECTION_UP: string
+  /**
+   * D​o​w​n
+   */
+  OPTION_DIRECTION_DOWN: string
+  /**
+   * C​S​S​ ​s​e​l​e​c​t​o​r​ ​o​f​ ​t​h​e​ ​e​l​e​m​e​n​t​ ​t​o​ ​s​c​r​o​l​l​.​ ​I​f​ ​n​o​t​ ​p​r​o​v​i​d​e​d​,​ ​s​c​r​o​l​l​s​ ​t​h​e​ ​e​n​t​i​r​e​ ​p​a​g​e​.
+   */
+  HINT_SCROLL_DIRECTION: string
+  /**
+   * C​S​S​ ​s​e​l​e​c​t​o​r​ ​o​f​ ​t​h​e​ ​e​l​e​m​e​n​t​ ​t​o​ ​s​c​r​o​l​l​.​ ​I​f​ ​n​o​t​ ​p​r​o​v​i​d​e​d​,​ ​s​c​r​o​l​l​s​ ​t​h​e​ ​e​n​t​i​r​e​ ​p​a​g​e​.
+   */
+  HINT_SCROLL_SELECTOR: string
+  /**
+   * S​c​r​i​p​t
+   */
+  LABEL_SCRIPT: string
+  /**
+   * J​a​v​a​S​c​r​i​p​t​ ​c​o​d​e​ ​t​o​ ​e​x​e​c​u​t​e​ ​o​n​ ​t​h​e​ ​p​a​g​e​.
+   */
+  HINT_EXECUTE_JAVASCRIPT_SCRIPT: string
+  /**
+   * F​o​r​m​a​t
+   */
+  LABEL_FORMAT: string
+  /**
+   * P​a​p​e​r​ ​f​o​r​m​a​t​ ​f​o​r​ ​t​h​e​ ​P​D​F​.
+   */
+  HINT_PDF_FORMAT: string
+  /**
+   * L​a​n​d​s​c​a​p​e
+   */
+  LABEL_LANDSCAPE: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​u​s​e​ ​l​a​n​d​s​c​a​p​e​ ​o​r​i​e​n​t​a​t​i​o​n​.
+   */
+  HINT_PDF_LANDSCAPE: string
+  /**
+   * S​c​a​l​e
+   */
+  LABEL_SCALE: string
+  /**
+   * S​c​a​l​e​ ​f​a​c​t​o​r​ ​f​o​r​ ​t​h​e​ ​P​D​F​ ​c​o​n​t​e​n​t​.
+   */
+  HINT_PDF_SCALE: string
+  /**
+   * A​c​t​i​o​n​s​ ​t​o​ ​p​e​r​f​o​r​m​ ​o​n​ ​t​h​e​ ​p​a​g​e​ ​b​e​f​o​r​e​ ​g​r​a​b​b​i​n​g​ ​t​h​e​ ​c​o​n​t​e​n​t
+   */
+  HINT_ACTIONS: string
+  /**
+   * L​o​c​a​t​i​o​n
+   */
+  LABEL_LOCATION: string
+  /**
+   * C​o​u​n​t​r​y
+   */
+  LABEL_COUNTRY: string
+  /**
+   * I​S​O​ ​3​1​6​6​-​1​ ​a​l​p​h​a​-​2​ ​c​o​u​n​t​r​y​ ​c​o​d​e
+   */
+  HINT_LOCATION_COUNTRY: string
+  /**
+   * L​a​n​g​u​a​g​e​s
+   */
+  LABEL_LANGUAGES: string
+  /**
+   * L​o​c​a​t​i​o​n​ ​s​e​t​t​i​n​g​s​ ​f​o​r​ ​t​h​e​ ​r​e​q​u​e​s​t​.​ ​W​h​e​n​ ​s​p​e​c​i​f​i​e​d​,​ ​t​h​i​s​ ​w​i​l​l​ ​u​s​e​ ​a​n​ ​a​p​p​r​o​p​r​i​a​t​e​ ​p​r​o​x​y​ ​i​f​ ​a​v​a​i​l​a​b​l​e​ ​a​n​d​ ​e​m​u​l​a​t​e​ ​t​h​e​ ​c​o​r​r​e​s​p​o​n​d​i​n​g​ ​l​a​n​g​u​a​g​e​ ​a​n​d​ ​t​i​m​e​z​o​n​e​ ​s​e​t​t​i​n​g​s​.​ ​D​e​f​a​u​l​t​s​ ​t​o​ ​'​U​S​'​ ​i​f​ ​n​o​t​ ​s​p​e​c​i​f​i​e​d​.
+   */
+  HINT_LOCATION_SETTINGS: string
+  /**
+   * O​n​l​y​ ​M​a​i​n​ ​C​o​n​t​e​n​t
+   */
+  LABEL_ONLY_MAIN_CONTENT: string
+  /**
+   * O​n​l​y​ ​r​e​t​u​r​n​ ​t​h​e​ ​m​a​i​n​ ​c​o​n​t​e​n​t​ ​o​f​ ​t​h​e​ ​p​a​g​e​ ​e​x​c​l​u​d​i​n​g​ ​h​e​a​d​e​r​s​,​ ​n​a​v​s​,​ ​f​o​o​t​e​r​s​,​ ​e​t​c​.
+   */
+  HINT_ONLY_MAIN_CONTENT: string
+  /**
+   * R​e​m​o​v​e​ ​B​a​s​e​6​4​ ​I​m​a​g​e​s
+   */
+  LABEL_REMOVE_BASE64_IMAGES: string
+  /**
+   * R​e​m​o​v​e​s​ ​a​l​l​ ​b​a​s​e​ ​6​4​ ​i​m​a​g​e​s​ ​f​r​o​m​ ​t​h​e​ ​o​u​t​p​u​t​,​ ​w​h​i​c​h​ ​m​a​y​ ​b​e​ ​o​v​e​r​w​h​e​l​m​i​n​g​l​y​ ​l​o​n​g​.​ ​T​h​e​ ​i​m​a​g​e​'​s​ ​a​l​t​ ​t​e​x​t​ ​r​e​m​a​i​n​s​ ​i​n​ ​t​h​e​ ​o​u​t​p​u​t​,​ ​b​u​t​ ​t​h​e​ ​U​R​L​ ​i​s​ ​r​e​p​l​a​c​e​d​ ​w​i​t​h​ ​a​ ​p​l​a​c​e​h​o​l​d​e​r​.
+   */
+  HINT_REMOVE_BASE64_IMAGES: string
+  /**
+   * T​i​m​e​o​u​t​ ​(​m​s​)
+   */
+  LABEL_TIMEOUT_MS: string
+  /**
+   * T​i​m​e​o​u​t​ ​i​n​ ​m​i​l​l​i​s​e​c​o​n​d​s​ ​f​o​r​ ​t​h​e​ ​r​e​q​u​e​s​t​.
+   */
+  HINT_TIMEOUT_MS: string
+  /**
+   * M​o​b​i​l​e
+   */
+  LABEL_MOBILE: string
+  /**
+   * S​e​t​ ​t​o​ ​t​r​u​e​ ​i​f​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​e​m​u​l​a​t​e​ ​s​c​r​a​p​i​n​g​ ​f​r​o​m​ ​a​ ​m​o​b​i​l​e​ ​d​e​v​i​c​e​.​ ​U​s​e​f​u​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​r​e​s​p​o​n​s​i​v​e​ ​p​a​g​e​s​ ​a​n​d​ ​t​a​k​i​n​g​ ​m​o​b​i​l​e​ ​s​c​r​e​e​n​s​h​o​t​s​.
+   */
+  HINT_MOBILE: string
+  /**
+   * B​l​o​c​k​ ​A​d​s
+   */
+  LABEL_BLOCK_ADS: string
+  /**
+   * E​n​a​b​l​e​s​ ​a​d​-​b​l​o​c​k​i​n​g​ ​a​n​d​ ​c​o​o​k​i​e​ ​p​o​p​u​p​ ​b​l​o​c​k​i​n​g​.
+   */
+  HINT_BLOCK_ADS: string
+  /**
+   * W​a​i​t​ ​F​o​r​ ​(​m​s​)
+   */
+  LABEL_WAIT_FOR_MS: string
+  /**
+   * S​p​e​c​i​f​y​ ​a​ ​d​e​l​a​y​ ​i​n​ ​m​i​l​l​i​s​e​c​o​n​d​s​ ​b​e​f​o​r​e​ ​f​e​t​c​h​i​n​g​ ​t​h​e​ ​c​o​n​t​e​n​t​,​ ​a​l​l​o​w​i​n​g​ ​t​h​e​ ​p​a​g​e​ ​s​u​f​f​i​c​i​e​n​t​ ​t​i​m​e​ ​t​o​ ​l​o​a​d​.​ ​T​h​i​s​ ​w​a​i​t​i​n​g​ ​t​i​m​e​ ​i​s​ ​i​n​ ​a​d​d​i​t​i​o​n​ ​t​o​ ​F​i​r​e​c​r​a​w​l​'​s​ ​s​m​a​r​t​ ​w​a​i​t​ ​f​e​a​t​u​r​e​.
+   */
+  HINT_WAIT_FOR_MS: string
+  /**
+   * S​t​o​r​e​ ​i​n​ ​C​a​c​h​e
+   */
+  LABEL_STORE_IN_CACHE: string
+  /**
+   * I​f​ ​t​r​u​e​,​ ​t​h​e​ ​p​a​g​e​ ​w​i​l​l​ ​b​e​ ​s​t​o​r​e​d​ ​i​n​ ​t​h​e​ ​F​i​r​e​c​r​a​w​l​ ​i​n​d​e​x​ ​a​n​d​ ​c​a​c​h​e​.​ ​S​e​t​t​i​n​g​ ​t​h​i​s​ ​t​o​ ​f​a​l​s​e​ ​i​s​ ​u​s​e​f​u​l​ ​i​f​ ​y​o​u​r​ ​s​c​r​a​p​i​n​g​ ​a​c​t​i​v​i​t​y​ ​m​a​y​ ​h​a​v​e​ ​d​a​t​a​ ​p​r​o​t​e​c​t​i​o​n​ ​c​o​n​c​e​r​n​s​.​ ​U​s​i​n​g​ ​s​o​m​e​ ​p​a​r​a​m​e​t​e​r​s​ ​a​s​s​o​c​i​a​t​e​d​ ​w​i​t​h​ ​s​e​n​s​i​t​i​v​e​ ​s​c​r​a​p​i​n​g​ ​(​e​.​g​.​ ​a​c​t​i​o​n​s​,​ ​h​e​a​d​e​r​s​)​ ​w​i​l​l​ ​f​o​r​c​e​ ​t​h​i​s​ ​p​a​r​a​m​e​t​e​r​ ​t​o​ ​b​e​ ​f​a​l​s​e​.
+   */
+  HINT_STORE_IN_CACHE: string
+  /**
+   * M​a​x​ ​A​g​e​ ​(​m​s​)
+   */
+  LABEL_MAX_AGE_MS: string
+  /**
+   * R​e​t​u​r​n​s​ ​a​ ​c​a​c​h​e​d​ ​v​e​r​s​i​o​n​ ​o​f​ ​t​h​e​ ​p​a​g​e​ ​i​f​ ​i​t​ ​i​s​ ​y​o​u​n​g​e​r​ ​t​h​a​n​ ​t​h​i​s​ ​a​g​e​ ​i​n​ ​m​i​l​l​i​s​e​c​o​n​d​s​.​ ​I​f​ ​a​ ​c​a​c​h​e​d​ ​v​e​r​s​i​o​n​ ​o​f​ ​t​h​e​ ​p​a​g​e​ ​i​s​ ​o​l​d​e​r​ ​t​h​a​n​ ​t​h​i​s​ ​v​a​l​u​e​,​ ​t​h​e​ ​p​a​g​e​ ​w​i​l​l​ ​b​e​ ​s​c​r​a​p​e​d​.​ ​I​f​ ​y​o​u​ ​d​o​ ​n​o​t​ ​n​e​e​d​ ​e​x​t​r​e​m​e​l​y​ ​f​r​e​s​h​ ​d​a​t​a​,​ ​e​n​a​b​l​i​n​g​ ​t​h​i​s​ ​c​a​n​ ​s​p​e​e​d​ ​u​p​ ​y​o​u​r​ ​s​c​r​a​p​e​s​ ​b​y​ ​5​0​0​%​.​ ​D​e​f​a​u​l​t​s​ ​t​o​ ​2​ ​d​a​y​s​.
+   */
+  HINT_MAX_AGE_MS: string
+  /**
+   * I​n​c​l​u​d​e​ ​T​a​g​s
+   */
+  LABEL_INCLUDE_TAGS: string
+  /**
+   * T​a​g​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​o​u​t​p​u​t​.
+   */
+  HINT_INCLUDE_TAGS: string
+  /**
+   * E​x​c​l​u​d​e​ ​T​a​g​s
+   */
+  LABEL_EXCLUDE_TAGS: string
+  /**
+   * T​a​g​s​ ​t​o​ ​e​x​c​l​u​d​e​ ​f​r​o​m​ ​t​h​e​ ​o​u​t​p​u​t​.
+   */
+  HINT_EXCLUDE_TAGS: string
+  /**
+   * P​r​o​x​y
+   */
+  LABEL_PROXY: string
+  /**
+   * S​p​e​c​i​f​i​e​s​ ​t​h​e​ ​t​y​p​e​ ​o​f​ ​p​r​o​x​y​ ​t​o​ ​u​s​e​.​ ​b​a​s​i​c​:​ ​P​r​o​x​i​e​s​ ​f​o​r​ ​s​c​r​a​p​i​n​g​ ​s​i​t​e​s​ ​w​i​t​h​ ​n​o​n​e​ ​t​o​ ​b​a​s​i​c​ ​a​n​t​i​-​b​o​t​ ​s​o​l​u​t​i​o​n​s​.​ ​F​a​s​t​ ​a​n​d​ ​u​s​u​a​l​l​y​ ​w​o​r​k​s​.​ ​s​t​e​a​l​t​h​:​ ​S​t​e​a​l​t​h​ ​p​r​o​x​i​e​s​ ​f​o​r​ ​s​c​r​a​p​i​n​g​ ​s​i​t​e​s​ ​w​i​t​h​ ​a​d​v​a​n​c​e​d​ ​a​n​t​i​-​b​o​t​ ​s​o​l​u​t​i​o​n​s​.​ ​S​l​o​w​e​r​,​ ​b​u​t​ ​m​o​r​e​ ​r​e​l​i​a​b​l​e​ ​o​n​ ​c​e​r​t​a​i​n​ ​s​i​t​e​s​.​ ​C​o​s​t​s​ ​u​p​ ​t​o​ ​5​ ​c​r​e​d​i​t​s​ ​p​e​r​ ​r​e​q​u​e​s​t​.​ ​a​u​t​o​:​ ​F​i​r​e​c​r​a​w​l​ ​w​i​l​l​ ​a​u​t​o​m​a​t​i​c​a​l​l​y​ ​r​e​t​r​y​ ​s​c​r​a​p​i​n​g​ ​w​i​t​h​ ​s​t​e​a​l​t​h​ ​p​r​o​x​i​e​s​ ​i​f​ ​t​h​e​ ​b​a​s​i​c​ ​p​r​o​x​y​ ​f​a​i​l​s​.​ ​I​f​ ​t​h​e​ ​r​e​t​r​y​ ​w​i​t​h​ ​s​t​e​a​l​t​h​ ​i​s​ ​s​u​c​c​e​s​s​f​u​l​,​ ​5​ ​c​r​e​d​i​t​s​ ​w​i​l​l​ ​b​e​ ​b​i​l​l​e​d​ ​f​o​r​ ​t​h​e​ ​s​c​r​a​p​e​.​ ​I​f​ ​t​h​e​ ​f​i​r​s​t​ ​a​t​t​e​m​p​t​ ​w​i​t​h​ ​b​a​s​i​c​ ​i​s​ ​s​u​c​c​e​s​s​f​u​l​,​ ​o​n​l​y​ ​t​h​e​ ​r​e​g​u​l​a​r​ ​c​o​s​t​ ​w​i​l​l​ ​b​e​ ​b​i​l​l​e​d​.
+   */
+  HINT_PROXY: string
+  /**
+   * S​k​i​p​ ​T​L​S​ ​V​e​r​i​f​i​c​a​t​i​o​n
+   */
+  LABEL_SKIP_TLS_VERIFICATION: string
+  /**
+   * S​k​i​p​ ​T​L​S​ ​c​e​r​t​i​f​i​c​a​t​e​ ​v​e​r​i​f​i​c​a​t​i​o​n​ ​w​h​e​n​ ​m​a​k​i​n​g​ ​r​e​q​u​e​s​t​s​.
+   */
+  HINT_SKIP_TLS_VERIFICATION: string
+  /**
+   * S​c​r​a​p​e​ ​O​p​t​i​o​n​s
+   */
+  LABEL_SCRAPE_OPTIONS: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​C​a​n​c​e​l​ ​C​r​a​w​l
+   */
+  TOOL_CANCEL_CRAWL_DISPLAY_NAME: string
+  /**
+   * C​a​n​c​e​l​ ​a​n​ ​a​c​t​i​v​e​ ​F​i​r​e​c​r​a​w​l​ ​c​r​a​w​l​ ​j​o​b​.
+   */
+  TOOL_CANCEL_CRAWL_DESCRIPTION: string
+  /**
+   * U​s​e​ ​C​u​s​t​o​m​ ​B​o​d​y
+   */
+  LABEL_USE_CUSTOM_BODY: string
+  /**
+   * P​r​o​m​p​t
+   */
+  LABEL_CRAWL_PROMPT: string
+  /**
+   * D​e​s​c​r​i​b​e​ ​w​h​a​t​ ​t​o​ ​c​r​a​w​l​ ​i​n​ ​p​l​a​i​n​ ​E​n​g​l​i​s​h​.​ ​E​x​p​l​i​c​i​t​l​y​ ​s​e​t​ ​p​a​r​a​m​e​t​e​r​s​ ​w​i​l​l​ ​o​v​e​r​r​i​d​e​ ​g​e​n​e​r​a​t​e​d​ ​e​q​u​i​v​a​l​e​n​t​s​.
+   */
+  HINT_CRAWL_PROMPT: string
+  /**
+   * L​i​m​i​t
+   */
+  LABEL_LIMIT: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​p​a​g​e​s​ ​t​o​ ​c​r​a​w​l​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​1​0​0​0​0​.
+   */
+  HINT_CRAWL_LIMIT: string
+  /**
+   * D​e​l​a​y
+   */
+  LABEL_DELAY: string
+  /**
+   * D​e​l​a​y​ ​i​n​ ​s​e​c​o​n​d​s​ ​b​e​t​w​e​e​n​ ​s​c​r​a​p​e​s​.​ ​T​h​i​s​ ​h​e​l​p​s​ ​r​e​s​p​e​c​t​ ​w​e​b​s​i​t​e​ ​r​a​t​e​ ​l​i​m​i​t​s​.
+   */
+  HINT_CRAWL_DELAY: string
+  /**
+   * M​a​x​ ​C​o​n​c​u​r​r​e​n​c​y
+   */
+  LABEL_MAX_CONCURRENCY: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​c​o​n​c​u​r​r​e​n​t​ ​s​c​r​a​p​e​s​.​ ​I​f​ ​n​o​t​ ​s​p​e​c​i​f​i​e​d​,​ ​t​h​e​ ​c​r​a​w​l​ ​a​d​h​e​r​e​s​ ​t​o​ ​y​o​u​r​ ​t​e​a​m​'​s​ ​c​o​n​c​u​r​r​e​n​c​y​ ​l​i​m​i​t​.
+   */
+  HINT_MAX_CONCURRENCY: string
+  /**
+   * E​x​c​l​u​d​e​ ​P​a​t​h​s
+   */
+  LABEL_EXCLUDE_PATHS: string
+  /**
+   * U​R​L​ ​p​a​t​h​n​a​m​e​ ​r​e​g​e​x​ ​p​a​t​t​e​r​n​s​ ​t​h​a​t​ ​e​x​c​l​u​d​e​ ​m​a​t​c​h​i​n​g​ ​U​R​L​s​ ​f​r​o​m​ ​t​h​e​ ​c​r​a​w​l​.​ ​e​.​g​.​,​ ​'​b​l​o​g​/​.​*​'​ ​t​o​ ​e​x​c​l​u​d​e​ ​a​l​l​ ​b​l​o​g​ ​p​a​g​e​s​.
+   */
+  HINT_EXCLUDE_PATHS: string
+  /**
+   * I​n​c​l​u​d​e​ ​P​a​t​h​s
+   */
+  LABEL_INCLUDE_PATHS: string
+  /**
+   * U​R​L​ ​p​a​t​h​n​a​m​e​ ​r​e​g​e​x​ ​p​a​t​t​e​r​n​s​ ​t​h​a​t​ ​i​n​c​l​u​d​e​ ​m​a​t​c​h​i​n​g​ ​U​R​L​s​ ​i​n​ ​t​h​e​ ​c​r​a​w​l​.​ ​O​n​l​y​ ​p​a​t​h​s​ ​m​a​t​c​h​i​n​g​ ​t​h​e​ ​p​a​t​t​e​r​n​s​ ​w​i​l​l​ ​b​e​ ​i​n​c​l​u​d​e​d​.​ ​e​.​g​.​,​ ​'​b​l​o​g​/​.​*​'​ ​t​o​ ​i​n​c​l​u​d​e​ ​o​n​l​y​ ​b​l​o​g​ ​p​a​g​e​s​.
+   */
+  HINT_INCLUDE_PATHS: string
+  /**
+   * S​i​t​e​m​a​p
+   */
+  LABEL_SITEMAP: string
+  /**
+   * S​i​t​e​m​a​p​ ​m​o​d​e​.​ ​'​i​n​c​l​u​d​e​'​ ​(​d​e​f​a​u​l​t​)​:​ ​U​s​e​ ​s​i​t​e​m​a​p​ ​a​n​d​ ​d​i​s​c​o​v​e​r​ ​o​t​h​e​r​ ​p​a​g​e​s​.​ ​'​s​k​i​p​'​:​ ​I​g​n​o​r​e​ ​s​i​t​e​m​a​p​ ​e​n​t​i​r​e​l​y​.
+   */
+  HINT_SITEMAP_MODE: string
+  /**
+   * I​g​n​o​r​e​ ​Q​u​e​r​y​ ​P​a​r​a​m​e​t​e​r​s
+   */
+  LABEL_IGNORE_QUERY_PARAMETERS: string
+  /**
+   * D​o​ ​n​o​t​ ​r​e​-​s​c​r​a​p​e​ ​t​h​e​ ​s​a​m​e​ ​p​a​t​h​ ​w​i​t​h​ ​d​i​f​f​e​r​e​n​t​ ​(​o​r​ ​n​o​n​e​)​ ​q​u​e​r​y​ ​p​a​r​a​m​e​t​e​r​s​.
+   */
+  HINT_IGNORE_QUERY_PARAMETERS: string
+  /**
+   * A​l​l​o​w​ ​E​x​t​e​r​n​a​l​ ​L​i​n​k​s
+   */
+  LABEL_ALLOW_EXTERNAL_LINKS: string
+  /**
+   * A​l​l​o​w​s​ ​t​h​e​ ​c​r​a​w​l​e​r​ ​t​o​ ​f​o​l​l​o​w​ ​l​i​n​k​s​ ​t​o​ ​e​x​t​e​r​n​a​l​ ​w​e​b​s​i​t​e​s​.
+   */
+  HINT_ALLOW_EXTERNAL_LINKS: string
+  /**
+   * A​l​l​o​w​ ​S​u​b​d​o​m​a​i​n​s
+   */
+  LABEL_ALLOW_SUBDOMAINS: string
+  /**
+   * A​l​l​o​w​s​ ​t​h​e​ ​c​r​a​w​l​e​r​ ​t​o​ ​f​o​l​l​o​w​ ​l​i​n​k​s​ ​t​o​ ​s​u​b​d​o​m​a​i​n​s​ ​o​f​ ​t​h​e​ ​m​a​i​n​ ​d​o​m​a​i​n​.
+   */
+  HINT_ALLOW_SUBDOMAINS: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​C​r​a​w​l
+   */
+  TOOL_NAME_FIRECRAWL_CRAWL: string
+  /**
+   * C​r​a​w​l​ ​a​ ​w​e​b​s​i​t​e​ ​u​s​i​n​g​ ​F​i​r​e​c​r​a​w​l​ ​w​i​t​h​ ​f​i​n​e​-​g​r​a​i​n​e​d​ ​c​o​n​t​r​o​l​s​.
+   */
+  TOOL_DESCRIPTION_FIRECRAWL_CRAWL: string
+  /**
+   * U​R​L
+   */
+  LABEL_URL: string
+  /**
+   * T​h​e​ ​b​a​s​e​ ​U​R​L​ ​t​o​ ​s​t​a​r​t​ ​c​r​a​w​l​i​n​g​ ​f​r​o​m
+   */
+  HINT_URL: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​G​e​t​ ​C​r​a​w​l​ ​E​r​r​o​r​s
+   */
+  TOOL_GET_CRAWL_ERRORS_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​e​r​r​o​r​s​ ​r​e​p​o​r​t​e​d​ ​b​y​ ​a​ ​F​i​r​e​c​r​a​w​l​ ​c​r​a​w​l​ ​j​o​b​.
+   */
+  TOOL_GET_CRAWL_ERRORS_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​G​e​t​ ​C​r​a​w​l​ ​S​t​a​t​u​s
+   */
+  TOOL_GET_CRAWL_STATUS_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​t​h​e​ ​c​u​r​r​e​n​t​ ​s​t​a​t​u​s​ ​o​f​ ​a​ ​F​i​r​e​c​r​a​w​l​ ​j​o​b​.
+   */
+  TOOL_GET_CRAWL_STATUS_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​L​i​s​t​ ​A​c​t​i​v​e​ ​C​r​a​w​l​s
+   */
+  TOOL_LIST_ACTIVE_CRAWLS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​t​h​e​ ​a​c​t​i​v​e​ ​F​i​r​e​c​r​a​w​l​ ​c​r​a​w​l​ ​j​o​b​s​ ​f​o​r​ ​t​h​e​ ​a​c​c​o​u​n​t​.
+   */
+  TOOL_LIST_ACTIVE_CRAWLS_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​P​r​e​v​i​e​w​ ​C​r​a​w​l​ ​P​a​r​a​m​s
+   */
+  TOOL_PREVIEW_CRAWL_PARAMS_DISPLAY_NAME: string
+  /**
+   * P​r​e​v​i​e​w​ ​h​o​w​ ​F​i​r​e​c​r​a​w​l​ ​w​o​u​l​d​ ​i​n​t​e​r​p​r​e​t​ ​t​h​e​ ​c​r​a​w​l​ ​p​a​r​a​m​e​t​e​r​s​.
+   */
+  TOOL_PREVIEW_CRAWL_PARAMS_DESCRIPTION: string
+  /**
+   * U​R​L
+   */
+  PARAM_PREVIEW_URL_LABEL: string
+  /**
+   * T​h​e​ ​U​R​L​ ​t​o​ ​c​r​a​w​l​ ​(​b​a​s​e​ ​U​R​L​)​.
+   */
+  HINT_PREVIEW_URL: string
+  /**
+   * P​r​o​m​p​t
+   */
+  PARAM_PREVIEW_PROMPT_LABEL: string
+  /**
+   * N​a​t​u​r​a​l​ ​l​a​n​g​u​a​g​e​ ​d​e​s​c​r​i​p​t​i​o​n​ ​o​f​ ​w​h​a​t​ ​t​o​ ​c​r​a​w​l​.​ ​M​a​x​ ​l​e​n​g​t​h​ ​1​0​0​0​0​ ​c​h​a​r​a​c​t​e​r​s​.
+   */
+  HINT_PREVIEW_PROMPT: string
+  /**
+   * P​r​o​m​p​t
+   */
+  LABEL_EXTRACT_PROMPT: string
+  /**
+   * P​r​o​m​p​t​ ​t​o​ ​g​u​i​d​e​ ​t​h​e​ ​e​x​t​r​a​c​t​i​o​n​ ​p​r​o​c​e​s​s
+   */
+  HINT_EXTRACT_PROMPT: string
+  /**
+   * S​c​h​e​m​a​ ​(​J​S​O​N​)
+   */
+  LABEL_EXTRACT_SCHEMA: string
+  /**
+   * J​S​O​N​ ​S​c​h​e​m​a​ ​t​o​ ​d​e​f​i​n​e​ ​t​h​e​ ​s​t​r​u​c​t​u​r​e​ ​o​f​ ​t​h​e​ ​e​x​t​r​a​c​t​e​d​ ​d​a​t​a
+   */
+  HINT_EXTRACT_SCHEMA: string
+  /**
+   * E​n​a​b​l​e​ ​W​e​b​ ​S​e​a​r​c​h
+   */
+  LABEL_ENABLE_WEB_SEARCH: string
+  /**
+   * W​h​e​n​ ​t​r​u​e​,​ ​t​h​e​ ​e​x​t​r​a​c​t​i​o​n​ ​w​i​l​l​ ​u​s​e​ ​w​e​b​ ​s​e​a​r​c​h​ ​t​o​ ​f​i​n​d​ ​a​d​d​i​t​i​o​n​a​l​ ​d​a​t​a
+   */
+  HINT_ENABLE_WEB_SEARCH: string
+  /**
+   * I​g​n​o​r​e​ ​S​i​t​e​m​a​p
+   */
+  LABEL_IGNORE_SITEMAP: string
+  /**
+   * W​h​e​n​ ​t​r​u​e​,​ ​s​i​t​e​m​a​p​.​x​m​l​ ​f​i​l​e​s​ ​w​i​l​l​ ​b​e​ ​i​g​n​o​r​e​d
+   */
+  HINT_IGNORE_SITEMAP: string
+  /**
+   * I​n​c​l​u​d​e​ ​S​u​b​d​o​m​a​i​n​s
+   */
+  LABEL_INCLUDE_SUBDOMAINS: string
+  /**
+   * W​h​e​n​ ​t​r​u​e​,​ ​s​u​b​d​o​m​a​i​n​s​ ​w​i​l​l​ ​a​l​s​o​ ​b​e​ ​s​c​a​n​n​e​d
+   */
+  HINT_INCLUDE_SUBDOMAINS: string
+  /**
+   * S​h​o​w​ ​S​o​u​r​c​e​s
+   */
+  LABEL_SHOW_SOURCES: string
+  /**
+   * W​h​e​n​ ​t​r​u​e​,​ ​t​h​e​ ​s​o​u​r​c​e​s​ ​u​s​e​d​ ​t​o​ ​e​x​t​r​a​c​t​ ​t​h​e​ ​d​a​t​a​ ​w​i​l​l​ ​b​e​ ​i​n​c​l​u​d​e​d​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e
+   */
+  HINT_SHOW_SOURCES: string
+  /**
+   * I​g​n​o​r​e​ ​I​n​v​a​l​i​d​ ​U​R​L​s
+   */
+  LABEL_IGNORE_INVALID_URLS: string
+  /**
+   * W​h​e​n​ ​t​r​u​e​,​ ​i​n​v​a​l​i​d​ ​U​R​L​s​ ​w​i​l​l​ ​b​e​ ​i​g​n​o​r​e​d​ ​i​n​s​t​e​a​d​ ​o​f​ ​f​a​i​l​i​n​g​ ​t​h​e​ ​e​n​t​i​r​e​ ​r​e​q​u​e​s​t
+   */
+  HINT_IGNORE_INVALID_URLS: string
+  /**
+   * U​R​L​s
+   */
+  LABEL_URLS: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​E​x​t​r​a​c​t
+   */
+  TOOL_EXTRACT_STRUCTURED_DATA_DISPLAY_NAME: string
+  /**
+   * E​x​t​r​a​c​t​ ​s​t​r​u​c​t​u​r​e​d​ ​d​a​t​a​ ​f​r​o​m​ ​a​ ​l​i​s​t​ ​o​f​ ​U​R​L​s​.
+   */
+  TOOL_EXTRACT_STRUCTURED_DATA_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​G​e​t​ ​E​x​t​r​a​c​t​ ​S​t​a​t​u​s
+   */
+  TOOL_GET_EXTRACT_STATUS_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​t​h​e​ ​s​t​a​t​u​s​ ​o​f​ ​a​n​ ​e​x​t​r​a​c​t​ ​j​o​b​.
+   */
+  TOOL_GET_EXTRACT_STATUS_DESCRIPTION: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​e​x​t​r​a​c​t​ ​j​o​b​.
+   */
+  HINT_EXTRACT_ID: string
+  /**
+   * S​e​a​r​c​h
+   */
+  LABEL_SEARCH: string
+  /**
+   * S​p​e​c​i​f​y​ ​a​ ​s​e​a​r​c​h​ ​q​u​e​r​y​ ​t​o​ ​o​r​d​e​r​ ​t​h​e​ ​r​e​s​u​l​t​s​ ​b​y​ ​r​e​l​e​v​a​n​c​e​.​ ​E​x​a​m​p​l​e​:​ ​'​b​l​o​g​'​ ​w​i​l​l​ ​r​e​t​u​r​n​ ​U​R​L​s​ ​t​h​a​t​ ​c​o​n​t​a​i​n​ ​t​h​e​ ​w​o​r​d​ ​'​b​l​o​g​'​ ​i​n​ ​t​h​e​ ​U​R​L​ ​o​r​d​e​r​e​d​ ​b​y​ ​r​e​l​e​v​a​n​c​e​.
+   */
+  HINT_MAP_SEARCH: string
+  /**
+   * S​i​t​e​m​a​p​ ​m​o​d​e​ ​w​h​e​n​ ​m​a​p​p​i​n​g​.​ ​'​i​n​c​l​u​d​e​'​ ​(​d​e​f​a​u​l​t​)​:​ ​U​s​e​ ​s​i​t​e​m​a​p​ ​a​n​d​ ​o​t​h​e​r​ ​m​e​t​h​o​d​s​.​ ​'​s​k​i​p​'​:​ ​D​o​n​'​t​ ​u​s​e​ ​s​i​t​e​m​a​p​.​ ​'​o​n​l​y​'​:​ ​O​n​l​y​ ​r​e​t​u​r​n​ ​U​R​L​s​ ​i​n​ ​t​h​e​ ​s​i​t​e​m​a​p​.
+   */
+  HINT_MAP_SITEMAP: string
+  /**
+   * I​n​c​l​u​d​e​ ​s​u​b​d​o​m​a​i​n​s​ ​o​f​ ​t​h​e​ ​w​e​b​s​i​t​e
+   */
+  HINT_MAP_INCLUDE_SUBDOMAINS: string
+  /**
+   * D​o​ ​n​o​t​ ​r​e​t​u​r​n​ ​U​R​L​s​ ​w​i​t​h​ ​q​u​e​r​y​ ​p​a​r​a​m​e​t​e​r​s
+   */
+  HINT_MAP_IGNORE_QUERY_PARAMETERS: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​l​i​n​k​s​ ​t​o​ ​r​e​t​u​r​n​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​5​0​0​0​.​ ​M​a​x​i​m​u​m​ ​i​s​ ​1​0​0​0​0​0​.
+   */
+  HINT_MAP_LIMIT: string
+  /**
+   * T​i​m​e​o​u​t
+   */
+  LABEL_MAP_TIMEOUT: string
+  /**
+   * T​i​m​e​o​u​t​ ​i​n​ ​m​i​l​l​i​s​e​c​o​n​d​s​.​ ​T​h​e​r​e​ ​i​s​ ​n​o​ ​t​i​m​e​o​u​t​ ​b​y​ ​d​e​f​a​u​l​t​.
+   */
+  HINT_MAP_TIMEOUT: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​M​a​p
+   */
+  TOOL_MAP_WEBSITE_DISPLAY_NAME: string
+  /**
+   * M​a​p​ ​a​ ​w​e​b​s​i​t​e​ ​b​y​ ​c​o​l​l​e​c​t​i​n​g​ ​l​i​n​k​s​ ​t​h​r​o​u​g​h​ ​F​i​r​e​c​r​a​w​l​.
+   */
+  TOOL_MAP_WEBSITE_DESCRIPTION: string
+  /**
+   * T​h​e​ ​b​a​s​e​ ​U​R​L​ ​t​o​ ​s​t​a​r​t​ ​m​a​p​p​i​n​g​ ​f​r​o​m
+   */
+  HINT_MAP_URL: string
+  /**
+   * U​R​L
+   */
+  PARAM_MAP_URL_LABEL: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​B​a​t​c​h​ ​S​c​r​a​p​e
+   */
+  TOOL_BATCH_SCRAPE_DISPLAY_NAME: string
+  /**
+   * S​c​r​a​p​e​ ​m​u​l​t​i​p​l​e​ ​U​R​L​s​ ​i​n​ ​a​ ​b​a​t​c​h​ ​j​o​b​.
+   */
+  TOOL_BATCH_SCRAPE_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​C​a​n​c​e​l​ ​B​a​t​c​h​ ​S​c​r​a​p​e
+   */
+  TOOL_CANCEL_BATCH_SCRAPE_DISPLAY_NAME: string
+  /**
+   * C​a​n​c​e​l​ ​a​ ​F​i​r​e​c​r​a​w​l​ ​b​a​t​c​h​ ​s​c​r​a​p​e​ ​j​o​b​.
+   */
+  TOOL_CANCEL_BATCH_SCRAPE_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​G​e​t​ ​B​a​t​c​h​ ​S​c​r​a​p​e​ ​E​r​r​o​r​s
+   */
+  TOOL_BATCH_SCRAPE_ERRORS_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​e​r​r​o​r​s​ ​f​r​o​m​ ​a​ ​b​a​t​c​h​ ​s​c​r​a​p​e​ ​j​o​b​.
+   */
+  TOOL_BATCH_SCRAPE_ERRORS_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​G​e​t​ ​B​a​t​c​h​ ​S​c​r​a​p​e​ ​S​t​a​t​u​s
+   */
+  TOOL_BATCH_SCRAPE_STATUS_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​t​h​e​ ​s​t​a​t​u​s​ ​o​f​ ​a​ ​b​a​t​c​h​ ​s​c​r​a​p​e​ ​j​o​b​.
+   */
+  TOOL_BATCH_SCRAPE_STATUS_DESCRIPTION: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​S​c​r​a​p​e
+   */
+  TOOL_SCRAPE_URL_DISPLAY_NAME: string
+  /**
+   * S​c​r​a​p​e​ ​a​ ​U​R​L​ ​a​n​d​ ​r​e​t​u​r​n​ ​t​h​e​ ​p​a​g​e​ ​c​o​n​t​e​n​t​.
+   */
+  TOOL_SCRAPE_URL_DESCRIPTION: string
+  /**
+   * U​R​L
+   */
+  PARAM_SCRAPE_URL_LABEL: string
+  /**
+   * T​h​e​ ​U​R​L​ ​t​o​ ​s​c​r​a​p​e
+   */
+  HINT_SCRAPE_URL: string
+  /**
+   * T​i​m​e​-​b​a​s​e​d​ ​S​e​a​r​c​h
+   */
+  LABEL_TIME_BASED_SEARCH: string
+  /**
+   * T​i​m​e​-​b​a​s​e​d​ ​p​a​r​a​m​e​t​e​r​:​ ​q​d​r​:​h​ ​(​h​o​u​r​)​,​ ​q​d​r​:​d​ ​(​d​a​y​)​,​ ​q​d​r​:​w​ ​(​w​e​e​k​)​,​ ​q​d​r​:​m​ ​(​m​o​n​t​h​)​,​ ​q​d​r​:​y​ ​(​y​e​a​r​)​,​ ​o​r​ ​c​u​s​t​o​m​:​ ​c​d​r​:​1​,​c​d​_​m​i​n​:​M​M​/​D​D​/​Y​Y​Y​Y​,​c​d​_​m​a​x​:​M​M​/​D​D​/​Y​Y​Y​Y
+   */
+  HINT_TIME_BASED_SEARCH: string
+  /**
+   * L​o​c​a​t​i​o​n​ ​f​o​r​ ​g​e​o​-​t​a​r​g​e​t​e​d​ ​r​e​s​u​l​t​s​ ​(​e​.​g​.​,​ ​'​S​a​n​ ​F​r​a​n​c​i​s​c​o​,​C​a​l​i​f​o​r​n​i​a​,​U​n​i​t​e​d​ ​S​t​a​t​e​s​'​)
+   */
+  HINT_SEARCH_LOCATION: string
+  /**
+   * C​a​t​e​g​o​r​i​e​s
+   */
+  LABEL_CATEGORIES: string
+  /**
+   * S​o​u​r​c​e​s
+   */
+  LABEL_SOURCES: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​t​o​ ​r​e​t​u​r​n​ ​(​1​-​1​0​0​)
+   */
+  HINT_SEARCH_LIMIT: string
+  /**
+   * I​S​O​ ​c​o​u​n​t​r​y​ ​c​o​d​e​ ​f​o​r​ ​g​e​o​-​t​a​r​g​e​t​i​n​g​ ​(​e​.​g​.​,​ ​U​S​,​ ​D​E​,​ ​F​R​,​ ​J​P​,​ ​U​K​,​ ​C​A​)
+   */
+  HINT_SEARCH_COUNTRY: string
+  /**
+   * T​i​m​e​o​u​t
+   */
+  LABEL_SEARCH_TIMEOUT: string
+  /**
+   * T​i​m​e​o​u​t​ ​i​n​ ​m​i​l​l​i​s​e​c​o​n​d​s
+   */
+  HINT_SEARCH_TIMEOUT: string
+  /**
+   * E​x​c​l​u​d​e​s​ ​i​n​v​a​l​i​d​ ​U​R​L​s​ ​f​r​o​m​ ​s​e​a​r​c​h​ ​r​e​s​u​l​t​s​ ​t​h​a​t​ ​a​r​e​ ​i​n​v​a​l​i​d​ ​f​o​r​ ​o​t​h​e​r​ ​F​i​r​e​c​r​a​w​l​ ​e​n​d​p​o​i​n​t​s
+   */
+  HINT_SEARCH_IGNORE_INVALID_URLS: string
+  /**
+   * F​i​r​e​c​r​a​w​l​ ​S​e​a​r​c​h
+   */
+  TOOL_SEARCH_CONTENT_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​F​i​r​e​c​r​a​w​l​ ​c​o​n​t​e​n​t​ ​w​i​t​h​ ​a​d​v​a​n​c​e​d​ ​f​i​l​t​e​r​s​.
+   */
+  TOOL_SEARCH_CONTENT_DESCRIPTION: string
+  /**
+   * T​h​e​ ​s​e​a​r​c​h​ ​q​u​e​r​y
+   */
+  HINT_SEARCH_QUERY: string
+  /**
+   * Q​u​e​r​y
+   */
+  PARAM_SEARCH_QUERY_LABEL: string
 }
 
 export type TranslationFunctions = {
@@ -74,6 +806,738 @@ export type TranslationFunctions = {
    * Enter the location to test
    */
   LOCATION_PLACEHOLDER: () => LocalizedString
+  /**
+   * Batch ID
+   */
+  LABEL_BATCH_ID: () => LocalizedString
+  /**
+   * ID of the batch scrape job
+   */
+  HINT_BATCH_ID: () => LocalizedString
+  /**
+   * ID
+   */
+  LABEL_ID: () => LocalizedString
+  /**
+   * The ID of the crawl job
+   */
+  HINT_CRAWL_ID: () => LocalizedString
+  /**
+   * Credential
+   */
+  PARAM_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * Request Body
+   */
+  PARAM_REQUEST_BODY_LABEL: () => LocalizedString
+  /**
+   * Parsers
+   */
+  PARAM_PARSERS_LABEL: () => LocalizedString
+  /**
+   * PDF
+   */
+  OPTION_PARSER_PDF: () => LocalizedString
+  /**
+   * Type
+   */
+  LABEL_TYPE: () => LocalizedString
+  /**
+   * Full Page
+   */
+  LABEL_FULL_PAGE: () => LocalizedString
+  /**
+   * Whether to capture the full page or just the visible viewport.
+   */
+  HINT_FULL_PAGE_VIEWPORT: () => LocalizedString
+  /**
+   * Quality
+   */
+  LABEL_QUALITY: () => LocalizedString
+  /**
+   * Quality of the screenshot (0-100).
+   */
+  HINT_SCREENSHOT_QUALITY: () => LocalizedString
+  /**
+   * Viewport
+   */
+  LABEL_VIEWPORT: () => LocalizedString
+  /**
+   * Width
+   */
+  LABEL_VIEWPORT_WIDTH: () => LocalizedString
+  /**
+   * Width of the viewport in pixels.
+   */
+  HINT_VIEWPORT_WIDTH: () => LocalizedString
+  /**
+   * Height
+   */
+  LABEL_VIEWPORT_HEIGHT: () => LocalizedString
+  /**
+   * Height of the viewport in pixels.
+   */
+  HINT_VIEWPORT_HEIGHT: () => LocalizedString
+  /**
+   * Modes
+   */
+  LABEL_MODES: () => LocalizedString
+  /**
+   * Modes for tracking changes (git-diff or json).
+   */
+  HINT_CHANGE_TRACKING_MODES: () => LocalizedString
+  /**
+   * Prompt
+   */
+  LABEL_PROMPT: () => LocalizedString
+  /**
+   * Prompt for the LLM to analyze changes.
+   */
+  HINT_CHANGE_TRACKING_PROMPT: () => LocalizedString
+  /**
+   * Tag
+   */
+  LABEL_TAG: () => LocalizedString
+  /**
+   * Tag for identifying the change tracking instance.
+   */
+  HINT_CHANGE_TRACKING_TAG: () => LocalizedString
+  /**
+   * Schema
+   */
+  LABEL_SCHEMA: () => LocalizedString
+  /**
+   * JSON schema for the change tracking data.
+   */
+  HINT_CHANGE_TRACKING_SCHEMA: () => LocalizedString
+  /**
+   * Prompt to guide the LLM in extracting structured data from the page content.
+   */
+  HINT_JSON_PROMPT: () => LocalizedString
+  /**
+   * JSON schema defining the structure of the data to extract.
+   */
+  HINT_JSON_SCHEMA: () => LocalizedString
+  /**
+   * Formats
+   */
+  LABEL_FORMATS: () => LocalizedString
+  /**
+   * Output formats to include in the response. You can specify one or more formats, either as strings (e.g., 'markdown') or as objects with additional options like type: 'json' and schema definitions. Some formats require specific options to be set.
+   */
+  HINT_FORMATS: () => LocalizedString
+  /**
+   * Headers
+   */
+  LABEL_HEADERS: () => LocalizedString
+  /**
+   * Headers to send with the request. Can be used to send cookies, user-agent, etc.
+   */
+  HINT_HEADERS: () => LocalizedString
+  /**
+   * Actions
+   */
+  LABEL_ACTIONS: () => LocalizedString
+  /**
+   * Milliseconds
+   */
+  LABEL_MILLISECONDS: () => LocalizedString
+  /**
+   * Number of milliseconds to wait.
+   */
+  HINT_WAIT_MILLISECONDS: () => LocalizedString
+  /**
+   * Selector
+   */
+  LABEL_SELECTOR: () => LocalizedString
+  /**
+   * CSS selector to wait for before proceeding.
+   */
+  HINT_WAIT_SELECTOR: () => LocalizedString
+  /**
+   * CSS selector of the element to click.
+   */
+  HINT_CLICK_SELECTOR: () => LocalizedString
+  /**
+   * Text
+   */
+  LABEL_TEXT: () => LocalizedString
+  /**
+   * Text to write into the input field.
+   */
+  HINT_WRITE_TEXT: () => LocalizedString
+  /**
+   * Key
+   */
+  LABEL_KEY: () => LocalizedString
+  /**
+   * Key to press (e.g., 'Enter', 'Tab').
+   */
+  HINT_PRESS_KEY: () => LocalizedString
+  /**
+   * Direction
+   */
+  LABEL_DIRECTION: () => LocalizedString
+  /**
+   * Up
+   */
+  OPTION_DIRECTION_UP: () => LocalizedString
+  /**
+   * Down
+   */
+  OPTION_DIRECTION_DOWN: () => LocalizedString
+  /**
+   * CSS selector of the element to scroll. If not provided, scrolls the entire page.
+   */
+  HINT_SCROLL_DIRECTION: () => LocalizedString
+  /**
+   * CSS selector of the element to scroll. If not provided, scrolls the entire page.
+   */
+  HINT_SCROLL_SELECTOR: () => LocalizedString
+  /**
+   * Script
+   */
+  LABEL_SCRIPT: () => LocalizedString
+  /**
+   * JavaScript code to execute on the page.
+   */
+  HINT_EXECUTE_JAVASCRIPT_SCRIPT: () => LocalizedString
+  /**
+   * Format
+   */
+  LABEL_FORMAT: () => LocalizedString
+  /**
+   * Paper format for the PDF.
+   */
+  HINT_PDF_FORMAT: () => LocalizedString
+  /**
+   * Landscape
+   */
+  LABEL_LANDSCAPE: () => LocalizedString
+  /**
+   * Whether to use landscape orientation.
+   */
+  HINT_PDF_LANDSCAPE: () => LocalizedString
+  /**
+   * Scale
+   */
+  LABEL_SCALE: () => LocalizedString
+  /**
+   * Scale factor for the PDF content.
+   */
+  HINT_PDF_SCALE: () => LocalizedString
+  /**
+   * Actions to perform on the page before grabbing the content
+   */
+  HINT_ACTIONS: () => LocalizedString
+  /**
+   * Location
+   */
+  LABEL_LOCATION: () => LocalizedString
+  /**
+   * Country
+   */
+  LABEL_COUNTRY: () => LocalizedString
+  /**
+   * ISO 3166-1 alpha-2 country code
+   */
+  HINT_LOCATION_COUNTRY: () => LocalizedString
+  /**
+   * Languages
+   */
+  LABEL_LANGUAGES: () => LocalizedString
+  /**
+   * Location settings for the request. When specified, this will use an appropriate proxy if available and emulate the corresponding language and timezone settings. Defaults to 'US' if not specified.
+   */
+  HINT_LOCATION_SETTINGS: () => LocalizedString
+  /**
+   * Only Main Content
+   */
+  LABEL_ONLY_MAIN_CONTENT: () => LocalizedString
+  /**
+   * Only return the main content of the page excluding headers, navs, footers, etc.
+   */
+  HINT_ONLY_MAIN_CONTENT: () => LocalizedString
+  /**
+   * Remove Base64 Images
+   */
+  LABEL_REMOVE_BASE64_IMAGES: () => LocalizedString
+  /**
+   * Removes all base 64 images from the output, which may be overwhelmingly long. The image's alt text remains in the output, but the URL is replaced with a placeholder.
+   */
+  HINT_REMOVE_BASE64_IMAGES: () => LocalizedString
+  /**
+   * Timeout (ms)
+   */
+  LABEL_TIMEOUT_MS: () => LocalizedString
+  /**
+   * Timeout in milliseconds for the request.
+   */
+  HINT_TIMEOUT_MS: () => LocalizedString
+  /**
+   * Mobile
+   */
+  LABEL_MOBILE: () => LocalizedString
+  /**
+   * Set to true if you want to emulate scraping from a mobile device. Useful for testing responsive pages and taking mobile screenshots.
+   */
+  HINT_MOBILE: () => LocalizedString
+  /**
+   * Block Ads
+   */
+  LABEL_BLOCK_ADS: () => LocalizedString
+  /**
+   * Enables ad-blocking and cookie popup blocking.
+   */
+  HINT_BLOCK_ADS: () => LocalizedString
+  /**
+   * Wait For (ms)
+   */
+  LABEL_WAIT_FOR_MS: () => LocalizedString
+  /**
+   * Specify a delay in milliseconds before fetching the content, allowing the page sufficient time to load. This waiting time is in addition to Firecrawl's smart wait feature.
+   */
+  HINT_WAIT_FOR_MS: () => LocalizedString
+  /**
+   * Store in Cache
+   */
+  LABEL_STORE_IN_CACHE: () => LocalizedString
+  /**
+   * If true, the page will be stored in the Firecrawl index and cache. Setting this to false is useful if your scraping activity may have data protection concerns. Using some parameters associated with sensitive scraping (e.g. actions, headers) will force this parameter to be false.
+   */
+  HINT_STORE_IN_CACHE: () => LocalizedString
+  /**
+   * Max Age (ms)
+   */
+  LABEL_MAX_AGE_MS: () => LocalizedString
+  /**
+   * Returns a cached version of the page if it is younger than this age in milliseconds. If a cached version of the page is older than this value, the page will be scraped. If you do not need extremely fresh data, enabling this can speed up your scrapes by 500%. Defaults to 2 days.
+   */
+  HINT_MAX_AGE_MS: () => LocalizedString
+  /**
+   * Include Tags
+   */
+  LABEL_INCLUDE_TAGS: () => LocalizedString
+  /**
+   * Tags to include in the output.
+   */
+  HINT_INCLUDE_TAGS: () => LocalizedString
+  /**
+   * Exclude Tags
+   */
+  LABEL_EXCLUDE_TAGS: () => LocalizedString
+  /**
+   * Tags to exclude from the output.
+   */
+  HINT_EXCLUDE_TAGS: () => LocalizedString
+  /**
+   * Proxy
+   */
+  LABEL_PROXY: () => LocalizedString
+  /**
+   * Specifies the type of proxy to use. basic: Proxies for scraping sites with none to basic anti-bot solutions. Fast and usually works. stealth: Stealth proxies for scraping sites with advanced anti-bot solutions. Slower, but more reliable on certain sites. Costs up to 5 credits per request. auto: Firecrawl will automatically retry scraping with stealth proxies if the basic proxy fails. If the retry with stealth is successful, 5 credits will be billed for the scrape. If the first attempt with basic is successful, only the regular cost will be billed.
+   */
+  HINT_PROXY: () => LocalizedString
+  /**
+   * Skip TLS Verification
+   */
+  LABEL_SKIP_TLS_VERIFICATION: () => LocalizedString
+  /**
+   * Skip TLS certificate verification when making requests.
+   */
+  HINT_SKIP_TLS_VERIFICATION: () => LocalizedString
+  /**
+   * Scrape Options
+   */
+  LABEL_SCRAPE_OPTIONS: () => LocalizedString
+  /**
+   * Firecrawl Cancel Crawl
+   */
+  TOOL_CANCEL_CRAWL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Cancel an active Firecrawl crawl job.
+   */
+  TOOL_CANCEL_CRAWL_DESCRIPTION: () => LocalizedString
+  /**
+   * Use Custom Body
+   */
+  LABEL_USE_CUSTOM_BODY: () => LocalizedString
+  /**
+   * Prompt
+   */
+  LABEL_CRAWL_PROMPT: () => LocalizedString
+  /**
+   * Describe what to crawl in plain English. Explicitly set parameters will override generated equivalents.
+   */
+  HINT_CRAWL_PROMPT: () => LocalizedString
+  /**
+   * Limit
+   */
+  LABEL_LIMIT: () => LocalizedString
+  /**
+   * Maximum number of pages to crawl. Default is 10000.
+   */
+  HINT_CRAWL_LIMIT: () => LocalizedString
+  /**
+   * Delay
+   */
+  LABEL_DELAY: () => LocalizedString
+  /**
+   * Delay in seconds between scrapes. This helps respect website rate limits.
+   */
+  HINT_CRAWL_DELAY: () => LocalizedString
+  /**
+   * Max Concurrency
+   */
+  LABEL_MAX_CONCURRENCY: () => LocalizedString
+  /**
+   * Maximum number of concurrent scrapes. If not specified, the crawl adheres to your team's concurrency limit.
+   */
+  HINT_MAX_CONCURRENCY: () => LocalizedString
+  /**
+   * Exclude Paths
+   */
+  LABEL_EXCLUDE_PATHS: () => LocalizedString
+  /**
+   * URL pathname regex patterns that exclude matching URLs from the crawl. e.g., 'blog/.*' to exclude all blog pages.
+   */
+  HINT_EXCLUDE_PATHS: () => LocalizedString
+  /**
+   * Include Paths
+   */
+  LABEL_INCLUDE_PATHS: () => LocalizedString
+  /**
+   * URL pathname regex patterns that include matching URLs in the crawl. Only paths matching the patterns will be included. e.g., 'blog/.*' to include only blog pages.
+   */
+  HINT_INCLUDE_PATHS: () => LocalizedString
+  /**
+   * Sitemap
+   */
+  LABEL_SITEMAP: () => LocalizedString
+  /**
+   * Sitemap mode. 'include' (default): Use sitemap and discover other pages. 'skip': Ignore sitemap entirely.
+   */
+  HINT_SITEMAP_MODE: () => LocalizedString
+  /**
+   * Ignore Query Parameters
+   */
+  LABEL_IGNORE_QUERY_PARAMETERS: () => LocalizedString
+  /**
+   * Do not re-scrape the same path with different (or none) query parameters.
+   */
+  HINT_IGNORE_QUERY_PARAMETERS: () => LocalizedString
+  /**
+   * Allow External Links
+   */
+  LABEL_ALLOW_EXTERNAL_LINKS: () => LocalizedString
+  /**
+   * Allows the crawler to follow links to external websites.
+   */
+  HINT_ALLOW_EXTERNAL_LINKS: () => LocalizedString
+  /**
+   * Allow Subdomains
+   */
+  LABEL_ALLOW_SUBDOMAINS: () => LocalizedString
+  /**
+   * Allows the crawler to follow links to subdomains of the main domain.
+   */
+  HINT_ALLOW_SUBDOMAINS: () => LocalizedString
+  /**
+   * Firecrawl Crawl
+   */
+  TOOL_NAME_FIRECRAWL_CRAWL: () => LocalizedString
+  /**
+   * Crawl a website using Firecrawl with fine-grained controls.
+   */
+  TOOL_DESCRIPTION_FIRECRAWL_CRAWL: () => LocalizedString
+  /**
+   * URL
+   */
+  LABEL_URL: () => LocalizedString
+  /**
+   * The base URL to start crawling from
+   */
+  HINT_URL: () => LocalizedString
+  /**
+   * Firecrawl Get Crawl Errors
+   */
+  TOOL_GET_CRAWL_ERRORS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve errors reported by a Firecrawl crawl job.
+   */
+  TOOL_GET_CRAWL_ERRORS_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Get Crawl Status
+   */
+  TOOL_GET_CRAWL_STATUS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get the current status of a Firecrawl job.
+   */
+  TOOL_GET_CRAWL_STATUS_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl List Active Crawls
+   */
+  TOOL_LIST_ACTIVE_CRAWLS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List the active Firecrawl crawl jobs for the account.
+   */
+  TOOL_LIST_ACTIVE_CRAWLS_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Preview Crawl Params
+   */
+  TOOL_PREVIEW_CRAWL_PARAMS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Preview how Firecrawl would interpret the crawl parameters.
+   */
+  TOOL_PREVIEW_CRAWL_PARAMS_DESCRIPTION: () => LocalizedString
+  /**
+   * URL
+   */
+  PARAM_PREVIEW_URL_LABEL: () => LocalizedString
+  /**
+   * The URL to crawl (base URL).
+   */
+  HINT_PREVIEW_URL: () => LocalizedString
+  /**
+   * Prompt
+   */
+  PARAM_PREVIEW_PROMPT_LABEL: () => LocalizedString
+  /**
+   * Natural language description of what to crawl. Max length 10000 characters.
+   */
+  HINT_PREVIEW_PROMPT: () => LocalizedString
+  /**
+   * Prompt
+   */
+  LABEL_EXTRACT_PROMPT: () => LocalizedString
+  /**
+   * Prompt to guide the extraction process
+   */
+  HINT_EXTRACT_PROMPT: () => LocalizedString
+  /**
+   * Schema (JSON)
+   */
+  LABEL_EXTRACT_SCHEMA: () => LocalizedString
+  /**
+   * JSON Schema to define the structure of the extracted data
+   */
+  HINT_EXTRACT_SCHEMA: () => LocalizedString
+  /**
+   * Enable Web Search
+   */
+  LABEL_ENABLE_WEB_SEARCH: () => LocalizedString
+  /**
+   * When true, the extraction will use web search to find additional data
+   */
+  HINT_ENABLE_WEB_SEARCH: () => LocalizedString
+  /**
+   * Ignore Sitemap
+   */
+  LABEL_IGNORE_SITEMAP: () => LocalizedString
+  /**
+   * When true, sitemap.xml files will be ignored
+   */
+  HINT_IGNORE_SITEMAP: () => LocalizedString
+  /**
+   * Include Subdomains
+   */
+  LABEL_INCLUDE_SUBDOMAINS: () => LocalizedString
+  /**
+   * When true, subdomains will also be scanned
+   */
+  HINT_INCLUDE_SUBDOMAINS: () => LocalizedString
+  /**
+   * Show Sources
+   */
+  LABEL_SHOW_SOURCES: () => LocalizedString
+  /**
+   * When true, the sources used to extract the data will be included in the response
+   */
+  HINT_SHOW_SOURCES: () => LocalizedString
+  /**
+   * Ignore Invalid URLs
+   */
+  LABEL_IGNORE_INVALID_URLS: () => LocalizedString
+  /**
+   * When true, invalid URLs will be ignored instead of failing the entire request
+   */
+  HINT_IGNORE_INVALID_URLS: () => LocalizedString
+  /**
+   * URLs
+   */
+  LABEL_URLS: () => LocalizedString
+  /**
+   * Firecrawl Extract
+   */
+  TOOL_EXTRACT_STRUCTURED_DATA_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Extract structured data from a list of URLs.
+   */
+  TOOL_EXTRACT_STRUCTURED_DATA_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Get Extract Status
+   */
+  TOOL_GET_EXTRACT_STATUS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get the status of an extract job.
+   */
+  TOOL_GET_EXTRACT_STATUS_DESCRIPTION: () => LocalizedString
+  /**
+   * The ID of the extract job.
+   */
+  HINT_EXTRACT_ID: () => LocalizedString
+  /**
+   * Search
+   */
+  LABEL_SEARCH: () => LocalizedString
+  /**
+   * Specify a search query to order the results by relevance. Example: 'blog' will return URLs that contain the word 'blog' in the URL ordered by relevance.
+   */
+  HINT_MAP_SEARCH: () => LocalizedString
+  /**
+   * Sitemap mode when mapping. 'include' (default): Use sitemap and other methods. 'skip': Don't use sitemap. 'only': Only return URLs in the sitemap.
+   */
+  HINT_MAP_SITEMAP: () => LocalizedString
+  /**
+   * Include subdomains of the website
+   */
+  HINT_MAP_INCLUDE_SUBDOMAINS: () => LocalizedString
+  /**
+   * Do not return URLs with query parameters
+   */
+  HINT_MAP_IGNORE_QUERY_PARAMETERS: () => LocalizedString
+  /**
+   * Maximum number of links to return. Default is 5000. Maximum is 100000.
+   */
+  HINT_MAP_LIMIT: () => LocalizedString
+  /**
+   * Timeout
+   */
+  LABEL_MAP_TIMEOUT: () => LocalizedString
+  /**
+   * Timeout in milliseconds. There is no timeout by default.
+   */
+  HINT_MAP_TIMEOUT: () => LocalizedString
+  /**
+   * Firecrawl Map
+   */
+  TOOL_MAP_WEBSITE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Map a website by collecting links through Firecrawl.
+   */
+  TOOL_MAP_WEBSITE_DESCRIPTION: () => LocalizedString
+  /**
+   * The base URL to start mapping from
+   */
+  HINT_MAP_URL: () => LocalizedString
+  /**
+   * URL
+   */
+  PARAM_MAP_URL_LABEL: () => LocalizedString
+  /**
+   * Firecrawl Batch Scrape
+   */
+  TOOL_BATCH_SCRAPE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Scrape multiple URLs in a batch job.
+   */
+  TOOL_BATCH_SCRAPE_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Cancel Batch Scrape
+   */
+  TOOL_CANCEL_BATCH_SCRAPE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Cancel a Firecrawl batch scrape job.
+   */
+  TOOL_CANCEL_BATCH_SCRAPE_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Get Batch Scrape Errors
+   */
+  TOOL_BATCH_SCRAPE_ERRORS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve errors from a batch scrape job.
+   */
+  TOOL_BATCH_SCRAPE_ERRORS_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Get Batch Scrape Status
+   */
+  TOOL_BATCH_SCRAPE_STATUS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve the status of a batch scrape job.
+   */
+  TOOL_BATCH_SCRAPE_STATUS_DESCRIPTION: () => LocalizedString
+  /**
+   * Firecrawl Scrape
+   */
+  TOOL_SCRAPE_URL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Scrape a URL and return the page content.
+   */
+  TOOL_SCRAPE_URL_DESCRIPTION: () => LocalizedString
+  /**
+   * URL
+   */
+  PARAM_SCRAPE_URL_LABEL: () => LocalizedString
+  /**
+   * The URL to scrape
+   */
+  HINT_SCRAPE_URL: () => LocalizedString
+  /**
+   * Time-based Search
+   */
+  LABEL_TIME_BASED_SEARCH: () => LocalizedString
+  /**
+   * Time-based parameter: qdr:h (hour), qdr:d (day), qdr:w (week), qdr:m (month), qdr:y (year), or custom: cdr:1,cd_min:MM/DD/YYYY,cd_max:MM/DD/YYYY
+   */
+  HINT_TIME_BASED_SEARCH: () => LocalizedString
+  /**
+   * Location for geo-targeted results (e.g., 'San Francisco,California,United States')
+   */
+  HINT_SEARCH_LOCATION: () => LocalizedString
+  /**
+   * Categories
+   */
+  LABEL_CATEGORIES: () => LocalizedString
+  /**
+   * Sources
+   */
+  LABEL_SOURCES: () => LocalizedString
+  /**
+   * Maximum number of results to return (1-100)
+   */
+  HINT_SEARCH_LIMIT: () => LocalizedString
+  /**
+   * ISO country code for geo-targeting (e.g., US, DE, FR, JP, UK, CA)
+   */
+  HINT_SEARCH_COUNTRY: () => LocalizedString
+  /**
+   * Timeout
+   */
+  LABEL_SEARCH_TIMEOUT: () => LocalizedString
+  /**
+   * Timeout in milliseconds
+   */
+  HINT_SEARCH_TIMEOUT: () => LocalizedString
+  /**
+   * Excludes invalid URLs from search results that are invalid for other Firecrawl endpoints
+   */
+  HINT_SEARCH_IGNORE_INVALID_URLS: () => LocalizedString
+  /**
+   * Firecrawl Search
+   */
+  TOOL_SEARCH_CONTENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search Firecrawl content with advanced filters.
+   */
+  TOOL_SEARCH_CONTENT_DESCRIPTION: () => LocalizedString
+  /**
+   * The search query
+   */
+  HINT_SEARCH_QUERY: () => LocalizedString
+  /**
+   * Query
+   */
+  PARAM_SEARCH_QUERY_LABEL: () => LocalizedString
 }
 
 export type Formatters = {}

@@ -10,22 +10,15 @@ import {
   scrapeOptionsParameter,
 } from "../_shared-parameters"
 import { notImplementedToolInvoke } from "../_shared-invoke"
+import { t } from "../../i18n/i18n-node"
 
 const tbsParameter: PropertyString<"tbs"> = {
   type: "string",
   name: "tbs",
-  display_name: {
-    en_US: "Time-based Search",
-    zh_Hans_CN: "基于时间的搜索",
-  },
+  display_name: t("LABEL_TIME_BASED_SEARCH"),
   ui: {
     component: "input",
-    hint: {
-      en_US:
-        "Time-based parameter: qdr:h (hour), qdr:d (day), qdr:w (week), qdr:m (month), qdr:y (year), or custom: cdr:1,cd_min:MM/DD/YYYY,cd_max:MM/DD/YYYY",
-      zh_Hans_CN:
-        "基于时间的参数：qdr:h（小时）、qdr:d（天）、qdr:w（周）、qdr:m（月）、qdr:y（年），或自定义：cdr:1,cd_min:MM/DD/YYYY,cd_max:MM/DD/YYYY",
-    },
+    hint: t("HINT_TIME_BASED_SEARCH"),
     support_expression: true,
   },
 }
@@ -33,18 +26,10 @@ const tbsParameter: PropertyString<"tbs"> = {
 const locationParameter: PropertyString<"location"> = {
   type: "string",
   name: "location",
-  display_name: {
-    en_US: "Location",
-    zh_Hans_CN: "位置",
-  },
+  display_name: t("LABEL_LOCATION"),
   ui: {
     component: "input",
-    hint: {
-      en_US:
-        "Location for geo-targeted results (e.g., 'San Francisco,California,United States')",
-      zh_Hans_CN:
-        "地理位置定位结果（例如：'San Francisco,California,United States'）",
-    },
+    hint: t("HINT_SEARCH_LOCATION"),
     support_expression: true,
   },
 }
@@ -52,10 +37,7 @@ const locationParameter: PropertyString<"location"> = {
 const categoriesParameter: PropertyArray<"categories"> = {
   type: "array",
   name: "categories",
-  display_name: {
-    en_US: "Categories",
-    zh_Hans_CN: "类别",
-  },
+  display_name: t("LABEL_CATEGORIES"),
   items: {
     type: "discriminated_union",
     name: "category",
@@ -101,10 +83,7 @@ const categoriesParameter: PropertyArray<"categories"> = {
 const sourcesParameter: PropertyArray<"sources"> = {
   type: "array",
   name: "sources",
-  display_name: {
-    en_US: "Sources",
-    zh_Hans_CN: "来源",
-  },
+  display_name: t("LABEL_SOURCES"),
   items: {
     type: "discriminated_union",
     name: "source",
@@ -164,28 +143,19 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
         {
           name: "useCustomBody",
           type: "boolean",
-          display_name: {
-            en_US: "Use Custom Body",
-            zh_Hans_CN: "使用自定义请求体",
-          },
+          display_name: t("LABEL_USE_CUSTOM_BODY"),
           constant: false,
         },
         {
           type: "integer",
           name: "limit",
-          display_name: {
-            en_US: "Limit",
-            zh_Hans_CN: "限制",
-          },
+          display_name: t("LABEL_LIMIT"),
           default: 5,
           minimum: 1,
           maximum: 100,
           ui: {
             component: "number-input",
-            hint: {
-              en_US: "Maximum number of results to return (1-100)",
-              zh_Hans_CN: "返回结果的最大数量 (1-100)",
-            },
+            hint: t("HINT_SEARCH_LIMIT"),
             support_expression: true,
           },
         },
@@ -196,54 +166,33 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
         {
           type: "string",
           name: "country",
-          display_name: {
-            en_US: "Country",
-            zh_Hans_CN: "国家",
-          },
+          display_name: t("LABEL_COUNTRY"),
           default: "US",
           ui: {
             component: "input",
-            hint: {
-              en_US:
-                "ISO country code for geo-targeting (e.g., US, DE, FR, JP, UK, CA)",
-              zh_Hans_CN:
-                "ISO 国家代码用于地理定位（例如：US、DE、FR、JP、UK、CA）",
-            },
+            hint: t("HINT_SEARCH_COUNTRY"),
             support_expression: true,
           },
         },
         {
           type: "integer",
           name: "timeout",
-          display_name: {
-            en_US: "Timeout",
-            zh_Hans_CN: "超时时间",
-          },
+          display_name: t("LABEL_SEARCH_TIMEOUT"),
           default: 60000,
           ui: {
             component: "number-input",
-            hint: {
-              en_US: "Timeout in milliseconds",
-              zh_Hans_CN: "超时时间（毫秒）",
-            },
+            hint: t("HINT_SEARCH_TIMEOUT"),
             support_expression: true,
           },
         },
         {
           type: "boolean",
           name: "ignoreInvalidURLs",
-          display_name: {
-            en_US: "Ignore Invalid URLs",
-            zh_Hans_CN: "忽略无效 URL",
-          },
+          display_name: t("LABEL_IGNORE_INVALID_URLS"),
           default: false,
           ui: {
             component: "switch",
-            hint: {
-              en_US:
-                "Excludes invalid URLs from search results that are invalid for other Firecrawl endpoints",
-              zh_Hans_CN: "从搜索结果中排除对其他 Firecrawl 端点无效的 URL",
-            },
+            hint: t("HINT_SEARCH_IGNORE_INVALID_URLS"),
             support_expression: true,
           },
         },
@@ -267,33 +216,21 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
 
 export const SearchContentTool: ToolDefinition = {
   name: "firecrawl-search",
-  display_name: {
-    en_US: "Firecrawl Search",
-    zh_Hans_CN: "Firecrawl 搜索",
-  },
-  description: {
-    en_US: "Search Firecrawl content with advanced filters.",
-    zh_Hans_CN: "使用高级筛选搜索 Firecrawl 内容。",
-  },
+  display_name: t("TOOL_SEARCH_CONTENT_DISPLAY_NAME"),
+  description: t("TOOL_SEARCH_CONTENT_DESCRIPTION"),
   icon: "🔎",
   parameters: [
     firecrawlCredentialParameter,
     {
       type: "string",
       name: "query",
-      display_name: {
-        en_US: "Query",
-        zh_Hans_CN: "查询",
-      },
       required: true,
       ui: {
         component: "textarea",
-        hint: {
-          en_US: "The search query",
-          zh_Hans_CN: "搜索查询",
-        },
+        hint: t("HINT_SEARCH_QUERY"),
         support_expression: true,
       },
+      display_name: t("PARAM_SEARCH_QUERY_LABEL"),
     },
     options,
   ],

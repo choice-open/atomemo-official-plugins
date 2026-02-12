@@ -9,6 +9,7 @@ import {
   scrapeOptionsParameter,
 } from "../_shared-parameters"
 import { notImplementedToolInvoke } from "../_shared-invoke"
+import { t } from "../../i18n/i18n-node"
 
 const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
   name: "options",
@@ -25,10 +26,7 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
         {
           name: "useCustomBody",
           type: "boolean",
-          display_name: {
-            en_US: "Use Custom Body",
-            zh_Hans_CN: "使用自定义请求体",
-          },
+          display_name: t("LABEL_USE_CUSTOM_BODY"),
           constant: false,
         },
         parsersParameter,
@@ -52,31 +50,19 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
 
 export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
   name: "firecrawl-scrape",
-  display_name: {
-    en_US: "Firecrawl Scrape",
-    zh_Hans_CN: "Firecrawl 爬取",
-  },
-  description: {
-    en_US: "Scrape a URL and return the page content.",
-    zh_Hans_CN: "爬取 URL 并返回页面内容。",
-  },
+  display_name: t("TOOL_SCRAPE_URL_DISPLAY_NAME"),
+  description: t("TOOL_SCRAPE_URL_DESCRIPTION"),
   icon: "🧹",
   parameters: [
     firecrawlCredentialParameter,
     {
       type: "string",
       name: "url",
-      display_name: {
-        en_US: "URL",
-        zh_Hans_CN: "URL",
-      },
+      display_name: t("PARAM_SCRAPE_URL_LABEL"),
       required: true,
       ui: {
         component: "input",
-        hint: {
-          en_US: "The URL to scrape",
-          zh_Hans_CN: "要爬取的 URL",
-        },
+        hint: t("HINT_SCRAPE_URL"),
         support_expression: true,
       },
     },

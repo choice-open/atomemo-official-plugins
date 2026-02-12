@@ -7,6 +7,7 @@ import {
   firecrawlCredentialParameter,
 } from "../_shared-parameters"
 import { notImplementedToolInvoke } from "../_shared-invoke"
+import { t } from "../../i18n/i18n-node"
 
 const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
   name: "options",
@@ -23,116 +24,72 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
         {
           name: "useCustomBody",
           type: "boolean",
-          display_name: {
-            en_US: "Use Custom Body",
-            zh_Hans_CN: "使用自定义请求体",
-          },
+          display_name: t("LABEL_USE_CUSTOM_BODY"),
           constant: false,
         },
         {
           name: "search",
           type: "string",
-          display_name: {
-            en_US: "Search",
-            zh_Hans_CN: "搜索",
-          },
+          display_name: t("LABEL_SEARCH"),
           ui: {
             component: "input",
-            hint: {
-              en_US:
-                "Specify a search query to order the results by relevance. Example: 'blog' will return URLs that contain the word 'blog' in the URL ordered by relevance.",
-              zh_Hans_CN:
-                "指定搜索查询以按相关性排序结果。例如：'blog' 将返回包含单词 'blog' 的 URL，按相关性排序。",
-            },
+            hint: t("HINT_MAP_SEARCH"),
             support_expression: true,
           },
         },
         {
           name: "sitemap",
           type: "string",
-          display_name: {
-            en_US: "Sitemap",
-            zh_Hans_CN: "站点地图",
-          },
+          display_name: t("LABEL_SITEMAP"),
           enum: ["skip", "include", "only"],
           default: "include",
           ui: {
             component: "select",
-            hint: {
-              en_US:
-                "Sitemap mode when mapping. 'include' (default): Use sitemap and other methods. 'skip': Don't use sitemap. 'only': Only return URLs in the sitemap.",
-              zh_Hans_CN:
-                "映射时的站点地图模式。'include'（默认）：使用站点地图和其他方法。'skip'：不使用站点地图。'only'：仅返回站点地图中的 URL。",
-            },
+            hint: t("HINT_MAP_SITEMAP"),
             support_expression: true,
           },
         },
         {
           name: "includeSubdomains",
           type: "boolean",
-          display_name: {
-            en_US: "Include Subdomains",
-            zh_Hans_CN: "包含子域名",
-          },
+          display_name: t("LABEL_INCLUDE_SUBDOMAINS"),
           default: true,
           ui: {
             component: "switch",
-            hint: {
-              en_US: "Include subdomains of the website",
-              zh_Hans_CN: "包含网站的子域名",
-            },
+            hint: t("HINT_MAP_INCLUDE_SUBDOMAINS"),
             support_expression: true,
           },
         },
         {
           name: "ignoreQueryParameters",
           type: "boolean",
-          display_name: {
-            en_US: "Ignore Query Parameters",
-            zh_Hans_CN: "忽略查询参数",
-          },
+          display_name: t("LABEL_IGNORE_QUERY_PARAMETERS"),
           default: true,
           ui: {
             component: "switch",
-            hint: {
-              en_US: "Do not return URLs with query parameters",
-              zh_Hans_CN: "不返回带查询参数的 URL",
-            },
+            hint: t("HINT_MAP_IGNORE_QUERY_PARAMETERS"),
             support_expression: true,
           },
         },
         {
           name: "limit",
           type: "integer",
-          display_name: {
-            en_US: "Limit",
-            zh_Hans_CN: "限制",
-          },
+          display_name: t("LABEL_LIMIT"),
           default: 5000,
           ui: {
             component: "number-input",
-            hint: {
-              en_US:
-                "Maximum number of links to return. Default is 5000. Maximum is 100000.",
-              zh_Hans_CN: "返回的最大链接数。默认为 5000。最大为 100000。",
-            },
+            hint: t("HINT_MAP_LIMIT"),
             support_expression: true,
           },
         },
         {
           name: "timeout",
           type: "integer",
-          display_name: {
-            en_US: "Timeout",
-            zh_Hans_CN: "超时",
-          },
+          display_name: t("LABEL_MAP_TIMEOUT"),
           default: 10000,
           ui: {
             component: "number-input",
-            hint: {
-              en_US: "Timeout in milliseconds. There is no timeout by default.",
-              zh_Hans_CN: "超时时间（毫秒）。默认无超时。",
-            },
+            hint: t("HINT_MAP_TIMEOUT"),
             support_expression: true,
           },
         },
@@ -155,33 +112,21 @@ const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
 
 export const MapWebsiteTool: ToolDefinition = {
   name: "firecrawl-map",
-  display_name: {
-    en_US: "Firecrawl Map",
-    zh_Hans_CN: "Firecrawl 网站地图",
-  },
-  description: {
-    en_US: "Map a website by collecting links through Firecrawl.",
-    zh_Hans_CN: "通过 Firecrawl 收集链接并映射网站结构。",
-  },
+  display_name: t("TOOL_MAP_WEBSITE_DISPLAY_NAME"),
+  description: t("TOOL_MAP_WEBSITE_DESCRIPTION"),
   icon: "🗺️",
   parameters: [
     firecrawlCredentialParameter,
     {
       type: "string",
       name: "url",
-      display_name: {
-        en_US: "URL",
-        zh_Hans_CN: "URL",
-      },
       required: true,
       ui: {
         component: "input",
-        hint: {
-          en_US: "The base URL to start mapping from",
-          zh_Hans_CN: "要开始映射的基础 URL",
-        },
+        hint: t("HINT_MAP_URL"),
         support_expression: true,
       },
+      display_name: t("PARAM_MAP_URL_LABEL"),
     },
     options,
   ],

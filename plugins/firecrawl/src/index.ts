@@ -1,10 +1,27 @@
-import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import packageJSON from "../package.json"
-import { t } from "./i18n/i18n-node"
-import { locales } from "./i18n/i18n-util"
-import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
+import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js";
+import packageJSON from "../package.json";
+import { t } from "./i18n/i18n-node";
+import { locales } from "./i18n/i18n-util";
+import { loadAllLocalesAsync } from "./i18n/i18n-util.async";
+import {
+  BatchScrapeTool,
+  CancelBatchScrapeTool,
+  CancelCrawlTool,
+  CrawlAWebsiteTool,
+  ExtractStructuredDataTool,
+  GetBatchScrapeErrorsTool,
+  GetBatchScrapeStatusTool,
+  GetCrawlErrorsTool,
+  GetCrawlStatusTool,
+  GetExtractStatusTool,
+  ListActiveCrawlsTool,
+  MapWebsiteTool,
+  PreviewCrawlParamsTool,
+  ScrapeAUrlAndGetItsContentTool,
+  SearchContentTool,
+} from "./tools";
 
-await loadAllLocalesAsync()
+await loadAllLocalesAsync();
 
 const plugin = await createPlugin({
   name: packageJSON.name,
@@ -16,6 +33,23 @@ const plugin = await createPlugin({
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
   locales,
   transporterOptions: {},
-})
+});
 
-plugin.run()
+// Add all tools to the plugin
+plugin.addTool(CrawlAWebsiteTool);
+plugin.addTool(CancelCrawlTool);
+plugin.addTool(GetCrawlErrorsTool);
+plugin.addTool(GetCrawlStatusTool);
+plugin.addTool(ListActiveCrawlsTool);
+plugin.addTool(PreviewCrawlParamsTool);
+plugin.addTool(ScrapeAUrlAndGetItsContentTool);
+plugin.addTool(BatchScrapeTool);
+plugin.addTool(CancelBatchScrapeTool);
+plugin.addTool(GetBatchScrapeErrorsTool);
+plugin.addTool(GetBatchScrapeStatusTool);
+plugin.addTool(MapWebsiteTool);
+plugin.addTool(SearchContentTool);
+plugin.addTool(ExtractStructuredDataTool);
+plugin.addTool(GetExtractStatusTool);
+
+plugin.run();

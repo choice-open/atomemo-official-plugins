@@ -1,19 +1,14 @@
 import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 export const batchIdParameter: PropertyString<"batchId"> = {
   name: "batchId",
   type: "string",
-  display_name: {
-    en_US: "Batch ID",
-    zh_Hans_CN: "批次ID",
-  },
+  display_name: t("LABEL_BATCH_ID"),
   required: true,
   ui: {
     component: "input",
-    hint: {
-      en_US: "ID of the batch scrape job",
-      zh_Hans_CN: "批量爬取作业的ID",
-    },
+    hint: t("HINT_BATCH_ID"),
     support_expression: true,
   },
 }
