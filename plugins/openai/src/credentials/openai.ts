@@ -49,23 +49,22 @@ export const openaiCredential = {
   async authenticate({ args: { credential, extra } }) {
     const modelName = extra?.model ?? "gpt-4o"
 
-    const headers: Record<string, string> = {
-      Authorization: `Bearer ${credential.api_key}`,
+    const headers = new Headers()
+    headers.set("Authorization", `Bearer ${credential.api_key}`)
+
+    if (typeof credential.organization_id === "string") {
+      headers.set("OpenAI-Organization", credential.organization_id)
     }
 
-    if (!!credential.organization_id) {
-      headers["OpenAI-Organization"] = credential.organization_id
-    }
-
-    if (!!credential.project_id) {
-      headers["OpenAI-Project"] = credential.project_id
+    if (typeof credential.project_id === "string") {
+      headers.set("OpenAI-Project", credential.project_id)
     }
 
     return {
       adapter: "openai",
       endpoint: "https://api.openai.com/v1/chat/completions",
       model: modelName,
-      headers,
+      headers: Object.fromEntries(headers.entries()),
     }
   },
 } satisfies CredentialDefinition
