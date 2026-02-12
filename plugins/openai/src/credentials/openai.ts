@@ -52,11 +52,11 @@ export const openaiCredential = {
     const headers = new Headers()
     headers.set("Authorization", `Bearer ${credential.api_key}`)
 
-    if (typeof credential.organization_id === "string") {
+    if (typeof credential.organization_id === "string" && credential.organization_id !== "") {
       headers.set("OpenAI-Organization", credential.organization_id)
     }
 
-    if (typeof credential.project_id === "string") {
+    if (typeof credential.project_id === "string" && credential.project_id !== "") {
       headers.set("OpenAI-Project", credential.project_id)
     }
 
