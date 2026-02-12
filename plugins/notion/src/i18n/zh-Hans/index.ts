@@ -1,0 +1,242 @@
+import type { Translation } from "../i18n-types"
+
+const zh_Hans = {
+  PLUGIN_DISPLAY_NAME: "测试插件",
+  PLUGIN_DESCRIPTION: "一个用于测试插件的插件",
+  DEMO_TOOL_DISPLAY_NAME: "演示工具",
+  DEMO_TOOL_DESCRIPTION: "一个用于测试插件的工具",
+  LOCATION_DISPLAY_NAME: "位置",
+  LOCATION_HINT: "要测试的位置",
+  LOCATION_PLACEHOLDER: "输入要测试的位置",
+
+  // Credential
+  CREDENTIAL_DISPLAY_NAME: "Notion 凭证",
+  CREDENTIAL_LLM_DESCRIPTION: "用于 Notion API 认证的凭证。",
+
+  // Icon
+  ICON_DISPLAY_NAME: "图标",
+  ICON_LLM_DESCRIPTION: "页面的图标（emoji 或外部 URL）",
+
+  // Sort
+  SORT_DISPLAY_NAME: "排序",
+  SORT_LLM_DESCRIPTION: "可选排序；Notion 搜索支持按 last_edited_time 排序。",
+  SORT_DIRECTION_DISPLAY_NAME: "排序方向",
+  SORT_DIRECTION_OPTION_ASCENDING: "升序",
+  SORT_DIRECTION_OPTION_DESCENDING: "降序",
+  SORT_ENABLE_DISPLAY_NAME: "启用排序",
+  SORT_ENABLE_HINT: "是否启用结果排序。",
+  SORT_ENABLE_LLM_DESCRIPTION:
+    "一个布尔值，表示是否启用结果排序。默认值为false。",
+
+  // Page Size
+  PAGE_SIZE_DISPLAY_NAME: "分页大小",
+  PAGE_SIZE_LLM_DESCRIPTION: "每页返回结果数量（1-100），默认 100。",
+  RETURN_ALL_DISPLAY_NAME: "返回全部",
+  RETURN_ALL_HINT: "是否返回所有结果，忽略分页大小。",
+  RETURN_ALL_LLM_DESCRIPTION:
+    "一个布尔值，表示是否返回所有结果，忽略分页大小。默认值为false。",
+
+  // Page ID
+  PAGE_ID_DISPLAY_NAME: "页面 ID",
+  PAGE_ID_LLM_DESCRIPTION:
+    "要检索的 Notion 页面的 ID。支持带或不带短横线的 UUID 格式。",
+
+  // Simplify Output
+  SIMPLIFY_OUTPUT_DISPLAY_NAME: "简化输出",
+  SIMPLIFY_OUTPUT_HINT:
+    "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。",
+  SIMPLIFY_OUTPUT_LLM_DESCRIPTION:
+    "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。",
+
+  // Get Page
+  GET_PAGE_FILTER_PROPERTIES_DISPLAY_NAME: "过滤属性（属性 ID 或名称）",
+  GET_PAGE_FILTER_PROPERTIES_LLM_DESCRIPTION:
+    "可选，页面属性值 ID 或属性名称的列表，用于限制返回的属性。示例：['iAk8','Title']。",
+  GET_PAGE_TOOL_DISPLAY_NAME: "检索 Notion 页面",
+  GET_PAGE_TOOL_DESCRIPTION: "根据 ID 检索 Notion 页面。",
+
+  // Get Child Blocks
+  GET_CHILD_BLOCKS_BLOCK_ID_DISPLAY_NAME: "区块 ID",
+  GET_CHILD_BLOCKS_BLOCK_ID_LLM_DESCRIPTION: "要获取其子块的父区块 ID。",
+  GET_CHILD_BLOCKS_TOOL_DISPLAY_NAME: "获取 Notion 块的子块",
+  GET_CHILD_BLOCKS_TOOL_DESCRIPTION: "获取 Notion 区块的子区块。",
+
+  // Search Databases
+  SEARCH_DATABASES_FILTER_LLM_DESCRIPTION:
+    "过滤器固定为仅返回数据库（数据源）。",
+  SEARCH_DATABASES_QUERY_DISPLAY_NAME: "查询关键字",
+  SEARCH_DATABASES_QUERY_LLM_DESCRIPTION:
+    "用于按标题筛选数据库（数据源）的搜索词；留空返回全部。",
+  SEARCH_DATABASES_TOOL_DISPLAY_NAME: "搜索 Notion 数据库",
+  SEARCH_DATABASES_TOOL_DESCRIPTION: "按文本查询搜索 Notion 数据库（数据源）。",
+
+  // Search Pages
+  SEARCH_PAGES_FILTER_LLM_DESCRIPTION: "过滤器固定为仅返回页面。",
+  SEARCH_PAGES_QUERY_DISPLAY_NAME: "搜索文本",
+  SEARCH_PAGES_QUERY_LLM_DESCRIPTION:
+    "用于按标题或内容筛选页面的搜索词；留空返回全部可访问页面。",
+  SEARCH_PAGES_ENABLE_FILTER_DISPLAY_NAME: "启用过滤器",
+  SEARCH_PAGES_FILTERS_DISPLAY_NAME: "Filters",
+  SEARCH_PAGES_FILTERS_HINT:
+    '用于筛选结果的属性值。可能的值仅限于 "page" 或 "data_source"',
+  SEARCH_PAGES_TOOL_DISPLAY_NAME: "搜索 Notion 页面",
+  SEARCH_PAGES_TOOL_DESCRIPTION: "按文本查询搜索 Notion 页面。",
+
+  // Get Database
+  GET_DATABASE_DATABASE_ID_DISPLAY_NAME: "数据库 ID",
+  GET_DATABASE_DATABASE_ID_LLM_DESCRIPTION: "要检索的 Notion 数据库的 ID。",
+  GET_DATABASE_TOOL_DISPLAY_NAME: "获取 Notion 数据库",
+  GET_DATABASE_TOOL_DESCRIPTION: "根据 ID 获取 Notion 数据库。",
+
+  // Update Page
+  UPDATE_PAGE_TOOL_DISPLAY_NAME: "Notion 更新数据库中的页面",
+  UPDATE_PAGE_TOOL_DESCRIPTION: "更新数据库中的 Notion 页面属性或归档页面。",
+
+  // Append Blocks
+  APPEND_BLOCKS_BLOCK_ID_DISPLAY_NAME: "区块 ID",
+  APPEND_BLOCKS_BLOCK_ID_LLM_DESCRIPTION: "要添加子区块的父区块 ID",
+  APPEND_BLOCKS_AFTER_DISPLAY_NAME: "在...之后",
+  APPEND_BLOCKS_AFTER_LLM_DESCRIPTION: "新区块应该插入在其之后的现有区块 ID",
+  APPEND_BLOCKS_TOOL_DISPLAY_NAME: "Notion 添加区块",
+  APPEND_BLOCKS_TOOL_DESCRIPTION: "向现有 Notion 区块追加子区块。",
+
+  // Create Page in Database
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME: "父级数据源 ID",
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION:
+    "将创建新页面的父数据源（数据库） ID。",
+  CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: "Notion 在数据库中创建页面",
+  CREATE_PAGE_IN_DATABASE_TOOL_DESCRIPTION:
+    "在 Notion 数据库（数据源）中创建新页面。",
+
+  // Create Page
+  CREATE_PAGE_PARENT_PAGE_ID_DISPLAY_NAME: "父级页面 ID",
+  CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: "将创建新页面的父页面 ID。",
+  CREATE_PAGE_TOOL_DISPLAY_NAME: "Notion 创建页面",
+  CREATE_PAGE_TOOL_DESCRIPTION: "在父页面下创建新的 Notion 页面。",
+
+  // Query Database
+  QUERY_DATABASE_DATA_SOURCE_ID_DISPLAY_NAME: "数据源 ID",
+  QUERY_DATABASE_DATA_SOURCE_ID_LLM_DESCRIPTION:
+    "要查询的 Notion 数据源（数据库或知识库）的 ID。",
+  QUERY_DATABASE_FILTER_PROPERTIES_DISPLAY_NAME: "过滤属性（属性 ID 或名称）",
+  QUERY_DATABASE_FILTER_PROPERTIES_LLM_DESCRIPTION:
+    "可选，指定要返回的属性 ID 或名称列表，用于限制响应字段。",
+  QUERY_DATABASE_SORTS_DISPLAY_NAME: "排序条件",
+  QUERY_DATABASE_SORTS_LLM_DESCRIPTION:
+    "可选的排序规则。每条规则可按属性或时间戳（创建时间/更新时间）排序。",
+  QUERY_DATABASE_SORT_RULE_DISPLAY_NAME: "排序规则",
+  QUERY_DATABASE_SORT_RULE_PROPERTY_DISPLAY_NAME: "属性",
+  QUERY_DATABASE_SORT_RULE_PROPERTY_LLM_DESCRIPTION:
+    "用于排序的属性 ID 或名称（若按时间戳排序则留空）。",
+  QUERY_DATABASE_SORT_RULE_TIMESTAMP_DISPLAY_NAME: "时间戳",
+  QUERY_DATABASE_SORT_RULE_TIMESTAMP_LLM_DESCRIPTION:
+    "当不按属性字段排序时，可选择的时间戳字段。",
+  QUERY_DATABASE_SORT_RULE_DIRECTION_DISPLAY_NAME: "排序方向",
+  QUERY_DATABASE_SORT_RULE_DIRECTION_LLM_DESCRIPTION: "排序方向。",
+  QUERY_DATABASE_FILTER_DISPLAY_NAME: "过滤条件",
+  QUERY_DATABASE_FILTER_LLM_DESCRIPTION:
+    "可选过滤器，支持 and/or 组合或属性/时间戳过滤，请遵循 Notion 数据源过滤语法。",
+  QUERY_DATABASE_TOOL_DISPLAY_NAME: "查询 Notion 数据源",
+  QUERY_DATABASE_TOOL_DESCRIPTION:
+    "使用过滤与排序查询 Notion 数据库（数据源）。",
+
+  // Blocks - Heading
+  BLOCKS_HEADING_IS_TOGGLEABLE_HINT: "标题是否可以切换以显示/隐藏嵌套内容",
+  BLOCKS_URL_HINT: "要嵌入或链接到的外部资源的 URL",
+
+  // Blocks - Types
+  BLOCKS_PARAGRAPH_DISPLAY_NAME: "段落",
+  BLOCKS_HEADING_1_DISPLAY_NAME: "标题 1",
+  BLOCKS_HEADING_2_DISPLAY_NAME: "标题 2",
+  BLOCKS_HEADING_3_DISPLAY_NAME: "标题 3",
+  BLOCKS_BULLETED_LIST_DISPLAY_NAME: "无序列表",
+  BLOCKS_NUMBERED_LIST_DISPLAY_NAME: "有序列表",
+  BLOCKS_QUOTE_DISPLAY_NAME: "引用",
+  BLOCKS_TO_DO_DISPLAY_NAME: "待办事项",
+  BLOCKS_TO_DO_CHECKED_HINT: "待办事项是否已勾选/完成",
+  BLOCKS_TOGGLE_DISPLAY_NAME: "折叠块",
+  BLOCKS_TEMPLATE_DISPLAY_NAME: "模板",
+  BLOCKS_CALLOUT_DISPLAY_NAME: "标注",
+  BLOCKS_CALLOUT_ICON_HINT:
+    "图标类型：'emoji' 表示表情符号字符，'external' 表示图片文件",
+  BLOCKS_CODE_DISPLAY_NAME: "代码块",
+  BLOCKS_CODE_LANGUAGE_HINT:
+    "用于语法高亮的编程语言（例如：javascript、python、java）",
+  BLOCKS_CODE_CAPTION_HINT: "可选的代码块下方显示的标题文本",
+  BLOCKS_EQUATION_DISPLAY_NAME: "公式",
+  BLOCKS_EQUATION_EXPRESSION_HINT: "兼容 KaTeX 的数学表达式（例如：e=mc^2）",
+  BLOCKS_BREADCRUMB_DISPLAY_NAME: "面包屑导航",
+  BLOCKS_DIVIDER_DISPLAY_NAME: "分割线",
+  BLOCKS_TABLE_OF_CONTENTS_DISPLAY_NAME: "目录",
+  BLOCKS_EMBED_DISPLAY_NAME: "嵌入",
+  BLOCKS_BOOKMARK_DISPLAY_NAME: "书签",
+  BLOCKS_IMAGE_DISPLAY_NAME: "图片",
+  BLOCKS_VIDEO_DISPLAY_NAME: "视频",
+  BLOCKS_PDF_DISPLAY_NAME: "PDF",
+  BLOCKS_FILE_DISPLAY_NAME: "文件",
+  BLOCKS_AUDIO_DISPLAY_NAME: "音频",
+  BLOCKS_LINK_TO_PAGE_DISPLAY_NAME: "页面链接",
+  BLOCKS_LINK_TO_PAGE_PAGE_ID_HINT: "要链接到的 Notion 页面的 UUID",
+  BLOCKS_SYNCED_BLOCK_DISPLAY_NAME: "同步块",
+  BLOCKS_SYNCED_BLOCK_BLOCK_ID_HINT: "要引用的原始同步块的 UUID",
+  BLOCKS_COLUMN_LIST_DISPLAY_NAME: "列布局",
+  BLOCKS_COLUMN_DISPLAY_NAME: "列",
+  BLOCKS_COLUMN_WIDTH_RATIO_HINT: "此列的相对宽度（0-1，默认等宽）",
+  BLOCKS_TABLE_DISPLAY_NAME: "表格",
+  BLOCKS_TABLE_TABLE_WIDTH_HINT: "表格中的列数（创建后无法更改）",
+  BLOCKS_TABLE_HAS_COLUMN_HEADER_HINT: "第一行是否显示为视觉上不同的标题行",
+  BLOCKS_TABLE_HAS_ROW_HEADER_HINT: "第一列是否显示为视觉上不同的标题列",
+  BLOCKS_TABLE_ROW_DISPLAY_NAME: "表格行",
+  BLOCKS_TABLE_ROW_CELLS_HINT: "按水平显示顺序排列的单元格内容数组",
+  BLOCKS_CHILDREN_DISPLAY_NAME: "内容区块",
+  BLOCKS_CHILDREN_HINT:
+    "要在页面中添加为嵌套内容的 Notion 内容区块数组（段落、标题、列表、图片等）。",
+  BLOCKS_CHILDREN_LLM_DESCRIPTION: "要作为页面内容添加的区块对象数组",
+
+  // Page Properties
+  PAGE_PROPERTIES_VALUE_DISPLAY_NAME: "属性值",
+  PAGE_PROPERTIES_VALUE_HINT:
+    "选择与数据库架构一致的属性类型，并按对应结构填写值。",
+  PAGE_PROPERTIES_TITLE_DISPLAY_NAME: "标题",
+  PAGE_PROPERTIES_TITLE_HINT:
+    "页面标题的富文本片段，至少需要一个文本节点。支持文本、提及和公式。",
+  PAGE_PROPERTIES_RICH_TEXT_DISPLAY_NAME: "富文本",
+  PAGE_PROPERTIES_RICH_TEXT_HINT:
+    "用于非标题文本属性的富文本数组。支持文本、提及和公式。",
+  PAGE_PROPERTIES_NUMBER_DISPLAY_NAME: "数字",
+  PAGE_PROPERTIES_NUMBER_HINT: "数值，格式遵循数据库字段设置。",
+  PAGE_PROPERTIES_URL_DISPLAY_NAME: "链接",
+  PAGE_PROPERTIES_URL_HINT: "包含协议的完整链接。",
+  PAGE_PROPERTIES_SELECT_DISPLAY_NAME: "单选",
+  PAGE_PROPERTIES_SELECT_HINT:
+    "使用已有选项名称；若集成有权限，可自动创建新选项。",
+  PAGE_PROPERTIES_MULTI_SELECT_DISPLAY_NAME: "多选",
+  PAGE_PROPERTIES_MULTI_SELECT_HINT: "选项名称数组；有权限时可创建新选项。",
+  PAGE_PROPERTIES_PEOPLE_DISPLAY_NAME: "人员",
+  PAGE_PROPERTIES_PEOPLE_HINT:
+    "用户或群组对象数组；ID 必须是已与数据库共享的 Notion 用户或群组。",
+  PAGE_PROPERTIES_EMAIL_DISPLAY_NAME: "邮箱",
+  PAGE_PROPERTIES_EMAIL_HINT: "有效的邮箱地址字符串。",
+  PAGE_PROPERTIES_PHONE_NUMBER_DISPLAY_NAME: "电话号码",
+  PAGE_PROPERTIES_PHONE_NUMBER_HINT: "未格式化的电话号码字符串。",
+  PAGE_PROPERTIES_DATE_DISPLAY_NAME: "日期",
+  PAGE_PROPERTIES_DATE_HINT:
+    "ISO 8601 日期/时间；日期区间时请填写 end，支持时区设置。",
+  PAGE_PROPERTIES_CHECKBOX_DISPLAY_NAME: "复选框",
+  PAGE_PROPERTIES_CHECKBOX_HINT: "布尔值，控制勾选状态。",
+  PAGE_PROPERTIES_RELATION_DISPLAY_NAME: "关联",
+  PAGE_PROPERTIES_RELATION_HINT:
+    "关联指向的页面 ID 数组；关联源数据库需与集成共享。",
+  PAGE_PROPERTIES_FILES_DISPLAY_NAME: "文件",
+  PAGE_PROPERTIES_FILES_HINT:
+    "文件数组；每项可为外部链接、已上传文件或带过期时间的托管文件。",
+  PAGE_PROPERTIES_STATUS_DISPLAY_NAME: "状态",
+  PAGE_PROPERTIES_STATUS_HINT: "数据库工作流中的状态选项名称。",
+  PAGE_PROPERTIES_PLACE_DISPLAY_NAME: "位置",
+  PAGE_PROPERTIES_PLACE_HINT: "带坐标的地理位置；经纬度为必填项。",
+  PAGE_PROPERTIES_PROPERTIES_DISPLAY_NAME: "页面属性",
+  PAGE_PROPERTIES_PROPERTIES_LLM_DESCRIPTION:
+    "新页面的属性值。每个键应与数据库架构中的属性名称匹配。",
+} satisfies Translation
+
+export default zh_Hans
