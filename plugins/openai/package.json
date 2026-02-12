@@ -1,7 +1,7 @@
 {
   "name": "openai",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "OpenAI offers a comprehensive set of models for various tasks, including text generation, image generation, vision, audio generation, text-to-speech (TTS), speech-to-text (STT), embeddings, moderation, and reasoning.",
   "author": "david 2 <david.chen@choiceform.com>",
   "license": "MIT",
