@@ -46,9 +46,7 @@ export const openaiCredential = {
       },
     },
   ],
-  async authenticate({ args: { credential, extra } }) {
-    const modelName = extra?.model ?? "gpt-4o"
-
+  async authenticate({ args: { credential } }) {
     const headers = new Headers()
     headers.set("Authorization", `Bearer ${credential.api_key}`)
 
@@ -63,8 +61,8 @@ export const openaiCredential = {
     return {
       adapter: "openai",
       endpoint: "https://api.openai.com/v1/chat/completions",
-      model: modelName,
       headers: Object.fromEntries(headers.entries()),
+      api_key: credential.api_key,
     }
   },
 } satisfies CredentialDefinition
