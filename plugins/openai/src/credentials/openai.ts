@@ -58,11 +58,16 @@ export const openaiCredential = {
       headers.set("OpenAI-Project", credential.project_id)
     }
 
+    const apiKey = credential.api_key ?? ""
+    if(apiKey === "") {
+      throw new Error("credential api_key is empty, please check your credential")
+    }
+
     return {
       adapter: "openai",
       endpoint: "https://api.openai.com/v1/chat/completions",
       headers: Object.fromEntries(headers.entries()),
-      api_key: credential.api_key,
+      api_key: apiKey,
     }
   },
 } satisfies CredentialDefinition
