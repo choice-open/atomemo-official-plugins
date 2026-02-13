@@ -1,16 +1,16 @@
 import type {
   PropertyArray,
   PropertyDiscriminatedUnion,
+  PropertyObject,
   PropertyString,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
-import { notImplementedToolInvoke } from "../_shared-invoke"
-import { t } from "../../i18n/i18n-node"
 
 const tbsParameter: PropertyString<"tbs"> = {
   type: "string",
@@ -40,7 +40,6 @@ const categoriesParameter: PropertyArray<"categories"> = {
   display_name: t("LABEL_CATEGORIES"),
   items: {
     type: "discriminated_union",
-    name: "category",
     discriminator: "type",
     any_of: [
       {
@@ -77,7 +76,7 @@ const categoriesParameter: PropertyArray<"categories"> = {
         ],
       },
     ],
-  } satisfies PropertyDiscriminatedUnion<"category", "type">,
+  } satisfies PropertyDiscriminatedUnion<"type">,
 }
 
 const sourcesParameter: PropertyArray<"sources"> = {
@@ -86,7 +85,6 @@ const sourcesParameter: PropertyArray<"sources"> = {
   display_name: t("LABEL_SOURCES"),
   items: {
     type: "discriminated_union",
-    name: "source",
     discriminator: "type",
     any_of: [
       {
@@ -125,91 +123,115 @@ const sourcesParameter: PropertyArray<"sources"> = {
         ],
       },
     ],
-  } satisfies PropertyDiscriminatedUnion<"source", "type">,
+  } satisfies PropertyDiscriminatedUnion<"type">,
 }
 
-const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
+const options: PropertyObject = {
+  type: "object",
   name: "options",
-  type: "discriminated_union",
-  discriminator: "useCustomBody",
-  discriminator_ui: {
-    component: "switch",
-  },
-  any_of: [
+  properties: [
     {
-      name: "predefinedBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          display_name: t("LABEL_USE_CUSTOM_BODY"),
-          constant: false,
-        },
-        {
-          type: "integer",
-          name: "limit",
-          display_name: t("LABEL_LIMIT"),
-          default: 5,
-          minimum: 1,
-          maximum: 100,
-          ui: {
-            component: "number-input",
-            hint: t("HINT_SEARCH_LIMIT"),
-            support_expression: true,
-          },
-        },
-        sourcesParameter,
-        categoriesParameter,
-        tbsParameter,
-        locationParameter,
-        {
-          type: "string",
-          name: "country",
-          display_name: t("LABEL_COUNTRY"),
-          default: "US",
-          ui: {
-            component: "input",
-            hint: t("HINT_SEARCH_COUNTRY"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "integer",
-          name: "timeout",
-          display_name: t("LABEL_SEARCH_TIMEOUT"),
-          default: 60000,
-          ui: {
-            component: "number-input",
-            hint: t("HINT_SEARCH_TIMEOUT"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "boolean",
-          name: "ignoreInvalidURLs",
-          display_name: t("LABEL_IGNORE_INVALID_URLS"),
-          default: false,
-          ui: {
-            component: "switch",
-            hint: t("HINT_SEARCH_IGNORE_INVALID_URLS"),
-            support_expression: true,
-          },
-        },
-        scrapeOptionsParameter,
-      ],
+      name: "useCustomBody",
+      type: "boolean",
+      display_name: t("LABEL_USE_CUSTOM_BODY"),
+      default: false,
+      ui: {
+        component: "switch",
+      },
     },
     {
-      name: "customBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          constant: true,
-        },
-        customBodyParameter,
-      ],
+      type: "integer",
+      name: "limit",
+      display_name: t("LABEL_LIMIT"),
+      default: 5,
+      minimum: 1,
+      maximum: 100,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "number-input",
+        hint: t("HINT_SEARCH_LIMIT"),
+        support_expression: true,
+      },
+    },
+    {
+      ...sourcesParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...categoriesParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...tbsParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...locationParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      type: "string",
+      name: "country",
+      display_name: t("LABEL_COUNTRY"),
+      default: "US",
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "input",
+        hint: t("HINT_SEARCH_COUNTRY"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "integer",
+      name: "timeout",
+      display_name: t("LABEL_SEARCH_TIMEOUT"),
+      default: 60000,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "number-input",
+        hint: t("HINT_SEARCH_TIMEOUT"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "boolean",
+      name: "ignoreInvalidURLs",
+      display_name: t("LABEL_IGNORE_INVALID_URLS"),
+      default: false,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_SEARCH_IGNORE_INVALID_URLS"),
+        support_expression: true,
+      },
+    },
+    {
+      ...scrapeOptionsParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...customBodyParameter,
+      display: {
+        show: { useCustomBody: true },
+      },
     },
   ],
 }
@@ -234,5 +256,7 @@ export const SearchContentTool: ToolDefinition = {
     },
     options,
   ],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }

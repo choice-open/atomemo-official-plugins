@@ -1,49 +1,45 @@
 import type {
-  PropertyDiscriminatedUnion,
+  PropertyObject,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   parsersParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
-import { notImplementedToolInvoke } from "../_shared-invoke"
-import { t } from "../../i18n/i18n-node"
 
-const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
+const options: PropertyObject = {
+  type: "object",
   name: "options",
-  type: "discriminated_union",
-  discriminator: "useCustomBody",
-  discriminator_ui: {
-    component: "switch",
-  },
-  any_of: [
+  properties: [
     {
-      name: "predefinedBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          display_name: t("LABEL_USE_CUSTOM_BODY"),
-          constant: false,
-        },
-        parsersParameter,
-        scrapeOptionsParameter,
-      ],
+      name: "useCustomBody",
+      type: "boolean",
+      display_name: t("LABEL_USE_CUSTOM_BODY"),
+      default: false,
+      ui: {
+        component: "switch",
+      },
     },
     {
-      name: "customBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          constant: true,
-        },
-        customBodyParameter,
-      ],
+      ...parsersParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...scrapeOptionsParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...customBodyParameter,
+      display: {
+        show: { useCustomBody: true },
+      },
     },
   ],
 }
@@ -68,5 +64,7 @@ export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
     },
     options,
   ],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }

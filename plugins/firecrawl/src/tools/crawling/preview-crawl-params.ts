@@ -1,5 +1,4 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { notImplementedToolInvoke } from "../_shared-invoke"
 import { t } from "../../i18n/i18n-node"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
 
@@ -29,10 +28,12 @@ export const PreviewCrawlParamsTool: ToolDefinition = {
       max_length: 10000,
       ui: {
         component: "textarea",
-          hint: t("HINT_PREVIEW_PROMPT"),
+        hint: t("HINT_PREVIEW_PROMPT"),
         support_expression: true,
       },
     },
   ],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }

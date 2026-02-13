@@ -1,126 +1,138 @@
 import type {
-  PropertyDiscriminatedUnion,
+  PropertyObject,
   PropertyString,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
-import { notImplementedToolInvoke } from "../_shared-invoke"
-import { t } from "../../i18n/i18n-node"
 
-const options: PropertyDiscriminatedUnion<"options", "useCustomBody"> = {
+const options: PropertyObject = {
   name: "options",
-  type: "discriminated_union",
-  discriminator: "useCustomBody",
-  discriminator_ui: {
-    component: "switch",
-  },
-  any_of: [
+  type: "object",
+  properties: [
     {
-      name: "predefinedBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          display_name: t("LABEL_USE_CUSTOM_BODY"),
-          constant: false,
-        },
-        {
-          type: "string",
-          name: "prompt",
-          display_name: t("LABEL_EXTRACT_PROMPT"),
-          ui: {
-            component: "textarea",
-            hint: t("HINT_EXTRACT_PROMPT"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "string",
-          name: "schema",
-          display_name: t("LABEL_EXTRACT_SCHEMA"),
-          ui: {
-            component: "code-editor",
-            language: "json",
-            hint: t("HINT_EXTRACT_SCHEMA"),
-            line_numbers: true,
-            support_expression: true,
-          },
-          default: "{}",
-        },
-        {
-          type: "boolean",
-          name: "enableWebSearch",
-          display_name: t("LABEL_ENABLE_WEB_SEARCH"),
-          default: false,
-          ui: {
-            component: "switch",
-            hint: t("HINT_ENABLE_WEB_SEARCH"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "boolean",
-          name: "ignoreSitemap",
-          display_name: t("LABEL_IGNORE_SITEMAP"),
-          default: false,
-          ui: {
-            component: "switch",
-            hint: t("HINT_IGNORE_SITEMAP"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "boolean",
-          name: "includeSubdomains",
-          display_name: t("LABEL_INCLUDE_SUBDOMAINS"),
-          default: true,
-          ui: {
-            component: "switch",
-            hint: t("HINT_INCLUDE_SUBDOMAINS"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "boolean",
-          name: "showSources",
-          display_name: t("LABEL_SHOW_SOURCES"),
-          default: false,
-          ui: {
-            component: "switch",
-            hint: t("HINT_SHOW_SOURCES"),
-            support_expression: true,
-          },
-        },
-        {
-          type: "boolean",
-          name: "ignoreInvalidURLs",
-          display_name: t("LABEL_IGNORE_INVALID_URLS"),
-          default: true,
-          ui: {
-            component: "switch",
-            hint: t("HINT_IGNORE_INVALID_URLS"),
-            support_expression: true,
-          },
-        },
-        scrapeOptionsParameter,
-      ],
+      name: "useCustomBody",
+      type: "boolean",
+      display_name: t("LABEL_USE_CUSTOM_BODY"),
+      default: false,
+      ui: {
+        component: "switch",
+      },
     },
     {
-      name: "customBody",
-      type: "object",
-      properties: [
-        {
-          name: "useCustomBody",
-          type: "boolean",
-          constant: true,
-        },
-        customBodyParameter,
-      ],
+      type: "string",
+      name: "prompt",
+      display_name: t("LABEL_EXTRACT_PROMPT"),
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "textarea",
+        hint: t("HINT_EXTRACT_PROMPT"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "string",
+      name: "schema",
+      display_name: t("LABEL_EXTRACT_SCHEMA"),
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "code-editor",
+        language: "json",
+        hint: t("HINT_EXTRACT_SCHEMA"),
+        line_numbers: true,
+        support_expression: true,
+      },
+      default: "{}",
+    },
+    {
+      type: "boolean",
+      name: "enableWebSearch",
+      display_name: t("LABEL_ENABLE_WEB_SEARCH"),
+      default: false,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_ENABLE_WEB_SEARCH"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "boolean",
+      name: "ignoreSitemap",
+      display_name: t("LABEL_IGNORE_SITEMAP"),
+      default: false,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_IGNORE_SITEMAP"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "boolean",
+      name: "includeSubdomains",
+      display_name: t("LABEL_INCLUDE_SUBDOMAINS"),
+      default: true,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_INCLUDE_SUBDOMAINS"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "boolean",
+      name: "showSources",
+      display_name: t("LABEL_SHOW_SOURCES"),
+      default: false,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_SHOW_SOURCES"),
+        support_expression: true,
+      },
+    },
+    {
+      type: "boolean",
+      name: "ignoreInvalidURLs",
+      display_name: t("LABEL_IGNORE_INVALID_URLS"),
+      default: true,
+      display: {
+        show: { useCustomBody: false },
+      },
+      ui: {
+        component: "switch",
+        hint: t("HINT_IGNORE_INVALID_URLS"),
+        support_expression: true,
+      },
+    },
+    {
+      ...scrapeOptionsParameter,
+      display: {
+        show: { useCustomBody: false },
+      },
+    },
+    {
+      ...customBodyParameter,
+      display: {
+        show: { useCustomBody: true },
+      },
     },
   ],
 }
@@ -145,5 +157,7 @@ export const ExtractStructuredDataTool: ToolDefinition = {
   description: t("TOOL_EXTRACT_STRUCTURED_DATA_DESCRIPTION"),
   icon: "📦",
   parameters: [firecrawlCredentialParameter, urlsParameters, options],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }

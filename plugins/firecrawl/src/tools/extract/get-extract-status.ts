@@ -1,5 +1,4 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { notImplementedToolInvoke } from "../_shared-invoke"
 import { t } from "../../i18n/i18n-node"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
 
@@ -21,5 +20,7 @@ export const GetExtractStatusTool: ToolDefinition = {
       },
     },
   ],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }

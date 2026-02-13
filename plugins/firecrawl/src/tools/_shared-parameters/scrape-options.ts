@@ -8,9 +8,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 
-const formatItemParameter: PropertyDiscriminatedUnion<string, "type"> = {
+const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
-  name: "type",
   discriminator: "type",
   any_of: [
     {
@@ -303,345 +302,344 @@ const actionsParameter: PropertyArray = {
   items: {
     type: "discriminated_union",
     discriminator: "type",
-    name: "type",
     any_of: [
       {
         name: "wait-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "wait",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "wait",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "milliseconds",
-          type: "number",
-          display_name: t("LABEL_MILLISECONDS"),
-          default: 1000,
-          ui: {
-            component: "number-input",
-            support_expression: true,
-            hint: t("HINT_WAIT_MILLISECONDS"),
+          {
+            name: "milliseconds",
+            type: "number",
+            display_name: t("LABEL_MILLISECONDS"),
+            default: 1000,
+            ui: {
+              component: "number-input",
+              support_expression: true,
+              hint: t("HINT_WAIT_MILLISECONDS"),
+            },
           },
-        },
-        {
-          name: "selector",
-          type: "string",
-          display_name: t("LABEL_SELECTOR"),
-          ui: {
-            component: "input",
-            support_expression: true,
-            hint: t("HINT_WAIT_SELECTOR"),
+          {
+            name: "selector",
+            type: "string",
+            display_name: t("LABEL_SELECTOR"),
+            ui: {
+              component: "input",
+              support_expression: true,
+              hint: t("HINT_WAIT_SELECTOR"),
+            },
           },
-        },
         ],
       },
       {
         name: "screenshot-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "screenshot",
-          ui: {
-            component: "select",
-          },
-        },
-        {
-          name: "fullPage",
-          type: "boolean",
-          display_name: t("LABEL_FULL_PAGE"),
-          ui: {
-            component: "switch",
-            support_expression: true,
-            hint: t("HINT_FULL_PAGE_VIEWPORT"),
-          },
-        },
-        {
-          name: "quality",
-          type: "number",
-          display_name: t("LABEL_QUALITY"),
-          default: 100,
-          ui: {
-            component: "number-input",
-            support_expression: true,
-            hint: t("HINT_SCREENSHOT_QUALITY"),
-          },
-        },
-        {
-          name: "viewport",
-          type: "object",
-          display_name: t("LABEL_VIEWPORT"),
-          properties: [
-            {
-              name: "width",
-              type: "number",
-              default: 1280,
-              display_name: t("LABEL_VIEWPORT_WIDTH"),
-              ui: {
-                component: "number-input",
-                support_expression: true,
-                hint: t("HINT_VIEWPORT_WIDTH"),
-              },
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "screenshot",
+            ui: {
+              component: "select",
             },
-            {
-              name: "height",
-              type: "number",
-              default: 800,
-              display_name: t("LABEL_VIEWPORT_HEIGHT"),
-              ui: {
-                component: "number-input",
-                support_expression: true,
-                hint: t("HINT_VIEWPORT_HEIGHT"),
-              },
+          },
+          {
+            name: "fullPage",
+            type: "boolean",
+            display_name: t("LABEL_FULL_PAGE"),
+            ui: {
+              component: "switch",
+              support_expression: true,
+              hint: t("HINT_FULL_PAGE_VIEWPORT"),
             },
-          ],
-        },
+          },
+          {
+            name: "quality",
+            type: "number",
+            display_name: t("LABEL_QUALITY"),
+            default: 100,
+            ui: {
+              component: "number-input",
+              support_expression: true,
+              hint: t("HINT_SCREENSHOT_QUALITY"),
+            },
+          },
+          {
+            name: "viewport",
+            type: "object",
+            display_name: t("LABEL_VIEWPORT"),
+            properties: [
+              {
+                name: "width",
+                type: "number",
+                default: 1280,
+                display_name: t("LABEL_VIEWPORT_WIDTH"),
+                ui: {
+                  component: "number-input",
+                  support_expression: true,
+                  hint: t("HINT_VIEWPORT_WIDTH"),
+                },
+              },
+              {
+                name: "height",
+                type: "number",
+                default: 800,
+                display_name: t("LABEL_VIEWPORT_HEIGHT"),
+                ui: {
+                  component: "number-input",
+                  support_expression: true,
+                  hint: t("HINT_VIEWPORT_HEIGHT"),
+                },
+              },
+            ],
+          },
         ],
       },
       {
         name: "click-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "click",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "click",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "selector",
-          type: "string",
-          display_name: t("LABEL_SELECTOR"),
-          required: true,
-          ui: {
-            component: "input",
-            support_expression: true,
-            hint: t("HINT_CLICK_SELECTOR"),
+          {
+            name: "selector",
+            type: "string",
+            display_name: t("LABEL_SELECTOR"),
+            required: true,
+            ui: {
+              component: "input",
+              support_expression: true,
+              hint: t("HINT_CLICK_SELECTOR"),
+            },
           },
-        },
         ],
       },
       {
         name: "write-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "write",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "write",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "text",
-          type: "string",
-          display_name: t("LABEL_TEXT"),
-          required: true,
-          ui: {
-            component: "input",
-            support_expression: true,
-            hint: t("HINT_WRITE_TEXT"),
+          {
+            name: "text",
+            type: "string",
+            display_name: t("LABEL_TEXT"),
+            required: true,
+            ui: {
+              component: "input",
+              support_expression: true,
+              hint: t("HINT_WRITE_TEXT"),
+            },
           },
-        },
         ],
       },
       {
         name: "press-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "press",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "press",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "key",
-          type: "string",
-          display_name: t("LABEL_KEY"),
-          required: true,
-          ui: {
-            component: "input",
-            support_expression: true,
-            hint: t("HINT_PRESS_KEY"),
+          {
+            name: "key",
+            type: "string",
+            display_name: t("LABEL_KEY"),
+            required: true,
+            ui: {
+              component: "input",
+              support_expression: true,
+              hint: t("HINT_PRESS_KEY"),
+            },
           },
-        },
         ],
       },
       {
         name: "scroll-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "scroll",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "scroll",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "direction",
-          type: "string",
-          display_name: t("LABEL_DIRECTION"),
-          default: "down",
-          enum: ["up", "down"],
-          required: true,
-          ui: {
-            component: "select",
-            support_expression: true,
-            options: [
-              {
-                label: t("OPTION_DIRECTION_UP"),
-                value: "up",
-              },
-              {
-                label: t("OPTION_DIRECTION_DOWN"),
-                value: "down",
-              },
-            ],
-            hint: t("HINT_SCROLL_DIRECTION"),
+          {
+            name: "direction",
+            type: "string",
+            display_name: t("LABEL_DIRECTION"),
+            default: "down",
+            enum: ["up", "down"],
+            required: true,
+            ui: {
+              component: "select",
+              support_expression: true,
+              options: [
+                {
+                  label: t("OPTION_DIRECTION_UP"),
+                  value: "up",
+                },
+                {
+                  label: t("OPTION_DIRECTION_DOWN"),
+                  value: "down",
+                },
+              ],
+              hint: t("HINT_SCROLL_DIRECTION"),
+            },
           },
-        },
-        {
-          name: "selector",
-          type: "string",
-          display_name: t("LABEL_SELECTOR"),
-          ui: {
-            component: "input",
-            support_expression: true,
-            hint: t("HINT_SCROLL_SELECTOR"),
+          {
+            name: "selector",
+            type: "string",
+            display_name: t("LABEL_SELECTOR"),
+            ui: {
+              component: "input",
+              support_expression: true,
+              hint: t("HINT_SCROLL_SELECTOR"),
+            },
           },
-        },
         ],
       },
       {
         name: "scrape-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "scrape",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "scrape",
+            ui: {
+              component: "select",
+            },
           },
-        },
         ],
       },
       {
         name: "execute-javascript-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "executeJavascript",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "executeJavascript",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "script",
-          type: "string",
-          display_name: t("LABEL_SCRIPT"),
-          required: true,
-          ui: {
-            component: "code-editor",
-            support_expression: true,
-            language: "javascript",
-            hint: t("HINT_EXECUTE_JAVASCRIPT_SCRIPT"),
+          {
+            name: "script",
+            type: "string",
+            display_name: t("LABEL_SCRIPT"),
+            required: true,
+            ui: {
+              component: "code-editor",
+              support_expression: true,
+              language: "javascript",
+              hint: t("HINT_EXECUTE_JAVASCRIPT_SCRIPT"),
+            },
           },
-        },
         ],
       },
       {
         name: "pdf-action",
         type: "object",
         properties: [
-        {
-          name: "type",
-          type: "string",
-          display_name: t("LABEL_TYPE"),
-          constant: "pdf",
-          ui: {
-            component: "select",
+          {
+            name: "type",
+            type: "string",
+            display_name: t("LABEL_TYPE"),
+            constant: "pdf",
+            ui: {
+              component: "select",
+            },
           },
-        },
-        {
-          name: "format",
-          type: "string",
-          display_name: t("LABEL_FORMAT"),
-          enum: [
-            "A0",
-            "A1",
-            "A2",
-            "A3",
-            "A4",
-            "A5",
-            "A6",
-            "Letter",
-            "Legal",
-            "Tabloid",
-            "Ledger",
-          ],
-          ui: {
-            component: "select",
-            support_expression: true,
-            hint: t("HINT_PDF_FORMAT"),
+          {
+            name: "format",
+            type: "string",
+            display_name: t("LABEL_FORMAT"),
+            enum: [
+              "A0",
+              "A1",
+              "A2",
+              "A3",
+              "A4",
+              "A5",
+              "A6",
+              "Letter",
+              "Legal",
+              "Tabloid",
+              "Ledger",
+            ],
+            ui: {
+              component: "select",
+              support_expression: true,
+              hint: t("HINT_PDF_FORMAT"),
+            },
           },
-        },
-        {
-          name: "landscape",
-          type: "boolean",
-          display_name: t("LABEL_LANDSCAPE"),
-          ui: {
-            component: "switch",
-            support_expression: true,
-            hint: t("HINT_PDF_LANDSCAPE"),
+          {
+            name: "landscape",
+            type: "boolean",
+            display_name: t("LABEL_LANDSCAPE"),
+            ui: {
+              component: "switch",
+              support_expression: true,
+              hint: t("HINT_PDF_LANDSCAPE"),
+            },
           },
-        },
-        {
-          name: "scale",
-          type: "number",
-          display_name: t("LABEL_SCALE"),
-          default: 1,
-          ui: {
-            component: "number-input",
-            support_expression: true,
-            hint: t("HINT_PDF_SCALE"),
+          {
+            name: "scale",
+            type: "number",
+            display_name: t("LABEL_SCALE"),
+            default: 1,
+            ui: {
+              component: "number-input",
+              support_expression: true,
+              hint: t("HINT_PDF_SCALE"),
+            },
           },
-        },
         ],
       },
     ],
     discriminator_ui: {
       component: "select",
     },
-  } satisfies PropertyDiscriminatedUnion<string, "type">,
-    ui: {
-      component: "array-section",
-      hint: t("HINT_ACTIONS"),
-    },
+  } satisfies PropertyDiscriminatedUnion<"type">,
+  ui: {
+    component: "array-section",
+    hint: t("HINT_ACTIONS"),
+  },
 }
 
 const locationParameter: PropertyObject = {

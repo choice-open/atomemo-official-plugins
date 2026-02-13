@@ -4,7 +4,6 @@ import {
   batchIdParameter,
   firecrawlCredentialParameter,
 } from "../../_shared-parameters"
-import { notImplementedToolInvoke } from "../../_shared-invoke"
 
 export const CancelBatchScrapeTool: ToolDefinition = {
   name: "firecrawl-cancel-batch-scrape",
@@ -12,5 +11,7 @@ export const CancelBatchScrapeTool: ToolDefinition = {
   description: t("TOOL_CANCEL_BATCH_SCRAPE_DESCRIPTION"),
   icon: "🛑",
   parameters: [firecrawlCredentialParameter, batchIdParameter],
-  invoke: notImplementedToolInvoke,
+  async invoke(context) {
+    throw new Error("Not implemented")
+  },
 }
