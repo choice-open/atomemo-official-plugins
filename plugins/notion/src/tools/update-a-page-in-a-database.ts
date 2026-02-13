@@ -15,7 +15,7 @@ type ParametersNames =
       keyof UpdatePageParameters,
       "page_id" | "properties" | "archived" | "icon"
     >
-  | "notionClient"
+  | "api_key"
   | "simplify_output";
 
 export const parameters: Array<Property<ParametersNames>> = [

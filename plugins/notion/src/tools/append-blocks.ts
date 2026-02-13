@@ -10,7 +10,7 @@ import type { ExcludedNames } from "./_shared-parameters/excluded-names";
 
 type ParametersNames =
   | Exclude<keyof AppendBlockChildrenParameters, ExcludedNames>
-  | "notionClient";
+  | "api_key";
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,

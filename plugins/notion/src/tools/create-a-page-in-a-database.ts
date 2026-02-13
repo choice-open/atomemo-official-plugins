@@ -43,7 +43,7 @@ type ParametersNames =
       keyof CreatePageParameters,
       "parent" | "children" | "icon" | "properties"
     >
-  | "notionClient"
+  | "api_key"
   | "simplify_output";
 
 const parameters: Array<Property<ParametersNames>> = [

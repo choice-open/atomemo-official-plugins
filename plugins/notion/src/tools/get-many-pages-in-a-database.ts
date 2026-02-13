@@ -14,7 +14,7 @@ type ParametersNames =
       keyof QueryDataSourceParameters,
       ExcludedNames | "archived" | "in_trash" | "result_type"
     >
-  | "notionClient"
+  | "api_key"
   | "return_all"
   | "simplify_output";
 

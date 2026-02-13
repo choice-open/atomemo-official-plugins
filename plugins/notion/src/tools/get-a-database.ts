@@ -10,7 +10,7 @@ import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
 
 type ParametersNames =
   | Exclude<keyof GetDatabaseParameters, ExcludedNames>
-  | "notionClient"
+  | "api_key"
   | "simplify_output";
 
 const parameters: Array<Property<ParametersNames>> = [

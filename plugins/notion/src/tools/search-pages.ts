@@ -12,7 +12,7 @@ import { sortRelatedParameters } from "./_shared-parameters/sort";
 
 type ParametersNames =
   | Exclude<keyof SearchParameters, ExcludedNames>
-  | "notionClient"
+  | "api_key"
   | "return_all"
   | "enable_sort"
   | "enable_filter"

@@ -11,7 +11,7 @@ import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
 
 type ParametersNames =
   | Exclude<keyof ListBlockChildrenParameters, ExcludedNames>
-  | "notionClient"
+  | "api_key"
   | "return_all"
   | "simplify_output";
 
