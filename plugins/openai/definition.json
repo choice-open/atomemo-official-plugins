@@ -8,7 +8,7 @@
     "en_US": "OpenAI models for text generation, vision, and reasoning.",
     "zh_Hans": "OpenAI 文本、视觉与推理模型。"
   },
-  "icon": "🤖",
+  "icon": "symbol:icon-openai",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/openai",
   "locales": [
@@ -18,7 +18,7 @@
   "author": "david 2",
   "email": "david.chen@choiceform.com",
   "organization_id": "Bc6oFsjVgi4x5jB2xbcyUTVtliO4XOpk",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "credentials": [
     {
       "name": "openai-api-key",
