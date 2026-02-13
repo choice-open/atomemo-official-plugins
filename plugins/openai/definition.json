@@ -1,0 +1,801 @@
+{
+  "name": "openai",
+  "display_name": {
+    "en_US": "OpenAI",
+    "zh_Hans": "OpenAI"
+  },
+  "description": {
+    "en_US": "OpenAI models for text generation, vision, and reasoning.",
+    "zh_Hans": "OpenAI 文本、视觉与推理模型。"
+  },
+  "icon": "🤖",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/openai",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "david 2",
+  "email": "david.chen@choiceform.com",
+  "organization_id": "Bc6oFsjVgi4x5jB2xbcyUTVtliO4XOpk",
+  "version": "0.6.1",
+  "credentials": [
+    {
+      "name": "openai-api-key",
+      "display_name": {
+        "en_US": "OpenAI API Key",
+        "zh_Hans": "OpenAI API Key"
+      },
+      "description": {
+        "en_US": "Your OpenAI API key for chat completions",
+        "zh_Hans": "用于对话补全的 OpenAI API Key"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "OpenAI API Key",
+            "zh_Hans": "OpenAI API Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Enter your OpenAI API key",
+              "zh_Hans": "输入 OpenAI API Key"
+            },
+            "placeholder": {
+              "en_US": "sk-...",
+              "zh_Hans": "sk-..."
+            },
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "organization_id",
+          "display_name": {
+            "en_US": "Organization ID",
+            "zh_Hans": "Organization ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Enter your OpenAI organization ID if you need to target a specific organization",
+              "zh_Hans": "如需指定组织范围，请填写对应的 Organization ID"
+            },
+            "placeholder": {
+              "en_US": "org_...",
+              "zh_Hans": "org_..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "display_name": {
+            "en_US": "Project ID",
+            "zh_Hans": "Project ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Enter your OpenAI project ID if you need to target a specific project",
+              "zh_Hans": "如需指定项目范围，请填写对应的 Project ID"
+            },
+            "placeholder": {
+              "en_US": "proj_...",
+              "zh_Hans": "proj_..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "gpt-4.1-mini",
+      "display_name": {
+        "en_US": "GPT-4.1 mini",
+        "zh_Hans": "GPT-4.1 mini"
+      },
+      "description": {
+        "en_US": "GPT-4.1 mini, lower latency and cost with strong coding and reasoning.",
+        "zh_Hans": "延迟更低、成本更优且具备较强推理与编码能力的 GPT-4.1 mini 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.0004,
+        "input_cache_read": 0.0001,
+        "output": 0.0016
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-4.1",
+      "display_name": {
+        "en_US": "GPT-4.1",
+        "zh_Hans": "GPT-4.1"
+      },
+      "description": {
+        "en_US": "GPT-4.1 model for long-context reasoning, coding, and retrieval.",
+        "zh_Hans": "面向长上下文推理、编码和检索的 GPT-4.1 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.002,
+        "input_cache_read": 0.0005,
+        "output": 0.008
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-4o-mini",
+      "display_name": {
+        "en_US": "GPT-4o mini",
+        "zh_Hans": "GPT-4o mini"
+      },
+      "description": {
+        "en_US": "Fast and affordable small model",
+        "zh_Hans": "快速且经济的小型模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.15,
+        "input_cache_read": 0.075,
+        "output": 0.6
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-4o",
+      "display_name": {
+        "en_US": "GPT-4o",
+        "zh_Hans": "GPT-4o"
+      },
+      "description": {
+        "en_US": "Most capable GPT-4o model for complex tasks",
+        "zh_Hans": "能力最强的 GPT-4o 模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2.5,
+        "input_cache_read": 1.25,
+        "output": 10
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-4o-nano",
+      "display_name": {
+        "en_US": "GPT-4o nano",
+        "zh_Hans": "GPT-4o nano"
+      },
+      "description": {
+        "en_US": "GPT-4o nano, ultra-fast and low-cost model for lightweight workloads.",
+        "zh_Hans": "超快、超省、适合轻量级任务的 GPT-4o nano 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.08,
+        "input_cache_read": 0.04,
+        "output": 0.32
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5.1-codex-max",
+      "display_name": {
+        "en_US": "GPT-5.1 Codex Max",
+        "zh_Hans": "GPT-5.1 Codex Max"
+      },
+      "description": {
+        "en_US": "GPT-5.1 Codex Max for long-running and large-scale coding tasks.",
+        "zh_Hans": "面向长时间、大规模编码任务的 GPT-5.1 Codex Max 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2.5,
+        "input_cache_read": 1.25,
+        "output": 10
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 0.7,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5.1-codex",
+      "display_name": {
+        "en_US": "GPT-5.1 Codex",
+        "zh_Hans": "GPT-5.1 Codex"
+      },
+      "description": {
+        "en_US": "GPT-5.1 Codex model optimized for coding workflows.",
+        "zh_Hans": "针对编码工作流优化的 GPT-5.1 Codex 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2,
+        "input_cache_read": 1,
+        "output": 8
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 0.8,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5.1",
+      "display_name": {
+        "en_US": "GPT-5.1",
+        "zh_Hans": "GPT-5.1"
+      },
+      "description": {
+        "en_US": "GPT-5.1 model for general-purpose reasoning, coding, and agents.",
+        "zh_Hans": "用于通用推理、编码和智能体的 GPT-5.1 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2,
+        "input_cache_read": 1,
+        "output": 8
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5.2-codex",
+      "display_name": {
+        "en_US": "GPT-5.2 Codex",
+        "zh_Hans": "GPT-5.2 Codex"
+      },
+      "description": {
+        "en_US": "GPT-5.2 Codex model optimized for software engineering and coding agents.",
+        "zh_Hans": "针对软件工程与编码智能体优化的 GPT-5.2 Codex 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2.5,
+        "input_cache_read": 1.25,
+        "output": 10
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 0.8,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5.2",
+      "display_name": {
+        "en_US": "GPT-5.2",
+        "zh_Hans": "GPT-5.2"
+      },
+      "description": {
+        "en_US": "GPT-5.2 frontier model for coding and agents (chat completions).",
+        "zh_Hans": "用于编码和智能体的 GPT-5.2 前沿模型（Chat Completions）。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 1.75,
+        "input_cache_read": 0.175,
+        "output": 14
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": [
+        "parallel_tool_calls",
+        "verbosity"
+      ]
+    },
+    {
+      "name": "gpt-5.2-pro",
+      "display_name": {
+        "en_US": "GPT-5.2 pro",
+        "zh_Hans": "GPT-5.2 pro"
+      },
+      "description": {
+        "en_US": "GPT-5.2 pro model with higher accuracy for complex tasks.",
+        "zh_Hans": "精度更高、适合复杂任务的 GPT-5.2 Pro 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 3,
+        "input_cache_read": 1.5,
+        "output": 12
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5-codex",
+      "display_name": {
+        "en_US": "GPT-5 Codex",
+        "zh_Hans": "GPT-5 Codex"
+      },
+      "description": {
+        "en_US": "GPT-5 Codex model optimized for code generation and refactoring.",
+        "zh_Hans": "针对代码生成和重构优化的 GPT-5 Codex 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2,
+        "input_cache_read": 1,
+        "output": 8
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 0.8,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5-mini",
+      "display_name": {
+        "en_US": "GPT-5 mini",
+        "zh_Hans": "GPT-5 mini"
+      },
+      "description": {
+        "en_US": "GPT-5 mini, faster and more cost efficient for everyday tasks.",
+        "zh_Hans": "更快、更省、适合日常任务的 GPT-5 mini 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.3,
+        "input_cache_read": 0.15,
+        "output": 1.2
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5",
+      "display_name": {
+        "en_US": "GPT-5",
+        "zh_Hans": "GPT-5"
+      },
+      "description": {
+        "en_US": "GPT-5 reasoning model for coding, agents, and general-purpose tasks.",
+        "zh_Hans": "用于编码、智能体和通用任务的 GPT-5 推理模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2,
+        "input_cache_read": 1,
+        "output": 8
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5-nano",
+      "display_name": {
+        "en_US": "GPT-5 nano",
+        "zh_Hans": "GPT-5 nano"
+      },
+      "description": {
+        "en_US": "GPT-5 nano, fastest and most cost efficient for low-latency use cases.",
+        "zh_Hans": "延迟最低、最省成本的 GPT-5 nano 模型，适合实时场景。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.1,
+        "input_cache_read": 0.05,
+        "output": 0.4
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-5-pro",
+      "display_name": {
+        "en_US": "GPT-5 pro",
+        "zh_Hans": "GPT-5 pro"
+      },
+      "description": {
+        "en_US": "GPT-5 pro model with higher accuracy and reliability.",
+        "zh_Hans": "精度更高、更可靠的 GPT-5 Pro 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 2.5,
+        "input_cache_read": 1.25,
+        "output": 10
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-audio-mini",
+      "display_name": {
+        "en_US": "gpt-audio-mini",
+        "zh_Hans": "gpt-audio-mini"
+      },
+      "description": {
+        "en_US": "GPT audio mini model for cost efficient audio tasks.",
+        "zh_Hans": "面向音频任务的高性价比 GPT audio mini 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.3,
+        "input_cache_read": 0.15,
+        "output": 1.2
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-audio",
+      "display_name": {
+        "en_US": "gpt-audio",
+        "zh_Hans": "gpt-audio"
+      },
+      "description": {
+        "en_US": "GPT audio model for text and audio interactions.",
+        "zh_Hans": "支持文本与音频交互的 GPT audio 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 1,
+        "input_cache_read": 0.5,
+        "output": 4
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-realtime-mini",
+      "display_name": {
+        "en_US": "gpt-realtime-mini",
+        "zh_Hans": "gpt-realtime-mini"
+      },
+      "description": {
+        "en_US": "Realtime mini GPT model optimized for cost-efficient streaming.",
+        "zh_Hans": "为成本敏感的流式场景优化的 Realtime mini GPT 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.3,
+        "input_cache_read": 0.15,
+        "output": 1.2
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "gpt-realtime",
+      "display_name": {
+        "en_US": "gpt-realtime",
+        "zh_Hans": "gpt-realtime"
+      },
+      "description": {
+        "en_US": "Realtime GPT model for low-latency streaming interactions.",
+        "zh_Hans": "用于低延迟流式交互的 Realtime GPT 模型。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 1,
+        "input_cache_read": 0.5,
+        "output": 4
+      },
+      "unsupported_parameters": []
+    },
+    {
+      "name": "o1-mini",
+      "display_name": {
+        "en_US": "O1 mini",
+        "zh_Hans": "O1 mini"
+      },
+      "description": {
+        "en_US": "Efficient reasoning model",
+        "zh_Hans": "高效推理模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.003,
+        "input_cache_read": 0.003,
+        "output": 0.012
+      },
+      "unsupported_parameters": [
+        "temperature",
+        "parallel_tool_calls",
+        "verbosity"
+      ]
+    },
+    {
+      "name": "o1",
+      "display_name": {
+        "en_US": "O1",
+        "zh_Hans": "O1"
+      },
+      "description": {
+        "en_US": "Advanced reasoning model",
+        "zh_Hans": "高级推理模型"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.015,
+        "input_cache_read": 0.0075,
+        "output": 0.06
+      },
+      "unsupported_parameters": [
+        "temperature",
+        "parallel_tool_calls",
+        "verbosity"
+      ]
+    }
+  ],
+  "tools": []
+}
