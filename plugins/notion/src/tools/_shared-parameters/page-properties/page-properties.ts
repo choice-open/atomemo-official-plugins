@@ -10,14 +10,8 @@ import {
   statusSelectOptionParameter,
 } from "./select-option";
 
-export const propertiesValue: PropertyDiscriminatedUnion<"value", "type"> = {
-  name: "value",
+export const propertiesValue: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
-  required: true,
-  display_name: t("PAGE_PROPERTIES_VALUE_DISPLAY_NAME"),
-  ui: {
-    hint: t("PAGE_PROPERTIES_VALUE_HINT"),
-  },
   discriminator: "type",
   any_of: [
     {
@@ -175,7 +169,6 @@ export const propertiesValue: PropertyDiscriminatedUnion<"value", "type"> = {
           type: "array",
           items: {
             type: "discriminated_union",
-            name: "person",
             discriminator: "object",
             any_of: [
               {
@@ -223,7 +216,7 @@ export const propertiesValue: PropertyDiscriminatedUnion<"value", "type"> = {
                 ],
               },
             ],
-          } satisfies PropertyDiscriminatedUnion<"person", "object">,
+          } satisfies PropertyDiscriminatedUnion<"object">,
           required: true,
         },
       ],
@@ -399,7 +392,6 @@ export const propertiesValue: PropertyDiscriminatedUnion<"value", "type"> = {
           type: "array",
           items: {
             type: "discriminated_union",
-            name: "file",
             discriminator: "type",
             any_of: [
               {
@@ -505,7 +497,7 @@ export const propertiesValue: PropertyDiscriminatedUnion<"value", "type"> = {
                 ],
               },
             ],
-          } satisfies PropertyDiscriminatedUnion<"file", "type">,
+          } satisfies PropertyDiscriminatedUnion<"type">,
           required: true,
         },
       ],

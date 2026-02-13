@@ -44,7 +44,7 @@ export const getAPageInADatabaseTool: ToolDefinition = {
   description: t("GET_PAGE_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
+  invoke: async () => {
+    return { error: "Not implemented" };
+  },
 };

@@ -654,9 +654,8 @@ export const allBlocks: PropertyObject<string, "type">[] = [
   linkToPageBlock,
 ];
 
-export const blocksItems: PropertyDiscriminatedUnion<"blocks", "type"> = {
+export const blocksItems: PropertyDiscriminatedUnion< "type"> = {
   type: "discriminated_union",
-  name: "blocks",
   discriminator: "type",
   discriminator_ui: {
     component: "select",

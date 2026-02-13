@@ -66,10 +66,8 @@ const commonProps = {
 
 // MentionRichTextItemRequest['mention']
 export const mentionValueParameter: PropertyDiscriminatedUnion<
-  "mention",
   "type"
 > = {
-  name: "mention",
   type: "discriminated_union",
   discriminator: "type",
   any_of: [
@@ -206,53 +204,51 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<
           required: true,
           ui: { component: "input", support_expression: true },
         },
-        {
-          name: "template_mention",
-          type: "discriminated_union",
-          discriminator: "template_mention_type",
-          any_of: [
-            {
-              type: "object",
-              name: "template_mention_date",
-              properties: [
-                {
-                  name: "template_mention_type",
-                  type: "string",
-                  constant: "today",
-                  required: true,
-                },
-              ],
-            },
-            {
-              type: "object",
-              name: "template_mention_date_now",
-              properties: [
-                {
-                  name: "template_mention_type",
-                  type: "string",
-                  constant: "now",
-                  required: true,
-                },
-              ],
-            },
-            {
-              type: "object",
-              name: "template_mention_user",
-              properties: [
-                {
-                  name: "template_mention_type",
-                  type: "string",
-                  constant: "me",
-                  required: true,
-                },
-              ],
-            },
-          ],
-          required: true,
-        } satisfies PropertyDiscriminatedUnion<
-          "template_mention",
-          "template_mention_type"
-        >,
+        // TODO
+        // {
+        //   type: "discriminated_union",
+        //   discriminator: "template_mention_type",
+        //   any_of: [
+        //     {
+        //       type: "object",
+        //       name: "template_mention_date",
+        //       properties: [
+        //         {
+        //           name: "template_mention_type",
+        //           type: "string",
+        //           constant: "today",
+        //           required: true,
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       type: "object",
+        //       name: "template_mention_date_now",
+        //       properties: [
+        //         {
+        //           name: "template_mention_type",
+        //           type: "string",
+        //           constant: "now",
+        //           required: true,
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       type: "object",
+        //       name: "template_mention_user",
+        //       properties: [
+        //         {
+        //           name: "template_mention_type",
+        //           type: "string",
+        //           constant: "me",
+        //           required: true,
+        //         },
+        //       ],
+        //     },
+        //   ],
+        // // } satisfies PropertyDiscriminatedUnion<
+        //   "template_mention_type"
+        // >,
       ],
     },
     {
@@ -300,7 +296,6 @@ export const titleArrayParameter: PropertyArray<"title"> = {
   type: "array",
   items: {
     type: "discriminated_union",
-    name: "rich_text_item",
     discriminator: "type",
     any_of: [
       {
@@ -338,7 +333,7 @@ export const titleArrayParameter: PropertyArray<"title"> = {
         name: "mention",
         properties: [
           { name: "type", type: "string", constant: "mention", required: true },
-          mentionValueParameter,
+          // mentionValueParameter, // toDo
           annotationParameter,
         ],
       },

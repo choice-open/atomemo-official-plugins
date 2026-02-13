@@ -22,6 +22,7 @@ const selectColorOptions: PropertyUIOption[] = Object.entries(selectColors).map(
     value,
     label: {
       en_US: value,
+      zh_Hans: value,
     },
   }),
 );
