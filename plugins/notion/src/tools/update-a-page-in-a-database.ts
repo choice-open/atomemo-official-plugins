@@ -7,10 +7,12 @@ import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   mapIcon,
   mapPageProperties,
   okResult,
+  transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import { iconProperty } from "./_shared-parameters/icon"
@@ -54,6 +56,7 @@ export const updateAPageInADatabaseTool: ToolDefinition = {
     }
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.pages.update({
         archived:
           typeof rawParameters.archived === "boolean"
@@ -63,7 +66,7 @@ export const updateAPageInADatabaseTool: ToolDefinition = {
         page_id: pageId,
         properties: mapPageProperties(rawParameters.properties),
       } satisfies UpdatePageParameters)
-      return okResult(data)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
       return invokeErrResult(formatNotionError(error))
     }

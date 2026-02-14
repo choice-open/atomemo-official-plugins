@@ -1,9 +1,9 @@
-import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js";
-import packageJSON from "../package.json";
-import { secretCredential } from "./credentials/secret";
-import { t } from "./i18n/i18n-node";
-import { locales } from "./i18n/i18n-util";
-import { loadAllLocalesAsync } from "./i18n/i18n-util.async";
+import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
+import packageJSON from "../package.json"
+import { secretCredential } from "./credentials/secret"
+import { t } from "./i18n/i18n-node"
+import { locales } from "./i18n/i18n-util"
+import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
 import {
   appendBlocksTool,
   createAPageInADatabaseTool,
@@ -15,9 +15,9 @@ import {
   searchDatabasesTool,
   searchPagesTool,
   updateAPageInADatabaseTool,
-} from "./tools";
+} from "./tools"
 
-await loadAllLocalesAsync();
+await loadAllLocalesAsync()
 
 const plugin = await createPlugin({
   name: packageJSON.name,
@@ -29,19 +29,19 @@ const plugin = await createPlugin({
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/notion",
   locales,
   transporterOptions: {},
-});
+})
 
-plugin.addTool(appendBlocksTool);
-plugin.addTool(createAPageInADatabaseTool);
-plugin.addTool(createAPageTool);
-plugin.addTool(updateAPageInADatabaseTool);
-plugin.addTool(getADatabaseTool);
-plugin.addTool(getAPageInADatabaseTool);
-plugin.addTool(getChildBlocksTool);
-plugin.addTool(getManyPagesInADatabaseTool);
-plugin.addTool(searchDatabasesTool);
-plugin.addTool(searchPagesTool);
+plugin.addTool(appendBlocksTool)
+plugin.addTool(createAPageInADatabaseTool)
+plugin.addTool(createAPageTool)
+plugin.addTool(updateAPageInADatabaseTool)
+plugin.addTool(getADatabaseTool)
+plugin.addTool(getAPageInADatabaseTool)
+plugin.addTool(getChildBlocksTool)
+plugin.addTool(getManyPagesInADatabaseTool)
+plugin.addTool(searchDatabasesTool)
+plugin.addTool(searchPagesTool)
 
-plugin.addCredential(secretCredential);
+plugin.addCredential(secretCredential)
 
-plugin.run();
+plugin.run()

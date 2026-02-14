@@ -1,5 +1,5 @@
-import type { PropertyUIOption } from "@choiceopen/atomemo-plugin-schema/types";
-import type { ApiColor } from "./page-properties/type";
+import type { PropertyUIOption } from "@choiceopen/atomemo-plugin-schema/types"
+import type { ApiColor } from "./page-properties/type"
 
 export const apiColors: Record<ApiColor, ApiColor> = {
   default: "default",
@@ -22,7 +22,7 @@ export const apiColors: Record<ApiColor, ApiColor> = {
   purple_background: "purple_background",
   pink_background: "pink_background",
   red_background: "red_background",
-};
+}
 
 export const apiColorOptions: Array<PropertyUIOption> = Object.entries(
   apiColors,
@@ -32,5 +32,5 @@ export const apiColorOptions: Array<PropertyUIOption> = Object.entries(
     label: {
       en_US: value.replace("_", " ").replace(/\b\w/g, (c) => c.toUpperCase()),
     },
-  };
-});
+  }
+})

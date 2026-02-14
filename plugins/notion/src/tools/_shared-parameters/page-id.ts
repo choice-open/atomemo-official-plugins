@@ -1,5 +1,5 @@
-import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 export const pageIdProperty: PropertyString<"page_id"> = {
   name: "page_id",
@@ -16,4 +16,4 @@ export const pageIdProperty: PropertyString<"page_id"> = {
     },
     support_expression: true,
   },
-};
+}

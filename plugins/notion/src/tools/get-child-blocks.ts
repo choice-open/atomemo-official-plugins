@@ -7,9 +7,11 @@ import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   okResult,
   queryWithPagination,
+  transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
@@ -72,6 +74,7 @@ export const getChildBlocksTool: ToolDefinition = {
         : 100
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) =>
         client.blocks.children.list({
           block_id: blockId,
@@ -79,7 +82,7 @@ export const getChildBlocksTool: ToolDefinition = {
           start_cursor: startCursor,
         } satisfies ListBlockChildrenParameters),
       )
-      return okResult(data)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
       return invokeErrResult(formatNotionError(error))
     }

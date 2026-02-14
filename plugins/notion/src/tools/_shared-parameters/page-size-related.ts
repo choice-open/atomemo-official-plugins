@@ -1,5 +1,5 @@
-import type { Property } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { Property } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 const pageSizeParameter: Property<"page_size"> = {
   name: "page_size",
@@ -21,7 +21,7 @@ const pageSizeParameter: Property<"page_size"> = {
       return_all: true,
     },
   },
-};
+}
 
 const returnAllParameter: Property<"return_all"> = {
   name: "return_all",
@@ -37,9 +37,6 @@ const returnAllParameter: Property<"return_all"> = {
   ai: {
     llm_description: t("RETURN_ALL_LLM_DESCRIPTION"),
   },
-};
+}
 
-export const pageSizeRelatedParameters = [
-  returnAllParameter,
-  pageSizeParameter,
-];
+export const pageSizeRelatedParameters = [returnAllParameter, pageSizeParameter]

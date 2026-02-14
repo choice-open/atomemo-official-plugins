@@ -1,5 +1,5 @@
-import type { PropertyBoolean } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { PropertyBoolean } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 /**
  * deal with simplify_output parameter in invoke/execute blocks,
@@ -19,6 +19,6 @@ const simplifyOutputProperty: PropertyBoolean<"simplify_output"> = {
   ai: {
     llm_description: t("SIMPLIFY_OUTPUT_LLM_DESCRIPTION"),
   },
-};
+}
 
-export { simplifyOutputProperty };
+export { simplifyOutputProperty }

@@ -2,8 +2,8 @@ import type {
   PropertyArray,
   PropertyDiscriminatedUnion,
   PropertyObject,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { apiColorOptions } from "../api-colors";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { apiColorOptions } from "../api-colors"
 
 export const annotationParameter: PropertyObject<"annotations"> = {
   name: "annotations",
@@ -60,14 +60,14 @@ export const annotationParameter: PropertyObject<"annotations"> = {
   ui: {
     component: "section",
   },
-};
+}
 
 const commonProps = {
   type: "object",
   ui: {
     component: "section",
   },
-} as const;
+} as const
 
 // MentionRichTextItemRequest['mention']
 export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
@@ -292,7 +292,7 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
   ],
-};
+}
 
 export const titleArrayParameter: PropertyArray<"title"> = {
   name: "title",
@@ -369,9 +369,9 @@ export const titleArrayParameter: PropertyArray<"title"> = {
     ],
   },
   required: true,
-};
+}
 
 export const richTextArrayParameter: PropertyArray<"rich_text"> = {
   ...titleArrayParameter,
   name: "rich_text",
-};
+}

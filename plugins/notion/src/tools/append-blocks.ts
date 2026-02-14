@@ -7,17 +7,21 @@ import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   mapBlocks,
   okResult,
+  transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { blocksProperty } from "./_shared-parameters/blocks"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
   | Exclude<keyof AppendBlockChildrenParameters, ExcludedNames>
   | "api_key"
+  | "simplify_output"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -32,6 +36,7 @@ const parameters: Array<Property<ParametersNames>> = [
     },
   },
   blocksProperty,
+  simplifyOutputProperty,
   {
     name: "after",
     type: "string",
@@ -69,6 +74,7 @@ export const appendBlocksTool: ToolDefinition = {
     }
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.blocks.children.append({
         after:
           typeof rawParameters.after === "string" &&
@@ -78,7 +84,7 @@ export const appendBlocksTool: ToolDefinition = {
         block_id: blockId,
         children,
       } satisfies AppendBlockChildrenParameters)
-      return okResult(data)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
       return invokeErrResult(formatNotionError(error))
     }

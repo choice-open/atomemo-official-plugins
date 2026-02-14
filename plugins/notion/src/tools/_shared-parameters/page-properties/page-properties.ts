@@ -2,13 +2,13 @@
 import type {
   PropertyDiscriminatedUnion,
   PropertyObject,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../../i18n/i18n-node";
-import { richTextArrayParameter, titleArrayParameter } from "./richtext";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../../i18n/i18n-node"
+import { richTextArrayParameter, titleArrayParameter } from "./richtext"
 import {
   selectOptionParameter,
   statusSelectOptionParameter,
-} from "./select-option";
+} from "./select-option"
 
 export const propertiesValue: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
@@ -584,7 +584,7 @@ export const propertiesValue: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
   ],
-};
+}
 
 export const pagePropertiesProperty: PropertyObject<"properties"> = {
   name: "properties",
@@ -598,4 +598,4 @@ export const pagePropertiesProperty: PropertyObject<"properties"> = {
   ui: {
     component: "section",
   },
-};
+}

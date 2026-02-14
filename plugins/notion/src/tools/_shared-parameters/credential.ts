@@ -1,7 +1,7 @@
-import type { PropertyCredentialId } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { PropertyCredentialId } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
-export const CREDENTIAL_NAME = "notion";
+export const CREDENTIAL_NAME = "notion"
 
 export const notionCredentialParameter: PropertyCredentialId<"api_key"> = {
   name: "api_key",
@@ -15,4 +15,4 @@ export const notionCredentialParameter: PropertyCredentialId<"api_key"> = {
   ui: {
     component: "credential-select",
   },
-};
+}

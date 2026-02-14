@@ -367,7 +367,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -570,7 +571,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -789,7 +791,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -928,7 +931,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -1185,7 +1189,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -1388,7 +1393,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -1607,7 +1613,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -1746,7 +1753,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -2017,7 +2025,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -2220,7 +2229,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -2439,7 +2449,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -2578,7 +2589,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -2849,7 +2861,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -3052,7 +3065,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -3271,7 +3285,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -3410,7 +3425,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -3681,7 +3697,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -3884,7 +3901,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -4103,7 +4121,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -4242,7 +4261,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -4499,7 +4519,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -4702,7 +4723,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -4921,7 +4943,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -5060,7 +5083,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -5317,7 +5341,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -5520,7 +5545,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -5739,7 +5765,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -5878,7 +5905,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -6135,7 +6163,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -6338,7 +6367,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -6557,7 +6587,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -6696,7 +6727,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "checked",
@@ -6967,7 +6999,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -7170,7 +7203,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -7389,7 +7423,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -7528,7 +7563,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -7785,7 +7821,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -7988,7 +8025,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -8207,7 +8245,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -8472,7 +8511,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -8675,7 +8715,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -8894,7 +8935,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -9033,7 +9075,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "icon",
@@ -9432,7 +9475,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -10243,6 +10287,30 @@
               "component": "select"
             }
           }
+        },
+        {
+          "name": "simplify_output",
+          "display_name": {
+            "en_US": "Simplify Output",
+            "zh_Hans": "简化输出"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         },
         {
           "name": "after",
@@ -10605,7 +10673,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -10808,7 +10877,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -11027,7 +11097,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -11293,7 +11364,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -11496,7 +11568,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -11715,7 +11788,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -13068,7 +13142,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -13271,7 +13346,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -13490,7 +13566,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -13629,7 +13706,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -13886,7 +13964,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -14089,7 +14168,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -14308,7 +14388,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -14447,7 +14528,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -14718,7 +14800,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -14921,7 +15004,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -15140,7 +15224,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -15279,7 +15364,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -15550,7 +15636,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -15753,7 +15840,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -15972,7 +16060,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -16111,7 +16200,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -16382,7 +16472,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -16585,7 +16676,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -16804,7 +16896,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -16943,7 +17036,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -17200,7 +17294,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -17403,7 +17498,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -17622,7 +17718,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -17761,7 +17858,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -18018,7 +18116,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -18221,7 +18320,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -18440,7 +18540,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -18579,7 +18680,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -18836,7 +18938,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -19039,7 +19142,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -19258,7 +19362,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -19397,7 +19502,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "checked",
@@ -19668,7 +19774,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -19871,7 +19978,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -20090,7 +20198,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -20229,7 +20338,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -20486,7 +20596,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -20689,7 +20800,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -20908,7 +21020,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -21173,7 +21286,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -21376,7 +21490,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -21595,7 +21710,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -21734,7 +21850,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "icon",
@@ -22133,7 +22250,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -22973,14 +23091,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -23330,7 +23448,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -23533,7 +23652,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -23752,7 +23872,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -24018,7 +24139,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -24221,7 +24343,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -24440,7 +24563,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -25793,7 +25917,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -25996,7 +26121,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -26215,7 +26341,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -26354,7 +26481,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -26611,7 +26739,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -26814,7 +26943,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -27033,7 +27163,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -27172,7 +27303,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -27443,7 +27575,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -27646,7 +27779,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -27865,7 +27999,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -28004,7 +28139,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -28275,7 +28411,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -28478,7 +28615,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -28697,7 +28835,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -28836,7 +28975,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "is_toggleable",
@@ -29107,7 +29247,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -29310,7 +29451,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -29529,7 +29671,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -29668,7 +29811,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -29925,7 +30069,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -30128,7 +30273,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -30347,7 +30493,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -30486,7 +30633,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -30743,7 +30891,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -30946,7 +31095,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -31165,7 +31315,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -31304,7 +31455,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -31561,7 +31713,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -31764,7 +31917,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -31983,7 +32137,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -32122,7 +32277,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "checked",
@@ -32393,7 +32549,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -32596,7 +32753,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -32815,7 +32973,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -32954,7 +33113,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -33211,7 +33371,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -33414,7 +33575,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -33633,7 +33795,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -33898,7 +34061,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -34101,7 +34265,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -34320,7 +34485,8 @@
                                         ],
                                         "component": "select"
                                       },
-                                      "type": "string"
+                                      "type": "string",
+                                      "default": "default"
                                     }
                                   ]
                                 }
@@ -34459,7 +34625,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       },
                       {
                         "name": "icon",
@@ -34858,7 +35025,8 @@
                           ],
                           "component": "select"
                         },
-                        "type": "string"
+                        "type": "string",
+                        "default": "default"
                       }
                     ]
                   }
@@ -35698,14 +35866,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -36042,7 +36210,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -36245,7 +36414,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -36464,7 +36634,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -36730,7 +36901,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -36933,7 +37105,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -37152,7 +37325,8 @@
                                     ],
                                     "component": "select"
                                   },
-                                  "type": "string"
+                                  "type": "string",
+                                  "default": "default"
                                 }
                               ]
                             }
@@ -38258,14 +38432,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -38337,14 +38511,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -38444,14 +38618,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -38574,14 +38748,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -38852,14 +39026,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -39110,14 +39284,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"
@@ -39381,14 +39555,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "A boolean indicating whether to simplify the output to only include key values. Default is false.",
-              "zh_Hans": "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。"
+              "en_US": "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
+              "zh_Hans": "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
-              "zh_Hans": "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。"
+              "en_US": "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
+              "zh_Hans": "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。"
             },
             "support_expression": true,
             "component": "switch"

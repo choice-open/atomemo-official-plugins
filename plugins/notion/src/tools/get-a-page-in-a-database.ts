@@ -1,24 +1,26 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { GetPageParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { GetPageParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   okResult,
-} from "./_shared/notion-helpers";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import type { ExcludedNames } from "./_shared-parameters/excluded-names";
-import { pageIdProperty } from "./_shared-parameters/page-id";
-import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
+  transformNotionOutput,
+} from "./_shared/notion-helpers"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import type { ExcludedNames } from "./_shared-parameters/excluded-names"
+import { pageIdProperty } from "./_shared-parameters/page-id"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
   | Exclude<keyof GetPageParameters, ExcludedNames>
   | "api_key"
-  | "simplify_output";
+  | "simplify_output"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -43,7 +45,7 @@ const parameters: Array<Property<ParametersNames>> = [
     },
   },
   simplifyOutputProperty,
-];
+]
 
 export const getAPageInADatabaseTool: ToolDefinition = {
   name: "notion-get-page",
@@ -52,21 +54,22 @@ export const getAPageInADatabaseTool: ToolDefinition = {
   icon: "🎛️",
   parameters,
   invoke: async ({ args }) => {
-    const client = getNotionClient(args);
+    const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key");
+      return invokeErrResult("Missing Notion API key")
     }
 
-    const rawParameters = args.parameters as Record<string, unknown>;
+    const rawParameters = args.parameters as Record<string, unknown>
     const pageId =
-      typeof rawParameters.page_id === "string" ? rawParameters.page_id : "";
+      typeof rawParameters.page_id === "string" ? rawParameters.page_id : ""
 
     if (pageId === "") {
-      return invokeErrResult("page_id is required");
+      return invokeErrResult("page_id is required")
     }
-    console.log("pageId", pageId, typeof pageId);
+    console.log("pageId", pageId, typeof pageId)
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.pages.retrieve({
         filter_properties:
           Array.isArray(rawParameters.filter_properties) &&
@@ -76,10 +79,10 @@ export const getAPageInADatabaseTool: ToolDefinition = {
               )
             : undefined,
         page_id: pageId,
-      } satisfies GetPageParameters);
-      return okResult(data);
+      } satisfies GetPageParameters)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
-      return invokeErrResult(formatNotionError(error));
+      return invokeErrResult(formatNotionError(error))
     }
   },
-};
+}

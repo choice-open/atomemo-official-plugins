@@ -1,5 +1,5 @@
-import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { PropertyString } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 export const iconProperty: PropertyString<"icon"> = {
   name: "icon",
@@ -13,4 +13,4 @@ export const iconProperty: PropertyString<"icon"> = {
   ai: {
     llm_description: t("ICON_LLM_DESCRIPTION"),
   },
-};
+}

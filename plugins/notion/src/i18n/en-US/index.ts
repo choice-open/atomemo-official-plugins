@@ -42,9 +42,9 @@ const en_US = {
   // Simplify Output
   SIMPLIFY_OUTPUT_DISPLAY_NAME: "Simplify Output",
   SIMPLIFY_OUTPUT_HINT:
-    "Whether to simplify the output to only include key values. Default is off, returning the full API response.",
+    "Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.",
   SIMPLIFY_OUTPUT_LLM_DESCRIPTION:
-    "A boolean indicating whether to simplify the output to only include key values. Default is false.",
+    "A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.",
 
   // Get Page
   GET_PAGE_FILTER_PROPERTIES_DISPLAY_NAME: "Filter Properties (IDs or names)",

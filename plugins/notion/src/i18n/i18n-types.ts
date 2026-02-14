@@ -104,11 +104,11 @@ type RootTranslation = {
    */
   SIMPLIFY_OUTPUT_DISPLAY_NAME: string
   /**
-   * W​h​e​t​h​e​r​ ​t​o​ ​s​i​m​p​l​i​f​y​ ​t​h​e​ ​o​u​t​p​u​t​ ​t​o​ ​o​n​l​y​ ​i​n​c​l​u​d​e​ ​k​e​y​ ​v​a​l​u​e​s​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​o​f​f​,​ ​r​e​t​u​r​n​i​n​g​ ​t​h​e​ ​f​u​l​l​ ​A​P​I​ ​r​e​s​p​o​n​s​e​.
+   * W​h​e​t​h​e​r​ ​t​o​ ​s​i​m​p​l​i​f​y​ ​t​h​e​ ​o​u​t​p​u​t​ ​i​n​t​o​ ​f​l​a​t​t​e​r​,​ ​e​a​s​i​e​r​-​t​o​-​u​s​e​ ​f​i​e​l​d​s​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​o​n​;​ ​d​i​s​a​b​l​e​ ​i​t​ ​t​o​ ​r​e​t​u​r​n​ ​t​h​e​ ​f​u​l​l​ ​A​P​I​ ​r​e​s​p​o​n​s​e​.
    */
   SIMPLIFY_OUTPUT_HINT: string
   /**
-   * A​ ​b​o​o​l​e​a​n​ ​i​n​d​i​c​a​t​i​n​g​ ​w​h​e​t​h​e​r​ ​t​o​ ​s​i​m​p​l​i​f​y​ ​t​h​e​ ​o​u​t​p​u​t​ ​t​o​ ​o​n​l​y​ ​i​n​c​l​u​d​e​ ​k​e​y​ ​v​a​l​u​e​s​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​f​a​l​s​e​.
+   * A​ ​b​o​o​l​e​a​n​ ​i​n​d​i​c​a​t​i​n​g​ ​w​h​e​t​h​e​r​ ​t​o​ ​s​i​m​p​l​i​f​y​ ​t​h​e​ ​o​u​t​p​u​t​ ​i​n​t​o​ ​f​l​a​t​t​e​r​,​ ​e​a​s​i​e​r​-​t​o​-​u​s​e​ ​f​i​e​l​d​s​.​ ​D​e​f​a​u​l​t​ ​i​s​ ​t​r​u​e​;​ ​s​e​t​ ​f​a​l​s​e​ ​t​o​ ​r​e​t​u​r​n​ ​f​u​l​l​ ​N​o​t​i​o​n​ ​A​P​I​ ​s​h​a​p​e​.
    */
   SIMPLIFY_OUTPUT_LLM_DESCRIPTION: string
   /**
@@ -755,11 +755,11 @@ export type TranslationFunctions = {
    */
   SIMPLIFY_OUTPUT_DISPLAY_NAME: () => LocalizedString
   /**
-   * Whether to simplify the output to only include key values. Default is off, returning the full API response.
+   * Whether to simplify the output into flatter, easier-to-use fields. Default is on; disable it to return the full API response.
    */
   SIMPLIFY_OUTPUT_HINT: () => LocalizedString
   /**
-   * A boolean indicating whether to simplify the output to only include key values. Default is false.
+   * A boolean indicating whether to simplify the output into flatter, easier-to-use fields. Default is true; set false to return full Notion API shape.
    */
   SIMPLIFY_OUTPUT_LLM_DESCRIPTION: () => LocalizedString
   /**

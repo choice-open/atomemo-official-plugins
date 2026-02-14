@@ -1,6 +1,9 @@
-import type { CredentialDefinition, PropertyEncryptedString } from "@choiceopen/atomemo-plugin-schema/types";
-import { t } from "../i18n/i18n-node";
-import { CREDENTIAL_NAME } from "../tools/_shared-parameters/credential";
+import type {
+  CredentialDefinition,
+  PropertyEncryptedString,
+} from "@choiceopen/atomemo-plugin-schema/types"
+import { t } from "../i18n/i18n-node"
+import { CREDENTIAL_NAME } from "../tools/_shared-parameters/credential"
 
 export const secretCredential: CredentialDefinition = {
   name: CREDENTIAL_NAME,
@@ -14,4 +17,4 @@ export const secretCredential: CredentialDefinition = {
       required: true,
     } satisfies PropertyEncryptedString<"api_key">,
   ],
-};
+}

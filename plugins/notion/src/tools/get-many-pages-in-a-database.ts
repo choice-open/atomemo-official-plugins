@@ -1,22 +1,24 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { QueryDataSourceParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { QueryDataSourceParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   mapQuerySorts,
   okResult,
   parseJsonObject,
   queryWithPagination,
-} from "./_shared/notion-helpers";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import type { ExcludedNames } from "./_shared-parameters/excluded-names";
-import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related";
-import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
+  transformNotionOutput,
+} from "./_shared/notion-helpers"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import type { ExcludedNames } from "./_shared-parameters/excluded-names"
+import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
   | Exclude<
@@ -25,7 +27,7 @@ type ParametersNames =
     >
   | "api_key"
   | "return_all"
-  | "simplify_output";
+  | "simplify_output"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -153,7 +155,7 @@ const parameters: Array<Property<ParametersNames>> = [
     default: "{}",
   },
   simplifyOutputProperty,
-];
+]
 
 export const getManyPagesInADatabaseTool: ToolDefinition = {
   name: "notion-query-data-source",
@@ -162,40 +164,36 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
   icon: "🎛️",
   parameters,
   invoke: async ({ args }) => {
-    const client = getNotionClient(args);
+    const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key");
+      return invokeErrResult("Missing Notion API key")
     }
 
-    const rawParameters = args.parameters as Record<string, unknown>;
+    const rawParameters = args.parameters as Record<string, unknown>
     const dataSourceId =
       typeof rawParameters.data_source_id === "string"
         ? rawParameters.data_source_id
-        : "";
+        : ""
     if (dataSourceId === "") {
-      return invokeErrResult("data_source_id is required");
+      return invokeErrResult("data_source_id is required")
     }
 
-    const parsedFilter = parseJsonObject(rawParameters.filter);
+    const parsedFilter = parseJsonObject(rawParameters.filter)
     if ("error" in parsedFilter) {
-      return invokeErrResult(parsedFilter.error ?? "Invalid filter JSON");
+      return invokeErrResult(parsedFilter.error ?? "Invalid filter JSON")
     }
 
-    const returnAll = rawParameters.return_all === true;
+    const returnAll = rawParameters.return_all === true
     const pageSize =
       typeof rawParameters.page_size === "number"
         ? rawParameters.page_size
-        : 100;
-    const filterProperties = Array.isArray(rawParameters.filter_properties)
-      ? rawParameters.filter_properties.filter(
-          (item): item is string => typeof item === "string",
-        )
-      : undefined;
+        : 100
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) => {
-        const filter = parsedFilter.value;
-        const sorts = mapQuerySorts(rawParameters.sorts);
+        const filter = parsedFilter.value
+        const sorts = mapQuerySorts(rawParameters.sorts)
 
         const filter_properties =
           Array.isArray(rawParameters.filter_properties) &&
@@ -203,7 +201,7 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
             ? rawParameters.filter_properties.filter(
                 (item): item is string => typeof item === "string",
               )
-            : undefined;
+            : undefined
         const params = {
           data_source_id: dataSourceId,
           page_size: pageSize,
@@ -211,17 +209,17 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
           filter,
           filter_properties,
           sorts,
-        };
-
-        if (filter && Object.keys(filter).length === 0) {
-          delete params.filter;
         }
 
-        return client.dataSources.query(params);
-      });
-      return okResult(data);
+        if (filter && Object.keys(filter).length === 0) {
+          delete params.filter
+        }
+
+        return client.dataSources.query(params)
+      })
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
-      return invokeErrResult(formatNotionError(error));
+      return invokeErrResult(formatNotionError(error))
     }
   },
-};
+}

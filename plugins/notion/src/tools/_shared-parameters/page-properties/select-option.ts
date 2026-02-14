@@ -1,8 +1,8 @@
 import type {
   PropertyObject,
   PropertyUIOption,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { SelectColor } from "./type";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { SelectColor } from "./type"
 
 const selectColors: Record<SelectColor, SelectColor> = {
   default: "default",
@@ -15,7 +15,7 @@ const selectColors: Record<SelectColor, SelectColor> = {
   purple: "purple",
   pink: "pink",
   red: "red",
-};
+}
 
 const selectColorOptions: PropertyUIOption[] = Object.entries(selectColors).map(
   ([value]) => ({
@@ -25,7 +25,7 @@ const selectColorOptions: PropertyUIOption[] = Object.entries(selectColors).map(
       zh_Hans: value,
     },
   }),
-);
+)
 
 export const selectOptionParameter: PropertyObject<"select"> = {
   name: "select",
@@ -56,9 +56,9 @@ export const selectOptionParameter: PropertyObject<"select"> = {
       },
     },
   ],
-};
+}
 
 export const statusSelectOptionParameter: PropertyObject<"status"> = {
   ...selectOptionParameter,
   name: "status",
-};
+}

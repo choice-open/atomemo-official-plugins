@@ -8,11 +8,13 @@ import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   mapBlocks,
   mapIcon,
   mapPageProperties,
   okResult,
+  transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { blocksProperty } from "./_shared-parameters/blocks"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
@@ -86,13 +88,14 @@ export const createAPageInADatabaseTool: ToolDefinition = {
     }
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
         parent: { data_source_id: dataSourceId },
         properties: mapPageProperties(rawParameters.properties),
       } satisfies CreatePageParameters)
-      return okResult(data)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
       return invokeErrResult(formatNotionError(error))
     }

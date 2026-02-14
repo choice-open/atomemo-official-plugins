@@ -1,8 +1,8 @@
 import type {
   PropertyBoolean,
   PropertyObject,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 
 const sortParameter: PropertyObject<"sort"> = {
   name: "sort",
@@ -54,7 +54,7 @@ const sortParameter: PropertyObject<"sort"> = {
       enable_sort: false,
     },
   },
-};
+}
 
 const enableSortParameter: PropertyBoolean<"enable_sort"> = {
   name: "enable_sort",
@@ -70,9 +70,9 @@ const enableSortParameter: PropertyBoolean<"enable_sort"> = {
   ai: {
     llm_description: t("SORT_ENABLE_LLM_DESCRIPTION"),
   },
-};
+}
 
 export const sortRelatedParameters: [
   PropertyBoolean<"enable_sort">,
   PropertyObject<"sort">,
-] = [enableSortParameter, sortParameter];
+] = [enableSortParameter, sortParameter]

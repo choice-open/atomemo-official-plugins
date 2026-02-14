@@ -39,9 +39,9 @@ const zh_Hans = {
   // Simplify Output
   SIMPLIFY_OUTPUT_DISPLAY_NAME: "简化输出",
   SIMPLIFY_OUTPUT_HINT:
-    "是否简化输出，仅包含主键值。默认关闭，返回完整的API响应。",
+    "是否将输出简化为更扁平、更易用的字段。默认开启；关闭后返回完整的 API 响应。",
   SIMPLIFY_OUTPUT_LLM_DESCRIPTION:
-    "一个布尔值，表示是否简化输出，仅包含主键值。默认值为false。",
+    "一个布尔值，表示是否将输出简化为更扁平、更易用的字段。默认值为 true；设为 false 时返回完整的 Notion API 结构。",
 
   // Get Page
   GET_PAGE_FILTER_PROPERTIES_DISPLAY_NAME: "过滤属性（属性 ID 或名称）",

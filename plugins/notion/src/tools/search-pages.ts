@@ -7,10 +7,12 @@ import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   mapSearchSort,
   okResult,
   queryWithPagination,
+  transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
@@ -120,6 +122,7 @@ export const searchPagesTool: ToolDefinition = {
         : undefined
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) =>
         client.search({
           filter,
@@ -129,7 +132,7 @@ export const searchPagesTool: ToolDefinition = {
           start_cursor: startCursor,
         } satisfies SearchParameters),
       )
-      return okResult(data)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
       return invokeErrResult(formatNotionError(error))
     }

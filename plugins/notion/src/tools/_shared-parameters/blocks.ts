@@ -4,15 +4,15 @@ import type {
   PropertyDiscriminatedUnion,
   PropertyObject,
   PropertyString,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
-import { apiColorOptions } from "./api-colors";
-import { richTextArrayParameter } from "./page-properties/richtext";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
+import { apiColorOptions } from "./api-colors"
+import { richTextArrayParameter } from "./page-properties/richtext"
 
 export const richTextProperty: PropertyArray<"rich_text"> = {
   ...richTextArrayParameter,
   required: true,
-};
+}
 
 export const colorProperty: PropertyString<"color"> = {
   name: "color",
@@ -24,7 +24,7 @@ export const colorProperty: PropertyString<"color"> = {
     options: apiColorOptions,
     support_expression: true,
   },
-};
+}
 
 export const isToggleableProperty = {
   name: "is_toggleable",
@@ -36,14 +36,14 @@ export const isToggleableProperty = {
     support_expression: true,
     hint: t("BLOCKS_HEADING_IS_TOGGLEABLE_HINT"),
   },
-} as const;
+} as const
 
 export const createTypeProperty = (blockType: string) =>
   ({
     name: "type",
     type: "string",
     constant: blockType,
-  }) as const;
+  }) as const
 
 export const createBlockContentProperty = (
   blockType: string,
@@ -55,12 +55,12 @@ export const createBlockContentProperty = (
     required: true,
     ui: blockContentUISection,
     properties,
-  }) as const;
+  }) as const
 
 export const blockContentUISection = {
   component: "section",
   support_expression: false,
-} as const;
+} as const
 
 export const urlProperty: PropertyString<"url"> = {
   name: "url",
@@ -71,7 +71,7 @@ export const urlProperty: PropertyString<"url"> = {
     support_expression: true,
     hint: t("BLOCKS_URL_HINT"),
   },
-};
+}
 
 export const externalUrlProperty: PropertyObject<"external"> = {
   name: "external",
@@ -82,7 +82,7 @@ export const externalUrlProperty: PropertyObject<"external"> = {
     support_expression: false,
   },
   properties: [urlProperty],
-};
+}
 
 export const paragraphBlock: PropertyObject<string, "type"> = {
   type: "object",
@@ -92,7 +92,7 @@ export const paragraphBlock: PropertyObject<string, "type"> = {
     createTypeProperty("paragraph"),
     createBlockContentProperty("paragraph", [richTextProperty, colorProperty]),
   ],
-};
+}
 
 export const heading1Block: PropertyObject<string, "type"> = {
   type: "object",
@@ -106,7 +106,7 @@ export const heading1Block: PropertyObject<string, "type"> = {
       isToggleableProperty,
     ]),
   ],
-};
+}
 
 export const heading2Block: PropertyObject<"heading_2", "type"> = {
   type: "object",
@@ -120,7 +120,7 @@ export const heading2Block: PropertyObject<"heading_2", "type"> = {
       isToggleableProperty,
     ]),
   ],
-};
+}
 
 export const heading3Block: PropertyObject<"heading_3", "type"> = {
   type: "object",
@@ -134,7 +134,7 @@ export const heading3Block: PropertyObject<"heading_3", "type"> = {
       isToggleableProperty,
     ]),
   ],
-};
+}
 
 export const bulletedListItemBlock: PropertyObject<
   "bulleted_list_item",
@@ -150,7 +150,7 @@ export const bulletedListItemBlock: PropertyObject<
       colorProperty,
     ]),
   ],
-};
+}
 
 export const numberedListItemBlock: PropertyObject<
   "numbered_list_item",
@@ -166,7 +166,7 @@ export const numberedListItemBlock: PropertyObject<
       colorProperty,
     ]),
   ],
-};
+}
 
 export const quoteBlock: PropertyObject<"quote", "type"> = {
   type: "object",
@@ -176,7 +176,7 @@ export const quoteBlock: PropertyObject<"quote", "type"> = {
     createTypeProperty("quote"),
     createBlockContentProperty("quote", [richTextProperty, colorProperty]),
   ],
-};
+}
 
 export const todoBlock: PropertyObject<"to_do", "type"> = {
   type: "object",
@@ -200,7 +200,7 @@ export const todoBlock: PropertyObject<"to_do", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const toggleBlock: PropertyObject<"toggle", "type"> = {
   type: "object",
@@ -210,7 +210,7 @@ export const toggleBlock: PropertyObject<"toggle", "type"> = {
     createTypeProperty("toggle"),
     createBlockContentProperty("toggle", [richTextProperty, colorProperty]),
   ],
-};
+}
 
 export const templateBlock: PropertyObject<"template", "type"> = {
   type: "object",
@@ -220,7 +220,7 @@ export const templateBlock: PropertyObject<"template", "type"> = {
     createTypeProperty("template"),
     createBlockContentProperty("template", [richTextProperty]),
   ],
-};
+}
 
 export const calloutBlock: PropertyObject<"callout", "type"> = {
   type: "object",
@@ -251,7 +251,7 @@ export const calloutBlock: PropertyObject<"callout", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const codeBlock: PropertyObject<"code", "type"> = {
   type: "object",
@@ -318,7 +318,7 @@ export const codeBlock: PropertyObject<"code", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const equationBlock: PropertyObject<"equation", "type"> = {
   type: "object",
@@ -339,21 +339,21 @@ export const equationBlock: PropertyObject<"equation", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const breadcrumbBlock: PropertyObject<"breadcrumb", "type"> = {
   type: "object",
   name: "breadcrumb",
   display_name: t("BLOCKS_BREADCRUMB_DISPLAY_NAME"),
   properties: [createTypeProperty("breadcrumb")],
-};
+}
 
 export const dividerBlock: PropertyObject<"divider", "type"> = {
   type: "object",
   name: "divider",
   display_name: t("BLOCKS_DIVIDER_DISPLAY_NAME"),
   properties: [createTypeProperty("divider")],
-};
+}
 
 export const tableOfContentsBlock: PropertyObject<"table_of_contents", "type"> =
   {
@@ -364,7 +364,7 @@ export const tableOfContentsBlock: PropertyObject<"table_of_contents", "type"> =
       createTypeProperty("table_of_contents"),
       createBlockContentProperty("table_of_contents", [colorProperty]),
     ],
-  };
+  }
 
 export const embedBlock: PropertyObject<"embed", "type"> = {
   type: "object",
@@ -374,7 +374,7 @@ export const embedBlock: PropertyObject<"embed", "type"> = {
     createTypeProperty("embed"),
     createBlockContentProperty("embed", [urlProperty]),
   ],
-};
+}
 
 export const bookmarkBlock: PropertyObject<"bookmark", "type"> = {
   type: "object",
@@ -384,7 +384,7 @@ export const bookmarkBlock: PropertyObject<"bookmark", "type"> = {
     createTypeProperty("bookmark"),
     createBlockContentProperty("bookmark", [urlProperty]),
   ],
-};
+}
 
 export const imageBlock: PropertyObject<"image", "type"> = {
   type: "object",
@@ -394,7 +394,7 @@ export const imageBlock: PropertyObject<"image", "type"> = {
     createTypeProperty("image"),
     createBlockContentProperty("image", [externalUrlProperty]),
   ],
-};
+}
 
 export const videoBlock: PropertyObject<"video", "type"> = {
   type: "object",
@@ -404,7 +404,7 @@ export const videoBlock: PropertyObject<"video", "type"> = {
     createTypeProperty("video"),
     createBlockContentProperty("video", [externalUrlProperty]),
   ],
-};
+}
 
 export const pdfBlock: PropertyObject<"pdf", "type"> = {
   type: "object",
@@ -414,7 +414,7 @@ export const pdfBlock: PropertyObject<"pdf", "type"> = {
     createTypeProperty("pdf"),
     createBlockContentProperty("pdf", [externalUrlProperty]),
   ],
-};
+}
 
 export const fileBlock: PropertyObject<"file", "type"> = {
   type: "object",
@@ -424,7 +424,7 @@ export const fileBlock: PropertyObject<"file", "type"> = {
     createTypeProperty("file"),
     createBlockContentProperty("file", [externalUrlProperty]),
   ],
-};
+}
 
 export const audioBlock: PropertyObject<"audio", "type"> = {
   type: "object",
@@ -434,7 +434,7 @@ export const audioBlock: PropertyObject<"audio", "type"> = {
     createTypeProperty("audio"),
     createBlockContentProperty("audio", [externalUrlProperty]),
   ],
-};
+}
 
 export const linkToPageBlock: PropertyObject<"link_to_page", "type"> = {
   type: "object",
@@ -460,7 +460,7 @@ export const linkToPageBlock: PropertyObject<"link_to_page", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const syncedBlockBlock: PropertyObject<"synced_block", "type"> = {
   type: "object",
@@ -494,14 +494,14 @@ export const syncedBlockBlock: PropertyObject<"synced_block", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const columnListBlock: PropertyObject<"column_list", "type"> = {
   type: "object",
   name: "column_list",
   display_name: t("BLOCKS_COLUMN_LIST_DISPLAY_NAME"),
   properties: [createTypeProperty("column_list")],
-};
+}
 
 export const columnBlock: PropertyObject<"column", "type"> = {
   type: "object",
@@ -522,7 +522,7 @@ export const columnBlock: PropertyObject<"column", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const tableBlock: PropertyObject<"table", "type"> = {
   type: "object",
@@ -565,7 +565,7 @@ export const tableBlock: PropertyObject<"table", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const tableRowBlock: PropertyObject<"table_row", "type"> = {
   type: "object",
@@ -625,7 +625,7 @@ export const tableRowBlock: PropertyObject<"table_row", "type"> = {
       },
     ]),
   ],
-};
+}
 
 export const allBlocks: PropertyObject<string, "type">[] = [
   paragraphBlock,
@@ -657,7 +657,7 @@ export const allBlocks: PropertyObject<string, "type">[] = [
   fileBlock,
   audioBlock,
   linkToPageBlock,
-];
+]
 
 export const blocksItems: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
@@ -670,7 +670,7 @@ export const blocksItems: PropertyDiscriminatedUnion<"type"> = {
     })),
   },
   any_of: allBlocks,
-};
+}
 
 export const blocksProperty: PropertyArray<"children"> = {
   name: "children",
@@ -685,4 +685,4 @@ export const blocksProperty: PropertyArray<"children"> = {
     llm_description: t("BLOCKS_CHILDREN_LLM_DESCRIPTION"),
   },
   items: blocksItems,
-};
+}

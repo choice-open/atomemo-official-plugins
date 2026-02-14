@@ -1,23 +1,25 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { GetDatabaseParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { GetDatabaseParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
 import {
   formatNotionError,
   getNotionClient,
+  getSimplifyOutputFlag,
   invokeErrResult,
   okResult,
-} from "./_shared/notion-helpers";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import type { ExcludedNames } from "./_shared-parameters/excluded-names";
-import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
+  transformNotionOutput,
+} from "./_shared/notion-helpers"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import type { ExcludedNames } from "./_shared-parameters/excluded-names"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
   | Exclude<keyof GetDatabaseParameters, ExcludedNames>
   | "api_key"
-  | "simplify_output";
+  | "simplify_output"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -38,7 +40,7 @@ const parameters: Array<Property<ParametersNames>> = [
     },
   },
   simplifyOutputProperty,
-];
+]
 
 export const getADatabaseTool: ToolDefinition = {
   name: "notion-get-database",
@@ -47,28 +49,29 @@ export const getADatabaseTool: ToolDefinition = {
   icon: "🎛️",
   parameters,
   invoke: async ({ args }) => {
-    const client = getNotionClient(args);
+    const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key");
+      return invokeErrResult("Missing Notion API key")
     }
 
-    const rawParameters = args.parameters as Record<string, unknown>;
+    const rawParameters = args.parameters as Record<string, unknown>
     const databaseId =
       typeof rawParameters.database_id === "string"
         ? rawParameters.database_id
-        : "";
+        : ""
 
     if (databaseId === "") {
-      return invokeErrResult("database_id is required");
+      return invokeErrResult("database_id is required")
     }
 
     try {
+      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.databases.retrieve({
         database_id: databaseId,
-      } satisfies GetDatabaseParameters);
-      return okResult(data);
+      } satisfies GetDatabaseParameters)
+      return okResult(transformNotionOutput(data, simplifyOutput))
     } catch (error) {
-      return invokeErrResult(formatNotionError(error));
+      return invokeErrResult(formatNotionError(error))
     }
   },
-};
+}
