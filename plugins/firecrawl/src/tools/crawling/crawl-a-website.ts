@@ -4,6 +4,14 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  sanitizeRequestBody,
+} from "../_shared/firecrawl-client"
+import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
@@ -200,6 +208,41 @@ export const CrawlAWebsiteTool: ToolDefinition = {
     requestOptions,
   ],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const url = parameters.url
+      const requestOptions =
+        (parameters.requestOptions as Record<string, unknown>) || {}
+
+      if (typeof url !== "string" || !url.trim()) {
+        return errorResponse(new Error("Parameter `url` is required."))
+      }
+
+      const body = requestOptions.useCustomBody
+        ? parseCustomBody(requestOptions.customBody)
+        : sanitizeRequestBody({
+            url,
+            ...requestOptions,
+            scrapeOptions:
+              (requestOptions.scrapeOptions as Record<string, unknown>) || {},
+          })
+
+      if (!("url" in body)) {
+        body.url = url
+      }
+
+      delete body.useCustomBody
+      delete body.customBody
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/crawl",
+        body,
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

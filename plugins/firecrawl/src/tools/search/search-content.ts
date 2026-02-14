@@ -7,6 +7,14 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  sanitizeRequestBody,
+} from "../_shared/firecrawl-client"
+import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
@@ -257,6 +265,39 @@ export const SearchContentTool: ToolDefinition = {
     options,
   ],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const query = parameters.query
+      const options = (parameters.options as Record<string, unknown>) || {}
+
+      if (typeof query !== "string" || !query.trim()) {
+        return errorResponse(new Error("Parameter `query` is required."))
+      }
+
+      const body = options.useCustomBody
+        ? parseCustomBody(options.customBody)
+        : sanitizeRequestBody({
+            query,
+            ...options,
+            scrapeOptions: (options.scrapeOptions as Record<string, unknown>) || {},
+          })
+
+      if (!("query" in body)) {
+        body.query = query
+      }
+
+      delete body.useCustomBody
+      delete body.customBody
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/search",
+        body,
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

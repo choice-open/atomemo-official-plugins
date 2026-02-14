@@ -5,6 +5,15 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
 import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  parseUrlsText,
+  sanitizeRequestBody,
+} from "../../_shared/firecrawl-client"
+import {
   customBodyParameter,
   firecrawlCredentialParameter,
   parsersParameter,
@@ -67,6 +76,38 @@ export const BatchScrapeTool: ToolDefinition = {
   icon: "📡",
   parameters: [firecrawlCredentialParameter, urlsParameter, options],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const options = (parameters.options as Record<string, unknown>) || {}
+      const urls = parseUrlsText(parameters.urls)
+
+      if (!options.useCustomBody && urls.length === 0) {
+        return errorResponse(
+          new Error("Parameter `urls` must contain at least one URL."),
+        )
+      }
+
+      const body = options.useCustomBody
+        ? parseCustomBody(options.customBody)
+        : sanitizeRequestBody({
+            urls,
+            parsers: options.parsers,
+            ...((options.scrapeOptions as Record<string, unknown>) || {}),
+          })
+
+      if (!("urls" in body)) {
+        body.urls = urls
+      }
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/batch/scrape",
+        body,
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

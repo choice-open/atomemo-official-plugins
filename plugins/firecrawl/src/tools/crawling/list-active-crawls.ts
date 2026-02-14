@@ -1,5 +1,10 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
+import {
+  errorResponse,
+  firecrawlRequest,
+  getFirecrawlApiKey,
+} from "../_shared/firecrawl-client"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
 
 export const ListActiveCrawlsTool: ToolDefinition = {
@@ -9,6 +14,15 @@ export const ListActiveCrawlsTool: ToolDefinition = {
   icon: "📋",
   parameters: [firecrawlCredentialParameter],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      return firecrawlRequest({
+        apiKey,
+        method: "GET",
+        path: "/crawl/active",
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

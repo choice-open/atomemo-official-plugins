@@ -5,6 +5,16 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  parseUrlsText,
+  sanitizeRequestBody,
+  withSchemaObject,
+} from "../_shared/firecrawl-client"
+import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
@@ -158,6 +168,44 @@ export const ExtractStructuredDataTool: ToolDefinition = {
   icon: "📦",
   parameters: [firecrawlCredentialParameter, urlsParameters, options],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const options = (parameters.options as Record<string, unknown>) || {}
+      const urls = parseUrlsText(parameters.urls)
+
+      if (!options.useCustomBody && urls.length === 0) {
+        return errorResponse(
+          new Error("Parameter `urls` must contain at least one URL."),
+        )
+      }
+
+      const body = options.useCustomBody
+        ? parseCustomBody(options.customBody)
+        : sanitizeRequestBody({
+            urls,
+            prompt: options.prompt,
+            schema: withSchemaObject(options.schema),
+            enableWebSearch: options.enableWebSearch,
+            ignoreSitemap: options.ignoreSitemap,
+            includeSubdomains: options.includeSubdomains,
+            showSources: options.showSources,
+            ignoreInvalidURLs: options.ignoreInvalidURLs,
+            scrapeOptions: (options.scrapeOptions as Record<string, unknown>) || {},
+          })
+
+      if (!("urls" in body)) {
+        body.urls = urls
+      }
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/extract",
+        body,
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

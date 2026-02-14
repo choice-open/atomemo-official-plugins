@@ -1,5 +1,11 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
+import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+} from "../_shared/firecrawl-client"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
 
 export const PreviewCrawlParamsTool: ToolDefinition = {
@@ -34,6 +40,27 @@ export const PreviewCrawlParamsTool: ToolDefinition = {
     },
   ],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const url = parameters.url
+      const prompt = parameters.prompt
+
+      if (typeof url !== "string" || !url.trim()) {
+        return errorResponse(new Error("Parameter `url` is required."))
+      }
+      if (typeof prompt !== "string" || !prompt.trim()) {
+        return errorResponse(new Error("Parameter `prompt` is required."))
+      }
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/crawl/params-preview",
+        body: { url, prompt },
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }

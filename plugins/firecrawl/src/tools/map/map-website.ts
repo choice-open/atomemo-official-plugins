@@ -4,6 +4,14 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import {
+  errorResponse,
+  firecrawlRequest,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  sanitizeRequestBody,
+} from "../_shared/firecrawl-client"
+import {
   customBodyParameter,
   firecrawlCredentialParameter,
 } from "../_shared-parameters"
@@ -135,6 +143,38 @@ export const MapWebsiteTool: ToolDefinition = {
     options,
   ],
   async invoke(context) {
-    throw new Error("Not implemented")
+    try {
+      const apiKey = await getFirecrawlApiKey(context)
+      const { parameters } = getArgs(context)
+      const url = parameters.url
+      const options = (parameters.options as Record<string, unknown>) || {}
+
+      if (typeof url !== "string" || !url.trim()) {
+        return errorResponse(new Error("Parameter `url` is required."))
+      }
+
+      const body = options.useCustomBody
+        ? parseCustomBody(options.customBody)
+        : sanitizeRequestBody({
+            url,
+            ...options,
+          })
+
+      if (!("url" in body)) {
+        body.url = url
+      }
+
+      delete body.useCustomBody
+      delete body.customBody
+
+      return firecrawlRequest({
+        apiKey,
+        method: "POST",
+        path: "/map",
+        body,
+      })
+    } catch (e) {
+      return errorResponse(e)
+    }
   },
 }
