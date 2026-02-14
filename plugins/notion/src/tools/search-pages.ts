@@ -1,14 +1,22 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { SearchParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import type { ExcludedNames } from "./_shared-parameters/excluded-names";
-import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related";
-import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
-import { sortRelatedParameters } from "./_shared-parameters/sort";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { SearchParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
+import {
+  formatNotionError,
+  getNotionClient,
+  invokeErrResult,
+  mapSearchSort,
+  okResult,
+  queryWithPagination,
+} from "./_shared/notion-helpers"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import type { ExcludedNames } from "./_shared-parameters/excluded-names"
+import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import { sortRelatedParameters } from "./_shared-parameters/sort"
 
 type ParametersNames =
   | Exclude<keyof SearchParameters, ExcludedNames>
@@ -16,7 +24,7 @@ type ParametersNames =
   | "return_all"
   | "enable_sort"
   | "enable_filter"
-  | "simplify_output";
+  | "simplify_output"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -77,7 +85,7 @@ const parameters: Array<Property<ParametersNames>> = [
   },
   ...sortRelatedParameters,
   simplifyOutputProperty,
-];
+]
 
 export const searchPagesTool: ToolDefinition = {
   name: "notion-search-pages",
@@ -85,7 +93,45 @@ export const searchPagesTool: ToolDefinition = {
   description: t("SEARCH_PAGES_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
-};
+  invoke: async ({ args }) => {
+    const client = getNotionClient(args)
+    if (!client) {
+      return invokeErrResult("Missing Notion API key")
+    }
+
+    const rawParameters = args.parameters as Record<string, unknown>
+    const returnAll = rawParameters.return_all === true
+    const pageSize =
+      typeof rawParameters.page_size === "number"
+        ? rawParameters.page_size
+        : 100
+    const filter: SearchParameters["filter"] =
+      rawParameters.enable_filter === true
+        ? { property: "object", value: "page" as const }
+        : undefined
+    const sort =
+      rawParameters.enable_sort === true
+        ? mapSearchSort(rawParameters.sort)
+        : undefined
+    const query =
+      typeof rawParameters.query === "string" &&
+      rawParameters.query.trim() !== ""
+        ? rawParameters.query
+        : undefined
+
+    try {
+      const data = await queryWithPagination(returnAll, (startCursor) =>
+        client.search({
+          filter,
+          page_size: pageSize,
+          query,
+          sort,
+          start_cursor: startCursor,
+        } satisfies SearchParameters),
+      )
+      return okResult(data)
+    } catch (error) {
+      return invokeErrResult(formatNotionError(error))
+    }
+  },
+}

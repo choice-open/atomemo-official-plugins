@@ -4,6 +4,12 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types";
 import type { GetDatabaseParameters } from "@notionhq/client";
 import { t } from "../i18n/i18n-node";
+import {
+  formatNotionError,
+  getNotionClient,
+  invokeErrResult,
+  okResult,
+} from "./_shared/notion-helpers";
 import { notionCredentialParameter } from "./_shared-parameters/credential";
 import type { ExcludedNames } from "./_shared-parameters/excluded-names";
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
@@ -40,7 +46,29 @@ export const getADatabaseTool: ToolDefinition = {
   description: t("GET_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
+  invoke: async ({ args }) => {
+    const client = getNotionClient(args);
+    if (!client) {
+      return invokeErrResult("Missing Notion API key");
+    }
+
+    const rawParameters = args.parameters as Record<string, unknown>;
+    const databaseId =
+      typeof rawParameters.database_id === "string"
+        ? rawParameters.database_id
+        : "";
+
+    if (databaseId === "") {
+      return invokeErrResult("database_id is required");
+    }
+
+    try {
+      const data = await client.databases.retrieve({
+        database_id: databaseId,
+      } satisfies GetDatabaseParameters);
+      return okResult(data);
+    } catch (error) {
+      return invokeErrResult(formatNotionError(error));
+    }
+  },
 };

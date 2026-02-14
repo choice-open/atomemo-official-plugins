@@ -1,16 +1,23 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { AppendBlockChildrenParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
-import { blocksProperty } from "./_shared-parameters/blocks";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import type { ExcludedNames } from "./_shared-parameters/excluded-names";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { AppendBlockChildrenParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
+import {
+  formatNotionError,
+  getNotionClient,
+  invokeErrResult,
+  mapBlocks,
+  okResult,
+} from "./_shared/notion-helpers"
+import { blocksProperty } from "./_shared-parameters/blocks"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 
 type ParametersNames =
   | Exclude<keyof AppendBlockChildrenParameters, ExcludedNames>
-  | "api_key";
+  | "api_key"
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -35,7 +42,7 @@ const parameters: Array<Property<ParametersNames>> = [
       llm_description: t("APPEND_BLOCKS_AFTER_LLM_DESCRIPTION"),
     },
   },
-];
+]
 
 export const appendBlocksTool: ToolDefinition = {
   name: "notion-append-blocks",
@@ -43,7 +50,37 @@ export const appendBlocksTool: ToolDefinition = {
   description: t("APPEND_BLOCKS_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
-};
+  invoke: async ({ args }) => {
+    const client = getNotionClient(args)
+    if (!client) {
+      return invokeErrResult("Missing Notion API key")
+    }
+
+    const rawParameters = args.parameters as Record<string, unknown>
+    const blockId =
+      typeof rawParameters.block_id === "string" ? rawParameters.block_id : ""
+    if (blockId === "") {
+      return invokeErrResult("block_id is required")
+    }
+
+    const children = mapBlocks(rawParameters.children)
+    if (!children || children.length === 0) {
+      return invokeErrResult("children is required")
+    }
+
+    try {
+      const data = await client.blocks.children.append({
+        after:
+          typeof rawParameters.after === "string" &&
+          rawParameters.after.trim() !== ""
+            ? rawParameters.after
+            : undefined,
+        block_id: blockId,
+        children,
+      } satisfies AppendBlockChildrenParameters)
+      return okResult(data)
+    } catch (error) {
+      return invokeErrResult(formatNotionError(error))
+    }
+  },
+}

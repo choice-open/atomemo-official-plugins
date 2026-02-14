@@ -13,30 +13,35 @@ export const annotationParameter: PropertyObject<"annotations"> = {
     {
       name: "bold",
       type: "boolean",
+      default: false,
       required: false,
       ui: { component: "switch", support_expression: true },
     },
     {
       name: "italic",
       type: "boolean",
+      default: false,
       required: false,
       ui: { component: "switch", support_expression: true },
     },
     {
       name: "strikethrough",
       type: "boolean",
+      default: false,
       required: false,
       ui: { component: "switch", support_expression: true },
     },
     {
       name: "underline",
       type: "boolean",
+      default: false,
       required: false,
       ui: { component: "switch", support_expression: true },
     },
     {
       name: "code",
       type: "boolean",
+      default: false,
       required: false,
       ui: { component: "switch", support_expression: true },
     },
@@ -44,7 +49,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       name: "color",
       type: "string",
       required: false,
-
+      default: "default",
       ui: {
         component: "select",
         options: apiColorOptions,
@@ -65,9 +70,7 @@ const commonProps = {
 } as const;
 
 // MentionRichTextItemRequest['mention']
-export const mentionValueParameter: PropertyDiscriminatedUnion<
-  "type"
-> = {
+export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
   discriminator: "type",
   any_of: [

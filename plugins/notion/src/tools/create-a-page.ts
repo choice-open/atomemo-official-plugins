@@ -2,14 +2,23 @@ import type {
   Property,
   PropertyObject,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import type { CreatePageParameters } from "@notionhq/client";
-import { t } from "../i18n/i18n-node";
-import { blocksProperty } from "./_shared-parameters/blocks";
-import { notionCredentialParameter } from "./_shared-parameters/credential";
-import { iconProperty } from "./_shared-parameters/icon";
-import { pagePropertiesProperty } from "./_shared-parameters/page-properties/page-properties";
-import { simplifyOutputProperty } from "./_shared-parameters/simplify-output";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { CreatePageParameters } from "@notionhq/client"
+import { t } from "../i18n/i18n-node"
+import {
+  formatNotionError,
+  getNotionClient,
+  invokeErrResult,
+  mapBlocks,
+  mapIcon,
+  mapPageProperties,
+  okResult,
+} from "./_shared/notion-helpers"
+import { blocksProperty } from "./_shared-parameters/blocks"
+import { notionCredentialParameter } from "./_shared-parameters/credential"
+import { iconProperty } from "./_shared-parameters/icon"
+import { pagePropertiesProperty } from "./_shared-parameters/page-properties/page-properties"
+import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
   | Extract<
@@ -17,7 +26,7 @@ type ParametersNames =
       "parent" | "children" | "icon" | "properties"
     >
   | "api_key"
-  | "simplify_output";
+  | "simplify_output"
 
 const parentProperty: PropertyObject<"parent"> = {
   name: "parent",
@@ -44,7 +53,7 @@ const parentProperty: PropertyObject<"parent"> = {
       },
     },
   ],
-};
+}
 
 const parameters: Array<Property<ParametersNames>> = [
   notionCredentialParameter,
@@ -53,7 +62,7 @@ const parameters: Array<Property<ParametersNames>> = [
   blocksProperty,
   iconProperty,
   simplifyOutputProperty,
-];
+]
 
 export const createAPageTool: ToolDefinition = {
   name: "notion-create-page",
@@ -61,7 +70,30 @@ export const createAPageTool: ToolDefinition = {
   description: t("CREATE_PAGE_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
-};
+  invoke: async ({ args }) => {
+    const client = getNotionClient(args)
+    if (!client) {
+      return invokeErrResult("Missing Notion API key")
+    }
+
+    const rawParameters = args.parameters as Record<string, unknown>
+    const parent = rawParameters.parent as Record<string, unknown> | undefined
+    const pageId = typeof parent?.page_id === "string" ? parent.page_id : ""
+
+    if (pageId === "") {
+      return invokeErrResult("parent.page_id is required")
+    }
+
+    try {
+      const data = await client.pages.create({
+        children: mapBlocks(rawParameters.children),
+        icon: mapIcon(rawParameters.icon),
+        parent: { page_id: pageId },
+        properties: mapPageProperties(rawParameters.properties),
+      } satisfies CreatePageParameters)
+      return okResult(data)
+    } catch (error) {
+      return invokeErrResult(formatNotionError(error))
+    }
+  },
+}

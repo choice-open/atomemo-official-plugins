@@ -18,6 +18,7 @@ export const colorProperty: PropertyString<"color"> = {
   name: "color",
   type: "string",
   required: false,
+  default: "default",
   ui: {
     component: "select",
     options: apiColorOptions,
@@ -28,6 +29,7 @@ export const colorProperty: PropertyString<"color"> = {
 export const isToggleableProperty = {
   name: "is_toggleable",
   type: "boolean",
+  default: false,
   required: false,
   ui: {
     component: "switch",
@@ -188,6 +190,7 @@ export const todoBlock: PropertyObject<"to_do", "type"> = {
       {
         name: "checked",
         type: "boolean",
+        default: false,
         required: false,
         ui: {
           component: "switch",
@@ -541,6 +544,7 @@ export const tableBlock: PropertyObject<"table", "type"> = {
       {
         name: "has_column_header",
         type: "boolean",
+        default: false,
         required: false,
         ui: {
           component: "switch",
@@ -551,6 +555,7 @@ export const tableBlock: PropertyObject<"table", "type"> = {
       {
         name: "has_row_header",
         type: "boolean",
+        default: false,
         required: false,
         ui: {
           component: "switch",
@@ -654,7 +659,7 @@ export const allBlocks: PropertyObject<string, "type">[] = [
   linkToPageBlock,
 ];
 
-export const blocksItems: PropertyDiscriminatedUnion< "type"> = {
+export const blocksItems: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
   discriminator: "type",
   discriminator_ui: {

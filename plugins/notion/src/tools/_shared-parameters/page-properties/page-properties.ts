@@ -331,6 +331,7 @@ export const propertiesValue: PropertyDiscriminatedUnion<"type"> = {
         {
           name: "checkbox",
           type: "boolean",
+          default: false,
           required: true,
           ui: { component: "switch", support_expression: true },
         },

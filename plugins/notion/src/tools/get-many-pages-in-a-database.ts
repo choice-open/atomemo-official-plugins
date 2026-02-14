@@ -4,6 +4,15 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types";
 import type { QueryDataSourceParameters } from "@notionhq/client";
 import { t } from "../i18n/i18n-node";
+import {
+  formatNotionError,
+  getNotionClient,
+  invokeErrResult,
+  mapQuerySorts,
+  okResult,
+  parseJsonObject,
+  queryWithPagination,
+} from "./_shared/notion-helpers";
 import { notionCredentialParameter } from "./_shared-parameters/credential";
 import type { ExcludedNames } from "./_shared-parameters/excluded-names";
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related";
@@ -39,6 +48,7 @@ const parameters: Array<Property<ParametersNames>> = [
   {
     name: "filter_properties",
     type: "array",
+    default: [],
     required: false,
     items: {
       type: "string",
@@ -151,7 +161,67 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
   description: t("QUERY_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
   parameters,
-  invoke: async () => ({
-    error: "Not implemented",
-  }),
+  invoke: async ({ args }) => {
+    const client = getNotionClient(args);
+    if (!client) {
+      return invokeErrResult("Missing Notion API key");
+    }
+
+    const rawParameters = args.parameters as Record<string, unknown>;
+    const dataSourceId =
+      typeof rawParameters.data_source_id === "string"
+        ? rawParameters.data_source_id
+        : "";
+    if (dataSourceId === "") {
+      return invokeErrResult("data_source_id is required");
+    }
+
+    const parsedFilter = parseJsonObject(rawParameters.filter);
+    if ("error" in parsedFilter) {
+      return invokeErrResult(parsedFilter.error ?? "Invalid filter JSON");
+    }
+
+    const returnAll = rawParameters.return_all === true;
+    const pageSize =
+      typeof rawParameters.page_size === "number"
+        ? rawParameters.page_size
+        : 100;
+    const filterProperties = Array.isArray(rawParameters.filter_properties)
+      ? rawParameters.filter_properties.filter(
+          (item): item is string => typeof item === "string",
+        )
+      : undefined;
+
+    try {
+      const data = await queryWithPagination(returnAll, (startCursor) => {
+        const filter = parsedFilter.value;
+        const sorts = mapQuerySorts(rawParameters.sorts);
+
+        const filter_properties =
+          Array.isArray(rawParameters.filter_properties) &&
+          rawParameters.filter_properties.length > 0
+            ? rawParameters.filter_properties.filter(
+                (item): item is string => typeof item === "string",
+              )
+            : undefined;
+        const params = {
+          data_source_id: dataSourceId,
+          page_size: pageSize,
+          start_cursor: startCursor,
+          filter,
+          filter_properties,
+          sorts,
+        };
+
+        if (filter && Object.keys(filter).length === 0) {
+          delete params.filter;
+        }
+
+        return client.dataSources.query(params);
+      });
+      return okResult(data);
+    } catch (error) {
+      return invokeErrResult(formatNotionError(error));
+    }
+  },
 };
