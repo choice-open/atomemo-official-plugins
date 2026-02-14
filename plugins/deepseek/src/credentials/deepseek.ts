@@ -28,7 +28,7 @@ export const deepseekCredential = {
     const headers = new Headers()
     headers.set("Authorization", `Bearer ${apiKey}`)
     return {
-      adapter: "openai",
+      adapter: "deepseek",
       endpoint: "https://api.deepseek.com/chat/completions",
       headers: Object.fromEntries(headers.entries()),
       api_key: apiKey,

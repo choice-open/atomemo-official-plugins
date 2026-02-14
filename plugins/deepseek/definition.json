@@ -18,7 +18,7 @@
   "author": "david 2",
   "email": "david.chen@choiceform.com",
   "organization_id": "Bc6oFsjVgi4x5jB2xbcyUTVtliO4XOpk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [
     {
       "name": "deepseek-api-key",
