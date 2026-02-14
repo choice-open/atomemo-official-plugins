@@ -88,12 +88,12 @@ describe("deepseek plugin", () => {
     it("should authenticate with endpoint and headers", async () => {
       const apiKey = "sk-test"
       const result = await deepseekCredential.authenticate({
-        args: { credential: { api_key: apiKey } },
+        args: { credential: { api_key: apiKey }, extra: {} },
       })
 
       expect(result).toEqual(
         expect.objectContaining({
-          adapter: "openai",
+          adapter: "deepseek",
           endpoint: "https://api.deepseek.com/chat/completions",
           headers: expect.objectContaining({
             authorization: `Bearer ${apiKey}`,
@@ -106,7 +106,7 @@ describe("deepseek plugin", () => {
     it("should throw when api_key is empty", async () => {
       await expect(
         deepseekCredential.authenticate({
-          args: { credential: { api_key: "" } },
+          args: { credential: { api_key: "" }, extra: {} },
         }),
       ).rejects.toThrow("credential api_key is empty")
     })

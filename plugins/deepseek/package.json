@@ -1,7 +1,7 @@
 {
   "name": "deepseek",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DeepSeek provides advanced AI capabilities for chats and completions. This plugin enables developers to integrate DeepSeek's models, including text generation (deepseek-chat and deepseek-code) via the API.",
   "author": "david 2 <david.chen@choiceform.com>",
   "license": "MIT",
