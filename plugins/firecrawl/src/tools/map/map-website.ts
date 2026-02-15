@@ -1,12 +1,21 @@
 import type {
   PropertyObject,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
+import {
+  asToolResult,
+  createFirecrawlClient,
+  errorResponse,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  sanitizeRequestBody,
+} from "../_shared/firecrawl-client";
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
-} from "../_shared-parameters"
+} from "../_shared-parameters";
 
 const options: PropertyObject = {
   type: "object",
@@ -112,7 +121,7 @@ const options: PropertyObject = {
       },
     },
   ],
-}
+};
 
 export const MapWebsiteTool: ToolDefinition = {
   name: "firecrawl-map",
@@ -134,7 +143,45 @@ export const MapWebsiteTool: ToolDefinition = {
     },
     options,
   ],
-  async invoke(context) {
-    throw new Error("Not implemented")
+  invoke: async ({ args }) => {
+    try {
+      const apiKey = getFirecrawlApiKey(args);
+      if (!apiKey) {
+        return errorResponse(
+          new Error(
+            "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
+          ),
+        );
+      }
+      const { parameters } = getArgs(args);
+      const url = parameters.url;
+      const options = (parameters.options as Record<string, unknown>) || {};
+
+      if (typeof url !== "string" || !url.trim()) {
+        return errorResponse(new Error("Parameter `url` is required."));
+      }
+
+      const body = options.useCustomBody
+        ? parseCustomBody(options.customBody)
+        : sanitizeRequestBody({
+            url,
+            ...options,
+          });
+
+      if (!("url" in body)) {
+        body.url = url;
+      }
+
+      delete body.useCustomBody;
+      delete body.customBody;
+
+      const urlStr = (body.url as string) || url;
+      const { url: _u, ...mapOpts } = body as Record<string, unknown>;
+
+      const client = createFirecrawlClient(apiKey);
+      return asToolResult(client.map(urlStr, mapOpts as Parameters<typeof client.map>[1]));
+    } catch (e) {
+      return errorResponse(e);
+    }
   },
-}
+};

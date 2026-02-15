@@ -1,13 +1,22 @@
 import type {
   PropertyObject,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
+import {
+  asToolResult,
+  createFirecrawlClient,
+  errorResponse,
+  getArgs,
+  getFirecrawlApiKey,
+  parseCustomBody,
+  sanitizeRequestBody,
+} from "../_shared/firecrawl-client";
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
-} from "../_shared-parameters"
+} from "../_shared-parameters";
 
 const requestOptions: PropertyObject = {
   type: "object",
@@ -52,6 +61,7 @@ const requestOptions: PropertyObject = {
     {
       name: "delay",
       type: "integer",
+      default: 123,
       display_name: t("LABEL_DELAY"),
       display: {
         show: { useCustomBody: false },
@@ -65,6 +75,7 @@ const requestOptions: PropertyObject = {
     {
       name: "maxConcurrency",
       type: "integer",
+      default: 8,
       display_name: t("LABEL_MAX_CONCURRENCY"),
       display: {
         show: { useCustomBody: false },
@@ -177,7 +188,7 @@ const requestOptions: PropertyObject = {
       },
     },
   ],
-}
+};
 
 export const CrawlAWebsiteTool: ToolDefinition = {
   name: "firecrawl-crawl",
@@ -199,7 +210,45 @@ export const CrawlAWebsiteTool: ToolDefinition = {
     },
     requestOptions,
   ],
-  async invoke(context) {
-    throw new Error("Not implemented")
+  invoke: async ({ args }) => {
+    try {
+      const apiKey = getFirecrawlApiKey(args);
+      if (!apiKey) {
+        return errorResponse(
+          new Error(
+            "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
+          ),
+        );
+      }
+      const { parameters } = getArgs(args);
+      const url = parameters.url;
+      const requestOptions =
+        (parameters.requestOptions as Record<string, unknown>) || {};
+
+      if (typeof url !== "string" || !url.trim()) {
+        return errorResponse(new Error("Parameter `url` is required."));
+      }
+
+      const body = requestOptions.useCustomBody
+        ? parseCustomBody(requestOptions.customBody)
+        : sanitizeRequestBody({
+            url,
+            ...requestOptions,
+            scrapeOptions:
+              (requestOptions.scrapeOptions as Record<string, unknown>) || {},
+          });
+
+      if (!("url" in body)) {
+        body.url = url;
+      }
+
+      delete body.useCustomBody;
+      delete body.customBody;
+
+      const client = createFirecrawlClient(apiKey);
+      return asToolResult(client.startCrawl(body.url as string, body as Parameters<typeof client.startCrawl>[1]));
+    } catch (e) {
+      return errorResponse(e);
+    }
   },
-}
+};

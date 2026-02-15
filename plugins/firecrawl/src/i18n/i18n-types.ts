@@ -16,33 +16,13 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * F​i​r​e​c​r​a​w​l
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * I​n​t​e​g​r​a​t​e​ ​F​i​r​e​c​r​a​w​l​ ​i​n​ ​A​t​o​m​e​m​o
    */
   PLUGIN_DESCRIPTION: string
-  /**
-   * D​e​m​o​ ​T​o​o​l
-   */
-  DEMO_TOOL_DISPLAY_NAME: string
-  /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
-   */
-  DEMO_TOOL_DESCRIPTION: string
-  /**
-   * L​o​c​a​t​i​o​n
-   */
-  LOCATION_DISPLAY_NAME: string
-  /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
-   */
-  LOCATION_HINT: string
-  /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
-   */
-  LOCATION_PLACEHOLDER: string
   /**
    * B​a​t​c​h​ ​I​D
    */
@@ -779,33 +759,13 @@ type RootTranslation = {
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Firecrawl
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Integrate Firecrawl in Atomemo
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
-  /**
-   * Demo Tool
-   */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
-  /**
-   * A tool for testing the plugin
-   */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
-  /**
-   * Location
-   */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
-  /**
-   * The location to test
-   */
-  LOCATION_HINT: () => LocalizedString
-  /**
-   * Enter the location to test
-   */
-  LOCATION_PLACEHOLDER: () => LocalizedString
   /**
    * Batch ID
    */

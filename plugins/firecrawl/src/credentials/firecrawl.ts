@@ -14,14 +14,14 @@ export const firecrawlCredential = {
   parameters: [
     {
       name: "api_key",
-      type: "string",
+      type: "encrypted_string",
       required: true,
       display_name: {
         en_US: "Firecrawl API Key",
         zh_Hans: "Firecrawl API 密钥",
       },
       ui: {
-        component: "input",
+        component: "encrypted-input",
         hint: {
           en_US: "Paste your Firecrawl API key (starts with fc-).",
           zh_Hans: "粘贴 Firecrawl API 密钥（以 fc- 开头）。",

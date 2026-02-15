@@ -5,8 +5,8 @@ import type {
   PropertyNumber,
   PropertyObject,
   PropertyString,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 
 const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
   type: "discriminated_union",
@@ -267,7 +267,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
   discriminator_ui: {
     component: "select",
   },
-}
+};
 
 const formatsParameter: PropertyArray = {
   name: "formats",
@@ -278,7 +278,7 @@ const formatsParameter: PropertyArray = {
     component: "array-section",
     hint: t("HINT_FORMATS"),
   },
-}
+};
 
 const headersParameter: PropertyObject<"headers"> = {
   name: "headers",
@@ -293,7 +293,7 @@ const headersParameter: PropertyObject<"headers"> = {
     component: "section",
     hint: t("HINT_HEADERS"),
   },
-}
+};
 
 const actionsParameter: PropertyArray = {
   name: "actions",
@@ -640,7 +640,7 @@ const actionsParameter: PropertyArray = {
     component: "array-section",
     hint: t("HINT_ACTIONS"),
   },
-}
+};
 
 const locationParameter: PropertyObject = {
   name: "location",
@@ -676,7 +676,7 @@ const locationParameter: PropertyObject = {
     component: "section",
     hint: t("HINT_LOCATION_SETTINGS"),
   },
-}
+};
 
 const onlyMainContentParameter: PropertyBoolean = {
   name: "onlyMainContent",
@@ -688,7 +688,7 @@ const onlyMainContentParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_ONLY_MAIN_CONTENT"),
   },
-}
+};
 
 const removeBase64ImagesParameter: PropertyBoolean = {
   name: "removeBase64Images",
@@ -700,10 +700,11 @@ const removeBase64ImagesParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_REMOVE_BASE64_IMAGES"),
   },
-}
+};
 
 const timeoutParameter: PropertyNumber = {
   name: "timeout",
+  default: 30000,
   type: "number",
   display_name: t("LABEL_TIMEOUT_MS"),
   ui: {
@@ -711,7 +712,7 @@ const timeoutParameter: PropertyNumber = {
     support_expression: true,
     hint: t("HINT_TIMEOUT_MS"),
   },
-}
+};
 
 const mobileParameter: PropertyBoolean = {
   name: "mobile",
@@ -723,7 +724,7 @@ const mobileParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_MOBILE"),
   },
-}
+};
 
 const blockAdsParameter: PropertyBoolean = {
   name: "blockAds",
@@ -735,7 +736,7 @@ const blockAdsParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_BLOCK_ADS"),
   },
-}
+};
 
 const waitForParameter: PropertyNumber = {
   name: "waitFor",
@@ -746,7 +747,7 @@ const waitForParameter: PropertyNumber = {
     support_expression: true,
     hint: t("HINT_WAIT_FOR_MS"),
   },
-}
+};
 
 const storeInCacheParameter: PropertyBoolean = {
   name: "storeInCache",
@@ -758,7 +759,7 @@ const storeInCacheParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_STORE_IN_CACHE"),
   },
-}
+};
 
 const maxAgeParameter: PropertyNumber = {
   name: "maxAge",
@@ -771,7 +772,7 @@ const maxAgeParameter: PropertyNumber = {
     step: 1,
     hint: t("HINT_MAX_AGE_MS"),
   },
-}
+};
 
 const includeTagsParameter: PropertyArray = {
   name: "includeTags",
@@ -786,7 +787,7 @@ const includeTagsParameter: PropertyArray = {
     support_expression: true,
     hint: t("HINT_INCLUDE_TAGS"),
   },
-}
+};
 
 const excludeTagsParameter: PropertyArray = {
   name: "excludeTags",
@@ -801,7 +802,7 @@ const excludeTagsParameter: PropertyArray = {
     support_expression: true,
     hint: t("HINT_EXCLUDE_TAGS"),
   },
-}
+};
 
 const proxyParameter: PropertyString = {
   name: "proxy",
@@ -814,7 +815,7 @@ const proxyParameter: PropertyString = {
     support_expression: true,
     hint: t("HINT_PROXY"),
   },
-}
+};
 
 const skipTlsVerificationParameter: PropertyBoolean = {
   name: "skipTlsVerification",
@@ -826,7 +827,7 @@ const skipTlsVerificationParameter: PropertyBoolean = {
     support_expression: true,
     hint: t("HINT_SKIP_TLS_VERIFICATION"),
   },
-}
+};
 
 export const scrapeOptionsParameter: PropertyObject<"scrapeOptions"> = {
   name: "scrapeOptions",
@@ -853,4 +854,4 @@ export const scrapeOptionsParameter: PropertyObject<"scrapeOptions"> = {
     storeInCacheParameter,
     proxyParameter,
   ],
-}
+};
