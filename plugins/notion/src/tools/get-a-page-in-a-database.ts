@@ -66,7 +66,6 @@ export const getAPageInADatabaseTool: ToolDefinition = {
     if (pageId === "") {
       return invokeErrResult("page_id is required")
     }
-    console.log("pageId", pageId, typeof pageId)
 
     try {
       const simplifyOutput = getSimplifyOutputFlag(rawParameters)
