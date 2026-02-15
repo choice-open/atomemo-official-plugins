@@ -1,9 +1,9 @@
 {
   "name": "firecrawl",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Integrate Firecrawl in Atomemo",
-  "author": "Xavier <zhqjiang@outlook.com>",
+  "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",
   "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl#readme",
   "repository": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
+    "@mendable/firecrawl-js": "^4.12.1",
     "dotenv": "^17.2.4",
     "zod": "^4.3.6"
   },
