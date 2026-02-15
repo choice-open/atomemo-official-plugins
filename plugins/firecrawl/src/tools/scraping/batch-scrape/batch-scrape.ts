@@ -66,6 +66,7 @@ const urlsParameter: PropertyString<"urls"> = {
     support_expression: true,
     placeholder: {
       en_US: "http://example.com/page1\nhttp://example.com/page2",
+      zh_Hans: "http://example.com/page1\nhttp://example.com/page2",
     },
   },
 };
