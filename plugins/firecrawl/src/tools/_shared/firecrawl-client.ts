@@ -41,11 +41,11 @@ function parseJsonObject(value: unknown, fieldName: string): UnknownRecord {
   }
 }
 
-function normalizeProxy(body: UnknownRecord): void {
-  if (body.proxy === "stealth") {
-    body.proxy = "enhanced";
-  }
-}
+// function normalizeProxy(body: UnknownRecord): void {
+//   if (body.proxy === "stealth") {
+//     body.proxy = "enhanced";
+//   }
+// }
 
 function normalizeFormats(value: unknown): unknown {
   if (!Array.isArray(value)) {
@@ -140,7 +140,7 @@ function sanitizeBody(body: UnknownRecord): UnknownRecord {
     const scrapeOptions = asObject(output.scrapeOptions);
     scrapeOptions.formats = normalizeFormats(scrapeOptions.formats);
     scrapeOptions.actions = normalizeActions(scrapeOptions.actions);
-    normalizeProxy(scrapeOptions);
+    // normalizeProxy(scrapeOptions);
     output.scrapeOptions = scrapeOptions;
   }
 
@@ -156,7 +156,7 @@ function sanitizeBody(body: UnknownRecord): UnknownRecord {
     output.parsers = normalizeParsers(output.parsers);
   }
 
-  normalizeProxy(output);
+  // normalizeProxy(output);
   return output;
 }
 

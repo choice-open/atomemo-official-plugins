@@ -1,7 +1,7 @@
 {
   "name": "firecrawl",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Integrate Firecrawl in Atomemo",
   "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",

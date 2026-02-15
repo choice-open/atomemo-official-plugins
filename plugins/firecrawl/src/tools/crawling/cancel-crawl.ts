@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
 import { t } from "../../i18n/i18n-node";
 import {
+  asToolResult,
   createFirecrawlClient,
   errorResponse,
   getArgs,
@@ -34,7 +35,7 @@ export const CancelCrawlTool: ToolDefinition = {
       }
 
       const client = createFirecrawlClient(apiKey);
-      return client.cancelCrawl(id);
+      return asToolResult(client.cancelCrawl(id));
     } catch (e) {
       return errorResponse(e);
     }
