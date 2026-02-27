@@ -2,8 +2,8 @@ import type {
   JsonValue,
   PropertyObject,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   createFirecrawlClient,
   errorResponse,
@@ -11,13 +11,13 @@ import {
   getFirecrawlApiKey,
   parseCustomBody,
   sanitizeRequestBody,
-} from "../_shared/firecrawl-client";
+} from "../_shared/firecrawl-client"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   parsersParameter,
   scrapeOptionsParameter,
-} from "../_shared-parameters";
+} from "../_shared-parameters"
 
 const options: PropertyObject = {
   type: "object",
@@ -51,7 +51,7 @@ const options: PropertyObject = {
       },
     },
   ],
-};
+}
 
 export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
   name: "firecrawl-scrape",
@@ -75,20 +75,20 @@ export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
   ],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const url = parameters.url;
-      const options = (parameters.options as Record<string, unknown>) || {};
+      const { parameters } = getArgs(args)
+      const url = parameters.url
+      const options = (parameters.options as Record<string, unknown>) || {}
 
       if (typeof url !== "string" || !url.trim()) {
-        return errorResponse(new Error("Parameter `url` is required."));
+        return errorResponse(new Error("Parameter `url` is required."))
       }
 
       const body = options.useCustomBody
@@ -97,24 +97,24 @@ export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
             url,
             parsers: options.parsers,
             ...((options.scrapeOptions as Record<string, unknown>) || {}),
-          });
+          })
 
       if (!("url" in body)) {
-        body.url = url;
+        body.url = url
       }
 
-      const urlStr = typeof body.url === "string" ? body.url : url;
-      const { url: _u, ...scrapeOpts } = body as Record<string, unknown>;
+      const urlStr = typeof body.url === "string" ? body.url : url
+      const { url: _u, ...scrapeOpts } = body as Record<string, unknown>
 
-      const client = createFirecrawlClient(apiKey);
+      const client = createFirecrawlClient(apiKey)
       const data = (await client.scrape(
         urlStr,
         scrapeOpts as Parameters<typeof client.scrape>[1],
-      )) as JsonValue;
-      return { success: true, data };
+      )) as JsonValue
+      return { success: true, data }
     } catch (e) {
-      console.error("Error scraping URL:", JSON.stringify(e, null, 2));
-      return errorResponse(JSON.stringify(e, null, 2));
+      console.error("Error scraping URL:", JSON.stringify(e, null, 2))
+      return errorResponse(JSON.stringify(e, null, 2))
     }
   },
-};
+}

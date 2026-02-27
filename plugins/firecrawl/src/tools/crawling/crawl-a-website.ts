@@ -1,8 +1,8 @@
 import type {
   PropertyObject,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
@@ -11,12 +11,12 @@ import {
   getFirecrawlApiKey,
   parseCustomBody,
   sanitizeRequestBody,
-} from "../_shared/firecrawl-client";
+} from "../_shared/firecrawl-client"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
-} from "../_shared-parameters";
+} from "../_shared-parameters"
 
 const requestOptions: PropertyObject = {
   type: "object",
@@ -188,7 +188,7 @@ const requestOptions: PropertyObject = {
       },
     },
   ],
-};
+}
 
 export const CrawlAWebsiteTool: ToolDefinition = {
   name: "firecrawl-crawl",
@@ -212,21 +212,21 @@ export const CrawlAWebsiteTool: ToolDefinition = {
   ],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const url = parameters.url;
+      const { parameters } = getArgs(args)
+      const url = parameters.url
       const requestOptions =
-        (parameters.requestOptions as Record<string, unknown>) || {};
+        (parameters.requestOptions as Record<string, unknown>) || {}
 
       if (typeof url !== "string" || !url.trim()) {
-        return errorResponse(new Error("Parameter `url` is required."));
+        return errorResponse(new Error("Parameter `url` is required."))
       }
 
       const body = requestOptions.useCustomBody
@@ -236,19 +236,24 @@ export const CrawlAWebsiteTool: ToolDefinition = {
             ...requestOptions,
             scrapeOptions:
               (requestOptions.scrapeOptions as Record<string, unknown>) || {},
-          });
+          })
 
       if (!("url" in body)) {
-        body.url = url;
+        body.url = url
       }
 
-      delete body.useCustomBody;
-      delete body.customBody;
+      delete body.useCustomBody
+      delete body.customBody
 
-      const client = createFirecrawlClient(apiKey);
-      return asToolResult(client.startCrawl(body.url as string, body as Parameters<typeof client.startCrawl>[1]));
+      const client = createFirecrawlClient(apiKey)
+      return asToolResult(
+        client.startCrawl(
+          body.url as string,
+          body as Parameters<typeof client.startCrawl>[1],
+        ),
+      )
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}
