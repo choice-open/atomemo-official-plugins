@@ -2,8 +2,8 @@ import type {
   PropertyObject,
   PropertyString,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
@@ -14,12 +14,12 @@ import {
   parseUrlsText,
   sanitizeRequestBody,
   withSchemaObject,
-} from "../_shared/firecrawl-client";
+} from "../_shared/firecrawl-client"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
-} from "../_shared-parameters";
+} from "../_shared-parameters"
 
 const options: PropertyObject = {
   name: "options",
@@ -146,7 +146,7 @@ const options: PropertyObject = {
       },
     },
   ],
-};
+}
 
 const urlsParameters: PropertyString<"urls"> = {
   type: "string",
@@ -161,7 +161,7 @@ const urlsParameters: PropertyString<"urls"> = {
       zh_Hans: "http://example.com/page1\nhttp://example.com/page2",
     },
   },
-};
+}
 
 export const ExtractStructuredDataTool: ToolDefinition = {
   name: "firecrawl-extract",
@@ -171,22 +171,22 @@ export const ExtractStructuredDataTool: ToolDefinition = {
   parameters: [firecrawlCredentialParameter, urlsParameters, options],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const options = (parameters.options as Record<string, unknown>) || {};
-      const urls = parseUrlsText(parameters.urls);
+      const { parameters } = getArgs(args)
+      const options = (parameters.options as Record<string, unknown>) || {}
+      const urls = parseUrlsText(parameters.urls)
 
       if (!options.useCustomBody && urls.length === 0) {
         return errorResponse(
           new Error("Parameter `urls` must contain at least one URL."),
-        );
+        )
       }
 
       const body = options.useCustomBody
@@ -202,16 +202,18 @@ export const ExtractStructuredDataTool: ToolDefinition = {
             ignoreInvalidURLs: options.ignoreInvalidURLs,
             scrapeOptions:
               (options.scrapeOptions as Record<string, unknown>) || {},
-          });
+          })
 
       if (!("urls" in body)) {
-        body.urls = urls;
+        body.urls = urls
       }
 
-      const client = createFirecrawlClient(apiKey);
-      return asToolResult(client.startExtract(body as Parameters<typeof client.startExtract>[0]));
+      const client = createFirecrawlClient(apiKey)
+      return asToolResult(
+        client.startExtract(body as Parameters<typeof client.startExtract>[0]),
+      )
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}

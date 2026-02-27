@@ -2,8 +2,8 @@ import type {
   PropertyObject,
   PropertyString,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
@@ -13,13 +13,13 @@ import {
   parseCustomBody,
   parseUrlsText,
   sanitizeRequestBody,
-} from "../../_shared/firecrawl-client";
+} from "../../_shared/firecrawl-client"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   parsersParameter,
   scrapeOptionsParameter,
-} from "../../_shared-parameters";
+} from "../../_shared-parameters"
 
 const options: PropertyObject = {
   type: "object",
@@ -53,7 +53,7 @@ const options: PropertyObject = {
       },
     },
   ],
-};
+}
 
 // split urls into an array of strings in invoke method
 const urlsParameter: PropertyString<"urls"> = {
@@ -69,7 +69,7 @@ const urlsParameter: PropertyString<"urls"> = {
       zh_Hans: "http://example.com/page1\nhttp://example.com/page2",
     },
   },
-};
+}
 
 export const BatchScrapeTool: ToolDefinition = {
   name: "firecrawl-batch-scrape",
@@ -79,22 +79,22 @@ export const BatchScrapeTool: ToolDefinition = {
   parameters: [firecrawlCredentialParameter, urlsParameter, options],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const options = (parameters.options as Record<string, unknown>) || {};
-      const urls = parseUrlsText(parameters.urls);
+      const { parameters } = getArgs(args)
+      const options = (parameters.options as Record<string, unknown>) || {}
+      const urls = parseUrlsText(parameters.urls)
 
       if (!options.useCustomBody && urls.length === 0) {
         return errorResponse(
           new Error("Parameter `urls` must contain at least one URL."),
-        );
+        )
       }
 
       const body = options.useCustomBody
@@ -103,20 +103,20 @@ export const BatchScrapeTool: ToolDefinition = {
             urls,
             parsers: options.parsers,
             ...((options.scrapeOptions as Record<string, unknown>) || {}),
-          });
+          })
 
       if (!("urls" in body)) {
-        body.urls = urls;
+        body.urls = urls
       }
 
-      const client = createFirecrawlClient(apiKey);
-      const urlsList = (body.urls as string[]) || urls;
-      const { urls: _u, ...rest } = body as Record<string, unknown>;
+      const client = createFirecrawlClient(apiKey)
+      const urlsList = (body.urls as string[]) || urls
+      const { urls: _u, ...rest } = body as Record<string, unknown>
       const batchOpts =
-        Object.keys(rest).length > 0 ? { options: rest } : undefined;
-      return asToolResult(client.startBatchScrape(urlsList, batchOpts));
+        Object.keys(rest).length > 0 ? { options: rest } : undefined
+      return asToolResult(client.startBatchScrape(urlsList, batchOpts))
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}

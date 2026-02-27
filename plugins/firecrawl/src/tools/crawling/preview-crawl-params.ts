@@ -1,13 +1,13 @@
-import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
   errorResponse,
   getArgs,
   getFirecrawlApiKey,
-} from "../_shared/firecrawl-client";
-import { firecrawlCredentialParameter } from "../_shared-parameters";
+} from "../_shared/firecrawl-client"
+import { firecrawlCredentialParameter } from "../_shared-parameters"
 
 export const PreviewCrawlParamsTool: ToolDefinition = {
   name: "firecrawl-preview-crawl-params",
@@ -42,29 +42,29 @@ export const PreviewCrawlParamsTool: ToolDefinition = {
   ],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const url = parameters.url;
-      const prompt = parameters.prompt;
+      const { parameters } = getArgs(args)
+      const url = parameters.url
+      const prompt = parameters.prompt
 
       if (typeof url !== "string" || !url.trim()) {
-        return errorResponse(new Error("Parameter `url` is required."));
+        return errorResponse(new Error("Parameter `url` is required."))
       }
       if (typeof prompt !== "string" || !prompt.trim()) {
-        return errorResponse(new Error("Parameter `prompt` is required."));
+        return errorResponse(new Error("Parameter `prompt` is required."))
       }
 
-      const client = createFirecrawlClient(apiKey);
-      return asToolResult(client.crawlParamsPreview(url, prompt));
+      const client = createFirecrawlClient(apiKey)
+      return asToolResult(client.crawlParamsPreview(url, prompt))
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}

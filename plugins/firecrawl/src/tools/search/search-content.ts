@@ -4,8 +4,8 @@ import type {
   PropertyObject,
   PropertyString,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
@@ -14,12 +14,12 @@ import {
   getFirecrawlApiKey,
   parseCustomBody,
   sanitizeRequestBody,
-} from "../_shared/firecrawl-client";
+} from "../_shared/firecrawl-client"
 import {
   customBodyParameter,
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
-} from "../_shared-parameters";
+} from "../_shared-parameters"
 
 const tbsParameter: PropertyString<"tbs"> = {
   type: "string",
@@ -30,7 +30,7 @@ const tbsParameter: PropertyString<"tbs"> = {
     hint: t("HINT_TIME_BASED_SEARCH"),
     support_expression: true,
   },
-};
+}
 
 const locationParameter: PropertyString<"location"> = {
   type: "string",
@@ -41,7 +41,7 @@ const locationParameter: PropertyString<"location"> = {
     hint: t("HINT_SEARCH_LOCATION"),
     support_expression: true,
   },
-};
+}
 
 const categoriesParameter: PropertyArray<"categories"> = {
   type: "array",
@@ -86,7 +86,7 @@ const categoriesParameter: PropertyArray<"categories"> = {
       },
     ],
   } satisfies PropertyDiscriminatedUnion<"type">,
-};
+}
 
 const sourcesParameter: PropertyArray<"sources"> = {
   type: "array",
@@ -133,7 +133,7 @@ const sourcesParameter: PropertyArray<"sources"> = {
       },
     ],
   } satisfies PropertyDiscriminatedUnion<"type">,
-};
+}
 
 const options: PropertyObject = {
   type: "object",
@@ -243,7 +243,7 @@ const options: PropertyObject = {
       },
     },
   ],
-};
+}
 
 export const SearchContentTool: ToolDefinition = {
   name: "firecrawl-search",
@@ -267,20 +267,20 @@ export const SearchContentTool: ToolDefinition = {
   ],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const { parameters } = getArgs(args);
-      const query = parameters.query;
-      const options = (parameters.options as Record<string, unknown>) || {};
+      const { parameters } = getArgs(args)
+      const query = parameters.query
+      const options = (parameters.options as Record<string, unknown>) || {}
 
       if (typeof query !== "string" || !query.trim()) {
-        return errorResponse(new Error("Parameter `query` is required."));
+        return errorResponse(new Error("Parameter `query` is required."))
       }
 
       const body = options.useCustomBody
@@ -290,21 +290,23 @@ export const SearchContentTool: ToolDefinition = {
             ...options,
             scrapeOptions:
               (options.scrapeOptions as Record<string, unknown>) || {},
-          });
+          })
 
       if (!("query" in body)) {
-        body.query = query;
+        body.query = query
       }
 
-      delete body.useCustomBody;
-      delete body.customBody;
+      delete body.useCustomBody
+      delete body.customBody
 
-      const client = createFirecrawlClient(apiKey);
-      const queryStr = (body.query as string) || query;
-      const { query: _q, ...req } = body as Record<string, unknown>;
-      return asToolResult(client.search(queryStr, req as Parameters<typeof client.search>[1]));
+      const client = createFirecrawlClient(apiKey)
+      const queryStr = (body.query as string) || query
+      const { query: _q, ...req } = body as Record<string, unknown>
+      return asToolResult(
+        client.search(queryStr, req as Parameters<typeof client.search>[1]),
+      )
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}

@@ -11,14 +11,10 @@
   "icon": "symbol:icon-firecrawl",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
-  "author": "Xavier",
-  "email": "zhiqiang.jiang@choiceform.com",
-  "organization_id": "tcPVl7y6Tl74SzvNki6HbCYpZTDmuzmZ",
-  "version": "0.2.3",
+  "locales": ["en-US", "zh-Hans"],
+  "author": "余凡",
+  "email": "dev.yufan@gmail.com",
+  "version": "0.3.0",
   "credentials": [
     {
       "name": "firecrawl",
@@ -273,10 +269,7 @@
               },
               "type": "string",
               "default": "include",
-              "enum": [
-                "include",
-                "skip"
-              ]
+              "enum": ["include", "skip"]
             },
             {
               "name": "ignoreQueryParameters",
@@ -570,16 +563,11 @@
                               "component": "multi-select"
                             },
                             "type": "array",
-                            "default": [
-                              "git-diff"
-                            ],
+                            "default": ["git-diff"],
                             "items": {
                               "name": "mode",
                               "type": "string",
-                              "enum": [
-                                "git-diff",
-                                "json"
-                              ]
+                              "enum": ["git-diff", "json"]
                             }
                           },
                           {
@@ -1191,10 +1179,7 @@
                             },
                             "type": "string",
                             "default": "down",
-                            "enum": [
-                              "up",
-                              "down"
-                            ]
+                            "enum": ["up", "down"]
                           },
                           {
                             "name": "selector",
@@ -1471,11 +1456,7 @@
                   },
                   "type": "string",
                   "default": "auto",
-                  "enum": [
-                    "basic",
-                    "stealth",
-                    "auto"
-                  ]
+                  "enum": ["basic", "stealth", "auto"]
                 }
               ]
             },
@@ -1806,9 +1787,7 @@
                 "component": "multi-select"
               },
               "type": "array",
-              "constant": [
-                "pdf"
-              ],
+              "constant": ["pdf"],
               "items": {
                 "name": "parser",
                 "type": "string"
@@ -2040,16 +2019,11 @@
                               "component": "multi-select"
                             },
                             "type": "array",
-                            "default": [
-                              "git-diff"
-                            ],
+                            "default": ["git-diff"],
                             "items": {
                               "name": "mode",
                               "type": "string",
-                              "enum": [
-                                "git-diff",
-                                "json"
-                              ]
+                              "enum": ["git-diff", "json"]
                             }
                           },
                           {
@@ -2661,10 +2635,7 @@
                             },
                             "type": "string",
                             "default": "down",
-                            "enum": [
-                              "up",
-                              "down"
-                            ]
+                            "enum": ["up", "down"]
                           },
                           {
                             "name": "selector",
@@ -2941,11 +2912,7 @@
                   },
                   "type": "string",
                   "default": "auto",
-                  "enum": [
-                    "basic",
-                    "stealth",
-                    "auto"
-                  ]
+                  "enum": ["basic", "stealth", "auto"]
                 }
               ]
             },
@@ -3007,7 +2974,8 @@
           "required": true,
           "ui": {
             "placeholder": {
-              "en_US": "http://example.com/page1\nhttp://example.com/page2"
+              "en_US": "http://example.com/page1\nhttp://example.com/page2",
+              "zh_Hans": "http://example.com/page1\nhttp://example.com/page2"
             },
             "support_expression": true,
             "component": "textarea"
@@ -3054,9 +3022,7 @@
                 "component": "multi-select"
               },
               "type": "array",
-              "constant": [
-                "pdf"
-              ],
+              "constant": ["pdf"],
               "items": {
                 "name": "parser",
                 "type": "string"
@@ -3288,16 +3254,11 @@
                               "component": "multi-select"
                             },
                             "type": "array",
-                            "default": [
-                              "git-diff"
-                            ],
+                            "default": ["git-diff"],
                             "items": {
                               "name": "mode",
                               "type": "string",
-                              "enum": [
-                                "git-diff",
-                                "json"
-                              ]
+                              "enum": ["git-diff", "json"]
                             }
                           },
                           {
@@ -3909,10 +3870,7 @@
                             },
                             "type": "string",
                             "default": "down",
-                            "enum": [
-                              "up",
-                              "down"
-                            ]
+                            "enum": ["up", "down"]
                           },
                           {
                             "name": "selector",
@@ -4189,11 +4147,7 @@
                   },
                   "type": "string",
                   "default": "auto",
-                  "enum": [
-                    "basic",
-                    "stealth",
-                    "auto"
-                  ]
+                  "enum": ["basic", "stealth", "auto"]
                 }
               ]
             },
@@ -4453,11 +4407,7 @@
               },
               "type": "string",
               "default": "include",
-              "enum": [
-                "skip",
-                "include",
-                "only"
-              ]
+              "enum": ["skip", "include", "only"]
             },
             {
               "name": "includeSubdomains",
@@ -5123,16 +5073,11 @@
                               "component": "multi-select"
                             },
                             "type": "array",
-                            "default": [
-                              "git-diff"
-                            ],
+                            "default": ["git-diff"],
                             "items": {
                               "name": "mode",
                               "type": "string",
-                              "enum": [
-                                "git-diff",
-                                "json"
-                              ]
+                              "enum": ["git-diff", "json"]
                             }
                           },
                           {
@@ -5744,10 +5689,7 @@
                             },
                             "type": "string",
                             "default": "down",
-                            "enum": [
-                              "up",
-                              "down"
-                            ]
+                            "enum": ["up", "down"]
                           },
                           {
                             "name": "selector",
@@ -6024,11 +5966,7 @@
                   },
                   "type": "string",
                   "default": "auto",
-                  "enum": [
-                    "basic",
-                    "stealth",
-                    "auto"
-                  ]
+                  "enum": ["basic", "stealth", "auto"]
                 }
               ]
             },
@@ -6090,7 +6028,8 @@
           "required": true,
           "ui": {
             "placeholder": {
-              "en_US": "http://example.com/page1\nhttp://example.com/page2"
+              "en_US": "http://example.com/page1\nhttp://example.com/page2",
+              "zh_Hans": "http://example.com/page1\nhttp://example.com/page2"
             },
             "support_expression": true,
             "component": "textarea"
@@ -6494,16 +6433,11 @@
                               "component": "multi-select"
                             },
                             "type": "array",
-                            "default": [
-                              "git-diff"
-                            ],
+                            "default": ["git-diff"],
                             "items": {
                               "name": "mode",
                               "type": "string",
-                              "enum": [
-                                "git-diff",
-                                "json"
-                              ]
+                              "enum": ["git-diff", "json"]
                             }
                           },
                           {
@@ -7115,10 +7049,7 @@
                             },
                             "type": "string",
                             "default": "down",
-                            "enum": [
-                              "up",
-                              "down"
-                            ]
+                            "enum": ["up", "down"]
                           },
                           {
                             "name": "selector",
@@ -7395,11 +7326,7 @@
                   },
                   "type": "string",
                   "default": "auto",
-                  "enum": [
-                    "basic",
-                    "stealth",
-                    "auto"
-                  ]
+                  "enum": ["basic", "stealth", "auto"]
                 }
               ]
             },
@@ -7472,3 +7399,4 @@
     }
   ]
 }
+

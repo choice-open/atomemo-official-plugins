@@ -1,12 +1,12 @@
-import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { t } from "../../i18n/i18n-node";
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   asToolResult,
   createFirecrawlClient,
   errorResponse,
   getFirecrawlApiKey,
-} from "../_shared/firecrawl-client";
-import { firecrawlCredentialParameter } from "../_shared-parameters";
+} from "../_shared/firecrawl-client"
+import { firecrawlCredentialParameter } from "../_shared-parameters"
 
 export const ListActiveCrawlsTool: ToolDefinition = {
   name: "firecrawl-list-active-crawls",
@@ -16,18 +16,18 @@ export const ListActiveCrawlsTool: ToolDefinition = {
   parameters: [firecrawlCredentialParameter],
   invoke: async ({ args }) => {
     try {
-      const apiKey = getFirecrawlApiKey(args);
+      const apiKey = getFirecrawlApiKey(args)
       if (!apiKey) {
         return errorResponse(
           new Error(
             "Missing Firecrawl API key in credential. Please select a valid Firecrawl credential.",
           ),
-        );
+        )
       }
-      const client = createFirecrawlClient(apiKey);
-      return asToolResult(client.getActiveCrawls());
+      const client = createFirecrawlClient(apiKey)
+      return asToolResult(client.getActiveCrawls())
     } catch (e) {
-      return errorResponse(e);
+      return errorResponse(e)
     }
   },
-};
+}
