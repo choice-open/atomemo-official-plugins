@@ -17,7 +17,7 @@
   ],
   "author": "David Chen",
   "email": "darkbaby123@gmail.com",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "credentials": [
     {
       "name": "deepseek-api-key",
