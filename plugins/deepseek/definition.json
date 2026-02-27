@@ -1,0 +1,133 @@
+{
+  "name": "deepseek",
+  "display_name": {
+    "en_US": "DeepSeek",
+    "zh_Hans": "DeepSeek"
+  },
+  "description": {
+    "en_US": "DeepSeek official models for chat completions (DeepSeek-V3.2, non-thinking and thinking modes).",
+    "zh_Hans": "DeepSeek 官方模型，用于对话补全（DeepSeek-V3.2，非思考模式与思考模式）。"
+  },
+  "icon": "🤖",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/deepseek",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "David Chen",
+  "email": "darkbaby123@gmail.com",
+  "version": "0.2.0",
+  "credentials": [
+    {
+      "name": "deepseek-api-key",
+      "display_name": {
+        "en_US": "DeepSeek API Key",
+        "zh_Hans": "DeepSeek API Key"
+      },
+      "description": {
+        "en_US": "Your DeepSeek API key for chat completions",
+        "zh_Hans": "用于对话补全的 DeepSeek API Key"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "DeepSeek API Key",
+            "zh_Hans": "DeepSeek API Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Enter your DeepSeek API key",
+              "zh_Hans": "输入 DeepSeek API Key"
+            },
+            "placeholder": {
+              "en_US": "sk-...",
+              "zh_Hans": "sk-..."
+            },
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "deepseek-chat",
+      "display_name": {
+        "en_US": "DeepSeek Chat",
+        "zh_Hans": "DeepSeek Chat"
+      },
+      "description": {
+        "en_US": "DeepSeek-V3.2 non-thinking mode: fast chat, tool calls, JSON output.",
+        "zh_Hans": "DeepSeek-V3.2 非思考模式：快速对话、工具调用、JSON 输出。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.25,
+        "input_cache_read": 0.125,
+        "output": 0.38
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": [
+        "parallel_tool_calls",
+        "verbosity"
+      ]
+    },
+    {
+      "name": "deepseek-reasoner",
+      "display_name": {
+        "en_US": "DeepSeek Reasoner",
+        "zh_Hans": "DeepSeek Reasoner"
+      },
+      "description": {
+        "en_US": "DeepSeek-V3.2 thinking mode: extended reasoning, tool calls, JSON output.",
+        "zh_Hans": "DeepSeek-V3.2 思考模式：长链推理、工具调用、JSON 输出。"
+      },
+      "icon": "🤖",
+      "model_type": "llm",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "pricing": {
+        "currency": "USD",
+        "input": 0.25,
+        "input_cache_read": 0.125,
+        "output": 0.38
+      },
+      "override_parameters": {
+        "temperature": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0
+        }
+      },
+      "unsupported_parameters": [
+        "parallel_tool_calls",
+        "verbosity"
+      ]
+    }
+  ],
+  "tools": []
+}

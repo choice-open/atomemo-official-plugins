@@ -1,0 +1,237 @@
+{
+  "name": "meteo-weather",
+  "display_name": {
+    "en_US": "Meteo Weather",
+    "zh_Hans": "Meteo 天气"
+  },
+  "description": {
+    "en_US": "Get current weather by city or location name (Open-Meteo)",
+    "zh_Hans": "根据城市或地点名称查询当前天气（Open-Meteo）"
+  },
+  "icon": "🌤️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/meteo-weather",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "leo.yu",
+  "email": "leo.yu@choiceform.com",
+  "version": "0.2.2",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "meteo-weather-get-current",
+      "display_name": {
+        "en_US": "Get Current Weather",
+        "zh_Hans": "获取当前天气"
+      },
+      "description": {
+        "en_US": "Get current weather for a given city or location",
+        "zh_Hans": "获取指定城市或地点的当前天气"
+      },
+      "icon": "🌤️",
+      "parameters": [
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "地点"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "City name or location to get weather for, e.g. Beijing, Tokyo, London"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "City name or location, e.g. Beijing, Tokyo",
+              "zh_Hans": "城市名或地点，如：北京、东京"
+            },
+            "placeholder": {
+              "en_US": "e.g. Beijing",
+              "zh_Hans": "如：北京"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "temperature_unit",
+          "display_name": {
+            "en_US": "Temperature unit",
+            "zh_Hans": "温度单位"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Temperature unit: celsius or fahrenheit. Default celsius."
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "celsius or fahrenheit",
+              "zh_Hans": "celsius 或 fahrenheit"
+            },
+            "support_expression": true,
+            "options": [
+              {
+                "label": {
+                  "en_US": "Celsius (°C)",
+                  "zh_Hans": "摄氏度 (°C)"
+                },
+                "value": "celsius"
+              },
+              {
+                "label": {
+                  "en_US": "Fahrenheit (°F)",
+                  "zh_Hans": "华氏度 (°F)"
+                },
+                "value": "fahrenheit"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "celsius",
+          "enum": [
+            "celsius",
+            "fahrenheit"
+          ]
+        },
+        {
+          "name": "wind_speed_unit",
+          "display_name": {
+            "en_US": "Wind speed unit",
+            "zh_Hans": "风速单位"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Wind speed unit: kmh, ms, mph, or kn. Default kmh."
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "kmh, ms, mph, or kn",
+              "zh_Hans": "kmh、ms、mph 或 kn"
+            },
+            "support_expression": true,
+            "options": [
+              {
+                "label": {
+                  "en_US": "km/h",
+                  "zh_Hans": "千米/时 (km/h)"
+                },
+                "value": "kmh"
+              },
+              {
+                "label": {
+                  "en_US": "m/s",
+                  "zh_Hans": "米/秒 (m/s)"
+                },
+                "value": "ms"
+              },
+              {
+                "label": {
+                  "en_US": "mph",
+                  "zh_Hans": "英里/时 (mph)"
+                },
+                "value": "mph"
+              },
+              {
+                "label": {
+                  "en_US": "kn",
+                  "zh_Hans": "节 (kn)"
+                },
+                "value": "kn"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "kmh",
+          "enum": [
+            "kmh",
+            "ms",
+            "mph",
+            "kn"
+          ]
+        },
+        {
+          "name": "precipitation_unit",
+          "display_name": {
+            "en_US": "Precipitation unit",
+            "zh_Hans": "降水单位"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Precipitation unit: mm or inch. Default mm."
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "mm or inch",
+              "zh_Hans": "mm 或 inch"
+            },
+            "support_expression": true,
+            "options": [
+              {
+                "label": {
+                  "en_US": "mm",
+                  "zh_Hans": "毫米 (mm)"
+                },
+                "value": "mm"
+              },
+              {
+                "label": {
+                  "en_US": "inch",
+                  "zh_Hans": "英寸 (inch)"
+                },
+                "value": "inch"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "mm",
+          "enum": [
+            "mm",
+            "inch"
+          ]
+        },
+        {
+          "name": "timezone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Timezone for timestamps, e.g. Asia/Shanghai. Use 'auto' to resolve from coordinates. Omit for GMT."
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "e.g. Asia/Shanghai, or leave empty for auto from location",
+              "zh_Hans": "如 Asia/Shanghai，留空则根据地点自动选择"
+            },
+            "placeholder": {
+              "en_US": "e.g. Asia/Shanghai or auto",
+              "zh_Hans": "如 Asia/Shanghai 或 auto"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
