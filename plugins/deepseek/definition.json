@@ -15,10 +15,9 @@
     "en-US",
     "zh-Hans"
   ],
-  "author": "david 2",
-  "email": "david.chen@choiceform.com",
-  "organization_id": "Bc6oFsjVgi4x5jB2xbcyUTVtliO4XOpk",
-  "version": "0.1.1",
+  "author": "David Chen",
+  "email": "darkbaby123@gmail.com",
+  "version": "0.2.0",
   "credentials": [
     {
       "name": "deepseek-api-key",
