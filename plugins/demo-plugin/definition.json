@@ -11,14 +11,10 @@
   "icon": "🎛️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "余凡",
   "email": "dev.yufan@gmail.com",
-  "organization_id": "U0WU1NIUiNiylJqOFCx5duSZPsFNsjj6",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "credentials": [
     {
       "name": "demo-deepseek-api-key",
@@ -71,12 +67,8 @@
       },
       "icon": "🤖",
       "model_type": "llm",
-      "input_modalities": [
-        "text"
-      ],
-      "output_modalities": [
-        "text"
-      ],
+      "input_modalities": ["text"],
+      "output_modalities": ["text"],
       "pricing": {
         "currency": "CNY",
         "input": 0.28,
@@ -108,12 +100,8 @@
       },
       "icon": "🤖",
       "model_type": "llm",
-      "input_modalities": [
-        "text"
-      ],
-      "output_modalities": [
-        "text"
-      ],
+      "input_modalities": ["text"],
+      "output_modalities": ["text"],
       "pricing": {
         "currency": "CNY",
         "input": 0.28,
