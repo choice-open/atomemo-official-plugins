@@ -1,0 +1,130 @@
+{
+  "name": "get-current-time",
+  "display_name": {
+    "en_US": "Get Current Time",
+    "zh_Hans": "获取当前时间"
+  },
+  "description": {
+    "en_US": "Get the current date and time, optionally in a specified timezone and format.",
+    "zh_Hans": "获取当前日期与时间，可指定时区和输出格式。"
+  },
+  "icon": "🎛️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/get-current-time",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "leo.yu",
+  "email": "leo.yu@choiceform.com",
+  "version": "0.1.2",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "get-current-time",
+      "display_name": {
+        "en_US": "Get Current Time",
+        "zh_Hans": "获取当前时间"
+      },
+      "description": {
+        "en_US": "Get the current date and time, optionally in a specified timezone and format.",
+        "zh_Hans": "获取当前日期与时间，可指定时区和输出格式。"
+      },
+      "icon": "🕐",
+      "parameters": [
+        {
+          "name": "timezone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "IANA timezone (e.g. Asia/Shanghai, America/New_York). Leave empty for system timezone.",
+              "zh_Hans": "IANA 时区（如 Asia/Shanghai、America/New_York），留空则使用系统时区。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Asia/Shanghai",
+              "zh_Hans": "如 Asia/Shanghai"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "format",
+          "display_name": {
+            "en_US": "Format",
+            "zh_Hans": "格式"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Output format for the primary current_time field.",
+              "zh_Hans": "主字段 current_time 的输出格式。"
+            },
+            "width": "full",
+            "options": [
+              {
+                "label": {
+                  "en_US": "ISO 8601",
+                  "zh_Hans": "ISO 8601"
+                },
+                "value": "iso"
+              },
+              {
+                "label": {
+                  "en_US": "Locale string",
+                  "zh_Hans": "本地化字符串"
+                },
+                "value": "locale"
+              },
+              {
+                "label": {
+                  "en_US": "Unix timestamp",
+                  "zh_Hans": "Unix 时间戳"
+                },
+                "value": "unix"
+              },
+              {
+                "label": {
+                  "en_US": "Custom pattern",
+                  "zh_Hans": "自定义格式"
+                },
+                "value": "custom"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "format_pattern",
+          "display_name": {
+            "en_US": "Custom format pattern",
+            "zh_Hans": "自定义格式模式"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Used when Format is Custom. Placeholders: yyyy (year), MM (month), dd (day), HH (hour), mm (minute), ss (second), SSS (ms). Example: yyyy-MM-dd HH:mm:ss",
+              "zh_Hans": "当格式为「自定义格式」时使用。占位符：yyyy 年、MM 月、dd 日、HH 时、mm 分、ss 秒、SSS 毫秒。例如：yyyy-MM-dd HH:mm:ss"
+            },
+            "placeholder": {
+              "en_US": "e.g. yyyy-MM-dd or yyyy-MM-dd HH:mm:ss",
+              "zh_Hans": "如 yyyy-MM-dd 或 yyyy-MM-dd HH:mm:ss"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
