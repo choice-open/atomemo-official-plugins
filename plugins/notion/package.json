@@ -1,7 +1,7 @@
 {
   "name": "notion",
   "type": "module",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Integrate Notion in Atomemo",
   "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",
