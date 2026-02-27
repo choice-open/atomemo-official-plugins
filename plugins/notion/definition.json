@@ -15,10 +15,9 @@
     "en-US",
     "zh-Hans"
   ],
-  "author": "Xavier",
-  "email": "zhiqiang.jiang@choiceform.com",
-  "organization_id": "tcPVl7y6Tl74SzvNki6HbCYpZTDmuzmZ",
-  "version": "0.2.2",
+  "author": "余凡",
+  "email": "dev.yufan@gmail.com",
+  "version": "0.3.0",
   "credentials": [
     {
       "name": "notion",
