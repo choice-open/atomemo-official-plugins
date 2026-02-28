@@ -1,7 +1,7 @@
 {
   "name": "get-current-time",
   "type": "module",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "get current time",
   "author": "leo.yu <leo.yu@choiceform.com>",
   "license": "MIT",
