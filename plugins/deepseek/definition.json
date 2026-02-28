@@ -8,7 +8,7 @@
     "en_US": "DeepSeek official models for chat completions (DeepSeek-V3.2, non-thinking and thinking modes).",
     "zh_Hans": "DeepSeek 官方模型，用于对话补全（DeepSeek-V3.2，非思考模式与思考模式）。"
   },
-  "icon": "🤖",
+  "icon": "symbol:icon-deepseek",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/deepseek",
   "locales": [
