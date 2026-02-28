@@ -98,8 +98,9 @@ export const supabaseUpdateTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
+    const credentialId = parameters?.["supabase_credential"]
+    const { supabase_url, supabase_key } = credentials?.[credentialId] ?? {}
+    if (!supabase_url || !supabase_key) {
       return {
         success: false,
         error: "Missing Supabase credential (supabase_url or supabase_key).",
@@ -108,7 +109,7 @@ export const supabaseUpdateTool = {
       }
     }
 
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
+    const supabase = createSupabaseClient(supabase_url, supabase_key)
     const table = String(parameters.table).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
     const returning =

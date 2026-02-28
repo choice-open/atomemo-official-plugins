@@ -236,6 +236,7 @@ describe("supabase-api-client plugin", () => {
       const result = await supabaseQueryTool.invoke({
         args: {
           parameters: {
+            supabase_credential: "supabase_credential",
             table: "users",
             columns: "id,name",
             schema: "public",
@@ -263,7 +264,7 @@ describe("supabase-api-client plugin", () => {
     it("should use default columns and schema when omitted", async () => {
       await supabaseQueryTool.invoke({
         args: {
-          parameters: { table: "posts" },
+          parameters: { supabase_credential: "supabase_credential", table: "posts" },
           credentials: cred,
         },
       })
@@ -278,7 +279,7 @@ describe("supabase-api-client plugin", () => {
 
       const result = await supabaseQueryTool.invoke({
         args: {
-          parameters: { table: "missing" },
+          parameters: { supabase_credential: "supabase_credential", table: "missing" },
           credentials: cred,
         },
       })
@@ -295,6 +296,7 @@ describe("supabase-api-client plugin", () => {
       const result = await supabaseQueryTool.invoke({
         args: {
           parameters: {
+            supabase_credential: "supabase_credential",
             table: "users",
             filters: '{"status": "active"}',
           },
