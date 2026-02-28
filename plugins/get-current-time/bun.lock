@@ -6,16 +6,16 @@
       "name": "get-current-time",
       "dependencies": {
         "@choiceopen/atomemo-plugin-sdk-js": "latest",
-        "dotenv": "^17.2.4",
+        "dotenv": "^17.3.1",
         "zod": "^4.3.6",
       },
       "devDependencies": {
-        "@biomejs/biome": "^2.3.14",
-        "@types/bun": "^1.3.8",
+        "@biomejs/biome": "^2.4.4",
+        "@types/bun": "^1.3.9",
         "bumpp": "^10.4.1",
         "concurrently": "9.2.1",
         "tsdown": "^0.20.3",
-        "typesafe-i18n": "^5.26.2",
+        "typesafe-i18n": "^5.27.1",
         "typescript": "^5.9.3",
         "vitest": "^4.0.18",
       },
@@ -52,7 +52,7 @@
 
     "@choiceopen/atomemo-plugin-schema": ["@choiceopen/atomemo-plugin-schema@0.2.15", "https://registry.npmmirror.com/@choiceopen/atomemo-plugin-schema/-/atomemo-plugin-schema-0.2.15.tgz", { "dependencies": { "type-fest": "^5.4.4" }, "peerDependencies": { "zod": "^4" } }, "sha512-z2fRcTlPHuao8YLR87r1IyqnNNbH0GENDFE3n0jpB2lkpnXP5+orhQVIZPjDDt78l/eC5xEIorCihFRFYn2p1g=="],
 
-    "@choiceopen/atomemo-plugin-sdk-js": ["@choiceopen/atomemo-plugin-sdk-js@0.3.1", "https://registry.npmmirror.com/@choiceopen/atomemo-plugin-sdk-js/-/atomemo-plugin-sdk-js-0.3.1.tgz", { "dependencies": { "@choiceopen/atomemo-plugin-schema": "^0.2.15", "phoenix": "^1.8.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "type-fest": "^5.4.4" }, "peerDependencies": { "chalk": "^5", "dotenv": "^17", "zod": "^4" } }, "sha512-uMX/1OW1K4Ei1WGOrHriLKBRDp+bPIz09h5buwMNIdip88qzvk0Z7+mhnh2r7MbzTHUFPXI1lUOCSfYGFGJxIQ=="],
+    "@choiceopen/atomemo-plugin-sdk-js": ["@choiceopen/atomemo-plugin-sdk-js@0.3.2", "https://registry.npmmirror.com/@choiceopen/atomemo-plugin-sdk-js/-/atomemo-plugin-sdk-js-0.3.2.tgz", { "dependencies": { "@choiceopen/atomemo-plugin-schema": "^0.2.15", "phoenix": "^1.8.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "type-fest": "^5.4.4" }, "peerDependencies": { "chalk": "^5", "dotenv": "^17", "zod": "^4" } }, "sha512-EfPEfyHwaQdazOZmFvZudz0uFMr2MZQThG0WHMKP+k2qprJIJHdxUZeKgiqokd+2t5Rd09yPx1OtmO43J//Q8g=="],
 
     "@emnapi/core": ["@emnapi/core@1.8.1", "https://registry.npmmirror.com/@emnapi/core/-/core-1.8.1.tgz", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "^2.4.0" } }, "sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg=="],
 
