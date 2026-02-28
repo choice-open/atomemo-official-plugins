@@ -1,0 +1,2717 @@
+{
+  "name": "supabase-api-client",
+  "display_name": {
+    "en_US": "Supabase API Client",
+    "zh_Hans": "Supabase API 客户端"
+  },
+  "description": {
+    "en_US": "Connect to Supabase and run database queries, insert, update, upsert, delete, and RPC.",
+    "zh_Hans": "连接 Supabase，执行查询、插入、更新、 upsert、删除及 RPC。"
+  },
+  "icon": "🎛️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/supabase-api-client",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "supabase-connection",
+      "display_name": {
+        "en_US": "Supabase connection",
+        "zh_Hans": "Supabase 连接"
+      },
+      "description": {
+        "en_US": "Connect to your Supabase project with URL and API key (anon or service role).",
+        "zh_Hans": "使用项目 URL 和 API 密钥（anon 或 service_role）连接 Supabase。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "supabase_url",
+          "display_name": {
+            "en_US": "Supabase URL",
+            "zh_Hans": "Supabase URL"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Project URL from Supabase dashboard (e.g. https://xxxxx.supabase.co)",
+              "zh_Hans": "Supabase 控制台中的项目 URL（如 https://xxxxx.supabase.co）"
+            },
+            "placeholder": {
+              "en_US": "https://xxxxx.supabase.co",
+              "zh_Hans": "https://xxxxx.supabase.co"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "supabase_key",
+          "display_name": {
+            "en_US": "Supabase API Key",
+            "zh_Hans": "Supabase API 密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "anon (public) or service_role key from Project Settings > API",
+              "zh_Hans": "在 项目设置 > API 中的 anon（公开）或 service_role 密钥"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "supabase-query",
+      "display_name": {
+        "en_US": "Supabase: Query (Select)",
+        "zh_Hans": "Supabase：查询（Select）"
+      },
+      "description": {
+        "en_US": "Run a SELECT query on a table or view with optional filters, order, and pagination.",
+        "zh_Hans": "对表或视图执行 SELECT 查询，支持过滤、排序与分页。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table",
+            "zh_Hans": "表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table or view name",
+              "zh_Hans": "表或视图名称"
+            },
+            "placeholder": {
+              "en_US": "users",
+              "zh_Hans": "users"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "columns",
+          "display_name": {
+            "en_US": "Columns",
+            "zh_Hans": "列"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated columns or * for all",
+              "zh_Hans": "逗号分隔的列名，或 * 表示全部"
+            },
+            "placeholder": {
+              "en_US": "*",
+              "zh_Hans": "*"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "*"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        },
+        {
+          "name": "filters",
+          "display_name": {
+            "en_US": "Filters",
+            "zh_Hans": "过滤条件"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON: object for multiple eq (e.g. ｛\"id\": 1｝) or array for advanced ops, e.g. [｛\"op\":\"eq\",\"column\":\"id\",\"value\":1｝,｛\"op\":\"like\",\"column\":\"name\",\"value\":\"%a%\"｝]",
+              "zh_Hans": "JSON：对象表示多列 eq（如 ｛\"id\": 1｝），或数组表示高级条件，如 [｛\"op\":\"eq\",\"column\":\"id\",\"value\":1｝,｛\"op\":\"like\",\"column\":\"name\",\"value\":\"%a%\"｝]"
+            },
+            "placeholder": {
+              "en_US": "｛\"id\": 1｝",
+              "zh_Hans": "｛\"id\": 1｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "order_by",
+          "display_name": {
+            "en_US": "Order by",
+            "zh_Hans": "排序"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Column and direction, e.g. created_at.desc",
+              "zh_Hans": "列名与方向，如 created_at.desc"
+            },
+            "placeholder": {
+              "en_US": "created_at.desc",
+              "zh_Hans": "created_at.desc"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "条数限制"
+          },
+          "required": false,
+          "ui": {
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 1000,
+          "minimum": 1
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移"
+          },
+          "required": false,
+          "ui": {
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        },
+        {
+          "name": "return_mode",
+          "display_name": {
+            "en_US": "Return mode",
+            "zh_Hans": "返回模式"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "multiple (array), single, or maybeSingle",
+              "zh_Hans": "multiple（数组）、single 或 maybeSingle"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "multiple",
+                  "zh_Hans": "multiple"
+                },
+                "value": "multiple"
+              },
+              {
+                "label": {
+                  "en_US": "single",
+                  "zh_Hans": "single"
+                },
+                "value": "single"
+              },
+              {
+                "label": {
+                  "en_US": "maybeSingle",
+                  "zh_Hans": "maybeSingle"
+                },
+                "value": "maybeSingle"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "multiple"
+        },
+        {
+          "name": "return_format",
+          "display_name": {
+            "en_US": "Return format",
+            "zh_Hans": "返回格式"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "json or csv",
+              "zh_Hans": "json 或 csv"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "json",
+                  "zh_Hans": "json"
+                },
+                "value": "json"
+              },
+              {
+                "label": {
+                  "en_US": "csv",
+                  "zh_Hans": "csv"
+                },
+                "value": "csv"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "json"
+        },
+        {
+          "name": "explain",
+          "display_name": {
+            "en_US": "Explain",
+            "zh_Hans": "Explain"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Return query plan instead of data (requires db_plan_enabled)",
+              "zh_Hans": "返回执行计划而非数据（需开启 db_plan_enabled）"
+            },
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "supabase-insert",
+      "display_name": {
+        "en_US": "Supabase: Insert",
+        "zh_Hans": "Supabase：插入"
+      },
+      "description": {
+        "en_US": "Insert one or more rows into a table.",
+        "zh_Hans": "向表中插入一行或多行数据。"
+      },
+      "icon": "➕",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table",
+            "zh_Hans": "表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table or view name",
+              "zh_Hans": "表或视图名称"
+            },
+            "placeholder": {
+              "en_US": "users",
+              "zh_Hans": "users"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "rows",
+          "display_name": {
+            "en_US": "Rows",
+            "zh_Hans": "行数据"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array of objects or single object",
+              "zh_Hans": "JSON 对象数组或单个对象"
+            },
+            "placeholder": {
+              "en_US": "[｛\"name\":\"Alice\"｝]",
+              "zh_Hans": "[｛\"name\":\"Alice\"｝]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        },
+        {
+          "name": "returning",
+          "display_name": {
+            "en_US": "Returning",
+            "zh_Hans": "返回"
+          },
+          "required": false,
+          "ui": {
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal",
+          "enum": [
+            "minimal",
+            "representation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "supabase-update",
+      "display_name": {
+        "en_US": "Supabase: Update",
+        "zh_Hans": "Supabase：更新"
+      },
+      "description": {
+        "en_US": "Update rows matching the given filters.",
+        "zh_Hans": "按条件更新行。"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table",
+            "zh_Hans": "表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table or view name",
+              "zh_Hans": "表或视图名称"
+            },
+            "placeholder": {
+              "en_US": "users",
+              "zh_Hans": "users"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "values",
+          "display_name": {
+            "en_US": "Values",
+            "zh_Hans": "更新值"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object of column names and new values",
+              "zh_Hans": "列名与新值组成的 JSON 对象"
+            },
+            "placeholder": {
+              "en_US": "｛\"name\":\"New Name\"｝",
+              "zh_Hans": "｛\"name\":\"New Name\"｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filters",
+          "display_name": {
+            "en_US": "Filters",
+            "zh_Hans": "过滤条件"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object to target rows, e.g. ｛\"id\": 1｝",
+              "zh_Hans": "用于定位要更新行的 JSON 对象，如 ｛\"id\": 1｝"
+            },
+            "placeholder": {
+              "en_US": "｛\"id\": 1｝",
+              "zh_Hans": "｛\"id\": 1｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        },
+        {
+          "name": "returning",
+          "display_name": {
+            "en_US": "Returning",
+            "zh_Hans": "返回"
+          },
+          "required": false,
+          "ui": {
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal",
+          "enum": [
+            "minimal",
+            "representation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "supabase-upsert",
+      "display_name": {
+        "en_US": "Supabase: Upsert",
+        "zh_Hans": "Supabase：Upsert"
+      },
+      "description": {
+        "en_US": "Insert or update rows (by primary key or conflict columns).",
+        "zh_Hans": "按主键或冲突列插入或更新行。"
+      },
+      "icon": "🔄",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table",
+            "zh_Hans": "表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table or view name",
+              "zh_Hans": "表或视图名称"
+            },
+            "placeholder": {
+              "en_US": "users",
+              "zh_Hans": "users"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "rows",
+          "display_name": {
+            "en_US": "Rows",
+            "zh_Hans": "行数据"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array or object; include primary key for upsert",
+              "zh_Hans": "JSON 数组或对象；upsert 时需包含主键"
+            },
+            "placeholder": {
+              "en_US": "[｛\"id\":1,\"name\":\"Alice\"｝]",
+              "zh_Hans": "[｛\"id\":1,\"name\":\"Alice\"｝]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        },
+        {
+          "name": "on_conflict",
+          "display_name": {
+            "en_US": "On conflict",
+            "zh_Hans": "冲突列"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated columns for conflict target",
+              "zh_Hans": "冲突目标列，逗号分隔"
+            },
+            "placeholder": {
+              "en_US": "id",
+              "zh_Hans": "id"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "returning",
+          "display_name": {
+            "en_US": "Returning",
+            "zh_Hans": "返回"
+          },
+          "required": false,
+          "ui": {
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal",
+          "enum": [
+            "minimal",
+            "representation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "supabase-delete",
+      "display_name": {
+        "en_US": "Supabase: Delete",
+        "zh_Hans": "Supabase：删除"
+      },
+      "description": {
+        "en_US": "Delete rows matching the given filters.",
+        "zh_Hans": "按条件删除行。"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table",
+            "zh_Hans": "表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table or view name",
+              "zh_Hans": "表或视图名称"
+            },
+            "placeholder": {
+              "en_US": "users",
+              "zh_Hans": "users"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filters",
+          "display_name": {
+            "en_US": "Filters",
+            "zh_Hans": "过滤条件"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object to target rows to delete, e.g. ｛\"id\": 1｝",
+              "zh_Hans": "用于定位要删除行的 JSON 对象，如 ｛\"id\": 1｝"
+            },
+            "placeholder": {
+              "en_US": "｛\"id\": 1｝",
+              "zh_Hans": "｛\"id\": 1｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        },
+        {
+          "name": "returning",
+          "display_name": {
+            "en_US": "Returning",
+            "zh_Hans": "返回"
+          },
+          "required": false,
+          "ui": {
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal",
+          "enum": [
+            "minimal",
+            "representation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "supabase-rpc",
+      "display_name": {
+        "en_US": "Supabase: Call RPC",
+        "zh_Hans": "Supabase：调用 RPC"
+      },
+      "description": {
+        "en_US": "Call a Postgres function (RPC) with optional arguments.",
+        "zh_Hans": "调用 Postgres 函数（RPC），可传参。"
+      },
+      "icon": "⚙️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "function_name",
+          "display_name": {
+            "en_US": "Function name",
+            "zh_Hans": "函数名"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Postgres function name",
+              "zh_Hans": "Postgres 函数名"
+            },
+            "placeholder": {
+              "en_US": "get_user_stats",
+              "zh_Hans": "get_user_stats"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "args",
+          "display_name": {
+            "en_US": "Arguments",
+            "zh_Hans": "参数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object of function arguments",
+              "zh_Hans": "函数参数的 JSON 对象"
+            },
+            "placeholder": {
+              "en_US": "｛\"user_id\": \"uuid\"｝",
+              "zh_Hans": "｛\"user_id\": \"uuid\"｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "schema",
+          "display_name": {
+            "en_US": "Schema",
+            "zh_Hans": "Schema"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Schema name (default: public)",
+              "zh_Hans": "Schema 名称（默认 public）"
+            },
+            "placeholder": {
+              "en_US": "public",
+              "zh_Hans": "public"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "public"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-in",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign in",
+        "zh_Hans": "Supabase Auth：登录"
+      },
+      "description": {
+        "en_US": "Sign in with email and password.",
+        "zh_Hans": "使用邮箱和密码登录。"
+      },
+      "icon": "🔐",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Email",
+            "zh_Hans": "邮箱"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User email address",
+              "zh_Hans": "用户邮箱"
+            },
+            "placeholder": {
+              "en_US": "user@example.com",
+              "zh_Hans": "user@example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "display_name": {
+            "en_US": "Password",
+            "zh_Hans": "密码"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User password",
+              "zh_Hans": "用户密码"
+            },
+            "placeholder": {
+              "en_US": "••••••••",
+              "zh_Hans": "••••••••"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-up",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign up",
+        "zh_Hans": "Supabase Auth：注册"
+      },
+      "description": {
+        "en_US": "Create a new user with email and password.",
+        "zh_Hans": "使用邮箱和密码创建新用户。"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Email",
+            "zh_Hans": "邮箱"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User email address",
+              "zh_Hans": "用户邮箱"
+            },
+            "placeholder": {
+              "en_US": "user@example.com",
+              "zh_Hans": "user@example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "display_name": {
+            "en_US": "Password",
+            "zh_Hans": "密码"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User password",
+              "zh_Hans": "用户密码"
+            },
+            "placeholder": {
+              "en_US": "••••••••",
+              "zh_Hans": "••••••••"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "options",
+          "display_name": {
+            "en_US": "Sign up options",
+            "zh_Hans": "注册选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON e.g. ｛\"emailRedirectTo\":\"https://...\",\"data\":｛｝｝",
+              "zh_Hans": "JSON，如 ｛\"emailRedirectTo\":\"https://...\",\"data\":｛｝｝"
+            },
+            "placeholder": {
+              "en_US": "｛｝",
+              "zh_Hans": "｛｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-out",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign out",
+        "zh_Hans": "Supabase Auth：登出"
+      },
+      "description": {
+        "en_US": "Sign out the current session (local or global).",
+        "zh_Hans": "登出当前会话（本地或全局）。"
+      },
+      "icon": "🚪",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "scope",
+          "display_name": {
+            "en_US": "Scope",
+            "zh_Hans": "范围"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "local = this client only; global = all clients",
+              "zh_Hans": "local = 仅当前客户端；global = 所有客户端"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "local",
+                  "zh_Hans": "local"
+                },
+                "value": "local"
+              },
+              {
+                "label": {
+                  "en_US": "global",
+                  "zh_Hans": "global"
+                },
+                "value": "global"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "local"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-get-user",
+      "display_name": {
+        "en_US": "Supabase Auth: Get user",
+        "zh_Hans": "Supabase Auth：获取用户"
+      },
+      "description": {
+        "en_US": "Get the current user (optionally validate a JWT). Prefer over get-session for security.",
+        "zh_Hans": "获取当前用户（可选传入 JWT 校验）。出于安全考虑优先于 get-session。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "jwt",
+          "display_name": {
+            "en_US": "JWT",
+            "zh_Hans": "JWT"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional access token to validate; if empty uses current session",
+              "zh_Hans": "可选：用于校验的 access token；为空则使用当前会话"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-get-session",
+      "display_name": {
+        "en_US": "Supabase Auth: Get session",
+        "zh_Hans": "Supabase Auth：获取会话"
+      },
+      "description": {
+        "en_US": "Get the current session from storage.",
+        "zh_Hans": "从存储中获取当前会话。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-reset-password",
+      "display_name": {
+        "en_US": "Supabase Auth: Reset password",
+        "zh_Hans": "Supabase Auth：重置密码"
+      },
+      "description": {
+        "en_US": "Send a password reset email to the given email.",
+        "zh_Hans": "向指定邮箱发送重置密码邮件。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Email",
+            "zh_Hans": "邮箱"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User email address",
+              "zh_Hans": "用户邮箱"
+            },
+            "placeholder": {
+              "en_US": "user@example.com",
+              "zh_Hans": "user@example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "redirect_to",
+          "display_name": {
+            "en_US": "Redirect URL",
+            "zh_Hans": "重定向 URL"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "URL to redirect after password reset",
+              "zh_Hans": "重置密码后的跳转 URL"
+            },
+            "placeholder": {
+              "en_US": "https://myapp.com/reset-password",
+              "zh_Hans": "https://myapp.com/reset-password"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-verify-otp",
+      "display_name": {
+        "en_US": "Supabase Auth: Verify OTP",
+        "zh_Hans": "Supabase Auth：验证 OTP"
+      },
+      "description": {
+        "en_US": "Verify a one-time password (e.g. after magic link or OTP sign-in).",
+        "zh_Hans": "验证一次性密码（如 magic link 或 OTP 登录后）。"
+      },
+      "icon": "✉️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "type",
+          "display_name": {
+            "en_US": "OTP type",
+            "zh_Hans": "OTP 类型"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Type of OTP flow",
+              "zh_Hans": "OTP 流程类型"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "email",
+                  "zh_Hans": "email"
+                },
+                "value": "email"
+              },
+              {
+                "label": {
+                  "en_US": "sms",
+                  "zh_Hans": "sms"
+                },
+                "value": "sms"
+              },
+              {
+                "label": {
+                  "en_US": "phone_change",
+                  "zh_Hans": "phone_change"
+                },
+                "value": "phone_change"
+              },
+              {
+                "label": {
+                  "en_US": "email_change",
+                  "zh_Hans": "email_change"
+                },
+                "value": "email_change"
+              },
+              {
+                "label": {
+                  "en_US": "magiclink",
+                  "zh_Hans": "magiclink"
+                },
+                "value": "magiclink"
+              },
+              {
+                "label": {
+                  "en_US": "recovery",
+                  "zh_Hans": "recovery"
+                },
+                "value": "recovery"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "token_hash",
+          "display_name": {
+            "en_US": "Token ID",
+            "zh_Hans": "Token ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token ID from the OTP email/link",
+              "zh_Hans": "OTP 邮件/链接中的 token_id"
+            },
+            "placeholder": {
+              "en_US": "",
+              "zh_Hans": ""
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "display_name": {
+            "en_US": "OTP code",
+            "zh_Hans": "OTP 验证码"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "One-time password from email/SMS",
+              "zh_Hans": "邮件/短信中的一次性验证码"
+            },
+            "placeholder": {
+              "en_US": "123456",
+              "zh_Hans": "123456"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-set-session",
+      "display_name": {
+        "en_US": "Supabase Auth: Set session",
+        "zh_Hans": "Supabase Auth：设置会话"
+      },
+      "description": {
+        "en_US": "Set the session from access_token and refresh_token (e.g. after OAuth or from stored tokens).",
+        "zh_Hans": "使用 access_token 和 refresh_token 设置会话（如 OAuth 回调或存储的 token）。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "access_token",
+          "display_name": {
+            "en_US": "Access token",
+            "zh_Hans": "Access token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JWT access token",
+              "zh_Hans": "JWT access token"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "refresh_token",
+          "display_name": {
+            "en_US": "Refresh token",
+            "zh_Hans": "Refresh token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Refresh token from sign-in/session",
+              "zh_Hans": "来自登录/会话的 refresh token"
+            },
+            "placeholder": {
+              "en_US": "v1.M...",
+              "zh_Hans": "v1.M..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-update-user",
+      "display_name": {
+        "en_US": "Supabase Auth: Update user",
+        "zh_Hans": "Supabase Auth：更新用户"
+      },
+      "description": {
+        "en_US": "Update the signed-in user (email, password, or data). Requires access_token and refresh_token.",
+        "zh_Hans": "更新已登录用户（邮箱、密码或 data）。需要 access_token 和 refresh_token。"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "access_token",
+          "display_name": {
+            "en_US": "Access token",
+            "zh_Hans": "Access token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Required; from sign-in or session",
+              "zh_Hans": "必填；来自登录或会话"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "refresh_token",
+          "display_name": {
+            "en_US": "Refresh token",
+            "zh_Hans": "Refresh token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Refresh token from sign-in/session",
+              "zh_Hans": "来自登录/会话的 refresh token"
+            },
+            "placeholder": {
+              "en_US": "v1.M...",
+              "zh_Hans": "v1.M..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "attributes",
+          "display_name": {
+            "en_US": "Attributes",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON with email, password and/or data, e.g. ｛\"email\":\"new@example.com\"｝",
+              "zh_Hans": "JSON：email、password 和/或 data，如 ｛\"email\":\"new@example.com\"｝"
+            },
+            "placeholder": {
+              "en_US": "｛\"email\":\"new@example.com\"｝",
+              "zh_Hans": "｛\"email\":\"new@example.com\"｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-resend-otp",
+      "display_name": {
+        "en_US": "Supabase Auth: Resend OTP",
+        "zh_Hans": "Supabase Auth：重发 OTP"
+      },
+      "description": {
+        "en_US": "Resend OTP email or SMS (signup, email_change, sms, phone_change).",
+        "zh_Hans": "重发 OTP 邮件或短信（signup、email_change、sms、phone_change）。"
+      },
+      "icon": "🔄",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "type",
+          "display_name": {
+            "en_US": "Resend type",
+            "zh_Hans": "重发类型"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "signup/email_change need email; sms/phone_change need phone",
+              "zh_Hans": "signup/email_change 需 email；sms/phone_change 需 phone"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "signup",
+                  "zh_Hans": "signup"
+                },
+                "value": "signup"
+              },
+              {
+                "label": {
+                  "en_US": "email_change",
+                  "zh_Hans": "email_change"
+                },
+                "value": "email_change"
+              },
+              {
+                "label": {
+                  "en_US": "sms",
+                  "zh_Hans": "sms"
+                },
+                "value": "sms"
+              },
+              {
+                "label": {
+                  "en_US": "phone_change",
+                  "zh_Hans": "phone_change"
+                },
+                "value": "phone_change"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Email",
+            "zh_Hans": "邮箱"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Required for signup / email_change",
+              "zh_Hans": "signup / email_change 时必填"
+            },
+            "placeholder": {
+              "en_US": "user@example.com",
+              "zh_Hans": "user@example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "phone",
+          "display_name": {
+            "en_US": "Phone",
+            "zh_Hans": "手机号"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Required for sms / phone_change",
+              "zh_Hans": "sms / phone_change 时必填"
+            },
+            "placeholder": {
+              "en_US": "+1234567890",
+              "zh_Hans": "+8613800138000"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-exchange-code-for-session",
+      "display_name": {
+        "en_US": "Supabase Auth: Exchange code for session",
+        "zh_Hans": "Supabase Auth：用 code 换 session"
+      },
+      "description": {
+        "en_US": "Exchange an OAuth PKCE auth code for a session (server-side callback).",
+        "zh_Hans": "用 OAuth PKCE 的 auth code 换取会话（服务端回调）。"
+      },
+      "icon": "🔄",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "code",
+          "display_name": {
+            "en_US": "Auth code",
+            "zh_Hans": "Auth code"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Code from OAuth redirect query (e.g. ?code=...)",
+              "zh_Hans": "OAuth 重定向 query 中的 code（如 ?code=...）"
+            },
+            "placeholder": {
+              "en_US": "",
+              "zh_Hans": ""
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-in-anonymously",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign in anonymously",
+        "zh_Hans": "Supabase Auth：匿名登录"
+      },
+      "description": {
+        "en_US": "Create an anonymous user session.",
+        "zh_Hans": "创建匿名用户会话。"
+      },
+      "icon": "🎭",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-in-with-otp",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign in with OTP",
+        "zh_Hans": "Supabase Auth：OTP 登录"
+      },
+      "description": {
+        "en_US": "Send a magic link / OTP email to sign in (user verifies with verify-otp).",
+        "zh_Hans": "发送 magic link / OTP 邮件以登录（用户用 verify-otp 验证）。"
+      },
+      "icon": "📧",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Email",
+            "zh_Hans": "邮箱"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "User email address",
+              "zh_Hans": "用户邮箱"
+            },
+            "placeholder": {
+              "en_US": "user@example.com",
+              "zh_Hans": "user@example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "options",
+          "display_name": {
+            "en_US": "Sign up options",
+            "zh_Hans": "注册选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON: emailRedirectTo, shouldCreateUser, data",
+              "zh_Hans": "JSON：emailRedirectTo、shouldCreateUser、data"
+            },
+            "placeholder": {
+              "en_US": "｛｝",
+              "zh_Hans": "｛｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-in-with-id-token",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign in with ID token",
+        "zh_Hans": "Supabase Auth：使用 ID Token 登录"
+      },
+      "description": {
+        "en_US": "Sign in using an OIDC ID token (e.g. from Google, Apple, Azure, Facebook, Kakao or custom provider).",
+        "zh_Hans": "使用 OIDC ID Token 登录（如 Google、Apple、Azure、Facebook、Kakao 或自定义 OIDC 提供商）。"
+      },
+      "icon": "🎫",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "provider",
+          "display_name": {
+            "en_US": "Provider",
+            "zh_Hans": "提供商"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Provider that issued the ID token; use custom for OIDC (e.g. custom:my-provider).",
+              "zh_Hans": "签发 ID Token 的提供商；自定义 OIDC 请选 Custom（如 custom:my-provider）。"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Google",
+                  "zh_Hans": "Google"
+                },
+                "value": "google"
+              },
+              {
+                "label": {
+                  "en_US": "Apple",
+                  "zh_Hans": "Apple"
+                },
+                "value": "apple"
+              },
+              {
+                "label": {
+                  "en_US": "Azure",
+                  "zh_Hans": "Azure"
+                },
+                "value": "azure"
+              },
+              {
+                "label": {
+                  "en_US": "Facebook",
+                  "zh_Hans": "Facebook"
+                },
+                "value": "facebook"
+              },
+              {
+                "label": {
+                  "en_US": "Kakao",
+                  "zh_Hans": "Kakao"
+                },
+                "value": "kakao"
+              },
+              {
+                "label": {
+                  "en_US": "Custom (OIDC)",
+                  "zh_Hans": "自定义（OIDC）"
+                },
+                "value": "custom"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "provider_custom",
+          "display_name": {
+            "en_US": "Custom provider name",
+            "zh_Hans": "自定义提供商名称"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "OIDC provider id, e.g. my-oidc-provider (will be prefixed with custom:).",
+              "zh_Hans": "OIDC 提供商 id，如 my-oidc-provider（将自动加 custom: 前缀）。"
+            },
+            "placeholder": {
+              "en_US": "my-oidc-provider",
+              "zh_Hans": "my-oidc-provider"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "display_name": {
+            "en_US": "ID token",
+            "zh_Hans": "ID Token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OIDC ID token JWT from the provider.",
+              "zh_Hans": "由提供商签发的 OIDC ID Token JWT。"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "display_name": {
+            "en_US": "Access token",
+            "zh_Hans": "Access token"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Required if the ID token contains an at_hash claim.",
+              "zh_Hans": "若 ID Token 中包含 at_hash 声明则必填。"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "nonce",
+          "display_name": {
+            "en_US": "Nonce",
+            "zh_Hans": "Nonce"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Required if the ID token contains a nonce claim.",
+              "zh_Hans": "若 ID Token 中包含 nonce 声明则必填。"
+            },
+            "placeholder": {
+              "en_US": "",
+              "zh_Hans": ""
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "options",
+          "display_name": {
+            "en_US": "Options",
+            "zh_Hans": "选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON e.g. ｛\"captchaToken\":\"...\"｝",
+              "zh_Hans": "JSON，如 ｛\"captchaToken\":\"...\"｝"
+            },
+            "placeholder": {
+              "en_US": "｛｝",
+              "zh_Hans": "｛｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-sign-in-with-oauth",
+      "display_name": {
+        "en_US": "Supabase Auth: Sign in with OAuth",
+        "zh_Hans": "Supabase Auth：OAuth 登录"
+      },
+      "description": {
+        "en_US": "Start OAuth sign-in; returns URL to redirect user. Use exchange-code-for-session after callback.",
+        "zh_Hans": "发起 OAuth 登录，返回重定向 URL；回调后用 exchange-code-for-session 换取 session。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "provider",
+          "display_name": {
+            "en_US": "Provider",
+            "zh_Hans": "提供商"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth provider (e.g. Google, GitHub).",
+              "zh_Hans": "OAuth 提供商（如 Google、GitHub）。"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Google",
+                  "zh_Hans": "Google"
+                },
+                "value": "google"
+              },
+              {
+                "label": {
+                  "en_US": "GitHub",
+                  "zh_Hans": "GitHub"
+                },
+                "value": "github"
+              },
+              {
+                "label": {
+                  "en_US": "GitLab",
+                  "zh_Hans": "GitLab"
+                },
+                "value": "gitlab"
+              },
+              {
+                "label": {
+                  "en_US": "Apple",
+                  "zh_Hans": "Apple"
+                },
+                "value": "apple"
+              },
+              {
+                "label": {
+                  "en_US": "Azure",
+                  "zh_Hans": "Azure"
+                },
+                "value": "azure"
+              },
+              {
+                "label": {
+                  "en_US": "Facebook",
+                  "zh_Hans": "Facebook"
+                },
+                "value": "facebook"
+              },
+              {
+                "label": {
+                  "en_US": "Discord",
+                  "zh_Hans": "Discord"
+                },
+                "value": "discord"
+              },
+              {
+                "label": {
+                  "en_US": "Twitch",
+                  "zh_Hans": "Twitch"
+                },
+                "value": "twitch"
+              },
+              {
+                "label": {
+                  "en_US": "Twitter",
+                  "zh_Hans": "Twitter"
+                },
+                "value": "twitter"
+              },
+              {
+                "label": {
+                  "en_US": "X",
+                  "zh_Hans": "X"
+                },
+                "value": "x"
+              },
+              {
+                "label": {
+                  "en_US": "Slack",
+                  "zh_Hans": "Slack"
+                },
+                "value": "slack"
+              },
+              {
+                "label": {
+                  "en_US": "Spotify",
+                  "zh_Hans": "Spotify"
+                },
+                "value": "spotify"
+              },
+              {
+                "label": {
+                  "en_US": "Kakao",
+                  "zh_Hans": "Kakao"
+                },
+                "value": "kakao"
+              },
+              {
+                "label": {
+                  "en_US": "Keycloak",
+                  "zh_Hans": "Keycloak"
+                },
+                "value": "keycloak"
+              },
+              {
+                "label": {
+                  "en_US": "LinkedIn",
+                  "zh_Hans": "LinkedIn"
+                },
+                "value": "linkedin"
+              },
+              {
+                "label": {
+                  "en_US": "Notion",
+                  "zh_Hans": "Notion"
+                },
+                "value": "notion"
+              },
+              {
+                "label": {
+                  "en_US": "Bitbucket",
+                  "zh_Hans": "Bitbucket"
+                },
+                "value": "bitbucket"
+              },
+              {
+                "label": {
+                  "en_US": "Figma",
+                  "zh_Hans": "Figma"
+                },
+                "value": "figma"
+              },
+              {
+                "label": {
+                  "en_US": "WorkOS",
+                  "zh_Hans": "WorkOS"
+                },
+                "value": "workos"
+              },
+              {
+                "label": {
+                  "en_US": "Zoom",
+                  "zh_Hans": "Zoom"
+                },
+                "value": "zoom"
+              },
+              {
+                "label": {
+                  "en_US": "Fly",
+                  "zh_Hans": "Fly"
+                },
+                "value": "fly"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "redirect_to",
+          "display_name": {
+            "en_US": "Redirect URL",
+            "zh_Hans": "重定向 URL"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Callback URL after OAuth (must be allowed in provider and Supabase).",
+              "zh_Hans": "OAuth 回调 URL（须在提供商与 Supabase 中配置）。"
+            },
+            "placeholder": {
+              "en_US": "https://myapp.com/reset-password",
+              "zh_Hans": "https://myapp.com/reset-password"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "scopes",
+          "display_name": {
+            "en_US": "Scopes",
+            "zh_Hans": "Scopes"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Space-separated scopes (e.g. email profile).",
+              "zh_Hans": "空格分隔的 scope，如 email profile。"
+            },
+            "placeholder": {
+              "en_US": "email profile",
+              "zh_Hans": "email profile"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query_params",
+          "display_name": {
+            "en_US": "Query params",
+            "zh_Hans": "Query 参数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object of extra query params for the OAuth URL.",
+              "zh_Hans": "JSON 对象，OAuth URL 的额外查询参数。"
+            },
+            "placeholder": {
+              "en_US": "｛｝",
+              "zh_Hans": "｛｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "skip_browser_redirect",
+          "display_name": {
+            "en_US": "Skip browser redirect",
+            "zh_Hans": "跳过浏览器重定向"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If true, returns URL without redirecting (for server-side use).",
+              "zh_Hans": "为 true 时仅返回 URL 不重定向（服务端使用）。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-get-claims",
+      "display_name": {
+        "en_US": "Supabase Auth: Get user claims from JWT",
+        "zh_Hans": "Supabase Auth：从 JWT 获取用户声明"
+      },
+      "description": {
+        "en_US": "Decode and verify a JWT and return its claims (sub, email, role, etc.).",
+        "zh_Hans": "解码并校验 JWT，返回声明（sub、email、role 等）。"
+      },
+      "icon": "🎫",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "jwt",
+          "display_name": {
+            "en_US": "JWT",
+            "zh_Hans": "JWT"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JWT to verify; if empty uses current session.",
+              "zh_Hans": "要校验的 JWT；为空则使用当前 session。"
+            },
+            "placeholder": {
+              "en_US": "eyJhbG...",
+              "zh_Hans": "eyJhbG..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "allow_expired",
+          "display_name": {
+            "en_US": "Allow expired",
+            "zh_Hans": "允许已过期"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If true, do not reject expired JWTs.",
+              "zh_Hans": "为 true 时不拒绝已过期的 JWT。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-list-clients",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: List OAuth clients",
+        "zh_Hans": "Supabase Auth Admin：列出 OAuth 客户端"
+      },
+      "description": {
+        "en_US": "List OAuth 2.1 clients (requires service_role key and OAuth server enabled).",
+        "zh_Hans": "列出 OAuth 2.1 客户端（需 service_role 密钥且启用 OAuth 服务端）。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ui": {
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1,
+          "minimum": 1
+        },
+        {
+          "name": "per_page",
+          "display_name": {
+            "en_US": "Per page",
+            "zh_Hans": "每页条数"
+          },
+          "required": false,
+          "ui": {
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 1000,
+          "minimum": 1
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-create-client",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: Create OAuth client",
+        "zh_Hans": "Supabase Auth Admin：创建 OAuth 客户端"
+      },
+      "description": {
+        "en_US": "Create a new OAuth client (requires service_role key).",
+        "zh_Hans": "创建新的 OAuth 客户端（需 service_role 密钥）。"
+      },
+      "icon": "➕",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "client_name",
+          "display_name": {
+            "en_US": "Client name",
+            "zh_Hans": "客户端名称"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Human-readable name for the OAuth client.",
+              "zh_Hans": "OAuth 客户端的可读名称。"
+            },
+            "placeholder": {
+              "en_US": "My OAuth App",
+              "zh_Hans": "My OAuth App"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "redirect_uris",
+          "display_name": {
+            "en_US": "Redirect URIs",
+            "zh_Hans": "Redirect URIs"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array of allowed redirect URIs, e.g. [\"https://myapp.com/callback\"].",
+              "zh_Hans": "JSON 数组，允许的重定向 URI，如 [\"https://myapp.com/callback\"]。"
+            },
+            "placeholder": {
+              "en_US": "[\"https://myapp.com/callback\"]",
+              "zh_Hans": "[\"https://myapp.com/callback\"]"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_uri",
+          "display_name": {
+            "en_US": "Client URI",
+            "zh_Hans": "Client URI"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional URI of the OAuth client.",
+              "zh_Hans": "可选，OAuth 客户端 URI。"
+            },
+            "placeholder": {
+              "en_US": "https://myapp.com",
+              "zh_Hans": "https://myapp.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "grant_types",
+          "display_name": {
+            "en_US": "Grant types",
+            "zh_Hans": "Grant types"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array, e.g. [\"authorization_code\",\"refresh_token\"].",
+              "zh_Hans": "JSON 数组，如 [\"authorization_code\",\"refresh_token\"]。"
+            },
+            "placeholder": {
+              "en_US": "[\"authorization_code\",\"refresh_token\"]",
+              "zh_Hans": "[\"authorization_code\",\"refresh_token\"]"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "response_types",
+          "display_name": {
+            "en_US": "Response types",
+            "zh_Hans": "Response types"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array, e.g. [\"code\"].",
+              "zh_Hans": "JSON 数组，如 [\"code\"]。"
+            },
+            "placeholder": {
+              "en_US": "[\"code\"]",
+              "zh_Hans": "[\"code\"]"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "scope",
+          "display_name": {
+            "en_US": "Scope",
+            "zh_Hans": "Scope"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional scope string (e.g. openid).",
+              "zh_Hans": "可选 scope 字符串（如 openid）。"
+            },
+            "placeholder": {
+              "en_US": "openid",
+              "zh_Hans": "openid"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-get-client",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: Get OAuth client",
+        "zh_Hans": "Supabase Auth Admin：获取 OAuth 客户端"
+      },
+      "description": {
+        "en_US": "Get a single OAuth client by ID (requires service_role key).",
+        "zh_Hans": "按 ID 获取单个 OAuth 客户端（需 service_role 密钥）。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The OAuth client identifier (UUID).",
+              "zh_Hans": "OAuth 客户端标识（UUID）。"
+            },
+            "placeholder": {
+              "en_US": "client-uuid",
+              "zh_Hans": "client-uuid"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-update-client",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: Update OAuth client",
+        "zh_Hans": "Supabase Auth Admin：更新 OAuth 客户端"
+      },
+      "description": {
+        "en_US": "Update an OAuth client (requires service_role key).",
+        "zh_Hans": "更新 OAuth 客户端（需 service_role 密钥）。"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The OAuth client identifier (UUID).",
+              "zh_Hans": "OAuth 客户端标识（UUID）。"
+            },
+            "placeholder": {
+              "en_US": "client-uuid",
+              "zh_Hans": "client-uuid"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "params",
+          "display_name": {
+            "en_US": "Update params",
+            "zh_Hans": "更新参数"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON: client_name, client_uri, logo_uri, redirect_uris, grant_types, token_endpoint_auth_method.",
+              "zh_Hans": "JSON：client_name、client_uri、logo_uri、redirect_uris、grant_types、token_endpoint_auth_method。"
+            },
+            "placeholder": {
+              "en_US": "｛\"client_name\":\"New Name\",\"redirect_uris\":[\"https://new/callback\"]｝",
+              "zh_Hans": "｛\"client_name\":\"New Name\",\"redirect_uris\":[\"https://new/callback\"]｝"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-delete-client",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: Delete OAuth client",
+        "zh_Hans": "Supabase Auth Admin：删除 OAuth 客户端"
+      },
+      "description": {
+        "en_US": "Delete an OAuth client (requires service_role key).",
+        "zh_Hans": "删除 OAuth 客户端（需 service_role 密钥）。"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The OAuth client identifier (UUID).",
+              "zh_Hans": "OAuth 客户端标识（UUID）。"
+            },
+            "placeholder": {
+              "en_US": "client-uuid",
+              "zh_Hans": "client-uuid"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "supabase-auth-admin-oauth-regenerate-secret",
+      "display_name": {
+        "en_US": "Supabase Auth Admin: Regenerate OAuth client secret",
+        "zh_Hans": "Supabase Auth Admin：再生 OAuth 客户端密钥"
+      },
+      "description": {
+        "en_US": "Regenerate the client secret for an OAuth client (requires service_role key).",
+        "zh_Hans": "为 OAuth 客户端重新生成 client_secret（需 service_role 密钥）。"
+      },
+      "icon": "🔄",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The OAuth client identifier (UUID).",
+              "zh_Hans": "OAuth 客户端标识（UUID）。"
+            },
+            "placeholder": {
+              "en_US": "client-uuid",
+              "zh_Hans": "client-uuid"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
