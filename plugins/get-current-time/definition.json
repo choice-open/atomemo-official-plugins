@@ -8,7 +8,7 @@
     "en_US": "Get the current date and time, optionally in a specified timezone and format.",
     "zh_Hans": "获取当前日期与时间，可指定时区和输出格式。"
   },
-  "icon": "🎛️",
+  "icon": "🕐",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/get-current-time",
   "locales": [
