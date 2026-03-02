@@ -23,20 +23,27 @@ export type InvokeArgsLike = {
 }
 
 export type GetSupabaseClientSuccess = { supabase: SupabaseClient; error: null }
-export type GetSupabaseClientFailure = { supabase: null; error: MissingCredentialError }
-export type GetSupabaseClientResult = GetSupabaseClientSuccess | GetSupabaseClientFailure
+export type GetSupabaseClientFailure = {
+  supabase: null
+  error: MissingCredentialError
+}
+export type GetSupabaseClientResult =
+  | GetSupabaseClientSuccess
+  | GetSupabaseClientFailure
 
 function getCredential(
   parameters: Record<string, unknown> | undefined,
   credentials: CredentialMap | undefined,
-  paramName: string
+  paramName: string,
 ): { supabase_url: string; supabase_key: string } | null {
   const id = parameters?.[paramName]
   if (id == null || typeof id !== "string") return null
   const cred = credentials?.[id]
   if (!cred) return null
-  const url = typeof cred.supabase_url === "string" ? cred.supabase_url.trim() : ""
-  const key = typeof cred.supabase_key === "string" ? cred.supabase_key.trim() : ""
+  const url =
+    typeof cred.supabase_url === "string" ? cred.supabase_url.trim() : ""
+  const key =
+    typeof cred.supabase_key === "string" ? cred.supabase_key.trim() : ""
   if (!url || !key) return null
   return { supabase_url: url, supabase_key: key }
 }
@@ -50,37 +57,41 @@ function getCredential(
  */
 export function getSupabaseClientFromArgs(
   args: InvokeArgsLike,
-  credentialParamName?: string
+  credentialParamName?: string,
 ): GetSupabaseClientResult
 export function getSupabaseClientFromArgs(
   parameters: Record<string, unknown> | undefined,
   credentials: CredentialMap | undefined,
-  credentialParamName?: string
+  credentialParamName?: string,
 ): GetSupabaseClientResult
 export function getSupabaseClientFromArgs(
   argsOrParameters: InvokeArgsLike | Record<string, unknown> | undefined,
   credentialsOrParamName?: CredentialMap | string,
-  credentialParamName?: string
+  credentialParamName?: string,
 ): GetSupabaseClientResult {
   const isArgs =
     argsOrParameters != null &&
     typeof argsOrParameters === "object" &&
     "parameters" in argsOrParameters &&
     "credentials" in argsOrParameters &&
-    (credentialsOrParamName === undefined || typeof credentialsOrParamName === "string")
+    (credentialsOrParamName === undefined ||
+      typeof credentialsOrParamName === "string")
 
   const parameters = isArgs
-    ? (argsOrParameters as InvokeArgsLike).parameters ?? undefined
+    ? ((argsOrParameters as InvokeArgsLike).parameters ?? undefined)
     : (argsOrParameters as Record<string, unknown> | undefined)
   const credentials = isArgs
-    ? (argsOrParameters as InvokeArgsLike).credentials ?? undefined
+    ? ((argsOrParameters as InvokeArgsLike).credentials ?? undefined)
     : (credentialsOrParamName as CredentialMap | undefined)
   const paramName =
     (isArgs ? credentialsOrParamName : credentialParamName) ?? CREDENTIAL_PARAM
 
   const cred = getCredential(parameters, credentials, paramName as string)
   if (!cred) return { supabase: null, error: MISSING_CREDENTIAL_ERROR }
-  return { supabase: createClient(cred.supabase_url, cred.supabase_key), error: null }
+  return {
+    supabase: createClient(cred.supabase_url, cred.supabase_key),
+    error: null,
+  }
 }
 
 export function createSupabaseClient(url: string, key: string): SupabaseClient {

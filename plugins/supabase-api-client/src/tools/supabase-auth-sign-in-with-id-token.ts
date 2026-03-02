@@ -117,13 +117,17 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
       if (!custom) {
         return {
           success: false,
-          error: "provider_custom is required when provider is custom (e.g. custom:my-oidc-provider).",
+          error:
+            "provider_custom is required when provider is custom (e.g. custom:my-oidc-provider).",
           data: null,
           code: null,
         }
       }
       provider = custom.startsWith("custom:") ? custom : `custom:${custom}`
-    } else if (!provider || !PROVIDERS.includes(provider as (typeof PROVIDERS)[number])) {
+    } else if (
+      !provider ||
+      !PROVIDERS.includes(provider as (typeof PROVIDERS)[number])
+    ) {
       return {
         success: false,
         error: `provider must be one of: ${PROVIDERS.join(", ")}, or custom.`,
@@ -142,15 +146,30 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
     }
     const accessToken = (parameters.access_token as string)?.trim() || undefined
     const nonce = (parameters.nonce as string)?.trim() || undefined
-    const options = parseJson<{ captchaToken?: string }>(parameters.options as string, {})
+    const options = parseJson<{ captchaToken?: string }>(
+      parameters.options as string,
+      {},
+    )
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithIdToken({
-      provider: provider as "google" | "apple" | "azure" | "facebook" | "kakao" | `custom:${string}`,
+      provider: provider as
+        | "google"
+        | "apple"
+        | "azure"
+        | "facebook"
+        | "kakao"
+        | `custom:${string}`,
       token,
       ...(accessToken ? { access_token: accessToken } : {}),
       ...(nonce ? { nonce } : {}),
-      ...(options.captchaToken ? { options: { captchaToken: options.captchaToken } } : {}),
+      ...(options.captchaToken
+        ? { options: { captchaToken: options.captchaToken } }
+        : {}),
     })
-    return authResult({ data: result.data, error: result.error }) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult({ data: result.data, error: result.error }) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

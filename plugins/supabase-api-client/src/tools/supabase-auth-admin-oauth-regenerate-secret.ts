@@ -41,10 +41,16 @@ export const supabaseAuthAdminOAuthRegenerateSecretTool: ToolDefinition = {
     }
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
-      return { success: false, error: "client_id is required.", data: null, code: null }
+      return {
+        success: false,
+        error: "client_id is required.",
+        data: null,
+        code: null,
+      }
     }
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    const result = await supabase.auth.admin.oauth.regenerateClientSecret(clientId)
+    const result =
+      await supabase.auth.admin.oauth.regenerateClientSecret(clientId)
     if (result.error) {
       return {
         success: false,

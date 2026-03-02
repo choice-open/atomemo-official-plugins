@@ -9,9 +9,11 @@ function createChain() {
     neq: vi.fn().mockReturnThis(),
     gte: vi.fn().mockReturnThis(),
     then(
-      resolve: (v: { data: unknown; error: typeof mockDeleteError }) => void
+      resolve: (v: { data: unknown; error: typeof mockDeleteError }) => void,
     ) {
-      return Promise.resolve({ data: null, error: mockDeleteError }).then(resolve)
+      return Promise.resolve({ data: null, error: mockDeleteError }).then(
+        resolve,
+      )
     },
     select: vi.fn().mockResolvedValue({ data: [], error: mockDeleteError }),
   }
@@ -19,9 +21,7 @@ function createChain() {
 }
 
 const mockFrom = vi.fn()
-const mockSchema = vi.fn(function () {
-  return { from: mockFrom }
-})
+const mockSchema = vi.fn(() => ({ from: mockFrom }))
 
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({

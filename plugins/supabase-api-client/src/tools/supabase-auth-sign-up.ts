@@ -75,12 +75,16 @@ export const supabaseAuthSignUpTool: ToolDefinition = {
         code: null,
       }
     }
-    const options = parseJson<{ emailRedirectTo?: string; data?: Record<string, unknown> }>(
-      parameters.options as string,
-      {}
-    )
+    const options = parseJson<{
+      emailRedirectTo?: string
+      data?: Record<string, unknown>
+    }>(parameters.options as string, {})
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signUp({ email, password, options })
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

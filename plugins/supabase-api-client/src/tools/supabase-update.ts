@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import {
   applyFiltersAdvanced,
   type FiltersInput,
@@ -108,11 +108,11 @@ export const supabaseUpdateTool = {
       (parameters.returning as "minimal" | "representation") || "minimal"
     const values = parseJson<Record<string, unknown>>(
       parameters.values as string,
-      {}
+      {},
     )
     const filtersInput = parseJson<FiltersInput | null>(
       parameters.filters as string,
-      null
+      null,
     )
 
     if (Object.keys(values).length === 0) {
@@ -137,10 +137,15 @@ export const supabaseUpdateTool = {
       const base = supabase.schema(schema).from(table).update(values)
       const filtered = applyFiltersAdvanced(base, filtersInput ?? undefined)
 
-      type Result = { data: unknown; error: { message: string; code?: string } | null }
+      type Result = {
+        data: unknown
+        error: { message: string; code?: string } | null
+      }
       const { data, error } =
         returning === "representation"
-          ? await (filtered as unknown as { select: () => Promise<Result> }).select()
+          ? await (
+              filtered as unknown as { select: () => Promise<Result> }
+            ).select()
           : await (filtered as unknown as Promise<Result>)
 
       if (error) {

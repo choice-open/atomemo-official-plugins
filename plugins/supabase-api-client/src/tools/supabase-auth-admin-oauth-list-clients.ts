@@ -41,7 +41,8 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
     if (!cred?.supabase_url || !cred?.supabase_key) {
       return {
         success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key). Requires service_role key.",
+        error:
+          "Missing Supabase credential (supabase_url or supabase_key). Requires service_role key.",
         data: null,
         code: null,
       }
@@ -49,7 +50,10 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
     const page = Number(parameters.page) || 1
     const perPage = Number(parameters.per_page) || 50
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    const result = await supabase.auth.admin.oauth.listClients({ page, perPage })
+    const result = await supabase.auth.admin.oauth.listClients({
+      page,
+      perPage,
+    })
     if (result.error) {
       return {
         success: false,

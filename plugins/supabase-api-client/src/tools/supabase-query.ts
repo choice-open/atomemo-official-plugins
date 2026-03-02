@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import {
   applyFiltersAdvanced,
   type FiltersInput,
@@ -166,7 +166,7 @@ export const supabaseQueryTool = {
     const schema = (parameters.schema as string)?.trim() || "public"
     const filtersInput = parseJson<FiltersInput | null>(
       parameters.filters as string,
-      null
+      null,
     )
     const orderBy = (parameters.order_by as string)?.trim()
     const limit = Number(parameters.limit) || 100
@@ -187,7 +187,14 @@ export const supabaseQueryTool = {
       query = query.range(offset, offset + limit - 1)
 
       if (explain) {
-        const explained = (query as unknown as { explain: (opts?: { format?: string }) => Promise<{ data: unknown; error: { message: string; code?: string } | null }> }).explain({ format: "json" })
+        const explained = (
+          query as unknown as {
+            explain: (opts?: { format?: string }) => Promise<{
+              data: unknown
+              error: { message: string; code?: string } | null
+            }>
+          }
+        ).explain({ format: "json" })
         const { data, error } = await explained
         if (error) {
           return {
@@ -206,7 +213,14 @@ export const supabaseQueryTool = {
       }
 
       if (returnFormat === "csv") {
-        const csvChain = (query as unknown as { csv: () => Promise<{ data: string; error: { message: string; code?: string } | null }> }).csv()
+        const csvChain = (
+          query as unknown as {
+            csv: () => Promise<{
+              data: string
+              error: { message: string; code?: string } | null
+            }>
+          }
+        ).csv()
         const { data, error } = await csvChain
         if (error) {
           return {
@@ -225,7 +239,14 @@ export const supabaseQueryTool = {
       }
 
       if (returnMode === "single") {
-        const singleChain = (query as unknown as { single: () => Promise<{ data: unknown; error: { message: string; code?: string } | null }> }).single()
+        const singleChain = (
+          query as unknown as {
+            single: () => Promise<{
+              data: unknown
+              error: { message: string; code?: string } | null
+            }>
+          }
+        ).single()
         const { data, error } = await singleChain
         if (error) {
           return {
@@ -244,7 +265,14 @@ export const supabaseQueryTool = {
       }
 
       if (returnMode === "maybeSingle") {
-        const maybeChain = (query as unknown as { maybeSingle: () => Promise<{ data: unknown; error: { message: string; code?: string } | null }> }).maybeSingle()
+        const maybeChain = (
+          query as unknown as {
+            maybeSingle: () => Promise<{
+              data: unknown
+              error: { message: string; code?: string } | null
+            }>
+          }
+        ).maybeSingle()
         const { data, error } = await maybeChain
         if (error) {
           return {

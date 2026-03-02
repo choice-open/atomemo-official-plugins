@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -100,16 +100,17 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
     }
 
     const bodyRaw = (parameters.body as string)?.trim()
-    const body = bodyRaw ? parseJson<Record<string, unknown>>(bodyRaw, {}) : undefined
-    const method = ((parameters.method as string)?.trim() || "POST").toUpperCase() as
-      | "POST"
-      | "GET"
-      | "PUT"
-      | "PATCH"
-      | "DELETE"
+    const body = bodyRaw
+      ? parseJson<Record<string, unknown>>(bodyRaw, {})
+      : undefined
+    const method = (
+      (parameters.method as string)?.trim() || "POST"
+    ).toUpperCase() as "POST" | "GET" | "PUT" | "PATCH" | "DELETE"
     const headersRaw = (parameters.headers as string)?.trim()
     const headers = headersRaw
-      ? (parseJson<Record<string, string>>(headersRaw, {}) as Record<string, string> | undefined)
+      ? (parseJson<Record<string, string>>(headersRaw, {}) as
+          | Record<string, string>
+          | undefined)
       : undefined
 
     try {
@@ -119,11 +120,16 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
         method?: HttpMethod
         headers?: Record<string, string>
       } = {}
-      if (body !== undefined && Object.keys(body).length > 0) options.body = body
+      if (body !== undefined && Object.keys(body).length > 0)
+        options.body = body
       if (method && method !== "POST") options.method = method as HttpMethod
-      if (headers !== undefined && Object.keys(headers).length > 0) options.headers = headers
+      if (headers !== undefined && Object.keys(headers).length > 0)
+        options.headers = headers
 
-      const { data, error } = await supabase.functions.invoke(functionName, options)
+      const { data, error } = await supabase.functions.invoke(
+        functionName,
+        options,
+      )
 
       if (error) {
         return {

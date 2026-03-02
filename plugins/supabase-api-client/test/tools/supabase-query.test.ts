@@ -21,19 +21,22 @@ function createChain() {
     or: vi.fn().mockReturnThis(),
     order: vi.fn().mockReturnThis(),
     range: vi.fn().mockReturnThis(),
-    then(resolve: (v: { data: unknown; error: typeof mockQueryError }) => void) {
-      return Promise.resolve({ data: mockQueryData, error: mockQueryError }).then(resolve)
+    then(
+      resolve: (v: { data: unknown; error: typeof mockQueryError }) => void,
+    ) {
+      return Promise.resolve({
+        data: mockQueryData,
+        error: mockQueryError,
+      }).then(resolve)
     },
   }
   return chain
 }
 
 const mockFrom = vi.fn()
-const mockSchema = vi.fn(function () {
-  return {
-    from: mockFrom,
-  }
-})
+const mockSchema = vi.fn(() => ({
+  from: mockFrom,
+}))
 
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({
@@ -175,7 +178,10 @@ describe("supabase-query", () => {
   })
 
   it("should return error when Supabase returns error", async () => {
-    mockQueryError = { message: "relation \"missing\" does not exist", code: "42P01" }
+    mockQueryError = {
+      message: 'relation "missing" does not exist',
+      code: "42P01",
+    }
     const chain = createChain()
     mockFrom.mockReturnValueOnce({
       select: vi.fn().mockReturnValue(chain),
@@ -190,7 +196,7 @@ describe("supabase-query", () => {
 
     expect(result).toMatchObject({
       success: false,
-      error: "relation \"missing\" does not exist",
+      error: 'relation "missing" does not exist',
       code: "42P01",
       data: null,
     })

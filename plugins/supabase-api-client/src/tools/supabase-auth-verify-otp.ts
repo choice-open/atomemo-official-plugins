@@ -3,7 +3,14 @@ import { createSupabaseClient } from "../credentials/supabase-connection"
 import { t } from "../i18n/i18n-node"
 import { authResult } from "../lib/auth-result"
 
-const OTP_TYPES = ["email", "sms", "phone_change", "email_change", "magiclink", "recovery"] as const
+const OTP_TYPES = [
+  "email",
+  "sms",
+  "phone_change",
+  "email_change",
+  "magiclink",
+  "recovery",
+] as const
 
 export const supabaseAuthVerifyOtpTool: ToolDefinition = {
   name: "supabase-auth-verify-otp",
@@ -93,12 +100,14 @@ export const supabaseAuthVerifyOtpTool: ToolDefinition = {
       }
     }
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    const params = tokenHash
-      ? { type, token_hash: tokenHash }
-      : { type, token }
+    const params = tokenHash ? { type, token_hash: tokenHash } : { type, token }
     const result = await supabase.auth.verifyOtp(
-      params as Parameters<typeof supabase.auth.verifyOtp>[0]
+      params as Parameters<typeof supabase.auth.verifyOtp>[0],
     )
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

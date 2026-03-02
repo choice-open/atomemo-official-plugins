@@ -11,10 +11,7 @@
   "icon": "🎛️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/supabase-api-client",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.0",
@@ -438,10 +435,7 @@
           },
           "type": "string",
           "default": "minimal",
-          "enum": [
-            "minimal",
-            "representation"
-          ]
+          "enum": ["minimal", "representation"]
         }
       ]
     },
@@ -568,10 +562,7 @@
           },
           "type": "string",
           "default": "minimal",
-          "enum": [
-            "minimal",
-            "representation"
-          ]
+          "enum": ["minimal", "representation"]
         }
       ]
     },
@@ -697,10 +688,7 @@
           },
           "type": "string",
           "default": "minimal",
-          "enum": [
-            "minimal",
-            "representation"
-          ]
+          "enum": ["minimal", "representation"]
         }
       ]
     },
@@ -805,10 +793,7 @@
           },
           "type": "string",
           "default": "minimal",
-          "enum": [
-            "minimal",
-            "representation"
-          ]
+          "enum": ["minimal", "representation"]
         }
       ]
     },

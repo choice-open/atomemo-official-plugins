@@ -102,13 +102,21 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
     }
     const clientName = (parameters.client_name as string)?.trim()
     if (!clientName) {
-      return { success: false, error: "client_name is required.", data: null, code: null }
+      return {
+        success: false,
+        error: "client_name is required.",
+        data: null,
+        code: null,
+      }
     }
     const redirectUrisRaw = (parameters.redirect_uris as string)?.trim()
     let redirectUris: string[]
     try {
       redirectUris = JSON.parse(redirectUrisRaw || "[]")
-      if (!Array.isArray(redirectUris) || redirectUris.some((u) => typeof u !== "string")) {
+      if (
+        !Array.isArray(redirectUris) ||
+        redirectUris.some((u) => typeof u !== "string")
+      ) {
         throw new Error("redirect_uris must be a JSON array of strings")
       }
     } catch (e) {
@@ -121,15 +129,26 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
     }
     const clientUri = (parameters.client_uri as string)?.trim() || undefined
     const grantTypes = parseJson<string[]>(parameters.grant_types as string, [])
-    const responseTypes = parseJson<string[]>(parameters.response_types as string, [])
+    const responseTypes = parseJson<string[]>(
+      parameters.response_types as string,
+      [],
+    )
     const scope = (parameters.scope as string)?.trim() || undefined
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.admin.oauth.createClient({
       client_name: clientName,
       redirect_uris: redirectUris,
       client_uri: clientUri,
-      grant_types: grantTypes.length ? (grantTypes as Parameters<typeof supabase.auth.admin.oauth.createClient>[0]["grant_types"]) : undefined,
-      response_types: responseTypes.length ? (responseTypes as Parameters<typeof supabase.auth.admin.oauth.createClient>[0]["response_types"]) : undefined,
+      grant_types: grantTypes.length
+        ? (grantTypes as Parameters<
+            typeof supabase.auth.admin.oauth.createClient
+          >[0]["grant_types"])
+        : undefined,
+      response_types: responseTypes.length
+        ? (responseTypes as Parameters<
+            typeof supabase.auth.admin.oauth.createClient
+          >[0]["response_types"])
+        : undefined,
       scope,
     })
     if (result.error) {

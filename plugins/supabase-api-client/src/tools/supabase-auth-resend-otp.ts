@@ -72,7 +72,10 @@ export const supabaseAuthResendOtpTool: ToolDefinition = {
       }
     }
     const type = (parameters.type as string)?.trim()
-    if (!type || !RESEND_TYPES.includes(type as (typeof RESEND_TYPES)[number])) {
+    if (
+      !type ||
+      !RESEND_TYPES.includes(type as (typeof RESEND_TYPES)[number])
+    ) {
       return {
         success: false,
         error: `type must be one of: ${RESEND_TYPES.join(", ")}`,
@@ -104,8 +107,12 @@ export const supabaseAuthResendOtpTool: ToolDefinition = {
         ? { type, phone: phone! }
         : { type: type as "signup" | "email_change", email: email! }
     const result = await supabase.auth.resend(
-      resendParams as Parameters<typeof supabase.auth.resend>[0]
+      resendParams as Parameters<typeof supabase.auth.resend>[0],
     )
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

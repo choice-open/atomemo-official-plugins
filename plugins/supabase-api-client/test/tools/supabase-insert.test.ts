@@ -5,9 +5,7 @@ const mockInsertData = [{ id: "1", name: "e2e-a", score: 10 }]
 let mockInsertError: { message: string; code?: string } | null = null
 
 const mockFrom = vi.fn()
-const mockSchema = vi.fn(function () {
-  return { from: mockFrom }
-})
+const mockSchema = vi.fn(() => ({ from: mockFrom }))
 
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({
@@ -72,7 +70,11 @@ describe("supabase-insert", () => {
         error: mockInsertError,
       }),
       then(
-        resolve: (v: { data: unknown; error: typeof mockInsertError; count?: number }) => void
+        resolve: (v: {
+          data: unknown
+          error: typeof mockInsertError
+          count?: number
+        }) => void,
       ) {
         return Promise.resolve({
           data: mockInsertData,
@@ -90,7 +92,10 @@ describe("supabase-insert", () => {
         parameters: {
           supabase_credential: CRED_ID,
           table: "e2e_test",
-          rows: JSON.stringify([{ name: "e2e-a", score: 10 }, { name: "e2e-b", score: 20 }]),
+          rows: JSON.stringify([
+            { name: "e2e-a", score: 10 },
+            { name: "e2e-b", score: 20 },
+          ]),
           returning: "representation",
         },
         credentials: cred,
@@ -101,8 +106,11 @@ describe("supabase-insert", () => {
     expect(mockFrom).toHaveBeenCalledWith("e2e_test")
     const insertFn = mockFrom.mock.results[0]?.value?.insert
     expect(insertFn).toHaveBeenCalledWith(
-      [{ name: "e2e-a", score: 10 }, { name: "e2e-b", score: 20 }],
-      { count: "exact" }
+      [
+        { name: "e2e-a", score: 10 },
+        { name: "e2e-b", score: 20 },
+      ],
+      { count: "exact" },
     )
     expect(result).toMatchObject({
       success: true,
@@ -120,9 +128,11 @@ describe("supabase-insert", () => {
         error: mockInsertError,
       }),
       then(
-        resolve: (v: { data: unknown; error: typeof mockInsertError }) => void
+        resolve: (v: { data: unknown; error: typeof mockInsertError }) => void,
       ) {
-        return Promise.resolve({ data: null, error: mockInsertError }).then(resolve)
+        return Promise.resolve({ data: null, error: mockInsertError }).then(
+          resolve,
+        )
       },
     }
     mockFrom.mockReturnValueOnce({

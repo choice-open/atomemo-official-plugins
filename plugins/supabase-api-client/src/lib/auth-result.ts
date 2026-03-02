@@ -1,10 +1,8 @@
 /** Normalize Supabase Auth { data, error } to plugin invoke result format */
-export function authResult<T>(
-  result: {
-    data: T | null
-    error: { message?: string; code?: string; status?: number } | null
-  }
-): {
+export function authResult<T>(result: {
+  data: T | null
+  error: { message?: string; code?: string; status?: number } | null
+}): {
   success: boolean
   data: T | null
   error: string | null
@@ -14,7 +12,8 @@ export function authResult<T>(
     return {
       success: false,
       data: null,
-      error: result.error.message ?? String(result.error.status ?? "Unknown error"),
+      error:
+        result.error.message ?? String(result.error.status ?? "Unknown error"),
       code: result.error.code ?? null,
     }
   }

@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -113,10 +113,15 @@ export const supabaseUpsertTool = {
 
     try {
       const base = supabase.schema(schema).from(table).upsert(rows, options)
-      type Result = { data: unknown; error: { message: string; code?: string } | null }
+      type Result = {
+        data: unknown
+        error: { message: string; code?: string } | null
+      }
       const { data, error } =
         returning === "representation"
-          ? await (base as unknown as { select: () => Promise<Result> }).select()
+          ? await (
+              base as unknown as { select: () => Promise<Result> }
+            ).select()
           : await (base as unknown as Promise<Result>)
 
       if (error) {

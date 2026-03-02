@@ -68,6 +68,10 @@ export const supabaseAuthSignInWithOtpTool: ToolDefinition = {
     }>(parameters.options as string, {})
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithOtp({ email, options })
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

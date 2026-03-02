@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi, type Mock } from "vitest"
+import { beforeEach, describe, expect, it, type Mock, vi } from "vitest"
 
 // Mock package.json before any import that might use it
 vi.mock("../package.json", () => ({
@@ -37,28 +37,33 @@ const mockGetSession = vi.fn().mockResolvedValue({
 // Query chain: schema().from().select() -> order().range() -> thenable
 let mockQueryData: unknown[] = [{ id: 1, name: "a" }]
 let mockQueryError: { message: string; code?: string } | null = null
-let lastQueryChain: { eq: ReturnType<typeof vi.fn>; order: ReturnType<typeof vi.fn>; range: ReturnType<typeof vi.fn> } | null = null
-const mockSchema = vi.fn(function (_name: string) {
-  return {
-    from: vi.fn(function (_table: string) {
-      return {
-        select: vi.fn(function (_columns: string) {
-          const chain = {
-            order: vi.fn().mockReturnThis(),
-            range: vi.fn().mockReturnThis(),
-            eq: vi.fn().mockReturnThis(),
-            neq: vi.fn().mockReturnThis(),
-            then(resolve: (v: { data: unknown; error: typeof mockQueryError }) => void) {
-              return Promise.resolve({ data: mockQueryData, error: mockQueryError }).then(resolve)
-            },
-          }
-          lastQueryChain = chain
-          return chain
-        }),
+let lastQueryChain: {
+  eq: ReturnType<typeof vi.fn>
+  order: ReturnType<typeof vi.fn>
+  range: ReturnType<typeof vi.fn>
+} | null = null
+const mockSchema = vi.fn((_name: string) => ({
+  from: vi.fn((_table: string) => ({
+    select: vi.fn((_columns: string) => {
+      const chain = {
+        order: vi.fn().mockReturnThis(),
+        range: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        neq: vi.fn().mockReturnThis(),
+        then(
+          resolve: (v: { data: unknown; error: typeof mockQueryError }) => void,
+        ) {
+          return Promise.resolve({
+            data: mockQueryData,
+            error: mockQueryError,
+          }).then(resolve)
+        },
       }
+      lastQueryChain = chain
+      return chain
     }),
-  }
-})
+  })),
+}))
 
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({
@@ -72,12 +77,12 @@ vi.mock("@supabase/supabase-js", () => ({
 
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import { supabaseCredential } from "../src/credentials/supabase-connection"
-import { supabaseAuthSignOutTool } from "../src/tools/supabase-auth-sign-out"
-import { supabaseAuthGetSessionTool } from "../src/tools/supabase-auth-get-session"
-import { supabaseQueryTool } from "../src/tools/supabase-query"
 import { authResult, parseJson } from "../src/lib/auth-result"
+import { supabaseAuthGetSessionTool } from "../src/tools/supabase-auth-get-session"
+import { supabaseAuthSignOutTool } from "../src/tools/supabase-auth-sign-out"
+import { supabaseQueryTool } from "../src/tools/supabase-query"
 
-const TOOL_COUNT = 29 // 6 db + 1 edge function + 22 auth
+const TOOL_COUNT = 49 // 6 db + 1 edge + 7 storage + 13 vector + 22 auth
 
 describe("supabase-api-client plugin", () => {
   describe("plugin initialization", () => {
@@ -112,9 +117,16 @@ describe("supabase-api-client plugin", () => {
       vi.resetModules()
       await import("../src/index")
 
-      expect(addTool).toHaveBeenNthCalledWith(1, expect.objectContaining({ name: "supabase-query" }))
-      expect(addTool).toHaveBeenCalledWith(expect.objectContaining({ name: "supabase-auth-sign-out" }))
-      expect(addTool).toHaveBeenCalledWith(expect.objectContaining({ name: "supabase-auth-get-session" }))
+      expect(addTool).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({ name: "supabase-query" }),
+      )
+      expect(addTool).toHaveBeenCalledWith(
+        expect.objectContaining({ name: "supabase-auth-sign-out" }),
+      )
+      expect(addTool).toHaveBeenCalledWith(
+        expect.objectContaining({ name: "supabase-auth-get-session" }),
+      )
     })
   })
 
@@ -123,8 +135,16 @@ describe("supabase-api-client plugin", () => {
       expect(supabaseCredential).toMatchObject({
         name: "supabase-connection",
         parameters: expect.arrayContaining([
-          expect.objectContaining({ name: "supabase_url", type: "string", required: true }),
-          expect.objectContaining({ name: "supabase_key", type: "string", required: true }),
+          expect.objectContaining({
+            name: "supabase_url",
+            type: "string",
+            required: true,
+          }),
+          expect.objectContaining({
+            name: "supabase_key",
+            type: "string",
+            required: true,
+          }),
         ]),
       })
       expect(supabaseCredential.parameters).toHaveLength(2)
@@ -264,29 +284,39 @@ describe("supabase-api-client plugin", () => {
     it("should use default columns and schema when omitted", async () => {
       await supabaseQueryTool.invoke({
         args: {
-          parameters: { supabase_credential: "supabase_credential", table: "posts" },
+          parameters: {
+            supabase_credential: "supabase_credential",
+            table: "posts",
+          },
           credentials: cred,
         },
       })
 
       expect(mockSchema).toHaveBeenCalledWith("public")
-      const selectFn = mockSchema.mock.results[0]?.value?.from.mock.results[0]?.value?.select
+      const selectFn =
+        mockSchema.mock.results[0]?.value?.from.mock.results[0]?.value?.select
       expect(selectFn).toHaveBeenCalledWith("*")
     })
 
     it("should return error when Supabase returns error", async () => {
-      mockQueryError = { message: "relation \"missing\" does not exist", code: "42P01" }
+      mockQueryError = {
+        message: 'relation "missing" does not exist',
+        code: "42P01",
+      }
 
       const result = await supabaseQueryTool.invoke({
         args: {
-          parameters: { supabase_credential: "supabase_credential", table: "missing" },
+          parameters: {
+            supabase_credential: "supabase_credential",
+            table: "missing",
+          },
           credentials: cred,
         },
       })
 
       expect(result).toEqual({
         success: false,
-        error: "relation \"missing\" does not exist",
+        error: 'relation "missing" does not exist',
         code: "42P01",
         data: null,
       })
@@ -340,7 +370,10 @@ describe("supabase-api-client plugin", () => {
       expect(result).toMatchObject({
         success: true,
         data: expect.objectContaining({
-          session: expect.objectContaining({ access_token: "token", refresh_token: "refresh" }),
+          session: expect.objectContaining({
+            access_token: "token",
+            refresh_token: "refresh",
+          }),
         }),
         error: null,
         code: null,

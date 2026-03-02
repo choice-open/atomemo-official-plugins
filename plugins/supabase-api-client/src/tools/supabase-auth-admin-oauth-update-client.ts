@@ -54,7 +54,12 @@ export const supabaseAuthAdminOAuthUpdateClientTool: ToolDefinition = {
     }
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
-      return { success: false, error: "client_id is required.", data: null, code: null }
+      return {
+        success: false,
+        error: "client_id is required.",
+        data: null,
+        code: null,
+      }
     }
     const paramsRaw = parseJson<{
       client_name?: string
@@ -65,7 +70,10 @@ export const supabaseAuthAdminOAuthUpdateClientTool: ToolDefinition = {
       token_endpoint_auth_method?: string
     }>(parameters.params as string, {})
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    const result = await supabase.auth.admin.oauth.updateClient(clientId, paramsRaw as Parameters<typeof supabase.auth.admin.oauth.updateClient>[1])
+    const result = await supabase.auth.admin.oauth.updateClient(
+      clientId,
+      paramsRaw as Parameters<typeof supabase.auth.admin.oauth.updateClient>[1],
+    )
     if (result.error) {
       return {
         success: false,

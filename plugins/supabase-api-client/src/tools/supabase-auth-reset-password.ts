@@ -63,7 +63,13 @@ export const supabaseAuthResetPasswordTool: ToolDefinition = {
     }
     const redirectTo = (parameters.redirect_to as string)?.trim() || undefined
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    const result = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    const result = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo,
+    })
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

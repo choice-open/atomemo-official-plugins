@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
+import { createSupabaseClient } from "../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -81,14 +81,16 @@ export const supabaseRpcTool = {
     const schema = (parameters.schema as string)?.trim() || "public"
     const argsObj = parseJson<Record<string, unknown>>(
       parameters.args as string,
-      {}
+      {},
     )
 
     try {
-      const { data, error } = await supabase.schema(schema).rpc(
-        functionName,
-        Object.keys(argsObj).length > 0 ? argsObj : undefined
-      )
+      const { data, error } = await supabase
+        .schema(schema)
+        .rpc(
+          functionName,
+          Object.keys(argsObj).length > 0 ? argsObj : undefined,
+        )
 
       if (error) {
         return {

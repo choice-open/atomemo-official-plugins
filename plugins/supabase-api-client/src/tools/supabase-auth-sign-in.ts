@@ -65,6 +65,10 @@ export const supabaseAuthSignInTool: ToolDefinition = {
     }
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithPassword({ email, password })
-    return authResult({ data: result.data, error: result.error }) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult({ data: result.data, error: result.error }) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

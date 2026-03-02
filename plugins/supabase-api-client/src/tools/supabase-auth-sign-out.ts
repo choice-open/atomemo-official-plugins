@@ -47,7 +47,12 @@ export const supabaseAuthSignOutTool: ToolDefinition = {
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const { error } = await supabase.auth.signOut({ scope })
     if (error) {
-      return { success: false, data: null, error: error.message, code: error.code ?? null }
+      return {
+        success: false,
+        data: null,
+        error: error.message,
+        code: error.code ?? null,
+      }
     }
     return { success: true, data: null, error: null, code: null }
   },

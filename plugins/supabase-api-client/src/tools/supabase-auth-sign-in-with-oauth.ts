@@ -131,7 +131,10 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
       }
     }
     const provider = (parameters.provider as string)?.trim()
-    if (!provider || !OAUTH_PROVIDERS.includes(provider as (typeof OAUTH_PROVIDERS)[number])) {
+    if (
+      !provider ||
+      !OAUTH_PROVIDERS.includes(provider as (typeof OAUTH_PROVIDERS)[number])
+    ) {
       return {
         success: false,
         error: `provider must be one of: ${OAUTH_PROVIDERS.join(", ")}`,
@@ -141,7 +144,10 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
     }
     const redirectTo = (parameters.redirect_to as string)?.trim() || undefined
     const scopes = (parameters.scopes as string)?.trim() || undefined
-    const queryParams = parseJson<Record<string, string>>(parameters.query_params as string, {})
+    const queryParams = parseJson<Record<string, string>>(
+      parameters.query_params as string,
+      {},
+    )
     const skipBrowserRedirect = Boolean(parameters.skip_browser_redirect)
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithOAuth({

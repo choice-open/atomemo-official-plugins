@@ -33,7 +33,10 @@ export const supabaseAuthGetClaimsTool: ToolDefinition = {
       required: false,
       display_name: t("AUTH_GET_CLAIMS_ALLOW_EXPIRED_DISPLAY_NAME"),
       default: false,
-      ui: { component: "switch", hint: t("AUTH_GET_CLAIMS_ALLOW_EXPIRED_HINT") },
+      ui: {
+        component: "switch",
+        hint: t("AUTH_GET_CLAIMS_ALLOW_EXPIRED_HINT"),
+      },
     },
   ],
   async invoke({ args }) {

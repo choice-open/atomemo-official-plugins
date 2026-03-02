@@ -69,6 +69,10 @@ export const supabaseAuthSetSessionTool: ToolDefinition = {
       access_token: accessToken,
       refresh_token: refreshToken,
     })
-    return authResult(result) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult(result) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

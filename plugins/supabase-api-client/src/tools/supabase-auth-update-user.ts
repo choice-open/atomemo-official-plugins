@@ -76,13 +76,21 @@ export const supabaseAuthUpdateUserTool: ToolDefinition = {
         code: null,
       }
     }
-    const attributes = parseJson<{ email?: string; password?: string; data?: Record<string, unknown> }>(
-      parameters.attributes as string,
-      {}
-    )
+    const attributes = parseJson<{
+      email?: string
+      password?: string
+      data?: Record<string, unknown>
+    }>(parameters.attributes as string, {})
     const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
-    await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken })
+    await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    })
     const result = await supabase.auth.updateUser(attributes)
-    return authResult({ data: result.data, error: result.error }) as ReturnType<ToolDefinition["invoke"]> extends Promise<infer R> ? R : never
+    return authResult({ data: result.data, error: result.error }) as ReturnType<
+      ToolDefinition["invoke"]
+    > extends Promise<infer R>
+      ? R
+      : never
   },
 }

@@ -1,6 +1,6 @@
 # supabase-api-client
 
-Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（PostgREST）与认证（Auth）。
+Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（PostgREST）、Storage（文件桶）、Edge Functions 与认证（Auth）。
 
 ## 功能概览
 
@@ -8,9 +8,11 @@ Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（Post
 |----------|------|------|
 | 凭证     | 1    | **supabase-connection**（Supabase URL + API Key，anon 或 service_role） |
 | 数据库   | 6    | Query、Insert、Update、Upsert、Delete、RPC |
+| Storage  | 7    | 列出桶/文件、上传、下载、删除、签名 URL、公开 URL |
 | 认证     | 22   | 登录/注册/登出、获取用户/会话、重置密码、OTP、OAuth、ID Token、JWT 声明、OAuth Admin 等 |
 
 - **数据库**：支持 filters（等值对象或高级操作符）、order、limit、offset、return_mode、RPC 等。
+- **Storage**：列出桶与文件、上传（base64/文本）、下载（返回 base64）、删除、创建签名 URL、获取公开 URL。
 - **认证**：邮箱密码、Magic Link/OTP、匿名登录、OAuth 登录、ID Token 登录、exchange code 换 session、JWT 声明解析；OAuth Admin 提供 OAuth 客户端 CRUD 与 secret 再生（需 service_role）。
 
 更细的功能与官方客户端对照见 [docs/supabase-js-client-features.md](./docs/supabase-js-client-features.md)。

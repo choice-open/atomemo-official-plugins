@@ -17,8 +17,16 @@ export type FilterSpec =
   | { op: "ilike"; column: string; value: string }
   | { op: "is"; column: string; value: boolean | null }
   | { op: "in"; column: string; value: unknown[] }
-  | { op: "contains"; column: string; value: string | unknown[] | Record<string, unknown> }
-  | { op: "containedBy"; column: string; value: string | unknown[] | Record<string, unknown> }
+  | {
+      op: "contains"
+      column: string
+      value: string | unknown[] | Record<string, unknown>
+    }
+  | {
+      op: "containedBy"
+      column: string
+      value: string | unknown[] | Record<string, unknown>
+    }
   | { op: "or"; value: string }
 
 export type FiltersInput = Record<string, unknown> | FilterSpec[]
@@ -44,20 +52,25 @@ export interface QueryWithFilters {
   in(column: string, values: unknown[]): QueryWithFilters
   contains(
     column: string,
-    value: string | unknown[] | Record<string, unknown>
+    value: string | unknown[] | Record<string, unknown>,
   ): QueryWithFilters
   containedBy(
     column: string,
-    value: string | unknown[] | Record<string, unknown>
+    value: string | unknown[] | Record<string, unknown>,
   ): QueryWithFilters
   or(filters: string): QueryWithFilters
 }
 
 export function applyFiltersAdvanced<T extends QueryWithFilters>(
   query: T,
-  filtersInput: FiltersInput | undefined
+  filtersInput: FiltersInput | undefined,
 ): T {
-  if (filtersInput == null || (typeof filtersInput === "object" && !Array.isArray(filtersInput) && Object.keys(filtersInput).length === 0)) {
+  if (
+    filtersInput == null ||
+    (typeof filtersInput === "object" &&
+      !Array.isArray(filtersInput) &&
+      Object.keys(filtersInput).length === 0)
+  ) {
     return query
   }
 
@@ -67,7 +80,8 @@ export function applyFiltersAdvanced<T extends QueryWithFilters>(
     for (const f of filtersInput as FilterSpec[]) {
       switch (f.op) {
         case "eq":
-          if (f.value !== undefined && f.value !== null) chain = chain.eq(f.column, f.value) as T
+          if (f.value !== undefined && f.value !== null)
+            chain = chain.eq(f.column, f.value) as T
           break
         case "neq":
           chain = chain.neq(f.column, f.value) as T
@@ -94,7 +108,10 @@ export function applyFiltersAdvanced<T extends QueryWithFilters>(
           chain = chain.is(f.column, f.value) as T
           break
         case "in":
-          chain = chain.in(f.column, Array.isArray(f.value) ? f.value : [f.value]) as T
+          chain = chain.in(
+            f.column,
+            Array.isArray(f.value) ? f.value : [f.value],
+          ) as T
           break
         case "contains":
           chain = chain.contains(f.column, f.value) as T
