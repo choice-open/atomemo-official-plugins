@@ -56,6 +56,8 @@ bun run build
 
 - **真实 Supabase**
   - 在项目根目录建 `.env`，写 `SUPABASE_URL`、`SUPABASE_KEY`，在插件或自写脚本里用 `createSupabaseClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!)` 连真实库调试（不要提交 .env）。
+- **端到端测试**
+  - 配置好 `.env` 后，在 Supabase SQL Editor 中执行 `test/e2e/crud.e2e.test.ts` 文件头注释里的建表 SQL，然后执行：`bun run test:e2e`。无 env 时 e2e 会自动跳过。
 
 ## 协议
 

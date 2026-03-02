@@ -10,6 +10,7 @@ import { supabaseUpdateTool } from "./tools/supabase-update"
 import { supabaseUpsertTool } from "./tools/supabase-upsert"
 import { supabaseDeleteTool } from "./tools/supabase-delete"
 import { supabaseRpcTool } from "./tools/supabase-rpc"
+import { supabaseInvokeEdgeFunctionTool } from "./tools/supabase-invoke-edge-function"
 import { supabaseAuthSignInTool } from "./tools/supabase-auth-sign-in"
 import { supabaseAuthSignUpTool } from "./tools/supabase-auth-sign-up"
 import { supabaseAuthSignOutTool } from "./tools/supabase-auth-sign-out"
@@ -54,6 +55,7 @@ plugin.addTool(supabaseUpdateTool)
 plugin.addTool(supabaseUpsertTool)
 plugin.addTool(supabaseDeleteTool)
 plugin.addTool(supabaseRpcTool)
+plugin.addTool(supabaseInvokeEdgeFunctionTool)
 plugin.addTool(supabaseAuthSignInTool)
 plugin.addTool(supabaseAuthSignUpTool)
 plugin.addTool(supabaseAuthSignOutTool)

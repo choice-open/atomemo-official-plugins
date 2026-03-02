@@ -903,6 +903,151 @@
       ]
     },
     {
+      "name": "supabase-invoke-edge-function",
+      "display_name": {
+        "en_US": "Supabase: Invoke Edge Function",
+        "zh_Hans": "Supabase：调用 Edge Function"
+      },
+      "description": {
+        "en_US": "Invoke a Supabase Edge Function (Deno serverless function) by name with optional body, method, and headers.",
+        "zh_Hans": "按名称调用 Supabase Edge Function（Deno 无状态函数），可传 body、method 和 headers。"
+      },
+      "icon": "⚡",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "function_name",
+          "display_name": {
+            "en_US": "Function name",
+            "zh_Hans": "函数名"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Name of the deployed Edge Function.",
+              "zh_Hans": "已部署的 Edge Function 名称。"
+            },
+            "placeholder": {
+              "en_US": "hello",
+              "zh_Hans": "hello"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Request body",
+            "zh_Hans": "请求体"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object sent as the request body (POST/PUT/PATCH). Leave empty for GET/DELETE.",
+              "zh_Hans": "作为请求体发送的 JSON 对象（POST/PUT/PATCH）。GET/DELETE 可留空。"
+            },
+            "placeholder": {
+              "en_US": "｛\"key\": \"value\"｝",
+              "zh_Hans": "｛\"key\": \"value\"｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "method",
+          "display_name": {
+            "en_US": "HTTP method",
+            "zh_Hans": "HTTP 方法"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "HTTP verb for the request. Default POST.",
+              "zh_Hans": "请求的 HTTP 方法，默认 POST。"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "POST",
+                  "zh_Hans": "POST"
+                },
+                "value": "POST"
+              },
+              {
+                "label": {
+                  "en_US": "GET",
+                  "zh_Hans": "GET"
+                },
+                "value": "GET"
+              },
+              {
+                "label": {
+                  "en_US": "PUT",
+                  "zh_Hans": "PUT"
+                },
+                "value": "PUT"
+              },
+              {
+                "label": {
+                  "en_US": "PATCH",
+                  "zh_Hans": "PATCH"
+                },
+                "value": "PATCH"
+              },
+              {
+                "label": {
+                  "en_US": "DELETE",
+                  "zh_Hans": "DELETE"
+                },
+                "value": "DELETE"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "POST"
+        },
+        {
+          "name": "headers",
+          "display_name": {
+            "en_US": "Headers",
+            "zh_Hans": "Headers"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional JSON object of custom headers (e.g. Content-Type).",
+              "zh_Hans": "可选，自定义请求头的 JSON 对象（如 Content-Type）。"
+            },
+            "placeholder": {
+              "en_US": "｛｝",
+              "zh_Hans": "｛｝"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "supabase-auth-sign-in",
       "display_name": {
         "en_US": "Supabase Auth: Sign in",

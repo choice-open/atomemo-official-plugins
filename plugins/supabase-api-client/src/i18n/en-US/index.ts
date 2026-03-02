@@ -76,6 +76,27 @@ const en_US = {
   SUPABASE_RPC_DISPLAY_NAME: "Supabase: Call RPC",
   SUPABASE_RPC_DESCRIPTION:
     "Call a Postgres function (RPC) with optional arguments.",
+  SUPABASE_INVOKE_EDGE_FUNCTION_DISPLAY_NAME: "Supabase: Invoke Edge Function",
+  SUPABASE_INVOKE_EDGE_FUNCTION_DESCRIPTION:
+    "Invoke a Supabase Edge Function (Deno serverless function) by name with optional body, method, and headers.",
+  EDGE_FUNCTION_NAME_DISPLAY_NAME: "Function name",
+  EDGE_FUNCTION_NAME_HINT: "Name of the deployed Edge Function.",
+  EDGE_FUNCTION_NAME_PLACEHOLDER: "hello",
+  EDGE_FUNCTION_BODY_DISPLAY_NAME: "Request body",
+  EDGE_FUNCTION_BODY_HINT:
+    "JSON object sent as the request body (POST/PUT/PATCH). Leave empty for GET/DELETE.",
+  EDGE_FUNCTION_BODY_PLACEHOLDER: '｛"key": "value"｝',
+  EDGE_FUNCTION_METHOD_DISPLAY_NAME: "HTTP method",
+  EDGE_FUNCTION_METHOD_HINT: "HTTP verb for the request. Default POST.",
+  EDGE_FUNCTION_METHOD_POST: "POST",
+  EDGE_FUNCTION_METHOD_GET: "GET",
+  EDGE_FUNCTION_METHOD_PUT: "PUT",
+  EDGE_FUNCTION_METHOD_PATCH: "PATCH",
+  EDGE_FUNCTION_METHOD_DELETE: "DELETE",
+  EDGE_FUNCTION_HEADERS_DISPLAY_NAME: "Headers",
+  EDGE_FUNCTION_HEADERS_HINT:
+    "Optional JSON object of custom headers (e.g. Content-Type).",
+  EDGE_FUNCTION_HEADERS_PLACEHOLDER: "｛｝",
   RETURN_MODE_DISPLAY_NAME: "Return mode",
   RETURN_MODE_HINT: "multiple (array), single, or maybeSingle",
   RETURN_FORMAT_DISPLAY_NAME: "Return format",

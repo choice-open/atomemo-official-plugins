@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { createSupabaseClient } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {

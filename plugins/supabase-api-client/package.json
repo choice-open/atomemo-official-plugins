@@ -20,6 +20,7 @@
     "check": "biome check . --write",
     "dev": "concurrently -c=cyan.bold,blue.bold --names=DEV,I18N --pad-prefix \"tsdown --watch\" \"typesafe-i18n\"",
     "test": "vitest",
+    "test:e2e": "vitest run test/e2e",
     "release": "bumpp package.json definition.json --commit 'release supabase-api-client v%s' --no-push --no-tag --yes",
     "typecheck": "tsc --noEmit"
   },

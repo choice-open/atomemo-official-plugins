@@ -272,6 +272,78 @@ type RootTranslation = {
    */
   SUPABASE_RPC_DESCRIPTION: string
   /**
+   * S​u​p​a​b​a​s​e​:​ ​I​n​v​o​k​e​ ​E​d​g​e​ ​F​u​n​c​t​i​o​n
+   */
+  SUPABASE_INVOKE_EDGE_FUNCTION_DISPLAY_NAME: string
+  /**
+   * I​n​v​o​k​e​ ​a​ ​S​u​p​a​b​a​s​e​ ​E​d​g​e​ ​F​u​n​c​t​i​o​n​ ​(​D​e​n​o​ ​s​e​r​v​e​r​l​e​s​s​ ​f​u​n​c​t​i​o​n​)​ ​b​y​ ​n​a​m​e​ ​w​i​t​h​ ​o​p​t​i​o​n​a​l​ ​b​o​d​y​,​ ​m​e​t​h​o​d​,​ ​a​n​d​ ​h​e​a​d​e​r​s​.
+   */
+  SUPABASE_INVOKE_EDGE_FUNCTION_DESCRIPTION: string
+  /**
+   * F​u​n​c​t​i​o​n​ ​n​a​m​e
+   */
+  EDGE_FUNCTION_NAME_DISPLAY_NAME: string
+  /**
+   * N​a​m​e​ ​o​f​ ​t​h​e​ ​d​e​p​l​o​y​e​d​ ​E​d​g​e​ ​F​u​n​c​t​i​o​n​.
+   */
+  EDGE_FUNCTION_NAME_HINT: string
+  /**
+   * h​e​l​l​o
+   */
+  EDGE_FUNCTION_NAME_PLACEHOLDER: string
+  /**
+   * R​e​q​u​e​s​t​ ​b​o​d​y
+   */
+  EDGE_FUNCTION_BODY_DISPLAY_NAME: string
+  /**
+   * J​S​O​N​ ​o​b​j​e​c​t​ ​s​e​n​t​ ​a​s​ ​t​h​e​ ​r​e​q​u​e​s​t​ ​b​o​d​y​ ​(​P​O​S​T​/​P​U​T​/​P​A​T​C​H​)​.​ ​L​e​a​v​e​ ​e​m​p​t​y​ ​f​o​r​ ​G​E​T​/​D​E​L​E​T​E​.
+   */
+  EDGE_FUNCTION_BODY_HINT: string
+  /**
+   * ｛​"​k​e​y​"​:​ ​"​v​a​l​u​e​"​｝
+   */
+  EDGE_FUNCTION_BODY_PLACEHOLDER: string
+  /**
+   * H​T​T​P​ ​m​e​t​h​o​d
+   */
+  EDGE_FUNCTION_METHOD_DISPLAY_NAME: string
+  /**
+   * H​T​T​P​ ​v​e​r​b​ ​f​o​r​ ​t​h​e​ ​r​e​q​u​e​s​t​.​ ​D​e​f​a​u​l​t​ ​P​O​S​T​.
+   */
+  EDGE_FUNCTION_METHOD_HINT: string
+  /**
+   * P​O​S​T
+   */
+  EDGE_FUNCTION_METHOD_POST: string
+  /**
+   * G​E​T
+   */
+  EDGE_FUNCTION_METHOD_GET: string
+  /**
+   * P​U​T
+   */
+  EDGE_FUNCTION_METHOD_PUT: string
+  /**
+   * P​A​T​C​H
+   */
+  EDGE_FUNCTION_METHOD_PATCH: string
+  /**
+   * D​E​L​E​T​E
+   */
+  EDGE_FUNCTION_METHOD_DELETE: string
+  /**
+   * H​e​a​d​e​r​s
+   */
+  EDGE_FUNCTION_HEADERS_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​o​f​ ​c​u​s​t​o​m​ ​h​e​a​d​e​r​s​ ​(​e​.​g​.​ ​C​o​n​t​e​n​t​-​T​y​p​e​)​.
+   */
+  EDGE_FUNCTION_HEADERS_HINT: string
+  /**
+   * ｛​｝
+   */
+  EDGE_FUNCTION_HEADERS_PLACEHOLDER: string
+  /**
    * R​e​t​u​r​n​ ​m​o​d​e
    */
   RETURN_MODE_DISPLAY_NAME: string
@@ -1296,6 +1368,78 @@ export type TranslationFunctions = {
    * Call a Postgres function (RPC) with optional arguments.
    */
   SUPABASE_RPC_DESCRIPTION: () => LocalizedString
+  /**
+   * Supabase: Invoke Edge Function
+   */
+  SUPABASE_INVOKE_EDGE_FUNCTION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Invoke a Supabase Edge Function (Deno serverless function) by name with optional body, method, and headers.
+   */
+  SUPABASE_INVOKE_EDGE_FUNCTION_DESCRIPTION: () => LocalizedString
+  /**
+   * Function name
+   */
+  EDGE_FUNCTION_NAME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Name of the deployed Edge Function.
+   */
+  EDGE_FUNCTION_NAME_HINT: () => LocalizedString
+  /**
+   * hello
+   */
+  EDGE_FUNCTION_NAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Request body
+   */
+  EDGE_FUNCTION_BODY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * JSON object sent as the request body (POST/PUT/PATCH). Leave empty for GET/DELETE.
+   */
+  EDGE_FUNCTION_BODY_HINT: () => LocalizedString
+  /**
+   * ｛"key": "value"｝
+   */
+  EDGE_FUNCTION_BODY_PLACEHOLDER: () => LocalizedString
+  /**
+   * HTTP method
+   */
+  EDGE_FUNCTION_METHOD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * HTTP verb for the request. Default POST.
+   */
+  EDGE_FUNCTION_METHOD_HINT: () => LocalizedString
+  /**
+   * POST
+   */
+  EDGE_FUNCTION_METHOD_POST: () => LocalizedString
+  /**
+   * GET
+   */
+  EDGE_FUNCTION_METHOD_GET: () => LocalizedString
+  /**
+   * PUT
+   */
+  EDGE_FUNCTION_METHOD_PUT: () => LocalizedString
+  /**
+   * PATCH
+   */
+  EDGE_FUNCTION_METHOD_PATCH: () => LocalizedString
+  /**
+   * DELETE
+   */
+  EDGE_FUNCTION_METHOD_DELETE: () => LocalizedString
+  /**
+   * Headers
+   */
+  EDGE_FUNCTION_HEADERS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional JSON object of custom headers (e.g. Content-Type).
+   */
+  EDGE_FUNCTION_HEADERS_HINT: () => LocalizedString
+  /**
+   * ｛｝
+   */
+  EDGE_FUNCTION_HEADERS_PLACEHOLDER: () => LocalizedString
   /**
    * Return mode
    */

@@ -1,7 +1,7 @@
 import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createClient } from "@supabase/supabase-js"
-import type { SupabaseClient } from "@supabase/supabase-js"
 import { t } from "../i18n/i18n-node"
+
+export { createSupabaseClient } from "../lib/get-supabase-client"
 
 export const supabaseCredential = {
   name: "supabase-connection",
@@ -44,10 +44,3 @@ export const supabaseCredential = {
   //   }
   // },
 } satisfies CredentialDefinition
-
-export function createSupabaseClient(
-  url: string,
-  key: string
-): SupabaseClient {
-  return createClient(url, key)
-}
