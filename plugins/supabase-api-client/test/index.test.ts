@@ -77,7 +77,7 @@ import { supabaseAuthGetSessionTool } from "../src/tools/supabase-auth-get-sessi
 import { supabaseQueryTool } from "../src/tools/supabase-query"
 import { authResult, parseJson } from "../src/lib/auth-result"
 
-const TOOL_COUNT = 28 // 6 db + 22 auth
+const TOOL_COUNT = 29 // 6 db + 1 edge function + 22 auth
 
 describe("supabase-api-client plugin", () => {
   describe("plugin initialization", () => {

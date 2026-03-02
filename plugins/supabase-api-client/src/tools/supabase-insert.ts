@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
@@ -75,19 +75,10 @@ export const supabaseInsertTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const credentialId = parameters?.["supabase_credential"]
-    const { supabase_url, supabase_key } = credentials?.[credentialId] ?? {}
-    if (!supabase_url || !supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-        count: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return { ...clientResult.error, count: null }
 
-    const supabase = createSupabaseClient(supabase_url, supabase_key)
+    const supabase = clientResult.supabase
     const table = String(parameters.table).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
     const returning =
