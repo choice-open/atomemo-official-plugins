@@ -147,7 +147,7 @@ describe("supabase-api-client plugin", () => {
           }),
         ]),
       })
-      expect(supabaseCredential.parameters).toHaveLength(2)
+      expect(supabaseCredential.parameters).toHaveLength(3)
     })
   })
 

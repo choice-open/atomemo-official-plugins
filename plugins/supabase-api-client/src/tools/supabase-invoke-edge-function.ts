@@ -25,6 +25,18 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       credential_name: "supabase-connection",
     },
     {
+      name: "use_service_role_key",
+      type: "boolean",
+      required: false,
+      display_name: t("EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_DISPLAY_NAME"),
+      default: true,
+      ui: {
+        component: "switch",
+        hint: t("EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_HINT"),
+        width: "medium",
+      },
+    },
+    {
       name: "function_name",
       type: "string",
       required: true,
@@ -85,7 +97,10 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    const useServiceRoleKey = parameters.use_service_role_key !== false
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials, "supabase_credential", {
+      useServiceRoleKey,
+    })
     if (clientResult.error) return clientResult.error
 
     const supabase = clientResult.supabase
@@ -132,6 +147,16 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       )
 
       if (error) {
+        const isNon2xx =
+          error.message?.includes("non-2xx") ?? false
+        if (isNon2xx) {
+          return {
+            success: true,
+            data: { non2xx: true, error: error.message },
+            error: null,
+            code: null,
+          }
+        }
         return {
           success: false,
           error: error.message,

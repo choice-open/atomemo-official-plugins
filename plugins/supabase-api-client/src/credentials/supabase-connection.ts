@@ -34,6 +34,19 @@ export const supabaseCredential = {
         width: "full",
       },
     },
+    {
+      name: "supabase_service_role_key",
+      type: "string",
+      required: false,
+      display_name: t("SUPABASE_SERVICE_ROLE_KEY_DISPLAY_NAME"),
+      ui: {
+        component: "input",
+        sensitive: true,
+        placeholder: t("SUPABASE_KEY_PLACEHOLDER"),
+        hint: t("SUPABASE_SERVICE_ROLE_KEY_HINT"),
+        width: "full",
+      },
+    },
   ],
   // async authenticate({ args }: { args: { credential: Record<string, string | null | undefined> } }) {
   //   const api_key = args.credential.supabase_key ?? ""

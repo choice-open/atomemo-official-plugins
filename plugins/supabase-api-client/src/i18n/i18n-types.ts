@@ -74,6 +74,8 @@ type RootTranslation = {
 	 * e​y​J​h​b​G​.​.​.
 	 */
 	SUPABASE_KEY_PLACEHOLDER: string
+	SUPABASE_SERVICE_ROLE_KEY_DISPLAY_NAME: string
+	SUPABASE_SERVICE_ROLE_KEY_HINT: string
 	/**
 	 * T​a​b​l​e
 	 */
@@ -342,6 +344,8 @@ type RootTranslation = {
 	 * ｛​｝
 	 */
 	EDGE_FUNCTION_HEADERS_PLACEHOLDER: string
+	EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_DISPLAY_NAME: string
+	EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_HINT: string
 	/**
 	 * S​u​p​a​b​a​s​e​ ​S​t​o​r​a​g​e​:​ ​L​i​s​t​ ​b​u​c​k​e​t​s
 	 */
@@ -1603,6 +1607,8 @@ export type TranslationFunctions = {
 	 * eyJhbG...
 	 */
 	SUPABASE_KEY_PLACEHOLDER: () => LocalizedString
+	SUPABASE_SERVICE_ROLE_KEY_DISPLAY_NAME: () => LocalizedString
+	SUPABASE_SERVICE_ROLE_KEY_HINT: () => LocalizedString
 	/**
 	 * Table
 	 */
@@ -1871,6 +1877,8 @@ export type TranslationFunctions = {
 	 * ｛｝
 	 */
 	EDGE_FUNCTION_HEADERS_PLACEHOLDER: () => LocalizedString
+	EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_DISPLAY_NAME: () => LocalizedString
+	EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_HINT: () => LocalizedString
 	/**
 	 * Supabase Storage: List buckets
 	 */

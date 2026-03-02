@@ -20,6 +20,9 @@ const zh_Hans = {
   SUPABASE_KEY_DISPLAY_NAME: "Supabase API 密钥",
   SUPABASE_KEY_HINT: "在 项目设置 > API 中的 anon（公开）或 service_role 密钥",
   SUPABASE_KEY_PLACEHOLDER: "eyJhbG...",
+  SUPABASE_SERVICE_ROLE_KEY_DISPLAY_NAME: "Service Role Key（可选）",
+  SUPABASE_SERVICE_ROLE_KEY_HINT:
+    "项目设置 > API 中的 service_role 密钥。开启「使用 Service Role Key」时，调用 Edge Function 将使用此密钥。",
   // Shared
   TABLE_DISPLAY_NAME: "表",
   TABLE_HINT: "表或视图名称",
@@ -94,6 +97,9 @@ const zh_Hans = {
   EDGE_FUNCTION_HEADERS_HINT:
     "可选，自定义请求头的 JSON 对象（如 Content-Type）。",
   EDGE_FUNCTION_HEADERS_PLACEHOLDER: "｛｝",
+  EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_DISPLAY_NAME: "使用 Service Role Key",
+  EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_HINT:
+    "使用当前连接中配置的 Service Role Key 调用（推荐，可绕过 Edge Function 的 JWT 校验）。",
   // Storage
   STORAGE_LIST_BUCKETS_DISPLAY_NAME: "Supabase Storage：列出桶",
   STORAGE_LIST_BUCKETS_DESCRIPTION: "列出项目内所有 Storage 桶。",

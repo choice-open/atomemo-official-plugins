@@ -21,6 +21,9 @@ const en_US = {
   SUPABASE_KEY_HINT:
     "anon (public) or service_role key from Project Settings > API",
   SUPABASE_KEY_PLACEHOLDER: "eyJhbG...",
+  SUPABASE_SERVICE_ROLE_KEY_DISPLAY_NAME: "Service Role Key (optional)",
+  SUPABASE_SERVICE_ROLE_KEY_HINT:
+    "Service role key from Project Settings > API. Used by Edge Function invoke when “Use Service Role Key” is on.",
   // Shared
   TABLE_DISPLAY_NAME: "Table",
   TABLE_HINT: "Table or view name",
@@ -97,6 +100,9 @@ const en_US = {
   EDGE_FUNCTION_HEADERS_HINT:
     "Optional JSON object of custom headers (e.g. Content-Type).",
   EDGE_FUNCTION_HEADERS_PLACEHOLDER: "｛｝",
+  EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_DISPLAY_NAME: "Use Service Role Key",
+  EDGE_FUNCTION_USE_SERVICE_ROLE_KEY_HINT:
+    "Use the connection’s Service Role Key for this invoke (recommended for Edge Functions to bypass JWT).",
   // Storage
   STORAGE_LIST_BUCKETS_DISPLAY_NAME: "Supabase Storage: List buckets",
   STORAGE_LIST_BUCKETS_DESCRIPTION: "List all Storage buckets in the project.",
