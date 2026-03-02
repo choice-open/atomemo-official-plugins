@@ -1,0 +1,58 @@
+{
+  "name": "math-evaluator",
+  "display_name": {
+    "en_US": "Math Evaluator",
+    "zh_Hans": "数学公式计算"
+  },
+  "description": {
+    "en_US": "A plugin for evaluating math expressions",
+    "zh_Hans": "用于执行数学公式计算的插件"
+  },
+  "icon": "🔢",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/math-evaluator",
+  "locales": ["en-US", "zh-Hans"],
+  "author": "shanni sual (isLzg)",
+  "email": "lzg.nostalgia@gmail.com",
+  "version": "0.0.2",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "math-evaluator",
+      "display_name": {
+        "en_US": "Math Evaluator",
+        "zh_Hans": "数学公式计算"
+      },
+      "description": {
+        "en_US": "Evaluate math expressions and return results using math.js",
+        "zh_Hans": "使用 math.js 执行数学表达式并返回计算结果"
+      },
+      "icon": "🔢",
+      "parameters": [
+        {
+          "name": "expression",
+          "display_name": {
+            "en_US": "Expression",
+            "zh_Hans": "表达式"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Enter a math expression (e.g. 2 + 3 * 4, sqrt(16), sin(pi/2))",
+              "zh_Hans": "输入数学表达式（如 2 + 3 * 4、sqrt(16)、sin(pi/2)）"
+            },
+            "placeholder": {
+              "en_US": "e.g. 2 + 3 * 4",
+              "zh_Hans": "例如：2 + 3 * 4"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
