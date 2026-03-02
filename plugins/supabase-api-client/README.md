@@ -28,8 +28,10 @@ Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（Post
 # 安装依赖
 bun install
 
-# 运行单元测试
+# 运行单元测试（不含 e2e，无需网络）
 bun run test
+# 或
+bun run test:unit
 
 # 类型检查
 bun run typecheck
@@ -58,6 +60,7 @@ bun run build
   - 在项目根目录建 `.env`，写 `SUPABASE_URL`、`SUPABASE_KEY`，在插件或自写脚本里用 `createSupabaseClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!)` 连真实库调试（不要提交 .env）。
 - **端到端测试**
   - 配置好 `.env` 后，在 Supabase SQL Editor 中执行 `test/e2e/crud.e2e.test.ts` 文件头注释里的建表 SQL，然后执行：`bun run test:e2e`。无 env 时 e2e 会自动跳过。
+  - 默认 `bun run test` 只跑单元测试（已排除 test/e2e），e2e 需单独执行 `bun run test:e2e`。
 
 ## 协议
 
