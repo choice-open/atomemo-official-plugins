@@ -19,7 +19,7 @@ export const supabaseQueryTool = {
   name: "supabase-query",
   display_name: t("SUPABASE_QUERY_DISPLAY_NAME"),
   description: t("SUPABASE_QUERY_DESCRIPTION"),
-  icon: "📋",
+  icon: "🔍",
   parameters: [
     {
       name: "supabase_credential",
