@@ -42,6 +42,7 @@ const parameters: Array<Property<ParametersNames>> = [
         en_US: "e.g. 4c0f2e87-1234-4f7c-9c17-1f5acafe0001",
       },
       support_expression: true,
+      hint: t("QUERY_DATABASE_DATA_SOURCE_ID_HINT"),
     },
     ai: {
       llm_description: t("QUERY_DATABASE_DATA_SOURCE_ID_LLM_DESCRIPTION"),

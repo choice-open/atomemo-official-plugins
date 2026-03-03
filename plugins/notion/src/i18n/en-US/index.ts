@@ -108,6 +108,8 @@ const en_US = {
 
   // Create Page in Database
   CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME: "Parent Data Source ID",
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_HINT:
+    "ID of the underlying data source (database) where the new page should be created. In Notion, use the data source identified under Manage data sources, not just a specific view URL. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION:
     "The ID of the parent data source (database) where the new page will be created.",
   CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: "Notion Create Page in Database",
@@ -123,6 +125,8 @@ const en_US = {
 
   // Query Database
   QUERY_DATABASE_DATA_SOURCE_ID_DISPLAY_NAME: "Data Source ID",
+  QUERY_DATABASE_DATA_SOURCE_ID_HINT:
+    "ID of the Notion data source (database or wiki) to query. For databases with multiple data sources, pick a single source from the Manage data sources panel rather than the combined view. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
   QUERY_DATABASE_DATA_SOURCE_ID_LLM_DESCRIPTION:
     "The ID of the Notion data source (database or wiki) to query.",
   QUERY_DATABASE_FILTER_PROPERTIES_DISPLAY_NAME:

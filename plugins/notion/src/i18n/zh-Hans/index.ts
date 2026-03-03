@@ -97,6 +97,8 @@ const zh_Hans = {
 
   // Create Page in Database
   CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME: "父级数据源 ID",
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_HINT:
+    "要创建新页面的数据源（数据库）的 ID。在 Notion 中，请使用“管理数据源”面板中的数据源 ID，而不是某个特定视图的 URL。了解更多：https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION:
     "将创建新页面的父数据源（数据库） ID。",
   CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: "Notion 在数据库中创建页面",
@@ -111,6 +113,8 @@ const zh_Hans = {
 
   // Query Database
   QUERY_DATABASE_DATA_SOURCE_ID_DISPLAY_NAME: "数据源 ID",
+  QUERY_DATABASE_DATA_SOURCE_ID_HINT:
+    "要查询的 Notion 数据源（数据库或知识库）的 ID。对于包含多个数据源的数据库视图，请在“管理数据源”中选择单个数据源，而不是使用聚合视图。了解更多：https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
   QUERY_DATABASE_DATA_SOURCE_ID_LLM_DESCRIPTION:
     "要查询的 Notion 数据源（数据库或知识库）的 ID。",
   QUERY_DATABASE_FILTER_PROPERTIES_DISPLAY_NAME: "过滤属性（属性 ID 或名称）",
