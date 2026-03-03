@@ -2,15 +2,15 @@
  * 认证相关工具单元测试：mock Supabase client.auth，验证凭证缺失、参数校验与 API 调用。
  */
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { supabaseAuthGetSessionTool } from "../../src/tools/supabase-auth-get-session"
-import { supabaseAuthGetUserTool } from "../../src/tools/supabase-auth-get-user"
-import { supabaseAuthGetClaimsTool } from "../../src/tools/supabase-auth-get-claims"
-import { supabaseAuthResetPasswordTool } from "../../src/tools/supabase-auth-reset-password"
-import { supabaseAuthSetSessionTool } from "../../src/tools/supabase-auth-set-session"
-import { supabaseAuthSignInAnonymouslyTool } from "../../src/tools/supabase-auth-sign-in-anonymously"
-import { supabaseAuthSignInTool } from "../../src/tools/supabase-auth-sign-in"
-import { supabaseAuthSignOutTool } from "../../src/tools/supabase-auth-sign-out"
-import { supabaseAuthSignUpTool } from "../../src/tools/supabase-auth-sign-up"
+import { supabaseAuthGetSessionTool } from "../../src/tools/auth/supabase-auth-get-session"
+import { supabaseAuthGetUserTool } from "../../src/tools/auth/supabase-auth-get-user"
+import { supabaseAuthGetClaimsTool } from "../../src/tools/auth/supabase-auth-get-claims"
+import { supabaseAuthResetPasswordTool } from "../../src/tools/auth/supabase-auth-reset-password"
+import { supabaseAuthSetSessionTool } from "../../src/tools/auth/supabase-auth-set-session"
+import { supabaseAuthSignInAnonymouslyTool } from "../../src/tools/auth/supabase-auth-sign-in-anonymously"
+import { supabaseAuthSignInTool } from "../../src/tools/auth/supabase-auth-sign-in"
+import { supabaseAuthSignOutTool } from "../../src/tools/auth/supabase-auth-sign-out"
+import { supabaseAuthSignUpTool } from "../../src/tools/auth/supabase-auth-sign-up"
 
 const mockGetSession = vi.fn()
 const mockGetUser = vi.fn()

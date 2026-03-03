@@ -11,10 +11,10 @@
  */
 import "dotenv/config"
 import { describe, expect, it } from "vitest"
-import { supabaseAuthGetSessionTool } from "../../src/tools/supabase-auth-get-session"
-import { supabaseAuthGetUserTool } from "../../src/tools/supabase-auth-get-user"
-import { supabaseAuthSignInTool } from "../../src/tools/supabase-auth-sign-in"
-import { supabaseAuthSignOutTool } from "../../src/tools/supabase-auth-sign-out"
+import { supabaseAuthGetSessionTool } from "../../src/tools/auth/supabase-auth-get-session"
+import { supabaseAuthGetUserTool } from "../../src/tools/auth/supabase-auth-get-user"
+import { supabaseAuthSignInTool } from "../../src/tools/auth/supabase-auth-sign-in"
+import { supabaseAuthSignOutTool } from "../../src/tools/auth/supabase-auth-sign-out"
 
 const CRED_KEY = "supabase_credential"
 

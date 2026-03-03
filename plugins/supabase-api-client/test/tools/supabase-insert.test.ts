@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { supabaseInsertTool } from "../../src/tools/supabase-insert"
+import { supabaseInsertTool } from "../../src/tools/db/supabase-insert"
 
 const mockInsertData = [{ id: "1", name: "e2e-a", score: 10 }]
 let mockInsertError: { message: string; code?: string } | null = null

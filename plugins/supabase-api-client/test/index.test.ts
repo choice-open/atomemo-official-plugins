@@ -78,9 +78,9 @@ vi.mock("@supabase/supabase-js", () => ({
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import { supabaseCredential } from "../src/credentials/supabase-connection"
 import { authResult, parseJson } from "../src/lib/auth-result"
-import { supabaseAuthGetSessionTool } from "../src/tools/supabase-auth-get-session"
-import { supabaseAuthSignOutTool } from "../src/tools/supabase-auth-sign-out"
-import { supabaseQueryTool } from "../src/tools/supabase-query"
+import { supabaseAuthGetSessionTool } from "../src/tools/auth/supabase-auth-get-session"
+import { supabaseAuthSignOutTool } from "../src/tools/auth/supabase-auth-sign-out"
+import { supabaseQueryTool } from "../src/tools/db/supabase-query"
 
 const TOOL_COUNT = 49 // 6 db + 1 edge + 7 storage + 13 vector + 22 auth
 

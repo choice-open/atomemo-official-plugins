@@ -11,7 +11,7 @@
  */
 import "dotenv/config"
 import { describe, expect, it } from "vitest"
-import { supabaseInvokeEdgeFunctionTool } from "../../src/tools/supabase-invoke-edge-function"
+import { supabaseInvokeEdgeFunctionTool } from "../../src/tools/edge/supabase-invoke-edge-function"
 
 const CRED_ID = "e2e_cred"
 

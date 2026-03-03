@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { supabaseDeleteTool } from "../../src/tools/supabase-delete"
+import { supabaseDeleteTool } from "../../src/tools/db/supabase-delete"
 
 let mockDeleteError: { message: string; code?: string } | null = null
 

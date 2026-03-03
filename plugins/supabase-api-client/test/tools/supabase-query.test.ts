@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { supabaseQueryTool } from "../../src/tools/supabase-query"
+import { supabaseQueryTool } from "../../src/tools/db/supabase-query"
 
 const mockQueryData = [{ id: "1", name: "e2e-a", score: 10 }]
 let mockQueryError: { message: string; code?: string } | null = null

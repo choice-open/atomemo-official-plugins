@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { supabaseStorageCreateSignedUrlTool } from "../../src/tools/supabase-storage-create-signed-url"
-import { supabaseStorageDownloadTool } from "../../src/tools/supabase-storage-download"
-import { supabaseStorageGetPublicUrlTool } from "../../src/tools/supabase-storage-get-public-url"
-import { supabaseStorageListBucketsTool } from "../../src/tools/supabase-storage-list-buckets"
-import { supabaseStorageListFilesTool } from "../../src/tools/supabase-storage-list-files"
-import { supabaseStorageRemoveTool } from "../../src/tools/supabase-storage-remove"
-import { supabaseStorageUploadTool } from "../../src/tools/supabase-storage-upload"
+import { supabaseStorageCreateSignedUrlTool } from "../../src/tools/storage/supabase-storage-create-signed-url"
+import { supabaseStorageDownloadTool } from "../../src/tools/storage/supabase-storage-download"
+import { supabaseStorageGetPublicUrlTool } from "../../src/tools/storage/supabase-storage-get-public-url"
+import { supabaseStorageListBucketsTool } from "../../src/tools/storage/supabase-storage-list-buckets"
+import { supabaseStorageListFilesTool } from "../../src/tools/storage/supabase-storage-list-files"
+import { supabaseStorageRemoveTool } from "../../src/tools/storage/supabase-storage-remove"
+import { supabaseStorageUploadTool } from "../../src/tools/storage/supabase-storage-upload"
 
 const CRED_KEY = "supabase_credential"
 const cred = {
