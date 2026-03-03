@@ -5,12 +5,10 @@ import type {
 import type { SearchParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
+  handleNotionError,
   mapSearchSort,
-  okResult,
   queryWithPagination,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
@@ -90,7 +88,7 @@ export const searchDatabasesTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
@@ -109,8 +107,8 @@ export const searchDatabasesTool: ToolDefinition = {
         ? mapSearchSort(rawParameters.sort)
         : undefined
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) =>
         client.search({
           filter: {
@@ -123,9 +121,9 @@ export const searchDatabasesTool: ToolDefinition = {
           start_cursor: startCursor,
         } satisfies SearchParameters),
       )
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }

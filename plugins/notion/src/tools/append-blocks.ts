@@ -5,12 +5,10 @@ import type {
 import type { AppendBlockChildrenParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
+  handleNotionError,
   mapBlocks,
-  okResult,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { blocksProperty } from "./_shared-parameters/blocks"
@@ -58,23 +56,23 @@ export const appendBlocksTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
     const blockId =
       typeof rawParameters.block_id === "string" ? rawParameters.block_id : ""
     if (blockId === "") {
-      return invokeErrResult("block_id is required")
+      throw new Error("block_id is required")
     }
 
     const children = mapBlocks(rawParameters.children)
     if (!children || children.length === 0) {
-      return invokeErrResult("children is required")
+      throw new Error("children is required")
     }
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.blocks.children.append({
         after:
           typeof rawParameters.after === "string" &&
@@ -84,9 +82,9 @@ export const appendBlocksTool: ToolDefinition = {
         block_id: blockId,
         children,
       } satisfies AppendBlockChildrenParameters)
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }
