@@ -4,7 +4,11 @@ import type {
   SearchParameters,
   UpdatePageParameters,
 } from "@notionhq/client"
-import { APIResponseError, Client } from "@notionhq/client"
+import {
+  APIErrorCode,
+  APIResponseError,
+  Client,
+} from "@notionhq/client"
 
 type GenericRecord = Record<string, unknown>
 
@@ -14,6 +18,44 @@ const isRecord = (value: unknown): value is GenericRecord =>
 export type NotionToolArgs = {
   parameters: Record<string, unknown>
   credentials?: Record<string, { api_key: string }>
+}
+
+export const handleNotionError = (error: unknown) => {
+  if (error instanceof APIResponseError) {
+    const code = error.code ?? "unknown_error"
+    const status = error.status ?? 0
+
+    if (error.code === APIErrorCode.ObjectNotFound) {
+      throw new Error(
+        `Notion resource not found (status ${status}, code ${code}). ` +
+          "Please verify the ID (page_id, database_id, data_source_id, or block_id) exists and is shared with the integration.",
+      )
+    }
+
+    if (error.code === APIErrorCode.Unauthorized) {
+      throw new Error(
+        `Notion authorization failed (status ${status}, code ${code}). ` +
+          "Please check that the API key is correct and the integration has access to this workspace.",
+      )
+    }
+
+    if (error.code === APIErrorCode.RateLimited) {
+      throw new Error(
+        `Notion rate limit reached (status ${status}, code ${code}). ` +
+          "Please slow down requests or try again in a moment.",
+      )
+    }
+
+    throw new Error(
+      `Notion API error (status ${status}, code ${code}): ${error.message}`,
+    )
+  }
+
+  if (error instanceof Error) {
+    throw error
+  }
+
+  throw new Error("Unknown Notion error")
 }
 
 /**
@@ -43,38 +85,6 @@ export const getNotionClient = (
 
   return new Client({ auth: apiKey })
 }
-
-export const formatNotionError = (error: unknown) => {
-  if (APIResponseError.isAPIResponseError(error)) {
-    return `${error.code}: ${error.message}`
-  }
-
-  if (error instanceof Error) {
-    return error.message
-  }
-
-  return "Unknown error"
-}
-
-/** Result type for tool invoke: success with data or failure with error message. */
-export type NotionToolResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: string }
-
-export const okResult = <T>(data: T): NotionToolResult<T> => ({
-  ok: true,
-  data,
-})
-export const errResult = (error: string): NotionToolResult<never> => ({
-  ok: false,
-  error,
-})
-
-const INVOKE_ERROR_PREFIX = "[Invoke] "
-
-/** Use in tool invoke handlers to return errors with a prefix indicating they come from invoke. */
-export const invokeErrResult = (error: string): NotionToolResult<never> =>
-  errResult(INVOKE_ERROR_PREFIX + error)
 
 type JsonPrimitive = string | number | boolean | null
 type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue }

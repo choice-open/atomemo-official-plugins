@@ -5,11 +5,9 @@ import type {
 import type { GetDatabaseParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
-  okResult,
+  handleNotionError,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
@@ -51,7 +49,7 @@ export const getADatabaseTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
@@ -61,17 +59,17 @@ export const getADatabaseTool: ToolDefinition = {
         : ""
 
     if (databaseId === "") {
-      return invokeErrResult("database_id is required")
+      throw new Error("database_id is required")
     }
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.databases.retrieve({
         database_id: databaseId,
       } satisfies GetDatabaseParameters)
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }

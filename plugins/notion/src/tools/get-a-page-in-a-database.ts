@@ -5,11 +5,9 @@ import type {
 import type { GetPageParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
-  okResult,
+  handleNotionError,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
@@ -56,7 +54,7 @@ export const getAPageInADatabaseTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
@@ -64,11 +62,11 @@ export const getAPageInADatabaseTool: ToolDefinition = {
       typeof rawParameters.page_id === "string" ? rawParameters.page_id : ""
 
     if (pageId === "") {
-      return invokeErrResult("page_id is required")
+      throw new Error("page_id is required")
     }
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.pages.retrieve({
         filter_properties:
           Array.isArray(rawParameters.filter_properties) &&
@@ -79,9 +77,9 @@ export const getAPageInADatabaseTool: ToolDefinition = {
             : undefined,
         page_id: pageId,
       } satisfies GetPageParameters)
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }

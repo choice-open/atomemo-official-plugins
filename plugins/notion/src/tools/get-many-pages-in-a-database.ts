@@ -5,12 +5,10 @@ import type {
 import type { QueryDataSourceParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
+  handleNotionError,
   mapQuerySorts,
-  okResult,
   parseJsonObject,
   queryWithPagination,
   transformNotionOutput,
@@ -167,7 +165,7 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
@@ -176,12 +174,12 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
         ? rawParameters.data_source_id
         : ""
     if (dataSourceId === "") {
-      return invokeErrResult("data_source_id is required")
+      throw new Error("data_source_id is required")
     }
 
     const parsedFilter = parseJsonObject(rawParameters.filter)
     if ("error" in parsedFilter) {
-      return invokeErrResult(parsedFilter.error ?? "Invalid filter JSON")
+      throw new Error(parsedFilter.error ?? "Invalid filter JSON")
     }
 
     const returnAll = rawParameters.return_all === true
@@ -190,8 +188,8 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
         ? rawParameters.page_size
         : 100
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) => {
         const filter = parsedFilter.value
         const sorts = mapQuerySorts(rawParameters.sorts)
@@ -218,9 +216,9 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
 
         return client.dataSources.query(params)
       })
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }

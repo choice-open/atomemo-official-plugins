@@ -5,11 +5,9 @@ import type {
 import type { ListBlockChildrenParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
-  okResult,
+  handleNotionError,
   queryWithPagination,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
@@ -57,14 +55,14 @@ export const getChildBlocksTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
     const blockId =
       typeof rawParameters.block_id === "string" ? rawParameters.block_id : ""
     if (blockId === "") {
-      return invokeErrResult("block_id is required")
+      throw new Error("block_id is required")
     }
 
     const returnAll = rawParameters.return_all === true
@@ -73,8 +71,8 @@ export const getChildBlocksTool: ToolDefinition = {
         ? rawParameters.page_size
         : 100
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await queryWithPagination(returnAll, (startCursor) =>
         client.blocks.children.list({
           block_id: blockId,
@@ -82,9 +80,9 @@ export const getChildBlocksTool: ToolDefinition = {
           start_cursor: startCursor,
         } satisfies ListBlockChildrenParameters),
       )
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }

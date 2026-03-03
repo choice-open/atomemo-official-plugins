@@ -6,14 +6,12 @@ import type {
 import type { CreatePageParameters } from "@notionhq/client"
 import { t } from "../i18n/i18n-node"
 import {
-  formatNotionError,
   getNotionClient,
   getSimplifyOutputFlag,
-  invokeErrResult,
+  handleNotionError,
   mapBlocks,
   mapIcon,
   mapPageProperties,
-  okResult,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { blocksProperty } from "./_shared-parameters/blocks"
@@ -79,7 +77,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
     if (!client) {
-      return invokeErrResult("Missing Notion API key")
+      throw new Error("Missing Notion API key")
     }
 
     const rawParameters = args.parameters as Record<string, unknown>
@@ -88,20 +86,20 @@ export const createAPageInADatabaseTool: ToolDefinition = {
       typeof parent?.data_source_id === "string" ? parent.data_source_id : ""
 
     if (dataSourceId === "") {
-      return invokeErrResult("parent.data_source_id is required")
+      throw new Error("parent.data_source_id is required")
     }
 
+    const simplifyOutput = getSimplifyOutputFlag(rawParameters)
     try {
-      const simplifyOutput = getSimplifyOutputFlag(rawParameters)
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
         parent: { data_source_id: dataSourceId },
         properties: mapPageProperties(rawParameters.properties),
       } satisfies CreatePageParameters)
-      return okResult(transformNotionOutput(data, simplifyOutput))
+      return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
-      return invokeErrResult(formatNotionError(error))
+      return handleNotionError(error)
     }
   },
 }
