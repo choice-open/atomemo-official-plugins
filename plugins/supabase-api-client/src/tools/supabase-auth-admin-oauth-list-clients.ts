@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 
 export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
@@ -37,19 +37,14 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error:
-          "Missing Supabase credential (supabase_url or supabase_key). Requires service_role key.",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials, undefined, {
+      useServiceRoleKey: true,
+    })
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const page = Number(parameters.page) || 1
     const perPage = Number(parameters.per_page) || 50
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.admin.oauth.listClients({
       page,
       perPage,

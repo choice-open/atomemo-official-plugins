@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 export const supabaseAuthGetClaimsTool: ToolDefinition = {
   name: "supabase-auth-get-claims",
@@ -41,18 +41,12 @@ export const supabaseAuthGetClaimsTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const jwt = (parameters.jwt as string)?.trim() || undefined
     const allowExpired = Boolean(parameters.allow_expired)
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.getClaims(jwt, { allowExpired })
     if (result.error) {
       return {

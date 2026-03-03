@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { createSupabaseClient } from "../credentials/supabase-connection"
 import { t } from "../i18n/i18n-node"
 import { authResult, parseJson } from "../lib/auth-result"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 
 export const supabaseAuthSignUpTool: ToolDefinition = {
   name: "supabase-auth-sign-up",
@@ -56,15 +57,10 @@ export const supabaseAuthSignUpTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const email = String(parameters.email ?? "").trim()
     const password = String(parameters.password ?? "")
     if (!email || !password) {
@@ -79,7 +75,6 @@ export const supabaseAuthSignUpTool: ToolDefinition = {
       emailRedirectTo?: string
       data?: Record<string, unknown>
     }>(parameters.options as string, {})
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signUp({ email, password, options })
     return authResult(result) as ReturnType<
       ToolDefinition["invoke"]

@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 import { authResult, parseJson } from "../lib/auth-result"
 
@@ -57,15 +57,10 @@ export const supabaseAuthUpdateUserTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const accessToken = (parameters.access_token as string)?.trim()
     const refreshToken = (parameters.refresh_token as string)?.trim()
     if (!accessToken || !refreshToken) {
@@ -81,7 +76,6 @@ export const supabaseAuthUpdateUserTool: ToolDefinition = {
       password?: string
       data?: Record<string, unknown>
     }>(parameters.attributes as string, {})
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     await supabase.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken,

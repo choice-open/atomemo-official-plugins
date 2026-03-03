@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 import { parseJson } from "../lib/auth-result"
 
@@ -43,15 +43,12 @@ export const supabaseAuthAdminOAuthUpdateClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential. Requires service_role key.",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials, undefined, {
+      useServiceRoleKey: true,
+    })
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
       return {
@@ -69,7 +66,6 @@ export const supabaseAuthAdminOAuthUpdateClientTool: ToolDefinition = {
       grant_types?: string[]
       token_endpoint_auth_method?: string
     }>(parameters.params as string, {})
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.admin.oauth.updateClient(
       clientId,
       paramsRaw as Parameters<typeof supabase.auth.admin.oauth.updateClient>[1],

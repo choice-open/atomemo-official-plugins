@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 import { parseJson } from "../lib/auth-result"
 
@@ -121,15 +121,10 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const provider = (parameters.provider as string)?.trim()
     if (
       !provider ||
@@ -149,7 +144,6 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
       {},
     )
     const skipBrowserRedirect = Boolean(parameters.skip_browser_redirect)
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithOAuth({
       provider: provider as (typeof OAUTH_PROVIDERS)[number],
       options: {

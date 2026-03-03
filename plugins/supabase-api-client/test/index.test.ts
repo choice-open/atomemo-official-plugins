@@ -185,7 +185,7 @@ describe("supabase-api-client plugin", () => {
     it("should call signOut and return success when credential is provided", async () => {
       const result = await supabaseAuthSignOutTool.invoke({
         args: {
-          parameters: { scope: "local" },
+          parameters: { scope: "local", supabase_credential: "supabase_credential" },
           credentials: {
             supabase_credential: {
               supabase_url: "https://xxx.supabase.co",
@@ -356,7 +356,7 @@ describe("supabase-api-client plugin", () => {
     it("should return session data when credential is provided", async () => {
       const result = await supabaseAuthGetSessionTool.invoke({
         args: {
-          parameters: {},
+          parameters: { supabase_credential: "supabase_credential" },
           credentials: {
             supabase_credential: {
               supabase_url: "https://xxx.supabase.co",

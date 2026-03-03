@@ -122,8 +122,9 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       (parameters.method as string)?.trim() || "POST"
     ).toUpperCase() as "POST" | "GET" | "PUT" | "PATCH" | "DELETE"
     const headersRaw = (parameters.headers as string)?.trim()
-    const headers = headersRaw
-      ? (parseJson<Record<string, string>>(headersRaw, {}) as
+    const headersRawOrUndefined = headersRaw === "" ? undefined : headersRaw
+    const headers = headersRawOrUndefined
+      ? (parseJson<Record<string, string>>(headersRawOrUndefined, {}) as
           | Record<string, string>
           | undefined)
       : undefined
@@ -141,27 +142,18 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       if (headers !== undefined && Object.keys(headers).length > 0)
         options.headers = headers
 
+
       const { data, error } = await supabase.functions.invoke(
         functionName,
         options,
       )
 
       if (error) {
-        const isNon2xx =
-          error.message?.includes("non-2xx") ?? false
-        if (isNon2xx) {
-          return {
-            success: true,
-            data: { non2xx: true, error: error.message },
-            error: null,
-            code: null,
-          }
-        }
         return {
           success: false,
           error: error.message,
           code: (error as { code?: string }).code ?? null,
-          data: null,
+          data: JSON.stringify(error),
         }
       }
       return {
@@ -175,7 +167,7 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       return {
         success: false,
         error: message,
-        data: null,
+        data: JSON.stringify(err, null, 2),
         code: null,
       }
     }

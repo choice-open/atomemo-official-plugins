@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 import { authResult, parseJson } from "../lib/auth-result"
 
@@ -102,15 +102,10 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     let provider = (parameters.provider as string)?.trim()
     if (provider === "custom") {
       const custom = (parameters.provider_custom as string)?.trim()
@@ -150,7 +145,6 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
       parameters.options as string,
       {},
     )
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.signInWithIdToken({
       provider: provider as
         | "google"

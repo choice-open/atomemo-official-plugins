@@ -1,5 +1,5 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createSupabaseClient } from "../credentials/supabase-connection"
+import { getSupabaseClientFromArgs } from "../lib/get-supabase-client"
 import { t } from "../i18n/i18n-node"
 
 export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
@@ -30,15 +30,12 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential. Requires service_role key.",
-        data: null,
-        code: null,
-      }
-    }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials, undefined, {
+      useServiceRoleKey: true,
+    })
+    if (clientResult.error) return clientResult.error
+
+    const supabase = clientResult.supabase
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
       return {
@@ -48,7 +45,6 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
         code: null,
       }
     }
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const result = await supabase.auth.admin.oauth.deleteClient(clientId)
     if (result.error) {
       return {
