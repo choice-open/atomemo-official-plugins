@@ -248,6 +248,10 @@ type RootTranslation = {
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME: string
   /**
+   * I​D​ ​o​f​ ​t​h​e​ ​u​n​d​e​r​l​y​i​n​g​ ​d​a​t​a​ ​s​o​u​r​c​e​ ​(​d​a​t​a​b​a​s​e​)​ ​w​h​e​r​e​ ​t​h​e​ ​n​e​w​ ​p​a​g​e​ ​s​h​o​u​l​d​ ​b​e​ ​c​r​e​a​t​e​d​.​ ​I​n​ ​N​o​t​i​o​n​,​ ​u​s​e​ ​t​h​e​ ​d​a​t​a​ ​s​o​u​r​c​e​ ​i​d​e​n​t​i​f​i​e​d​ ​u​n​d​e​r​ ​M​a​n​a​g​e​ ​d​a​t​a​ ​s​o​u​r​c​e​s​,​ ​n​o​t​ ​j​u​s​t​ ​a​ ​s​p​e​c​i​f​i​c​ ​v​i​e​w​ ​U​R​L​.​ ​L​e​a​r​n​ ​m​o​r​e​:​ ​h​t​t​p​s​:​/​/​w​w​w​.​n​o​t​i​o​n​.​c​o​m​/​h​e​l​p​/​d​a​t​a​-​s​o​u​r​c​e​s​-​a​n​d​-​l​i​n​k​e​d​-​d​a​t​a​b​a​s​e​s​#​m​a​n​a​g​e​-​d​a​t​a​-​s​o​u​r​c​e​s
+   */
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_HINT: string
+  /**
    * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​p​a​r​e​n​t​ ​d​a​t​a​ ​s​o​u​r​c​e​ ​(​d​a​t​a​b​a​s​e​)​ ​w​h​e​r​e​ ​t​h​e​ ​n​e​w​ ​p​a​g​e​ ​w​i​l​l​ ​b​e​ ​c​r​e​a​t​e​d​.
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION: string
@@ -279,6 +283,10 @@ type RootTranslation = {
    * D​a​t​a​ ​S​o​u​r​c​e​ ​I​D
    */
   QUERY_DATABASE_DATA_SOURCE_ID_DISPLAY_NAME: string
+  /**
+   * I​D​ ​o​f​ ​t​h​e​ ​N​o​t​i​o​n​ ​d​a​t​a​ ​s​o​u​r​c​e​ ​(​d​a​t​a​b​a​s​e​ ​o​r​ ​w​i​k​i​)​ ​t​o​ ​q​u​e​r​y​.​ ​F​o​r​ ​d​a​t​a​b​a​s​e​s​ ​w​i​t​h​ ​m​u​l​t​i​p​l​e​ ​d​a​t​a​ ​s​o​u​r​c​e​s​,​ ​p​i​c​k​ ​a​ ​s​i​n​g​l​e​ ​s​o​u​r​c​e​ ​f​r​o​m​ ​t​h​e​ ​M​a​n​a​g​e​ ​d​a​t​a​ ​s​o​u​r​c​e​s​ ​p​a​n​e​l​ ​r​a​t​h​e​r​ ​t​h​a​n​ ​t​h​e​ ​c​o​m​b​i​n​e​d​ ​v​i​e​w​.​ ​L​e​a​r​n​ ​m​o​r​e​:​ ​h​t​t​p​s​:​/​/​w​w​w​.​n​o​t​i​o​n​.​c​o​m​/​h​e​l​p​/​d​a​t​a​-​s​o​u​r​c​e​s​-​a​n​d​-​l​i​n​k​e​d​-​d​a​t​a​b​a​s​e​s​#​m​a​n​a​g​e​-​d​a​t​a​-​s​o​u​r​c​e​s
+   */
+  QUERY_DATABASE_DATA_SOURCE_ID_HINT: string
   /**
    * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​N​o​t​i​o​n​ ​d​a​t​a​ ​s​o​u​r​c​e​ ​(​d​a​t​a​b​a​s​e​ ​o​r​ ​w​i​k​i​)​ ​t​o​ ​q​u​e​r​y​.
    */
@@ -899,6 +907,10 @@ export type TranslationFunctions = {
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME: () => LocalizedString
   /**
+   * ID of the underlying data source (database) where the new page should be created. In Notion, use the data source identified under Manage data sources, not just a specific view URL. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources
+   */
+  CREATE_PAGE_IN_DATABASE_PARENT_ID_HINT: () => LocalizedString
+  /**
    * The ID of the parent data source (database) where the new page will be created.
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION: () => LocalizedString
@@ -930,6 +942,10 @@ export type TranslationFunctions = {
    * Data Source ID
    */
   QUERY_DATABASE_DATA_SOURCE_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * ID of the Notion data source (database or wiki) to query. For databases with multiple data sources, pick a single source from the Manage data sources panel rather than the combined view. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources
+   */
+  QUERY_DATABASE_DATA_SOURCE_ID_HINT: () => LocalizedString
   /**
    * The ID of the Notion data source (database or wiki) to query.
    */

@@ -15,9 +15,9 @@
     "en-US",
     "zh-Hans"
   ],
-  "author": "余凡",
-  "email": "dev.yufan@gmail.com",
-  "version": "0.3.0",
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.3.1",
   "credentials": [
     {
       "name": "notion",
@@ -10391,6 +10391,10 @@
                 }
               },
               "ui": {
+                "hint": {
+                  "en_US": "ID of the underlying data source (database) where the new page should be created. In Notion, use the data source identified under Manage data sources, not just a specific view URL. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
+                  "zh_Hans": "要创建新页面的数据源（数据库）的 ID。在 Notion 中，请使用“管理数据源”面板中的数据源 ID，而不是某个特定视图的 URL。了解更多：https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources"
+                },
                 "support_expression": true,
                 "component": "input"
               },
@@ -38809,6 +38813,10 @@
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "ID of the Notion data source (database or wiki) to query. For databases with multiple data sources, pick a single source from the Manage data sources panel rather than the combined view. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
+              "zh_Hans": "要查询的 Notion 数据源（数据库或知识库）的 ID。对于包含多个数据源的数据库视图，请在“管理数据源”中选择单个数据源，而不是使用聚合视图。了解更多：https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources"
+            },
             "placeholder": {
               "en_US": "e.g. 4c0f2e87-1234-4f7c-9c17-1f5acafe0001"
             },

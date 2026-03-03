@@ -40,8 +40,12 @@ const parentProperty: PropertyObject<"parent"> = {
       name: "data_source_id",
       type: "string",
       required: true,
-      ui: { component: "input", support_expression: true },
       display_name: t("CREATE_PAGE_IN_DATABASE_PARENT_ID_DISPLAY_NAME"),
+      ui: {
+        component: "input",
+        support_expression: true,
+        hint: t("CREATE_PAGE_IN_DATABASE_PARENT_ID_HINT"),
+      },
       ai: {
         llm_description: t("CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION"),
       },
