@@ -39,7 +39,7 @@
 | **supabase-update** | 按条件更新。支持 values、filters、schema、returning。                                                                                                    |
 | **supabase-upsert** | 插入或更新。支持 rows、schema、on_conflict、returning。                                                                                                  |
 | **supabase-delete** | 按条件删除。支持 filters、schema、returning。                                                                                                           |
-| **supabase-rpc**    | 调用 Postgres 函数。支持 function_name、args（JSON）、schema。                                                                                           |
+| **supabase-rpc**    | 调用 Postgres 函数。支持 function_name、args（JSON）、schema。详见 [RPC 使用说明与范例](./rpc-usage.md)。                                                                                           |
 
 
 **Edge Functions（1 个）**
@@ -123,6 +123,7 @@
 
 - **Filters**：支持两种格式：① JSON 对象表示多列等值（如 `{"id": 1}`）；② JSON 数组表示高级条件，支持操作符：`eq`、`neq`、`gt`、`gte`、`lt`、`lte`、`like`、`ilike`、`is`、`in`、`contains`、`containedBy`、`or`（见 `src/lib/supabase-filters.ts`）。Query / Update / Delete 均使用同一套 filters 解析。
 - **Modifiers**：Query 支持 `order`、`limit`、`range`（offset）、`return_mode`（multiple / single / maybeSingle）、`return_format`（json / csv）、`explain`（返回执行计划）。
+- **RPC**：调用 Postgres 函数（supabase-rpc）的详细参数、SQL 范例与在 Atomemo 中的用法见 [RPC 使用说明与范例](./rpc-usage.md)。
 
 ---
 
