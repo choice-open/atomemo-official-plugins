@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { createSupabaseClient } from "../../lib/get-supabase-client"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -66,17 +66,12 @@ export const supabaseRpcTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const cred = credentials?.["supabase_credential"]
-    if (!cred?.supabase_url || !cred?.supabase_key) {
-      return {
-        success: false,
-        error: "Missing Supabase credential (supabase_url or supabase_key).",
-        data: null,
-        code: null,
-      }
+    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
+    if (clientResult.error) {
+      return { ...clientResult.error }
     }
+    const supabase = clientResult.supabase
 
-    const supabase = createSupabaseClient(cred.supabase_url, cred.supabase_key)
     const functionName = String(parameters.function_name).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
     const argsObj = parseJson<Record<string, unknown>>(

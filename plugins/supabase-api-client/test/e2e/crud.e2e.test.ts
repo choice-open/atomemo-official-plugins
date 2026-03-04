@@ -12,6 +12,14 @@
  *   );
  *   alter table public.e2e_test enable row level security;
  *   create policy "Allow all for e2e" on public.e2e_test for all using (true) with check (true);
+ *
+ * RPC e2e 用到的函数（在 SQL Editor 中执行一次）：
+ *   create or replace function public.get_e2e_test_count() returns bigint as $$
+ *     select count(*)::bigint from public.e2e_test where name like 'e2e-%';
+ *   $$ language sql security definer;
+ *   create or replace function public.e2e_echo(val text) returns text as $$
+ *     select val;
+ *   $$ language sql;
  */
 import "dotenv/config"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
@@ -19,6 +27,7 @@ import { createSupabaseClient } from "../../src/lib/get-supabase-client"
 import { supabaseDeleteTool } from "../../src/tools/db/supabase-delete"
 import { supabaseInsertTool } from "../../src/tools/db/supabase-insert"
 import { supabaseQueryTool } from "../../src/tools/db/supabase-query"
+import { supabaseRpcTool } from "../../src/tools/db/supabase-rpc"
 import { supabaseUpdateTool } from "../../src/tools/db/supabase-update"
 
 const TABLE = "e2e_test"
@@ -201,6 +210,41 @@ describe("e2e: CRUD + filters + modifiers", { skip: !hasEnv }, () => {
     expect(q.success).toBe(true)
     const data = (q as { data?: unknown[] }).data
     expect(Array.isArray(data) && data.length).toBe(0)
+  })
+
+  it("RPC：无参 get_e2e_test_count 返回条数", async () => {
+    const r = await supabaseRpcTool.invoke({
+      args: {
+        parameters: {
+          supabase_credential: CRED_ID,
+          function_name: "get_e2e_test_count",
+          schema: "public",
+        },
+        credentials: credentials(),
+      },
+    })
+    expect(r.success).toBe(true)
+    const data = r.data as number | null | undefined
+    expect(typeof data).toBe("number")
+    expect(Number.isInteger(data)).toBe(true)
+    expect((data ?? 0).toString()).not.toBe("NaN")
+  })
+
+  it("RPC：带参 e2e_echo 返回传入值", async () => {
+    const r = await supabaseRpcTool.invoke({
+      args: {
+        parameters: {
+          supabase_credential: CRED_ID,
+          function_name: "e2e_echo",
+          args: JSON.stringify({ val: "e2e-rpc-hello" }),
+          schema: "public",
+        },
+        credentials: credentials(),
+      },
+    })
+    expect(r.success).toBe(true)
+    const data = r.data as string | null | undefined
+    expect(data).toBe("e2e-rpc-hello")
   })
 })
 
