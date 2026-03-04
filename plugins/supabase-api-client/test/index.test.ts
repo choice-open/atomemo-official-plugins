@@ -82,7 +82,7 @@ import { supabaseAuthGetSessionTool } from "../src/tools/auth/supabase-auth-get-
 import { supabaseAuthSignOutTool } from "../src/tools/auth/supabase-auth-sign-out"
 import { supabaseQueryTool } from "../src/tools/db/supabase-query"
 
-const TOOL_COUNT = 49 // 6 db + 1 edge + 7 storage + 13 vector + 22 auth
+const TOOL_COUNT = 27 // 6 db + 1 edge + 7 storage + 13 vector（auth 未注册）
 
 describe("supabase-api-client plugin", () => {
   describe("plugin initialization", () => {
@@ -121,11 +121,9 @@ describe("supabase-api-client plugin", () => {
         1,
         expect.objectContaining({ name: "supabase-query" }),
       )
-      expect(addTool).toHaveBeenCalledWith(
-        expect.objectContaining({ name: "supabase-auth-sign-out" }),
-      )
-      expect(addTool).toHaveBeenCalledWith(
-        expect.objectContaining({ name: "supabase-auth-get-session" }),
+      expect(addTool).toHaveBeenNthCalledWith(
+        TOOL_COUNT,
+        expect.objectContaining({ name: "supabase-vector-delete" }),
       )
     })
   })

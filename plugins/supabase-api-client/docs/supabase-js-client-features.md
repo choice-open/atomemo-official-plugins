@@ -6,7 +6,7 @@
 
 ## 一、本插件当前实现情况
 
-**插件已接入 Supabase，提供数据库（PostgREST）、Storage（文件桶）、Vector（向量桶）、Edge Functions 与认证（Auth）能力。**
+**插件已接入 Supabase，提供数据库（PostgREST）、Storage（文件桶）、Vector（向量桶）、Edge Functions。认证（Auth）相关工具在 `plugin.addTool` 中已注释，标注为未实现。**
 
 ### 1.1 概览
 
@@ -18,7 +18,7 @@
 | Edge Functions | 1   | 按名称调用 Edge Function（body、method、headers）                                 |
 | Storage        | 7   | 列出桶/文件、上传、下载、删除、签名 URL、公开 URL                                            |
 | Vector         | 13  | 列出/创建/获取/删除 vector bucket；列出/创建/获取/删除 index；put/get/list/query/delete 向量 |
-| 认证工具           | 22  | 登录、注册、登出、获取用户/会话、重置密码、OTP、设置会话、ID Token 登录、OAuth 登录、JWT 声明、OAuth Admin 等 |
+| 认证工具           | 0   | **未实现**：Auth 16 个与 OAuth Admin 6 个在 `plugin.addTool` 中已注释 |
 | 其他             | 0   | （无 Demo 工具）                                                              |
 
 
@@ -84,8 +84,8 @@
 | **supabase-vector-delete**        | 按 keys（JSON 数组，1–500）删除向量。                                                                                                      |
 
 
-**认证（22 个）**
-
+**认证（未实现）**  
+以下 16 个 Auth 工具在 `src/index.ts` 的 `plugin.addTool` 中已注释，标注为**未实现**，插件中不可用。
 
 | 工具名                                             | 说明                                                              |
 | ----------------------------------------------- | --------------------------------------------------------------- |
@@ -105,6 +105,12 @@
 | **supabase-auth-sign-in-with-id-token**         | 使用 OIDC ID Token 登录（Google、Apple、Azure、Facebook、Kakao 或自定义提供商）。 |
 | **supabase-auth-sign-in-with-oauth**            | 发起 OAuth 登录，返回重定向 URL；回调后用 exchange-code-for-session 换 session。 |
 | **supabase-auth-get-claims**                    | 从 JWT 解码并校验后返回用户声明（sub、email、role 等）。                           |
+
+**认证 · OAuth Admin（未实现）**  
+以下 6 个 OAuth Admin 工具在 `plugin.addTool` 中已注释，标注为**未实现**，插件中不可用。
+
+| 工具名                                             | 说明                                                              |
+| ----------------------------------------------- | --------------------------------------------------------------- |
 | **supabase-auth-admin-oauth-list-clients**      | 列出 OAuth 2.1 客户端（需 service_role 且启用 OAuth 服务端）。                 |
 | **supabase-auth-admin-oauth-create-client**     | 创建 OAuth 客户端。                                                   |
 | **supabase-auth-admin-oauth-get-client**        | 按 ID 获取 OAuth 客户端。                                              |
@@ -240,7 +246,7 @@
 
 ### 1.5 未实现模块
 
-**已封装**：Edge Functions（1 个工具）、Storage（7 个工具）、Vector（13 个工具）、OAuth Admin（6 个工具）。**未封装**：Realtime、Analytics；Auth 的认证状态监听（onAuthStateChange，需长连接）、SSO/Web3、MFA、Auth Admin、OAuth Server。Storage 的桶 CRUD（创建/更新/删除桶）、移动/复制文件、签名上传 URL、info/exists、listV2 未封装。
+**已封装并注册**：数据库（6 个）、Edge Functions（1 个）、Storage（7 个）、Vector（13 个）。**未实现**：认证 16 个 + OAuth Admin 6 个（在 `plugin.addTool` 中已注释）。**未封装**：Realtime、Analytics；Auth 的认证状态监听（onAuthStateChange，需长连接）、SSO/Web3、MFA、Auth Admin、OAuth Server。Storage 的桶 CRUD（创建/更新/删除桶）、移动/复制文件、签名上传 URL、info/exists、listV2 未封装。
 
 ---
 
@@ -268,28 +274,28 @@
 
 | 能力                                    | 说明                                             | 本插件                                                                                              |
 | ------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Create a new user**                 | 注册新用户                                          | ✅ 完成（supabase-auth-sign-up）                                                                      |
-| **Sign in**                           | 邮箱密码登录                                         | ✅ 完成（supabase-auth-sign-in）                                                                      |
-| **Sign out**                          | 登出                                             | ✅ 完成（supabase-auth-sign-out）                                                                     |
-| **Send password reset**               | 发送重置密码邮件                                       | ✅ 完成（supabase-auth-reset-password）                                                               |
-| **Verify and log in through OTP**     | 验证 OTP 并登录                                     | ✅ 完成（supabase-auth-verify-otp）                                                                   |
-| **Retrieve session / user**           | 获取当前 session / user                            | ✅ 完成（supabase-auth-get-session、supabase-auth-get-user）                                           |
-| **Set session**                       | 使用 token 设置会话                                  | ✅ 完成（supabase-auth-set-session）                                                                  |
-| **Update user**                       | 更新用户信息                                         | ✅ 完成（supabase-auth-update-user，需 access_token+refresh_token）                                     |
-| **Resend OTP / Exchange auth code**   | 重发 OTP、用 auth code 换 session                   | ✅ 完成（supabase-auth-resend-otp、supabase-auth-exchange-code-for-session）                           |
-| **Create an anonymous user**          | 匿名用户                                           | ✅ 完成（supabase-auth-sign-in-anonymously）                                                          |
-| **Sign in through OTP**               | 发起 OTP 登录（发邮件/短信）                              | ✅ 完成（supabase-auth-sign-in-with-otp，用户用 verify-otp 完成）                                           |
+| **Create a new user**                 | 注册新用户                                          | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Sign in**                           | 邮箱密码登录                                         | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Sign out**                          | 登出                                             | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Send password reset**               | 发送重置密码邮件                                       | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Verify and log in through OTP**     | 验证 OTP 并登录                                     | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Retrieve session / user**           | 获取当前 session / user                            | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Set session**                       | 使用 token 设置会话                                  | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Update user**                       | 更新用户信息                                         | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Resend OTP / Exchange auth code**   | 重发 OTP、用 auth code 换 session                   | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Create an anonymous user**          | 匿名用户                                           | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Sign in through OTP**               | 发起 OTP 登录（发邮件/短信）                              | ❌ 未实现（plugin.addTool 中已注释）                                                              |
 | **Listen to auth events**             | 监听认证状态变化                                       | ❌ 未实现（需长连接，不适合单次调用工具模型）                                                                          |
-| **Sign in with ID token**             | 原生/ID Token 登录                                 | ✅ 完成（supabase-auth-sign-in-with-id-token）                                                        |
-| **Sign in through OAuth**             | OAuth 登录                                       | ✅ 完成（supabase-auth-sign-in-with-oauth，返回 URL；回调用 exchange-code-for-session）                      |
+| **Sign in with ID token**             | 原生/ID Token 登录                                 | ❌ 未实现（plugin.addTool 中已注释）                                                              |
+| **Sign in through OAuth**             | OAuth 登录                                       | ❌ 未实现（plugin.addTool 中已注释）                                                              |
 | **Sign in through SSO**               | SSO 登录                                         | ❌ 未实现                                                                                            |
 | **Sign in through Web3**              | Solana / Ethereum 等 Web3 登录                    | ❌ 未实现                                                                                            |
-| **Get user claims from verified JWT** | 从 JWT 获取用户声明                                   | ✅ 完成（supabase-auth-get-claims）                                                                   |
+| **Get user claims from verified JWT** | 从 JWT 获取用户声明                                   | ❌ 未实现（plugin.addTool 中已注释）                                                              |
 | **Link / Unlink identity**            | 关联/解绑身份                                        | ❌ 未实现                                                                                            |
 | **Auth MFA**                          | 多因素认证：enroll、challenge、unenroll、AAL、列出 factors | ❌ 未实现                                                                                            |
 | **OAuth Server**                      | 授权详情、批准/拒绝、列出/撤销 grant                         | ❌ 未实现                                                                                            |
 | **Auth Admin**                        | 用户 CRUD、邀请链接、登出用户、管理 MFA factors               | ❌ 未实现                                                                                            |
-| **OAuth Admin**                       | OAuth 客户端 CRUD、再生 client secret                | ✅ 完成（supabase-auth-admin-oauth-*：list/create/get/update/delete/regenerate-secret，需 service_role） |
+| **OAuth Admin**                       | OAuth 客户端 CRUD、再生 client secret                | ❌ 未实现（plugin.addTool 中已注释）                                                              |
 
 
 ### 2.3 Edge Functions
@@ -356,8 +362,8 @@
 
 ## 三、小结
 
-- **本插件**：已实现 **凭证**（supabase-connection）、**数据库** 6 项能力（Query / Insert / Update / Upsert / Delete / RPC，含 filters 与 modifiers）、**Edge Functions** 1 项（supabase-invoke-edge-function）、**Storage** 7 项（列出桶、列出文件、上传、下载、删除、创建签名 URL、获取公开 URL）、**Vector** 13 个工具（列出/创建/获取/删除 vector bucket；列出/创建/获取/删除 index；put/get/list/query/delete 向量）、**认证** 22 个工具（登录、注册、登出、获取用户/会话、重置密码、OTP 验证与发起、设置会话、更新用户、重发 OTP、code 换 session、匿名登录、ID Token 登录、OAuth 登录、JWT 声明、OAuth Admin 六项）。未实现：Realtime、Analytics；Auth 的 SSO/Web3、MFA、Auth Admin、OAuth Server；Storage 的桶 CRUD、文件 move/copy、签名上传 URL、info/exists、listV2。
-- **图例**：✅ 完成 = 已封装为工具或凭证；⚠️ 部分完成 = 仅覆盖该能力的一部分；❌ 未实现 = 尚未封装。
+- **本插件**：已实现并注册 **凭证**（supabase-connection）、**数据库** 6 项（Query / Insert / Update / Upsert / Delete / RPC，含 filters 与 modifiers）、**Edge Functions** 1 项（supabase-invoke-edge-function）、**Storage** 7 项（列出桶、列出文件、上传、下载、删除、创建签名 URL、获取公开 URL）、**Vector** 13 个工具（列出/创建/获取/删除 vector bucket；列出/创建/获取/删除 index；put/get/list/query/delete 向量）。**认证** 16 个工具与 **OAuth Admin** 6 个工具在 `plugin.addTool` 中已注释，标注为**未实现**，插件中不可用。未实现：Realtime、Analytics；Auth 的 SSO/Web3、MFA、Auth Admin、OAuth Server；Storage 的桶 CRUD、文件 move/copy、签名上传 URL、info/exists、listV2。
+- **图例**：✅ 完成 = 已封装为工具或凭证；⚠️ 部分完成 = 仅覆盖该能力的一部分；❌ 未实现 = 尚未封装或在 `plugin.addTool` 中已注释。
 - **扩展**：若需增加能力，可参考第二节表格，在 `src/tools/` 中新增工具并复用现有凭证，在 `src/index.ts` 中注册。
 
 ---

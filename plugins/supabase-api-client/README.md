@@ -1,6 +1,6 @@
 # supabase-api-client
 
-Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（PostgREST）、Storage（文件桶）、Edge Functions 与认证（Auth）。
+Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（PostgREST）、Storage（文件桶）与 Edge Functions。认证（Auth）工具已标注为未实现。
 
 ## 功能概览
 
@@ -8,12 +8,16 @@ Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（Post
 |----------|------|------|
 | 凭证     | 1    | **supabase-connection**（Supabase URL + API Key，anon 或 service_role） |
 | 数据库   | 6    | Query、Insert、Update、Upsert、Delete、RPC |
+| Edge     | 1    | 调用 Edge Function |
 | Storage  | 7    | 列出桶/文件、上传、下载、删除、签名 URL、公开 URL |
-| 认证     | 22   | 登录/注册/登出、获取用户/会话、重置密码、OTP、OAuth、ID Token、JWT 声明、OAuth Admin 等 |
+| Vector   | 13   | 桶/索引 CRUD、向量 put/get/list/query/delete |
+| 认证     | 0    | **未实现**：Auth 16 个与 OAuth Admin 6 个在 `src/index.ts` 的 `plugin.addTool` 中已注释 |
 
 - **数据库**：支持 filters（等值对象或高级操作符）、order、limit、offset、return_mode、RPC 等。
+- **Edge**：按名称与可选 body 调用已部署的 Edge Function。
 - **Storage**：列出桶与文件、上传（base64/文本）、下载（返回 base64）、删除、创建签名 URL、获取公开 URL。
-- **认证**：邮箱密码、Magic Link/OTP、匿名登录、OAuth 登录、ID Token 登录、exchange code 换 session、JWT 声明解析；OAuth Admin 提供 OAuth 客户端 CRUD 与 secret 再生（需 service_role）。
+- **Vector**：列出/创建/获取/删除桶与索引；向量 put、get、list、query、delete。
+- **认证**：**未实现**。Auth（16 个）与 OAuth Admin（6 个）在 `plugin.addTool` 中已注释，插件当前不提供认证相关工具。
 
 更细的功能与官方客户端对照见 [docs/supabase-js-client-features.md](./docs/supabase-js-client-features.md)。
 
