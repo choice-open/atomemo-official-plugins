@@ -16,64 +16,24 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * C​l​i​c​k​H​o​u​s​e
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * C​o​n​n​e​c​t​ ​t​o​ ​C​l​i​c​k​H​o​u​s​e​ ​d​a​t​a​b​a​s​e​,​ ​r​u​n​ ​q​u​e​r​i​e​s​,​ ​i​n​s​e​r​t​ ​d​a​t​a​,​ ​e​x​p​o​r​t​ ​r​e​s​u​l​t​s​,​ ​a​n​d​ ​c​h​e​c​k​ ​c​o​n​n​e​c​t​i​v​i​t​y​.
    */
   PLUGIN_DESCRIPTION: string
-  /**
-   * D​e​m​o​ ​T​o​o​l
-   */
-  DEMO_TOOL_DISPLAY_NAME: string
-  /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
-   */
-  DEMO_TOOL_DESCRIPTION: string
-  /**
-   * L​o​c​a​t​i​o​n
-   */
-  LOCATION_DISPLAY_NAME: string
-  /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
-   */
-  LOCATION_HINT: string
-  /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
-   */
-  LOCATION_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * ClickHouse
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Connect to ClickHouse database, run queries, insert data, export results, and check connectivity.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
-  /**
-   * Demo Tool
-   */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
-  /**
-   * A tool for testing the plugin
-   */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
-  /**
-   * Location
-   */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
-  /**
-   * The location to test
-   */
-  LOCATION_HINT: () => LocalizedString
-  /**
-   * Enter the location to test
-   */
-  LOCATION_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

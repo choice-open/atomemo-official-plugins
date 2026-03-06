@@ -6,6 +6,7 @@
       "name": "clickhouse",
       "dependencies": {
         "@choiceopen/atomemo-plugin-sdk-js": "latest",
+        "@clickhouse/client": "^1.18.1",
         "dotenv": "^17.2.4",
         "zod": "^4.3.6",
       },
@@ -53,6 +54,10 @@
     "@choiceopen/atomemo-plugin-schema": ["@choiceopen/atomemo-plugin-schema@0.2.16", "https://registry.npmmirror.com/@choiceopen/atomemo-plugin-schema/-/atomemo-plugin-schema-0.2.16.tgz", { "dependencies": { "type-fest": "^5.4.4" }, "peerDependencies": { "zod": "^4" } }, "sha512-4LwTsN+0wM6dug4izptB5YqJuq0Gsh/g0bzunK2QM3ioXrohOaQMAyWBs5+QZ2sPEeNjVP97hrqPhrfiMVBvhw=="],
 
     "@choiceopen/atomemo-plugin-sdk-js": ["@choiceopen/atomemo-plugin-sdk-js@0.3.5", "https://registry.npmmirror.com/@choiceopen/atomemo-plugin-sdk-js/-/atomemo-plugin-sdk-js-0.3.5.tgz", { "dependencies": { "@choiceopen/atomemo-plugin-schema": "^0.2.16", "phoenix": "^1.8.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "type-fest": "^5.4.4" }, "peerDependencies": { "chalk": "^5", "dotenv": "^17", "zod": "^4" } }, "sha512-idYYqqWKKtzaZYhjwqvyamhGXNv28PcAd8xoi/sicqsE5GbqkwmXyq065tpo38La8IXME1VYZ7vCZZne5pacag=="],
+
+    "@clickhouse/client": ["@clickhouse/client@1.18.1", "https://registry.npmmirror.com/@clickhouse/client/-/client-1.18.1.tgz", { "dependencies": { "@clickhouse/client-common": "1.18.1" } }, "sha512-fO4QggCOSr0WBS9oGIFa83FUhbweP8VTFGOXF51DJQbR/oEXegdocNSma3Gp6F4Km9A1Xm1ZAhwrldtg3prPiQ=="],
+
+    "@clickhouse/client-common": ["@clickhouse/client-common@1.18.1", "https://registry.npmmirror.com/@clickhouse/client-common/-/client-common-1.18.1.tgz", {}, "sha512-kDk8miGZVDAzqFrBZRmD9rD82Li8gwaGlJ5MNUpWgxx1OUXRBUkcV6ULysWP1C9Jinb3yle3YLz/XbNOPVgVtQ=="],
 
     "@emnapi/core": ["@emnapi/core@1.8.1", "https://registry.npmmirror.com/@emnapi/core/-/core-1.8.1.tgz", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "^2.4.0" } }, "sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg=="],
 
