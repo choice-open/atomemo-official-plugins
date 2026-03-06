@@ -1,6 +1,7 @@
 import type {
   Property,
   PropertyObject,
+  PropertyString,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import type { CreatePageParameters } from "@notionhq/client"
@@ -11,13 +12,11 @@ import {
   handleNotionError,
   mapBlocks,
   mapIcon,
-  mapPageProperties,
   transformNotionOutput,
 } from "./_shared/notion-helpers"
 import { blocksProperty } from "./_shared-parameters/blocks"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import { iconProperty } from "./_shared-parameters/icon"
-import { pagePropertiesProperty } from "./_shared-parameters/page-properties/page-properties"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 
 type ParametersNames =
@@ -55,10 +54,23 @@ const parentProperty: PropertyObject<"parent"> = {
   ],
 }
 
-const parameters: Array<Property<ParametersNames>> = [
+const titleProperty: PropertyString<"title"> = {
+  name: "title",
+  type: "string",
+  display_name: t("CREATE_PAGE_TITLE_DISPLAY_NAME"),
+  ui: {
+    component: "input",
+    support_expression: true,
+  },
+  ai: {
+    llm_description: t("PAGE_TITLE_LLM_DESCRIPTION"),
+  },
+}
+
+const parameters: Array<Property<ParametersNames | "title">> = [
   notionCredentialParameter,
   parentProperty,
-  pagePropertiesProperty,
+  titleProperty,
   blocksProperty,
   iconProperty,
   simplifyOutputProperty,
@@ -89,12 +101,44 @@ export const createAPageTool: ToolDefinition = {
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
-        parent: { page_id: pageId },
-        properties: mapPageProperties(rawParameters.properties),
+        parent: { page_id: pageId, type: "page_id" },
+        // properties only accepts title property
+        properties: formatTitleProperty(rawParameters.title) ?? {},
       } satisfies CreatePageParameters)
       return transformNotionOutput(data, simplifyOutput)
     } catch (error) {
       return handleNotionError(error)
     }
   },
+}
+
+function formatTitleProperty(title: unknown):
+  | {
+      title: {
+        title: Array<{
+          type?: "text"
+          text: {
+            content: string
+          }
+        }>
+        type?: "title"
+      }
+    }
+  | undefined {
+  if (typeof title !== "string" || title.trim() === "") {
+    return undefined
+  }
+
+  return {
+    title: {
+      title: [
+        {
+          type: "text",
+          text: {
+            content: title,
+          },
+        },
+      ],
+    },
+  } as const
 }

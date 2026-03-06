@@ -2,7 +2,8 @@ import type { Translation } from "../i18n-types"
 
 const zh_Hans = {
   PLUGIN_DISPLAY_NAME: "Notion",
-  PLUGIN_DESCRIPTION: "在 Atomemo 中集成 Notion",
+  PLUGIN_DESCRIPTION:
+    "操作 Notion 页面与数据库。创建和检索页面、查询数据库、搜索、追加区块，并更新页面属性。",
 
   // Credential
   CREDENTIAL_DISPLAY_NAME: "Notion 凭证",
@@ -108,6 +109,8 @@ const zh_Hans = {
   // Create Page
   CREATE_PAGE_PARENT_PAGE_ID_DISPLAY_NAME: "父级页面 ID",
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: "将创建新页面的父页面 ID。",
+  CREATE_PAGE_TITLE_DISPLAY_NAME: "页面标题",
+  PAGE_TITLE_LLM_DESCRIPTION: "要创建的页面标题。",
   CREATE_PAGE_TOOL_DISPLAY_NAME: "Notion 创建页面",
   CREATE_PAGE_TOOL_DESCRIPTION: "在父页面下创建新的 Notion 页面。",
 

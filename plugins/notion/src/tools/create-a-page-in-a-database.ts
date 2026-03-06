@@ -94,7 +94,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
-        parent: { data_source_id: dataSourceId },
+        parent: { data_source_id: dataSourceId, type:'data_source_id' },
         properties: mapPageProperties(rawParameters.properties),
       } satisfies CreatePageParameters)
       return transformNotionOutput(data, simplifyOutput)
