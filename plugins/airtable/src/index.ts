@@ -5,12 +5,12 @@ import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
 import {
-  // createRecordTool,
+  createRecordTool,
   deleteRecordTool,
   getARecordTool,
   getBaseSchemaTool,
   getManyBasesTool,
-  // upsertRecordTool,
+  upsertRecordTool,
   searchRecordsTool,
 } from "./tools"
 
@@ -36,7 +36,7 @@ plugin.addTool(getBaseSchemaTool)
 plugin.addTool(getARecordTool)
 plugin.addTool(searchRecordsTool)
 plugin.addTool(deleteRecordTool)
-// plugin.addTool(createRecordTool)
-// plugin.addTool(upsertRecordTool)
+plugin.addTool(createRecordTool)
+plugin.addTool(upsertRecordTool)
 
 plugin.run()
