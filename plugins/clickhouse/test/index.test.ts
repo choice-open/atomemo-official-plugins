@@ -55,7 +55,7 @@ describe("clickhouse plugin", () => {
         name: "clickhouse",
         display_name: { en_US: "ClickHouse Plugin" },
         description: { en_US: "A ClickHouse plugin" },
-        icon: "🏠",
+        icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
         lang: "typescript",
         version: "0.5.0",
         repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",

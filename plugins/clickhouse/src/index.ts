@@ -17,7 +17,7 @@ const plugin = await createPlugin({
   name: packageJSON.name,
   display_name: t("PLUGIN_DISPLAY_NAME"),
   description: t("PLUGIN_DESCRIPTION"),
-  icon: "🏠",
+  icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
   lang: "typescript",
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/clickhouse",

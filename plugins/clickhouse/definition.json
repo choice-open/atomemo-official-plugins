@@ -8,7 +8,7 @@
     "en_US": "Connect to ClickHouse database, run queries, insert data, and check connectivity.",
     "zh_Hans": "连接 ClickHouse 数据库，执行查询、插入数据并检查连通性。"
   },
-  "icon": "🏠",
+  "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/clickhouse",
   "locales": [
@@ -29,7 +29,7 @@
         "en_US": "Connection settings for a ClickHouse instance.",
         "zh_Hans": "ClickHouse 实例的连接配置。"
       },
-      "icon": "🏠",
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
       "parameters": [
         {
           "name": "url",
@@ -184,6 +184,14 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "JSON object matching {name:Type} placeholders in query. E.g. {\"id\": 42} for {id:UInt64}",
+              "zh_Hans": "与 query 中 {name:Type} 占位符对应的 JSON 对象。如 {\"id\": 42} 对应 {id:UInt64}"
+            },
+            "placeholder": {
+              "en_US": "{\"id\": 42, \"name\": \"foo\"}",
+              "zh_Hans": "{\"id\": 42, \"name\": \"foo\"}"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -198,6 +206,14 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "JSON object for query-level settings. E.g. {\"max_execution_time\": 30}",
+              "zh_Hans": "查询级设置的 JSON 对象。如 {\"max_execution_time\": 30}"
+            },
+            "placeholder": {
+              "en_US": "{\"max_execution_time\": 30}",
+              "zh_Hans": "{\"max_execution_time\": 30}"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -293,6 +309,14 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "JSON object for statement-level settings. E.g. {\"wait_end_of_query\": 1}",
+              "zh_Hans": "语句级设置的 JSON 对象。如 {\"wait_end_of_query\": 1}"
+            },
+            "placeholder": {
+              "en_US": "{\"wait_end_of_query\": 1}",
+              "zh_Hans": "{\"wait_end_of_query\": 1}"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -357,6 +381,14 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Table name or db.table. E.g. events or my_db.events",
+              "zh_Hans": "表名或 db.table 全限定名。如 events 或 my_db.events"
+            },
+            "placeholder": {
+              "en_US": "events",
+              "zh_Hans": "events"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -371,6 +403,14 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "JSON array of row objects. Each object = one row. E.g. [{\"id\":1,\"name\":\"a\"}]",
+              "zh_Hans": "行对象的 JSON 数组，每个对象为一行。如 [{\"id\":1,\"name\":\"a\"}]"
+            },
+            "placeholder": {
+              "en_US": "[{\"id\": 1, \"name\": \"foo\"}, {\"id\": 2, \"name\": \"bar\"}]",
+              "zh_Hans": "[{\"id\": 1, \"name\": \"foo\"}, {\"id\": 2, \"name\": \"bar\"}]"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -385,6 +425,14 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Optional. JSON array of column names to insert, e.g. [\"id\",\"name\"]",
+              "zh_Hans": "选填。要插入的列名 JSON 数组，如 [\"id\",\"name\"]"
+            },
+            "placeholder": {
+              "en_US": "[\"id\", \"name\"]",
+              "zh_Hans": "[\"id\", \"name\"]"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"

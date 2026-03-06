@@ -10,7 +10,7 @@ export const clickhouseCredential = {
     en_US: "Connection settings for a ClickHouse instance.",
     zh_Hans: "ClickHouse 实例的连接配置。",
   },
-  icon: "🏠",
+  icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
   parameters: [
     {
       name: "url",
