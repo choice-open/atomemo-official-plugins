@@ -2,7 +2,8 @@ import type { BaseTranslation } from "../i18n-types"
 
 const en_US = {
   PLUGIN_DISPLAY_NAME: "Notion",
-  PLUGIN_DESCRIPTION: "Integrate Notion in Atomemo",
+  PLUGIN_DESCRIPTION:
+    "Work with Notion pages and databases. Create and retrieve pages, query databases, search, append blocks, and update page properties.",
 
   // Credential
   CREDENTIAL_DISPLAY_NAME: "Notion Credential",
@@ -120,6 +121,8 @@ const en_US = {
   CREATE_PAGE_PARENT_PAGE_ID_DISPLAY_NAME: "Parent Page ID",
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION:
     "The ID of the parent page where the new page will be created.",
+  CREATE_PAGE_TITLE_DISPLAY_NAME: "Page title",
+  PAGE_TITLE_LLM_DESCRIPTION: "The title of the page to create.",
   CREATE_PAGE_TOOL_DISPLAY_NAME: "Notion Create Page",
   CREATE_PAGE_TOOL_DESCRIPTION: "Create a new Notion page under a parent page.",
 

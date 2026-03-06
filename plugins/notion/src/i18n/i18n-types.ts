@@ -20,7 +20,7 @@ type RootTranslation = {
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * I​n​t​e​g​r​a​t​e​ ​N​o​t​i​o​n​ ​i​n​ ​A​t​o​m​e​m​o
+   * W​o​r​k​ ​w​i​t​h​ ​N​o​t​i​o​n​ ​p​a​g​e​s​ ​a​n​d​ ​d​a​t​a​b​a​s​e​s​.​ ​C​r​e​a​t​e​ ​a​n​d​ ​r​e​t​r​i​e​v​e​ ​p​a​g​e​s​,​ ​q​u​e​r​y​ ​d​a​t​a​b​a​s​e​s​,​ ​s​e​a​r​c​h​,​ ​a​p​p​e​n​d​ ​b​l​o​c​k​s​,​ ​a​n​d​ ​u​p​d​a​t​e​ ​p​a​g​e​ ​p​r​o​p​e​r​t​i​e​s​.
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -271,6 +271,14 @@ type RootTranslation = {
    * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​p​a​r​e​n​t​ ​p​a​g​e​ ​w​h​e​r​e​ ​t​h​e​ ​n​e​w​ ​p​a​g​e​ ​w​i​l​l​ ​b​e​ ​c​r​e​a​t​e​d​.
    */
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: string
+  /**
+   * P​a​g​e​ ​t​i​t​l​e
+   */
+  CREATE_PAGE_TITLE_DISPLAY_NAME: string
+  /**
+   * T​h​e​ ​t​i​t​l​e​ ​o​f​ ​t​h​e​ ​p​a​g​e​ ​t​o​ ​c​r​e​a​t​e​.
+   */
+  PAGE_TITLE_LLM_DESCRIPTION: string
   /**
    * N​o​t​i​o​n​ ​C​r​e​a​t​e​ ​P​a​g​e
    */
@@ -679,7 +687,7 @@ export type TranslationFunctions = {
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Integrate Notion in Atomemo
+   * Work with Notion pages and databases. Create and retrieve pages, query databases, search, append blocks, and update page properties.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
@@ -930,6 +938,14 @@ export type TranslationFunctions = {
    * The ID of the parent page where the new page will be created.
    */
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Page title
+   */
+  CREATE_PAGE_TITLE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * The title of the page to create.
+   */
+  PAGE_TITLE_LLM_DESCRIPTION: () => LocalizedString
   /**
    * Notion Create Page
    */
