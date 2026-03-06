@@ -17,6 +17,20 @@ type ToolResult = {
   data: any
 }
 
+const MAX_ROWS_LIMIT = 100_000
+
+function safeParseJson<T>(
+  raw: string | undefined,
+  fallback: T,
+): { ok: true; value: T } | { ok: false; error: string } {
+  if (!raw || raw.trim() === "") return { ok: true, value: fallback }
+  try {
+    return { ok: true, value: JSON.parse(raw) as T }
+  } catch {
+    return { ok: false, error: "Invalid JSON format" }
+  }
+}
+
 function getClickHouseClient(cred: ClickHouseCredential) {
   const { url, username, password, database } = cred
 
@@ -219,12 +233,39 @@ export const clickhouseQueryJsonTool = {
       return result
     }
     const client = getClickHouseClient(cred)
+    const queryParamsParsed = safeParseJson<Record<string, unknown> | undefined>(
+      args.parameters.query_params as string | undefined,
+      undefined,
+    )
+    if (!queryParamsParsed.ok) {
+      return {
+        success: false,
+        message: "Invalid JSON in query_params.",
+        error: queryParamsParsed.error,
+        data: null,
+      } satisfies ToolResult
+    }
+    const settingsParsed = safeParseJson<Record<string, unknown> | undefined>(
+      args.parameters.clickhouse_settings as string | undefined,
+      undefined,
+    )
+    if (!settingsParsed.ok) {
+      return {
+        success: false,
+        message: "Invalid JSON in clickhouse_settings.",
+        error: settingsParsed.error,
+        data: null,
+      } satisfies ToolResult
+    }
+    const max_rows = args.parameters.max_rows as number | undefined
+    const effectiveMaxRows = Math.min(
+      Math.max(1, max_rows ?? 1000),
+      MAX_ROWS_LIMIT,
+    )
     try {
-      const { query, max_rows } = args.parameters
-      const queryParamsRaw = args.parameters.query_params as string | undefined
-      const settingsRaw = args.parameters.clickhouse_settings as string | undefined
-      const query_params = queryParamsRaw ? JSON.parse(queryParamsRaw) : undefined
-      const clickhouse_settings = settingsRaw ? JSON.parse(settingsRaw) : undefined
+      const { query } = args.parameters
+      const query_params = queryParamsParsed.value
+      const clickhouse_settings = settingsParsed.value
 
       const session_id = args.parameters.session_id as string | undefined
       const query_id = args.parameters.query_id as string | undefined
@@ -235,7 +276,7 @@ export const clickhouseQueryJsonTool = {
         session_id,
         query_id,
         clickhouse_settings: {
-          max_result_rows: max_rows ?? 1000,
+          max_result_rows: String(effectiveMaxRows),
           ...(clickhouse_settings ?? {}),
         },
       })
@@ -341,16 +382,30 @@ export const clickhouseExecTool = {
       return result
     }
     const client = getClickHouseClient(cred)
+    const settingsParsed = safeParseJson<Record<string, unknown> | undefined>(
+      args.parameters.clickhouse_settings as string | undefined,
+      undefined,
+    )
+    if (!settingsParsed.ok) {
+      return {
+        success: false,
+        message: "Invalid JSON in clickhouse_settings.",
+        error: settingsParsed.error,
+        data: null,
+      } satisfies ToolResult
+    }
     try {
       const { statement } = args.parameters
-      const settingsRaw = args.parameters.clickhouse_settings as string | undefined
-      const clickhouse_settings = settingsRaw ? JSON.parse(settingsRaw) : undefined
+      const clickhouse_settings = settingsParsed.value
 
       const session_id = args.parameters.session_id as string | undefined
       const query_id = args.parameters.query_id as string | undefined
       await client.command({
         query: statement,
-        clickhouse_settings,
+        clickhouse_settings: clickhouse_settings as Record<
+          string,
+          string | number | boolean | undefined
+        >,
         session_id,
         query_id,
       })
@@ -465,21 +520,41 @@ export const clickhouseInsertTool = {
       return result
     }
     const client = getClickHouseClient(cred)
+    const rowsParsed = safeParseJson<unknown>(args.parameters.rows as string, null)
+    if (!rowsParsed.ok) {
+      return {
+        success: false,
+        message: "Invalid JSON in rows.",
+        error: rowsParsed.error,
+        data: null,
+      } satisfies ToolResult
+    }
+    const columnsParsed = safeParseJson<
+      string[] | Record<string, unknown> | undefined
+    >(args.parameters.columns as string | undefined, undefined)
+    if (!columnsParsed.ok) {
+      return {
+        success: false,
+        message: "Invalid JSON in columns.",
+        error: columnsParsed.error,
+        data: null,
+      } satisfies ToolResult
+    }
+    const rows = Array.isArray(rowsParsed.value) ? rowsParsed.value : []
     try {
       const { table } = args.parameters
-      const rowsRaw = args.parameters.rows as string
-      const columnsRaw = args.parameters.columns as string | undefined
-      const rowsParsed = JSON.parse(rowsRaw) as unknown
-      const columnsParsed = columnsRaw ? JSON.parse(columnsRaw) : undefined
-
-      const rows = Array.isArray(rowsParsed) ? rowsParsed : []
       const session_id = args.parameters.session_id as string | undefined
       const query_id = args.parameters.query_id as string | undefined
+      const columns =
+        columnsParsed.value === undefined ||
+        (Array.isArray(columnsParsed.value) && columnsParsed.value.length === 0)
+          ? undefined
+          : columnsParsed.value
       await client.insert({
         table,
         values: rows,
         format: "JSONEachRow",
-        columns: columnsParsed,
+        columns: columns as Parameters<typeof client.insert>[0]["columns"],
         session_id,
         query_id,
       })

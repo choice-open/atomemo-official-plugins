@@ -81,6 +81,16 @@
 | 插入失败 | 表不存在、列类型不匹配、JSON 格式错误 | 先用 **ClickHouse 执行** 建表，确保 `rows` 为合法 JSON 数组且字段与表结构一致 |
 | Web 环境 ping 失败 | `/ping` 端点被 CORS 或代理限制 | 在 **ClickHouse 连通性检查** 中开启「使用 SELECT 方式 ping」 |
 
+### 6. 安全说明
+
+| 项目 | 说明 |
+|------|------|
+| **SQL 注入** | `query`、`statement`、`table` 等参数直接传给 ClickHouse，不做转义。**务必**由工作流作者控制，勿将不可信用户输入直接拼接进 SQL。查询时优先使用 `query_params` 参数化。 |
+| **凭据保护** | 密码等敏感信息由 Atomemo 凭据系统管理，插件不记录或转发。 |
+| **连接地址** | 凭据中的 ClickHouse URL 应由管理员配置，避免指向内网或不可信目标（SSRF 风险）。 |
+| **JSON 参数** | `query_params`、`clickhouse_settings`、`rows`、`columns` 需为合法 JSON，格式错误会返回通用错误信息。 |
+| **max_rows 上限** | 查询工具的 `max_rows` 上限为 100,000，超出部分自动截断，避免大结果集导致内存压力。 |
+
 ---
 
 ## 已实现的 Atomemo Tool 与 Credential 说明
