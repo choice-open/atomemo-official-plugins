@@ -4,6 +4,7 @@
 |------|------|
 | [插件使用说明](#插件使用说明) | 安装、配置凭据、在工作流中使用、典型场景示例 |
 | [已实现的 Atomemo Tool 与 Credential 说明](#已实现的-atomemo-tool-与-credential-说明) | 各工具与凭据的详细参数、返回结构 |
+| [参数使用范例](#7-参数使用范例) | 各工具完整参数示例，可直接参考填写 |
 
 ## 插件使用说明
 
@@ -87,7 +88,7 @@
 |------|------|
 | **SQL 注入** | `query`、`statement`、`table` 等参数直接传给 ClickHouse，不做转义。**务必**由工作流作者控制，勿将不可信用户输入直接拼接进 SQL。查询时优先使用 `query_params` 参数化。 |
 | **凭据保护** | 密码等敏感信息由 Atomemo 凭据系统管理，插件不记录或转发。 |
-| **连接地址** | 凭据中的 ClickHouse URL 应由管理员配置，避免指向内网或不可信目标（SSRF 风险）。 |
+| **连接地址 / SSRF** | 凭据中的 ClickHouse URL 仅允许 `http://` 或 `https://`，并自动拒绝云元数据等危险主机（如 `169.254.169.254`、`metadata.google.internal`）。 |
 | **JSON 参数** | `query_params`、`clickhouse_settings`、`rows`、`columns` 需为合法 JSON，格式错误会返回通用错误信息。 |
 | **max_rows 上限** | 查询工具的 `max_rows` 上限为 100,000，超出部分自动截断，避免大结果集导致内存压力。 |
 
@@ -267,6 +268,92 @@
 - `clickhouse-query-json`
 - `clickhouse-exec`
 - `clickhouse-insert-rows`
+
+---
+
+### 7. 参数使用范例
+
+以下为各工具的完整参数示例，可直接在工作流中参考使用。
+
+#### 范例一：ClickHouse 连通性检查
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择已配置的 ClickHouse 凭据 |
+| use_select_mode | `false`（Node 环境）或 `true`（Web/CORS 环境） |
+
+#### 范例二：ClickHouse 查询（JSON）— 简单查询
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| query | `SELECT id, name FROM users LIMIT 10` |
+| query_params | 留空 |
+| clickhouse_settings | 留空 |
+| max_rows | `1000` |
+
+#### 范例三：ClickHouse 查询（JSON）— 参数化查询
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| query | `SELECT id, name FROM users WHERE id = {uid:UInt64}` |
+| query_params | `{"uid": 12345}` |
+| max_rows | `100` |
+
+**说明**：`query` 中的 `{uid:UInt64}` 与 `query_params` 的 `uid` 对应，类型 `UInt64` 由 ClickHouse 解析。
+
+#### 范例四：ClickHouse 查询（JSON）— 带查询设置
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| query | `SELECT * FROM large_table WHERE date >= {d:Date}` |
+| query_params | `{"d": "2025-01-01"}` |
+| clickhouse_settings | `{"max_execution_time": 60}` |
+| max_rows | `10000` |
+
+#### 范例五：ClickHouse 执行 — 建表
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| statement | `CREATE TABLE IF NOT EXISTS events (id UInt64, ts DateTime, name String) ENGINE = MergeTree() ORDER BY (id)` |
+| clickhouse_settings | 留空 |
+
+#### 范例六：ClickHouse 执行 — 删表
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| statement | `DROP TABLE IF EXISTS temp_events` |
+
+#### 范例七：ClickHouse 插入行数据 — 基础插入
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| table | `events` |
+| rows | `[{"id": 1, "ts": "2025-01-01 12:00:00", "name": "foo"}, {"id": 2, "ts": "2025-01-01 12:01:00", "name": "bar"}]` |
+| columns | 留空（插入全部列） |
+
+#### 范例八：ClickHouse 插入行数据 — 指定列插入
+
+| 参数 | 值 |
+|------|-----|
+| connection | 选择凭据 |
+| table | `my_db.events` |
+| rows | `[{"id": 1, "name": "a"}, {"id": 2, "name": "b"}]` |
+| columns | `["id", "name"]` |
+
+**说明**：`columns` 为 JSON 数组，指定要插入的列；`rows` 中每行对象的键需与 `columns` 一致。
+
+#### 范例九：在工作流表达式中引用上游输出
+
+若上游节点返回 `{ "user_id": 42 }`，可在 **ClickHouse 查询（JSON）** 中：
+
+- **query**：`SELECT * FROM orders WHERE user_id = {uid:UInt64}`
+- **query_params**：`{{ $upstream.user_id }}` 或 `{"uid": {{ $upstream.user_id }}}`（依 Atomemo 表达式语法）
 
 ---
 

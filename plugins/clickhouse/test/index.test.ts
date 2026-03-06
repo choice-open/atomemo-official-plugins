@@ -159,6 +159,27 @@ describe("clickhouse tools", () => {
         }),
       )
     })
+
+    it("should reject SSRF-blocked URL (169.254.169.254)", async () => {
+      const result = await clickhousePingTool.invoke({
+        args: {
+          parameters: { connection: "conn-1" },
+          credentials: {
+            "conn-1": {
+              url: "http://169.254.169.254/latest/meta-data",
+            } as any,
+          },
+        },
+      })
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          success: false,
+          message: "Invalid ClickHouse URL.",
+        }),
+      )
+      expect(pingMock).not.toHaveBeenCalled()
+    })
   })
 
   describe("clickhouse-query-json tool", () => {

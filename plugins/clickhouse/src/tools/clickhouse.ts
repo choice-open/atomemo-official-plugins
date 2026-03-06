@@ -19,6 +19,30 @@ type ToolResult = {
 
 const MAX_ROWS_LIMIT = 100_000
 
+const SSRF_BLOCKED_HOSTS = new Set([
+  "169.254.169.254", // AWS/GCP/Azure metadata
+  "metadata",
+  "metadata.google",
+  "metadata.google.internal",
+  "100.100.100.200", // Alibaba Cloud metadata
+])
+
+function validateClickHouseUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return "URL must use http or https protocol"
+    }
+    const host = parsed.hostname.toLowerCase()
+    if (SSRF_BLOCKED_HOSTS.has(host)) {
+      return "URL host is not allowed for security reasons"
+    }
+    return null
+  } catch {
+    return "Invalid URL format"
+  }
+}
+
 function safeParseJson<T>(
   raw: string | undefined,
   fallback: T,
@@ -33,7 +57,10 @@ function safeParseJson<T>(
 
 function getClickHouseClient(cred: ClickHouseCredential) {
   const { url, username, password, database } = cred
-
+  const urlError = validateClickHouseUrl(url)
+  if (urlError) {
+    throw new Error(urlError)
+  }
   return createClient({
     url,
     username: username || "default",
@@ -93,7 +120,17 @@ export const clickhousePingTool = {
       }
       return result
     }
-    const client = getClickHouseClient(cred)
+    let client
+    try {
+      client = getClickHouseClient(cred)
+    } catch (err) {
+      return {
+        success: false,
+        message: "Invalid ClickHouse URL.",
+        error: String(err),
+        data: null,
+      } satisfies ToolResult
+    }
     try {
       const pingResult = await client.ping({
         select: Boolean(args.parameters.use_select_mode),
@@ -155,6 +192,10 @@ export const clickhouseQueryJsonTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "Use {name:Type} placeholders + query_params for user input to prevent SQL injection.",
+          zh_Hans: "对用户输入使用 {name:Type} 占位符配合 query_params，可防止 SQL 注入。",
+        },
       },
     },
     {
@@ -169,6 +210,14 @@ export const clickhouseQueryJsonTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "JSON object matching {name:Type} placeholders in query. E.g. {\"id\": 42} for {id:UInt64}",
+          zh_Hans: "与 query 中 {name:Type} 占位符对应的 JSON 对象。如 {\"id\": 42} 对应 {id:UInt64}",
+        },
+        placeholder: {
+          en_US: '{"id": 42, "name": "foo"}',
+          zh_Hans: '{"id": 42, "name": "foo"}',
+        },
       },
     },
     {
@@ -183,6 +232,14 @@ export const clickhouseQueryJsonTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "JSON object for query-level settings. E.g. {\"max_execution_time\": 30}",
+          zh_Hans: "查询级设置的 JSON 对象。如 {\"max_execution_time\": 30}",
+        },
+        placeholder: {
+          en_US: '{"max_execution_time": 30}',
+          zh_Hans: '{"max_execution_time": 30}',
+        },
       },
     },
     {
@@ -232,7 +289,17 @@ export const clickhouseQueryJsonTool = {
       }
       return result
     }
-    const client = getClickHouseClient(cred)
+    let client
+    try {
+      client = getClickHouseClient(cred)
+    } catch (err) {
+      return {
+        success: false,
+        message: "Invalid ClickHouse URL.",
+        error: String(err),
+        data: null,
+      } satisfies ToolResult
+    }
     const queryParamsParsed = safeParseJson<Record<string, unknown> | undefined>(
       args.parameters.query_params as string | undefined,
       undefined,
@@ -331,6 +398,10 @@ export const clickhouseExecTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "Controlled by workflow author only. Do not pass untrusted user input directly.",
+          zh_Hans: "仅由工作流作者控制，勿直接传入不可信用户输入。",
+        },
       },
     },
     {
@@ -345,6 +416,14 @@ export const clickhouseExecTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "JSON object for statement-level settings. E.g. {\"wait_end_of_query\": 1}",
+          zh_Hans: "语句级设置的 JSON 对象。如 {\"wait_end_of_query\": 1}",
+        },
+        placeholder: {
+          en_US: '{"wait_end_of_query": 1}',
+          zh_Hans: '{"wait_end_of_query": 1}',
+        },
       },
     },
     {
@@ -381,7 +460,17 @@ export const clickhouseExecTool = {
       }
       return result
     }
-    const client = getClickHouseClient(cred)
+    let client
+    try {
+      client = getClickHouseClient(cred)
+    } catch (err) {
+      return {
+        success: false,
+        message: "Invalid ClickHouse URL.",
+        error: String(err),
+        data: null,
+      } satisfies ToolResult
+    }
     const settingsParsed = safeParseJson<Record<string, unknown> | undefined>(
       args.parameters.clickhouse_settings as string | undefined,
       undefined,
@@ -455,6 +544,14 @@ export const clickhouseInsertTool = {
         component: "input",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "Table name or db.table. E.g. events or my_db.events",
+          zh_Hans: "表名或 db.table 全限定名。如 events 或 my_db.events",
+        },
+        placeholder: {
+          en_US: "events",
+          zh_Hans: "events",
+        },
       },
     },
     {
@@ -469,6 +566,14 @@ export const clickhouseInsertTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "JSON array of row objects. Each object = one row. E.g. [{\"id\":1,\"name\":\"a\"}]",
+          zh_Hans: "行对象的 JSON 数组，每个对象为一行。如 [{\"id\":1,\"name\":\"a\"}]",
+        },
+        placeholder: {
+          en_US: '[{"id": 1, "name": "foo"}, {"id": 2, "name": "bar"}]',
+          zh_Hans: '[{"id": 1, "name": "foo"}, {"id": 2, "name": "bar"}]',
+        },
       },
     },
     {
@@ -483,6 +588,14 @@ export const clickhouseInsertTool = {
         component: "textarea",
         width: "full",
         support_expression: true,
+        hint: {
+          en_US: "Optional. JSON array of column names to insert, e.g. [\"id\",\"name\"]",
+          zh_Hans: "选填。要插入的列名 JSON 数组，如 [\"id\",\"name\"]",
+        },
+        placeholder: {
+          en_US: '["id", "name"]',
+          zh_Hans: '["id", "name"]',
+        },
       },
     },
     {
@@ -519,7 +632,17 @@ export const clickhouseInsertTool = {
       }
       return result
     }
-    const client = getClickHouseClient(cred)
+    let client
+    try {
+      client = getClickHouseClient(cred)
+    } catch (err) {
+      return {
+        success: false,
+        message: "Invalid ClickHouse URL.",
+        error: String(err),
+        data: null,
+      } satisfies ToolResult
+    }
     const rowsParsed = safeParseJson<unknown>(args.parameters.rows as string, null)
     if (!rowsParsed.ok) {
       return {

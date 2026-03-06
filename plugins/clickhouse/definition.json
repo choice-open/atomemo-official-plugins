@@ -5,8 +5,8 @@
     "zh_Hans": "ClickHouse"
   },
   "description": {
-    "en_US": "Connect to ClickHouse database, run queries, insert data, export results, and check connectivity.",
-    "zh_Hans": "连接 ClickHouse 数据库，执行查询、插入数据、导出结果并检查连通性。"
+    "en_US": "Connect to ClickHouse database, run queries, insert data, and check connectivity.",
+    "zh_Hans": "连接 ClickHouse 数据库，执行查询、插入数据并检查连通性。"
   },
   "icon": "🏠",
   "lang": "typescript",
@@ -166,6 +166,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Use {name:Type} placeholders + query_params for user input to prevent SQL injection.",
+              "zh_Hans": "对用户输入使用 {name:Type} 占位符配合 query_params，可防止 SQL 注入。"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -242,116 +246,6 @@
       ]
     },
     {
-      "name": "clickhouse-query-export",
-      "display_name": {
-        "en_US": "ClickHouse Query Export (Streaming)",
-        "zh_Hans": "ClickHouse 流式查询导出"
-      },
-      "description": {
-        "en_US": "Stream large SELECT results to a file without loading into memory.",
-        "zh_Hans": "将大查询结果流式写入文件，避免一次性加载到内存。"
-      },
-      "icon": "📤",
-      "parameters": [
-        {
-          "name": "connection",
-          "display_name": {
-            "en_US": "ClickHouse Connection",
-            "zh_Hans": "ClickHouse 连接"
-          },
-          "required": true,
-          "type": "credential_id",
-          "credential_name": "clickhouse-connection"
-        },
-        {
-          "name": "query",
-          "display_name": {
-            "en_US": "SQL Query",
-            "zh_Hans": "SQL 查询"
-          },
-          "required": true,
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "textarea"
-          },
-          "type": "string"
-        },
-        {
-          "name": "output_path",
-          "display_name": {
-            "en_US": "Output File Path",
-            "zh_Hans": "输出文件路径"
-          },
-          "required": true,
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "format",
-          "display_name": {
-            "en_US": "Output Format",
-            "zh_Hans": "输出格式"
-          },
-          "required": false,
-          "ui": {
-            "component": "select"
-          },
-          "type": "string",
-          "default": "JSONEachRow",
-          "enum": [
-            "JSONEachRow",
-            "CSV",
-            "TabSeparated"
-          ]
-        },
-        {
-          "name": "query_params",
-          "display_name": {
-            "en_US": "Query Parameters",
-            "zh_Hans": "查询参数"
-          },
-          "required": false,
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "textarea"
-          },
-          "type": "string"
-        },
-        {
-          "name": "session_id",
-          "display_name": {
-            "en_US": "Session ID",
-            "zh_Hans": "会话 ID"
-          },
-          "required": false,
-          "ui": {
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "query_id",
-          "display_name": {
-            "en_US": "Query ID",
-            "zh_Hans": "查询 ID"
-          },
-          "required": false,
-          "ui": {
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        }
-      ]
-    },
-    {
       "name": "clickhouse-exec",
       "display_name": {
         "en_US": "ClickHouse Exec (DDL / Command)",
@@ -381,6 +275,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Controlled by workflow author only. Do not pass untrusted user input directly.",
+              "zh_Hans": "仅由工作流作者控制，勿直接传入不可信用户输入。"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
