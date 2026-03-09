@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../../lib/get-supabase-client"
 import { t } from "../../../i18n/i18n-node"
 import { parseJson } from "../../../lib/auth-result"
+import { getSupabaseClientFromArgs } from "../../../lib/get-supabase-client"
 
 export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
   name: "supabase-auth-admin-oauth-create-client",
@@ -91,9 +91,14 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials, undefined, {
-      useServiceRoleKey: true,
-    })
+    const clientResult = getSupabaseClientFromArgs(
+      parameters,
+      credentials,
+      undefined,
+      {
+        useServiceRoleKey: true,
+      },
+    )
     if (clientResult.error) return clientResult.error
 
     const supabase = clientResult.supabase

@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
 import { parseJson } from "../../lib/auth-result"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 const OAUTH_PROVIDERS = [
   "google",

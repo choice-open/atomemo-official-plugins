@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -120,11 +120,12 @@ export const supabaseVectorCreateIndexTool = {
     const dimension = Number(parameters.dimension)
     const rawMetric = String(parameters.distance_metric)
     const distanceMetric =
-      rawMetric === "euclidean" || rawMetric === "dotproduct" ? rawMetric : "cosine"
-    const metadataConfiguration = parseJson<{ nonFilterableMetadataKeys?: string[] } | null>(
-      parameters.metadata_configuration as string,
-      null
-    )
+      rawMetric === "euclidean" || rawMetric === "dotproduct"
+        ? rawMetric
+        : "cosine"
+    const metadataConfiguration = parseJson<{
+      nonFilterableMetadataKeys?: string[]
+    } | null>(parameters.metadata_configuration as string, null)
 
     try {
       const bucket = clientResult.supabase.storage.vectors.from(bucketName)
@@ -134,7 +135,8 @@ export const supabaseVectorCreateIndexTool = {
         dimension,
         distanceMetric,
       }
-      if (metadataConfiguration) options.metadataConfiguration = metadataConfiguration
+      if (metadataConfiguration)
+        options.metadataConfiguration = metadataConfiguration
 
       const { error } = await bucket.createIndex(options)
 

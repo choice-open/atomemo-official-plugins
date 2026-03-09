@@ -51,7 +51,10 @@ describe("supabase-rpc", () => {
   it("should return error when credential id is not in credentials", async () => {
     const result = await supabaseRpcTool.invoke({
       args: {
-        parameters: { supabase_credential: "some-id", function_name: "get_count" },
+        parameters: {
+          supabase_credential: "some-id",
+          function_name: "get_count",
+        },
         credentials: {},
       },
     })
@@ -66,7 +69,10 @@ describe("supabase-rpc", () => {
   it("should return error when credential has no supabase_url", async () => {
     const result = await supabaseRpcTool.invoke({
       args: {
-        parameters: { supabase_credential: CRED_ID, function_name: "get_count" },
+        parameters: {
+          supabase_credential: CRED_ID,
+          function_name: "get_count",
+        },
         credentials: {
           [CRED_ID]: { supabase_key: "key" },
         },
