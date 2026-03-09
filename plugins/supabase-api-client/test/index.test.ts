@@ -82,7 +82,7 @@ import { supabaseAuthGetSessionTool } from "../src/tools/auth/supabase-auth-get-
 import { supabaseAuthSignOutTool } from "../src/tools/auth/supabase-auth-sign-out"
 import { supabaseQueryTool } from "../src/tools/db/supabase-query"
 
-const TOOL_COUNT = 27 // 6 db + 1 edge + 7 storage + 13 vector（auth 未注册）
+const TOOL_COUNT = 28 // 6 db + 1 edge + 8 storage + 13 vector（auth 未注册）
 
 describe("supabase-api-client plugin", () => {
   describe("plugin initialization", () => {
@@ -183,7 +183,10 @@ describe("supabase-api-client plugin", () => {
     it("should call signOut and return success when credential is provided", async () => {
       const result = await supabaseAuthSignOutTool.invoke({
         args: {
-          parameters: { scope: "local", supabase_credential: "supabase_credential" },
+          parameters: {
+            scope: "local",
+            supabase_credential: "supabase_credential",
+          },
           credentials: {
             supabase_credential: {
               supabase_url: "https://xxx.supabase.co",

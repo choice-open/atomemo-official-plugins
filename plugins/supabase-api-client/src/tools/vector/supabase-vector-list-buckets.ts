@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 export const supabaseVectorListBucketsTool = {
   name: "supabase-vector-list-buckets",
@@ -55,11 +55,12 @@ export const supabaseVectorListBucketsTool = {
     const nextToken = (parameters.next_token as string)?.trim() || undefined
 
     try {
-      const { data, error } = await clientResult.supabase.storage.vectors.listBuckets({
-        prefix,
-        maxResults,
-        nextToken,
-      })
+      const { data, error } =
+        await clientResult.supabase.storage.vectors.listBuckets({
+          prefix,
+          maxResults,
+          nextToken,
+        })
 
       if (error) {
         return {

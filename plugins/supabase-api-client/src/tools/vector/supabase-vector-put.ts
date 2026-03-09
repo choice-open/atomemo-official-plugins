@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -85,11 +85,15 @@ export const supabaseVectorPutTool = {
       }
     }
 
-    const vectorsRaw = parseJson<VectorInput[]>(parameters.vectors as string, [])
+    const vectorsRaw = parseJson<VectorInput[]>(
+      parameters.vectors as string,
+      [],
+    )
     if (!Array.isArray(vectorsRaw) || vectorsRaw.length === 0) {
       return {
         success: false,
-        error: "vectors must be a non-empty JSON array of { key, data: { float32: number[] }, metadata? }.",
+        error:
+          "vectors must be a non-empty JSON array of { key, data: { float32: number[] }, metadata? }.",
         data: null,
         code: null,
       }
@@ -106,11 +110,14 @@ export const supabaseVectorPutTool = {
     const vectors = vectorsRaw.map((v) => ({
       key: String(v.key),
       data: { float32: Array.isArray(v.data?.float32) ? v.data.float32 : [] },
-      ...(v.metadata != null && typeof v.metadata === "object" && { metadata: v.metadata }),
+      ...(v.metadata != null &&
+        typeof v.metadata === "object" && { metadata: v.metadata }),
     }))
 
     try {
-      const index = clientResult.supabase.storage.vectors.from(bucketName).index(indexName)
+      const index = clientResult.supabase.storage.vectors
+        .from(bucketName)
+        .index(indexName)
       const { error } = await index.putVectors({ vectors })
 
       if (error) {

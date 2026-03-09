@@ -123,6 +123,18 @@ const en_US = {
   STORAGE_GET_PUBLIC_URL_DISPLAY_NAME: "Supabase Storage: Get public URL",
   STORAGE_GET_PUBLIC_URL_DESCRIPTION:
     "Get the public URL for a file in a public bucket.",
+  STORAGE_CREATE_BUCKET_DISPLAY_NAME: "Supabase Storage: Create bucket",
+  STORAGE_CREATE_BUCKET_DESCRIPTION:
+    "Create a new Storage bucket with optional public access and file restrictions.",
+  STORAGE_PUBLIC_DISPLAY_NAME: "Public",
+  STORAGE_PUBLIC_HINT: "If true, files are publicly accessible via URL",
+  STORAGE_FILE_SIZE_LIMIT_DISPLAY_NAME: "File size limit",
+  STORAGE_FILE_SIZE_LIMIT_PLACEHOLDER: "1MB",
+  STORAGE_FILE_SIZE_LIMIT_HINT: "Max file size (e.g. 1MB, 10MB)",
+  STORAGE_ALLOWED_MIME_TYPES_DISPLAY_NAME: "Allowed MIME types",
+  STORAGE_ALLOWED_MIME_TYPES_PLACEHOLDER: '["image/*"]',
+  STORAGE_ALLOWED_MIME_TYPES_HINT:
+    'JSON array of allowed MIME types (e.g. ["image/*"]). Empty to allow all.',
   STORAGE_BUCKET_DISPLAY_NAME: "Bucket",
   STORAGE_BUCKET_PLACEHOLDER: "avatars",
   STORAGE_BUCKET_HINT: "Storage bucket name",

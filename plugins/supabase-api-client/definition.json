@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "credentials": [
     {
       "name": "supabase-connection",
@@ -1139,6 +1139,111 @@
           "type": "integer",
           "default": 0,
           "minimum": 0
+        }
+      ]
+    },
+    {
+      "name": "supabase-storage-create-bucket",
+      "display_name": {
+        "en_US": "Supabase Storage: Create bucket",
+        "zh_Hans": "Supabase Storage：创建桶"
+      },
+      "description": {
+        "en_US": "Create a new Storage bucket with optional public access and file restrictions.",
+        "zh_Hans": "创建新的 Storage 桶，可配置公开访问与文件限制。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "supabase_credential",
+          "display_name": {
+            "en_US": "Supabase connection",
+            "zh_Hans": "Supabase 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "supabase-connection"
+        },
+        {
+          "name": "bucket",
+          "display_name": {
+            "en_US": "Bucket",
+            "zh_Hans": "桶"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Storage bucket name",
+              "zh_Hans": "Storage 桶名称"
+            },
+            "placeholder": {
+              "en_US": "avatars",
+              "zh_Hans": "avatars"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "public",
+          "display_name": {
+            "en_US": "Public",
+            "zh_Hans": "公开"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If true, files are publicly accessible via URL",
+              "zh_Hans": "为 true 时，文件可通过 URL 公开访问"
+            },
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "file_size_limit",
+          "display_name": {
+            "en_US": "File size limit",
+            "zh_Hans": "文件大小限制"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Max file size (e.g. 1MB, 10MB)",
+              "zh_Hans": "最大文件大小（如 1MB、10MB）"
+            },
+            "placeholder": {
+              "en_US": "1MB",
+              "zh_Hans": "1MB"
+            },
+            "width": "small",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "allowed_mime_types",
+          "display_name": {
+            "en_US": "Allowed MIME types",
+            "zh_Hans": "允许的 MIME 类型"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array of allowed MIME types (e.g. [\"image/*\"]). Empty to allow all.",
+              "zh_Hans": "允许的 MIME 类型 JSON 数组（如 [\"image/*\"]），空表示允许全部。"
+            },
+            "placeholder": {
+              "en_US": "[\"image/*\"]",
+              "zh_Hans": "[\"image/*\"]"
+            },
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },

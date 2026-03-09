@@ -98,9 +98,14 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
   async invoke({ args }) {
     const { parameters, credentials } = args
     const useServiceRoleKey = parameters.use_service_role_key !== false
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials, "supabase_credential", {
-      useServiceRoleKey,
-    })
+    const clientResult = getSupabaseClientFromArgs(
+      parameters,
+      credentials,
+      "supabase_credential",
+      {
+        useServiceRoleKey,
+      },
+    )
     if (clientResult.error) return clientResult.error
 
     const supabase = clientResult.supabase
@@ -141,7 +146,6 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       if (method && method !== "POST") options.method = method as HttpMethod
       if (headers !== undefined && Object.keys(headers).length > 0)
         options.headers = headers
-
 
       const { data, error } = await supabase.functions.invoke(
         functionName,

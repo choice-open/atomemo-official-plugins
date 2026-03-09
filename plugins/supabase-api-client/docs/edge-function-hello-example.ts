@@ -14,7 +14,9 @@ Deno.serve(async (req: Request) => {
   const contentType = req.headers.get("content-type") ?? ""
 
   if (method === "GET") {
-    name = req.url ? new URL(req.url).searchParams.get("name") ?? undefined : undefined
+    name = req.url
+      ? (new URL(req.url).searchParams.get("name") ?? undefined)
+      : undefined
   } else if (contentType.includes("application/json")) {
     try {
       const text = await req.text()

@@ -8,15 +8,15 @@ import "dotenv/config"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import { supabaseVectorCreateBucketTool } from "../../src/tools/vector/supabase-vector-create-bucket"
 import { supabaseVectorCreateIndexTool } from "../../src/tools/vector/supabase-vector-create-index"
+import { supabaseVectorDeleteTool } from "../../src/tools/vector/supabase-vector-delete"
 import { supabaseVectorDeleteBucketTool } from "../../src/tools/vector/supabase-vector-delete-bucket"
 import { supabaseVectorDeleteIndexTool } from "../../src/tools/vector/supabase-vector-delete-index"
-import { supabaseVectorDeleteTool } from "../../src/tools/vector/supabase-vector-delete"
+import { supabaseVectorGetTool } from "../../src/tools/vector/supabase-vector-get"
 import { supabaseVectorGetBucketTool } from "../../src/tools/vector/supabase-vector-get-bucket"
 import { supabaseVectorGetIndexTool } from "../../src/tools/vector/supabase-vector-get-index"
-import { supabaseVectorGetTool } from "../../src/tools/vector/supabase-vector-get"
+import { supabaseVectorListTool } from "../../src/tools/vector/supabase-vector-list"
 import { supabaseVectorListBucketsTool } from "../../src/tools/vector/supabase-vector-list-buckets"
 import { supabaseVectorListIndexesTool } from "../../src/tools/vector/supabase-vector-list-indexes"
-import { supabaseVectorListTool } from "../../src/tools/vector/supabase-vector-list"
 import { supabaseVectorPutTool } from "../../src/tools/vector/supabase-vector-put"
 import { supabaseVectorQueryTool } from "../../src/tools/vector/supabase-vector-query"
 
@@ -96,9 +96,13 @@ describe("e2e: Vector 桶 + 索引 + 向量数据", { skip: !hasEnv }, () => {
       args: { parameters: params(), credentials: credentials() },
     })
     expect(r.success).toBe(true)
-    const data = (r as { data?: { vectorBuckets?: { vectorBucketName?: string }[] } }).data
+    const data = (
+      r as { data?: { vectorBuckets?: { vectorBucketName?: string }[] } }
+    ).data
     expect(Array.isArray(data?.vectorBuckets)).toBe(true)
-    expect(data!.vectorBuckets!.some((b) => b.vectorBucketName === BUCKET_NAME)).toBe(true)
+    expect(
+      data!.vectorBuckets!.some((b) => b.vectorBucketName === BUCKET_NAME),
+    ).toBe(true)
   })
 
   it("获取 Vector 桶信息", async () => {
@@ -106,7 +110,9 @@ describe("e2e: Vector 桶 + 索引 + 向量数据", { skip: !hasEnv }, () => {
       args: { parameters: bucketParams(), credentials: credentials() },
     })
     expect(r.success).toBe(true)
-    const data = (r as { data?: { vectorBucket?: { vectorBucketName?: string } } }).data
+    const data = (
+      r as { data?: { vectorBucket?: { vectorBucketName?: string } } }
+    ).data
     expect(data?.vectorBucket?.vectorBucketName).toBe(BUCKET_NAME)
   })
 
@@ -149,7 +155,11 @@ describe("e2e: Vector 桶 + 索引 + 向量数据", { skip: !hasEnv }, () => {
     const vectors = JSON.stringify([
       { key: "vec-1", data: { float32: [0.1, 0.2, 0.3, 0.4] } },
       { key: "vec-2", data: { float32: [0.5, 0.6, 0.7, 0.8] } },
-      { key: "vec-3", data: { float32: [0.9, 0.1, 0.2, 0.3] }, metadata: { tag: "test" } },
+      {
+        key: "vec-3",
+        data: { float32: [0.9, 0.1, 0.2, 0.3] },
+        metadata: { tag: "test" },
+      },
     ])
     const r = await supabaseVectorPutTool.invoke({
       args: {
