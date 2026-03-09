@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -110,7 +110,9 @@ export const supabaseVectorGetTool = {
     const returnMetadata = parameters.return_metadata === true
 
     try {
-      const index = clientResult.supabase.storage.vectors.from(bucketName).index(indexName)
+      const index = clientResult.supabase.storage.vectors
+        .from(bucketName)
+        .index(indexName)
       const { data, error } = await index.getVectors({
         keys,
         returnData,
@@ -125,7 +127,12 @@ export const supabaseVectorGetTool = {
           data: null,
         }
       }
-      return { success: true, data: data ?? null, error: null, code: null } as any
+      return {
+        success: true,
+        data: data ?? null,
+        error: null,
+        code: null,
+      } as any
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
       return { success: false, error: message, data: null, code: null }

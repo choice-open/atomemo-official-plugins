@@ -416,6 +416,46 @@ type RootTranslation = {
    */
   STORAGE_GET_PUBLIC_URL_DESCRIPTION: string
   /**
+   * S​u​p​a​b​a​s​e​ ​S​t​o​r​a​g​e​:​ ​C​r​e​a​t​e​ ​b​u​c​k​e​t
+   */
+  STORAGE_CREATE_BUCKET_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​S​t​o​r​a​g​e​ ​b​u​c​k​e​t​ ​w​i​t​h​ ​o​p​t​i​o​n​a​l​ ​p​u​b​l​i​c​ ​a​c​c​e​s​s​ ​a​n​d​ ​f​i​l​e​ ​r​e​s​t​r​i​c​t​i​o​n​s​.
+   */
+  STORAGE_CREATE_BUCKET_DESCRIPTION: string
+  /**
+   * P​u​b​l​i​c
+   */
+  STORAGE_PUBLIC_DISPLAY_NAME: string
+  /**
+   * I​f​ ​t​r​u​e​,​ ​f​i​l​e​s​ ​a​r​e​ ​p​u​b​l​i​c​l​y​ ​a​c​c​e​s​s​i​b​l​e​ ​v​i​a​ ​U​R​L
+   */
+  STORAGE_PUBLIC_HINT: string
+  /**
+   * F​i​l​e​ ​s​i​z​e​ ​l​i​m​i​t
+   */
+  STORAGE_FILE_SIZE_LIMIT_DISPLAY_NAME: string
+  /**
+   * 1​M​B
+   */
+  STORAGE_FILE_SIZE_LIMIT_PLACEHOLDER: string
+  /**
+   * M​a​x​ ​f​i​l​e​ ​s​i​z​e​ ​(​e​.​g​.​ ​1​M​B​,​ ​1​0​M​B​)
+   */
+  STORAGE_FILE_SIZE_LIMIT_HINT: string
+  /**
+   * A​l​l​o​w​e​d​ ​M​I​M​E​ ​t​y​p​e​s
+   */
+  STORAGE_ALLOWED_MIME_TYPES_DISPLAY_NAME: string
+  /**
+   * [​"​i​m​a​g​e​/​*​"​]
+   */
+  STORAGE_ALLOWED_MIME_TYPES_PLACEHOLDER: string
+  /**
+   * J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​a​l​l​o​w​e​d​ ​M​I​M​E​ ​t​y​p​e​s​ ​(​e​.​g​.​ ​[​"​i​m​a​g​e​/​*​"​]​)​.​ ​E​m​p​t​y​ ​t​o​ ​a​l​l​o​w​ ​a​l​l​.
+   */
+  STORAGE_ALLOWED_MIME_TYPES_HINT: string
+  /**
    * B​u​c​k​e​t
    */
   STORAGE_BUCKET_DISPLAY_NAME: string
@@ -1972,6 +2012,46 @@ export type TranslationFunctions = {
    * Get the public URL for a file in a public bucket.
    */
   STORAGE_GET_PUBLIC_URL_DESCRIPTION: () => LocalizedString
+  /**
+   * Supabase Storage: Create bucket
+   */
+  STORAGE_CREATE_BUCKET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new Storage bucket with optional public access and file restrictions.
+   */
+  STORAGE_CREATE_BUCKET_DESCRIPTION: () => LocalizedString
+  /**
+   * Public
+   */
+  STORAGE_PUBLIC_DISPLAY_NAME: () => LocalizedString
+  /**
+   * If true, files are publicly accessible via URL
+   */
+  STORAGE_PUBLIC_HINT: () => LocalizedString
+  /**
+   * File size limit
+   */
+  STORAGE_FILE_SIZE_LIMIT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * 1MB
+   */
+  STORAGE_FILE_SIZE_LIMIT_PLACEHOLDER: () => LocalizedString
+  /**
+   * Max file size (e.g. 1MB, 10MB)
+   */
+  STORAGE_FILE_SIZE_LIMIT_HINT: () => LocalizedString
+  /**
+   * Allowed MIME types
+   */
+  STORAGE_ALLOWED_MIME_TYPES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * ["image/*"]
+   */
+  STORAGE_ALLOWED_MIME_TYPES_PLACEHOLDER: () => LocalizedString
+  /**
+   * JSON array of allowed MIME types (e.g. ["image/*"]). Empty to allow all.
+   */
+  STORAGE_ALLOWED_MIME_TYPES_HINT: () => LocalizedString
   /**
    * Bucket
    */

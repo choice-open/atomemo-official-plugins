@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 export const supabaseVectorGetIndexTool = {
   name: "supabase-vector-get-index",
@@ -70,7 +70,12 @@ export const supabaseVectorGetIndexTool = {
           data: null,
         }
       }
-      return { success: true, data: data ?? null, error: null, code: null } as any
+      return {
+        success: true,
+        data: data ?? null,
+        error: null,
+        code: null,
+      } as any
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
       return { success: false, error: message, data: null, code: null }

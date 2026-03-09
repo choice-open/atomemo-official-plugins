@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -99,7 +99,9 @@ export const supabaseVectorDeleteTool = {
     }
 
     try {
-      const index = clientResult.supabase.storage.vectors.from(bucketName).index(indexName)
+      const index = clientResult.supabase.storage.vectors
+        .from(bucketName)
+        .index(indexName)
       const { error } = await index.deleteVectors({ keys })
 
       if (error) {

@@ -28,31 +28,32 @@ import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
 // import { supabaseAuthVerifyOtpTool } from "./tools/auth/supabase-auth-verify-otp"
 import { supabaseDeleteTool } from "./tools/db/supabase-delete"
 import { supabaseInsertTool } from "./tools/db/supabase-insert"
-import { supabaseInvokeEdgeFunctionTool } from "./tools/edge/supabase-invoke-edge-function"
 import { supabaseQueryTool } from "./tools/db/supabase-query"
 import { supabaseRpcTool } from "./tools/db/supabase-rpc"
+import { supabaseUpdateTool } from "./tools/db/supabase-update"
+import { supabaseUpsertTool } from "./tools/db/supabase-upsert"
+import { supabaseInvokeEdgeFunctionTool } from "./tools/edge/supabase-invoke-edge-function"
+import { supabaseStorageCreateBucketTool } from "./tools/storage/supabase-storage-create-bucket"
 import { supabaseStorageCreateSignedUrlTool } from "./tools/storage/supabase-storage-create-signed-url"
 import { supabaseStorageDownloadTool } from "./tools/storage/supabase-storage-download"
 import { supabaseStorageGetPublicUrlTool } from "./tools/storage/supabase-storage-get-public-url"
 import { supabaseStorageListBucketsTool } from "./tools/storage/supabase-storage-list-buckets"
-import { supabaseVectorCreateBucketTool } from "./tools/vector/supabase-vector-create-bucket"
-import { supabaseVectorDeleteBucketTool } from "./tools/vector/supabase-vector-delete-bucket"
-import { supabaseVectorDeleteIndexTool } from "./tools/vector/supabase-vector-delete-index"
-import { supabaseVectorDeleteTool } from "./tools/vector/supabase-vector-delete"
-import { supabaseVectorGetBucketTool } from "./tools/vector/supabase-vector-get-bucket"
-import { supabaseVectorGetIndexTool } from "./tools/vector/supabase-vector-get-index"
-import { supabaseVectorGetTool } from "./tools/vector/supabase-vector-get"
-import { supabaseVectorListBucketsTool } from "./tools/vector/supabase-vector-list-buckets"
-import { supabaseVectorListIndexesTool } from "./tools/vector/supabase-vector-list-indexes"
-import { supabaseVectorListTool } from "./tools/vector/supabase-vector-list"
-import { supabaseVectorPutTool } from "./tools/vector/supabase-vector-put"
-import { supabaseVectorQueryTool } from "./tools/vector/supabase-vector-query"
-import { supabaseVectorCreateIndexTool } from "./tools/vector/supabase-vector-create-index"
 import { supabaseStorageListFilesTool } from "./tools/storage/supabase-storage-list-files"
 import { supabaseStorageRemoveTool } from "./tools/storage/supabase-storage-remove"
 import { supabaseStorageUploadTool } from "./tools/storage/supabase-storage-upload"
-import { supabaseUpdateTool } from "./tools/db/supabase-update"
-import { supabaseUpsertTool } from "./tools/db/supabase-upsert"
+import { supabaseVectorCreateBucketTool } from "./tools/vector/supabase-vector-create-bucket"
+import { supabaseVectorCreateIndexTool } from "./tools/vector/supabase-vector-create-index"
+import { supabaseVectorDeleteTool } from "./tools/vector/supabase-vector-delete"
+import { supabaseVectorDeleteBucketTool } from "./tools/vector/supabase-vector-delete-bucket"
+import { supabaseVectorDeleteIndexTool } from "./tools/vector/supabase-vector-delete-index"
+import { supabaseVectorGetTool } from "./tools/vector/supabase-vector-get"
+import { supabaseVectorGetBucketTool } from "./tools/vector/supabase-vector-get-bucket"
+import { supabaseVectorGetIndexTool } from "./tools/vector/supabase-vector-get-index"
+import { supabaseVectorListTool } from "./tools/vector/supabase-vector-list"
+import { supabaseVectorListBucketsTool } from "./tools/vector/supabase-vector-list-buckets"
+import { supabaseVectorListIndexesTool } from "./tools/vector/supabase-vector-list-indexes"
+import { supabaseVectorPutTool } from "./tools/vector/supabase-vector-put"
+import { supabaseVectorQueryTool } from "./tools/vector/supabase-vector-query"
 
 await loadAllLocalesAsync()
 
@@ -77,6 +78,7 @@ plugin.addTool(supabaseDeleteTool)
 plugin.addTool(supabaseRpcTool)
 plugin.addTool(supabaseInvokeEdgeFunctionTool)
 plugin.addTool(supabaseStorageListBucketsTool)
+plugin.addTool(supabaseStorageCreateBucketTool)
 plugin.addTool(supabaseStorageListFilesTool)
 plugin.addTool(supabaseStorageUploadTool)
 plugin.addTool(supabaseStorageDownloadTool)

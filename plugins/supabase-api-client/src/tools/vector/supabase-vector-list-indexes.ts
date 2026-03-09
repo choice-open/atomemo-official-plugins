@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 export const supabaseVectorListIndexesTool = {
   name: "supabase-vector-list-indexes",

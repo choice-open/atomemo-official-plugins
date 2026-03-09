@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 export const supabaseVectorDeleteBucketTool = {
   name: "supabase-vector-delete-bucket",
@@ -45,7 +45,8 @@ export const supabaseVectorDeleteBucketTool = {
     }
 
     try {
-      const { error } = await clientResult.supabase.storage.vectors.deleteBucket(name)
+      const { error } =
+        await clientResult.supabase.storage.vectors.deleteBucket(name)
       if (error) {
         return {
           success: false,

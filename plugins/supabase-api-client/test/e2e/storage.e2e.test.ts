@@ -7,6 +7,7 @@
 import "dotenv/config"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import { createSupabaseClient } from "../../src/lib/get-supabase-client"
+import { supabaseStorageCreateBucketTool } from "../../src/tools/storage/supabase-storage-create-bucket"
 import { supabaseStorageCreateSignedUrlTool } from "../../src/tools/storage/supabase-storage-create-signed-url"
 import { supabaseStorageDownloadTool } from "../../src/tools/storage/supabase-storage-download"
 import { supabaseStorageGetPublicUrlTool } from "../../src/tools/storage/supabase-storage-get-public-url"
@@ -16,6 +17,8 @@ import { supabaseStorageRemoveTool } from "../../src/tools/storage/supabase-stor
 import { supabaseStorageUploadTool } from "../../src/tools/storage/supabase-storage-upload"
 
 const BUCKET = "e2e-storage-bucket"
+const CREATE_BUCKET_PRIVATE = `e2e-create-bucket-private-${Date.now()}`
+const CREATE_BUCKET_PUBLIC = `e2e-create-bucket-public-${Date.now()}`
 const CRED_ID = "e2e_cred"
 const FILE_PATH = "e2e-folder/hello.txt"
 const FILE_CONTENT = "Hello from storage e2e"
@@ -67,10 +70,12 @@ describe("e2e: Storage – bucket + files", { skip: !hasEnv }, () => {
     }
 
     // 清理残留测试文件
-    const { data: files } = await supabase.storage.from(BUCKET).list("e2e-folder", {
-      limit: 100,
-      offset: 0,
-    })
+    const { data: files } = await supabase.storage
+      .from(BUCKET)
+      .list("e2e-folder", {
+        limit: 100,
+        offset: 0,
+      })
     if (files && files.length > 0) {
       const paths = files.map((f) => `e2e-folder/${f.name}`)
       await supabase.storage.from(BUCKET).remove(paths)
@@ -83,18 +88,57 @@ describe("e2e: Storage – bucket + files", { skip: !hasEnv }, () => {
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_KEY!,
     )
-    // 只清理我们创建的测试文件，保留 bucket 方便重复运行
-    const { data: files } = await supabase.storage.from(BUCKET).list("e2e-folder", {
-      limit: 100,
-      offset: 0,
-    })
+    // 清理测试文件
+    const { data: files } = await supabase.storage
+      .from(BUCKET)
+      .list("e2e-folder", {
+        limit: 100,
+        offset: 0,
+      })
     if (files && files.length > 0) {
       const paths = files.map((f) => `e2e-folder/${f.name}`)
       await supabase.storage.from(BUCKET).remove(paths)
     }
+    // 删除 create-bucket 测试创建的桶
+    for (const name of [CREATE_BUCKET_PRIVATE, CREATE_BUCKET_PUBLIC]) {
+      try {
+        await supabase.storage.emptyBucket(name)
+        await supabase.storage.deleteBucket(name)
+      } catch {
+        // 桶可能已空或不存在，忽略
+      }
+    }
   })
 
-  it("列出 buckets（包含测试 bucket）", async () => {
+  it("使用 create-bucket tool 创建私有桶", async () => {
+    const r = await supabaseStorageCreateBucketTool.invoke({
+      args: {
+        parameters: params({ bucket: CREATE_BUCKET_PRIVATE, public: false }),
+        credentials: credentials(),
+      },
+    })
+    expect(r.success).toBe(true)
+    const data = (r as { data?: { name?: string } }).data
+    expect(data?.name).toBe(CREATE_BUCKET_PRIVATE)
+  })
+
+  it("使用 create-bucket tool 创建公开桶（带 file_size_limit）", async () => {
+    const r = await supabaseStorageCreateBucketTool.invoke({
+      args: {
+        parameters: params({
+          bucket: CREATE_BUCKET_PUBLIC,
+          public: true,
+          file_size_limit: "2MB",
+        }),
+        credentials: credentials(),
+      },
+    })
+    expect(r.success).toBe(true)
+    const data = (r as { data?: { name?: string } }).data
+    expect(data?.name).toBe(CREATE_BUCKET_PUBLIC)
+  })
+
+  it("列出 buckets（包含测试 bucket 与新建桶）", async () => {
     const r = await supabaseStorageListBucketsTool.invoke({
       args: {
         parameters: params({ limit: 100, offset: 0 }),
@@ -105,6 +149,8 @@ describe("e2e: Storage – bucket + files", { skip: !hasEnv }, () => {
     const data = (r as { data?: { name: string }[] }).data
     expect(Array.isArray(data)).toBe(true)
     expect(data!.some((b) => b.name === BUCKET)).toBe(true)
+    expect(data!.some((b) => b.name === CREATE_BUCKET_PRIVATE)).toBe(true)
+    expect(data!.some((b) => b.name === CREATE_BUCKET_PUBLIC)).toBe(true)
   })
 
   it("上传文件到 Storage", async () => {
@@ -187,9 +233,15 @@ describe("e2e: Storage – bucket + files", { skip: !hasEnv }, () => {
       },
     })
     expect(r.success).toBe(true)
-    const data = (r as { data?: { content_base64?: string; content_type?: string; size?: number } }).data
+    const data = (
+      r as {
+        data?: { content_base64?: string; content_type?: string; size?: number }
+      }
+    ).data
     expect(typeof data?.content_base64).toBe("string")
-    expect(data?.content_base64 && data.content_base64.length).toBeGreaterThan(0)
+    expect(data?.content_base64 && data.content_base64.length).toBeGreaterThan(
+      0,
+    )
     expect(typeof data?.content_type).toBe("string")
     if (data?.content_type) {
       expect(data.content_type.startsWith("text/plain")).toBe(true)
@@ -231,4 +283,3 @@ describe("e2e: Storage – bucket + files", { skip: !hasEnv }, () => {
     ).toBe(false)
   })
 })
-

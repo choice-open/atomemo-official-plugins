@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
+import { supabaseStorageCreateBucketTool } from "../../src/tools/storage/supabase-storage-create-bucket"
 import { supabaseStorageCreateSignedUrlTool } from "../../src/tools/storage/supabase-storage-create-signed-url"
 import { supabaseStorageDownloadTool } from "../../src/tools/storage/supabase-storage-download"
 import { supabaseStorageGetPublicUrlTool } from "../../src/tools/storage/supabase-storage-get-public-url"
@@ -22,15 +23,22 @@ const missingCredError = {
   code: null,
 }
 
-function args(parameters: Record<string, unknown> = {}, credentials: Record<string, unknown> = cred) {
+function args(
+  parameters: Record<string, unknown> = {},
+  credentials: Record<string, unknown> = cred,
+) {
   const params = { ...parameters }
-  if (credentials?.[CRED_KEY] != null && params.supabase_credential === undefined) {
+  if (
+    credentials?.[CRED_KEY] != null &&
+    params.supabase_credential === undefined
+  ) {
     params.supabase_credential = CRED_KEY
   }
   return { args: { parameters: params, credentials } }
 }
 
 const mockListBuckets = vi.fn()
+const mockCreateBucket = vi.fn()
 const mockFrom = vi.fn()
 const mockList = vi.fn()
 const mockUpload = vi.fn()
@@ -43,6 +51,7 @@ vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({
     storage: {
       listBuckets: mockListBuckets,
+      createBucket: mockCreateBucket,
       from: mockFrom.mockImplementation(() => ({
         list: mockList,
         upload: mockUpload,
@@ -60,18 +69,29 @@ describe("Storage tools – credential, validation, and API calls", () => {
     vi.clearAllMocks()
 
     mockListBuckets.mockResolvedValue({ data: [], error: null })
+    mockCreateBucket.mockResolvedValue({
+      data: { name: "test-bucket" },
+      error: null,
+    })
     mockList.mockResolvedValue({ data: [], error: null })
-    mockUpload.mockResolvedValue({ data: { path: "folder/file.txt" }, error: null })
+    mockUpload.mockResolvedValue({
+      data: { path: "folder/file.txt" },
+      error: null,
+    })
 
     const blobLike = {
-      arrayBuffer: vi.fn().mockResolvedValue(new TextEncoder().encode("hello world")),
+      arrayBuffer: vi
+        .fn()
+        .mockResolvedValue(new TextEncoder().encode("hello world")),
       type: "text/plain",
       size: 11,
     } as unknown as Blob
     mockDownload.mockResolvedValue({ data: blobLike, error: null })
 
     mockRemove.mockResolvedValue({ data: [], error: null })
-    mockGetPublicUrl.mockReturnValue({ data: { publicUrl: "https://cdn.example.com/file.txt" } })
+    mockGetPublicUrl.mockReturnValue({
+      data: { publicUrl: "https://cdn.example.com/file.txt" },
+    })
     mockCreateSignedUrl.mockResolvedValue({
       data: { signedUrl: "https://cdn.example.com/file.txt?token=xxx" },
       error: null,
@@ -80,7 +100,9 @@ describe("Storage tools – credential, validation, and API calls", () => {
 
   describe("supabase-storage-list-buckets", () => {
     it("has correct name and params", () => {
-      expect(supabaseStorageListBucketsTool.name).toBe("supabase-storage-list-buckets")
+      expect(supabaseStorageListBucketsTool.name).toBe(
+        "supabase-storage-list-buckets",
+      )
       const names = supabaseStorageListBucketsTool.parameters.map((p) => p.name)
       expect(names).toContain("supabase_credential")
       expect(names).toContain("limit")
@@ -94,15 +116,89 @@ describe("Storage tools – credential, validation, and API calls", () => {
     })
 
     it("calls listBuckets and returns success", async () => {
-      const r = await supabaseStorageListBucketsTool.invoke(args({ limit: 10, offset: 5 }))
+      const r = await supabaseStorageListBucketsTool.invoke(
+        args({ limit: 10, offset: 5 }),
+      )
       expect(r).toMatchObject({ success: true, error: null })
       expect(mockListBuckets).toHaveBeenCalledWith({ limit: 10, offset: 5 })
     })
   })
 
+  describe("supabase-storage-create-bucket", () => {
+    it("has correct name and params", () => {
+      expect(supabaseStorageCreateBucketTool.name).toBe(
+        "supabase-storage-create-bucket",
+      )
+      const names = supabaseStorageCreateBucketTool.parameters.map(
+        (p) => p.name,
+      )
+      expect(names).toContain("supabase_credential")
+      expect(names).toContain("bucket")
+      expect(names).toContain("public")
+      expect(names).toContain("file_size_limit")
+      expect(names).toContain("allowed_mime_types")
+    })
+
+    it("returns error when credential missing", async () => {
+      const r = await supabaseStorageCreateBucketTool.invoke(
+        args({ bucket: "my-bucket" }, {}),
+      )
+      expect(r).toEqual(missingCredError)
+      expect(mockCreateBucket).not.toHaveBeenCalled()
+    })
+
+    it("returns error when bucket empty", async () => {
+      const r = await supabaseStorageCreateBucketTool.invoke(
+        args({ bucket: "   " }),
+      )
+      expect(r).toMatchObject({ success: false, error: "bucket is required." })
+      expect(mockCreateBucket).not.toHaveBeenCalled()
+    })
+
+    it("calls createBucket with bucket name and default options", async () => {
+      const r = await supabaseStorageCreateBucketTool.invoke(
+        args({ bucket: "avatars" }),
+      )
+      expect(r).toMatchObject({ success: true, error: null })
+      expect(mockCreateBucket).toHaveBeenCalledWith("avatars", { public: false })
+    })
+
+    it("calls createBucket with public and file restrictions", async () => {
+      const r = await supabaseStorageCreateBucketTool.invoke(
+        args({
+          bucket: "images",
+          public: true,
+          file_size_limit: "2MB",
+          allowed_mime_types: '["image/*"]',
+        }),
+      )
+      expect(r).toMatchObject({ success: true, error: null })
+      expect(mockCreateBucket).toHaveBeenCalledWith("images", {
+        public: true,
+        fileSizeLimit: "2MB",
+        allowedMimeTypes: ["image/*"],
+      })
+    })
+
+    it("returns error when allowed_mime_types is invalid JSON", async () => {
+      const r = await supabaseStorageCreateBucketTool.invoke(
+        args({ bucket: "b1", allowed_mime_types: "not-json" }),
+      )
+      expect(r).toMatchObject({
+        success: false,
+        error: expect.stringContaining(
+          "allowed_mime_types must be a valid JSON array",
+        ),
+      })
+      expect(mockCreateBucket).not.toHaveBeenCalled()
+    })
+  })
+
   describe("supabase-storage-list-files", () => {
     it("has correct name and params", () => {
-      expect(supabaseStorageListFilesTool.name).toBe("supabase-storage-list-files")
+      expect(supabaseStorageListFilesTool.name).toBe(
+        "supabase-storage-list-files",
+      )
       const names = supabaseStorageListFilesTool.parameters.map((p) => p.name)
       expect(names).toContain("supabase_credential")
       expect(names).toContain("bucket")
@@ -112,13 +208,17 @@ describe("Storage tools – credential, validation, and API calls", () => {
     })
 
     it("returns error when credential missing", async () => {
-      const r = await supabaseStorageListFilesTool.invoke(args({ bucket: "b1" }, {}))
+      const r = await supabaseStorageListFilesTool.invoke(
+        args({ bucket: "b1" }, {}),
+      )
       expect(r).toEqual(missingCredError)
       expect(mockList).not.toHaveBeenCalled()
     })
 
     it("returns error when bucket empty", async () => {
-      const r = await supabaseStorageListFilesTool.invoke(args({ bucket: "   " }))
+      const r = await supabaseStorageListFilesTool.invoke(
+        args({ bucket: "   " }),
+      )
       expect(r).toMatchObject({ success: false, error: "bucket is required." })
       expect(mockFrom).not.toHaveBeenCalled()
     })
@@ -161,12 +261,18 @@ describe("Storage tools – credential, validation, and API calls", () => {
       const r1 = await supabaseStorageUploadTool.invoke(
         args({ bucket: "   ", path: "a.txt", file_content: "x" }),
       )
-      expect(r1).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r1).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
 
       const r2 = await supabaseStorageUploadTool.invoke(
         args({ bucket: "b1", path: "   ", file_content: "x" }),
       )
-      expect(r2).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r2).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
       expect(mockUpload).not.toHaveBeenCalled()
     })
 
@@ -222,12 +328,18 @@ describe("Storage tools – credential, validation, and API calls", () => {
       const r1 = await supabaseStorageDownloadTool.invoke(
         args({ bucket: "   ", path: "a.txt" }),
       )
-      expect(r1).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r1).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
 
       const r2 = await supabaseStorageDownloadTool.invoke(
         args({ bucket: "b1", path: "   " }),
       )
-      expect(r2).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r2).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
       expect(mockDownload).not.toHaveBeenCalled()
     })
 
@@ -238,9 +350,19 @@ describe("Storage tools – credential, validation, and API calls", () => {
       expect(r).toMatchObject({ success: true, error: null })
       expect(mockFrom).toHaveBeenCalledWith("b1")
       expect(mockDownload).toHaveBeenCalledWith("folder/a.txt")
-      const data = (r as { data?: { content_base64?: string; content_type?: string; size?: number } }).data
+      const data = (
+        r as {
+          data?: {
+            content_base64?: string
+            content_type?: string
+            size?: number
+          }
+        }
+      ).data
       expect(typeof data?.content_base64).toBe("string")
-      expect(data?.content_base64 && data.content_base64.length).toBeGreaterThan(0)
+      expect(
+        data?.content_base64 && data.content_base64.length,
+      ).toBeGreaterThan(0)
       expect(data?.content_type).toBe("text/plain")
       expect(data?.size).toBe(11)
     })
@@ -295,8 +417,12 @@ describe("Storage tools – credential, validation, and API calls", () => {
 
   describe("supabase-storage-get-public-url", () => {
     it("has correct name and params", () => {
-      expect(supabaseStorageGetPublicUrlTool.name).toBe("supabase-storage-get-public-url")
-      const names = supabaseStorageGetPublicUrlTool.parameters.map((p) => p.name)
+      expect(supabaseStorageGetPublicUrlTool.name).toBe(
+        "supabase-storage-get-public-url",
+      )
+      const names = supabaseStorageGetPublicUrlTool.parameters.map(
+        (p) => p.name,
+      )
       expect(names).toContain("supabase_credential")
       expect(names).toContain("bucket")
       expect(names).toContain("path")
@@ -314,12 +440,18 @@ describe("Storage tools – credential, validation, and API calls", () => {
       const r1 = await supabaseStorageGetPublicUrlTool.invoke(
         args({ bucket: "   ", path: "a.txt" }),
       )
-      expect(r1).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r1).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
 
       const r2 = await supabaseStorageGetPublicUrlTool.invoke(
         args({ bucket: "b1", path: "   " }),
       )
-      expect(r2).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r2).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
       expect(mockGetPublicUrl).not.toHaveBeenCalled()
     })
 
@@ -337,8 +469,12 @@ describe("Storage tools – credential, validation, and API calls", () => {
 
   describe("supabase-storage-create-signed-url", () => {
     it("has correct name and params", () => {
-      expect(supabaseStorageCreateSignedUrlTool.name).toBe("supabase-storage-create-signed-url")
-      const names = supabaseStorageCreateSignedUrlTool.parameters.map((p) => p.name)
+      expect(supabaseStorageCreateSignedUrlTool.name).toBe(
+        "supabase-storage-create-signed-url",
+      )
+      const names = supabaseStorageCreateSignedUrlTool.parameters.map(
+        (p) => p.name,
+      )
       expect(names).toContain("supabase_credential")
       expect(names).toContain("bucket")
       expect(names).toContain("path")
@@ -357,12 +493,18 @@ describe("Storage tools – credential, validation, and API calls", () => {
       const r1 = await supabaseStorageCreateSignedUrlTool.invoke(
         args({ bucket: "   ", path: "a.txt" }),
       )
-      expect(r1).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r1).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
 
       const r2 = await supabaseStorageCreateSignedUrlTool.invoke(
         args({ bucket: "b1", path: "   " }),
       )
-      expect(r2).toMatchObject({ success: false, error: "bucket and path are required." })
+      expect(r2).toMatchObject({
+        success: false,
+        error: "bucket and path are required.",
+      })
       expect(mockCreateSignedUrl).not.toHaveBeenCalled()
     })
 
@@ -385,4 +527,3 @@ describe("Storage tools – credential, validation, and API calls", () => {
     })
   })
 })
-

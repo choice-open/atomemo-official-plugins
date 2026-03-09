@@ -1,6 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 import { t } from "../../i18n/i18n-node"
+import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -117,17 +117,27 @@ export const supabaseVectorQueryTool = {
       }
     }
 
-    const queryVectorRaw = parseJson<{ float32?: number[] }>(parameters.query_vector as string, {})
-    const float32 = Array.isArray(queryVectorRaw?.float32) ? queryVectorRaw.float32 : []
+    const queryVectorRaw = parseJson<{ float32?: number[] }>(
+      parameters.query_vector as string,
+      {},
+    )
+    const float32 = Array.isArray(queryVectorRaw?.float32)
+      ? queryVectorRaw.float32
+      : []
     const queryVector = { float32 }
 
     const topK = Number(parameters.top_k) || 10
-    const filter = parseJson<Record<string, unknown> | null>(parameters.filter as string, null)
+    const filter = parseJson<Record<string, unknown> | null>(
+      parameters.filter as string,
+      null,
+    )
     const returnDistance = parameters.return_distance !== false
     const returnMetadata = parameters.return_metadata === true
 
     try {
-      const index = clientResult.supabase.storage.vectors.from(bucketName).index(indexName)
+      const index = clientResult.supabase.storage.vectors
+        .from(bucketName)
+        .index(indexName)
       const { data, error } = await index.queryVectors({
         queryVector,
         topK,
@@ -144,7 +154,12 @@ export const supabaseVectorQueryTool = {
           data: null,
         }
       }
-      return { success: true, data: data ?? null, error: null, code: null } as any
+      return {
+        success: true,
+        data: data ?? null,
+        error: null,
+        code: null,
+      } as any
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
       return { success: false, error: message, data: null, code: null }
