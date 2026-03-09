@@ -1,0 +1,471 @@
+{
+  "name": "clickhouse",
+  "display_name": {
+    "en_US": "ClickHouse",
+    "zh_Hans": "ClickHouse"
+  },
+  "description": {
+    "en_US": "Connect to ClickHouse database, run queries, insert data, and check connectivity.",
+    "zh_Hans": "连接 ClickHouse 数据库，执行查询、插入数据并检查连通性。"
+  },
+  "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/clickhouse",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.1",
+  "credentials": [
+    {
+      "name": "clickhouse-connection",
+      "display_name": {
+        "en_US": "ClickHouse Connection",
+        "zh_Hans": "ClickHouse 连接"
+      },
+      "description": {
+        "en_US": "Connection settings for a ClickHouse instance.",
+        "zh_Hans": "ClickHouse 实例的连接配置。"
+      },
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/clickhouse.png",
+      "parameters": [
+        {
+          "name": "url",
+          "display_name": {
+            "en_US": "ClickHouse URL",
+            "zh_Hans": "ClickHouse 地址"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "http://localhost:8123",
+              "zh_Hans": "http://localhost:8123"
+            },
+            "support_expression": false,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": false,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "default"
+        },
+        {
+          "name": "password",
+          "display_name": {
+            "en_US": "Password",
+            "zh_Hans": "密码"
+          },
+          "required": false,
+          "ui": {
+            "sensitive": true,
+            "support_expression": false,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "database",
+          "display_name": {
+            "en_US": "Default Database",
+            "zh_Hans": "默认数据库"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": false,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "default"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "clickhouse-ping",
+      "display_name": {
+        "en_US": "ClickHouse Ping",
+        "zh_Hans": "ClickHouse 连通性检查"
+      },
+      "description": {
+        "en_US": "Check the health of a ClickHouse instance using the JS client.",
+        "zh_Hans": "使用 clickhouse-js 检查 ClickHouse 实例的连通性和健康状态。"
+      },
+      "icon": "🩺",
+      "parameters": [
+        {
+          "name": "connection",
+          "display_name": {
+            "en_US": "ClickHouse Connection",
+            "zh_Hans": "ClickHouse 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "clickhouse-connection"
+        },
+        {
+          "name": "use_select_mode",
+          "display_name": {
+            "en_US": "Use SELECT ping (web-friendly)",
+            "zh_Hans": "使用 SELECT 方式 ping（适合 Web 环境）"
+          },
+          "required": false,
+          "ui": {
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "clickhouse-query-json",
+      "display_name": {
+        "en_US": "ClickHouse Query (JSON)",
+        "zh_Hans": "ClickHouse 查询（JSON）"
+      },
+      "description": {
+        "en_US": "Run a SELECT query against ClickHouse and return JSONEachRow data.",
+        "zh_Hans": "对 ClickHouse 执行 SELECT 查询，并以 JSONEachRow 形式返回结果。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "connection",
+          "display_name": {
+            "en_US": "ClickHouse Connection",
+            "zh_Hans": "ClickHouse 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "clickhouse-connection"
+        },
+        {
+          "name": "query",
+          "display_name": {
+            "en_US": "SQL Query",
+            "zh_Hans": "SQL 查询语句"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Use {name:Type} placeholders + query_params for user input to prevent SQL injection.",
+              "zh_Hans": "对用户输入使用 {name:Type} 占位符配合 query_params，可防止 SQL 注入。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query_params",
+          "display_name": {
+            "en_US": "Query Parameters",
+            "zh_Hans": "查询参数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object matching {name:Type} placeholders in query. E.g. {\"id\": 42} for {id:UInt64}",
+              "zh_Hans": "与 query 中 {name:Type} 占位符对应的 JSON 对象。如 {\"id\": 42} 对应 {id:UInt64}"
+            },
+            "placeholder": {
+              "en_US": "{\"id\": 42, \"name\": \"foo\"}",
+              "zh_Hans": "{\"id\": 42, \"name\": \"foo\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "clickhouse_settings",
+          "display_name": {
+            "en_US": "ClickHouse Settings",
+            "zh_Hans": "ClickHouse 设置"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object for query-level settings. E.g. {\"max_execution_time\": 30}",
+              "zh_Hans": "查询级设置的 JSON 对象。如 {\"max_execution_time\": 30}"
+            },
+            "placeholder": {
+              "en_US": "{\"max_execution_time\": 30}",
+              "zh_Hans": "{\"max_execution_time\": 30}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_rows",
+          "display_name": {
+            "en_US": "Max Rows",
+            "zh_Hans": "最大行数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "number",
+          "default": 1000
+        },
+        {
+          "name": "session_id",
+          "display_name": {
+            "en_US": "Session ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query_id",
+          "display_name": {
+            "en_US": "Query ID",
+            "zh_Hans": "查询 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "clickhouse-exec",
+      "display_name": {
+        "en_US": "ClickHouse Exec (DDL / Command)",
+        "zh_Hans": "ClickHouse 执行（DDL/命令）"
+      },
+      "description": {
+        "en_US": "Execute DDL or other non-SELECT statements against ClickHouse.",
+        "zh_Hans": "在 ClickHouse 上执行 DDL 或其它非 SELECT 语句。"
+      },
+      "icon": "⚙️",
+      "parameters": [
+        {
+          "name": "connection",
+          "display_name": {
+            "en_US": "ClickHouse Connection",
+            "zh_Hans": "ClickHouse 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "clickhouse-connection"
+        },
+        {
+          "name": "statement",
+          "display_name": {
+            "en_US": "SQL Statement",
+            "zh_Hans": "SQL 语句"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Controlled by workflow author only. Do not pass untrusted user input directly.",
+              "zh_Hans": "仅由工作流作者控制，勿直接传入不可信用户输入。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "clickhouse_settings",
+          "display_name": {
+            "en_US": "ClickHouse Settings",
+            "zh_Hans": "ClickHouse 设置"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "JSON object for statement-level settings. E.g. {\"wait_end_of_query\": 1}",
+              "zh_Hans": "语句级设置的 JSON 对象。如 {\"wait_end_of_query\": 1}"
+            },
+            "placeholder": {
+              "en_US": "{\"wait_end_of_query\": 1}",
+              "zh_Hans": "{\"wait_end_of_query\": 1}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "session_id",
+          "display_name": {
+            "en_US": "Session ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query_id",
+          "display_name": {
+            "en_US": "Query ID",
+            "zh_Hans": "查询 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "clickhouse-insert-rows",
+      "display_name": {
+        "en_US": "ClickHouse Insert Rows",
+        "zh_Hans": "ClickHouse 插入行数据"
+      },
+      "description": {
+        "en_US": "Insert JSONEachRow style rows into a ClickHouse table.",
+        "zh_Hans": "向 ClickHouse 表中插入 JSONEachRow 风格的多行数据。"
+      },
+      "icon": "📥",
+      "parameters": [
+        {
+          "name": "connection",
+          "display_name": {
+            "en_US": "ClickHouse Connection",
+            "zh_Hans": "ClickHouse 连接"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "clickhouse-connection"
+        },
+        {
+          "name": "table",
+          "display_name": {
+            "en_US": "Table Name",
+            "zh_Hans": "表名"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Table name or db.table. E.g. events or my_db.events",
+              "zh_Hans": "表名或 db.table 全限定名。如 events 或 my_db.events"
+            },
+            "placeholder": {
+              "en_US": "events",
+              "zh_Hans": "events"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "rows",
+          "display_name": {
+            "en_US": "Rows",
+            "zh_Hans": "行数据"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON array of row objects. Each object = one row. E.g. [{\"id\":1,\"name\":\"a\"}]",
+              "zh_Hans": "行对象的 JSON 数组，每个对象为一行。如 [{\"id\":1,\"name\":\"a\"}]"
+            },
+            "placeholder": {
+              "en_US": "[{\"id\": 1, \"name\": \"foo\"}, {\"id\": 2, \"name\": \"bar\"}]",
+              "zh_Hans": "[{\"id\": 1, \"name\": \"foo\"}, {\"id\": 2, \"name\": \"bar\"}]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "columns",
+          "display_name": {
+            "en_US": "Columns Include / Except",
+            "zh_Hans": "列包含 / 排除"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional. JSON array of column names to insert, e.g. [\"id\",\"name\"]",
+              "zh_Hans": "选填。要插入的列名 JSON 数组，如 [\"id\",\"name\"]"
+            },
+            "placeholder": {
+              "en_US": "[\"id\", \"name\"]",
+              "zh_Hans": "[\"id\", \"name\"]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "session_id",
+          "display_name": {
+            "en_US": "Session ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query_id",
+          "display_name": {
+            "en_US": "Query ID",
+            "zh_Hans": "查询 ID"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
