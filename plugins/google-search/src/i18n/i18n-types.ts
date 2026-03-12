@@ -16,64 +16,400 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * G​o​o​g​l​e​ ​S​e​a​r​c​h
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * S​e​a​r​c​h​ ​t​h​e​ ​w​e​b​ ​u​s​i​n​g​ ​G​o​o​g​l​e​ ​C​u​s​t​o​m​ ​S​e​a​r​c​h​ ​J​S​O​N​ ​A​P​I
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * D​e​m​o​ ​T​o​o​l
+   * G​o​o​g​l​e​ ​S​e​a​r​c​h​ ​A​P​I
    */
-  DEMO_TOOL_DISPLAY_NAME: string
+  GOOGLE_SEARCH_CREDENTIAL_DISPLAY_NAME: string
   /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * A​P​I​ ​k​e​y​ ​a​n​d​ ​S​e​a​r​c​h​ ​E​n​g​i​n​e​ ​I​D​ ​f​o​r​ ​G​o​o​g​l​e​ ​C​u​s​t​o​m​ ​S​e​a​r​c​h​ ​J​S​O​N​ ​A​P​I
    */
-  DEMO_TOOL_DESCRIPTION: string
+  GOOGLE_SEARCH_CREDENTIAL_DESCRIPTION: string
   /**
-   * L​o​c​a​t​i​o​n
+   * A​P​I​ ​K​e​y
    */
-  LOCATION_DISPLAY_NAME: string
+  API_KEY_DISPLAY_NAME: string
   /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * A​I​z​a​.​.​.
    */
-  LOCATION_HINT: string
+  API_KEY_PLACEHOLDER: string
   /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * G​e​t​ ​y​o​u​r​ ​A​P​I​ ​k​e​y​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​C​l​o​u​d​ ​C​o​n​s​o​l​e​ ​(​e​n​a​b​l​e​ ​C​u​s​t​o​m​ ​S​e​a​r​c​h​ ​A​P​I​)
    */
-  LOCATION_PLACEHOLDER: string
+  GOOGLE_API_KEY_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​E​n​g​i​n​e​ ​I​D
+   */
+  SEARCH_ENGINE_ID_DISPLAY_NAME: string
+  /**
+   * x​x​x​x​x​x​x​x​x​x​:​x​x​x​x​x​x​x​x​x
+   */
+  SEARCH_ENGINE_ID_PLACEHOLDER: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​P​r​o​g​r​a​m​m​a​b​l​e​ ​S​e​a​r​c​h​ ​E​n​g​i​n​e​ ​a​t​ ​h​t​t​p​s​:​/​/​p​r​o​g​r​a​m​m​a​b​l​e​s​e​a​r​c​h​e​n​g​i​n​e​.​g​o​o​g​l​e​.​c​o​m
+   */
+  SEARCH_ENGINE_ID_HINT: string
+  /**
+   * G​o​o​g​l​e​ ​S​e​a​r​c​h
+   */
+  GOOGLE_SEARCH_TOOL_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​t​h​e​ ​w​e​b​ ​a​n​d​ ​g​e​t​ ​r​e​s​u​l​t​s​ ​w​i​t​h​ ​t​i​t​l​e​s​,​ ​l​i​n​k​s​,​ ​a​n​d​ ​s​n​i​p​p​e​t​s
+   */
+  GOOGLE_SEARCH_TOOL_DESCRIPTION: string
+  /**
+   * A​P​I​ ​C​r​e​d​e​n​t​i​a​l
+   */
+  API_CREDENTIAL_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​Q​u​e​r​y
+   */
+  QUERY_DISPLAY_NAME: string
+  /**
+   * T​h​e​ ​s​e​a​r​c​h​ ​q​u​e​r​y​ ​t​o​ ​l​o​o​k​ ​u​p
+   */
+  QUERY_HINT: string
+  /**
+   * E​n​t​e​r​ ​y​o​u​r​ ​s​e​a​r​c​h​ ​q​u​e​r​y
+   */
+  QUERY_PLACEHOLDER: string
+  /**
+   * N​u​m​b​e​r​ ​o​f​ ​R​e​s​u​l​t​s
+   */
+  NUM_RESULTS_DISPLAY_NAME: string
+  /**
+   * N​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​t​o​ ​r​e​t​u​r​n​ ​(​1​-​1​0​)
+   */
+  NUM_RESULTS_HINT: string
+  /**
+   * S​t​a​r​t​ ​I​n​d​e​x
+   */
+  START_DISPLAY_NAME: string
+  /**
+   * 1​-​b​a​s​e​d​ ​i​n​d​e​x​ ​f​o​r​ ​p​a​g​i​n​a​t​i​o​n​ ​(​1​,​ ​1​1​,​ ​2​1​.​.​.​)
+   */
+  START_HINT: string
+  /**
+   * D​a​t​e​ ​R​e​s​t​r​i​c​t
+   */
+  DATE_RESTRICT_DISPLAY_NAME: string
+  /**
+   * R​e​s​t​r​i​c​t​ ​t​o​ ​r​e​c​e​n​t​:​ ​d​1​=​d​a​y​,​ ​w​1​=​w​e​e​k​,​ ​m​1​=​m​o​n​t​h​,​ ​y​1​=​y​e​a​r
+   */
+  DATE_RESTRICT_HINT: string
+  /**
+   * E​x​a​c​t​ ​T​e​r​m​s
+   */
+  EXACT_TERMS_DISPLAY_NAME: string
+  /**
+   * P​h​r​a​s​e​ ​t​h​a​t​ ​m​u​s​t​ ​a​p​p​e​a​r​ ​i​n​ ​a​l​l​ ​r​e​s​u​l​t​s
+   */
+  EXACT_TERMS_HINT: string
+  /**
+   * E​x​c​l​u​d​e​ ​T​e​r​m​s
+   */
+  EXCLUDE_TERMS_DISPLAY_NAME: string
+  /**
+   * W​o​r​d​s​ ​o​r​ ​p​h​r​a​s​e​s​ ​t​o​ ​e​x​c​l​u​d​e​ ​f​r​o​m​ ​r​e​s​u​l​t​s
+   */
+  EXCLUDE_TERMS_HINT: string
+  /**
+   * O​R​ ​T​e​r​m​s
+   */
+  OR_TERMS_DISPLAY_NAME: string
+  /**
+   * T​e​r​m​s​ ​w​h​e​r​e​ ​a​t​ ​l​e​a​s​t​ ​o​n​e​ ​m​u​s​t​ ​a​p​p​e​a​r​ ​(​s​p​a​c​e​-​s​e​p​a​r​a​t​e​d​)
+   */
+  OR_TERMS_HINT: string
+  /**
+   * G​e​o​l​o​c​a​t​i​o​n
+   */
+  GL_DISPLAY_NAME: string
+  /**
+   * T​w​o​-​l​e​t​t​e​r​ ​c​o​u​n​t​r​y​ ​c​o​d​e​ ​t​o​ ​b​o​o​s​t​ ​l​o​c​a​l​ ​r​e​s​u​l​t​s​ ​(​e​.​g​.​ ​u​s​,​ ​c​n​)
+   */
+  GL_HINT: string
+  /**
+   * u​s
+   */
+  GL_PLACEHOLDER: string
+  /**
+   * I​n​t​e​r​f​a​c​e​ ​L​a​n​g​u​a​g​e
+   */
+  HL_DISPLAY_NAME: string
+  /**
+   * L​a​n​g​u​a​g​e​ ​c​o​d​e​ ​f​o​r​ ​r​e​s​u​l​t​ ​U​I​ ​(​e​.​g​.​ ​e​n​,​ ​z​h​-​C​N​)
+   */
+  HL_HINT: string
+  /**
+   * e​n
+   */
+  HL_PLACEHOLDER: string
+  /**
+   * L​a​n​g​u​a​g​e​ ​R​e​s​t​r​i​c​t
+   */
+  LR_DISPLAY_NAME: string
+  /**
+   * R​e​s​t​r​i​c​t​ ​r​e​s​u​l​t​s​ ​t​o​ ​d​o​c​u​m​e​n​t​s​ ​i​n​ ​t​h​i​s​ ​l​a​n​g​u​a​g​e
+   */
+  LR_HINT: string
+  /**
+   * S​a​f​e​S​e​a​r​c​h
+   */
+  SAFE_DISPLAY_NAME: string
+  /**
+   * F​i​l​t​e​r​ ​e​x​p​l​i​c​i​t​ ​c​o​n​t​e​n​t
+   */
+  SAFE_HINT: string
+  /**
+   * S​o​r​t
+   */
+  SORT_DISPLAY_NAME: string
+  /**
+   * S​o​r​t​ ​b​y​ ​d​a​t​e​ ​o​r​ ​r​e​l​e​v​a​n​c​e
+   */
+  SORT_HINT: string
+  /**
+   * S​i​t​e​ ​S​e​a​r​c​h
+   */
+  SITE_SEARCH_DISPLAY_NAME: string
+  /**
+   * L​i​m​i​t​ ​r​e​s​u​l​t​s​ ​t​o​ ​t​h​i​s​ ​s​i​t​e​/​d​o​m​a​i​n
+   */
+  SITE_SEARCH_HINT: string
+  /**
+   * g​i​t​h​u​b​.​c​o​m
+   */
+  SITE_SEARCH_PLACEHOLDER: string
+  /**
+   * S​i​t​e​ ​F​i​l​t​e​r
+   */
+  SITE_SEARCH_FILTER_DISPLAY_NAME: string
+  /**
+   * i​=​i​n​c​l​u​d​e​ ​o​n​l​y​,​ ​e​=​e​x​c​l​u​d​e​ ​f​r​o​m​ ​r​e​s​u​l​t​s
+   */
+  SITE_SEARCH_FILTER_HINT: string
+  /**
+   * D​u​p​l​i​c​a​t​e​ ​F​i​l​t​e​r
+   */
+  FILTER_DISPLAY_NAME: string
+  /**
+   * 0​=​o​f​f​,​ ​1​=​o​n​ ​d​u​p​l​i​c​a​t​e​ ​c​o​n​t​e​n​t​ ​f​i​l​t​e​r
+   */
+  FILTER_HINT: string
+  /**
+   * F​i​l​e​ ​T​y​p​e
+   */
+  FILE_TYPE_DISPLAY_NAME: string
+  /**
+   * R​e​s​t​r​i​c​t​ ​t​o​ ​s​p​e​c​i​f​i​c​ ​f​i​l​e​ ​t​y​p​e​s
+   */
+  FILE_TYPE_HINT: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Google Search
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Search the web using Google Custom Search JSON API
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
-   * Demo Tool
+   * Google Search API
    */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
+  GOOGLE_SEARCH_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
   /**
-   * A tool for testing the plugin
+   * API key and Search Engine ID for Google Custom Search JSON API
    */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
+  GOOGLE_SEARCH_CREDENTIAL_DESCRIPTION: () => LocalizedString
   /**
-   * Location
+   * API Key
    */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
+  API_KEY_DISPLAY_NAME: () => LocalizedString
   /**
-   * The location to test
+   * AIza...
    */
-  LOCATION_HINT: () => LocalizedString
+  API_KEY_PLACEHOLDER: () => LocalizedString
   /**
-   * Enter the location to test
+   * Get your API key from Google Cloud Console (enable Custom Search API)
    */
-  LOCATION_PLACEHOLDER: () => LocalizedString
+  GOOGLE_API_KEY_HINT: () => LocalizedString
+  /**
+   * Search Engine ID
+   */
+  SEARCH_ENGINE_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * xxxxxxxxxx:xxxxxxxxx
+   */
+  SEARCH_ENGINE_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Create a Programmable Search Engine at https://programmablesearchengine.google.com
+   */
+  SEARCH_ENGINE_ID_HINT: () => LocalizedString
+  /**
+   * Google Search
+   */
+  GOOGLE_SEARCH_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search the web and get results with titles, links, and snippets
+   */
+  GOOGLE_SEARCH_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * API Credential
+   */
+  API_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search Query
+   */
+  QUERY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * The search query to look up
+   */
+  QUERY_HINT: () => LocalizedString
+  /**
+   * Enter your search query
+   */
+  QUERY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Number of Results
+   */
+  NUM_RESULTS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Number of results to return (1-10)
+   */
+  NUM_RESULTS_HINT: () => LocalizedString
+  /**
+   * Start Index
+   */
+  START_DISPLAY_NAME: () => LocalizedString
+  /**
+   * 1-based index for pagination (1, 11, 21...)
+   */
+  START_HINT: () => LocalizedString
+  /**
+   * Date Restrict
+   */
+  DATE_RESTRICT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Restrict to recent: d1=day, w1=week, m1=month, y1=year
+   */
+  DATE_RESTRICT_HINT: () => LocalizedString
+  /**
+   * Exact Terms
+   */
+  EXACT_TERMS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Phrase that must appear in all results
+   */
+  EXACT_TERMS_HINT: () => LocalizedString
+  /**
+   * Exclude Terms
+   */
+  EXCLUDE_TERMS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Words or phrases to exclude from results
+   */
+  EXCLUDE_TERMS_HINT: () => LocalizedString
+  /**
+   * OR Terms
+   */
+  OR_TERMS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Terms where at least one must appear (space-separated)
+   */
+  OR_TERMS_HINT: () => LocalizedString
+  /**
+   * Geolocation
+   */
+  GL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Two-letter country code to boost local results (e.g. us, cn)
+   */
+  GL_HINT: () => LocalizedString
+  /**
+   * us
+   */
+  GL_PLACEHOLDER: () => LocalizedString
+  /**
+   * Interface Language
+   */
+  HL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Language code for result UI (e.g. en, zh-CN)
+   */
+  HL_HINT: () => LocalizedString
+  /**
+   * en
+   */
+  HL_PLACEHOLDER: () => LocalizedString
+  /**
+   * Language Restrict
+   */
+  LR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Restrict results to documents in this language
+   */
+  LR_HINT: () => LocalizedString
+  /**
+   * SafeSearch
+   */
+  SAFE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Filter explicit content
+   */
+  SAFE_HINT: () => LocalizedString
+  /**
+   * Sort
+   */
+  SORT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Sort by date or relevance
+   */
+  SORT_HINT: () => LocalizedString
+  /**
+   * Site Search
+   */
+  SITE_SEARCH_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Limit results to this site/domain
+   */
+  SITE_SEARCH_HINT: () => LocalizedString
+  /**
+   * github.com
+   */
+  SITE_SEARCH_PLACEHOLDER: () => LocalizedString
+  /**
+   * Site Filter
+   */
+  SITE_SEARCH_FILTER_DISPLAY_NAME: () => LocalizedString
+  /**
+   * i=include only, e=exclude from results
+   */
+  SITE_SEARCH_FILTER_HINT: () => LocalizedString
+  /**
+   * Duplicate Filter
+   */
+  FILTER_DISPLAY_NAME: () => LocalizedString
+  /**
+   * 0=off, 1=on duplicate content filter
+   */
+  FILTER_HINT: () => LocalizedString
+  /**
+   * File Type
+   */
+  FILE_TYPE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Restrict to specific file types
+   */
+  FILE_TYPE_HINT: () => LocalizedString
 }
 
 export type Formatters = {}

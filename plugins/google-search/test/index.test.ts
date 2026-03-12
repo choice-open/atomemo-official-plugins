@@ -4,6 +4,7 @@ import { describe, expect, it, type Mock, vi } from "vitest"
 vi.mock("@choiceopen/atomemo-plugin-sdk-js", () => ({
   createPlugin: vi.fn().mockResolvedValue({
     addTool: vi.fn(),
+    addCredential: vi.fn(),
     run: vi.fn(),
   }),
 }))
@@ -22,61 +23,70 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
 }))
 
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import { demoTool } from "../src/tools/demo"
+import { googleSearchApiCredential } from "../src/credentials/google-search-api"
+import { googleSearchTool } from "../src/tools/google-search"
 
-describe("demo plugin", () => {
+describe("google-search plugin", () => {
   describe("plugin initialization", () => {
     it("should create a plugin instance with correct properties", async () => {
       const plugin = await createPlugin({
-        name: "demo-plugin",
-        display_name: { en_US: "Demo Plugin" },
-        description: { en_US: "A demo plugin" },
-        icon: "🎛️",
+        name: "google-search",
+        display_name: { en_US: "Google Search" },
+        description: {
+          en_US: "Search the web using Google Custom Search JSON API",
+        },
+        icon: "🔍",
         lang: "typescript",
-        version: "0.5.0",
-        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
+        version: "0.1.0",
+        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/google-search",
         locales: ["en-US"],
         transporterOptions: {},
       })
 
       expect(plugin).toBeDefined()
       expect(plugin.addTool).toBeDefined()
+      expect(plugin.addCredential).toBeDefined()
       expect(typeof plugin.addTool).toBe("function")
+      expect(typeof plugin.addCredential).toBe("function")
       expect(plugin.run).toBeDefined()
       expect(typeof plugin.run).toBe("function")
     })
 
-    it("should call all initialization methods when imported", async () => {
-      // Create mock plugin methods
+    it("should call addCredential and addTool when imported", async () => {
+      const addCredential = vi.fn()
       const addTool = vi.fn()
       const run = vi.fn()
 
-      // Replace the mock implementation
       const createPluginMock = createPlugin as Mock
       createPluginMock.mockResolvedValueOnce({
+        addCredential,
         addTool,
         run,
       })
 
-      // Dynamically import the plugin to trigger initialization
       await import("../src/index")
 
-      // Verify all methods were called
       expect(createPluginMock).toHaveBeenCalled()
-      expect(addTool).toHaveBeenCalledWith(demoTool)
+      expect(addCredential).toHaveBeenCalledWith(googleSearchApiCredential)
+      expect(addTool).toHaveBeenCalledWith(googleSearchTool)
       expect(run).toHaveBeenCalled()
     })
   })
 
-  describe("demo tool", () => {
+  describe("google search tool", () => {
     it("should have correct properties", () => {
-      expect(demoTool).toEqual(
+      expect(googleSearchTool).toEqual(
         expect.objectContaining({
-          name: "demo-tool",
-          icon: "🧰",
+          name: "google-search",
+          icon: "🔍",
           parameters: expect.arrayContaining([
             expect.objectContaining({
-              name: "location",
+              name: "api_credential",
+              type: "credential_id",
+              required: true,
+            }),
+            expect.objectContaining({
+              name: "query",
               type: "string",
               required: true,
             }),
@@ -85,16 +95,15 @@ describe("demo plugin", () => {
       )
     })
 
-    it("should return correct message when invoked", async () => {
-      const location = "Beijing"
-      const result = await demoTool.invoke({
-        args: { parameters: { location } },
-      })
-
-      expect(result).toEqual(
-        expect.objectContaining({
-          message: `Testing the plugin with location: ${location}`,
+    it("should throw when credential is missing", async () => {
+      await expect(
+        googleSearchTool.invoke({
+          args: {
+            parameters: { query: "test", num: 5 },
+            credentials: {},
+          },
         }),
-      )
+      ).rejects.toThrow("Google Search requires a valid API credential")
     })
   })
+})
