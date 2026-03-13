@@ -1,16 +1,60 @@
-import type { Property, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { FileRef, Property, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME } from "../credentials/google-drive-oauth2"
 import { t } from "../i18n/i18n-node"
+import { googleDriveRequest } from "../transport"
 
-type ParameterNames = "temp_url"
+type GoogleDriveOAuthCredential = {
+  access_token?: string
+}
+
+/** Default export MIME types for Google Workspace native types (aligned with n8n). */
+const GOOGLE_EXPORT_MIMES: Record<string, string> = {
+  document: "text/html",
+  spreadsheet: "text/csv",
+  presentation:
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  drawing: "image/jpeg",
+}
+
+type ParameterNames = "credential_id" | "file_id"
 
 const parameters: Array<Property<ParameterNames>> = [
   {
-    name: "temp_url",
+    name: "credential_id",
+    type: "credential_id",
+    required: true,
+    display_name: t("PARAM_CREDENTIAL_LABEL"),
+    credential_name: GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME,
+    ui: { component: "credential-select" },
+  },
+  {
+    name: "file_id",
     type: "string",
     required: true,
-    display_name: t("DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL"),
+    display_name: t("DOWNLOAD_FILE_PARAM_FILE_ID_LABEL"),
+    ui: {
+      component: "input",
+      hint: t("DOWNLOAD_FILE_PARAM_FILE_ID_HINT"),
+      placeholder: t("DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER"),
+      support_expression: true,
+      width: "full",
+    },
   },
 ]
+
+function getAccessToken(cred: GoogleDriveOAuthCredential): string {
+  if (typeof cred.access_token !== "string" || cred.access_token.length === 0) {
+    throw new Error("Google Drive credential missing access_token")
+  }
+  return cred.access_token
+}
+
+function extensionFromFilename(filename: string): string | null {
+  const parts = filename.split(".")
+  if (parts.length < 2) return null
+  const ext = (parts.pop() ?? "").toLowerCase()
+  return ext || null
+}
 
 export const downloadAFileTool: ToolDefinition = {
   name: "google-drive-download-file",
@@ -19,45 +63,112 @@ export const downloadAFileTool: ToolDefinition = {
   icon: "⬇️",
   parameters,
   invoke: async ({ args, context }) => {
-    // const p = (args.parameters ?? {}) as Record<string, unknown>
-    // const tempUrl = typeof p.temp_url === "string" ? p.temp_url.trim() : ""
-    // if (!tempUrl) throw new Error("Missing temp_url")
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId =
+      typeof p.credential_id === "string" ? p.credential_id.trim() : undefined
+    if (!credentialId) throw new Error("Missing credential_id")
 
-    // const res = await fetch(tempUrl)
-    // if (!res.ok) {
-    //   throw new Error(
-    //     `Failed to download file from URL (HTTP ${res.status}): ${tempUrl}`,
-    //   )
-    // }
-
-    // const arrayBuffer = await res.arrayBuffer()
-    // const bytes = new Uint8Array(arrayBuffer)
-    // const contentBase64 = Buffer.from(bytes).toString("base64")
-
-    // const urlObj = new URL(tempUrl)
-    // const pathSegments = urlObj.pathname.split("/").filter(Boolean)
-    // const filename = pathSegments.pop() ?? "download"
-    // const parts = filename.split(".")
-    // const extension =
-    //   parts.length > 1 ? (parts.pop() ?? "").toLowerCase() || null : null
-    // const mimeType =
-    //   res.headers.get("content-type")?.split(";")[0]?.trim() ??
-    //   "application/octet-stream"
-
-    // const fileRef: FileRef = {
-    //   __type__: "file_ref" as const,
-    //   source: "mem" as const,
-    //   filename,
-    //   content: contentBase64,
-    //   mime_type: mimeType,
-    //   extension,
-    //   size: bytes.length,
-    // }
-
-    // const uploadResult = await context.files.upload(fileRef, {})
-    // console.log(uploadResult)
-    return {
-      a: 2
+    const credentials = args.credentials ?? {}
+    const cred = credentials[credentialId] as
+      | GoogleDriveOAuthCredential
+      | undefined
+    if (!cred) {
+      throw new Error(
+        "Google Drive credential not found. Please select a valid credential.",
+      )
     }
+
+    const fileId = typeof p.file_id === "string" ? p.file_id.trim() : ""
+    if (!fileId) throw new Error("Missing file_id")
+
+    const accessToken = getAccessToken(cred)
+
+    // 1. Get file metadata (mimeType, name)
+    const metaRes = await googleDriveRequest(
+      accessToken,
+      "GET",
+      "/drive/v3/files/" + encodeURIComponent(fileId),
+      {
+        qs: {
+          fields: "mimeType,name",
+          supportsTeamDrives: true,
+          supportsAllDrives: true,
+        },
+      },
+    )
+    if (!metaRes.ok) {
+      const errText = await metaRes.text().catch(() => "")
+      throw new Error(
+        `Google Drive metadata failed (HTTP ${metaRes.status}). ${errText}`,
+      )
+    }
+    const file = (await metaRes.json()) as { mimeType?: string; name?: string }
+    const mimeType = file.mimeType ?? ""
+    const name = file.name ?? "download"
+
+    let res: Response
+    if (mimeType.includes("vnd.google-apps")) {
+      // 2a. Google Workspace native file → export with conversion
+      const typePart = mimeType.split(".").pop() ?? ""
+      const exportMime =
+        GOOGLE_EXPORT_MIMES[typePart] ?? "application/octet-stream"
+      res = await googleDriveRequest(
+        accessToken,
+        "GET",
+        "/drive/v3/files/" + encodeURIComponent(fileId) + "/export",
+        {
+          qs: {
+            mimeType: exportMime,
+            supportsAllDrives: true,
+          },
+        },
+      )
+    } else {
+      // 2b. Regular file → alt=media
+      res = await googleDriveRequest(
+        accessToken,
+        "GET",
+        "/drive/v3/files/" + encodeURIComponent(fileId),
+        {
+          qs: {
+            alt: "media",
+            supportsAllDrives: true,
+          },
+        },
+      )
+    }
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "")
+      throw new Error(
+        `Google Drive download failed (HTTP ${res.status}). ${errText}`,
+      )
+    }
+
+    const arrayBuffer = await res.arrayBuffer()
+    const bytes = new Uint8Array(arrayBuffer)
+    const contentBase64 = Buffer.from(bytes).toString("base64")
+
+    const contentType =
+      (res.headers.get("content-type")?.split(";")[0]?.trim() ?? mimeType) ||
+      "application/octet-stream"
+    const filename = name
+    const extension = extensionFromFilename(filename)
+
+    const fileRef: FileRef = {
+      __type__: "file_ref",
+      source: "mem",
+      filename,
+      content: contentBase64,
+      mime_type: contentType,
+      extension,
+      size: bytes.length,
+      res_key: null,
+      remote_url: null
+    }
+    console.log("fileRef", fileRef)
+
+    const uploadResult = await context.files.upload(fileRef, { })
+    return uploadResult
   },
 }

@@ -2,7 +2,7 @@ import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import packageJSON from "../package.json"
 import { googleDriveOAuthCredential } from "./credentials"
 import { t } from "./i18n/i18n-node"
-import { uploadAFileTool } from "./tools"
+import { downloadAFileTool, uploadAFileTool } from "./tools"
 
 const locales = ["en-US", "zh-Hans"] as const
 
@@ -19,8 +19,7 @@ const plugin = await createPlugin({
 })
 
 plugin.addCredential(googleDriveOAuthCredential)
-// plugin.addTool(downloadAFileTool)
+plugin.addTool(downloadAFileTool)
 plugin.addTool(uploadAFileTool)
 
 plugin.run()
-

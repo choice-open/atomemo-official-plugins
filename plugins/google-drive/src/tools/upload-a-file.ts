@@ -156,7 +156,18 @@ export const uploadAFileTool: ToolDefinition = {
     const fileRef = context.files.parseFileRef(p.file)
     const downloaded = await context.files.download(fileRef)
 
-    const driveFileName = fileNameParam ?? downloaded.filename ?? "upload"
+    const originalFilename = downloaded.filename
+    let driveFileName = fileNameParam ?? originalFilename ?? "upload"
+
+    if (fileNameParam && originalFilename) {
+      const dotIndex = originalFilename.lastIndexOf(".")
+      if (dotIndex > 0 && dotIndex < originalFilename.length - 1) {
+        const ext = originalFilename.slice(dotIndex)
+        if (!fileNameParam.toLowerCase().endsWith(ext.toLowerCase())) {
+          driveFileName = `${fileNameParam}${ext}`
+        }
+      }
+    }
     const bytes = new Uint8Array(
       Buffer.from(downloaded.content ?? "", "base64"),
     )
