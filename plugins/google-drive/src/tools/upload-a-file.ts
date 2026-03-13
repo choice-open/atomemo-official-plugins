@@ -3,6 +3,7 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME } from "../credentials/google-drive-oauth2"
 import { setParentFolder } from "../helpers/utils"
 import { t } from "../i18n/i18n-node"
 import { googleDriveRequest } from "../transport"
@@ -27,7 +28,7 @@ const parameters: Array<Property<ParametersNames>> = [
     type: "credential_id",
     required: true,
     display_name: t("PARAM_CREDENTIAL_LABEL"),
-    credential_name: "google-drive-oauth-refresh-token",
+    credential_name: GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME,
     ui: { component: "credential-select" },
   },
   {
