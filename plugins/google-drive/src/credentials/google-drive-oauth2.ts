@@ -6,8 +6,10 @@ const AUTHORIZATION_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
 const TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
 const DEFAULT_SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
+export const GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME = "Google_Drive_OAuth2"
+
 export const googleDriveOAuth2Credential = {
-  name: "google-drive-oauth-refresh-token",
+  name: GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME,
   display_name: t("CREDENTIAL_DISPLAY_NAME"),
   oauth2: true,
   description: t("CREDENTIAL_DESCRIPTION"),

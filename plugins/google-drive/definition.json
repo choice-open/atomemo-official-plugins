@@ -17,10 +17,10 @@
   ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "credentials": [
     {
-      "name": "google-drive-oauth-refresh-token",
+      "name": "Google_Drive_OAuth2",
       "display_name": {
         "en_US": "Google Drive OAuth 2.0 (Refresh Token)",
         "zh_Hans": "Google Drive OAuth 2.0（刷新令牌）"
@@ -112,7 +112,7 @@
             "component": "credential-select"
           },
           "type": "credential_id",
-          "credential_name": "google-drive-oauth-refresh-token"
+          "credential_name": "Google_Drive_OAuth2"
         },
         {
           "name": "file",
