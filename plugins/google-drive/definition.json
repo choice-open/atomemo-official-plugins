@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "credentials": [
     {
       "name": "Google_Drive_OAuth2",
@@ -89,6 +89,55 @@
   ],
   "models": [],
   "tools": [
+    {
+      "name": "google-drive-download-file",
+      "display_name": {
+        "en_US": "Download File",
+        "zh_Hans": "下载文件"
+      },
+      "description": {
+        "en_US": "Download a file from Google Drive.",
+        "zh_Hans": "从 Google Drive 下载文件。"
+      },
+      "icon": "⬇️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Drive_OAuth2"
+        },
+        {
+          "name": "file_id",
+          "display_name": {
+            "en_US": "File ID",
+            "zh_Hans": "文件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The Google Drive file ID",
+              "zh_Hans": "Google Drive 文件 ID"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR",
+              "zh_Hans": "例如：1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
     {
       "name": "google-drive-upload-file",
       "display_name": {

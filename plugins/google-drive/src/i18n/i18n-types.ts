@@ -108,6 +108,14 @@ type RootTranslation = {
    */
   DOWNLOAD_FILE_PARAM_FILE_ID_LABEL: string
   /**
+   * T​h​e​ ​G​o​o​g​l​e​ ​D​r​i​v​e​ ​f​i​l​e​ ​I​D
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_HINT: string
+  /**
+   * e​.​g​.​ ​1​y​f​P​K​l​0​o​0​f​9​o​V​U​B​c​-​r​-​g​5​v​P​a​o​m​9​q​S​5​Q​d​R
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER: string
+  /**
    * T​e​m​p​o​r​a​r​y​ ​U​R​L
    */
   DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL: string
@@ -250,6 +258,14 @@ export type TranslationFunctions = {
    * File ID
    */
   DOWNLOAD_FILE_PARAM_FILE_ID_LABEL: () => LocalizedString
+  /**
+   * The Google Drive file ID
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_HINT: () => LocalizedString
+  /**
+   * e.g. 1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER: () => LocalizedString
   /**
    * Temporary URL
    */
