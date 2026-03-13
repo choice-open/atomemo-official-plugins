@@ -1,0 +1,195 @@
+{
+  "name": "google-drive",
+  "display_name": {
+    "en_US": "Google Drive",
+    "zh_Hans": "Google Drive"
+  },
+  "description": {
+    "en_US": "Access data on Google Drive.",
+    "zh_Hans": "访问 Google 云端硬盘上的数据。"
+  },
+  "icon": "symbol:icon-google-drive",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-drive",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "google-drive-oauth-refresh-token",
+      "display_name": {
+        "en_US": "Google Drive OAuth 2.0 (Refresh Token)",
+        "zh_Hans": "Google Drive OAuth 2.0（刷新令牌）"
+      },
+      "description": {
+        "en_US": "OAuth 2.0 credential for Google Drive using a refresh token (client ID/secret + refresh token).",
+        "zh_Hans": "用于 Google Drive 的 OAuth 2.0 凭证：Client ID/Secret + Refresh Token。"
+      },
+      "icon": "🔑",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Create OAuth 2.0 credentials at https://console.cloud.google.com",
+              "zh_Hans": "在 https://console.cloud.google.com 创建 OAuth 2.0 凭据。"
+            },
+            "placeholder": {
+              "en_US": "OAuth 2.0 Client ID from Google Cloud",
+              "zh_Hans": "来自 Google Cloud 的 OAuth 2.0 客户端 ID"
+            },
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Create OAuth 2.0 credentials at https://console.cloud.google.com",
+              "zh_Hans": "在 https://console.cloud.google.com 创建 OAuth 2.0 凭据。"
+            },
+            "placeholder": {
+              "en_US": "OAuth 2.0 Client Secret from Google Cloud",
+              "zh_Hans": "来自 Google Cloud 的 OAuth 2.0 客户端密钥"
+            },
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "google-drive-upload-file",
+      "display_name": {
+        "en_US": "Upload File",
+        "zh_Hans": "上传文件"
+      },
+      "description": {
+        "en_US": "Upload an existing file to Google Drive.",
+        "zh_Hans": "将现有文件上传到 Google Drive。"
+      },
+      "icon": "⬆️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-drive-oauth-refresh-token"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": true,
+          "type": "file_ref"
+        },
+        {
+          "name": "file_name",
+          "display_name": {
+            "en_US": "File Name",
+            "zh_Hans": "文件名"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If not specified, the original file name will be used.",
+              "zh_Hans": "如果未指定，将使用原始文件名。"
+            },
+            "placeholder": {
+              "en_US": "e.g. My New File",
+              "zh_Hans": "例如：我的新文件"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "drive_id",
+          "display_name": {
+            "en_US": "Parent Drive (optional)",
+            "zh_Hans": "父级云端硬盘（可选）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "The drive where to upload the file.",
+              "zh_Hans": "要将文件上传到的云端硬盘。"
+            },
+            "placeholder": {
+              "en_US": "0AxxxxxxxxxxxxxxxxxPVA",
+              "zh_Hans": "0AxxxxxxxxxxxxxxxxxPVA"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "folder_id",
+          "display_name": {
+            "en_US": "Parent Folder (optional)",
+            "zh_Hans": "父级文件夹（可选）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "The folder where to upload the file (takes precedence).",
+              "zh_Hans": "要将文件上传到的文件夹（优先级更高）。"
+            },
+            "placeholder": {
+              "en_US": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "zh_Hans": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
