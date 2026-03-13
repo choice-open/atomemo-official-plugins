@@ -1,4 +1,5 @@
 import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { hubFetch } from "../helpers/fetch"
 import { t } from "../i18n/i18n-node"
 
 const AUTHORIZATION_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
@@ -105,7 +106,7 @@ export const googleDriveOAuth2Credential = {
       grant_type: "authorization_code",
     })
 
-    const response = await fetch(TOKEN_ENDPOINT, {
+    const response = await hubFetch(TOKEN_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/x-www-form-urlencoded",
@@ -181,7 +182,7 @@ export const googleDriveOAuth2Credential = {
       grant_type: "refresh_token",
     })
 
-    const response = await fetch(TOKEN_ENDPOINT, {
+    const response = await hubFetch(TOKEN_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/x-www-form-urlencoded",

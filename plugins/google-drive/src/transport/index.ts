@@ -3,6 +3,8 @@
  * Single entry point for all Drive API requests: method + resource + body/qs/options.
  */
 
+import { hubFetch } from "../helpers/fetch"
+
 const GOOGLE_APIS_BASE = "https://www.googleapis.com"
 
 export type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
@@ -61,12 +63,9 @@ export async function googleDriveRequest(
           ? body
           : JSON.stringify(body)
 
-  const proxy = process.env.HUB_HTTP_PROXY || undefined
-
-  return fetch(url, {
+  return hubFetch(url, {
     method,
     headers,
     body: fetchBody,
-    proxy,
   })
 }
