@@ -16,11 +16,11 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * G​m​a​i​l
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * G​o​o​g​l​e​ ​G​m​a​i​l​ ​A​P​I​ ​p​l​u​g​i​n​ ​-​ ​r​e​a​d​,​ ​s​e​n​d​,​ ​a​n​d​ ​m​a​n​a​g​e​ ​e​m​a​i​l​s
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -43,15 +43,515 @@ type RootTranslation = {
    * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
    */
   LOCATION_PLACEHOLDER: string
+  /**
+   * G​m​a​i​l​ ​O​A​u​t​h
+   */
+  GMAIL_CREDENTIAL_DISPLAY_NAME: string
+  /**
+   * O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​s​ ​f​o​r​ ​G​m​a​i​l​ ​A​P​I​ ​a​c​c​e​s​s
+   */
+  GMAIL_CREDENTIAL_DESCRIPTION: string
+  /**
+   * A​c​c​e​s​s​ ​T​o​k​e​n
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_DISPLAY_NAME: string
+  /**
+   * O​A​u​t​h​ ​2​.​0​ ​a​c​c​e​s​s​ ​t​o​k​e​n​ ​(​g​e​t​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​O​A​u​t​h​ ​f​l​o​w​)
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_HINT: string
+  /**
+   * R​e​f​r​e​s​h​ ​T​o​k​e​n
+   */
+  GMAIL_CREDENTIAL_REFRESH_TOKEN_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​:​ ​f​o​r​ ​a​u​t​o​m​a​t​i​c​ ​t​o​k​e​n​ ​r​e​f​r​e​s​h
+   */
+  GMAIL_CREDENTIAL_REFRESH_TOKEN_HINT: string
+  /**
+   * C​l​i​e​n​t​ ​I​D
+   */
+  GMAIL_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​:​ ​O​A​u​t​h​ ​c​l​i​e​n​t​ ​I​D​ ​f​o​r​ ​t​o​k​e​n​ ​r​e​f​r​e​s​h
+   */
+  GMAIL_CREDENTIAL_CLIENT_ID_HINT: string
+  /**
+   * C​l​i​e​n​t​ ​S​e​c​r​e​t
+   */
+  GMAIL_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​:​ ​O​A​u​t​h​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​o​r​ ​t​o​k​e​n​ ​r​e​f​r​e​s​h
+   */
+  GMAIL_CREDENTIAL_CLIENT_SECRET_HINT: string
+  /**
+   * M​i​s​s​i​n​g​ ​G​m​a​i​l​ ​c​r​e​d​e​n​t​i​a​l​.​ ​P​l​e​a​s​e​ ​c​o​n​f​i​g​u​r​e​ ​G​m​a​i​l​ ​O​A​u​t​h​ ​c​r​e​d​e​n​t​i​a​l​.
+   */
+  GMAIL_ERROR_MISSING_CREDENTIAL: string
+  /**
+   * G​m​a​i​l​ ​C​r​e​d​e​n​t​i​a​l
+   */
+  GMAIL_PARAM_CREDENTIAL_LABEL: string
+  /**
+   * U​s​e​r​ ​I​D
+   */
+  GMAIL_PARAM_USER_ID_LABEL: string
+  /**
+   * U​s​e​ ​'​m​e​'​ ​f​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​e​d​ ​u​s​e​r
+   */
+  GMAIL_PARAM_USER_ID_HINT: string
+  /**
+   * M​e​s​s​a​g​e​ ​I​D
+   */
+  GMAIL_PARAM_MESSAGE_ID_LABEL: string
+  /**
+   * G​m​a​i​l​ ​m​e​s​s​a​g​e​ ​I​D
+   */
+  GMAIL_PARAM_MESSAGE_ID_HINT: string
+  /**
+   * M​e​s​s​a​g​e​ ​I​D​s
+   */
+  GMAIL_PARAM_MESSAGE_IDS_LABEL: string
+  /**
+   * L​i​s​t​ ​o​f​ ​m​e​s​s​a​g​e​ ​I​D​s
+   */
+  GMAIL_PARAM_MESSAGE_IDS_HINT: string
+  /**
+   * T​h​r​e​a​d​ ​I​D
+   */
+  GMAIL_PARAM_THREAD_ID_LABEL: string
+  /**
+   * L​a​b​e​l​ ​I​D
+   */
+  GMAIL_PARAM_LABEL_ID_LABEL: string
+  /**
+   * L​a​b​e​l​ ​I​D​s
+   */
+  GMAIL_PARAM_LABEL_IDS_LABEL: string
+  /**
+   * F​i​l​t​e​r​ ​b​y​ ​l​a​b​e​l​ ​I​D​s​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​E​N​T​)
+   */
+  GMAIL_PARAM_LABEL_IDS_HINT: string
+  /**
+   * A​d​d​ ​L​a​b​e​l​ ​I​D​s
+   */
+  GMAIL_PARAM_ADD_LABEL_IDS_LABEL: string
+  /**
+   * L​a​b​e​l​s​ ​t​o​ ​a​d​d
+   */
+  GMAIL_PARAM_ADD_LABEL_IDS_HINT: string
+  /**
+   * R​e​m​o​v​e​ ​L​a​b​e​l​ ​I​D​s
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL: string
+  /**
+   * L​a​b​e​l​s​ ​t​o​ ​r​e​m​o​v​e
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: string
+  /**
+   * D​r​a​f​t​ ​I​D
+   */
+  GMAIL_PARAM_DRAFT_ID_LABEL: string
+  /**
+   * A​t​t​a​c​h​m​e​n​t​ ​I​D
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_LABEL: string
+  /**
+   * M​a​x​ ​R​e​s​u​l​t​s
+   */
+  GMAIL_PARAM_MAX_RESULTS_LABEL: string
+  /**
+   * P​a​g​e​ ​T​o​k​e​n
+   */
+  GMAIL_PARAM_PAGE_TOKEN_LABEL: string
+  /**
+   * S​e​a​r​c​h​ ​Q​u​e​r​y
+   */
+  GMAIL_PARAM_QUERY_LABEL: string
+  /**
+   * G​m​a​i​l​ ​s​e​a​r​c​h​ ​s​y​n​t​a​x​ ​(​e​.​g​.​ ​i​s​:​u​n​r​e​a​d​ ​f​r​o​m​:​u​s​e​r​@​e​x​a​m​p​l​e​.​c​o​m​)
+   */
+  GMAIL_PARAM_QUERY_HINT: string
+  /**
+   * i​s​:​u​n​r​e​a​d​ ​f​r​o​m​:​e​x​a​m​p​l​e​@​g​m​a​i​l​.​c​o​m
+   */
+  GMAIL_PARAM_QUERY_PLACEHOLDER: string
+  /**
+   * y​a​2​9​.
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_PLACEHOLDER: string
+  /**
+   * S​t​a​r​t​ ​H​i​s​t​o​r​y​ ​I​D
+   */
+  GMAIL_PARAM_START_HISTORY_ID_LABEL: string
+  /**
+   * R​e​t​u​r​n​ ​h​i​s​t​o​r​y​ ​r​e​c​o​r​d​s​ ​a​f​t​e​r​ ​t​h​i​s​ ​I​D
+   */
+  GMAIL_PARAM_START_HISTORY_ID_HINT: string
+  /**
+   * T​o​p​i​c​ ​N​a​m​e
+   */
+  GMAIL_PARAM_TOPIC_NAME_LABEL: string
+  /**
+   * C​l​o​u​d​ ​P​u​b​/​S​u​b​ ​t​o​p​i​c​ ​f​o​r​ ​p​u​s​h​ ​n​o​t​i​f​i​c​a​t​i​o​n​s
+   */
+  GMAIL_PARAM_TOPIC_NAME_HINT: string
+  /**
+   * p​r​o​j​e​c​t​s​/​m​y​-​p​r​o​j​e​c​t​/​t​o​p​i​c​s​/​g​m​a​i​l​-​n​o​t​i​f​i​c​a​t​i​o​n​s
+   */
+  GMAIL_PARAM_TOPIC_PLACEHOLDER: string
+  /**
+   * T​o
+   */
+  GMAIL_PARAM_TO_LABEL: string
+  /**
+   * R​e​c​i​p​i​e​n​t​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​(​e​s​)
+   */
+  GMAIL_PARAM_TO_HINT: string
+  /**
+   * r​e​c​i​p​i​e​n​t​@​e​x​a​m​p​l​e​.​c​o​m
+   */
+  GMAIL_PARAM_TO_PLACEHOLDER: string
+  /**
+   * S​u​b​j​e​c​t
+   */
+  GMAIL_PARAM_SUBJECT_LABEL: string
+  /**
+   * B​o​d​y
+   */
+  GMAIL_PARAM_BODY_LABEL: string
+  /**
+   * E​m​a​i​l​ ​c​o​n​t​e​n​t​ ​(​H​T​M​L​ ​s​u​p​p​o​r​t​e​d​)
+   */
+  GMAIL_PARAM_BODY_PLACEHOLDER: string
+  /**
+   * C​c
+   */
+  GMAIL_PARAM_CC_LABEL: string
+  /**
+   * B​c​c
+   */
+  GMAIL_PARAM_BCC_LABEL: string
+  /**
+   * L​a​b​e​l​ ​N​a​m​e
+   */
+  GMAIL_PARAM_LABEL_NAME_LABEL: string
+  /**
+   * E​n​a​b​l​e​ ​A​u​t​o​ ​R​e​p​l​y
+   */
+  GMAIL_PARAM_ENABLE_AUTO_REPLY_LABEL: string
+  /**
+   * R​e​s​p​o​n​s​e​ ​S​u​b​j​e​c​t
+   */
+  GMAIL_PARAM_RESPONSE_SUBJECT_LABEL: string
+  /**
+   * R​e​s​p​o​n​s​e​ ​B​o​d​y
+   */
+  GMAIL_PARAM_RESPONSE_BODY_LABEL: string
+  /**
+   * R​e​s​t​r​i​c​t​ ​t​o​ ​C​o​n​t​a​c​t​s
+   */
+  GMAIL_PARAM_RESTRICT_TO_CONTACTS_LABEL: string
+  /**
+   * R​e​s​t​r​i​c​t​ ​t​o​ ​D​o​m​a​i​n
+   */
+  GMAIL_PARAM_RESTRICT_TO_DOMAIN_LABEL: string
+  /**
+   * G​e​t​ ​P​r​o​f​i​l​e
+   */
+  GMAIL_TOOL_GET_PROFILE_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​c​u​r​r​e​n​t​ ​u​s​e​r​'​s​ ​G​m​a​i​l​ ​p​r​o​f​i​l​e
+   */
+  GMAIL_TOOL_GET_PROFILE_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​M​e​s​s​a​g​e​s
+   */
+  GMAIL_TOOL_LIST_MESSAGES_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​m​e​s​s​a​g​e​s​ ​i​n​ ​u​s​e​r​'​s​ ​m​a​i​l​b​o​x
+   */
+  GMAIL_TOOL_LIST_MESSAGES_DESCRIPTION: string
+  /**
+   * G​e​t​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_GET_MESSAGE_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​s​i​n​g​l​e​ ​m​e​s​s​a​g​e​ ​b​y​ ​I​D
+   */
+  GMAIL_TOOL_GET_MESSAGE_DESCRIPTION: string
+  /**
+   * S​e​n​d​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_SEND_MESSAGE_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​a​n​ ​e​m​a​i​l​ ​m​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_SEND_MESSAGE_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_DELETE_MESSAGE_DISPLAY_NAME: string
+  /**
+   * P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​a​ ​m​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_DELETE_MESSAGE_DESCRIPTION: string
+  /**
+   * T​r​a​s​h​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_TRASH_MESSAGE_DISPLAY_NAME: string
+  /**
+   * M​o​v​e​ ​m​e​s​s​a​g​e​ ​t​o​ ​t​r​a​s​h
+   */
+  GMAIL_TOOL_TRASH_MESSAGE_DESCRIPTION: string
+  /**
+   * U​n​t​r​a​s​h​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_UNTRASH_MESSAGE_DISPLAY_NAME: string
+  /**
+   * R​e​m​o​v​e​ ​m​e​s​s​a​g​e​ ​f​r​o​m​ ​t​r​a​s​h
+   */
+  GMAIL_TOOL_UNTRASH_MESSAGE_DESCRIPTION: string
+  /**
+   * M​o​d​i​f​y​ ​M​e​s​s​a​g​e
+   */
+  GMAIL_TOOL_MODIFY_MESSAGE_DISPLAY_NAME: string
+  /**
+   * M​o​d​i​f​y​ ​m​e​s​s​a​g​e​ ​l​a​b​e​l​s
+   */
+  GMAIL_TOOL_MODIFY_MESSAGE_DESCRIPTION: string
+  /**
+   * B​a​t​c​h​ ​M​o​d​i​f​y​ ​M​e​s​s​a​g​e​s
+   */
+  GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DISPLAY_NAME: string
+  /**
+   * M​o​d​i​f​y​ ​l​a​b​e​l​s​ ​o​n​ ​m​u​l​t​i​p​l​e​ ​m​e​s​s​a​g​e​s
+   */
+  GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DESCRIPTION: string
+  /**
+   * B​a​t​c​h​ ​D​e​l​e​t​e​ ​M​e​s​s​a​g​e​s
+   */
+  GMAIL_TOOL_BATCH_DELETE_MESSAGES_DISPLAY_NAME: string
+  /**
+   * P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​m​u​l​t​i​p​l​e​ ​m​e​s​s​a​g​e​s
+   */
+  GMAIL_TOOL_BATCH_DELETE_MESSAGES_DESCRIPTION: string
+  /**
+   * G​e​t​ ​A​t​t​a​c​h​m​e​n​t
+   */
+  GMAIL_TOOL_GET_ATTACHMENT_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​m​e​s​s​a​g​e​ ​a​t​t​a​c​h​m​e​n​t
+   */
+  GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​D​r​a​f​t​s
+   */
+  GMAIL_TOOL_LIST_DRAFTS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​d​r​a​f​t​s​ ​i​n​ ​m​a​i​l​b​o​x
+   */
+  GMAIL_TOOL_LIST_DRAFTS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​D​r​a​f​t
+   */
+  GMAIL_TOOL_GET_DRAFT_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​d​r​a​f​t​ ​b​y​ ​I​D
+   */
+  GMAIL_TOOL_GET_DRAFT_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​D​r​a​f​t
+   */
+  GMAIL_TOOL_CREATE_DRAFT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​e​m​a​i​l​ ​d​r​a​f​t
+   */
+  GMAIL_TOOL_CREATE_DRAFT_DESCRIPTION: string
+  /**
+   * S​e​n​d​ ​D​r​a​f​t
+   */
+  GMAIL_TOOL_SEND_DRAFT_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​a​n​ ​e​x​i​s​t​i​n​g​ ​d​r​a​f​t
+   */
+  GMAIL_TOOL_SEND_DRAFT_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​D​r​a​f​t
+   */
+  GMAIL_TOOL_DELETE_DRAFT_DISPLAY_NAME: string
+  /**
+   * P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​a​ ​d​r​a​f​t
+   */
+  GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​L​a​b​e​l​s
+   */
+  GMAIL_TOOL_LIST_LABELS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​a​l​l​ ​l​a​b​e​l​s​ ​i​n​ ​m​a​i​l​b​o​x
+   */
+  GMAIL_TOOL_LIST_LABELS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​L​a​b​e​l
+   */
+  GMAIL_TOOL_GET_LABEL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​l​a​b​e​l​ ​b​y​ ​I​D
+   */
+  GMAIL_TOOL_GET_LABEL_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​L​a​b​e​l
+   */
+  GMAIL_TOOL_CREATE_LABEL_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​l​a​b​e​l
+   */
+  GMAIL_TOOL_CREATE_LABEL_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​L​a​b​e​l
+   */
+  GMAIL_TOOL_UPDATE_LABEL_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​l​a​b​e​l
+   */
+  GMAIL_TOOL_UPDATE_LABEL_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​L​a​b​e​l
+   */
+  GMAIL_TOOL_DELETE_LABEL_DISPLAY_NAME: string
+  /**
+   * P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​a​ ​l​a​b​e​l
+   */
+  GMAIL_TOOL_DELETE_LABEL_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​T​h​r​e​a​d​s
+   */
+  GMAIL_TOOL_LIST_THREADS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​t​h​r​e​a​d​s​ ​i​n​ ​m​a​i​l​b​o​x
+   */
+  GMAIL_TOOL_LIST_THREADS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​T​h​r​e​a​d
+   */
+  GMAIL_TOOL_GET_THREAD_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​t​h​r​e​a​d​ ​b​y​ ​I​D
+   */
+  GMAIL_TOOL_GET_THREAD_DESCRIPTION: string
+  /**
+   * M​o​d​i​f​y​ ​T​h​r​e​a​d
+   */
+  GMAIL_TOOL_MODIFY_THREAD_DISPLAY_NAME: string
+  /**
+   * M​o​d​i​f​y​ ​t​h​r​e​a​d​ ​l​a​b​e​l​s
+   */
+  GMAIL_TOOL_MODIFY_THREAD_DESCRIPTION: string
+  /**
+   * T​r​a​s​h​ ​T​h​r​e​a​d
+   */
+  GMAIL_TOOL_TRASH_THREAD_DISPLAY_NAME: string
+  /**
+   * M​o​v​e​ ​t​h​r​e​a​d​ ​t​o​ ​t​r​a​s​h
+   */
+  GMAIL_TOOL_TRASH_THREAD_DESCRIPTION: string
+  /**
+   * U​n​t​r​a​s​h​ ​T​h​r​e​a​d
+   */
+  GMAIL_TOOL_UNTRASH_THREAD_DISPLAY_NAME: string
+  /**
+   * R​e​m​o​v​e​ ​t​h​r​e​a​d​ ​f​r​o​m​ ​t​r​a​s​h
+   */
+  GMAIL_TOOL_UNTRASH_THREAD_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​T​h​r​e​a​d
+   */
+  GMAIL_TOOL_DELETE_THREAD_DISPLAY_NAME: string
+  /**
+   * P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​a​ ​t​h​r​e​a​d
+   */
+  GMAIL_TOOL_DELETE_THREAD_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​H​i​s​t​o​r​y
+   */
+  GMAIL_TOOL_LIST_HISTORY_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​m​a​i​l​b​o​x​ ​c​h​a​n​g​e​ ​h​i​s​t​o​r​y
+   */
+  GMAIL_TOOL_LIST_HISTORY_DESCRIPTION: string
+  /**
+   * W​a​t​c​h​ ​M​a​i​l​b​o​x
+   */
+  GMAIL_TOOL_WATCH_DISPLAY_NAME: string
+  /**
+   * S​e​t​ ​u​p​ ​p​u​s​h​ ​n​o​t​i​f​i​c​a​t​i​o​n​s​ ​f​o​r​ ​m​a​i​l​b​o​x​ ​c​h​a​n​g​e​s
+   */
+  GMAIL_TOOL_WATCH_DESCRIPTION: string
+  /**
+   * S​t​o​p​ ​W​a​t​c​h
+   */
+  GMAIL_TOOL_STOP_DISPLAY_NAME: string
+  /**
+   * S​t​o​p​ ​p​u​s​h​ ​n​o​t​i​f​i​c​a​t​i​o​n​s
+   */
+  GMAIL_TOOL_STOP_DESCRIPTION: string
+  /**
+   * G​e​t​ ​V​a​c​a​t​i​o​n​ ​R​e​s​p​o​n​d​e​r
+   */
+  GMAIL_TOOL_GET_VACATION_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​v​a​c​a​t​i​o​n​/​o​u​t​-​o​f​-​o​f​f​i​c​e​ ​s​e​t​t​i​n​g​s
+   */
+  GMAIL_TOOL_GET_VACATION_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​V​a​c​a​t​i​o​n​ ​R​e​s​p​o​n​d​e​r
+   */
+  GMAIL_TOOL_UPDATE_VACATION_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​v​a​c​a​t​i​o​n​ ​a​u​t​o​-​r​e​p​l​y​ ​s​e​t​t​i​n​g​s
+   */
+  GMAIL_TOOL_UPDATE_VACATION_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​D​e​l​e​g​a​t​e​s
+   */
+  GMAIL_TOOL_LIST_DELEGATES_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​a​c​c​o​u​n​t​ ​d​e​l​e​g​a​t​e​s
+   */
+  GMAIL_TOOL_LIST_DELEGATES_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​F​i​l​t​e​r​s
+   */
+  GMAIL_TOOL_LIST_FILTERS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​m​e​s​s​a​g​e​ ​f​i​l​t​e​r​s
+   */
+  GMAIL_TOOL_LIST_FILTERS_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​S​e​n​d​-​A​s​ ​A​l​i​a​s​e​s
+   */
+  GMAIL_TOOL_LIST_SEND_AS_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​s​e​n​d​-​a​s​ ​e​m​a​i​l​ ​a​l​i​a​s​e​s
+   */
+  GMAIL_TOOL_LIST_SEND_AS_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​F​o​r​w​a​r​d​i​n​g​ ​A​d​d​r​e​s​s​e​s
+   */
+  GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​f​o​r​w​a​r​d​i​n​g​ ​a​d​d​r​e​s​s​e​s
+   */
+  GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DESCRIPTION: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Gmail
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Google Gmail API plugin - read, send, and manage emails
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
@@ -74,6 +574,506 @@ export type TranslationFunctions = {
    * Enter the location to test
    */
   LOCATION_PLACEHOLDER: () => LocalizedString
+  /**
+   * Gmail OAuth
+   */
+  GMAIL_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * OAuth 2.0 credentials for Gmail API access
+   */
+  GMAIL_CREDENTIAL_DESCRIPTION: () => LocalizedString
+  /**
+   * Access Token
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_DISPLAY_NAME: () => LocalizedString
+  /**
+   * OAuth 2.0 access token (get from Google OAuth flow)
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_HINT: () => LocalizedString
+  /**
+   * Refresh Token
+   */
+  GMAIL_CREDENTIAL_REFRESH_TOKEN_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional: for automatic token refresh
+   */
+  GMAIL_CREDENTIAL_REFRESH_TOKEN_HINT: () => LocalizedString
+  /**
+   * Client ID
+   */
+  GMAIL_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional: OAuth client ID for token refresh
+   */
+  GMAIL_CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
+  /**
+   * Client Secret
+   */
+  GMAIL_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional: OAuth client secret for token refresh
+   */
+  GMAIL_CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * Missing Gmail credential. Please configure Gmail OAuth credential.
+   */
+  GMAIL_ERROR_MISSING_CREDENTIAL: () => LocalizedString
+  /**
+   * Gmail Credential
+   */
+  GMAIL_PARAM_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * User ID
+   */
+  GMAIL_PARAM_USER_ID_LABEL: () => LocalizedString
+  /**
+   * Use 'me' for authenticated user
+   */
+  GMAIL_PARAM_USER_ID_HINT: () => LocalizedString
+  /**
+   * Message ID
+   */
+  GMAIL_PARAM_MESSAGE_ID_LABEL: () => LocalizedString
+  /**
+   * Gmail message ID
+   */
+  GMAIL_PARAM_MESSAGE_ID_HINT: () => LocalizedString
+  /**
+   * Message IDs
+   */
+  GMAIL_PARAM_MESSAGE_IDS_LABEL: () => LocalizedString
+  /**
+   * List of message IDs
+   */
+  GMAIL_PARAM_MESSAGE_IDS_HINT: () => LocalizedString
+  /**
+   * Thread ID
+   */
+  GMAIL_PARAM_THREAD_ID_LABEL: () => LocalizedString
+  /**
+   * Label ID
+   */
+  GMAIL_PARAM_LABEL_ID_LABEL: () => LocalizedString
+  /**
+   * Label IDs
+   */
+  GMAIL_PARAM_LABEL_IDS_LABEL: () => LocalizedString
+  /**
+   * Filter by label IDs (e.g. INBOX, SENT)
+   */
+  GMAIL_PARAM_LABEL_IDS_HINT: () => LocalizedString
+  /**
+   * Add Label IDs
+   */
+  GMAIL_PARAM_ADD_LABEL_IDS_LABEL: () => LocalizedString
+  /**
+   * Labels to add
+   */
+  GMAIL_PARAM_ADD_LABEL_IDS_HINT: () => LocalizedString
+  /**
+   * Remove Label IDs
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL: () => LocalizedString
+  /**
+   * Labels to remove
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: () => LocalizedString
+  /**
+   * Draft ID
+   */
+  GMAIL_PARAM_DRAFT_ID_LABEL: () => LocalizedString
+  /**
+   * Attachment ID
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_LABEL: () => LocalizedString
+  /**
+   * Max Results
+   */
+  GMAIL_PARAM_MAX_RESULTS_LABEL: () => LocalizedString
+  /**
+   * Page Token
+   */
+  GMAIL_PARAM_PAGE_TOKEN_LABEL: () => LocalizedString
+  /**
+   * Search Query
+   */
+  GMAIL_PARAM_QUERY_LABEL: () => LocalizedString
+  /**
+   * Gmail search syntax (e.g. is:unread from:user@example.com)
+   */
+  GMAIL_PARAM_QUERY_HINT: () => LocalizedString
+  /**
+   * is:unread from:example@gmail.com
+   */
+  GMAIL_PARAM_QUERY_PLACEHOLDER: () => LocalizedString
+  /**
+   * ya29.
+   */
+  GMAIL_CREDENTIAL_ACCESS_TOKEN_PLACEHOLDER: () => LocalizedString
+  /**
+   * Start History ID
+   */
+  GMAIL_PARAM_START_HISTORY_ID_LABEL: () => LocalizedString
+  /**
+   * Return history records after this ID
+   */
+  GMAIL_PARAM_START_HISTORY_ID_HINT: () => LocalizedString
+  /**
+   * Topic Name
+   */
+  GMAIL_PARAM_TOPIC_NAME_LABEL: () => LocalizedString
+  /**
+   * Cloud Pub/Sub topic for push notifications
+   */
+  GMAIL_PARAM_TOPIC_NAME_HINT: () => LocalizedString
+  /**
+   * projects/my-project/topics/gmail-notifications
+   */
+  GMAIL_PARAM_TOPIC_PLACEHOLDER: () => LocalizedString
+  /**
+   * To
+   */
+  GMAIL_PARAM_TO_LABEL: () => LocalizedString
+  /**
+   * Recipient email address(es)
+   */
+  GMAIL_PARAM_TO_HINT: () => LocalizedString
+  /**
+   * recipient@example.com
+   */
+  GMAIL_PARAM_TO_PLACEHOLDER: () => LocalizedString
+  /**
+   * Subject
+   */
+  GMAIL_PARAM_SUBJECT_LABEL: () => LocalizedString
+  /**
+   * Body
+   */
+  GMAIL_PARAM_BODY_LABEL: () => LocalizedString
+  /**
+   * Email content (HTML supported)
+   */
+  GMAIL_PARAM_BODY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Cc
+   */
+  GMAIL_PARAM_CC_LABEL: () => LocalizedString
+  /**
+   * Bcc
+   */
+  GMAIL_PARAM_BCC_LABEL: () => LocalizedString
+  /**
+   * Label Name
+   */
+  GMAIL_PARAM_LABEL_NAME_LABEL: () => LocalizedString
+  /**
+   * Enable Auto Reply
+   */
+  GMAIL_PARAM_ENABLE_AUTO_REPLY_LABEL: () => LocalizedString
+  /**
+   * Response Subject
+   */
+  GMAIL_PARAM_RESPONSE_SUBJECT_LABEL: () => LocalizedString
+  /**
+   * Response Body
+   */
+  GMAIL_PARAM_RESPONSE_BODY_LABEL: () => LocalizedString
+  /**
+   * Restrict to Contacts
+   */
+  GMAIL_PARAM_RESTRICT_TO_CONTACTS_LABEL: () => LocalizedString
+  /**
+   * Restrict to Domain
+   */
+  GMAIL_PARAM_RESTRICT_TO_DOMAIN_LABEL: () => LocalizedString
+  /**
+   * Get Profile
+   */
+  GMAIL_TOOL_GET_PROFILE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get current user's Gmail profile
+   */
+  GMAIL_TOOL_GET_PROFILE_DESCRIPTION: () => LocalizedString
+  /**
+   * List Messages
+   */
+  GMAIL_TOOL_LIST_MESSAGES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List messages in user's mailbox
+   */
+  GMAIL_TOOL_LIST_MESSAGES_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Message
+   */
+  GMAIL_TOOL_GET_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a single message by ID
+   */
+  GMAIL_TOOL_GET_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Send Message
+   */
+  GMAIL_TOOL_SEND_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send an email message
+   */
+  GMAIL_TOOL_SEND_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Message
+   */
+  GMAIL_TOOL_DELETE_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Permanently delete a message
+   */
+  GMAIL_TOOL_DELETE_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Trash Message
+   */
+  GMAIL_TOOL_TRASH_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Move message to trash
+   */
+  GMAIL_TOOL_TRASH_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Untrash Message
+   */
+  GMAIL_TOOL_UNTRASH_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Remove message from trash
+   */
+  GMAIL_TOOL_UNTRASH_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Modify Message
+   */
+  GMAIL_TOOL_MODIFY_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Modify message labels
+   */
+  GMAIL_TOOL_MODIFY_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Batch Modify Messages
+   */
+  GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Modify labels on multiple messages
+   */
+  GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DESCRIPTION: () => LocalizedString
+  /**
+   * Batch Delete Messages
+   */
+  GMAIL_TOOL_BATCH_DELETE_MESSAGES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Permanently delete multiple messages
+   */
+  GMAIL_TOOL_BATCH_DELETE_MESSAGES_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Attachment
+   */
+  GMAIL_TOOL_GET_ATTACHMENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a message attachment
+   */
+  GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: () => LocalizedString
+  /**
+   * List Drafts
+   */
+  GMAIL_TOOL_LIST_DRAFTS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List drafts in mailbox
+   */
+  GMAIL_TOOL_LIST_DRAFTS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Draft
+   */
+  GMAIL_TOOL_GET_DRAFT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a draft by ID
+   */
+  GMAIL_TOOL_GET_DRAFT_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Draft
+   */
+  GMAIL_TOOL_CREATE_DRAFT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new email draft
+   */
+  GMAIL_TOOL_CREATE_DRAFT_DESCRIPTION: () => LocalizedString
+  /**
+   * Send Draft
+   */
+  GMAIL_TOOL_SEND_DRAFT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send an existing draft
+   */
+  GMAIL_TOOL_SEND_DRAFT_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Draft
+   */
+  GMAIL_TOOL_DELETE_DRAFT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Permanently delete a draft
+   */
+  GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION: () => LocalizedString
+  /**
+   * List Labels
+   */
+  GMAIL_TOOL_LIST_LABELS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List all labels in mailbox
+   */
+  GMAIL_TOOL_LIST_LABELS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Label
+   */
+  GMAIL_TOOL_GET_LABEL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a label by ID
+   */
+  GMAIL_TOOL_GET_LABEL_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Label
+   */
+  GMAIL_TOOL_CREATE_LABEL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new label
+   */
+  GMAIL_TOOL_CREATE_LABEL_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Label
+   */
+  GMAIL_TOOL_UPDATE_LABEL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a label
+   */
+  GMAIL_TOOL_UPDATE_LABEL_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Label
+   */
+  GMAIL_TOOL_DELETE_LABEL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Permanently delete a label
+   */
+  GMAIL_TOOL_DELETE_LABEL_DESCRIPTION: () => LocalizedString
+  /**
+   * List Threads
+   */
+  GMAIL_TOOL_LIST_THREADS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List threads in mailbox
+   */
+  GMAIL_TOOL_LIST_THREADS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Thread
+   */
+  GMAIL_TOOL_GET_THREAD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a thread by ID
+   */
+  GMAIL_TOOL_GET_THREAD_DESCRIPTION: () => LocalizedString
+  /**
+   * Modify Thread
+   */
+  GMAIL_TOOL_MODIFY_THREAD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Modify thread labels
+   */
+  GMAIL_TOOL_MODIFY_THREAD_DESCRIPTION: () => LocalizedString
+  /**
+   * Trash Thread
+   */
+  GMAIL_TOOL_TRASH_THREAD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Move thread to trash
+   */
+  GMAIL_TOOL_TRASH_THREAD_DESCRIPTION: () => LocalizedString
+  /**
+   * Untrash Thread
+   */
+  GMAIL_TOOL_UNTRASH_THREAD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Remove thread from trash
+   */
+  GMAIL_TOOL_UNTRASH_THREAD_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Thread
+   */
+  GMAIL_TOOL_DELETE_THREAD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Permanently delete a thread
+   */
+  GMAIL_TOOL_DELETE_THREAD_DESCRIPTION: () => LocalizedString
+  /**
+   * List History
+   */
+  GMAIL_TOOL_LIST_HISTORY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List mailbox change history
+   */
+  GMAIL_TOOL_LIST_HISTORY_DESCRIPTION: () => LocalizedString
+  /**
+   * Watch Mailbox
+   */
+  GMAIL_TOOL_WATCH_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Set up push notifications for mailbox changes
+   */
+  GMAIL_TOOL_WATCH_DESCRIPTION: () => LocalizedString
+  /**
+   * Stop Watch
+   */
+  GMAIL_TOOL_STOP_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Stop push notifications
+   */
+  GMAIL_TOOL_STOP_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Vacation Responder
+   */
+  GMAIL_TOOL_GET_VACATION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get vacation/out-of-office settings
+   */
+  GMAIL_TOOL_GET_VACATION_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Vacation Responder
+   */
+  GMAIL_TOOL_UPDATE_VACATION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update vacation auto-reply settings
+   */
+  GMAIL_TOOL_UPDATE_VACATION_DESCRIPTION: () => LocalizedString
+  /**
+   * List Delegates
+   */
+  GMAIL_TOOL_LIST_DELEGATES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List account delegates
+   */
+  GMAIL_TOOL_LIST_DELEGATES_DESCRIPTION: () => LocalizedString
+  /**
+   * List Filters
+   */
+  GMAIL_TOOL_LIST_FILTERS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List message filters
+   */
+  GMAIL_TOOL_LIST_FILTERS_DESCRIPTION: () => LocalizedString
+  /**
+   * List Send-As Aliases
+   */
+  GMAIL_TOOL_LIST_SEND_AS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List send-as email aliases
+   */
+  GMAIL_TOOL_LIST_SEND_AS_DESCRIPTION: () => LocalizedString
+  /**
+   * List Forwarding Addresses
+   */
+  GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List forwarding addresses
+   */
+  GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DESCRIPTION: () => LocalizedString
 }
 
 export type Formatters = {}
