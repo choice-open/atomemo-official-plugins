@@ -1413,6 +1413,15 @@
           "type": "string"
         },
         {
+          "name": "file",
+          "display_name": {
+            "en_US": "File (file_ref)",
+            "zh_Hans": "文件（file_ref）"
+          },
+          "required": false,
+          "type": "file_ref"
+        },
+        {
           "name": "file_content",
           "display_name": {
             "en_US": "File content",

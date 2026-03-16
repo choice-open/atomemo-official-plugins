@@ -15,7 +15,7 @@ Atomemo 官方插件，在工作流中通过 Supabase API 操作数据库（Post
 
 - **数据库**：支持 filters（等值对象或高级操作符）、order、limit、offset、return_mode、RPC 等。
 - **Edge**：按名称与可选 body 调用已部署的 Edge Function。
-- **Storage**：列出桶与文件、上传（base64/文本）、下载（返回 base64）、删除、创建签名 URL、获取公开 URL。
+- **Storage**：列出桶与文件、上传（支持 Atomemo file_ref 或 base64/文本）、下载（返回 base64）、删除、创建签名 URL、获取公开 URL。
 - **Vector**：列出/创建/获取/删除桶与索引；向量 put、get、list、query、delete。
 - **认证**：**未实现**。Auth（16 个）与 OAuth Admin（6 个）在 `plugin.addTool` 中已注释，插件当前不提供认证相关工具。
 

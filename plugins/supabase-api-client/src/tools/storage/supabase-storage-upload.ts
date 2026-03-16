@@ -42,6 +42,15 @@ export const supabaseStorageUploadTool = {
       },
     },
     {
+      name: "file",
+      type: "file_ref",
+      required: false,
+      display_name: {
+        en_US: "File (file_ref)",
+        zh_Hans: "文件（file_ref）",
+      },
+    },
+    {
       name: "file_content",
       type: "string",
       required: true,
@@ -75,15 +84,16 @@ export const supabaseStorageUploadTool = {
       ui: { component: "switch", hint: t("STORAGE_UPSERT_HINT") },
     },
   ],
-  async invoke({ args }) {
+  async invoke({ args, context }) {
     const { parameters, credentials } = args
     const clientResult = getSupabaseClientFromArgs(parameters, credentials)
     if (clientResult.error) return clientResult.error
 
     const bucket = String(parameters.bucket).trim()
     const path = String(parameters.path).trim()
+    const fileRef = parameters.file
     const fileContent = parameters.file_content as string
-    const contentType =
+    let contentType =
       (parameters.content_type as string)?.trim() || "application/octet-stream"
     const upsert = Boolean(parameters.upsert)
 
@@ -95,25 +105,52 @@ export const supabaseStorageUploadTool = {
         code: null,
       }
     }
-    if (fileContent == null || fileContent === "") {
+    if (!fileRef && (fileContent == null || fileContent === "")) {
       return {
         success: false,
-        error: "file_content is required (base64 string or plain text).",
+        error:
+          "file or file_content is required. Provide a file_ref via file, or a base64/plain string via file_content.",
         data: null,
         code: null,
       }
     }
 
     let body: Buffer | Uint8Array | string
-    const trimmed = typeof fileContent === "string" ? fileContent.trim() : ""
-    if (/^[A-Za-z0-9+/=]+$/.test(trimmed) && trimmed.length % 4 === 0) {
+
+    if (fileRef && context?.files) {
       try {
-        body = Buffer.from(trimmed, "base64")
-      } catch {
-        body = trimmed
+        const parsed = context.files.parseFileRef(fileRef as any)
+        const downloaded = await context.files.download(parsed)
+        const base64Content = downloaded.content ?? ""
+        const bytes = new Uint8Array(
+          Buffer.from(base64Content, "base64"),
+        )
+        body = bytes
+        if (!parameters.content_type) {
+          contentType =
+            downloaded.mime_type || "application/octet-stream"
+        }
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err)
+        return {
+          success: false,
+          error: `Failed to read file_ref: ${message}`,
+          data: null,
+          code: null,
+        }
       }
     } else {
-      body = trimmed
+      const trimmed =
+        typeof fileContent === "string" ? fileContent.trim() : ""
+      if (/^[A-Za-z0-9+/=]+$/.test(trimmed) && trimmed.length % 4 === 0) {
+        try {
+          body = Buffer.from(trimmed, "base64")
+        } catch {
+          body = trimmed
+        }
+      } else {
+        body = trimmed
+      }
     }
 
     try {

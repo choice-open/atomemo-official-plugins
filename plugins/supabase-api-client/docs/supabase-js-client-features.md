@@ -57,7 +57,7 @@
 | -------------------------------------- | -------------------------------------------------------------------- |
 | **supabase-storage-list-buckets**      | 列出项目内所有 Storage 桶。支持 limit、offset。                                   |
 | **supabase-storage-list-files**        | 列出桶内文件与文件夹。支持 bucket、path（前缀）、limit、offset。                          |
-| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file_content（base64 或纯文本）、content_type、upsert。 |
+| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file（file_ref）或 file_content（base64/纯文本，二选一）、content_type、upsert。 |
 | **supabase-storage-download**          | 从桶下载文件，返回 content_base64、content_type、size。                          |
 | **supabase-storage-remove**            | 按路径列表删除桶内文件。支持 bucket、paths（JSON 数组）。                                |
 | **supabase-storage-create-signed-url** | 为私有桶文件创建有时效的签名 URL。支持 bucket、path、expires_in（秒）。                     |
@@ -84,7 +84,7 @@
 | **supabase-vector-delete**        | 按 keys（JSON 数组，1–500）删除向量。                                                                                                      |
 
 
-**认证（未实现）**  
+**认证（未实现）**
 以下 16 个 Auth 工具在 `src/index.ts` 的 `plugin.addTool` 中已注释，标注为**未实现**，插件中不可用。
 
 | 工具名                                             | 说明                                                              |
@@ -106,7 +106,7 @@
 | **supabase-auth-sign-in-with-oauth**            | 发起 OAuth 登录，返回重定向 URL；回调后用 exchange-code-for-session 换 session。 |
 | **supabase-auth-get-claims**                    | 从 JWT 解码并校验后返回用户声明（sub、email、role 等）。                           |
 
-**认证 · OAuth Admin（未实现）**  
+**认证 · OAuth Admin（未实现）**
 以下 6 个 OAuth Admin 工具在 `plugin.addTool` 中已注释，标注为**未实现**，插件中不可用。
 
 | 工具名                                             | 说明                                                              |
@@ -328,7 +328,7 @@
 | -------------------------- | ------------------------- | ------------------------------------------------------------------- |
 | **List buckets**           | 列出项目内所有桶                  | ✅ 完成（supabase-storage-list-buckets，limit/offset）                    |
 | **List files**             | 列出桶内文件与文件夹（含 path 前缀、分页）  | ✅ 完成（supabase-storage-list-files）                                   |
-| **Upload**                 | 上传文件（body 支持 base64 或纯文本） | ✅ 完成（supabase-storage-upload，content_type、upsert）                   |
+| **Upload**                 | 上传文件（body 支持 file_ref 或 base64/纯文本） | ✅ 完成（supabase-storage-upload，支持 Atomemo file_ref，content_type、upsert）                   |
 | **Download**               | 下载文件（返回 base64）           | ✅ 完成（supabase-storage-download，返回 content_base64、content_type、size） |
 | **Remove**                 | 按路径列表删除文件                 | ✅ 完成（supabase-storage-remove）                                       |
 | **Create signed URL**      | 为私有桶文件创建有时效的签名 URL        | ✅ 完成（supabase-storage-create-signed-url，expires_in）                 |
