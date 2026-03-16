@@ -17,11 +17,10 @@ const en_US = {
   GMAIL_CREDENTIAL_REFRESH_TOKEN_DISPLAY_NAME: "Refresh Token",
   GMAIL_CREDENTIAL_REFRESH_TOKEN_HINT: "Optional: for automatic token refresh",
   GMAIL_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: "Client ID",
-  GMAIL_CREDENTIAL_CLIENT_ID_HINT:
-    "Optional: OAuth client ID for token refresh",
+  GMAIL_CREDENTIAL_CLIENT_ID_HINT: "OAuth client ID",
   GMAIL_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: "Client Secret",
-  GMAIL_CREDENTIAL_CLIENT_SECRET_HINT:
-    "Optional: OAuth client secret for token refresh",
+  GMAIL_CREDENTIAL_CLIENT_SECRET_HINT: "OAuth client secret",
+  GMAIL_CREDENTIAL_EXPIRES_AT_DISPLAY_NAME: "Expires At (Unix seconds)",
 
   GMAIL_ERROR_MISSING_CREDENTIAL:
     "Missing Gmail credential. Please configure Gmail OAuth credential.",
@@ -105,6 +104,8 @@ const en_US = {
   GMAIL_TOOL_SEND_DRAFT_DESCRIPTION: "Send an existing draft",
   GMAIL_TOOL_DELETE_DRAFT_DISPLAY_NAME: "Delete Draft",
   GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION: "Permanently delete a draft",
+  GMAIL_TOOL_UPDATE_DRAFT_DISPLAY_NAME: "Update Draft",
+  GMAIL_TOOL_UPDATE_DRAFT_DESCRIPTION: "Replace a draft's content",
 
   GMAIL_TOOL_LIST_LABELS_DISPLAY_NAME: "List Labels",
   GMAIL_TOOL_LIST_LABELS_DESCRIPTION: "List all labels in mailbox",

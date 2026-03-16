@@ -20,6 +20,7 @@ import { getDraftTool } from "./tools/get-draft"
 import { createDraftTool } from "./tools/create-draft"
 import { sendDraftTool } from "./tools/send-draft"
 import { deleteDraftTool } from "./tools/delete-draft"
+import { updateDraftTool } from "./tools/update-draft"
 import { listLabelsTool } from "./tools/list-labels"
 import { getLabelTool } from "./tools/get-label"
 import { createLabelTool } from "./tools/create-label"
@@ -73,6 +74,7 @@ plugin.addTool(getDraftTool)
 plugin.addTool(createDraftTool)
 plugin.addTool(sendDraftTool)
 plugin.addTool(deleteDraftTool)
+plugin.addTool(updateDraftTool)
 plugin.addTool(listLabelsTool)
 plugin.addTool(getLabelTool)
 plugin.addTool(createLabelTool)

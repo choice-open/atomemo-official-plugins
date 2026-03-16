@@ -48,6 +48,7 @@ const mockGmailUsers = {
     list: vi.fn(),
     get: vi.fn(),
     create: vi.fn(),
+    update: vi.fn(),
     send: vi.fn(),
     delete: vi.fn(),
   },
@@ -101,8 +102,9 @@ import { getProfileTool } from "../src/tools/get-profile"
 import { listMessagesTool } from "../src/tools/list-messages"
 import { listLabelsTool } from "../src/tools/list-labels"
 import { sendMessageTool } from "../src/tools/send-message"
+import { updateDraftTool } from "../src/tools/update-draft"
 
-const GMAIL_TOOL_COUNT = 36
+const GMAIL_TOOL_COUNT = 37
 
 describe("gmail plugin", () => {
   describe("plugin initialization", () => {
@@ -145,6 +147,7 @@ describe("gmail plugin", () => {
       expect(addTool).toHaveBeenCalledWith(getProfileTool)
       expect(addTool).toHaveBeenCalledWith(listMessagesTool)
       expect(addTool).toHaveBeenCalledWith(listLabelsTool)
+      expect(addTool).toHaveBeenCalledWith(updateDraftTool)
       expect(run).toHaveBeenCalled()
     })
   })
@@ -153,9 +156,27 @@ describe("gmail plugin", () => {
     it("should have required access_token parameter", () => {
       expect(gmailOAuthCredential).toMatchObject({
         name: "gmail-oauth",
+        oauth2: true,
         parameters: expect.arrayContaining([
           expect.objectContaining({
             name: "access_token",
+            type: "encrypted_string",
+          }),
+          expect.objectContaining({
+            name: "refresh_token",
+            type: "encrypted_string",
+          }),
+          expect.objectContaining({
+            name: "expires_at",
+            type: "integer",
+          }),
+          expect.objectContaining({
+            name: "client_id",
+            type: "string",
+            required: true,
+          }),
+          expect.objectContaining({
+            name: "client_secret",
             type: "encrypted_string",
             required: true,
           }),
@@ -202,6 +223,23 @@ describe("gmail plugin", () => {
         }),
       ).rejects.toThrow("Missing Gmail credential")
     })
+
+    it("update-draft throws when credential missing", async () => {
+      await expect(
+        updateDraftTool.invoke({
+          args: {
+            parameters: {
+              gmail_credential: "missing",
+              draft_id: "d1",
+              to: "a@example.com",
+              subject: "S",
+              body: "B",
+            },
+            credentials: {},
+          },
+        }),
+      ).rejects.toThrow("Missing Gmail credential")
+    })
   })
 
   describe("gmail tools – invoke with mocked API", () => {
@@ -228,6 +266,9 @@ describe("gmail plugin", () => {
         data: {
           labels: [{ id: "INBOX", name: "INBOX" }],
         },
+      })
+      mockGmailUsers.drafts.update.mockResolvedValue({
+        data: { id: "d1", message: { id: "m1" } },
       })
     })
 
@@ -305,6 +346,35 @@ describe("gmail plugin", () => {
         userId: "user@domain.com",
       })
     })
+
+    it("update-draft calls drafts.update with raw message", async () => {
+      const result = await updateDraftTool.invoke({
+        args: {
+          parameters: {
+            gmail_credential: CRED_KEY,
+            draft_id: "d1",
+            to: "a@example.com",
+            subject: "S",
+            body: "B",
+          },
+          credentials,
+        },
+      })
+
+      expect(mockGmailUsers.drafts.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userId: "me",
+          id: "d1",
+          requestBody: expect.objectContaining({
+            id: "d1",
+            message: expect.objectContaining({
+              raw: expect.any(String),
+            }),
+          }),
+        }),
+      )
+      expect(result).toMatchObject({ id: "d1" })
+    })
   })
 
   describe("tool definitions", () => {
@@ -337,6 +407,19 @@ describe("gmail plugin", () => {
       expect(paramNames).toContain("to")
       expect(paramNames).toContain("subject")
       expect(paramNames).toContain("body")
+    })
+
+    it("update-draft has draft_id, to, subject, body and optional cc, bcc", () => {
+      const paramNames = updateDraftTool.parameters.map(
+        (p: { name: string }) => p.name,
+      )
+      expect(paramNames).toContain("gmail_credential")
+      expect(paramNames).toContain("draft_id")
+      expect(paramNames).toContain("to")
+      expect(paramNames).toContain("subject")
+      expect(paramNames).toContain("body")
+      expect(paramNames).toContain("cc")
+      expect(paramNames).toContain("bcc")
     })
   })
 })

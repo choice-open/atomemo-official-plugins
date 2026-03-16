@@ -1,0 +1,2877 @@
+{
+  "name": "gmail",
+  "display_name": {
+    "en_US": "Gmail",
+    "zh_Hans": "Gmail"
+  },
+  "description": {
+    "en_US": "Google Gmail API plugin - read, send, and manage emails",
+    "zh_Hans": "Google Gmail API 插件 - 读取、发送和管理邮件"
+  },
+  "icon": "📧",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/gmail",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "gmail-oauth",
+      "display_name": {
+        "en_US": "Gmail OAuth",
+        "zh_Hans": "Gmail OAuth"
+      },
+      "description": {
+        "en_US": "OAuth 2.0 credentials for Gmail API access",
+        "zh_Hans": "Gmail API 访问的 OAuth 2.0 凭证"
+      },
+      "icon": "📧",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth client ID",
+              "zh_Hans": "OAuth 客户端 ID"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth client secret",
+              "zh_Hans": "OAuth 客户端密钥"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "display_name": {
+            "en_US": "Access Token",
+            "zh_Hans": "访问令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth 2.0 access token (get from Google OAuth flow)",
+              "zh_Hans": "OAuth 2.0 访问令牌（从 Google OAuth 流程获取）"
+            },
+            "placeholder": {
+              "en_US": "ya29.",
+              "zh_Hans": "ya29."
+            },
+            "sensitive": true,
+            "width": "full",
+            "display_none": true,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "display_name": {
+            "en_US": "Refresh Token",
+            "zh_Hans": "刷新令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional: for automatic token refresh",
+              "zh_Hans": "可选：用于自动刷新令牌"
+            },
+            "sensitive": true,
+            "width": "full",
+            "display_none": true,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "display_name": {
+            "en_US": "Expires At (Unix seconds)",
+            "zh_Hans": "过期时间（Unix 秒）"
+          },
+          "required": false,
+          "ui": {
+            "display_none": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "gmail-get-profile",
+      "display_name": {
+        "en_US": "Get Profile",
+        "zh_Hans": "获取个人资料"
+      },
+      "description": {
+        "en_US": "Get current user's Gmail profile",
+        "zh_Hans": "获取当前用户的 Gmail 个人资料"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-messages",
+      "display_name": {
+        "en_US": "List Messages",
+        "zh_Hans": "列出邮件"
+      },
+      "description": {
+        "en_US": "List messages in user's mailbox",
+        "zh_Hans": "列出邮箱中的邮件"
+      },
+      "icon": "📬",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail search syntax (e.g. is:unread from:user@example.com)",
+              "zh_Hans": "Gmail 搜索语法（如 is:unread from:user@example.com）"
+            },
+            "placeholder": {
+              "en_US": "is:unread from:example@gmail.com",
+              "zh_Hans": "is:unread from:example@gmail.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-message",
+      "display_name": {
+        "en_US": "Get Message",
+        "zh_Hans": "获取邮件"
+      },
+      "description": {
+        "en_US": "Get a single message by ID",
+        "zh_Hans": "按 ID 获取单封邮件"
+      },
+      "icon": "✉️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-send-message",
+      "display_name": {
+        "en_US": "Send Message",
+        "zh_Hans": "发送邮件"
+      },
+      "description": {
+        "en_US": "Send an email message",
+        "zh_Hans": "发送一封邮件"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-delete-message",
+      "display_name": {
+        "en_US": "Delete Message",
+        "zh_Hans": "删除邮件"
+      },
+      "description": {
+        "en_US": "Permanently delete a message",
+        "zh_Hans": "永久删除邮件"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-trash-message",
+      "display_name": {
+        "en_US": "Trash Message",
+        "zh_Hans": "移至垃圾箱"
+      },
+      "description": {
+        "en_US": "Move message to trash",
+        "zh_Hans": "将邮件移至垃圾箱"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-untrash-message",
+      "display_name": {
+        "en_US": "Untrash Message",
+        "zh_Hans": "从垃圾箱恢复"
+      },
+      "description": {
+        "en_US": "Remove message from trash",
+        "zh_Hans": "从垃圾箱恢复邮件"
+      },
+      "icon": "📥",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-modify-message",
+      "display_name": {
+        "en_US": "Modify Message",
+        "zh_Hans": "修改邮件"
+      },
+      "description": {
+        "en_US": "Modify message labels",
+        "zh_Hans": "修改邮件标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Labels to add",
+              "zh_Hans": "要添加的标签"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Labels to remove",
+              "zh_Hans": "要移除的标签"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gmail-batch-modify-messages",
+      "display_name": {
+        "en_US": "Batch Modify Messages",
+        "zh_Hans": "批量修改邮件"
+      },
+      "description": {
+        "en_US": "Modify labels on multiple messages",
+        "zh_Hans": "批量修改多封邮件的标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_ids",
+          "display_name": {
+            "en_US": "Message IDs",
+            "zh_Hans": "邮件 ID 列表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "List of message IDs",
+              "zh_Hans": "邮件 ID 列表"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gmail-batch-delete-messages",
+      "display_name": {
+        "en_US": "Batch Delete Messages",
+        "zh_Hans": "批量删除邮件"
+      },
+      "description": {
+        "en_US": "Permanently delete multiple messages",
+        "zh_Hans": "永久删除多封邮件"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_ids",
+          "display_name": {
+            "en_US": "Message IDs",
+            "zh_Hans": "邮件 ID 列表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "List of message IDs",
+              "zh_Hans": "邮件 ID 列表"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-attachment",
+      "display_name": {
+        "en_US": "Get Attachment",
+        "zh_Hans": "获取附件"
+      },
+      "description": {
+        "en_US": "Get a message attachment",
+        "zh_Hans": "获取邮件附件"
+      },
+      "icon": "📎",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "attachment_id",
+          "display_name": {
+            "en_US": "Attachment ID",
+            "zh_Hans": "附件 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-drafts",
+      "display_name": {
+        "en_US": "List Drafts",
+        "zh_Hans": "列出草稿"
+      },
+      "description": {
+        "en_US": "List drafts in mailbox",
+        "zh_Hans": "列出邮箱中的草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-draft",
+      "display_name": {
+        "en_US": "Get Draft",
+        "zh_Hans": "获取草稿"
+      },
+      "description": {
+        "en_US": "Get a draft by ID",
+        "zh_Hans": "按 ID 获取草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-create-draft",
+      "display_name": {
+        "en_US": "Create Draft",
+        "zh_Hans": "创建草稿"
+      },
+      "description": {
+        "en_US": "Create a new email draft",
+        "zh_Hans": "创建新邮件草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-send-draft",
+      "display_name": {
+        "en_US": "Send Draft",
+        "zh_Hans": "发送草稿"
+      },
+      "description": {
+        "en_US": "Send an existing draft",
+        "zh_Hans": "发送已有草稿"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-delete-draft",
+      "display_name": {
+        "en_US": "Delete Draft",
+        "zh_Hans": "删除草稿"
+      },
+      "description": {
+        "en_US": "Permanently delete a draft",
+        "zh_Hans": "永久删除草稿"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-update-draft",
+      "display_name": {
+        "en_US": "Update Draft",
+        "zh_Hans": "更新草稿"
+      },
+      "description": {
+        "en_US": "Replace a draft's content",
+        "zh_Hans": "替换草稿内容"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-labels",
+      "display_name": {
+        "en_US": "List Labels",
+        "zh_Hans": "列出标签"
+      },
+      "description": {
+        "en_US": "List all labels in mailbox",
+        "zh_Hans": "列出邮箱中的所有标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-label",
+      "display_name": {
+        "en_US": "Get Label",
+        "zh_Hans": "获取标签"
+      },
+      "description": {
+        "en_US": "Get a label by ID",
+        "zh_Hans": "按 ID 获取标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-create-label",
+      "display_name": {
+        "en_US": "Create Label",
+        "zh_Hans": "创建标签"
+      },
+      "description": {
+        "en_US": "Create a new label",
+        "zh_Hans": "创建新标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Label Name",
+            "zh_Hans": "标签名称"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-update-label",
+      "display_name": {
+        "en_US": "Update Label",
+        "zh_Hans": "更新标签"
+      },
+      "description": {
+        "en_US": "Update a label",
+        "zh_Hans": "更新标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Label Name",
+            "zh_Hans": "标签名称"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-delete-label",
+      "display_name": {
+        "en_US": "Delete Label",
+        "zh_Hans": "删除标签"
+      },
+      "description": {
+        "en_US": "Permanently delete a label",
+        "zh_Hans": "永久删除标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-threads",
+      "display_name": {
+        "en_US": "List Threads",
+        "zh_Hans": "列出会话"
+      },
+      "description": {
+        "en_US": "List threads in mailbox",
+        "zh_Hans": "列出邮箱中的会话"
+      },
+      "icon": "🧵",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail search syntax (e.g. is:unread from:user@example.com)",
+              "zh_Hans": "Gmail 搜索语法（如 is:unread from:user@example.com）"
+            },
+            "placeholder": {
+              "en_US": "is:unread from:example@gmail.com",
+              "zh_Hans": "is:unread from:example@gmail.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-thread",
+      "display_name": {
+        "en_US": "Get Thread",
+        "zh_Hans": "获取会话"
+      },
+      "description": {
+        "en_US": "Get a thread by ID",
+        "zh_Hans": "按 ID 获取会话"
+      },
+      "icon": "🧵",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-modify-thread",
+      "display_name": {
+        "en_US": "Modify Thread",
+        "zh_Hans": "修改会话"
+      },
+      "description": {
+        "en_US": "Modify thread labels",
+        "zh_Hans": "修改会话标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gmail-trash-thread",
+      "display_name": {
+        "en_US": "Trash Thread",
+        "zh_Hans": "移至垃圾箱"
+      },
+      "description": {
+        "en_US": "Move thread to trash",
+        "zh_Hans": "将会话移至垃圾箱"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-untrash-thread",
+      "display_name": {
+        "en_US": "Untrash Thread",
+        "zh_Hans": "从垃圾箱恢复"
+      },
+      "description": {
+        "en_US": "Remove thread from trash",
+        "zh_Hans": "从垃圾箱恢复会话"
+      },
+      "icon": "📥",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-delete-thread",
+      "display_name": {
+        "en_US": "Delete Thread",
+        "zh_Hans": "删除会话"
+      },
+      "description": {
+        "en_US": "Permanently delete a thread",
+        "zh_Hans": "永久删除会话"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-history",
+      "display_name": {
+        "en_US": "List History",
+        "zh_Hans": "列出历史"
+      },
+      "description": {
+        "en_US": "List mailbox change history",
+        "zh_Hans": "列出邮箱变更历史"
+      },
+      "icon": "📜",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "start_history_id",
+          "display_name": {
+            "en_US": "Start History ID",
+            "zh_Hans": "起始历史 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Return history records after this ID",
+              "zh_Hans": "返回此 ID 之后的历史记录"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "gmail-watch",
+      "display_name": {
+        "en_US": "Watch Mailbox",
+        "zh_Hans": "监视邮箱"
+      },
+      "description": {
+        "en_US": "Set up push notifications for mailbox changes",
+        "zh_Hans": "设置邮箱变更的推送通知"
+      },
+      "icon": "👁️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "topic_name",
+          "display_name": {
+            "en_US": "Topic Name",
+            "zh_Hans": "主题名称"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Cloud Pub/Sub topic for push notifications",
+              "zh_Hans": "推送通知的 Cloud Pub/Sub 主题"
+            },
+            "placeholder": {
+              "en_US": "projects/my-project/topics/gmail-notifications",
+              "zh_Hans": "projects/my-project/topics/gmail-notifications"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "item",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gmail-stop",
+      "display_name": {
+        "en_US": "Stop Watch",
+        "zh_Hans": "停止监视"
+      },
+      "description": {
+        "en_US": "Stop push notifications",
+        "zh_Hans": "停止推送通知"
+      },
+      "icon": "⏹️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-get-vacation",
+      "display_name": {
+        "en_US": "Get Vacation Responder",
+        "zh_Hans": "获取假期回复"
+      },
+      "description": {
+        "en_US": "Get vacation/out-of-office settings",
+        "zh_Hans": "获取假期/外出自动回复设置"
+      },
+      "icon": "🏖️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-update-vacation",
+      "display_name": {
+        "en_US": "Update Vacation Responder",
+        "zh_Hans": "更新假期回复"
+      },
+      "description": {
+        "en_US": "Update vacation auto-reply settings",
+        "zh_Hans": "更新假期自动回复设置"
+      },
+      "icon": "🏖️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "enable_auto_reply",
+          "display_name": {
+            "en_US": "Enable Auto Reply",
+            "zh_Hans": "启用自动回复"
+          },
+          "required": true,
+          "ui": {
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "response_subject",
+          "display_name": {
+            "en_US": "Response Subject",
+            "zh_Hans": "回复主题"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "response_body",
+          "display_name": {
+            "en_US": "Response Body",
+            "zh_Hans": "回复正文"
+          },
+          "required": false,
+          "ui": {
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "restrict_to_contacts",
+          "display_name": {
+            "en_US": "Restrict to Contacts",
+            "zh_Hans": "仅限联系人"
+          },
+          "required": false,
+          "ui": {
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "restrict_to_domain",
+          "display_name": {
+            "en_US": "Restrict to Domain",
+            "zh_Hans": "仅限域名"
+          },
+          "required": false,
+          "ui": {
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-delegates",
+      "display_name": {
+        "en_US": "List Delegates",
+        "zh_Hans": "列出委派"
+      },
+      "description": {
+        "en_US": "List account delegates",
+        "zh_Hans": "列出账号委派"
+      },
+      "icon": "👥",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-filters",
+      "display_name": {
+        "en_US": "List Filters",
+        "zh_Hans": "列出过滤器"
+      },
+      "description": {
+        "en_US": "List message filters",
+        "zh_Hans": "列出邮件过滤器"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-send-as",
+      "display_name": {
+        "en_US": "List Send-As Aliases",
+        "zh_Hans": "列出代发别名"
+      },
+      "description": {
+        "en_US": "List send-as email aliases",
+        "zh_Hans": "列出代发邮箱别名"
+      },
+      "icon": "📧",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    },
+    {
+      "name": "gmail-list-forwarding-addresses",
+      "display_name": {
+        "en_US": "List Forwarding Addresses",
+        "zh_Hans": "列出转发地址"
+      },
+      "description": {
+        "en_US": "List forwarding addresses",
+        "zh_Hans": "列出转发地址"
+      },
+      "icon": "↪️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ]
+    }
+  ]
+}

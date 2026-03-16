@@ -72,7 +72,7 @@ type RootTranslation = {
    */
   GMAIL_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
   /**
-   * O​p​t​i​o​n​a​l​:​ ​O​A​u​t​h​ ​c​l​i​e​n​t​ ​I​D​ ​f​o​r​ ​t​o​k​e​n​ ​r​e​f​r​e​s​h
+   * O​A​u​t​h​ ​c​l​i​e​n​t​ ​I​D
    */
   GMAIL_CREDENTIAL_CLIENT_ID_HINT: string
   /**
@@ -80,9 +80,13 @@ type RootTranslation = {
    */
   GMAIL_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
   /**
-   * O​p​t​i​o​n​a​l​:​ ​O​A​u​t​h​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​o​r​ ​t​o​k​e​n​ ​r​e​f​r​e​s​h
+   * O​A​u​t​h​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t
    */
   GMAIL_CREDENTIAL_CLIENT_SECRET_HINT: string
+  /**
+   * E​x​p​i​r​e​s​ ​A​t​ ​(​U​n​i​x​ ​s​e​c​o​n​d​s​)
+   */
+  GMAIL_CREDENTIAL_EXPIRES_AT_DISPLAY_NAME: string
   /**
    * M​i​s​s​i​n​g​ ​G​m​a​i​l​ ​c​r​e​d​e​n​t​i​a​l​.​ ​P​l​e​a​s​e​ ​c​o​n​f​i​g​u​r​e​ ​G​m​a​i​l​ ​O​A​u​t​h​ ​c​r​e​d​e​n​t​i​a​l​.
    */
@@ -384,6 +388,14 @@ type RootTranslation = {
    */
   GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION: string
   /**
+   * U​p​d​a​t​e​ ​D​r​a​f​t
+   */
+  GMAIL_TOOL_UPDATE_DRAFT_DISPLAY_NAME: string
+  /**
+   * R​e​p​l​a​c​e​ ​a​ ​d​r​a​f​t​'​s​ ​c​o​n​t​e​n​t
+   */
+  GMAIL_TOOL_UPDATE_DRAFT_DESCRIPTION: string
+  /**
    * L​i​s​t​ ​L​a​b​e​l​s
    */
   GMAIL_TOOL_LIST_LABELS_DISPLAY_NAME: string
@@ -603,7 +615,7 @@ export type TranslationFunctions = {
    */
   GMAIL_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * Optional: OAuth client ID for token refresh
+   * OAuth client ID
    */
   GMAIL_CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
   /**
@@ -611,9 +623,13 @@ export type TranslationFunctions = {
    */
   GMAIL_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
   /**
-   * Optional: OAuth client secret for token refresh
+   * OAuth client secret
    */
   GMAIL_CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * Expires At (Unix seconds)
+   */
+  GMAIL_CREDENTIAL_EXPIRES_AT_DISPLAY_NAME: () => LocalizedString
   /**
    * Missing Gmail credential. Please configure Gmail OAuth credential.
    */
@@ -914,6 +930,14 @@ export type TranslationFunctions = {
    * Permanently delete a draft
    */
   GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Draft
+   */
+  GMAIL_TOOL_UPDATE_DRAFT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Replace a draft's content
+   */
+  GMAIL_TOOL_UPDATE_DRAFT_DESCRIPTION: () => LocalizedString
   /**
    * List Labels
    */

@@ -33,7 +33,7 @@ Gmail API 允许开发者以编程方式查看和管理 Gmail 邮箱数据，包
 | get | GET | 获取指定草稿 | ✅ |
 | list | GET | 列出用户邮箱中的草稿 | ✅ |
 | send | POST | 将指定草稿发送给收件人（To/Cc/Bcc） | ✅ |
-| update | PUT | 替换草稿内容 | ❌ |
+| update | PUT | 替换草稿内容 | ✅ |
 
 ---
 
