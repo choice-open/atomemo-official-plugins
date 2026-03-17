@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "credentials": [
     {
       "name": "supabase-connection",
@@ -1411,6 +1411,15 @@
             "component": "input"
           },
           "type": "string"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File (file_ref)",
+            "zh_Hans": "文件（file_ref）"
+          },
+          "required": false,
+          "type": "file_ref"
         },
         {
           "name": "file_content",
