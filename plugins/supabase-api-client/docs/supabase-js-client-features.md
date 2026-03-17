@@ -57,7 +57,7 @@
 | -------------------------------------- | -------------------------------------------------------------------- |
 | **supabase-storage-list-buckets**      | 列出项目内所有 Storage 桶。支持 limit、offset。                                   |
 | **supabase-storage-list-files**        | 列出桶内文件与文件夹。支持 bucket、path（前缀）、limit、offset。                          |
-| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file（file_ref）或 file_content（base64/纯文本，二选一）、content_type、upsert。 |
+| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file（file_ref）或 file_content（base64/纯文本），**两者只能选其一**、content_type、upsert。 |
 | **supabase-storage-download**          | 从桶下载文件，返回 content_base64、content_type、size。                          |
 | **supabase-storage-remove**            | 按路径列表删除桶内文件。支持 bucket、paths（JSON 数组）。                                |
 | **supabase-storage-create-signed-url** | 为私有桶文件创建有时效的签名 URL。支持 bucket、path、expires_in（秒）。                     |
@@ -328,7 +328,7 @@
 | -------------------------- | ------------------------- | ------------------------------------------------------------------- |
 | **List buckets**           | 列出项目内所有桶                  | ✅ 完成（supabase-storage-list-buckets，limit/offset）                    |
 | **List files**             | 列出桶内文件与文件夹（含 path 前缀、分页）  | ✅ 完成（supabase-storage-list-files）                                   |
-| **Upload**                 | 上传文件（body 支持 file_ref 或 base64/纯文本） | ✅ 完成（supabase-storage-upload，支持 Atomemo file_ref，content_type、upsert）                   |
+| **Upload**                 | 上传文件（body 支持 file_ref 或 base64/纯文本，**两者只能选其一**） | ✅ 完成（supabase-storage-upload，支持 Atomemo file_ref，content_type、upsert）                   |
 | **Download**               | 下载文件（返回 base64）           | ✅ 完成（supabase-storage-download，返回 content_base64、content_type、size） |
 | **Remove**                 | 按路径列表删除文件                 | ✅ 完成（supabase-storage-remove）                                       |
 | **Create signed URL**      | 为私有桶文件创建有时效的签名 URL        | ✅ 完成（supabase-storage-create-signed-url，expires_in）                 |

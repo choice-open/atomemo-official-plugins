@@ -53,7 +53,7 @@ export const supabaseStorageUploadTool = {
     {
       name: "file_content",
       type: "string",
-      required: true,
+      required: false,
       display_name: t("STORAGE_FILE_CONTENT_DISPLAY_NAME"),
       ui: {
         component: "textarea",
@@ -105,7 +105,19 @@ export const supabaseStorageUploadTool = {
         code: null,
       }
     }
-    if (!fileRef && (fileContent == null || fileContent === "")) {
+    const hasFileRef = fileRef != null
+    const hasFileContent = fileContent != null && String(fileContent).trim() !== ""
+
+    if (hasFileRef && hasFileContent) {
+      return {
+        success: false,
+        error: "Please provide either file (file_ref) or file_content, not both.",
+        data: null,
+        code: null,
+      }
+    }
+
+    if (!hasFileRef && !hasFileContent) {
       return {
         success: false,
         error:
@@ -117,7 +129,7 @@ export const supabaseStorageUploadTool = {
 
     let body: Buffer | Uint8Array | string
 
-    if (fileRef && context?.files) {
+    if (hasFileRef && context?.files) {
       try {
         const parsed = context.files.parseFileRef(fileRef as any)
         const downloaded = await context.files.download(parsed)
