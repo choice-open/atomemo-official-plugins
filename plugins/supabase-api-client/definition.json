@@ -1427,7 +1427,7 @@
             "en_US": "File content",
             "zh_Hans": "文件内容"
           },
-          "required": true,
+          "required": false,
           "ui": {
             "hint": {
               "en_US": "Base64-encoded content or plain text to upload",
