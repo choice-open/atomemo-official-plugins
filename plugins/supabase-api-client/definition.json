@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "credentials": [
     {
       "name": "supabase-connection",
