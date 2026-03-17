@@ -492,6 +492,14 @@ type RootTranslation = {
    */
   STORAGE_OFFSET_DISPLAY_NAME: string
   /**
+   * F​i​l​e​ ​(​f​i​l​e​_​r​e​f​)
+   */
+  STORAGE_FILE_REF_DISPLAY_NAME: string
+  /**
+   * C​h​o​o​s​e​ ​e​i​t​h​e​r​ ​t​h​i​s​ ​o​r​ ​“​F​i​l​e​ ​c​o​n​t​e​n​t​”​.​ ​R​e​c​o​m​m​e​n​d​e​d​:​ ​p​a​s​s​ ​a​ ​f​i​l​e​_​r​e​f​ ​f​r​o​m​ ​a​n​ ​u​p​s​t​r​e​a​m​ ​s​t​e​p​ ​(​a​u​t​o​ ​r​e​a​d​s​ ​c​o​n​t​e​n​t​ ​a​n​d​ ​M​I​M​E​)​.
+   */
+  STORAGE_FILE_REF_HINT: string
+  /**
    * F​i​l​e​ ​c​o​n​t​e​n​t
    */
   STORAGE_FILE_CONTENT_DISPLAY_NAME: string
@@ -2088,6 +2096,14 @@ export type TranslationFunctions = {
    * Offset
    */
   STORAGE_OFFSET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * File (file_ref)
+   */
+  STORAGE_FILE_REF_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Choose either this or “File content”. Recommended: pass a file_ref from an upstream step (auto reads content and MIME).
+   */
+  STORAGE_FILE_REF_HINT: () => LocalizedString
   /**
    * File content
    */
