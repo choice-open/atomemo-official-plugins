@@ -11,7 +11,8 @@ import { updateDraftTool } from "../src/tools/update-draft"
 
 const GMAIL_ACCESS_TOKEN = process.env.GMAIL_ACCESS_TOKEN
 const hasGmailCredential = !!GMAIL_ACCESS_TOKEN
-const maybeIt = hasGmailCredential ? it : it.skip
+const shouldRunE2E = process.env.GMAIL_E2E === "1"
+const maybeIt = hasGmailCredential && shouldRunE2E ? it : it.skip
 
 function makeCredentials() {
   return {

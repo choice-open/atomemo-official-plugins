@@ -31,9 +31,11 @@ export const listDraftsTool: ToolDefinition = {
       pageToken: args.parameters.page_token || undefined,
     })
     return {
-      drafts: res.data.drafts,
-      nextPageToken: res.data.nextPageToken,
-      resultSizeEstimate: res.data.resultSizeEstimate,
+      drafts: res.data.drafts ?? [],
+      // SDK 侧的返回值 schema 不接受 undefined；没有 token 时用 null 表示
+      nextPageToken: res.data.nextPageToken ?? null,
+      // 同理：没有估算值时返回 null（而不是 undefined）
+      resultSizeEstimate: res.data.resultSizeEstimate ?? null,
     } as any
   },
 }

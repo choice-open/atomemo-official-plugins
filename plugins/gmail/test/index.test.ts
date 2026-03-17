@@ -27,7 +27,7 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
   loadAllLocalesAsync: vi.fn().mockResolvedValue(undefined),
 }))
 
-// Mock googleapis - create chain of mocks for Gmail API
+// 只 mock 我们自己的 gmail client 工厂，避免污染 e2e 对 googleapis 的真实调用
 const mockGmailUsers = {
   getProfile: vi.fn(),
   watch: vi.fn(),
@@ -78,23 +78,16 @@ const mockGmailUsers = {
   },
 }
 
-const mockGmail = () => ({
-  users: mockGmailUsers,
-})
-
-vi.mock("googleapis", () => ({
-  google: {
-    auth: {
-      OAuth2: vi.fn().mockImplementation(function (this: unknown) {
-        return {
-          setCredentials: vi.fn(),
-          on: vi.fn(),
-        }
-      }),
-    },
-    gmail: vi.fn(() => mockGmail()),
-  },
+vi.mock("../src/lib/gmail-client", () => ({
+  createGmailClient: vi.fn(() => ({ users: mockGmailUsers })),
 }))
+
+const testContext = {
+  files: {
+    attachRemoteUrl: async () => ({}),
+    download: async () => ({}),
+  },
+} as any
 
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import { gmailOAuthCredential } from "../src/credentials/gmail-oauth"
@@ -193,6 +186,7 @@ describe("gmail plugin", () => {
             parameters: { gmail_credential: "missing" },
             credentials: {},
           },
+          context: testContext,
         }),
       ).rejects.toThrow("Missing Gmail credential")
     })
@@ -204,6 +198,7 @@ describe("gmail plugin", () => {
             parameters: { gmail_credential: "missing" },
             credentials: {},
           },
+          context: testContext,
         }),
       ).rejects.toThrow("Missing Gmail credential")
     })
@@ -220,6 +215,7 @@ describe("gmail plugin", () => {
             },
             credentials: {},
           },
+          context: testContext,
         }),
       ).rejects.toThrow("Missing Gmail credential")
     })
@@ -237,6 +233,7 @@ describe("gmail plugin", () => {
             },
             credentials: {},
           },
+          context: testContext,
         }),
       ).rejects.toThrow("Missing Gmail credential")
     })
@@ -278,6 +275,7 @@ describe("gmail plugin", () => {
           parameters: { gmail_credential: CRED_KEY },
           credentials,
         },
+        context: testContext,
       })
 
       expect(mockGmailUsers.getProfile).toHaveBeenCalledWith({
@@ -301,6 +299,7 @@ describe("gmail plugin", () => {
           },
           credentials,
         },
+        context: testContext,
       })
 
       expect(mockGmailUsers.messages.list).toHaveBeenCalledWith(
@@ -321,6 +320,7 @@ describe("gmail plugin", () => {
           parameters: { gmail_credential: CRED_KEY },
           credentials,
         },
+        context: testContext,
       })
 
       expect(mockGmailUsers.labels.list).toHaveBeenCalledWith({
@@ -340,6 +340,7 @@ describe("gmail plugin", () => {
           },
           credentials,
         },
+        context: testContext,
       })
 
       expect(mockGmailUsers.getProfile).toHaveBeenCalledWith({
@@ -359,6 +360,7 @@ describe("gmail plugin", () => {
           },
           credentials,
         },
+        context: testContext,
       })
 
       expect(mockGmailUsers.drafts.update).toHaveBeenCalledWith(
