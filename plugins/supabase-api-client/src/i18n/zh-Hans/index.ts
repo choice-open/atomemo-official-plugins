@@ -133,15 +133,21 @@ const zh_Hans = {
   STORAGE_PATH_DISPLAY_NAME: "路径",
   STORAGE_PATH_PLACEHOLDER: "folder/file.png",
   STORAGE_PATH_HINT: "桶内文件路径",
-  STORAGE_PATH_UPLOAD_HINT: "含文件名的路径（如 folder/file.png）",
+  STORAGE_PATH_UPLOAD_HINT:
+    "上传路径规则：使用「文件（file_ref）」时，这里只填目录（不含文件名，如 folder/sub，或 / 表示根目录），最终路径会自动拼上 file_ref 的文件名；使用「文件内容」时，这里必须包含文件名（如 folder/file.png）。",
   STORAGE_LIMIT_DISPLAY_NAME: "条数限制",
   STORAGE_OFFSET_DISPLAY_NAME: "偏移",
   STORAGE_FILE_CONTENT_DISPLAY_NAME: "文件内容",
   STORAGE_FILE_CONTENT_PLACEHOLDER: "base64 或纯文本",
-  STORAGE_FILE_CONTENT_HINT: "要上传的 base64 内容或纯文本",
+  STORAGE_FILE_CONTENT_HINT:
+    "与「文件（file_ref）」二选一。支持 base64 字符串或纯文本。使用「文件内容」时，路径必须包含文件名（如 folder/file.png）。",
+  STORAGE_FILE_REF_DISPLAY_NAME: "文件（file_ref）",
+  STORAGE_FILE_REF_HINT:
+    "与「文件内容」二选一。推荐直接传入上游步骤产生的 file_ref。使用 file_ref 时：content_type 将被忽略，且路径只允许目录（不含文件名），最终文件名来自 file_ref。",
   STORAGE_CONTENT_TYPE_DISPLAY_NAME: "Content-Type",
   STORAGE_CONTENT_TYPE_PLACEHOLDER: "image/png",
-  STORAGE_CONTENT_TYPE_HINT: "MIME 类型（如 image/png、application/json）",
+  STORAGE_CONTENT_TYPE_HINT:
+    "可选：MIME 类型（如 image/png、application/json）。仅在使用「文件内容」时生效；若使用 file_ref，将忽略此项并自动采用 file_ref 的 mime_type。",
   STORAGE_UPSERT_DISPLAY_NAME: "Upsert",
   STORAGE_UPSERT_HINT: "为 true 时覆盖路径下已存在文件",
   STORAGE_PATHS_DISPLAY_NAME: "路径列表",

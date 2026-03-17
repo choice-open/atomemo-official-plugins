@@ -141,15 +141,21 @@ const en_US = {
   STORAGE_PATH_DISPLAY_NAME: "Path",
   STORAGE_PATH_PLACEHOLDER: "folder/file.png",
   STORAGE_PATH_HINT: "File path inside the bucket",
-  STORAGE_PATH_UPLOAD_HINT: "File path including name (e.g. folder/file.png)",
+  STORAGE_PATH_UPLOAD_HINT:
+    "Path rules: when using “File (file_ref)”, enter a directory only (no filename, e.g. folder/sub, or / for bucket root); the final path will append the file_ref filename. When using “File content”, path must include the filename (e.g. folder/file.png).",
   STORAGE_LIMIT_DISPLAY_NAME: "Limit",
   STORAGE_OFFSET_DISPLAY_NAME: "Offset",
   STORAGE_FILE_CONTENT_DISPLAY_NAME: "File content",
   STORAGE_FILE_CONTENT_PLACEHOLDER: "base64 string or plain text",
-  STORAGE_FILE_CONTENT_HINT: "Base64-encoded content or plain text to upload",
+  STORAGE_FILE_CONTENT_HINT:
+    "Choose either this or “File (file_ref)”. Supports base64 string or plain text. When using “File content”, path must include the filename (e.g. folder/file.png).",
+  STORAGE_FILE_REF_DISPLAY_NAME: "File (file_ref)",
+  STORAGE_FILE_REF_HINT:
+    "Choose either this or “File content”. Recommended: pass a file_ref from an upstream step. When using file_ref: content_type is ignored, path must be a directory only, and the final filename comes from file_ref.",
   STORAGE_CONTENT_TYPE_DISPLAY_NAME: "Content-Type",
   STORAGE_CONTENT_TYPE_PLACEHOLDER: "image/png",
-  STORAGE_CONTENT_TYPE_HINT: "MIME type (e.g. image/png, application/json)",
+  STORAGE_CONTENT_TYPE_HINT:
+    "Optional MIME type (e.g. image/png, application/json). Only applies when using “File content”. If using file_ref, this will be ignored and file_ref.mime_type will be used.",
   STORAGE_UPSERT_DISPLAY_NAME: "Upsert",
   STORAGE_UPSERT_HINT: "If true, overwrite existing file at path",
   STORAGE_PATHS_DISPLAY_NAME: "Paths",

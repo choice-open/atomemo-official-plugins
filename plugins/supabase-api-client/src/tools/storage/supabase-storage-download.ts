@@ -55,7 +55,7 @@ export const supabaseStorageDownloadTool = {
       },
     },
   ],
-  async invoke({ args }) {
+  async invoke({ args, context }) {
     const { parameters, credentials } = args
     const clientResult = getSupabaseClientFromArgs(parameters, credentials)
     if (clientResult.error) return clientResult.error
@@ -95,13 +95,27 @@ export const supabaseStorageDownloadTool = {
       }
 
       const contentBase64 = await blobToBase64(blob)
+      const filename = path.split("/").filter(Boolean).pop() ?? "download"
+      const extension = filename.includes(".") ? filename.split(".").pop() ?? null : null
+
+      const uploaded = await context.files.upload(
+        {
+          __type__: "file_ref",
+          source: "mem",
+          filename,
+          extension,
+          mime_type: blob.type || "application/octet-stream",
+          size: blob.size,
+          res_key: null,
+          remote_url: null,
+          content: contentBase64,
+        },
+        {},
+      )
+
       return {
         success: true,
-        data: {
-          content_base64: contentBase64,
-          content_type: blob.type || "application/octet-stream",
-          size: blob.size,
-        },
+        data: uploaded,
         error: null,
         code: null,
       } as any

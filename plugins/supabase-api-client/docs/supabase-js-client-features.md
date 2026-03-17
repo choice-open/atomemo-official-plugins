@@ -57,8 +57,8 @@
 | -------------------------------------- | -------------------------------------------------------------------- |
 | **supabase-storage-list-buckets**      | 列出项目内所有 Storage 桶。支持 limit、offset。                                   |
 | **supabase-storage-list-files**        | 列出桶内文件与文件夹。支持 bucket、path（前缀）、limit、offset。                          |
-| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file（file_ref）或 file_content（base64/纯文本），**两者只能选其一**、content_type、upsert。 |
-| **supabase-storage-download**          | 从桶下载文件，返回 content_base64、content_type、size。                          |
+| **supabase-storage-upload**            | 上传文件到桶。支持 bucket、path、file（file_ref）或 file_content（base64/纯文本），**两者只能选其一**、content_type、upsert。使用 file_ref 时：path 仅为目录前缀（不含文件名），最终路径 = path + file_ref 的文件名，content_type 总是取自 file_ref.mime_type；使用 file_content 时：path 必须包含文件名（如 `folder/file.png`），content_type 仅在此模式下生效。 |
+| **supabase-storage-download**          | 从桶下载文件，将内容上传到 Atomemo files，并返回上传后的 file_ref。                          |
 | **supabase-storage-remove**            | 按路径列表删除桶内文件。支持 bucket、paths（JSON 数组）。                                |
 | **supabase-storage-create-signed-url** | 为私有桶文件创建有时效的签名 URL。支持 bucket、path、expires_in（秒）。                     |
 | **supabase-storage-get-public-url**    | 获取公开桶内文件的公开 URL。                                                     |
@@ -328,8 +328,8 @@
 | -------------------------- | ------------------------- | ------------------------------------------------------------------- |
 | **List buckets**           | 列出项目内所有桶                  | ✅ 完成（supabase-storage-list-buckets，limit/offset）                    |
 | **List files**             | 列出桶内文件与文件夹（含 path 前缀、分页）  | ✅ 完成（supabase-storage-list-files）                                   |
-| **Upload**                 | 上传文件（body 支持 file_ref 或 base64/纯文本，**两者只能选其一**） | ✅ 完成（supabase-storage-upload，支持 Atomemo file_ref，content_type、upsert）                   |
-| **Download**               | 下载文件（返回 base64）           | ✅ 完成（supabase-storage-download，返回 content_base64、content_type、size） |
+| **Upload**                 | 上传文件（body 支持 file_ref 或 base64/纯文本，**两者只能选其一**） | ✅ 完成（supabase-storage-upload，支持 Atomemo file_ref，content_type、upsert；file_ref 模式下 path 仅为目录前缀且类型来自 file_ref.mime_type；file_content 模式下 path 必须包含文件名且可传入 content_type）                   |
+| **Download**               | 下载文件（返回可供后续节点复用的文件引用）           | ✅ 完成（supabase-storage-download，将下载内容封装为 file_ref 后通过 Atomemo context.files.upload 上传并返回该 file_ref） |
 | **Remove**                 | 按路径列表删除文件                 | ✅ 完成（supabase-storage-remove）                                       |
 | **Create signed URL**      | 为私有桶文件创建有时效的签名 URL        | ✅ 完成（supabase-storage-create-signed-url，expires_in）                 |
 | **Get public URL**         | 获取公开桶文件的公开 URL            | ✅ 完成（supabase-storage-get-public-url）                               |

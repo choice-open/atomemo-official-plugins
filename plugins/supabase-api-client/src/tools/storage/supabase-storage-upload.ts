@@ -45,9 +45,10 @@ export const supabaseStorageUploadTool = {
       name: "file",
       type: "file_ref",
       required: false,
-      display_name: {
-        en_US: "File (file_ref)",
-        zh_Hans: "文件（file_ref）",
+      display_name: t("STORAGE_FILE_REF_DISPLAY_NAME"),
+      ui: {
+        hint: t("STORAGE_FILE_REF_HINT"),
+        width: "full",
       },
     },
     {
@@ -127,7 +128,33 @@ export const supabaseStorageUploadTool = {
       }
     }
 
+    const normalizedPath = path.replace(/^\/*/, "").replace(/\/*$/, "")
+    const lastSegment = normalizedPath.split("/").filter(Boolean).pop() ?? ""
+    const hasExplicitFilenameInPath =
+      lastSegment.length > 0 && lastSegment.includes(".")
+
+    if (hasFileRef && hasExplicitFilenameInPath) {
+      return {
+        success: false,
+        error:
+          "When using file_ref, path must be a directory path without filename (e.g. folder/subfolder). The final filename comes from file_ref.",
+        data: null,
+        code: null,
+      }
+    }
+
+    if (hasFileContent && (!normalizedPath || normalizedPath.endsWith("/") || !hasExplicitFilenameInPath)) {
+      return {
+        success: false,
+        error:
+          "When using file_content, path must include the filename (e.g. folder/file.png).",
+        data: null,
+        code: null,
+      }
+    }
+
     let body: Buffer | Uint8Array | string
+    let finalPath = normalizedPath
 
     if (hasFileRef && context?.files) {
       try {
@@ -138,10 +165,27 @@ export const supabaseStorageUploadTool = {
           Buffer.from(base64Content, "base64"),
         )
         body = bytes
-        if (!parameters.content_type) {
-          contentType =
-            downloaded.mime_type || "application/octet-stream"
+        // When using file_ref, always use mime_type from file_ref and ignore parameters.content_type
+        contentType = downloaded.mime_type || "application/octet-stream"
+
+        const filename =
+          downloaded.filename || parsed.filename || parsed.remote_url || null
+        const safeFilename =
+          typeof filename === "string"
+            ? filename.split("/").filter(Boolean).pop() ?? null
+            : null
+
+        if (!safeFilename) {
+          return {
+            success: false,
+            error:
+              "file_ref must include filename (or be downloadable with filename) to construct the final storage path.",
+            data: null,
+            code: null,
+          }
         }
+
+        finalPath = finalPath ? `${finalPath}/${safeFilename}` : safeFilename
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
         return {
@@ -168,7 +212,7 @@ export const supabaseStorageUploadTool = {
     try {
       const { data, error } = await clientResult.supabase.storage
         .from(bucket)
-        .upload(path, body, { contentType, upsert })
+        .upload(finalPath, body, { contentType, upsert })
 
       if (error) {
         return {

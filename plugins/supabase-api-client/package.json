@@ -1,7 +1,7 @@
 {
   "name": "supabase-api-client",
   "type": "module",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "supabase api client",
   "author": "yong yu <leoyyong@gmail.com>",
   "license": "MIT",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
-    "@supabase/supabase-js": "^2.99.1",
+    "@supabase/supabase-js": "^2.99.2",
     "dotenv": "^17.3.1",
     "zod": "^4.3.6"
   },
