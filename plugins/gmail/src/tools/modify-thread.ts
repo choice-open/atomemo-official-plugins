@@ -21,6 +21,7 @@ export const modifyThreadTool: ToolDefinition = {
       ...labelIdsParam,
       name: "add_label_ids",
       display_name: t("GMAIL_PARAM_ADD_LABEL_IDS_LABEL"),
+      ui: { ...labelIdsParam.ui, hint: t("GMAIL_PARAM_ADD_LABEL_IDS_HINT") },
     },
     {
       name: "remove_label_ids",
@@ -28,7 +29,11 @@ export const modifyThreadTool: ToolDefinition = {
       required: false,
       display_name: t("GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL"),
       items: { name: "item", type: "string" },
-      ui: { component: "tag-input", width: "full" },
+      ui: {
+        component: "tag-input",
+        hint: t("GMAIL_PARAM_REMOVE_LABEL_IDS_HINT"),
+        width: "full",
+      },
     },
   ],
   async invoke({ args }) {

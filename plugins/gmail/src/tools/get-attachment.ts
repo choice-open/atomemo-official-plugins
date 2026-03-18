@@ -1,5 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
+import { base64UrlToBase64 } from "../lib/base64"
 import { requireGmailClient } from "../lib/require-gmail"
 import {
   gmailCredentialParam,
@@ -39,8 +40,10 @@ export const getAttachmentTool: ToolDefinition = {
       messageId: args.parameters.message_id,
       id: args.parameters.attachment_id,
     })
+    const rawData = res.data.data ?? null
+    const data = rawData ? base64UrlToBase64(rawData) : null
     return {
-      data: res.data.data ?? null,
+      data,
       size: res.data.size ?? null,
       attachmentId: res.data.attachmentId ?? null,
     } as any

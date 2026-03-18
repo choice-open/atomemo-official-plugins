@@ -16,6 +16,7 @@ export const listFiltersTool: ToolDefinition = {
     )
     const userId = args.parameters.user_id ?? "me"
     const res = await gmail.users.settings.filters.list({ userId })
-    return { filters: res.data.filter } as any
+    const filters = res.data.filter ?? []
+    return { filters: JSON.parse(JSON.stringify(filters)) } as any
   },
 }

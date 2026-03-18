@@ -140,7 +140,7 @@ type RootTranslation = {
    */
   GMAIL_PARAM_ADD_LABEL_IDS_LABEL: string
   /**
-   * L​a​b​e​l​s​ ​t​o​ ​a​d​d
+   * L​a​b​e​l​ ​I​D​s​ ​t​o​ ​a​d​d​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​T​A​R​R​E​D​)
    */
   GMAIL_PARAM_ADD_LABEL_IDS_HINT: string
   /**
@@ -148,7 +148,7 @@ type RootTranslation = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL: string
   /**
-   * L​a​b​e​l​s​ ​t​o​ ​r​e​m​o​v​e
+   * L​a​b​e​l​ ​I​D​s​ ​t​o​ ​r​e​m​o​v​e​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​T​A​R​R​E​D​)
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: string
   /**
@@ -159,6 +159,30 @@ type RootTranslation = {
    * A​t​t​a​c​h​m​e​n​t​ ​I​D
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: string
+  /**
+   * F​i​l​e​n​a​m​e
+   */
+  GMAIL_PARAM_FILENAME_LABEL: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​f​i​l​e​n​a​m​e​ ​f​o​r​ ​d​o​w​n​l​o​a​d​e​d​ ​f​i​l​e
+   */
+  GMAIL_PARAM_FILENAME_HINT: string
+  /**
+   * M​I​M​E​ ​T​y​p​e
+   */
+  GMAIL_PARAM_MIME_TYPE_LABEL: string
+  /**
+   * e​.​g​.​ ​a​p​p​l​i​c​a​t​i​o​n​/​p​d​f​,​ ​i​m​a​g​e​/​p​n​g
+   */
+  GMAIL_PARAM_MIME_TYPE_HINT: string
+  /**
+   * E​x​t​e​n​s​i​o​n
+   */
+  GMAIL_PARAM_EXTENSION_LABEL: string
+  /**
+   * O​p​t​i​o​n​a​l​;​ ​d​e​r​i​v​e​d​ ​f​r​o​m​ ​f​i​l​e​n​a​m​e​ ​i​f​ ​o​m​i​t​t​e​d
+   */
+  GMAIL_PARAM_EXTENSION_HINT: string
   /**
    * M​a​x​ ​R​e​s​u​l​t​s
    */
@@ -172,7 +196,7 @@ type RootTranslation = {
    */
   GMAIL_PARAM_QUERY_LABEL: string
   /**
-   * G​m​a​i​l​ ​s​e​a​r​c​h​ ​s​y​n​t​a​x​ ​(​e​.​g​.​ ​i​s​:​u​n​r​e​a​d​ ​f​r​o​m​:​u​s​e​r​@​e​x​a​m​p​l​e​.​c​o​m​)
+   * G​m​a​i​l​ ​s​e​a​r​c​h​ ​s​y​n​t​a​x​:​ ​i​s​:​u​n​r​e​a​d​/​s​t​a​r​r​e​d​,​ ​f​r​o​m​:​/​t​o​:​/​s​u​b​j​e​c​t​:​,​ ​a​f​t​e​r​:​/​b​e​f​o​r​e​:​,​ ​h​a​s​:​a​t​t​a​c​h​m​e​n​t​,​ ​l​a​b​e​l​:​,​ ​O​R​/​-​ ​t​o​ ​e​x​c​l​u​d​e
    */
   GMAIL_PARAM_QUERY_HINT: string
   /**
@@ -347,6 +371,14 @@ type RootTranslation = {
    * G​e​t​ ​a​ ​m​e​s​s​a​g​e​ ​a​t​t​a​c​h​m​e​n​t
    */
   GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​A​t​t​a​c​h​m​e​n​t
+   */
+  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​a​ ​m​e​s​s​a​g​e​ ​a​t​t​a​c​h​m​e​n​t​ ​t​o​ ​w​o​r​k​s​p​a​c​e​ ​f​i​l​e​s
+   */
+  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: string
   /**
    * L​i​s​t​ ​D​r​a​f​t​s
    */
@@ -683,7 +715,7 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_ADD_LABEL_IDS_LABEL: () => LocalizedString
   /**
-   * Labels to add
+   * Label IDs to add (e.g. INBOX, STARRED)
    */
   GMAIL_PARAM_ADD_LABEL_IDS_HINT: () => LocalizedString
   /**
@@ -691,7 +723,7 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL: () => LocalizedString
   /**
-   * Labels to remove
+   * Label IDs to remove (e.g. INBOX, STARRED)
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: () => LocalizedString
   /**
@@ -702,6 +734,30 @@ export type TranslationFunctions = {
    * Attachment ID
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: () => LocalizedString
+  /**
+   * Filename
+   */
+  GMAIL_PARAM_FILENAME_LABEL: () => LocalizedString
+  /**
+   * Optional filename for downloaded file
+   */
+  GMAIL_PARAM_FILENAME_HINT: () => LocalizedString
+  /**
+   * MIME Type
+   */
+  GMAIL_PARAM_MIME_TYPE_LABEL: () => LocalizedString
+  /**
+   * e.g. application/pdf, image/png
+   */
+  GMAIL_PARAM_MIME_TYPE_HINT: () => LocalizedString
+  /**
+   * Extension
+   */
+  GMAIL_PARAM_EXTENSION_LABEL: () => LocalizedString
+  /**
+   * Optional; derived from filename if omitted
+   */
+  GMAIL_PARAM_EXTENSION_HINT: () => LocalizedString
   /**
    * Max Results
    */
@@ -715,7 +771,7 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_QUERY_LABEL: () => LocalizedString
   /**
-   * Gmail search syntax (e.g. is:unread from:user@example.com)
+   * Gmail search syntax: is:unread/starred, from:/to:/subject:, after:/before:, has:attachment, label:, OR/- to exclude
    */
   GMAIL_PARAM_QUERY_HINT: () => LocalizedString
   /**
@@ -890,6 +946,14 @@ export type TranslationFunctions = {
    * Get a message attachment
    */
   GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: () => LocalizedString
+  /**
+   * Download Attachment
+   */
+  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Download a message attachment to workspace files
+   */
+  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: () => LocalizedString
   /**
    * List Drafts
    */

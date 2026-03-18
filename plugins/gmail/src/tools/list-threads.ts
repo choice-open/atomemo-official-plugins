@@ -39,9 +39,9 @@ export const listThreadsTool: ToolDefinition = {
       pageToken: args.parameters.page_token || undefined,
     })
     return {
-      threads: res.data.threads,
-      nextPageToken: res.data.nextPageToken,
-      resultSizeEstimate: res.data.resultSizeEstimate,
+      threads: res.data.threads ?? [],
+      nextPageToken: res.data.nextPageToken ?? null,
+      resultSizeEstimate: res.data.resultSizeEstimate ?? null,
     } as any
   },
 }

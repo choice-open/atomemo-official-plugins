@@ -86,6 +86,7 @@ const testContext = {
   files: {
     attachRemoteUrl: async () => ({}),
     download: async () => ({}),
+    upload: async (fileRef: unknown) => fileRef,
   },
 } as any
 
@@ -97,7 +98,7 @@ import { listLabelsTool } from "../src/tools/list-labels"
 import { sendMessageTool } from "../src/tools/send-message"
 import { updateDraftTool } from "../src/tools/update-draft"
 
-const GMAIL_TOOL_COUNT = 37
+const GMAIL_TOOL_COUNT = 32
 
 describe("gmail plugin", () => {
   describe("plugin initialization", () => {

@@ -48,9 +48,9 @@ export const listHistoryTool: ToolDefinition = {
       pageToken: args.parameters.page_token || undefined,
     })
     return {
-      history: res.data.history,
-      historyId: res.data.historyId,
-      nextPageToken: res.data.nextPageToken,
+      history: res.data.history ?? [],
+      historyId: res.data.historyId ?? null,
+      nextPageToken: res.data.nextPageToken ?? null,
     } as any
   },
 }

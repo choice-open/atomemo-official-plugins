@@ -16,6 +16,6 @@ export const listForwardingAddressesTool: ToolDefinition = {
     )
     const userId = args.parameters.user_id ?? "me"
     const res = await gmail.users.settings.forwardingAddresses.list({ userId })
-    return { forwardingAddresses: res.data.forwardingAddresses } as any
+    return { forwardingAddresses: res.data.forwardingAddresses ?? [] } as any
   },
 }

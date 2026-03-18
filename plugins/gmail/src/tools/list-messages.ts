@@ -39,9 +39,9 @@ export const listMessagesTool: ToolDefinition = {
       pageToken: args.parameters.page_token || undefined,
     })
     return {
-      messages: res.data.messages,
-      nextPageToken: res.data.nextPageToken,
-      resultSizeEstimate: res.data.resultSizeEstimate,
+      messages: res.data.messages ?? [],
+      nextPageToken: res.data.nextPageToken ?? null,
+      resultSizeEstimate: res.data.resultSizeEstimate ?? null,
     } as any
   },
 }

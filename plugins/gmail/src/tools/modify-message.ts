@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 import { requireGmailClient } from "../lib/require-gmail"
+import { toStringArray } from "../lib/to-string-array"
 import {
   gmailCredentialParam,
   userIdParam,
@@ -42,12 +43,17 @@ export const modifyMessageTool: ToolDefinition = {
       args.parameters.gmail_credential,
     )
     const userId = args.parameters.user_id ?? "me"
+    const addLabelIds = toStringArray(args.parameters.add_label_ids as string | string[] | undefined)
+    const removeLabelIds = toStringArray(args.parameters.remove_label_ids as string | string[] | undefined)
+    if (addLabelIds.length === 0 && removeLabelIds.length === 0) {
+      throw new Error("add_label_ids 与 remove_label_ids 至少需要提供一个")
+    }
     const res = await gmail.users.messages.modify({
       userId,
       id: args.parameters.message_id,
       requestBody: {
-        addLabelIds: args.parameters.add_label_ids,
-        removeLabelIds: args.parameters.remove_label_ids,
+        ...(addLabelIds.length > 0 && { addLabelIds }),
+        ...(removeLabelIds.length > 0 && { removeLabelIds }),
       },
     })
     return { message: res.data } as any
