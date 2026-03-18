@@ -102,42 +102,27 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     let provider = (parameters.provider as string)?.trim()
     if (provider === "custom") {
       const custom = (parameters.provider_custom as string)?.trim()
       if (!custom) {
-        return {
-          success: false,
-          error:
-            "provider_custom is required when provider is custom (e.g. custom:my-oidc-provider).",
-          data: null,
-          code: null,
-        }
+        throw new Error(
+          "provider_custom is required when provider is custom (e.g. custom:my-oidc-provider).",
+        )
       }
       provider = custom.startsWith("custom:") ? custom : `custom:${custom}`
     } else if (
       !provider ||
       !PROVIDERS.includes(provider as (typeof PROVIDERS)[number])
     ) {
-      return {
-        success: false,
-        error: `provider must be one of: ${PROVIDERS.join(", ")}, or custom.`,
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        `provider must be one of: ${PROVIDERS.join(", ")}, or custom.`,
+      )
     }
     const token = (parameters.token as string)?.trim()
     if (!token) {
-      return {
-        success: false,
-        error: "token (ID token) is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("token (ID token) is required.")
     }
     const accessToken = (parameters.access_token as string)?.trim() || undefined
     const nonce = (parameters.nonce as string)?.trim() || undefined

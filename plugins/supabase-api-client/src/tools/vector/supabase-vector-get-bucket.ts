@@ -31,29 +31,20 @@ export const supabaseVectorGetBucketTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const name = String(parameters.vector_bucket_name).trim()
     if (!name) {
-      return {
-        success: false,
-        error: "vector_bucket_name is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("vector_bucket_name is required.")
     }
 
     try {
       const { data, error } =
-        await clientResult.supabase.storage.vectors.getBucket(name)
+        await supabase.storage.vectors.getBucket(name)
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -62,8 +53,10 @@ export const supabaseVectorGetBucketTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return { success: false, error: message, data: null, code: null }
+      if (err instanceof Error) {
+        throw err
+      }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

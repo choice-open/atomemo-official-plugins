@@ -53,45 +53,32 @@ export const supabaseStorageRemoveTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucket = String(parameters.bucket).trim()
     const pathsRaw = parseJson<string[]>(parameters.paths as string, [])
 
     if (!bucket) {
-      return {
-        success: false,
-        error: "bucket is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("bucket is required.")
     }
     const paths = Array.isArray(pathsRaw)
       ? pathsRaw.map((p) => String(p).trim()).filter(Boolean)
       : [String(pathsRaw).trim()].filter(Boolean)
     if (paths.length === 0) {
-      return {
-        success: false,
-        error:
-          'paths must be a non-empty JSON array of file paths (e.g. ["folder/file.png"]).',
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        'paths must be a non-empty JSON array of file paths (e.g. ["folder/file.png"]).',
+      )
     }
 
     try {
-      const { data, error } = await clientResult.supabase.storage
+      const { data, error } = await supabase.storage
         .from(bucket)
         .remove(paths)
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -100,13 +87,10 @@ export const supabaseStorageRemoveTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

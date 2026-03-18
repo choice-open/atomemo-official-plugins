@@ -58,34 +58,25 @@ export const supabaseStorageCreateSignedUrlTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucket = String(parameters.bucket).trim()
     const path = String(parameters.path).trim()
     const expiresIn = Number(parameters.expires_in) || 3600
 
     if (!bucket || !path) {
-      return {
-        success: false,
-        error: "bucket and path are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("bucket and path are required.")
     }
 
     try {
-      const { data, error } = await clientResult.supabase.storage
+      const { data, error } = await supabase.storage
         .from(bucket)
         .createSignedUrl(path, expiresIn)
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -94,13 +85,10 @@ export const supabaseStorageCreateSignedUrlTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

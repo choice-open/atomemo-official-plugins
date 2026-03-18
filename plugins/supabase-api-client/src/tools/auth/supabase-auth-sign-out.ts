@@ -34,19 +34,13 @@ export const supabaseAuthSignOutTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const scope = (parameters.scope as string) === "global" ? "global" : "local"
     const { error } = await supabase.auth.signOut({ scope })
     if (error) {
-      return {
-        success: false,
-        data: null,
-        error: error.message,
-        code: error.code ?? null,
-      }
+      const e: any = new Error(error.message)
+      e.code = error.code ?? null
+      throw e
     }
     return { success: true, data: null, error: null, code: null }
   },

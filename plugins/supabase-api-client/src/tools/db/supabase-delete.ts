@@ -85,10 +85,7 @@ export const supabaseDeleteTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const table = String(parameters.table).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
     const returning =
@@ -99,13 +96,9 @@ export const supabaseDeleteTool = {
     )
 
     if (!hasFilters(filtersInput)) {
-      return {
-        success: false,
-        error:
-          'Parameter "filters" is required to target rows (e.g. {"id": 1} or array of conditions).',
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        'Parameter "filters" is required to target rows (e.g. {"id": 1} or array of conditions).',
+      )
     }
 
     try {
@@ -124,12 +117,9 @@ export const supabaseDeleteTool = {
           : await (filtered as unknown as Promise<Result>)
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: error.code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = error.code ?? null
+        throw e
       }
       const resultData: unknown = data ?? null
       return {
@@ -139,13 +129,10 @@ export const supabaseDeleteTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

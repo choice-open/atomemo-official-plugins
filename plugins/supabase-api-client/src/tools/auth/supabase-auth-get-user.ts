@@ -31,10 +31,7 @@ export const supabaseAuthGetUserTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const jwt = (parameters.jwt as string)?.trim() || undefined
     const result = await supabase.auth.getUser(jwt)
     return authResult({ data: result.data, error: result.error }) as ReturnType<

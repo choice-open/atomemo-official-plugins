@@ -157,10 +157,7 @@ export const supabaseQueryTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const table = String(parameters.table).trim()
     const columns = (parameters.columns as string)?.trim() || "*"
     const schema = (parameters.schema as string)?.trim() || "public"
@@ -197,12 +194,9 @@ export const supabaseQueryTool = {
         ).explain({ format: "json" })
         const { data, error } = await explained
         if (error) {
-          return {
-            success: false,
-            error: error.message,
-            code: error.code ?? null,
-            data: null,
-          }
+          const e: any = new Error(error.message)
+          e.code = error.code ?? null
+          throw e
         }
         return {
           success: true,
@@ -223,12 +217,9 @@ export const supabaseQueryTool = {
         ).csv()
         const { data, error } = await csvChain
         if (error) {
-          return {
-            success: false,
-            error: error.message,
-            code: error.code ?? null,
-            data: null,
-          }
+          const e: any = new Error(error.message)
+          e.code = error.code ?? null
+          throw e
         }
         return {
           success: true,
@@ -249,12 +240,9 @@ export const supabaseQueryTool = {
         ).single()
         const { data, error } = await singleChain
         if (error) {
-          return {
-            success: false,
-            error: error.message,
-            code: error.code ?? null,
-            data: null,
-          }
+          const e: any = new Error(error.message)
+          e.code = error.code ?? null
+          throw e
         }
         return {
           success: true,
@@ -275,12 +263,9 @@ export const supabaseQueryTool = {
         ).maybeSingle()
         const { data, error } = await maybeChain
         if (error) {
-          return {
-            success: false,
-            error: error.message,
-            code: error.code ?? null,
-            data: null,
-          }
+          const e: any = new Error(error.message)
+          e.code = error.code ?? null
+          throw e
         }
         return {
           success: true,
@@ -293,12 +278,9 @@ export const supabaseQueryTool = {
       const { data, error } = await query
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: error.code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = error.code ?? null
+        throw e
       }
       return {
         success: true,
@@ -307,13 +289,10 @@ export const supabaseQueryTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

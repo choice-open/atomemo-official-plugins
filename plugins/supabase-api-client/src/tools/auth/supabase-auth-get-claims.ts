@@ -41,20 +41,14 @@ export const supabaseAuthGetClaimsTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const jwt = (parameters.jwt as string)?.trim() || undefined
     const allowExpired = Boolean(parameters.allow_expired)
     const result = await supabase.auth.getClaims(jwt, { allowExpired })
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e: any = new Error(result.error.message)
+      e.code = result.error.code ?? null
+      throw e
     }
     if (!result.data) {
       return { success: true, data: null, error: null, code: null }

@@ -71,28 +71,15 @@ export const supabaseAuthVerifyOtpTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const type = (parameters.type as string)?.trim()
     if (!type || !OTP_TYPES.includes(type as (typeof OTP_TYPES)[number])) {
-      return {
-        success: false,
-        error: `type must be one of: ${OTP_TYPES.join(", ")}`,
-        data: null,
-        code: null,
-      }
+      throw new Error(`type must be one of: ${OTP_TYPES.join(", ")}`)
     }
     const tokenHash = (parameters.token_hash as string)?.trim()
     const token = (parameters.token as string)?.trim()
     if (!tokenHash && !token) {
-      return {
-        success: false,
-        error: "Either token_hash or token is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("Either token_hash or token is required.")
     }
     const params = tokenHash ? { type, token_hash: tokenHash } : { type, token }
     const result = await supabase.auth.verifyOtp(

@@ -57,41 +57,27 @@ export const supabaseStorageDownloadTool = {
   ],
   async invoke({ args, context }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucket = String(parameters.bucket).trim()
     const path = String(parameters.path).trim()
 
     if (!bucket || !path) {
-      return {
-        success: false,
-        error: "bucket and path are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("bucket and path are required.")
     }
 
     try {
-      const { data: blob, error } = await clientResult.supabase.storage
+      const { data: blob, error } = await supabase.storage
         .from(bucket)
         .download(path)
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       if (!blob) {
-        return {
-          success: false,
-          error: "No data returned.",
-          data: null,
-          code: null,
-        }
+        throw new Error("No data returned.")
       }
 
       const contentBase64 = await blobToBase64(blob)
@@ -120,13 +106,10 @@ export const supabaseStorageDownloadTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

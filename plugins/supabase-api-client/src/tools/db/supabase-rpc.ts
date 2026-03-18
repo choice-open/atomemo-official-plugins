@@ -66,11 +66,7 @@ export const supabaseRpcTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) {
-      return { ...clientResult.error }
-    }
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const functionName = String(parameters.function_name).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
@@ -88,12 +84,9 @@ export const supabaseRpcTool = {
         )
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: error.code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = error.code ?? null
+        throw e
       }
       return {
         success: true,
@@ -102,13 +95,10 @@ export const supabaseRpcTool = {
         code: null,
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

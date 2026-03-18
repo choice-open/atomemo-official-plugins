@@ -43,18 +43,10 @@ export const supabaseAuthResetPasswordTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const email = String(parameters.email ?? "").trim()
     if (!email) {
-      return {
-        success: false,
-        error: "Email is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("Email is required.")
     }
     const redirectTo = (parameters.redirect_to as string)?.trim() || undefined
     const result = await supabase.auth.resetPasswordForEmail(email, {

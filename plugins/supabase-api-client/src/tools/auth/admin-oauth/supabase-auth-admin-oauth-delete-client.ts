@@ -30,7 +30,7 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       undefined,
@@ -38,26 +38,15 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
         useServiceRoleKey: true,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
-      return {
-        success: false,
-        error: "client_id is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("client_id is required.")
     }
     const result = await supabase.auth.admin.oauth.deleteClient(clientId)
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e = new Error(result.error.message) as Error & { code?: string | null }
+      e.code = result.error.code ?? null
+      throw e
     }
     return { success: true, data: null, error: null, code: null }
   },

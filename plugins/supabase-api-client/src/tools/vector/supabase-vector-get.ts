@@ -81,36 +81,25 @@ export const supabaseVectorGetTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucketName = String(parameters.vector_bucket_name).trim()
     const indexName = String(parameters.index_name).trim()
     if (!bucketName || !indexName) {
-      return {
-        success: false,
-        error: "vector_bucket_name and index_name are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("vector_bucket_name and index_name are required.")
     }
 
     const keysRaw = parseJson<string[]>(parameters.keys as string, [])
     const keys = Array.isArray(keysRaw) ? keysRaw.map(String) : []
     if (keys.length === 0) {
-      return {
-        success: false,
-        error: "keys must be a non-empty JSON array of vector keys.",
-        data: null,
-        code: null,
-      }
+      throw new Error("keys must be a non-empty JSON array of vector keys.")
     }
 
     const returnData = parameters.return_data !== false
     const returnMetadata = parameters.return_metadata === true
 
     try {
-      const index = clientResult.supabase.storage.vectors
+      const index = supabase.storage.vectors
         .from(bucketName)
         .index(indexName)
       const { data, error } = await index.getVectors({
@@ -120,12 +109,9 @@ export const supabaseVectorGetTool = {
       })
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -134,8 +120,10 @@ export const supabaseVectorGetTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return { success: false, error: message, data: null, code: null }
+      if (err instanceof Error) {
+        throw err
+      }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

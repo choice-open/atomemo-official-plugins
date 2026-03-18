@@ -45,19 +45,11 @@ export const supabaseAuthSetSessionTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const accessToken = (parameters.access_token as string)?.trim()
     const refreshToken = (parameters.refresh_token as string)?.trim()
     if (!accessToken || !refreshToken) {
-      return {
-        success: false,
-        error: "access_token and refresh_token are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("access_token and refresh_token are required.")
     }
     const result = await supabase.auth.setSession({
       access_token: accessToken,

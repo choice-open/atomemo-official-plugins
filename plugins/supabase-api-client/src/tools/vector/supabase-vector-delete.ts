@@ -65,57 +65,40 @@ export const supabaseVectorDeleteTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucketName = String(parameters.vector_bucket_name).trim()
     const indexName = String(parameters.index_name).trim()
     if (!bucketName || !indexName) {
-      return {
-        success: false,
-        error: "vector_bucket_name and index_name are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("vector_bucket_name and index_name are required.")
     }
 
     const keysRaw = parseJson<string[]>(parameters.keys as string, [])
     const keys = Array.isArray(keysRaw) ? keysRaw.map(String) : []
     if (keys.length === 0) {
-      return {
-        success: false,
-        error: "keys must be a non-empty JSON array of vector keys (1-500).",
-        data: null,
-        code: null,
-      }
+      throw new Error("keys must be a non-empty JSON array of vector keys (1-500).")
     }
     if (keys.length > 500) {
-      return {
-        success: false,
-        error: "keys batch size must be between 1 and 500.",
-        data: null,
-        code: null,
-      }
+      throw new Error("keys batch size must be between 1 and 500.")
     }
 
     try {
-      const index = clientResult.supabase.storage.vectors
+      const index = supabase.storage.vectors
         .from(bucketName)
         .index(indexName)
       const { error } = await index.deleteVectors({ keys })
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return { success: true, data: null, error: null, code: null } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return { success: false, error: message, data: null, code: null }
+      if (err instanceof Error) {
+        throw err
+      }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

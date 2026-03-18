@@ -60,17 +60,11 @@ export const supabaseVectorListIndexesTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucketName = String(parameters.vector_bucket_name).trim()
     if (!bucketName) {
-      return {
-        success: false,
-        error: "vector_bucket_name is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("vector_bucket_name is required.")
     }
 
     const prefix = (parameters.prefix as string)?.trim() || undefined
@@ -78,7 +72,7 @@ export const supabaseVectorListIndexesTool = {
     const nextToken = (parameters.next_token as string)?.trim() || undefined
 
     try {
-      const bucket = clientResult.supabase.storage.vectors.from(bucketName)
+      const bucket = supabase.storage.vectors.from(bucketName)
       const { data, error } = await bucket.listIndexes({
         prefix,
         maxResults,
@@ -86,12 +80,9 @@ export const supabaseVectorListIndexesTool = {
       })
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -100,8 +91,10 @@ export const supabaseVectorListIndexesTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return { success: false, error: message, data: null, code: null }
+      if (err instanceof Error) {
+        throw err
+      }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

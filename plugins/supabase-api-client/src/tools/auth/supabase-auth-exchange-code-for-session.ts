@@ -31,18 +31,10 @@ export const supabaseAuthExchangeCodeForSessionTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const code = (parameters.code as string)?.trim()
     if (!code) {
-      return {
-        success: false,
-        error: "code is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("code is required.")
     }
     const result = await supabase.auth.exchangeCodeForSession(code)
     return authResult({ data: result.data, error: result.error }) as ReturnType<

@@ -87,8 +87,7 @@ export const supabaseStorageUploadTool = {
   ],
   async invoke({ args, context }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucket = String(parameters.bucket).trim()
     const path = String(parameters.path).trim()
@@ -99,33 +98,21 @@ export const supabaseStorageUploadTool = {
     const upsert = Boolean(parameters.upsert)
 
     if (!bucket || !path) {
-      return {
-        success: false,
-        error: "bucket and path are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("bucket and path are required.")
     }
     const hasFileRef = fileRef != null
     const hasFileContent = fileContent != null && String(fileContent).trim() !== ""
 
     if (hasFileRef && hasFileContent) {
-      return {
-        success: false,
-        error: "Please provide either file (file_ref) or file_content, not both.",
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        "Please provide either file (file_ref) or file_content, not both.",
+      )
     }
 
     if (!hasFileRef && !hasFileContent) {
-      return {
-        success: false,
-        error:
-          "file or file_content is required. Provide a file_ref via file, or a base64/plain string via file_content.",
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        "file or file_content is required. Provide a file_ref via file, or a base64/plain string via file_content.",
+      )
     }
 
     const normalizedPath = path.replace(/^\/*/, "").replace(/\/*$/, "")
@@ -134,23 +121,15 @@ export const supabaseStorageUploadTool = {
       lastSegment.length > 0 && lastSegment.includes(".")
 
     if (hasFileRef && hasExplicitFilenameInPath) {
-      return {
-        success: false,
-        error:
-          "When using file_ref, path must be a directory path without filename (e.g. folder/subfolder). The final filename comes from file_ref.",
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        "When using file_ref, path must be a directory path without filename (e.g. folder/subfolder). The final filename comes from file_ref.",
+      )
     }
 
     if (hasFileContent && (!normalizedPath || normalizedPath.endsWith("/") || !hasExplicitFilenameInPath)) {
-      return {
-        success: false,
-        error:
-          "When using file_content, path must include the filename (e.g. folder/file.png).",
-        data: null,
-        code: null,
-      }
+      throw new Error(
+        "When using file_content, path must include the filename (e.g. folder/file.png).",
+      )
     }
 
     let body: Buffer | Uint8Array | string
@@ -176,24 +155,19 @@ export const supabaseStorageUploadTool = {
             : null
 
         if (!safeFilename) {
-          return {
-            success: false,
-            error:
-              "file_ref must include filename (or be downloadable with filename) to construct the final storage path.",
-            data: null,
-            code: null,
-          }
+          throw new Error(
+            "file_ref must include filename (or be downloadable with filename) to construct the final storage path.",
+          )
         }
 
         finalPath = finalPath ? `${finalPath}/${safeFilename}` : safeFilename
       } catch (err) {
-        const message = err instanceof Error ? err.message : String(err)
-        return {
-          success: false,
-          error: `Failed to read file_ref: ${message}`,
-          data: null,
-          code: null,
+        if (err instanceof Error) {
+          const e: any = new Error(`Failed to read file_ref: ${err.message}`)
+          e.code = (err as any).code ?? null
+          throw e
         }
+        throw new Error(`Failed to read file_ref: ${String(err)}`)
       }
     } else {
       const trimmed =
@@ -210,17 +184,14 @@ export const supabaseStorageUploadTool = {
     }
 
     try {
-      const { data, error } = await clientResult.supabase.storage
+      const { data, error } = await supabase.storage
         .from(bucket)
         .upload(finalPath, body, { contentType, upsert })
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -229,13 +200,10 @@ export const supabaseStorageUploadTool = {
         code: null,
       } as any
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

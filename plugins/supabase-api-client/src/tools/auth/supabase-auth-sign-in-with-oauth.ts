@@ -121,21 +121,13 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const provider = (parameters.provider as string)?.trim()
     if (
       !provider ||
       !OAUTH_PROVIDERS.includes(provider as (typeof OAUTH_PROVIDERS)[number])
     ) {
-      return {
-        success: false,
-        error: `provider must be one of: ${OAUTH_PROVIDERS.join(", ")}`,
-        data: null,
-        code: null,
-      }
+      throw new Error(`provider must be one of: ${OAUTH_PROVIDERS.join(", ")}`)
     }
     const redirectTo = (parameters.redirect_to as string)?.trim() || undefined
     const scopes = (parameters.scopes as string)?.trim() || undefined
@@ -154,12 +146,9 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
       },
     })
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e: any = new Error(result.error.message)
+      e.code = result.error.code ?? null
+      throw e
     }
     return {
       success: true,
