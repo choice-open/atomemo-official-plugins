@@ -1,0 +1,98 @@
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
+import { requireGmailClient } from "../lib/require-gmail"
+import { draftIdParam, gmailCredentialParam, userIdParam } from "./_shared/parameters"
+
+function createRawEmail(
+  to: string,
+  subject: string,
+  body: string,
+  cc?: string,
+  bcc?: string,
+): string {
+  const lines: string[] = []
+  lines.push(`To: ${to}`)
+  lines.push(`Subject: ${subject}`)
+  if (cc) lines.push(`Cc: ${cc}`)
+  if (bcc) lines.push(`Bcc: ${bcc}`)
+  lines.push("Content-Type: text/html; charset=utf-8")
+  lines.push("")
+  lines.push(body.replace(/\n/g, "<br>"))
+  return Buffer.from(lines.join("\r\n")).toString("base64url")
+}
+
+export const updateDraftTool: ToolDefinition = {
+  name: "gmail-update-draft",
+  display_name: t("GMAIL_TOOL_UPDATE_DRAFT_DISPLAY_NAME"),
+  description: t("GMAIL_TOOL_UPDATE_DRAFT_DESCRIPTION"),
+  icon: "📝",
+  parameters: [
+    gmailCredentialParam,
+    userIdParam,
+    draftIdParam,
+    {
+      name: "to",
+      type: "string",
+      required: true,
+      display_name: t("GMAIL_PARAM_TO_LABEL"),
+      ui: {
+        component: "input",
+        placeholder: t("GMAIL_PARAM_TO_PLACEHOLDER"),
+        support_expression: true,
+        width: "full",
+      },
+    },
+    {
+      name: "subject",
+      type: "string",
+      required: true,
+      display_name: t("GMAIL_PARAM_SUBJECT_LABEL"),
+      ui: { component: "input", support_expression: true, width: "full" },
+    },
+    {
+      name: "body",
+      type: "string",
+      required: true,
+      display_name: t("GMAIL_PARAM_BODY_LABEL"),
+      ui: { component: "textarea", support_expression: true, width: "full" },
+    },
+    {
+      name: "cc",
+      type: "string",
+      required: false,
+      display_name: t("GMAIL_PARAM_CC_LABEL"),
+      ui: { component: "input", support_expression: true, width: "full" },
+    },
+    {
+      name: "bcc",
+      type: "string",
+      required: false,
+      display_name: t("GMAIL_PARAM_BCC_LABEL"),
+      ui: { component: "input", support_expression: true, width: "full" },
+    },
+  ],
+  async invoke({ args }) {
+    const gmail = requireGmailClient(
+      args.credentials,
+      args.parameters.gmail_credential,
+    )
+    const userId = args.parameters.user_id ?? "me"
+    const raw = createRawEmail(
+      args.parameters.to,
+      args.parameters.subject,
+      args.parameters.body,
+      args.parameters.cc,
+      args.parameters.bcc,
+    )
+    const res = await gmail.users.drafts.update({
+      userId,
+      id: args.parameters.draft_id,
+      requestBody: {
+        id: args.parameters.draft_id,
+        message: { raw },
+      },
+    })
+    return { draft: res.data, id: res.data.id } as any
+  },
+}
+
