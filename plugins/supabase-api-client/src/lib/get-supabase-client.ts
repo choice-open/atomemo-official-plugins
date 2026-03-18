@@ -3,14 +3,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 const CREDENTIAL_PARAM = "supabase_credential" as const
 
 /** 缺少凭证时返回的错误对象，工具可直接 return */
-export const MISSING_CREDENTIAL_ERROR = {
-  success: false,
-  error: "Missing Supabase credential (supabase_url or supabase_key).",
-  data: null,
-  code: null,
-} as const
-
-export type MissingCredentialError = typeof MISSING_CREDENTIAL_ERROR
+export const MISSING_CREDENTIAL_ERROR_MESSAGE =
+  "Missing Supabase credential (supabase_url or supabase_key)." as const
 
 export type CredentialMap = Record<
   string,
@@ -29,14 +23,7 @@ export type InvokeArgsLike = {
   credentials?: CredentialMap | null
 }
 
-export type GetSupabaseClientSuccess = { supabase: SupabaseClient; error: null }
-export type GetSupabaseClientFailure = {
-  supabase: null
-  error: MissingCredentialError
-}
-export type GetSupabaseClientResult =
-  | GetSupabaseClientSuccess
-  | GetSupabaseClientFailure
+export type GetSupabaseClientResult = { supabase: SupabaseClient }
 
 function getCredential(
   parameters: Record<string, unknown> | undefined,
@@ -116,10 +103,13 @@ export function getSupabaseClientFromArgs(
       : options
 
   const cred = getCredential(parameters, credentials, paramName, opts)
-  if (!cred) return { supabase: null, error: MISSING_CREDENTIAL_ERROR }
+  if (!cred) {
+    const e: any = new Error(MISSING_CREDENTIAL_ERROR_MESSAGE)
+    e.code = null
+    throw e
+  }
   return {
     supabase: createClient(cred.supabase_url, cred.supabase_key),
-    error: null,
   }
 }
 

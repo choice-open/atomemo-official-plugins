@@ -30,7 +30,7 @@ export const supabaseAuthAdminOAuthRegenerateSecretTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       undefined,
@@ -38,27 +38,16 @@ export const supabaseAuthAdminOAuthRegenerateSecretTool: ToolDefinition = {
         useServiceRoleKey: true,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
-      return {
-        success: false,
-        error: "client_id is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("client_id is required.")
     }
     const result =
       await supabase.auth.admin.oauth.regenerateClientSecret(clientId)
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e: any = new Error(result.error.message)
+      e.code = result.error.code ?? null
+      throw e
     }
     return { success: true, data: result.data, error: null, code: null }
   },

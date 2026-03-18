@@ -75,10 +75,7 @@ export const supabaseInsertTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return { ...clientResult.error, count: null }
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const table = String(parameters.table).trim()
     const schema = (parameters.schema as string)?.trim() || "public"
     const returning =
@@ -86,13 +83,7 @@ export const supabaseInsertTool = {
     const rowsRaw = parseJson<unknown>(parameters.rows as string, null)
 
     if (rowsRaw == null) {
-      return {
-        success: false,
-        error: "Parameter 'rows' must be a valid JSON array or object.",
-        data: null,
-        code: null,
-        count: null,
-      }
+      throw new Error("Parameter 'rows' must be a valid JSON array or object.")
     }
 
     const rows = Array.isArray(rowsRaw) ? rowsRaw : [rowsRaw]
@@ -105,13 +96,9 @@ export const supabaseInsertTool = {
         returning === "representation" ? await base.select() : await base
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: error.code ?? null,
-          data: null,
-          count: null,
-        }
+        const e: any = new Error(error.message)
+        e.code = error.code ?? null
+        throw e
       }
       return {
         success: true,
@@ -121,14 +108,10 @@ export const supabaseInsertTool = {
         code: null,
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: null,
-        code: null,
-        count: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

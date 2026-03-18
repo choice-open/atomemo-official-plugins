@@ -98,7 +98,7 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
   async invoke({ args }) {
     const { parameters, credentials } = args
     const useServiceRoleKey = parameters.use_service_role_key !== false
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       "supabase_credential",
@@ -106,17 +106,9 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
         useServiceRoleKey,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const functionName = String(parameters.function_name).trim()
     if (!functionName) {
-      return {
-        success: false,
-        error: "function_name is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("function_name is required.")
     }
 
     const bodyRaw = (parameters.body as string)?.trim()
@@ -153,12 +145,9 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
       )
 
       if (error) {
-        return {
-          success: false,
-          error: error.message,
-          code: (error as { code?: string }).code ?? null,
-          data: JSON.stringify(error),
-        }
+        const e: any = new Error(error.message)
+        e.code = (error as { code?: string }).code ?? null
+        throw e
       }
       return {
         success: true,
@@ -167,13 +156,10 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
         code: null,
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      return {
-        success: false,
-        error: message,
-        data: JSON.stringify(err, null, 2),
-        code: null,
+      if (err instanceof Error) {
+        throw err
       }
+      throw new Error(String(err))
     }
   },
 } satisfies ToolDefinition

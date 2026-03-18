@@ -19,10 +19,7 @@ export const supabaseAuthSignInAnonymouslyTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const result = await supabase.auth.signInAnonymously()
     return authResult(result) as ReturnType<
       ToolDefinition["invoke"]

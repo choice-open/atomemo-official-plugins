@@ -91,7 +91,7 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       undefined,
@@ -99,17 +99,9 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
         useServiceRoleKey: true,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const clientName = (parameters.client_name as string)?.trim()
     if (!clientName) {
-      return {
-        success: false,
-        error: "client_name is required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("client_name is required.")
     }
     const redirectUrisRaw = (parameters.redirect_uris as string)?.trim()
     let redirectUris: string[]
@@ -122,12 +114,7 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
         throw new Error("redirect_uris must be a JSON array of strings")
       }
     } catch (e) {
-      return {
-        success: false,
-        error: e instanceof Error ? e.message : "Invalid redirect_uris JSON.",
-        data: null,
-        code: null,
-      }
+      throw new Error(e instanceof Error ? e.message : "Invalid redirect_uris JSON.")
     }
     const clientUri = (parameters.client_uri as string)?.trim() || undefined
     const grantTypes = parseJson<string[]>(parameters.grant_types as string, [])
@@ -153,12 +140,9 @@ export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
       scope,
     })
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e: any = new Error(result.error.message)
+      e.code = result.error.code ?? null
+      throw e
     }
     return { success: true, data: result.data, error: null, code: null }
   },

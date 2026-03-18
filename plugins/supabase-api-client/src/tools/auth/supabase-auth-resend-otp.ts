@@ -62,39 +62,21 @@ export const supabaseAuthResendOtpTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const type = (parameters.type as string)?.trim()
     if (
       !type ||
       !RESEND_TYPES.includes(type as (typeof RESEND_TYPES)[number])
     ) {
-      return {
-        success: false,
-        error: `type must be one of: ${RESEND_TYPES.join(", ")}`,
-        data: null,
-        code: null,
-      }
+      throw new Error(`type must be one of: ${RESEND_TYPES.join(", ")}`)
     }
     const email = (parameters.email as string)?.trim()
     const phone = (parameters.phone as string)?.trim()
     if ((type === "signup" || type === "email_change") && !email) {
-      return {
-        success: false,
-        error: "Email is required for signup and email_change.",
-        data: null,
-        code: null,
-      }
+      throw new Error("Email is required for signup and email_change.")
     }
     if ((type === "sms" || type === "phone_change") && !phone) {
-      return {
-        success: false,
-        error: "Phone is required for sms and phone_change.",
-        data: null,
-        code: null,
-      }
+      throw new Error("Phone is required for sms and phone_change.")
     }
     const resendParams =
       type === "sms" || type === "phone_change"

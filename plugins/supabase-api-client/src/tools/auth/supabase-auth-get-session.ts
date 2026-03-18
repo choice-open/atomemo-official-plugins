@@ -19,10 +19,7 @@ export const supabaseAuthGetSessionTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const result = await supabase.auth.getSession()
     return authResult({ data: result.data, error: result.error }) as ReturnType<
       ToolDefinition["invoke"]

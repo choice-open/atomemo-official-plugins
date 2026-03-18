@@ -30,7 +30,7 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       undefined,
@@ -38,9 +38,6 @@ export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
         useServiceRoleKey: true,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const clientId = (parameters.client_id as string)?.trim()
     if (!clientId) {
       return {

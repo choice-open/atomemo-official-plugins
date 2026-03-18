@@ -3,19 +3,17 @@ export function authResult<T>(result: {
   data: T | null
   error: { message?: string; code?: string; status?: number } | null
 }): {
-  success: boolean
+  success: true
   data: T | null
-  error: string | null
+  error: null
   code: string | null
 } {
   if (result.error) {
-    return {
-      success: false,
-      data: null,
-      error:
-        result.error.message ?? String(result.error.status ?? "Unknown error"),
-      code: result.error.code ?? null,
-    }
+    const message =
+      result.error.message ?? String(result.error.status ?? "Unknown error")
+    const e: any = new Error(message)
+    e.code = result.error.code ?? null
+    throw e
   }
   return {
     success: true,

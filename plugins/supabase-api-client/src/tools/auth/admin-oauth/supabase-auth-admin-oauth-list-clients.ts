@@ -37,7 +37,7 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(
+    const { supabase } = getSupabaseClientFromArgs(
       parameters,
       credentials,
       undefined,
@@ -45,9 +45,6 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
         useServiceRoleKey: true,
       },
     )
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
     const page = Number(parameters.page) || 1
     const perPage = Number(parameters.per_page) || 50
     const result = await supabase.auth.admin.oauth.listClients({
@@ -55,12 +52,9 @@ export const supabaseAuthAdminOAuthListClientsTool: ToolDefinition = {
       perPage,
     })
     if (result.error) {
-      return {
-        success: false,
-        data: null,
-        error: result.error.message,
-        code: result.error.code ?? null,
-      }
+      const e: any = new Error(result.error.message)
+      e.code = result.error.code ?? null
+      throw e
     }
     return {
       success: true,

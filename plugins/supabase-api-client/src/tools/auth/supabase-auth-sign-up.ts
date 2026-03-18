@@ -56,19 +56,11 @@ export const supabaseAuthSignUpTool: ToolDefinition = {
   ],
   async invoke({ args }) {
     const { credentials, parameters } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
-
-    const supabase = clientResult.supabase
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
     const email = String(parameters.email ?? "").trim()
     const password = String(parameters.password ?? "")
     if (!email || !password) {
-      return {
-        success: false,
-        error: "Email and password are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("Email and password are required.")
     }
     const options = parseJson<{
       emailRedirectTo?: string

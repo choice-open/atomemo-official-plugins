@@ -44,22 +44,16 @@ export const supabaseStorageGetPublicUrlTool = {
   ],
   async invoke({ args }) {
     const { parameters, credentials } = args
-    const clientResult = getSupabaseClientFromArgs(parameters, credentials)
-    if (clientResult.error) return clientResult.error
+    const { supabase } = getSupabaseClientFromArgs(parameters, credentials)
 
     const bucket = String(parameters.bucket).trim()
     const path = String(parameters.path).trim()
 
     if (!bucket || !path) {
-      return {
-        success: false,
-        error: "bucket and path are required.",
-        data: null,
-        code: null,
-      }
+      throw new Error("bucket and path are required.")
     }
 
-    const { data } = clientResult.supabase.storage
+    const { data } = supabase.storage
       .from(bucket)
       .getPublicUrl(path)
     return {
