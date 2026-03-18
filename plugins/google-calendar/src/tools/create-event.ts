@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createCalendarClient } from "../lib/calendar-client"
-import type { GoogleCalendarCredential } from "../lib/calendar-client"
 import { t } from "../i18n/i18n-node"
+import { calendarCredentialParam } from "../lib/parameters"
+import { requireCalendarClient } from "../lib/require-calendar"
 
 export const createEventTool = {
   name: "create-event",
@@ -9,13 +9,7 @@ export const createEventTool = {
   description: t("CREATE_EVENT_DESCRIPTION"),
   icon: "➕",
   parameters: [
-    {
-      name: "credential",
-      type: "credential_id",
-      required: true,
-      display_name: t("CREDENTIAL_DISPLAY_NAME"),
-      credential_name: "google-calendar-oauth2",
-    },
+    calendarCredentialParam,
     {
       name: "calendar_id",
       type: "string",
@@ -103,7 +97,7 @@ export const createEventTool = {
     },
   ],
   async invoke({ args }) {
-    const cred = args.credentials.credential as GoogleCalendarCredential
+    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
     const {
       calendar_id,
       summary,
@@ -116,7 +110,6 @@ export const createEventTool = {
 
     const tz = (timezone as string) || "UTC"
 
-    const calendar = createCalendarClient(cred)
     const res = await calendar.events.insert({
       calendarId: calendar_id as string,
       requestBody: {
@@ -135,15 +128,17 @@ export const createEventTool = {
     })
 
     const e = res.data
+    const toJson = (dt: { date?: string | null; dateTime?: string | null; timeZone?: string | null } | null | undefined) =>
+      dt ? { date: dt.date ?? null, dateTime: dt.dateTime ?? null, timeZone: dt.timeZone ?? null } : null
     return {
-      id: e.id,
-      summary: e.summary,
-      description: e.description,
-      location: e.location,
-      start: e.start,
-      end: e.end,
-      htmlLink: e.htmlLink,
-      status: e.status,
+      id: e.id ?? null,
+      summary: e.summary ?? null,
+      description: e.description ?? null,
+      location: e.location ?? null,
+      start: toJson(e.start),
+      end: toJson(e.end),
+      htmlLink: e.htmlLink ?? null,
+      status: e.status ?? null,
     }
   },
 } satisfies ToolDefinition

@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createCalendarClient } from "../lib/calendar-client"
-import type { GoogleCalendarCredential } from "../lib/calendar-client"
 import { t } from "../i18n/i18n-node"
+import { calendarCredentialParam } from "../lib/parameters"
+import { requireCalendarClient } from "../lib/require-calendar"
 
 export const deleteEventTool = {
   name: "delete-event",
@@ -9,13 +9,7 @@ export const deleteEventTool = {
   description: t("DELETE_EVENT_DESCRIPTION"),
   icon: "🗑️",
   parameters: [
-    {
-      name: "credential",
-      type: "credential_id",
-      required: true,
-      display_name: t("CREDENTIAL_DISPLAY_NAME"),
-      credential_name: "google-calendar-oauth2",
-    },
+    calendarCredentialParam,
     {
       name: "calendar_id",
       type: "string",
@@ -44,10 +38,8 @@ export const deleteEventTool = {
     },
   ],
   async invoke({ args }) {
-    const cred = args.credentials.credential as GoogleCalendarCredential
+    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
     const { calendar_id, event_id } = args.parameters
-
-    const calendar = createCalendarClient(cred)
     await calendar.events.delete({
       calendarId: calendar_id as string,
       eventId: event_id as string,
