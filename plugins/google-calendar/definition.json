@@ -1,0 +1,44 @@
+{
+  "name": "google-calendar",
+  "display_name": {
+    "en_US": "Google Calendar",
+    "zh_Hans": "Google 日历"
+  },
+  "description": {
+    "en_US": "Integrate Google Calendar into Atomemo workflows",
+    "zh_Hans": "将 Google 日历集成到 Atomemo 工作流中"
+  },
+  "icon": "📅",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-calendar",
+  "locales": ["en-US", "zh-Hans"],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "google-calendar-oauth2"
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "list-calendars"
+    },
+    {
+      "name": "list-events"
+    },
+    {
+      "name": "create-event"
+    },
+    {
+      "name": "get-event"
+    },
+    {
+      "name": "update-event"
+    },
+    {
+      "name": "delete-event"
+    }
+  ]
+}
