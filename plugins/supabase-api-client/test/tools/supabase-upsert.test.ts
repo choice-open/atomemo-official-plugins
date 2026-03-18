@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { createMockSupabaseClient } from "../helpers/mock-supabase"
-import { supabaseDeleteTool } from "../../src/tools/db/supabase-delete"
+import { supabaseUpsertTool } from "../../src/tools/db/supabase-upsert"
 
 const mockCreateClient = vi.fn()
 
@@ -18,18 +18,18 @@ const CREDENTIALS = {
 
 beforeEach(() => {
   mockCreateClient.mockReturnValue(
-    createMockSupabaseClient({ data: null }),
+    createMockSupabaseClient({ data: [{ id: 1 }] }),
   )
 })
 
-describe("supabaseDeleteTool", () => {
-  it("invoke 成功删除", async () => {
-    const result = await supabaseDeleteTool.invoke({
+describe("supabaseUpsertTool", () => {
+  it("invoke 成功 upsert", async () => {
+    const result = await supabaseUpsertTool.invoke({
       args: {
         parameters: {
           supabase_credential: CRED_ID,
           table: "users",
-          filters: '{"id": 1}',
+          rows: '{"id": 1, "name": "upserted"}',
         },
         credentials: CREDENTIALS,
       },
@@ -38,18 +38,19 @@ describe("supabaseDeleteTool", () => {
     expect(result).toMatchObject({ success: true, error: null })
   })
 
-  it("filters 缺失时抛出错误", async () => {
-    await expect(
-      supabaseDeleteTool.invoke({
-        args: {
-          parameters: {
-            supabase_credential: CRED_ID,
-            table: "users",
-            filters: '{}',
-          },
-          credentials: CREDENTIALS,
+  it("支持 on_conflict 参数", async () => {
+    const result = await supabaseUpsertTool.invoke({
+      args: {
+        parameters: {
+          supabase_credential: CRED_ID,
+          table: "users",
+          rows: '[{"email":"a@b.com"}]',
+          on_conflict: "email",
         },
-      } as any),
-    ).rejects.toThrow("filters")
+        credentials: CREDENTIALS,
+      },
+    } as any)
+
+    expect(result.success).toBe(true)
   })
 })

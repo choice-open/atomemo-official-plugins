@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { createMockSupabaseClient } from "../helpers/mock-supabase"
-import { supabaseDeleteTool } from "../../src/tools/db/supabase-delete"
+import { supabaseVectorQueryTool } from "../../src/tools/vector/supabase-vector-query"
 
 const mockCreateClient = vi.fn()
 
@@ -18,18 +18,21 @@ const CREDENTIALS = {
 
 beforeEach(() => {
   mockCreateClient.mockReturnValue(
-    createMockSupabaseClient({ data: null }),
+    createMockSupabaseClient({
+      data: { matches: [{ id: "1", score: 0.9 }] },
+    }),
   )
 })
 
-describe("supabaseDeleteTool", () => {
-  it("invoke 成功删除", async () => {
-    const result = await supabaseDeleteTool.invoke({
+describe("supabaseVectorQueryTool", () => {
+  it("invoke 成功查询向量", async () => {
+    const result = await supabaseVectorQueryTool.invoke({
       args: {
         parameters: {
           supabase_credential: CRED_ID,
-          table: "users",
-          filters: '{"id": 1}',
+          vector_bucket_name: "embeddings",
+          index_name: "my-index",
+          query_vector: '{"float32": [0.1, 0.2, 0.3]}',
         },
         credentials: CREDENTIALS,
       },
@@ -38,18 +41,19 @@ describe("supabaseDeleteTool", () => {
     expect(result).toMatchObject({ success: true, error: null })
   })
 
-  it("filters 缺失时抛出错误", async () => {
+  it("vector_bucket_name 或 index_name 缺失时抛出错误", async () => {
     await expect(
-      supabaseDeleteTool.invoke({
+      supabaseVectorQueryTool.invoke({
         args: {
           parameters: {
             supabase_credential: CRED_ID,
-            table: "users",
-            filters: '{}',
+            vector_bucket_name: "",
+            index_name: "idx",
+            query_vector: "{}",
           },
           credentials: CREDENTIALS,
         },
       } as any),
-    ).rejects.toThrow("filters")
+    ).rejects.toThrow("vector_bucket_name")
   })
 })

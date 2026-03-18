@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { createMockSupabaseClient } from "../helpers/mock-supabase"
-import { supabaseDeleteTool } from "../../src/tools/db/supabase-delete"
+import { supabaseInvokeEdgeFunctionTool } from "../../src/tools/edge/supabase-invoke-edge-function"
 
 const mockCreateClient = vi.fn()
 
@@ -13,43 +13,47 @@ const CREDENTIALS = {
   [CRED_ID]: {
     supabase_url: "https://test.supabase.co",
     supabase_key: "anon-key",
+    supabase_service_role_key: "service-role-key",
   },
 }
 
 beforeEach(() => {
   mockCreateClient.mockReturnValue(
-    createMockSupabaseClient({ data: null }),
+    createMockSupabaseClient({ data: { message: "hello" } }),
   )
 })
 
-describe("supabaseDeleteTool", () => {
-  it("invoke 成功删除", async () => {
-    const result = await supabaseDeleteTool.invoke({
+describe("supabaseInvokeEdgeFunctionTool", () => {
+  it("invoke 成功调用 Edge Function", async () => {
+    const result = await supabaseInvokeEdgeFunctionTool.invoke({
       args: {
         parameters: {
           supabase_credential: CRED_ID,
-          table: "users",
-          filters: '{"id": 1}',
+          function_name: "hello-world",
+          body: '{"name": "test"}',
         },
         credentials: CREDENTIALS,
       },
     } as any)
 
-    expect(result).toMatchObject({ success: true, error: null })
+    expect(result).toMatchObject({
+      success: true,
+      data: { message: "hello" },
+      error: null,
+    })
   })
 
-  it("filters 缺失时抛出错误", async () => {
+  it("function_name 为空时抛出错误", async () => {
     await expect(
-      supabaseDeleteTool.invoke({
+      supabaseInvokeEdgeFunctionTool.invoke({
         args: {
           parameters: {
             supabase_credential: CRED_ID,
-            table: "users",
-            filters: '{}',
+            function_name: "",
           },
           credentials: CREDENTIALS,
         },
       } as any),
-    ).rejects.toThrow("filters")
+    ).rejects.toThrow("function_name")
   })
 })
