@@ -25,6 +25,7 @@ export const downloadAttachmentTool: ToolDefinition = {
       display_name: t("GMAIL_PARAM_ATTACHMENT_ID_LABEL"),
       ui: {
         component: "input",
+        hint: t("GMAIL_PARAM_ATTACHMENT_ID_HINT"),
         support_expression: true,
         width: "full",
       },

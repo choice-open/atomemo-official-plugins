@@ -251,14 +251,15 @@
               "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
               "zh_Hans": "按标签筛选（如 INBOX、SENT）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "max_results",
@@ -268,6 +269,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
             "component": "number-input"
           },
           "type": "integer",
@@ -283,6 +289,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
             "component": "input"
           },
           "type": "string"
@@ -427,6 +438,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -441,6 +456,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
             "placeholder": {
               "en_US": "Email content (HTML supported)",
               "zh_Hans": "邮件内容（支持 HTML）"
@@ -459,6 +478,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -473,6 +496,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -683,14 +710,15 @@
               "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
               "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "remove_label_ids",
@@ -704,14 +732,15 @@
               "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
               "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         }
       ]
     },
@@ -771,14 +800,15 @@
               "en_US": "List of message IDs",
               "zh_Hans": "邮件 ID 列表"
             },
+            "placeholder": {
+              "en_US": "id1, id2, id3",
+              "zh_Hans": "id1, id2, id3"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "add_label_ids",
@@ -792,14 +822,15 @@
               "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
               "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "remove_label_ids",
@@ -813,14 +844,15 @@
               "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
               "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         }
       ]
     },
@@ -894,6 +926,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "From payload.parts in Get Message response",
+              "zh_Hans": "来自「获取邮件」返回的 payload.parts"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1050,6 +1086,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
             "component": "number-input"
           },
           "type": "integer",
@@ -1065,6 +1106,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
             "component": "input"
           },
           "type": "string"
@@ -1123,6 +1169,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1183,6 +1233,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
             "placeholder": {
               "en_US": "recipient@example.com",
               "zh_Hans": "recipient@example.com"
@@ -1201,6 +1255,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1215,6 +1273,14 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -1229,6 +1295,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1243,6 +1313,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1303,6 +1377,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1363,6 +1441,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1423,6 +1505,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1437,6 +1523,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
             "placeholder": {
               "en_US": "recipient@example.com",
               "zh_Hans": "recipient@example.com"
@@ -1455,6 +1545,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1469,6 +1563,14 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "textarea"
@@ -1483,6 +1585,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1497,6 +1603,10 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1603,6 +1713,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1723,6 +1837,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1797,6 +1915,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1883,14 +2005,15 @@
               "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
               "zh_Hans": "按标签筛选（如 INBOX、SENT）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "max_results",
@@ -1900,6 +2023,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
             "component": "number-input"
           },
           "type": "integer",
@@ -1915,6 +2043,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
             "component": "input"
           },
           "type": "string"
@@ -1973,6 +2106,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -2033,6 +2170,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -2051,14 +2192,15 @@
               "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
               "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "remove_label_ids",
@@ -2072,14 +2214,15 @@
               "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
               "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
             },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         }
       ]
     },
@@ -2135,6 +2278,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -2195,6 +2342,10 @@
           },
           "required": true,
           "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -2277,14 +2428,15 @@
               "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
               "zh_Hans": "按标签筛选（如 INBOX、SENT）"
             },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
             "width": "full",
-            "component": "tag-input"
+            "component": "input"
           },
-          "type": "array",
-          "items": {
-            "name": "item",
-            "type": "string"
-          }
+          "type": "string"
         },
         {
           "name": "max_results",
@@ -2294,6 +2446,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
             "component": "number-input"
           },
           "type": "integer",
@@ -2309,6 +2466,11 @@
           },
           "required": false,
           "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
             "component": "input"
           },
           "type": "string"

@@ -121,13 +121,25 @@ type RootTranslation = {
    */
   GMAIL_PARAM_MESSAGE_IDS_HINT: string
   /**
+   * i​d​1​,​ ​i​d​2​,​ ​i​d​3
+   */
+  GMAIL_PARAM_MESSAGE_IDS_PLACEHOLDER: string
+  /**
    * T​h​r​e​a​d​ ​I​D
    */
   GMAIL_PARAM_THREAD_ID_LABEL: string
   /**
+   * G​m​a​i​l​ ​t​h​r​e​a​d​ ​I​D
+   */
+  GMAIL_PARAM_THREAD_ID_HINT: string
+  /**
    * L​a​b​e​l​ ​I​D
    */
   GMAIL_PARAM_LABEL_ID_LABEL: string
+  /**
+   * G​m​a​i​l​ ​l​a​b​e​l​ ​I​D​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​E​N​T​)
+   */
+  GMAIL_PARAM_LABEL_ID_HINT: string
   /**
    * L​a​b​e​l​ ​I​D​s
    */
@@ -136,6 +148,10 @@ type RootTranslation = {
    * F​i​l​t​e​r​ ​b​y​ ​l​a​b​e​l​ ​I​D​s​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​E​N​T​)
    */
   GMAIL_PARAM_LABEL_IDS_HINT: string
+  /**
+   * I​N​B​O​X​,​ ​S​E​N​T
+   */
+  GMAIL_PARAM_LABEL_IDS_PLACEHOLDER: string
   /**
    * A​d​d​ ​L​a​b​e​l​ ​I​D​s
    */
@@ -153,13 +169,25 @@ type RootTranslation = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: string
   /**
+   * I​N​B​O​X​,​ ​S​T​A​R​R​E​D
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER: string
+  /**
    * D​r​a​f​t​ ​I​D
    */
   GMAIL_PARAM_DRAFT_ID_LABEL: string
   /**
+   * G​m​a​i​l​ ​d​r​a​f​t​ ​I​D
+   */
+  GMAIL_PARAM_DRAFT_ID_HINT: string
+  /**
    * A​t​t​a​c​h​m​e​n​t​ ​I​D
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: string
+  /**
+   * F​r​o​m​ ​p​a​y​l​o​a​d​.​p​a​r​t​s​ ​i​n​ ​G​e​t​ ​M​e​s​s​a​g​e​ ​r​e​s​p​o​n​s​e
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_HINT: string
   /**
    * S​a​v​e​ ​a​s​ ​F​i​l​e​n​a​m​e
    */
@@ -190,9 +218,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_MAX_RESULTS_LABEL: string
   /**
+   * M​a​x​ ​n​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​(​1​–​5​0​0​)
+   */
+  GMAIL_PARAM_MAX_RESULTS_HINT: string
+  /**
    * P​a​g​e​ ​T​o​k​e​n
    */
   GMAIL_PARAM_PAGE_TOKEN_LABEL: string
+  /**
+   * T​o​k​e​n​ ​f​o​r​ ​n​e​x​t​ ​p​a​g​e​ ​f​r​o​m​ ​p​r​e​v​i​o​u​s​ ​l​i​s​t​ ​r​e​s​p​o​n​s​e
+   */
+  GMAIL_PARAM_PAGE_TOKEN_HINT: string
   /**
    * S​e​a​r​c​h​ ​Q​u​e​r​y
    */
@@ -246,9 +282,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_SUBJECT_LABEL: string
   /**
+   * E​m​a​i​l​ ​s​u​b​j​e​c​t​ ​l​i​n​e
+   */
+  GMAIL_PARAM_SUBJECT_HINT: string
+  /**
    * B​o​d​y
    */
   GMAIL_PARAM_BODY_LABEL: string
+  /**
+   * E​m​a​i​l​ ​c​o​n​t​e​n​t​ ​(​H​T​M​L​ ​s​u​p​p​o​r​t​e​d​)
+   */
+  GMAIL_PARAM_BODY_HINT: string
   /**
    * E​m​a​i​l​ ​c​o​n​t​e​n​t​ ​(​H​T​M​L​ ​s​u​p​p​o​r​t​e​d​)
    */
@@ -258,9 +302,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_CC_LABEL: string
   /**
+   * C​a​r​b​o​n​ ​c​o​p​y​ ​r​e​c​i​p​i​e​n​t​s​ ​(​c​o​m​m​a​-​s​e​p​a​r​a​t​e​d​)
+   */
+  GMAIL_PARAM_CC_HINT: string
+  /**
    * B​c​c
    */
   GMAIL_PARAM_BCC_LABEL: string
+  /**
+   * B​l​i​n​d​ ​c​a​r​b​o​n​ ​c​o​p​y​ ​r​e​c​i​p​i​e​n​t​s​ ​(​c​o​m​m​a​-​s​e​p​a​r​a​t​e​d​)
+   */
+  GMAIL_PARAM_BCC_HINT: string
   /**
    * L​a​b​e​l​ ​N​a​m​e
    */
@@ -697,13 +749,25 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_MESSAGE_IDS_HINT: () => LocalizedString
   /**
+   * id1, id2, id3
+   */
+  GMAIL_PARAM_MESSAGE_IDS_PLACEHOLDER: () => LocalizedString
+  /**
    * Thread ID
    */
   GMAIL_PARAM_THREAD_ID_LABEL: () => LocalizedString
   /**
+   * Gmail thread ID
+   */
+  GMAIL_PARAM_THREAD_ID_HINT: () => LocalizedString
+  /**
    * Label ID
    */
   GMAIL_PARAM_LABEL_ID_LABEL: () => LocalizedString
+  /**
+   * Gmail label ID (e.g. INBOX, SENT)
+   */
+  GMAIL_PARAM_LABEL_ID_HINT: () => LocalizedString
   /**
    * Label IDs
    */
@@ -712,6 +776,10 @@ export type TranslationFunctions = {
    * Filter by label IDs (e.g. INBOX, SENT)
    */
   GMAIL_PARAM_LABEL_IDS_HINT: () => LocalizedString
+  /**
+   * INBOX, SENT
+   */
+  GMAIL_PARAM_LABEL_IDS_PLACEHOLDER: () => LocalizedString
   /**
    * Add Label IDs
    */
@@ -729,13 +797,25 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: () => LocalizedString
   /**
+   * INBOX, STARRED
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER: () => LocalizedString
+  /**
    * Draft ID
    */
   GMAIL_PARAM_DRAFT_ID_LABEL: () => LocalizedString
   /**
+   * Gmail draft ID
+   */
+  GMAIL_PARAM_DRAFT_ID_HINT: () => LocalizedString
+  /**
    * Attachment ID
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: () => LocalizedString
+  /**
+   * From payload.parts in Get Message response
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_HINT: () => LocalizedString
   /**
    * Save as Filename
    */
@@ -765,9 +845,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_MAX_RESULTS_LABEL: () => LocalizedString
   /**
+   * Max number of results (1–500)
+   */
+  GMAIL_PARAM_MAX_RESULTS_HINT: () => LocalizedString
+  /**
    * Page Token
    */
   GMAIL_PARAM_PAGE_TOKEN_LABEL: () => LocalizedString
+  /**
+   * Token for next page from previous list response
+   */
+  GMAIL_PARAM_PAGE_TOKEN_HINT: () => LocalizedString
   /**
    * Search Query
    */
@@ -821,9 +909,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_SUBJECT_LABEL: () => LocalizedString
   /**
+   * Email subject line
+   */
+  GMAIL_PARAM_SUBJECT_HINT: () => LocalizedString
+  /**
    * Body
    */
   GMAIL_PARAM_BODY_LABEL: () => LocalizedString
+  /**
+   * Email content (HTML supported)
+   */
+  GMAIL_PARAM_BODY_HINT: () => LocalizedString
   /**
    * Email content (HTML supported)
    */
@@ -833,9 +929,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_CC_LABEL: () => LocalizedString
   /**
+   * Carbon copy recipients (comma-separated)
+   */
+  GMAIL_PARAM_CC_HINT: () => LocalizedString
+  /**
    * Bcc
    */
   GMAIL_PARAM_BCC_LABEL: () => LocalizedString
+  /**
+   * Blind carbon copy recipients (comma-separated)
+   */
+  GMAIL_PARAM_BCC_HINT: () => LocalizedString
   /**
    * Label Name
    */

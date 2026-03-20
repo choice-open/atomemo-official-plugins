@@ -16,21 +16,21 @@ export const updateVacationTool: ToolDefinition = {
       type: "boolean",
       required: true,
       display_name: t("GMAIL_PARAM_ENABLE_AUTO_REPLY_LABEL"),
-      ui: { component: "switch" },
+      ui: { component: "switch", support_expression: true },
     },
     {
       name: "response_subject",
       type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_RESPONSE_SUBJECT_LABEL"),
-      ui: { component: "input", width: "full" },
+      ui: { component: "input", width: "full", support_expression: true },
     },
     {
       name: "response_body",
       type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_RESPONSE_BODY_LABEL"),
-      ui: { component: "textarea", width: "full" },
+      ui: { component: "textarea", width: "full", support_expression: true },
     },
     {
       name: "restrict_to_contacts",
@@ -38,7 +38,7 @@ export const updateVacationTool: ToolDefinition = {
       required: false,
       default: false,
       display_name: t("GMAIL_PARAM_RESTRICT_TO_CONTACTS_LABEL"),
-      ui: { component: "switch" },
+      ui: { component: "switch", width: "full", support_expression: true },
     },
     {
       name: "restrict_to_domain",
@@ -46,7 +46,7 @@ export const updateVacationTool: ToolDefinition = {
       required: false,
       default: false,
       display_name: t("GMAIL_PARAM_RESTRICT_TO_DOMAIN_LABEL"),
-      ui: { component: "switch" },
+      ui: { component: "switch", width: "full", support_expression: true },
     },
   ],
   async invoke({ args }) {

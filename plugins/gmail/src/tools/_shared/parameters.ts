@@ -44,6 +44,7 @@ export const threadIdParam = {
   display_name: t("GMAIL_PARAM_THREAD_ID_LABEL"),
   ui: {
     component: "input" as const,
+    hint: t("GMAIL_PARAM_THREAD_ID_HINT"),
     support_expression: true,
     width: "full" as const,
   },
@@ -56,6 +57,7 @@ export const labelIdParam = {
   display_name: t("GMAIL_PARAM_LABEL_ID_LABEL"),
   ui: {
     component: "input" as const,
+    hint: t("GMAIL_PARAM_LABEL_ID_HINT"),
     support_expression: true,
     width: "full" as const,
   },
@@ -68,6 +70,7 @@ export const draftIdParam = {
   display_name: t("GMAIL_PARAM_DRAFT_ID_LABEL"),
   ui: {
     component: "input" as const,
+    hint: t("GMAIL_PARAM_DRAFT_ID_HINT"),
     support_expression: true,
     width: "full" as const,
   },
@@ -81,7 +84,11 @@ export const maxResultsParam = {
   minimum: 1,
   maximum: 500,
   display_name: t("GMAIL_PARAM_MAX_RESULTS_LABEL"),
-  ui: { component: "number-input" as const },
+  ui: {
+    component: "number-input" as const,
+    support_expression: true,
+    hint: t("GMAIL_PARAM_MAX_RESULTS_HINT"),
+  },
 } satisfies Property<"max_results">
 
 export const pageTokenParam = {
@@ -89,7 +96,11 @@ export const pageTokenParam = {
   type: "string" as const,
   required: false,
   display_name: t("GMAIL_PARAM_PAGE_TOKEN_LABEL"),
-  ui: { component: "input" as const },
+  ui: {
+    component: "input" as const,
+    support_expression: true,
+    hint: t("GMAIL_PARAM_PAGE_TOKEN_HINT"),
+  },
 } satisfies Property<"page_token">
 
 export const qParam = {
@@ -108,13 +119,14 @@ export const qParam = {
 
 export const labelIdsParam = {
   name: "label_ids",
-  type: "array" as const,
+  type: "string" as const,
   required: false,
   display_name: t("GMAIL_PARAM_LABEL_IDS_LABEL"),
-  items: { name: "item", type: "string" as const },
   ui: {
-    component: "tag-input" as const,
+    component: "input" as const,
     hint: t("GMAIL_PARAM_LABEL_IDS_HINT"),
+    placeholder: t("GMAIL_PARAM_LABEL_IDS_PLACEHOLDER"),
+    support_expression: true,
     width: "full" as const,
   },
 } satisfies Property<"label_ids">

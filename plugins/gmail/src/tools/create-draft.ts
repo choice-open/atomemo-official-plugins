@@ -33,6 +33,7 @@ export const createDraftTool: ToolDefinition = {
       display_name: t("GMAIL_PARAM_TO_LABEL"),
       ui: {
         component: "input",
+        hint: t("GMAIL_PARAM_TO_HINT"),
         placeholder: t("GMAIL_PARAM_TO_PLACEHOLDER"),
         support_expression: true,
         width: "full",
@@ -43,7 +44,12 @@ export const createDraftTool: ToolDefinition = {
       type: "string",
       required: true,
       display_name: t("GMAIL_PARAM_SUBJECT_LABEL"),
-      ui: { component: "input", support_expression: true, width: "full" },
+      ui: {
+        component: "input",
+        hint: t("GMAIL_PARAM_SUBJECT_HINT"),
+        support_expression: true,
+        width: "full",
+      },
     },
     {
       name: "body",
@@ -52,6 +58,8 @@ export const createDraftTool: ToolDefinition = {
       display_name: t("GMAIL_PARAM_BODY_LABEL"),
       ui: {
         component: "textarea",
+        hint: t("GMAIL_PARAM_BODY_HINT"),
+        placeholder: t("GMAIL_PARAM_BODY_PLACEHOLDER"),
         support_expression: true,
         width: "full",
       },
@@ -61,14 +69,24 @@ export const createDraftTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_CC_LABEL"),
-      ui: { component: "input", support_expression: true, width: "full" },
+      ui: {
+        component: "input",
+        hint: t("GMAIL_PARAM_CC_HINT"),
+        support_expression: true,
+        width: "full",
+      },
     },
     {
       name: "bcc",
       type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_BCC_LABEL"),
-      ui: { component: "input", support_expression: true, width: "full" },
+      ui: {
+        component: "input",
+        hint: t("GMAIL_PARAM_BCC_HINT"),
+        support_expression: true,
+        width: "full",
+      },
     },
   ],
   async invoke({ args }) {
