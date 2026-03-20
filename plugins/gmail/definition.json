@@ -485,7 +485,7 @@
       "name": "gmail-trash-message",
       "display_name": {
         "en_US": "Trash Message",
-        "zh_Hans": "移至垃圾箱"
+        "zh_Hans": "将邮件移至垃圾箱"
       },
       "description": {
         "en_US": "Move message to trash",
@@ -549,7 +549,7 @@
       "name": "gmail-untrash-message",
       "display_name": {
         "en_US": "Untrash Message",
-        "zh_Hans": "从垃圾箱恢复"
+        "zh_Hans": "从垃圾箱恢复邮件"
       },
       "description": {
         "en_US": "Remove message from trash",
@@ -831,8 +831,8 @@
         "zh_Hans": "下载附件"
       },
       "description": {
-        "en_US": "Download a message attachment to workspace files",
-        "zh_Hans": "下载邮件附件到工作区文件"
+        "en_US": "Download attachment to workspace files, return file reference. Attachment ID from payload.parts in Get Message.",
+        "zh_Hans": "下载邮件附件到工作区文件，返回文件引用。附件 ID 来自「获取邮件」的 payload.parts"
       },
       "icon": "📎",
       "parameters": [
@@ -903,35 +903,17 @@
         {
           "name": "filename",
           "display_name": {
-            "en_US": "Filename",
-            "zh_Hans": "文件名"
+            "en_US": "Save as Filename",
+            "zh_Hans": "另存文件名"
           },
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Optional filename for downloaded file",
-              "zh_Hans": "可选，下载后的文件名"
+              "en_US": "Optional; defaults to attachment-; extension from file content",
+              "zh_Hans": "可选；未填则 attachment-；扩展从文件内容解析"
             },
             "support_expression": true,
             "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "mime_type",
-          "display_name": {
-            "en_US": "MIME Type",
-            "zh_Hans": "MIME 类型"
-          },
-          "required": false,
-          "ui": {
-            "hint": {
-              "en_US": "e.g. application/pdf, image/png",
-              "zh_Hans": "如 application/pdf、image/png"
-            },
-            "support_expression": true,
-            "width": "medium",
             "component": "input"
           },
           "type": "string"
@@ -2105,7 +2087,7 @@
       "name": "gmail-trash-thread",
       "display_name": {
         "en_US": "Trash Thread",
-        "zh_Hans": "移至垃圾箱"
+        "zh_Hans": "将会话移至垃圾箱"
       },
       "description": {
         "en_US": "Move thread to trash",
@@ -2165,11 +2147,11 @@
       "name": "gmail-untrash-thread",
       "display_name": {
         "en_US": "Untrash Thread",
-        "zh_Hans": "从垃圾箱恢复"
+        "zh_Hans": "从会话垃圾箱恢复会话"
       },
       "description": {
         "en_US": "Remove thread from trash",
-        "zh_Hans": "从垃圾箱恢复会话"
+        "zh_Hans": "从会话垃圾箱恢复会话"
       },
       "icon": "📥",
       "parameters": [

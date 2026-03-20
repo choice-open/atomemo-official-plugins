@@ -42,9 +42,9 @@ const en_US = {
     "Label IDs to remove (e.g. INBOX, STARRED)",
   GMAIL_PARAM_DRAFT_ID_LABEL: "Draft ID",
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: "Attachment ID",
-  GMAIL_PARAM_FILENAME_LABEL: "Filename",
+  GMAIL_PARAM_FILENAME_LABEL: "Save as Filename",
   GMAIL_PARAM_FILENAME_HINT:
-    "Optional; defaults to attachment-{attachmentId}; extension from filename first",
+    "Optional; defaults to attachment-{attachmentId}; extension from file content",
   GMAIL_PARAM_MIME_TYPE_LABEL: "MIME Type",
   GMAIL_PARAM_MIME_TYPE_HINT:
     "Optional; defaults to application/octet-stream; extension from filename or MIME type",

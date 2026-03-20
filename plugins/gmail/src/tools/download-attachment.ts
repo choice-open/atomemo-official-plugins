@@ -7,14 +7,7 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
-
-/** Derive file extension from MIME type (e.g. application/pdf -> pdf) */
-function extensionFromMimeType(mimeType: string): string | null {
-  const subtype = mimeType.split("/")[1]?.split("+")[0]?.toLowerCase()
-  if (!subtype || subtype === "octet-stream") return null
-  const map: Record<string, string> = { jpeg: "jpg" }
-  return map[subtype] ?? subtype
-}
+import { getMimeFromBase64 } from "../lib/mime-type"
 
 export const downloadAttachmentTool: ToolDefinition = {
   name: "gmail-download-attachment",
@@ -48,18 +41,6 @@ export const downloadAttachmentTool: ToolDefinition = {
         width: "full",
       },
     },
-    {
-      name: "mime_type",
-      type: "string",
-      required: false,
-      display_name: t("GMAIL_PARAM_MIME_TYPE_LABEL"),
-      ui: {
-        component: "input",
-        hint: t("GMAIL_PARAM_MIME_TYPE_HINT"),
-        support_expression: true,
-        width: "medium",
-      },
-    },
   ],
   async invoke({ args, context }) {
     const gmail = requireGmailClient(
@@ -81,20 +62,14 @@ export const downloadAttachmentTool: ToolDefinition = {
 
     const content = data ? base64UrlToBase64(data) : ""
 
-    const mimeType =
-      args.parameters.mime_type?.trim() || "application/octet-stream"
-    const extensionFromFilename = filename.includes(".")
-      ? filename.slice(filename.lastIndexOf(".") + 1)
-      : null
-    const extension =
-      extensionFromFilename ?? extensionFromMimeType(mimeType)
+    const { mime, ext } = await getMimeFromBase64(content)
 
     const fileRef = {
       __type__: "file_ref" as const,
       source: "mem" as const,
       filename,
-      extension,
-      mime_type: mimeType,
+      extension: ext,
+      mime_type: mime,
       size,
       res_key: null as string | null,
       remote_url: null as string | null,

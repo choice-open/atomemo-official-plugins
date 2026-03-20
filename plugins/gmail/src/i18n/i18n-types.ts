@@ -3,6 +3,7 @@
 import type {
   BaseTranslation as BaseTranslationType,
   LocalizedString,
+  RequiredParams,
 } from "typesafe-i18n"
 
 export type BaseTranslation = BaseTranslationType
@@ -160,19 +161,20 @@ type RootTranslation = {
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: string
   /**
-   * F​i​l​e​n​a​m​e
+   * S​a​v​e​ ​a​s​ ​F​i​l​e​n​a​m​e
    */
   GMAIL_PARAM_FILENAME_LABEL: string
   /**
-   * O​p​t​i​o​n​a​l​ ​f​i​l​e​n​a​m​e​ ​f​o​r​ ​d​o​w​n​l​o​a​d​e​d​ ​f​i​l​e
+   * O​p​t​i​o​n​a​l​;​ ​d​e​f​a​u​l​t​s​ ​t​o​ ​a​t​t​a​c​h​m​e​n​t​-​{​a​t​t​a​c​h​m​e​n​t​I​d​}​;​ ​e​x​t​e​n​s​i​o​n​ ​f​r​o​m​ ​f​i​l​e​ ​c​o​n​t​e​n​t
+   * @param {unknown} attachmentId
    */
-  GMAIL_PARAM_FILENAME_HINT: string
+  GMAIL_PARAM_FILENAME_HINT: RequiredParams<"attachmentId">
   /**
    * M​I​M​E​ ​T​y​p​e
    */
   GMAIL_PARAM_MIME_TYPE_LABEL: string
   /**
-   * e​.​g​.​ ​a​p​p​l​i​c​a​t​i​o​n​/​p​d​f​,​ ​i​m​a​g​e​/​p​n​g
+   * O​p​t​i​o​n​a​l​;​ ​d​e​f​a​u​l​t​s​ ​t​o​ ​a​p​p​l​i​c​a​t​i​o​n​/​o​c​t​e​t​-​s​t​r​e​a​m​;​ ​e​x​t​e​n​s​i​o​n​ ​f​r​o​m​ ​f​i​l​e​n​a​m​e​ ​o​r​ ​M​I​M​E​ ​t​y​p​e
    */
   GMAIL_PARAM_MIME_TYPE_HINT: string
   /**
@@ -735,19 +737,19 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: () => LocalizedString
   /**
-   * Filename
+   * Save as Filename
    */
   GMAIL_PARAM_FILENAME_LABEL: () => LocalizedString
   /**
-   * Optional filename for downloaded file
+   * Optional; defaults to attachment-{attachmentId}; extension from file content
    */
-  GMAIL_PARAM_FILENAME_HINT: () => LocalizedString
+  GMAIL_PARAM_FILENAME_HINT: (arg: { attachmentId: unknown }) => LocalizedString
   /**
    * MIME Type
    */
   GMAIL_PARAM_MIME_TYPE_LABEL: () => LocalizedString
   /**
-   * e.g. application/pdf, image/png
+   * Optional; defaults to application/octet-stream; extension from filename or MIME type
    */
   GMAIL_PARAM_MIME_TYPE_HINT: () => LocalizedString
   /**
