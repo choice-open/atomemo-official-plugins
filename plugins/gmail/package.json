@@ -1,7 +1,7 @@
 {
   "name": "gmail",
   "type": "module",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "google gmail api ",
   "author": "yong yu <leoyyong@gmail.com>",
   "license": "MIT",
