@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 import { requireGmailClient } from "../lib/require-gmail"
+import { encodeSubject } from "../lib/rfc2047"
 import {
   gmailCredentialParam,
   userIdParam,
@@ -9,7 +10,7 @@ import {
 function createRawEmail(to: string, subject: string, body: string, cc?: string, bcc?: string): string {
   const lines: string[] = []
   lines.push(`To: ${to}`)
-  lines.push(`Subject: ${subject}`)
+  lines.push(`Subject: ${encodeSubject(subject)}`)
   if (cc) lines.push(`Cc: ${cc}`)
   if (bcc) lines.push(`Bcc: ${bcc}`)
   lines.push("Content-Type: text/html; charset=utf-8")
