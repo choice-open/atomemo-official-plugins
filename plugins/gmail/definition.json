@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "credentials": [
     {
       "name": "gmail-oauth",
@@ -2216,11 +2216,11 @@
       "name": "gmail-untrash-thread",
       "display_name": {
         "en_US": "Untrash Thread",
-        "zh_Hans": "从会话垃圾箱恢复会话"
+        "zh_Hans": "从垃圾箱恢复会话"
       },
       "description": {
         "en_US": "Remove thread from trash",
-        "zh_Hans": "从会话垃圾箱恢复会话"
+        "zh_Hans": "从垃圾箱恢复会话"
       },
       "icon": "📥",
       "parameters": [
