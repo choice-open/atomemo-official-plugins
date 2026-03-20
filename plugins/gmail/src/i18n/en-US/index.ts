@@ -43,9 +43,11 @@ const en_US = {
   GMAIL_PARAM_DRAFT_ID_LABEL: "Draft ID",
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: "Attachment ID",
   GMAIL_PARAM_FILENAME_LABEL: "Filename",
-  GMAIL_PARAM_FILENAME_HINT: "Optional filename for downloaded file",
+  GMAIL_PARAM_FILENAME_HINT:
+    "Optional; defaults to attachment-{attachmentId}; extension from filename first",
   GMAIL_PARAM_MIME_TYPE_LABEL: "MIME Type",
-  GMAIL_PARAM_MIME_TYPE_HINT: "e.g. application/pdf, image/png",
+  GMAIL_PARAM_MIME_TYPE_HINT:
+    "Optional; defaults to application/octet-stream; extension from filename or MIME type",
   GMAIL_PARAM_EXTENSION_LABEL: "Extension",
   GMAIL_PARAM_EXTENSION_HINT: "Optional; derived from filename if omitted",
   GMAIL_PARAM_MAX_RESULTS_LABEL: "Max Results",
@@ -102,7 +104,7 @@ const en_US = {
   GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: "Get a message attachment",
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: "Download Attachment",
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION:
-    "Download a message attachment to workspace files",
+    "Download attachment to workspace files, return file reference. Attachment ID from payload.parts in Get Message.",
 
   GMAIL_TOOL_LIST_DRAFTS_DISPLAY_NAME: "List Drafts",
   GMAIL_TOOL_LIST_DRAFTS_DESCRIPTION: "List drafts in mailbox",

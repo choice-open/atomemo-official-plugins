@@ -376,7 +376,7 @@ type RootTranslation = {
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: string
   /**
-   * D​o​w​n​l​o​a​d​ ​a​ ​m​e​s​s​a​g​e​ ​a​t​t​a​c​h​m​e​n​t​ ​t​o​ ​w​o​r​k​s​p​a​c​e​ ​f​i​l​e​s
+   * D​o​w​n​l​o​a​d​ ​a​t​t​a​c​h​m​e​n​t​ ​t​o​ ​w​o​r​k​s​p​a​c​e​ ​f​i​l​e​s​,​ ​r​e​t​u​r​n​ ​f​i​l​e​ ​r​e​f​e​r​e​n​c​e​.​ ​A​t​t​a​c​h​m​e​n​t​ ​I​D​ ​f​r​o​m​ ​p​a​y​l​o​a​d​.​p​a​r​t​s​ ​i​n​ ​G​e​t​ ​M​e​s​s​a​g​e​.
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: string
   /**
@@ -951,7 +951,7 @@ export type TranslationFunctions = {
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: () => LocalizedString
   /**
-   * Download a message attachment to workspace files
+   * Download attachment to workspace files, return file reference. Attachment ID from payload.parts in Get Message.
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: () => LocalizedString
   /**

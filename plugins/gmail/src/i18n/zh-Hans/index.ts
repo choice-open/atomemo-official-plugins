@@ -42,9 +42,11 @@ const zh_Hans = {
   GMAIL_PARAM_DRAFT_ID_LABEL: "草稿 ID",
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: "附件 ID",
   GMAIL_PARAM_FILENAME_LABEL: "文件名",
-  GMAIL_PARAM_FILENAME_HINT: "可选，下载后的文件名",
+  GMAIL_PARAM_FILENAME_HINT:
+    "可选；未填则 attachment-{附件ID}；扩展名优先从文件名解析",
   GMAIL_PARAM_MIME_TYPE_LABEL: "MIME 类型",
-  GMAIL_PARAM_MIME_TYPE_HINT: "如 application/pdf、image/png",
+  GMAIL_PARAM_MIME_TYPE_HINT:
+    "可选；未填则 application/octet-stream；扩展名从文件名或 MIME 推断",
   GMAIL_PARAM_EXTENSION_LABEL: "扩展名",
   GMAIL_PARAM_EXTENSION_HINT: "可选；未填则从文件名解析",
   GMAIL_PARAM_MAX_RESULTS_LABEL: "最大结果数",
@@ -97,7 +99,8 @@ const zh_Hans = {
   GMAIL_TOOL_GET_ATTACHMENT_DISPLAY_NAME: "获取附件",
   GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION: "获取邮件附件",
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: "下载附件",
-  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: "下载邮件附件到工作区文件",
+  GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION:
+    "下载邮件附件到工作区文件，返回文件引用。附件 ID 来自「获取邮件」的 payload.parts",
 
   GMAIL_TOOL_LIST_DRAFTS_DISPLAY_NAME: "列出草稿",
   GMAIL_TOOL_LIST_DRAFTS_DESCRIPTION: "列出邮箱中的草稿",
