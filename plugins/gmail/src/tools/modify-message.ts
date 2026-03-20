@@ -26,12 +26,13 @@ export const modifyMessageTool: ToolDefinition = {
     },
     {
       name: "remove_label_ids",
-      type: "array",
+      type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL"),
-      items: { name: "item", type: "string" },
       ui: {
-        component: "tag-input",
+        component: "input",
+        placeholder: t("GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER"),
+        support_expression: true,
         hint: t("GMAIL_PARAM_REMOVE_LABEL_IDS_HINT"),
         width: "full",
       },

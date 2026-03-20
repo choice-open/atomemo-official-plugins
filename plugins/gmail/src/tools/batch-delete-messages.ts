@@ -5,6 +5,7 @@ import {
   gmailCredentialParam,
   userIdParam,
 } from "./_shared/parameters"
+import { toStringArray } from "../lib/to-string-array"
 
 export const batchDeleteMessagesTool: ToolDefinition = {
   name: "gmail-batch-delete-messages",
@@ -16,13 +17,14 @@ export const batchDeleteMessagesTool: ToolDefinition = {
     userIdParam,
     {
       name: "message_ids",
-      type: "array",
+      type: "string",
       required: true,
       display_name: t("GMAIL_PARAM_MESSAGE_IDS_LABEL"),
-      items: { name: "item", type: "string" },
       ui: {
-        component: "tag-input",
+        component: "input",
         hint: t("GMAIL_PARAM_MESSAGE_IDS_HINT"),
+        placeholder: t("GMAIL_PARAM_MESSAGE_IDS_PLACEHOLDER"),
+        support_expression: true,
         width: "full",
       },
     },
@@ -33,9 +35,10 @@ export const batchDeleteMessagesTool: ToolDefinition = {
       args.parameters.gmail_credential,
     )
     const userId = args.parameters.user_id ?? "me"
+    const ids = toStringArray(args.parameters.message_ids as string | string[] | undefined)
     await gmail.users.messages.batchDelete({
       userId,
-      requestBody: { ids: args.parameters.message_ids },
+      requestBody: { ids },
     })
     return { success: true }
   },

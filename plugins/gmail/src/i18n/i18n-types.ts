@@ -3,6 +3,7 @@
 import type {
   BaseTranslation as BaseTranslationType,
   LocalizedString,
+  RequiredParams,
 } from "typesafe-i18n"
 
 export type BaseTranslation = BaseTranslationType
@@ -120,13 +121,25 @@ type RootTranslation = {
    */
   GMAIL_PARAM_MESSAGE_IDS_HINT: string
   /**
+   * i​d​1​,​ ​i​d​2​,​ ​i​d​3
+   */
+  GMAIL_PARAM_MESSAGE_IDS_PLACEHOLDER: string
+  /**
    * T​h​r​e​a​d​ ​I​D
    */
   GMAIL_PARAM_THREAD_ID_LABEL: string
   /**
+   * G​m​a​i​l​ ​t​h​r​e​a​d​ ​I​D
+   */
+  GMAIL_PARAM_THREAD_ID_HINT: string
+  /**
    * L​a​b​e​l​ ​I​D
    */
   GMAIL_PARAM_LABEL_ID_LABEL: string
+  /**
+   * G​m​a​i​l​ ​l​a​b​e​l​ ​I​D​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​E​N​T​)
+   */
+  GMAIL_PARAM_LABEL_ID_HINT: string
   /**
    * L​a​b​e​l​ ​I​D​s
    */
@@ -135,6 +148,10 @@ type RootTranslation = {
    * F​i​l​t​e​r​ ​b​y​ ​l​a​b​e​l​ ​I​D​s​ ​(​e​.​g​.​ ​I​N​B​O​X​,​ ​S​E​N​T​)
    */
   GMAIL_PARAM_LABEL_IDS_HINT: string
+  /**
+   * I​N​B​O​X​,​ ​S​E​N​T
+   */
+  GMAIL_PARAM_LABEL_IDS_PLACEHOLDER: string
   /**
    * A​d​d​ ​L​a​b​e​l​ ​I​D​s
    */
@@ -152,27 +169,40 @@ type RootTranslation = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: string
   /**
+   * I​N​B​O​X​,​ ​S​T​A​R​R​E​D
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER: string
+  /**
    * D​r​a​f​t​ ​I​D
    */
   GMAIL_PARAM_DRAFT_ID_LABEL: string
+  /**
+   * G​m​a​i​l​ ​d​r​a​f​t​ ​I​D
+   */
+  GMAIL_PARAM_DRAFT_ID_HINT: string
   /**
    * A​t​t​a​c​h​m​e​n​t​ ​I​D
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: string
   /**
-   * F​i​l​e​n​a​m​e
+   * F​r​o​m​ ​p​a​y​l​o​a​d​.​p​a​r​t​s​ ​i​n​ ​G​e​t​ ​M​e​s​s​a​g​e​ ​r​e​s​p​o​n​s​e
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_HINT: string
+  /**
+   * S​a​v​e​ ​a​s​ ​F​i​l​e​n​a​m​e
    */
   GMAIL_PARAM_FILENAME_LABEL: string
   /**
-   * O​p​t​i​o​n​a​l​ ​f​i​l​e​n​a​m​e​ ​f​o​r​ ​d​o​w​n​l​o​a​d​e​d​ ​f​i​l​e
+   * O​p​t​i​o​n​a​l​;​ ​d​e​f​a​u​l​t​s​ ​t​o​ ​a​t​t​a​c​h​m​e​n​t​-​{​a​t​t​a​c​h​m​e​n​t​I​d​}​;​ ​e​x​t​e​n​s​i​o​n​ ​f​r​o​m​ ​f​i​l​e​ ​c​o​n​t​e​n​t
+   * @param {unknown} attachmentId
    */
-  GMAIL_PARAM_FILENAME_HINT: string
+  GMAIL_PARAM_FILENAME_HINT: RequiredParams<"attachmentId">
   /**
    * M​I​M​E​ ​T​y​p​e
    */
   GMAIL_PARAM_MIME_TYPE_LABEL: string
   /**
-   * e​.​g​.​ ​a​p​p​l​i​c​a​t​i​o​n​/​p​d​f​,​ ​i​m​a​g​e​/​p​n​g
+   * O​p​t​i​o​n​a​l​;​ ​d​e​f​a​u​l​t​s​ ​t​o​ ​a​p​p​l​i​c​a​t​i​o​n​/​o​c​t​e​t​-​s​t​r​e​a​m​;​ ​e​x​t​e​n​s​i​o​n​ ​f​r​o​m​ ​f​i​l​e​n​a​m​e​ ​o​r​ ​M​I​M​E​ ​t​y​p​e
    */
   GMAIL_PARAM_MIME_TYPE_HINT: string
   /**
@@ -188,9 +218,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_MAX_RESULTS_LABEL: string
   /**
+   * M​a​x​ ​n​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​(​1​–​5​0​0​)
+   */
+  GMAIL_PARAM_MAX_RESULTS_HINT: string
+  /**
    * P​a​g​e​ ​T​o​k​e​n
    */
   GMAIL_PARAM_PAGE_TOKEN_LABEL: string
+  /**
+   * T​o​k​e​n​ ​f​o​r​ ​n​e​x​t​ ​p​a​g​e​ ​f​r​o​m​ ​p​r​e​v​i​o​u​s​ ​l​i​s​t​ ​r​e​s​p​o​n​s​e
+   */
+  GMAIL_PARAM_PAGE_TOKEN_HINT: string
   /**
    * S​e​a​r​c​h​ ​Q​u​e​r​y
    */
@@ -244,9 +282,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_SUBJECT_LABEL: string
   /**
+   * E​m​a​i​l​ ​s​u​b​j​e​c​t​ ​l​i​n​e
+   */
+  GMAIL_PARAM_SUBJECT_HINT: string
+  /**
    * B​o​d​y
    */
   GMAIL_PARAM_BODY_LABEL: string
+  /**
+   * E​m​a​i​l​ ​c​o​n​t​e​n​t​ ​(​H​T​M​L​ ​s​u​p​p​o​r​t​e​d​)
+   */
+  GMAIL_PARAM_BODY_HINT: string
   /**
    * E​m​a​i​l​ ​c​o​n​t​e​n​t​ ​(​H​T​M​L​ ​s​u​p​p​o​r​t​e​d​)
    */
@@ -256,9 +302,17 @@ type RootTranslation = {
    */
   GMAIL_PARAM_CC_LABEL: string
   /**
+   * C​a​r​b​o​n​ ​c​o​p​y​ ​r​e​c​i​p​i​e​n​t​s​ ​(​c​o​m​m​a​-​s​e​p​a​r​a​t​e​d​)
+   */
+  GMAIL_PARAM_CC_HINT: string
+  /**
    * B​c​c
    */
   GMAIL_PARAM_BCC_LABEL: string
+  /**
+   * B​l​i​n​d​ ​c​a​r​b​o​n​ ​c​o​p​y​ ​r​e​c​i​p​i​e​n​t​s​ ​(​c​o​m​m​a​-​s​e​p​a​r​a​t​e​d​)
+   */
+  GMAIL_PARAM_BCC_HINT: string
   /**
    * L​a​b​e​l​ ​N​a​m​e
    */
@@ -376,7 +430,7 @@ type RootTranslation = {
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: string
   /**
-   * D​o​w​n​l​o​a​d​ ​a​ ​m​e​s​s​a​g​e​ ​a​t​t​a​c​h​m​e​n​t​ ​t​o​ ​w​o​r​k​s​p​a​c​e​ ​f​i​l​e​s
+   * D​o​w​n​l​o​a​d​ ​a​t​t​a​c​h​m​e​n​t​ ​t​o​ ​w​o​r​k​s​p​a​c​e​ ​f​i​l​e​s​,​ ​r​e​t​u​r​n​ ​f​i​l​e​ ​r​e​f​e​r​e​n​c​e​.​ ​A​t​t​a​c​h​m​e​n​t​ ​I​D​ ​f​r​o​m​ ​p​a​y​l​o​a​d​.​p​a​r​t​s​ ​i​n​ ​G​e​t​ ​M​e​s​s​a​g​e​.
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: string
   /**
@@ -695,13 +749,25 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_MESSAGE_IDS_HINT: () => LocalizedString
   /**
+   * id1, id2, id3
+   */
+  GMAIL_PARAM_MESSAGE_IDS_PLACEHOLDER: () => LocalizedString
+  /**
    * Thread ID
    */
   GMAIL_PARAM_THREAD_ID_LABEL: () => LocalizedString
   /**
+   * Gmail thread ID
+   */
+  GMAIL_PARAM_THREAD_ID_HINT: () => LocalizedString
+  /**
    * Label ID
    */
   GMAIL_PARAM_LABEL_ID_LABEL: () => LocalizedString
+  /**
+   * Gmail label ID (e.g. INBOX, SENT)
+   */
+  GMAIL_PARAM_LABEL_ID_HINT: () => LocalizedString
   /**
    * Label IDs
    */
@@ -710,6 +776,10 @@ export type TranslationFunctions = {
    * Filter by label IDs (e.g. INBOX, SENT)
    */
   GMAIL_PARAM_LABEL_IDS_HINT: () => LocalizedString
+  /**
+   * INBOX, SENT
+   */
+  GMAIL_PARAM_LABEL_IDS_PLACEHOLDER: () => LocalizedString
   /**
    * Add Label IDs
    */
@@ -727,27 +797,39 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_REMOVE_LABEL_IDS_HINT: () => LocalizedString
   /**
+   * INBOX, STARRED
+   */
+  GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER: () => LocalizedString
+  /**
    * Draft ID
    */
   GMAIL_PARAM_DRAFT_ID_LABEL: () => LocalizedString
+  /**
+   * Gmail draft ID
+   */
+  GMAIL_PARAM_DRAFT_ID_HINT: () => LocalizedString
   /**
    * Attachment ID
    */
   GMAIL_PARAM_ATTACHMENT_ID_LABEL: () => LocalizedString
   /**
-   * Filename
+   * From payload.parts in Get Message response
+   */
+  GMAIL_PARAM_ATTACHMENT_ID_HINT: () => LocalizedString
+  /**
+   * Save as Filename
    */
   GMAIL_PARAM_FILENAME_LABEL: () => LocalizedString
   /**
-   * Optional filename for downloaded file
+   * Optional; defaults to attachment-{attachmentId}; extension from file content
    */
-  GMAIL_PARAM_FILENAME_HINT: () => LocalizedString
+  GMAIL_PARAM_FILENAME_HINT: (arg: { attachmentId: unknown }) => LocalizedString
   /**
    * MIME Type
    */
   GMAIL_PARAM_MIME_TYPE_LABEL: () => LocalizedString
   /**
-   * e.g. application/pdf, image/png
+   * Optional; defaults to application/octet-stream; extension from filename or MIME type
    */
   GMAIL_PARAM_MIME_TYPE_HINT: () => LocalizedString
   /**
@@ -763,9 +845,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_MAX_RESULTS_LABEL: () => LocalizedString
   /**
+   * Max number of results (1–500)
+   */
+  GMAIL_PARAM_MAX_RESULTS_HINT: () => LocalizedString
+  /**
    * Page Token
    */
   GMAIL_PARAM_PAGE_TOKEN_LABEL: () => LocalizedString
+  /**
+   * Token for next page from previous list response
+   */
+  GMAIL_PARAM_PAGE_TOKEN_HINT: () => LocalizedString
   /**
    * Search Query
    */
@@ -819,9 +909,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_SUBJECT_LABEL: () => LocalizedString
   /**
+   * Email subject line
+   */
+  GMAIL_PARAM_SUBJECT_HINT: () => LocalizedString
+  /**
    * Body
    */
   GMAIL_PARAM_BODY_LABEL: () => LocalizedString
+  /**
+   * Email content (HTML supported)
+   */
+  GMAIL_PARAM_BODY_HINT: () => LocalizedString
   /**
    * Email content (HTML supported)
    */
@@ -831,9 +929,17 @@ export type TranslationFunctions = {
    */
   GMAIL_PARAM_CC_LABEL: () => LocalizedString
   /**
+   * Carbon copy recipients (comma-separated)
+   */
+  GMAIL_PARAM_CC_HINT: () => LocalizedString
+  /**
    * Bcc
    */
   GMAIL_PARAM_BCC_LABEL: () => LocalizedString
+  /**
+   * Blind carbon copy recipients (comma-separated)
+   */
+  GMAIL_PARAM_BCC_HINT: () => LocalizedString
   /**
    * Label Name
    */
@@ -951,7 +1057,7 @@ export type TranslationFunctions = {
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME: () => LocalizedString
   /**
-   * Download a message attachment to workspace files
+   * Download attachment to workspace files, return file reference. Attachment ID from payload.parts in Get Message.
    */
   GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION: () => LocalizedString
   /**

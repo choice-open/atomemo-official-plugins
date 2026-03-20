@@ -5,6 +5,7 @@ import {
   gmailCredentialParam,
   userIdParam,
 } from "./_shared/parameters"
+import { toStringArray } from "../lib/to-string-array"
 
 export const watchTool: ToolDefinition = {
   name: "gmail-watch",
@@ -29,11 +30,16 @@ export const watchTool: ToolDefinition = {
     },
     {
       name: "label_ids",
-      type: "array",
+      type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_LABEL_IDS_LABEL"),
-      items: { name: "item", type: "string" },
-      ui: { component: "tag-input", width: "full" },
+      ui: {
+        component: "input",
+        hint: t("GMAIL_PARAM_LABEL_IDS_HINT"),
+        placeholder: t("GMAIL_PARAM_LABEL_IDS_PLACEHOLDER"),
+        support_expression: true,
+        width: "full",
+      },
     },
   ],
   async invoke({ args }) {
@@ -42,11 +48,12 @@ export const watchTool: ToolDefinition = {
       args.parameters.gmail_credential,
     )
     const userId = args.parameters.user_id ?? "me"
+    const labelIds = toStringArray(args.parameters.label_ids as string | string[] | undefined)
     const res = await gmail.users.watch({
       userId,
       requestBody: {
         topicName: args.parameters.topic_name,
-        labelIds: args.parameters.label_ids,
+        labelIds: labelIds,
       },
     })
     return {

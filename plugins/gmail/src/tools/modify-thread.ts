@@ -7,6 +7,7 @@ import {
   threadIdParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import { toStringArray } from "../lib/to-string-array"
 
 export const modifyThreadTool: ToolDefinition = {
   name: "gmail-modify-thread",
@@ -25,12 +26,13 @@ export const modifyThreadTool: ToolDefinition = {
     },
     {
       name: "remove_label_ids",
-      type: "array",
+      type: "string",
       required: false,
       display_name: t("GMAIL_PARAM_REMOVE_LABEL_IDS_LABEL"),
-      items: { name: "item", type: "string" },
       ui: {
-        component: "tag-input",
+        component: "input",
+        placeholder: t("GMAIL_PARAM_REMOVE_LABEL_IDS_PLACEHOLDER"),
+        support_expression: true,
         hint: t("GMAIL_PARAM_REMOVE_LABEL_IDS_HINT"),
         width: "full",
       },
@@ -42,12 +44,14 @@ export const modifyThreadTool: ToolDefinition = {
       args.parameters.gmail_credential,
     )
     const userId = args.parameters.user_id ?? "me"
+    const addLabelIds = toStringArray(args.parameters.add_label_ids as string | string[] | undefined)
+    const removeLabelIds = toStringArray(args.parameters.remove_label_ids as string | string[] | undefined)
     const res = await gmail.users.threads.modify({
       userId,
       id: args.parameters.thread_id,
       requestBody: {
-        addLabelIds: args.parameters.add_label_ids,
-        removeLabelIds: args.parameters.remove_label_ids,
+        addLabelIds,
+        removeLabelIds,
       },
     })
     return { thread: res.data } as any
