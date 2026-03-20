@@ -1,5 +1,4 @@
 import { google } from "googleapis"
-import type { calendar_v3 } from "googleapis"
 import type { CredentialCredential } from "../credentials/google-calendar-oauth2"
 
 export function createCalendarClient(cred: CredentialCredential) {
