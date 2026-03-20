@@ -16,64 +16,488 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * T​w​i​t​t​e​r
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * T​w​i​t​t​e​r​/​X​ ​A​P​I​ ​v​2​ ​i​n​t​e​g​r​a​t​i​o​n​ ​f​o​r​ ​m​a​n​a​g​i​n​g​ ​t​w​e​e​t​s​,​ ​u​s​e​r​s​,​ ​a​n​d​ ​i​n​t​e​r​a​c​t​i​o​n​s
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * D​e​m​o​ ​T​o​o​l
+   * T​w​i​t​t​e​r​ ​O​A​u​t​h
    */
-  DEMO_TOOL_DISPLAY_NAME: string
+  TWITTER_CREDENTIAL_DISPLAY_NAME: string
   /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​ ​f​o​r​ ​T​w​i​t​t​e​r​ ​A​P​I​ ​v​2
    */
-  DEMO_TOOL_DESCRIPTION: string
+  TWITTER_CREDENTIAL_DESCRIPTION: string
   /**
-   * L​o​c​a​t​i​o​n
+   * C​l​i​e​n​t​ ​I​D
    */
-  LOCATION_DISPLAY_NAME: string
+  TWITTER_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
   /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * Y​o​u​r​ ​T​w​i​t​t​e​r​ ​A​p​p​ ​C​l​i​e​n​t​ ​I​D
    */
-  LOCATION_HINT: string
+  TWITTER_CREDENTIAL_CLIENT_ID_HINT: string
   /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * C​l​i​e​n​t​ ​S​e​c​r​e​t
    */
-  LOCATION_PLACEHOLDER: string
+  TWITTER_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
+  /**
+   * Y​o​u​r​ ​T​w​i​t​t​e​r​ ​A​p​p​ ​C​l​i​e​n​t​ ​S​e​c​r​e​t
+   */
+  TWITTER_CREDENTIAL_CLIENT_SECRET_HINT: string
+  /**
+   * A​c​c​e​s​s​ ​T​o​k​e​n
+   */
+  TWITTER_CREDENTIAL_ACCESS_TOKEN_DISPLAY_NAME: string
+  /**
+   * R​e​f​r​e​s​h​ ​T​o​k​e​n
+   */
+  TWITTER_CREDENTIAL_REFRESH_TOKEN_DISPLAY_NAME: string
+  /**
+   * E​x​p​i​r​e​s​ ​A​t
+   */
+  TWITTER_CREDENTIAL_EXPIRES_AT_DISPLAY_NAME: string
+  /**
+   * T​w​i​t​t​e​r​ ​C​r​e​d​e​n​t​i​a​l
+   */
+  TWITTER_PARAM_CREDENTIAL_LABEL: string
+  /**
+   * T​w​e​e​t​ ​I​D
+   */
+  TWITTER_PARAM_TWEET_ID_LABEL: string
+  /**
+   * T​h​e​ ​u​n​i​q​u​e​ ​i​d​e​n​t​i​f​i​e​r​ ​o​f​ ​t​h​e​ ​t​w​e​e​t
+   */
+  TWITTER_PARAM_TWEET_ID_HINT: string
+  /**
+   * U​s​e​r​ ​I​D
+   */
+  TWITTER_PARAM_USER_ID_LABEL: string
+  /**
+   * T​h​e​ ​u​n​i​q​u​e​ ​i​d​e​n​t​i​f​i​e​r​ ​o​f​ ​t​h​e​ ​u​s​e​r
+   */
+  TWITTER_PARAM_USER_ID_HINT: string
+  /**
+   * U​s​e​r​n​a​m​e
+   */
+  TWITTER_PARAM_USERNAME_LABEL: string
+  /**
+   * T​w​i​t​t​e​r​ ​u​s​e​r​n​a​m​e​ ​(​w​i​t​h​o​u​t​ ​@​)
+   */
+  TWITTER_PARAM_USERNAME_HINT: string
+  /**
+   * e​l​o​n​m​u​s​k
+   */
+  TWITTER_PARAM_USERNAME_PLACEHOLDER: string
+  /**
+   * M​a​x​ ​R​e​s​u​l​t​s
+   */
+  TWITTER_PARAM_MAX_RESULTS_LABEL: string
+  /**
+   * P​a​g​i​n​a​t​i​o​n​ ​T​o​k​e​n
+   */
+  TWITTER_PARAM_PAGINATION_TOKEN_LABEL: string
+  /**
+   * T​o​k​e​n​ ​f​o​r​ ​f​e​t​c​h​i​n​g​ ​t​h​e​ ​n​e​x​t​ ​p​a​g​e​ ​o​f​ ​r​e​s​u​l​t​s
+   */
+  TWITTER_PARAM_PAGINATION_TOKEN_HINT: string
+  /**
+   * Q​u​e​r​y
+   */
+  TWITTER_PARAM_QUERY_LABEL: string
+  /**
+   * S​e​a​r​c​h​ ​q​u​e​r​y​ ​f​o​r​ ​t​w​e​e​t​s
+   */
+  TWITTER_PARAM_QUERY_HINT: string
+  /**
+   * f​r​o​m​:​e​l​o​n​m​u​s​k
+   */
+  TWITTER_PARAM_QUERY_PLACEHOLDER: string
+  /**
+   * T​e​x​t
+   */
+  TWITTER_PARAM_TEXT_LABEL: string
+  /**
+   * T​h​e​ ​t​e​x​t​ ​c​o​n​t​e​n​t​ ​o​f​ ​t​h​e​ ​t​w​e​e​t
+   */
+  TWITTER_PARAM_TEXT_HINT: string
+  /**
+   * W​h​a​t​'​s​ ​h​a​p​p​e​n​i​n​g​?
+   */
+  TWITTER_PARAM_TEXT_PLACEHOLDER: string
+  /**
+   * R​e​p​l​y​ ​T​o​ ​T​w​e​e​t​ ​I​D
+   */
+  TWITTER_PARAM_REPLY_TO_TWEET_ID_LABEL: string
+  /**
+   * T​w​e​e​t​ ​I​D​ ​t​o​ ​r​e​p​l​y​ ​t​o​ ​(​o​p​t​i​o​n​a​l​)
+   */
+  TWITTER_PARAM_REPLY_TO_TWEET_ID_HINT: string
+  /**
+   * Q​u​o​t​e​ ​T​w​e​e​t​ ​I​D
+   */
+  TWITTER_PARAM_QUOTE_TWEET_ID_LABEL: string
+  /**
+   * T​w​e​e​t​ ​I​D​ ​t​o​ ​q​u​o​t​e​ ​(​o​p​t​i​o​n​a​l​)
+   */
+  TWITTER_PARAM_QUOTE_TWEET_ID_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​T​w​e​e​t
+   */
+  TWITTER_TOOL_CREATE_TWEET_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​t​w​e​e​t
+   */
+  TWITTER_TOOL_CREATE_TWEET_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​T​w​e​e​t
+   */
+  TWITTER_TOOL_DELETE_TWEET_DISPLAY_NAME: string
+  /**
+   * D​e​l​e​t​e​ ​a​ ​t​w​e​e​t​ ​b​y​ ​I​D
+   */
+  TWITTER_TOOL_DELETE_TWEET_DESCRIPTION: string
+  /**
+   * G​e​t​ ​T​w​e​e​t
+   */
+  TWITTER_TOOL_GET_TWEET_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​t​w​e​e​t​ ​b​y​ ​I​D​ ​w​i​t​h​ ​a​u​t​h​o​r​ ​d​e​t​a​i​l​s
+   */
+  TWITTER_TOOL_GET_TWEET_DESCRIPTION: string
+  /**
+   * S​e​a​r​c​h​ ​T​w​e​e​t​s
+   */
+  TWITTER_TOOL_SEARCH_TWEETS_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​r​e​c​e​n​t​ ​t​w​e​e​t​s​ ​m​a​t​c​h​i​n​g​ ​a​ ​q​u​e​r​y
+   */
+  TWITTER_TOOL_SEARCH_TWEETS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​U​s​e​r​ ​T​w​e​e​t​s
+   */
+  TWITTER_TOOL_GET_USER_TWEETS_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​t​w​e​e​t​s​ ​p​o​s​t​e​d​ ​b​y​ ​a​ ​u​s​e​r
+   */
+  TWITTER_TOOL_GET_USER_TWEETS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​M​y​ ​P​r​o​f​i​l​e
+   */
+  TWITTER_TOOL_GET_ME_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​t​h​e​ ​a​u​t​h​e​n​t​i​c​a​t​e​d​ ​u​s​e​r​'​s​ ​p​r​o​f​i​l​e
+   */
+  TWITTER_TOOL_GET_ME_DESCRIPTION: string
+  /**
+   * G​e​t​ ​U​s​e​r
+   */
+  TWITTER_TOOL_GET_USER_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​u​s​e​r​'​s​ ​p​r​o​f​i​l​e​ ​b​y​ ​I​D
+   */
+  TWITTER_TOOL_GET_USER_DESCRIPTION: string
+  /**
+   * G​e​t​ ​U​s​e​r​ ​b​y​ ​U​s​e​r​n​a​m​e
+   */
+  TWITTER_TOOL_GET_USER_BY_USERNAME_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​u​s​e​r​'​s​ ​p​r​o​f​i​l​e​ ​b​y​ ​u​s​e​r​n​a​m​e
+   */
+  TWITTER_TOOL_GET_USER_BY_USERNAME_DESCRIPTION: string
+  /**
+   * G​e​t​ ​F​o​l​l​o​w​e​r​s
+   */
+  TWITTER_TOOL_GET_FOLLOWERS_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​u​s​e​r​'​s​ ​f​o​l​l​o​w​e​r​s
+   */
+  TWITTER_TOOL_GET_FOLLOWERS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​F​o​l​l​o​w​i​n​g
+   */
+  TWITTER_TOOL_GET_FOLLOWING_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​u​s​e​r​s​ ​t​h​a​t​ ​a​ ​u​s​e​r​ ​i​s​ ​f​o​l​l​o​w​i​n​g
+   */
+  TWITTER_TOOL_GET_FOLLOWING_DESCRIPTION: string
+  /**
+   * L​i​k​e​ ​T​w​e​e​t
+   */
+  TWITTER_TOOL_LIKE_TWEET_DISPLAY_NAME: string
+  /**
+   * L​i​k​e​ ​a​ ​t​w​e​e​t
+   */
+  TWITTER_TOOL_LIKE_TWEET_DESCRIPTION: string
+  /**
+   * U​n​l​i​k​e​ ​T​w​e​e​t
+   */
+  TWITTER_TOOL_UNLIKE_TWEET_DISPLAY_NAME: string
+  /**
+   * U​n​l​i​k​e​ ​a​ ​p​r​e​v​i​o​u​s​l​y​ ​l​i​k​e​d​ ​t​w​e​e​t
+   */
+  TWITTER_TOOL_UNLIKE_TWEET_DESCRIPTION: string
+  /**
+   * R​e​t​w​e​e​t
+   */
+  TWITTER_TOOL_RETWEET_DISPLAY_NAME: string
+  /**
+   * R​e​t​w​e​e​t​ ​a​ ​t​w​e​e​t
+   */
+  TWITTER_TOOL_RETWEET_DESCRIPTION: string
+  /**
+   * U​n​d​o​ ​R​e​t​w​e​e​t
+   */
+  TWITTER_TOOL_UNDO_RETWEET_DISPLAY_NAME: string
+  /**
+   * U​n​d​o​ ​a​ ​r​e​t​w​e​e​t
+   */
+  TWITTER_TOOL_UNDO_RETWEET_DESCRIPTION: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Twitter
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Twitter/X API v2 integration for managing tweets, users, and interactions
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
-   * Demo Tool
+   * Twitter OAuth
    */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
+  TWITTER_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
   /**
-   * A tool for testing the plugin
+   * OAuth 2.0 credential for Twitter API v2
    */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
+  TWITTER_CREDENTIAL_DESCRIPTION: () => LocalizedString
   /**
-   * Location
+   * Client ID
    */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
+  TWITTER_CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * The location to test
+   * Your Twitter App Client ID
    */
-  LOCATION_HINT: () => LocalizedString
+  TWITTER_CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
   /**
-   * Enter the location to test
+   * Client Secret
    */
-  LOCATION_PLACEHOLDER: () => LocalizedString
+  TWITTER_CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Your Twitter App Client Secret
+   */
+  TWITTER_CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * Access Token
+   */
+  TWITTER_CREDENTIAL_ACCESS_TOKEN_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Refresh Token
+   */
+  TWITTER_CREDENTIAL_REFRESH_TOKEN_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Expires At
+   */
+  TWITTER_CREDENTIAL_EXPIRES_AT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Twitter Credential
+   */
+  TWITTER_PARAM_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * Tweet ID
+   */
+  TWITTER_PARAM_TWEET_ID_LABEL: () => LocalizedString
+  /**
+   * The unique identifier of the tweet
+   */
+  TWITTER_PARAM_TWEET_ID_HINT: () => LocalizedString
+  /**
+   * User ID
+   */
+  TWITTER_PARAM_USER_ID_LABEL: () => LocalizedString
+  /**
+   * The unique identifier of the user
+   */
+  TWITTER_PARAM_USER_ID_HINT: () => LocalizedString
+  /**
+   * Username
+   */
+  TWITTER_PARAM_USERNAME_LABEL: () => LocalizedString
+  /**
+   * Twitter username (without @)
+   */
+  TWITTER_PARAM_USERNAME_HINT: () => LocalizedString
+  /**
+   * elonmusk
+   */
+  TWITTER_PARAM_USERNAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Max Results
+   */
+  TWITTER_PARAM_MAX_RESULTS_LABEL: () => LocalizedString
+  /**
+   * Pagination Token
+   */
+  TWITTER_PARAM_PAGINATION_TOKEN_LABEL: () => LocalizedString
+  /**
+   * Token for fetching the next page of results
+   */
+  TWITTER_PARAM_PAGINATION_TOKEN_HINT: () => LocalizedString
+  /**
+   * Query
+   */
+  TWITTER_PARAM_QUERY_LABEL: () => LocalizedString
+  /**
+   * Search query for tweets
+   */
+  TWITTER_PARAM_QUERY_HINT: () => LocalizedString
+  /**
+   * from:elonmusk
+   */
+  TWITTER_PARAM_QUERY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Text
+   */
+  TWITTER_PARAM_TEXT_LABEL: () => LocalizedString
+  /**
+   * The text content of the tweet
+   */
+  TWITTER_PARAM_TEXT_HINT: () => LocalizedString
+  /**
+   * What's happening?
+   */
+  TWITTER_PARAM_TEXT_PLACEHOLDER: () => LocalizedString
+  /**
+   * Reply To Tweet ID
+   */
+  TWITTER_PARAM_REPLY_TO_TWEET_ID_LABEL: () => LocalizedString
+  /**
+   * Tweet ID to reply to (optional)
+   */
+  TWITTER_PARAM_REPLY_TO_TWEET_ID_HINT: () => LocalizedString
+  /**
+   * Quote Tweet ID
+   */
+  TWITTER_PARAM_QUOTE_TWEET_ID_LABEL: () => LocalizedString
+  /**
+   * Tweet ID to quote (optional)
+   */
+  TWITTER_PARAM_QUOTE_TWEET_ID_HINT: () => LocalizedString
+  /**
+   * Create Tweet
+   */
+  TWITTER_TOOL_CREATE_TWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new tweet
+   */
+  TWITTER_TOOL_CREATE_TWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Tweet
+   */
+  TWITTER_TOOL_DELETE_TWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Delete a tweet by ID
+   */
+  TWITTER_TOOL_DELETE_TWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Tweet
+   */
+  TWITTER_TOOL_GET_TWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a tweet by ID with author details
+   */
+  TWITTER_TOOL_GET_TWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Search Tweets
+   */
+  TWITTER_TOOL_SEARCH_TWEETS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search recent tweets matching a query
+   */
+  TWITTER_TOOL_SEARCH_TWEETS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get User Tweets
+   */
+  TWITTER_TOOL_GET_USER_TWEETS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get tweets posted by a user
+   */
+  TWITTER_TOOL_GET_USER_TWEETS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get My Profile
+   */
+  TWITTER_TOOL_GET_ME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get the authenticated user's profile
+   */
+  TWITTER_TOOL_GET_ME_DESCRIPTION: () => LocalizedString
+  /**
+   * Get User
+   */
+  TWITTER_TOOL_GET_USER_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a user's profile by ID
+   */
+  TWITTER_TOOL_GET_USER_DESCRIPTION: () => LocalizedString
+  /**
+   * Get User by Username
+   */
+  TWITTER_TOOL_GET_USER_BY_USERNAME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a user's profile by username
+   */
+  TWITTER_TOOL_GET_USER_BY_USERNAME_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Followers
+   */
+  TWITTER_TOOL_GET_FOLLOWERS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a user's followers
+   */
+  TWITTER_TOOL_GET_FOLLOWERS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Following
+   */
+  TWITTER_TOOL_GET_FOLLOWING_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get users that a user is following
+   */
+  TWITTER_TOOL_GET_FOLLOWING_DESCRIPTION: () => LocalizedString
+  /**
+   * Like Tweet
+   */
+  TWITTER_TOOL_LIKE_TWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Like a tweet
+   */
+  TWITTER_TOOL_LIKE_TWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Unlike Tweet
+   */
+  TWITTER_TOOL_UNLIKE_TWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Unlike a previously liked tweet
+   */
+  TWITTER_TOOL_UNLIKE_TWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Retweet
+   */
+  TWITTER_TOOL_RETWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retweet a tweet
+   */
+  TWITTER_TOOL_RETWEET_DESCRIPTION: () => LocalizedString
+  /**
+   * Undo Retweet
+   */
+  TWITTER_TOOL_UNDO_RETWEET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Undo a retweet
+   */
+  TWITTER_TOOL_UNDO_RETWEET_DESCRIPTION: () => LocalizedString
 }
 
 export type Formatters = {}

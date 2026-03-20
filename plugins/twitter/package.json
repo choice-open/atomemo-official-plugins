@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
+    "@xdevplatform/xdk": "^0.5.0",
     "dotenv": "^17.2.4",
     "zod": "^4.3.6"
   },
