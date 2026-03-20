@@ -10,7 +10,6 @@ import {
   getARecordTool,
   getBaseSchemaTool,
   getManyBasesTool,
-  upsertRecordTool,
   searchRecordsTool,
 } from "./tools"
 
@@ -30,13 +29,12 @@ const plugin = await createPlugin({
 
 plugin.addCredential(airtableCredential)
 
-plugin.addTool(getManyBasesTool)
-plugin.addTool(getBaseSchemaTool)
+// plugin.addTool(getManyBasesTool)
+// plugin.addTool(getBaseSchemaTool)
 
-plugin.addTool(getARecordTool)
-plugin.addTool(searchRecordsTool)
-plugin.addTool(deleteRecordTool)
+// plugin.addTool(getARecordTool)
+// plugin.addTool(searchRecordsTool)
+// plugin.addTool(deleteRecordTool)
 plugin.addTool(createRecordTool)
-plugin.addTool(upsertRecordTool)
 
 plugin.run()

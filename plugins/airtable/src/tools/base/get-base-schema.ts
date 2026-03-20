@@ -1,6 +1,4 @@
-import type {
-  ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getBaseSchema } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
 import { baseIdParam, credentialParam } from "../_shared/parameters"
