@@ -1,9 +1,9 @@
-import type {
-  ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getBaseSchema } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
-import { baseIdParam, credentialParam } from "../_shared/parameters"
+import { searchBasesMethod } from "../_shared/methods"
+import { baseIdParamRL, credentialParam } from "../_shared/parameters"
+import { resolveBaseId } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
 
 export const getBaseSchemaTool = {
@@ -11,7 +11,9 @@ export const getBaseSchemaTool = {
   display_name: t("GET_BASE_SCHEMA_DISPLAY_NAME"),
   description: t("GET_BASE_SCHEMA_DESCRIPTION"),
   icon: "📋",
-  parameters: [credentialParam, baseIdParam],
+
+  parameters: [credentialParam, baseIdParamRL],
+  locator_list: { ...searchBasesMethod },
   async invoke({ args }) {
     const token = getAirtableToken(args)
     if (!token) {
@@ -21,7 +23,7 @@ export const getBaseSchemaTool = {
     }
 
     const p = (args as { parameters: Record<string, unknown> }).parameters
-    const baseId = String(p["base_id"] ?? "").trim()
+    const baseId = resolveBaseId(p)
 
     if (!baseId) throw new Error("base_id is required.")
 

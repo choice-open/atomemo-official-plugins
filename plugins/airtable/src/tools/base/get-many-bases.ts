@@ -9,6 +9,7 @@ export const getManyBasesTool = {
   display_name: t("LIST_BASES_DISPLAY_NAME"),
   description: t("LIST_BASES_DESCRIPTION"),
   icon: "🗂️",
+
   parameters: [
     credentialParam,
     {

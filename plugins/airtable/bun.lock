@@ -5,7 +5,7 @@
     "": {
       "name": "airtable",
       "dependencies": {
-        "@choiceopen/atomemo-plugin-sdk-js": "0.3.5",
+        "@choiceopen/atomemo-plugin-sdk-js": "^0.6.2",
         "dotenv": "^17.2.4",
         "zod": "^4.3.6",
       },
@@ -50,9 +50,9 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.4.5", "", { "os": "win32", "cpu": "x64" }, "sha512-Pmhv9zT95YzECfjEHNl3mN9Vhusw9VA5KHY0ZvlGsxsjwS5cb7vpRnHzJIv0vG7jB0JI7xEaMH9ddfZm/RozBw=="],
 
-    "@choiceopen/atomemo-plugin-schema": ["@choiceopen/atomemo-plugin-schema@0.2.16", "", { "dependencies": { "type-fest": "^5.4.4" }, "peerDependencies": { "zod": "^4" } }, "sha512-4LwTsN+0wM6dug4izptB5YqJuq0Gsh/g0bzunK2QM3ioXrohOaQMAyWBs5+QZ2sPEeNjVP97hrqPhrfiMVBvhw=="],
+    "@choiceopen/atomemo-plugin-schema": ["@choiceopen/atomemo-plugin-schema@0.6.0", "", { "dependencies": { "type-fest": "^5.4.4" }, "peerDependencies": { "zod": "^4" } }, "sha512-7/JO9T21Z/PS0r7HXuxu9R0agMdkn+0MkKUX8pgD5d80kpYhZozzqJdZj4KYobyI/DJkJppab5MPUvI0mPDdSQ=="],
 
-    "@choiceopen/atomemo-plugin-sdk-js": ["@choiceopen/atomemo-plugin-sdk-js@0.3.5", "", { "dependencies": { "@choiceopen/atomemo-plugin-schema": "^0.2.16", "phoenix": "^1.8.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "type-fest": "^5.4.4" }, "peerDependencies": { "chalk": "^5", "dotenv": "^17", "zod": "^4" } }, "sha512-idYYqqWKKtzaZYhjwqvyamhGXNv28PcAd8xoi/sicqsE5GbqkwmXyq065tpo38La8IXME1VYZ7vCZZne5pacag=="],
+    "@choiceopen/atomemo-plugin-sdk-js": ["@choiceopen/atomemo-plugin-sdk-js@0.6.2", "", { "dependencies": { "@choiceopen/atomemo-plugin-schema": "^0.6.0", "phoenix": "^1.8.5", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "type-fest": "^5.4.4" }, "peerDependencies": { "chalk": "^5", "dotenv": "^17", "zod": "^4" } }, "sha512-UsWec9jD0ahaI5T35Yz/byKG5Qk9Qrus/EBdgb99gv4NoougIlNTJXmbvZQ4X7PnVXVAAZyuLi+1slv8zgW6Nw=="],
 
     "@emnapi/core": ["@emnapi/core@1.8.1", "", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "^2.4.0" } }, "sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg=="],
 
@@ -366,7 +366,7 @@
 
     "perfect-debounce": ["perfect-debounce@2.1.0", "", {}, "sha512-LjgdTytVFXeUgtHZr9WYViYSM/g8MkcTPYDlPa3cDqMirHjKiSZPYd6DoL7pK8AJQr+uWkQvCjHNdiMqsrJs+g=="],
 
-    "phoenix": ["phoenix@1.8.4", "", {}, "sha512-5wdO9mqU4l0AmcexN8mA0m1BsC4ROv2l55MN31gbxmJPzghc4SxVxnNTh9qaummYa2pbwkoBvG8FezO7cjdr8A=="],
+    "phoenix": ["phoenix@1.8.5", "", {}, "sha512-Oj5nlRV/NKXkjBx8uMgCMmgMf1twd/B2qOcO30cHLH1PCGR8149o4T1lRIaqN4nq2KQJAeMqPiLdh1Asd0wQFg=="],
 
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
