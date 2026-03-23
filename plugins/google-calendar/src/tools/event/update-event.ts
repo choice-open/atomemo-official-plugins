@@ -147,7 +147,10 @@ export const updateEventTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendar = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const {
       calendar_id,
       event_id,

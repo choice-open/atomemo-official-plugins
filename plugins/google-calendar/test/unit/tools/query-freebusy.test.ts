@@ -32,7 +32,11 @@ describe("query-freebusy tool", () => {
     mockQuery.mockResolvedValue({
       data: {
         calendars: {
-          primary: { busy: [{ start: "2025-03-23T10:00:00Z", end: "2025-03-23T11:00:00Z" }] },
+          primary: {
+            busy: [
+              { start: "2025-03-23T10:00:00Z", end: "2025-03-23T11:00:00Z" },
+            ],
+          },
           "user@example.com": { busy: [] },
         },
       },
@@ -51,7 +55,11 @@ describe("query-freebusy tool", () => {
     })
     expect(result).toMatchObject({
       calendars: {
-        primary: { busy: [{ start: "2025-03-23T10:00:00Z", end: "2025-03-23T11:00:00Z" }] },
+        primary: {
+          busy: [
+            { start: "2025-03-23T10:00:00Z", end: "2025-03-23T11:00:00Z" },
+          ],
+        },
         "user@example.com": { busy: [] },
       },
     })

@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { requireCalendarClient } from "../../lib/require-calendar"
 import { calendarCredentialParam } from "../../lib/parameters"
+import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 
 export const getEventTool: ToolDefinition = {
@@ -39,7 +39,10 @@ export const getEventTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendar = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, event_id } = args.parameters
 
     const res = await calendar.events.get({

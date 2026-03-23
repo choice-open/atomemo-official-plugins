@@ -91,8 +91,12 @@ export const listEventInstancesTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
-    const { calendar_id, event_id, time_min, time_max, max_results } = args.parameters
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
+    const { calendar_id, event_id, time_min, time_max, max_results } =
+      args.parameters
 
     const res = await client.events.instances({
       calendarId: calendar_id as string,

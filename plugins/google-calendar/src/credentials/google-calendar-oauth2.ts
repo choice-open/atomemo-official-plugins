@@ -77,7 +77,7 @@ export const googleCalendarOAuth2Credential = {
 
     if (!response.ok) {
       throw new Error(
-        `获取 Token 失败: ${(data as { error_description?: string }).error_description ?? (data as { error?: string }).error ?? String(response.status)}`
+        `获取 Token 失败: ${(data as { error_description?: string }).error_description ?? (data as { error?: string }).error ?? String(response.status)}`,
       )
     }
 
@@ -88,10 +88,11 @@ export const googleCalendarOAuth2Credential = {
     }
 
     const refreshToken =
-      payload.refresh_token ?? (args.credential.refresh_token as string | undefined)
+      payload.refresh_token ??
+      (args.credential.refresh_token as string | undefined)
     if (!refreshToken) {
       throw new Error(
-        "Refresh token 未返回，请确保授权时使用 access_type=offline 和 prompt=consent"
+        "Refresh token 未返回，请确保授权时使用 access_type=offline 和 prompt=consent",
       )
     }
 
@@ -122,7 +123,7 @@ export const googleCalendarOAuth2Credential = {
 
     if (!response.ok) {
       throw new Error(
-        `刷新 Token 失败: ${(data as { error_description?: string }).error_description ?? (data as { error?: string }).error ?? String(response.status)}`
+        `刷新 Token 失败: ${(data as { error_description?: string }).error_description ?? (data as { error?: string }).error ?? String(response.status)}`,
       )
     }
 
@@ -134,9 +135,8 @@ export const googleCalendarOAuth2Credential = {
         expires_at: Math.floor(Date.now() / 1000) + payload.expires_in,
       },
     }
-  }
+  },
 } satisfies CredentialDefinition
-
 
 export type CredentialCredential = {
   access_token: string

@@ -12,7 +12,11 @@ export function sanitizeObject(obj: unknown): JsonValue {
     return null
   }
 
-  if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean") {
+  if (
+    typeof obj === "string" ||
+    typeof obj === "number" ||
+    typeof obj === "boolean"
+  ) {
     return obj
   }
 

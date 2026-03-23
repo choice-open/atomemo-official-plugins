@@ -79,7 +79,10 @@ export const listEventsTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendar = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, time_min, time_max, max_results } = args.parameters
 
     const res = await calendar.events.list({

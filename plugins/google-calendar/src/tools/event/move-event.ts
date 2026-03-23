@@ -52,7 +52,10 @@ export const moveEventTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, event_id, destination_calendar_id } = args.parameters
 
     const res = await client.events.move({

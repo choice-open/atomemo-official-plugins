@@ -9,18 +9,17 @@ export const deleteCalendarTool: ToolDefinition = {
   display_name: t("DELETE_CALENDAR_DISPLAY_NAME"),
   description: t("DELETE_CALENDAR_DESCRIPTION"),
   icon: "🗑️",
-  parameters: [
-    calendarCredentialParam,
-    calendarIdParam
-  ],
+  parameters: [calendarCredentialParam, calendarIdParam],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
 
     const { calendar_id } = args.parameters
     const res = await client.calendars.delete({
-      calendarId: calendar_id
+      calendarId: calendar_id,
     })
     return sanitizeObject(res.data)
-  }
-
+  },
 }

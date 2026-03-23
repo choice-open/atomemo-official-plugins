@@ -47,16 +47,22 @@ export const updateCalendarListTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, summaryOverride, colorId, selected } = args.parameters
 
     const requestBody: Record<string, unknown> = {}
-    if (summaryOverride != null && summaryOverride !== "") requestBody.summaryOverride = summaryOverride
+    if (summaryOverride != null && summaryOverride !== "")
+      requestBody.summaryOverride = summaryOverride
     if (colorId != null && colorId !== "") requestBody.colorId = colorId
     if (selected != null) requestBody.selected = selected
 
     if (Object.keys(requestBody).length === 0) {
-      throw new Error("At least one field (summaryOverride, colorId, selected) must be provided")
+      throw new Error(
+        "At least one field (summaryOverride, colorId, selected) must be provided",
+      )
     }
 
     const res = await client.calendarList.patch({

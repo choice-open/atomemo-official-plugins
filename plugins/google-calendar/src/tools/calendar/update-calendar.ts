@@ -66,29 +66,34 @@ export const updateCalendarTool: ToolDefinition = {
     const { parameters, credentials } = args
     const client = requireCalendarClient(credentials, parameters.credential_id)
 
-    const {
-      calendar_id,
-      description,
-      location,
-      summary,
-      timeZone
-    } = parameters
+    const { calendar_id, description, location, summary, timeZone } = parameters
 
     const requestBody: Record<string, string | undefined> = {}
-    if (summary != null && summary !== "") requestBody.summary = summary as string
-    if (description != null && description !== "") requestBody.description = description as string
-    if (location != null && location !== "") requestBody.location = location as string
-    if (timeZone != null && timeZone !== "") requestBody.timeZone = timeZone as string
+    if (summary != null && summary !== "")
+      requestBody.summary = summary as string
+    if (description != null && description !== "")
+      requestBody.description = description as string
+    if (location != null && location !== "")
+      requestBody.location = location as string
+    if (timeZone != null && timeZone !== "")
+      requestBody.timeZone = timeZone as string
 
     if (Object.keys(requestBody).length === 0) {
-      throw new Error("At least one field (summary, description, location, timeZone) must be provided")
+      throw new Error(
+        "At least one field (summary, description, location, timeZone) must be provided",
+      )
     }
 
     const res = await client.calendars.patch({
       calendarId: calendar_id as string,
-      requestBody: requestBody as { summary?: string; description?: string; location?: string; timeZone?: string },
+      requestBody: requestBody as {
+        summary?: string
+        description?: string
+        location?: string
+        timeZone?: string
+      },
     })
 
     return sanitizeObject(res.data)
-  }
+  },
 }

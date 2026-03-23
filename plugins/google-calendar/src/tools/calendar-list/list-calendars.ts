@@ -9,11 +9,12 @@ export const listCalendarsTool: ToolDefinition = {
   display_name: t("LIST_CALENDARS_DISPLAY_NAME"),
   description: t("LIST_CALENDARS_DESCRIPTION"),
   icon: "📆",
-  parameters: [
-    calendarCredentialParam,
-  ],
+  parameters: [calendarCredentialParam],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendar = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
 
     const res = await calendar.calendarList.list()
 

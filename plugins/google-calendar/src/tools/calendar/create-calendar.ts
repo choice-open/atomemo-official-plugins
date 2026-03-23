@@ -63,7 +63,10 @@ export const createCalendarTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const calendarClient = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendarClient = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
 
     const { summary, description, location, timeZone } = args.parameters
 
@@ -76,5 +79,5 @@ export const createCalendarTool: ToolDefinition = {
       },
     })
     return sanitizeObject(res.data)
-  }
+  },
 }

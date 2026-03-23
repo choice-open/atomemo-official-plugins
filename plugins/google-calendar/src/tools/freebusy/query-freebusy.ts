@@ -50,7 +50,10 @@ export const queryFreebusyTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { time_min, time_max, calendar_ids } = args.parameters
 
     const ids = (calendar_ids as string)

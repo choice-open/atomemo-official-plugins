@@ -11,7 +11,7 @@ export function createCalendarClient(cred: CredentialCredential) {
     refresh_token: cred.refresh_token,
   })
   if (cred.refresh_token && cred.client_id && cred.client_secret) {
-    oauth2Client.on("tokens", () => { })
+    oauth2Client.on("tokens", () => {})
   }
   return google.calendar({ version: "v3", auth: oauth2Client })
 }

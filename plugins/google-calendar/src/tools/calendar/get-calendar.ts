@@ -9,17 +9,17 @@ export const getCalendarTool: ToolDefinition = {
   display_name: t("GET_CALENDAR_DISPLAY_NAME"),
   description: t("GET_CALENDAR_DESCRIPTION"),
   icon: "📅",
-  parameters: [
-    calendarCredentialParam,
-    calendarIdParam,
-  ],
+  parameters: [calendarCredentialParam, calendarIdParam],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
 
     const { calendar_id } = args.parameters
 
     const res = await client.calendars.get({
-      calendarId: calendar_id as string
+      calendarId: calendar_id as string,
     })
 
     return sanitizeObject(res.data)

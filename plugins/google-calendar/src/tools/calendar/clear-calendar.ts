@@ -9,17 +9,14 @@ export const clearCalendarTool: ToolDefinition = {
   display_name: t("CLEAR_CALENDAR_DISPLAY_NAME"),
   description: t("CLEAR_CALENDAR_DESCRIPTION"),
   icon: "🧹",
-  parameters: [
-    calendarCredentialParam,
-    calendarIdParam
-  ],
+  parameters: [calendarCredentialParam, calendarIdParam],
   async invoke({ args }) {
     const { parameters, credentials } = args
     const client = requireCalendarClient(credentials, parameters.credential_id)
 
     const res = await client.calendars.clear({
-      calendarId: parameters.calendar_id
+      calendarId: parameters.calendar_id,
     })
     return sanitizeObject(res.data)
-  }
+  },
 }

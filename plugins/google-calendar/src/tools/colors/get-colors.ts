@@ -11,7 +11,10 @@ export const getColorsTool: ToolDefinition = {
   icon: "🎨",
   parameters: [calendarCredentialParam],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
 
     const res = await client.colors.get()
 

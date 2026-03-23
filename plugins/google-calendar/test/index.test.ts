@@ -42,6 +42,7 @@ import { createCalendarTool } from "../src/tools/calendar/create-calendar"
 import { deleteCalendarTool } from "../src/tools/calendar/delete-calendar"
 import { getCalendarTool } from "../src/tools/calendar/get-calendar"
 import { updateCalendarTool } from "../src/tools/calendar/update-calendar"
+import { getColorsTool } from "../src/tools/colors/get-colors"
 import { createEventTool } from "../src/tools/event/create-event"
 import { deleteEventTool } from "../src/tools/event/delete-event"
 import { getEventTool } from "../src/tools/event/get-event"
@@ -50,12 +51,6 @@ import { listEventsTool } from "../src/tools/event/list-events"
 import { moveEventTool } from "../src/tools/event/move-event"
 import { quickAddEventTool } from "../src/tools/event/quick-add-event"
 import { updateEventTool } from "../src/tools/event/update-event"
-import { deleteCalendarListTool } from "../src/tools/calendar-list/delete-calendars"
-import { getCalendarListTool } from "../src/tools/calendar-list/get-calendars"
-import { insertCalendarListTool } from "../src/tools/calendar-list/insert-calendar-list"
-import { listCalendarsTool } from "../src/tools/calendar-list/list-calendars"
-import { updateCalendarListTool } from "../src/tools/calendar-list/update-calendar-list"
-import { getColorsTool } from "../src/tools/colors/get-colors"
 import { queryFreebusyTool } from "../src/tools/freebusy/query-freebusy"
 import { getSettingTool } from "../src/tools/settings/get-setting"
 import { listSettingsTool } from "../src/tools/settings/list-settings"
@@ -140,10 +135,10 @@ describe("google-calendar plugin", () => {
       quickAddEventTool,
     ]
 
-    it.each(calendarTools.map((t) => [t]))(
-      "calendar tool has required properties",
-      (tool) => {
-        expect(tool).toHaveProperty("name")
+    it.each(
+      calendarTools.map((t) => [t]),
+    )("calendar tool has required properties", (tool) => {
+      expect(tool).toHaveProperty("name")
       expect(tool).toHaveProperty("display_name")
       expect(tool).toHaveProperty("description")
       expect(tool).toHaveProperty("icon")
@@ -156,13 +151,12 @@ describe("google-calendar plugin", () => {
           credential_name: "google-calendar-oauth2",
         }),
       )
-    },
-    )
+    })
 
-    it.each(eventTools.map((t) => [t]))(
-      "event tool has required properties",
-      (tool) => {
-        expect(tool).toHaveProperty("name")
+    it.each(
+      eventTools.map((t) => [t]),
+    )("event tool has required properties", (tool) => {
+      expect(tool).toHaveProperty("name")
       expect(tool).toHaveProperty("invoke")
       expect(tool.parameters).toContainEqual(
         expect.objectContaining({
@@ -170,7 +164,6 @@ describe("google-calendar plugin", () => {
           credential_name: "google-calendar-oauth2",
         }),
       )
-    },
-    )
+    })
   })
 })

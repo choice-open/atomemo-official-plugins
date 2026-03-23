@@ -165,7 +165,10 @@ export const createEventTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const calendar = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const params = args.parameters
     const {
       calendar_id,
@@ -184,7 +187,9 @@ export const createEventTool: ToolDefinition = {
 
     if (is_all_day_event) {
       if (!start_date || !end_date) {
-        throw new Error("Start date and end date are required for all-day events")
+        throw new Error(
+          "Start date and end date are required for all-day events",
+        )
       }
     } else {
       if (!start_datetime || !end_datetime) {

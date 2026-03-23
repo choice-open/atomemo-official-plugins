@@ -40,7 +40,10 @@ export const quickAddEventTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, text } = args.parameters
 
     const res = await client.events.quickAdd({

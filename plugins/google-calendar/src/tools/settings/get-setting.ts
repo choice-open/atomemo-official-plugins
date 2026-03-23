@@ -26,7 +26,10 @@ export const getSettingTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { setting_id } = args.parameters
 
     const res = await client.settings.get({

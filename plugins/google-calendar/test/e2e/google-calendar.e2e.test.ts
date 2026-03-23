@@ -19,22 +19,25 @@ const hasCredential =
 
 const skipE2E = !runE2E || !hasCredential
 
-// Mock 需要在导入工具之前设置，但 E2E 使用真实 API，不 mock require-calendar
 function createE2ECredentials() {
+  const access_token = process.env.GOOGLE_CALENDAR_ACCESS_TOKEN
+  const refresh_token = process.env.GOOGLE_CALENDAR_REFRESH_TOKEN
+  const client_id = process.env.GOOGLE_CALENDAR_CLIENT_ID
+  const client_secret = process.env.GOOGLE_CALENDAR_CLIENT_SECRET
+  if (!access_token || !refresh_token || !client_id || !client_secret) {
+    throw new Error("Missing E2E credentials in environment")
+  }
   return {
     e2e_cred: {
-      access_token: process.env.GOOGLE_CALENDAR_ACCESS_TOKEN!,
-      refresh_token: process.env.GOOGLE_CALENDAR_REFRESH_TOKEN!,
-      client_id: process.env.GOOGLE_CALENDAR_CLIENT_ID!,
-      client_secret: process.env.GOOGLE_CALENDAR_CLIENT_SECRET!,
+      access_token,
+      refresh_token,
+      client_id,
+      client_secret,
     },
   }
 }
 
 describe.skipIf(skipE2E)("Google Calendar E2E", () => {
-  let createdEventId: string | undefined
-  let createdCalendarId: string | undefined
-
   beforeEach(async () => {
     // E2E 测试使用真实 API，无需 mock
   })
@@ -62,9 +65,13 @@ describe.skipIf(skipE2E)("Google Calendar E2E", () => {
   })
 
   it("create-event + get-event + delete-event: 创建、获取、删除流程", async () => {
-    const { createEventTool } = await import("../../src/tools/event/create-event")
+    const { createEventTool } = await import(
+      "../../src/tools/event/create-event"
+    )
     const { getEventTool } = await import("../../src/tools/event/get-event")
-    const { deleteEventTool } = await import("../../src/tools/event/delete-event")
+    const { deleteEventTool } = await import(
+      "../../src/tools/event/delete-event"
+    )
     const creds = createE2ECredentials()
 
     // 1. 创建事件
@@ -84,7 +91,7 @@ describe.skipIf(skipE2E)("Google Calendar E2E", () => {
 
     expect(createResult).toBeDefined()
     expect(createResult).toHaveProperty("id")
-    createdEventId = (createResult as { id: string }).id
+    const eventId = (createResult as { id: string }).id
 
     // 2. 获取事件
     const getResult = await getEventTool.invoke({
@@ -93,7 +100,7 @@ describe.skipIf(skipE2E)("Google Calendar E2E", () => {
         parameters: {
           credential_id: "e2e_cred",
           calendar_id: "primary",
-          event_id: createdEventId!,
+          event_id: eventId,
         },
       },
     })
@@ -108,14 +115,14 @@ describe.skipIf(skipE2E)("Google Calendar E2E", () => {
         parameters: {
           credential_id: "e2e_cred",
           calendar_id: "primary",
-          event_id: createdEventId!,
+          event_id: eventId,
         },
       },
     })
 
     expect(deleteResult).toMatchObject({
       success: true,
-      deleted_event_id: createdEventId,
+      deleted_event_id: eventId,
     })
   })
 

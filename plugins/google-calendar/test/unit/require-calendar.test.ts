@@ -29,10 +29,7 @@ describe("requireCalendarClient", () => {
       client_id: "cid",
       client_secret: "secret",
     }
-    const result = requireCalendarClient(
-      { mycred: cred },
-      "mycred",
-    )
+    const result = requireCalendarClient({ mycred: cred }, "mycred")
     expect(result).toEqual({ mock: "client" })
   })
 })

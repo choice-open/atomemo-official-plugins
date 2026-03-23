@@ -35,7 +35,10 @@ export const insertCalendarListTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const client = requireCalendarClient(
+      args.credentials,
+      args.parameters.credential_id,
+    )
     const { calendar_id, selected, colorId } = args.parameters
 
     const requestBody: Record<string, unknown> = {}
