@@ -1,6 +1,6 @@
-import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
-import { createTasksClient, getAccessToken } from "../../utils/api"
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
+import { createTasksClient, getAccessToken } from "../../utils/api";
 
 export const deleteTaskTool: ToolDefinition = {
   name: "delete-task",
@@ -43,18 +43,26 @@ export const deleteTaskTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const client = createTasksClient(getAccessToken(args))
-    const taskListId = args.parameters.task_list_id
-    const taskId = args.parameters.task_id
+    const client = createTasksClient(getAccessToken(args));
+    const taskListId = args.parameters.task_list_id;
+    const taskId = args.parameters.task_id;
     try {
-      const res = await client.tasks.delete({ tasklist: taskListId, task: taskId })
+      const res = await client.tasks.delete({
+        tasklist: taskListId,
+        task: taskId,
+      });
       if (res.status === 204) {
-        return { success: true, deletedTask: taskId, fromTaskList: taskListId }
+        return { success: true, deletedTask: taskId, fromTaskList: taskListId };
       }
-      throw new Error(`Unexpected response status: ${res.status} ${res.statusText}`)
+      throw new Error(
+        `Unexpected response status: ${res.status} ${res.statusText}`,
+      );
     } catch (err: any) {
-      const message = err?.errors?.[0]?.message || err?.message || "Unknown error"
-      throw new Error(`Failed to delete task "${taskId}" from list "${taskListId}": ${message}`)
+      const message =
+        err?.errors?.[0]?.message || err?.message || "Unknown error";
+      throw new Error(
+        `Failed to delete task "${taskId}" from list "${taskListId}": ${message}`,
+      );
     }
   },
-}
+};

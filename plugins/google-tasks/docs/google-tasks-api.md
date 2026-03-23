@@ -12,6 +12,17 @@
 
 ## TaskLists（任务列表）
 
+### 插件实现状态（google-tasks）
+
+| API 方法 | 插件工具 | 状态 |
+|------|------|------|
+| `tasklists.list` | `list-task-lists` | 已实现 |
+| `tasklists.get` | `get-task-list` | 已实现 |
+| `tasklists.insert` | `create-task-list` | 已实现 |
+| `tasklists.update` | `replace-task-list` | 已实现 |
+| `tasklists.patch` | `update-task-list` | 已实现 |
+| `tasklists.delete` | `delete-task-list` | 已实现 |
+
 ### 资源字段
 
 | 字段 | 类型 | 说明 |
@@ -37,6 +48,19 @@
 ---
 
 ## Tasks（任务）
+
+### 插件实现状态（google-tasks）
+
+| API 方法 | 插件工具 | 状态 |
+|------|------|------|
+| `tasks.list` | `list-tasks` | 已实现 |
+| `tasks.get` | `get-task` | 已实现 |
+| `tasks.insert` | `create-task` | 已实现 |
+| `tasks.update` | `replace-task` | 已实现 |
+| `tasks.patch` | `update-task` | 已实现 |
+| `tasks.delete` | `delete-task` | 已实现 |
+| `tasks.move` | `move-task` | 已实现 |
+| `tasks.clear` | `clear-completed-tasks` | 已实现 |
 
 ### 资源字段
 
@@ -127,3 +151,5 @@
 - **TaskLists：6 个方法** — list / get / insert / update / patch / delete
 - **Tasks：8 个方法** — list / get / insert / update / patch / delete / move / clear
 - **共 14 个 API 方法**
+- **插件当前已实现：14 个方法**
+- **插件当前未实现：0 个方法**

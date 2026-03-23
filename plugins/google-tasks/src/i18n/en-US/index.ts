@@ -67,6 +67,11 @@ const en_US = {
     "Returns all task lists for the authenticated user",
   CREATE_TASK_LIST_DISPLAY_NAME: "Create Task List",
   CREATE_TASK_LIST_DESCRIPTION: "Creates a new task list",
+  GET_TASK_LIST_DISPLAY_NAME: "Get Task List",
+  GET_TASK_LIST_DESCRIPTION: "Returns the specified task list",
+  REPLACE_TASK_LIST_DISPLAY_NAME: "Replace Task List",
+  REPLACE_TASK_LIST_DESCRIPTION:
+    "Fully replaces the specified task list using tasklists.update",
   UPDATE_TASK_LIST_DISPLAY_NAME: "Update Task List",
   UPDATE_TASK_LIST_DESCRIPTION: "Updates the title of the specified task list",
   DELETE_TASK_LIST_DISPLAY_NAME: "Delete Task List",
@@ -79,6 +84,9 @@ const en_US = {
   GET_TASK_DESCRIPTION: "Returns the specified task",
   CREATE_TASK_DISPLAY_NAME: "Create Task",
   CREATE_TASK_DESCRIPTION: "Creates a new task in the specified task list",
+  REPLACE_TASK_DISPLAY_NAME: "Replace Task",
+  REPLACE_TASK_DESCRIPTION:
+    "Fully replaces the specified task using tasks.update",
   UPDATE_TASK_DISPLAY_NAME: "Update Task",
   UPDATE_TASK_DESCRIPTION:
     "Updates the specified task (title, notes, status, due date)",

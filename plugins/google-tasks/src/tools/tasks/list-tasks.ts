@@ -125,6 +125,51 @@ export const listTasksTool: ToolDefinition = {
         width: "medium",
       },
     },
+    {
+      name: "completed_min",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Completed Min", zh_Hans: "完成时间最小值" },
+      ui: {
+        component: "input",
+        hint: {
+          en_US: "Filter: minimum completion time (RFC 3339)",
+          zh_Hans: "过滤：最早完成时间（RFC 3339）",
+        },
+        support_expression: true,
+        width: "medium",
+      },
+    },
+    {
+      name: "completed_max",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Completed Max", zh_Hans: "完成时间最大值" },
+      ui: {
+        component: "input",
+        hint: {
+          en_US: "Filter: maximum completion time (RFC 3339)",
+          zh_Hans: "过滤：最晚完成时间（RFC 3339）",
+        },
+        support_expression: true,
+        width: "medium",
+      },
+    },
+    {
+      name: "show_assigned",
+      type: "boolean",
+      required: false,
+      default: true,
+      display_name: { en_US: "Show Assigned", zh_Hans: "显示已分配" },
+      ui: {
+        component: "switch",
+        hint: {
+          en_US: "Whether to include assigned tasks",
+          zh_Hans: "是否包含已分配任务",
+        },
+        width: "medium",
+      },
+    },
   ],
   async invoke({ args }) {
     const client = createTasksClient(getAccessToken(args))
@@ -139,6 +184,9 @@ export const listTasksTool: ToolDefinition = {
       dueMin: p.due_min || undefined,
       dueMax: p.due_max || undefined,
       updatedMin: p.updated_min || undefined,
+      completedMin: p.completed_min || undefined,
+      completedMax: p.completed_max || undefined,
+      showAssigned: p.show_assigned,
     })
     return toJSON(res.data)
   },

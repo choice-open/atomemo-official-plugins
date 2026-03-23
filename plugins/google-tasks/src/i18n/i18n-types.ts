@@ -228,6 +228,22 @@ type RootTranslation = {
    */
   CREATE_TASK_LIST_DESCRIPTION: string
   /**
+   * G​e​t​ ​T​a​s​k​ ​L​i​s​t
+   */
+  GET_TASK_LIST_DISPLAY_NAME: string
+  /**
+   * R​e​t​u​r​n​s​ ​t​h​e​ ​s​p​e​c​i​f​i​e​d​ ​t​a​s​k​ ​l​i​s​t
+   */
+  GET_TASK_LIST_DESCRIPTION: string
+  /**
+   * R​e​p​l​a​c​e​ ​T​a​s​k​ ​L​i​s​t
+   */
+  REPLACE_TASK_LIST_DISPLAY_NAME: string
+  /**
+   * F​u​l​l​y​ ​r​e​p​l​a​c​e​s​ ​t​h​e​ ​s​p​e​c​i​f​i​e​d​ ​t​a​s​k​ ​l​i​s​t​ ​u​s​i​n​g​ ​t​a​s​k​l​i​s​t​s​.​u​p​d​a​t​e
+   */
+  REPLACE_TASK_LIST_DESCRIPTION: string
+  /**
    * U​p​d​a​t​e​ ​T​a​s​k​ ​L​i​s​t
    */
   UPDATE_TASK_LIST_DISPLAY_NAME: string
@@ -267,6 +283,14 @@ type RootTranslation = {
    * C​r​e​a​t​e​s​ ​a​ ​n​e​w​ ​t​a​s​k​ ​i​n​ ​t​h​e​ ​s​p​e​c​i​f​i​e​d​ ​t​a​s​k​ ​l​i​s​t
    */
   CREATE_TASK_DESCRIPTION: string
+  /**
+   * R​e​p​l​a​c​e​ ​T​a​s​k
+   */
+  REPLACE_TASK_DISPLAY_NAME: string
+  /**
+   * F​u​l​l​y​ ​r​e​p​l​a​c​e​s​ ​t​h​e​ ​s​p​e​c​i​f​i​e​d​ ​t​a​s​k​ ​u​s​i​n​g​ ​t​a​s​k​s​.​u​p​d​a​t​e
+   */
+  REPLACE_TASK_DESCRIPTION: string
   /**
    * U​p​d​a​t​e​ ​T​a​s​k
    */
@@ -515,6 +539,22 @@ export type TranslationFunctions = {
    */
   CREATE_TASK_LIST_DESCRIPTION: () => LocalizedString
   /**
+   * Get Task List
+   */
+  GET_TASK_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Returns the specified task list
+   */
+  GET_TASK_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Replace Task List
+   */
+  REPLACE_TASK_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Fully replaces the specified task list using tasklists.update
+   */
+  REPLACE_TASK_LIST_DESCRIPTION: () => LocalizedString
+  /**
    * Update Task List
    */
   UPDATE_TASK_LIST_DISPLAY_NAME: () => LocalizedString
@@ -554,6 +594,14 @@ export type TranslationFunctions = {
    * Creates a new task in the specified task list
    */
   CREATE_TASK_DESCRIPTION: () => LocalizedString
+  /**
+   * Replace Task
+   */
+  REPLACE_TASK_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Fully replaces the specified task using tasks.update
+   */
+  REPLACE_TASK_DESCRIPTION: () => LocalizedString
   /**
    * Update Task
    */
