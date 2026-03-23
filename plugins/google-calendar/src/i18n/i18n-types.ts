@@ -431,6 +431,62 @@ type RootTranslation = {
    * p​r​i​m​a​r​y​,​u​s​e​r​@​e​x​a​m​p​l​e​.​c​o​m
    */
   CALENDAR_IDS_PLACEHOLDER: string
+  /**
+   * A​l​l​-​d​a​y​ ​E​v​e​n​t
+   */
+  IS_ALL_DAY_EVENT_DISPLAY_NAME: string
+  /**
+   * I​f​ ​e​n​a​b​l​e​d​,​ ​u​s​e​ ​d​a​t​e​ ​o​n​l​y​ ​(​n​o​ ​t​i​m​e​)
+   */
+  IS_ALL_DAY_EVENT_HINT: string
+  /**
+   * I​n​c​l​u​d​e​ ​D​e​t​a​i​l​s
+   */
+  INCLUDE_DETAILS_DISPLAY_NAME: string
+  /**
+   * A​d​d​ ​d​e​s​c​r​i​p​t​i​o​n​ ​a​n​d​ ​l​o​c​a​t​i​o​n
+   */
+  INCLUDE_DETAILS_HINT: string
+  /**
+   * F​i​l​t​e​r​ ​b​y​ ​T​i​m​e​ ​R​a​n​g​e
+   */
+  USE_TIME_RANGE_DISPLAY_NAME: string
+  /**
+   * L​i​m​i​t​ ​r​e​s​u​l​t​s​ ​t​o​ ​a​ ​s​p​e​c​i​f​i​c​ ​t​i​m​e​ ​w​i​n​d​o​w
+   */
+  USE_TIME_RANGE_HINT: string
+  /**
+   * U​p​d​a​t​e​ ​T​i​m​e
+   */
+  UPDATE_TIME_DISPLAY_NAME: string
+  /**
+   * C​h​a​n​g​e​ ​e​v​e​n​t​ ​s​t​a​r​t​/​e​n​d​ ​t​i​m​e
+   */
+  UPDATE_TIME_HINT: string
+  /**
+   * S​t​a​r​t​ ​D​a​t​e
+   */
+  START_DATE_DISPLAY_NAME: string
+  /**
+   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   */
+  START_DATE_HINT: string
+  /**
+   * 2​0​2​5​-​0​3​-​1​8
+   */
+  START_DATE_PLACEHOLDER: string
+  /**
+   * E​n​d​ ​D​a​t​e
+   */
+  END_DATE_DISPLAY_NAME: string
+  /**
+   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   */
+  END_DATE_HINT: string
+  /**
+   * 2​0​2​5​-​0​3​-​1​8
+   */
+  END_DATE_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
@@ -850,6 +906,62 @@ export type TranslationFunctions = {
    * primary,user@example.com
    */
   CALENDAR_IDS_PLACEHOLDER: () => LocalizedString
+  /**
+   * All-day Event
+   */
+  IS_ALL_DAY_EVENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * If enabled, use date only (no time)
+   */
+  IS_ALL_DAY_EVENT_HINT: () => LocalizedString
+  /**
+   * Include Details
+   */
+  INCLUDE_DETAILS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Add description and location
+   */
+  INCLUDE_DETAILS_HINT: () => LocalizedString
+  /**
+   * Filter by Time Range
+   */
+  USE_TIME_RANGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Limit results to a specific time window
+   */
+  USE_TIME_RANGE_HINT: () => LocalizedString
+  /**
+   * Update Time
+   */
+  UPDATE_TIME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Change event start/end time
+   */
+  UPDATE_TIME_HINT: () => LocalizedString
+  /**
+   * Start Date
+   */
+  START_DATE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Date only (yyyy-mm-dd) for all-day events
+   */
+  START_DATE_HINT: () => LocalizedString
+  /**
+   * 2025-03-18
+   */
+  START_DATE_PLACEHOLDER: () => LocalizedString
+  /**
+   * End Date
+   */
+  END_DATE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Date only (yyyy-mm-dd) for all-day events
+   */
+  END_DATE_HINT: () => LocalizedString
+  /**
+   * 2025-03-18
+   */
+  END_DATE_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

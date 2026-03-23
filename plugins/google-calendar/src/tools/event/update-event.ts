@@ -38,6 +38,28 @@ export const updateEventTool: ToolDefinition = {
       },
     },
     {
+      name: "update_time",
+      type: "boolean",
+      required: false,
+      display_name: t("UPDATE_TIME_DISPLAY_NAME"),
+      default: false,
+      ui: {
+        component: "switch",
+        hint: t("UPDATE_TIME_HINT"),
+      },
+    },
+    {
+      name: "include_details",
+      type: "boolean",
+      required: false,
+      display_name: t("INCLUDE_DETAILS_DISPLAY_NAME"),
+      default: false,
+      ui: {
+        component: "switch",
+        hint: t("INCLUDE_DETAILS_HINT"),
+      },
+    },
+    {
       name: "summary",
       type: "string",
       required: false,
@@ -61,6 +83,9 @@ export const updateEventTool: ToolDefinition = {
         support_expression: true,
         width: "full",
       },
+      display: {
+        show: { include_details: { $eq: true } },
+      },
     },
     {
       name: "location",
@@ -73,6 +98,9 @@ export const updateEventTool: ToolDefinition = {
         placeholder: t("LOCATION_PLACEHOLDER"),
         support_expression: true,
       },
+      display: {
+        show: { include_details: { $eq: true } },
+      },
     },
     {
       name: "start_datetime",
@@ -83,6 +111,9 @@ export const updateEventTool: ToolDefinition = {
         component: "input",
         hint: t("START_DATETIME_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { update_time: { $eq: true } },
       },
     },
     {
@@ -95,6 +126,9 @@ export const updateEventTool: ToolDefinition = {
         hint: t("END_DATETIME_HINT"),
         support_expression: true,
       },
+      display: {
+        show: { update_time: { $eq: true } },
+      },
     },
     {
       name: "timezone",
@@ -106,6 +140,9 @@ export const updateEventTool: ToolDefinition = {
         hint: t("TIMEZONE_HINT"),
         placeholder: t("TIMEZONE_PLACEHOLDER"),
         support_expression: true,
+      },
+      display: {
+        show: { update_time: { $eq: true } },
       },
     },
   ],

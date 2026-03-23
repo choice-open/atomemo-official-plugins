@@ -115,6 +115,20 @@ const en_US = {
   COLOR_ID_HINT: "Predefined color ID (1-11 for calendar)",
   SETTING_ID_PLACEHOLDER: "timezone",
   CALENDAR_IDS_PLACEHOLDER: "primary,user@example.com",
+  IS_ALL_DAY_EVENT_DISPLAY_NAME: "All-day Event",
+  IS_ALL_DAY_EVENT_HINT: "If enabled, use date only (no time)",
+  INCLUDE_DETAILS_DISPLAY_NAME: "Include Details",
+  INCLUDE_DETAILS_HINT: "Add description and location",
+  USE_TIME_RANGE_DISPLAY_NAME: "Filter by Time Range",
+  USE_TIME_RANGE_HINT: "Limit results to a specific time window",
+  UPDATE_TIME_DISPLAY_NAME: "Update Time",
+  UPDATE_TIME_HINT: "Change event start/end time",
+  START_DATE_DISPLAY_NAME: "Start Date",
+  START_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
+  START_DATE_PLACEHOLDER: "2025-03-18",
+  END_DATE_DISPLAY_NAME: "End Date",
+  END_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
+  END_DATE_PLACEHOLDER: "2025-03-18",
 } satisfies BaseTranslation
 
 export default en_US

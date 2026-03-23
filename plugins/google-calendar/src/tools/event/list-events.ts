@@ -26,6 +26,17 @@ export const listEventsTool: ToolDefinition = {
       },
     },
     {
+      name: "use_time_range",
+      type: "boolean",
+      required: false,
+      display_name: t("USE_TIME_RANGE_DISPLAY_NAME"),
+      default: false,
+      ui: {
+        component: "switch",
+        hint: t("USE_TIME_RANGE_HINT"),
+      },
+    },
+    {
       name: "time_min",
       type: "string",
       required: false,
@@ -34,6 +45,9 @@ export const listEventsTool: ToolDefinition = {
         component: "input",
         hint: t("TIME_MIN_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { use_time_range: { $eq: true } },
       },
     },
     {
@@ -45,6 +59,9 @@ export const listEventsTool: ToolDefinition = {
         component: "input",
         hint: t("TIME_MAX_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { use_time_range: { $eq: true } },
       },
     },
     {

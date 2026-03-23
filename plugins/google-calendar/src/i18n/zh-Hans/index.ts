@@ -106,6 +106,20 @@ const zh_Hans = {
   COLOR_ID_HINT: "预定义颜色 ID（1-11）",
   SETTING_ID_PLACEHOLDER: "timezone",
   CALENDAR_IDS_PLACEHOLDER: "primary,user@example.com",
+  IS_ALL_DAY_EVENT_DISPLAY_NAME: "全天事件",
+  IS_ALL_DAY_EVENT_HINT: "启用时仅使用日期（不含时间）",
+  INCLUDE_DETAILS_DISPLAY_NAME: "包含详情",
+  INCLUDE_DETAILS_HINT: "添加描述和地点",
+  USE_TIME_RANGE_DISPLAY_NAME: "按时间范围筛选",
+  USE_TIME_RANGE_HINT: "将结果限制在指定时间范围内",
+  UPDATE_TIME_DISPLAY_NAME: "更新时间",
+  UPDATE_TIME_HINT: "修改事件开始/结束时间",
+  START_DATE_DISPLAY_NAME: "开始日期",
+  START_DATE_HINT: "全天事件的日期（yyyy-mm-dd）",
+  START_DATE_PLACEHOLDER: "2025-03-18",
+  END_DATE_DISPLAY_NAME: "结束日期",
+  END_DATE_HINT: "全天事件的日期（yyyy-mm-dd）",
+  END_DATE_PLACEHOLDER: "2025-03-18",
 } satisfies Translation
 
 export default zh_Hans

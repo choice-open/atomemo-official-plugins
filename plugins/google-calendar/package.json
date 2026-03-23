@@ -19,7 +19,9 @@
     "build": "tsdown",
     "check": "biome check . --write",
     "dev": "concurrently -c=cyan.bold,blue.bold --names=DEV,I18N --pad-prefix \"tsdown --watch\" \"typesafe-i18n\"",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:unit": "vitest run test/index.test.ts test/unit",
+    "test:e2e": "GOOGLE_CALENDAR_E2E=1 vitest run test/e2e --no-file-parallelism",
     "release": "bumpp package.json definition.json --commit 'release google-calendar v%s' --no-push --no-tag --yes",
     "typecheck": "tsc --noEmit"
   },
