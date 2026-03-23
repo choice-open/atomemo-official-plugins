@@ -64,6 +64,14 @@ type RootTranslation = {
    */
   PARAM_BASE_ID_MODE_LIST_LABEL: string
   /**
+   * S​e​a​r​c​h​ ​b​y​ ​b​a​s​e​ ​n​a​m​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​b​a​s​e
+   */
+  PARAM_BASE_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_BASE_ID_MODE_URL_PLACEHOLDER: string
+  /**
    * E​n​t​e​r​ ​b​a​s​e​ ​I​D
    */
   PARAM_BASE_ID_MODE_ID_LABEL: string
@@ -84,6 +92,14 @@ type RootTranslation = {
    */
   PARAM_TABLE_MODE_LIST_LABEL: string
   /**
+   * S​e​a​r​c​h​ ​b​y​ ​t​a​b​l​e​ ​n​a​m​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​t​a​b​l​e
+   */
+  PARAM_TABLE_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​t​b​l​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_TABLE_MODE_URL_PLACEHOLDER: string
+  /**
    * E​n​t​e​r​ ​t​a​b​l​e​ ​n​a​m​e​ ​o​r​ ​I​D
    */
   PARAM_TABLE_MODE_ID_LABEL: string
@@ -99,6 +115,14 @@ type RootTranslation = {
    * r​e​c​X​X​X​X​X​X​X​X​X​X​X​X​X​X
    */
   PARAM_RECORD_ID_PLACEHOLDER: string
+  /**
+   * S​e​a​r​c​h​ ​b​y​ ​p​r​i​m​a​r​y​ ​f​i​e​l​d​ ​v​a​l​u​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​r​e​c​o​r​d
+   */
+  PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​t​b​l​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​v​i​w​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​r​e​c​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_RECORD_ID_MODE_URL_PLACEHOLDER: string
   /**
    * F​i​e​l​d​s
    */
@@ -364,6 +388,14 @@ export type TranslationFunctions = {
    */
   PARAM_BASE_ID_MODE_LIST_LABEL: () => LocalizedString
   /**
+   * Search by base name or select a base
+   */
+  PARAM_BASE_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX
+   */
+  PARAM_BASE_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
    * Enter base ID
    */
   PARAM_BASE_ID_MODE_ID_LABEL: () => LocalizedString
@@ -384,6 +416,14 @@ export type TranslationFunctions = {
    */
   PARAM_TABLE_MODE_LIST_LABEL: () => LocalizedString
   /**
+   * Search by table name or select a table
+   */
+  PARAM_TABLE_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX
+   */
+  PARAM_TABLE_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
    * Enter table name or ID
    */
   PARAM_TABLE_MODE_ID_LABEL: () => LocalizedString
@@ -399,6 +439,14 @@ export type TranslationFunctions = {
    * recXXXXXXXXXXXXXX
    */
   PARAM_RECORD_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Search by primary field value or select a record
+   */
+  PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX
+   */
+  PARAM_RECORD_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
   /**
    * Fields
    */

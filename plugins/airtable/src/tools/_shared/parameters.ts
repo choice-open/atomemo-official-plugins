@@ -28,9 +28,11 @@ export const baseIdParamRL = {
       type: "list",
       search_list_method: "search_bases",
       searchable: true,
+      placeholder: t("PARAM_BASE_ID_MODE_LIST_PLACEHOLDER"),
     },
     {
       type: "url",
+      placeholder: t("PARAM_BASE_ID_MODE_URL_PLACEHOLDER"),
       extract_value: {
         type: "regex",
         regex: BASE_ID_URL_REGEX,
@@ -38,6 +40,7 @@ export const baseIdParamRL = {
     },
     {
       type: "id",
+      placeholder: t("PARAM_BASE_ID_PLACEHOLDER"),
     },
   ],
   ui: {
@@ -62,9 +65,11 @@ export const tableParamRL = {
       type: "list",
       search_list_method: "search_tables",
       searchable: true,
+      placeholder: t("PARAM_TABLE_MODE_LIST_PLACEHOLDER"),
     },
     {
       type: "url",
+      placeholder: t("PARAM_TABLE_MODE_URL_PLACEHOLDER"),
       extract_value: {
         type: "regex",
         regex: TABLE_URL_REGEX,
@@ -72,6 +77,7 @@ export const tableParamRL = {
     },
     {
       type: "id",
+      placeholder: t("PARAM_TABLE_PLACEHOLDER"),
     },
   ],
   ui: {
@@ -97,9 +103,11 @@ export const recordIdParamRL = {
       type: "list",
       search_list_method: "search_records",
       searchable: true,
+      placeholder: t("PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER"),
     },
     {
       type: "url",
+      placeholder: t("PARAM_RECORD_ID_MODE_URL_PLACEHOLDER"),
       extract_value: {
         type: "regex",
         regex: RecordID_URL_REGEX,
@@ -107,6 +115,7 @@ export const recordIdParamRL = {
     },
     {
       type: "id",
+      placeholder: t("PARAM_RECORD_ID_PLACEHOLDER"),
     },
   ],
   ui: {
