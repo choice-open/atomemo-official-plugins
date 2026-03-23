@@ -207,6 +207,230 @@ type RootTranslation = {
    * L​i​s​t​ ​c​a​l​e​n​d​a​r​s​ ​i​n​ ​t​h​e​ ​u​s​e​r​'​s​ ​c​a​l​e​n​d​a​r​ ​l​i​s​t
    */
   LIST_CALENDARS_DESCRIPTION: string
+  /**
+   * G​e​t​ ​C​a​l​e​n​d​a​r
+   */
+  GET_CALENDAR_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​c​a​l​e​n​d​a​r​ ​m​e​t​a​d​a​t​a​ ​b​y​ ​I​D
+   */
+  GET_CALENDAR_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​C​a​l​e​n​d​a​r
+   */
+  CREATE_CALENDAR_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​s​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r
+   */
+  CREATE_CALENDAR_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​a​l​e​n​d​a​r
+   */
+  UPDATE_CALENDAR_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​c​a​l​e​n​d​a​r​ ​m​e​t​a​d​a​t​a
+   */
+  UPDATE_CALENDAR_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​C​a​l​e​n​d​a​r
+   */
+  DELETE_CALENDAR_DISPLAY_NAME: string
+  /**
+   * D​e​l​e​t​e​ ​a​ ​s​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r
+   */
+  DELETE_CALENDAR_DESCRIPTION: string
+  /**
+   * C​l​e​a​r​ ​C​a​l​e​n​d​a​r
+   */
+  CLEAR_CALENDAR_DISPLAY_NAME: string
+  /**
+   * D​e​l​e​t​e​ ​a​l​l​ ​e​v​e​n​t​s​ ​f​r​o​m​ ​a​ ​c​a​l​e​n​d​a​r
+   */
+  CLEAR_CALENDAR_DESCRIPTION: string
+  /**
+   * G​e​t​ ​C​a​l​e​n​d​a​r​ ​L​i​s​t​ ​E​n​t​r​y
+   */
+  GET_CALENDAR_LIST_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​s​i​n​g​l​e​ ​c​a​l​e​n​d​a​r​ ​f​r​o​m​ ​t​h​e​ ​u​s​e​r​'​s​ ​c​a​l​e​n​d​a​r​ ​l​i​s​t
+   */
+  GET_CALENDAR_LIST_DESCRIPTION: string
+  /**
+   * R​e​m​o​v​e​ ​C​a​l​e​n​d​a​r​ ​f​r​o​m​ ​L​i​s​t
+   */
+  DELETE_CALENDAR_LIST_DISPLAY_NAME: string
+  /**
+   * R​e​m​o​v​e​ ​a​ ​c​a​l​e​n​d​a​r​ ​f​r​o​m​ ​t​h​e​ ​u​s​e​r​'​s​ ​c​a​l​e​n​d​a​r​ ​l​i​s​t
+   */
+  DELETE_CALENDAR_LIST_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​a​l​e​n​d​a​r​ ​L​i​s​t​ ​E​n​t​r​y
+   */
+  UPDATE_CALENDAR_LIST_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​u​s​e​r​-​s​p​e​c​i​f​i​c​ ​c​a​l​e​n​d​a​r​ ​l​i​s​t​ ​p​r​o​p​e​r​t​i​e​s
+   */
+  UPDATE_CALENDAR_LIST_DESCRIPTION: string
+  /**
+   * A​d​d​ ​C​a​l​e​n​d​a​r​ ​t​o​ ​L​i​s​t
+   */
+  INSERT_CALENDAR_LIST_DISPLAY_NAME: string
+  /**
+   * A​d​d​ ​a​n​ ​e​x​i​s​t​i​n​g​ ​c​a​l​e​n​d​a​r​ ​t​o​ ​t​h​e​ ​u​s​e​r​'​s​ ​c​a​l​e​n​d​a​r​ ​l​i​s​t
+   */
+  INSERT_CALENDAR_LIST_DESCRIPTION: string
+  /**
+   * C​a​l​e​n​d​a​r​ ​T​i​t​l​e
+   */
+  CALENDAR_SUMMARY_DISPLAY_NAME: string
+  /**
+   * C​a​l​e​n​d​a​r​ ​n​a​m​e​/​t​i​t​l​e
+   */
+  CALENDAR_SUMMARY_HINT: string
+  /**
+   * C​a​l​e​n​d​a​r​ ​d​e​s​c​r​i​p​t​i​o​n
+   */
+  CALENDAR_DESCRIPTION_HINT: string
+  /**
+   * G​e​o​g​r​a​p​h​i​c​ ​l​o​c​a​t​i​o​n​ ​o​f​ ​t​h​e​ ​c​a​l​e​n​d​a​r
+   */
+  CALENDAR_LOCATION_HINT: string
+  /**
+   * D​e​f​a​u​l​t​ ​t​i​m​e​z​o​n​e​ ​(​I​A​N​A​ ​f​o​r​m​a​t​)
+   */
+  CALENDAR_TIMEZONE_HINT: string
+  /**
+   * D​e​f​a​u​l​t​ ​R​e​m​i​n​d​e​r​s
+   */
+  DEFAULT_REMINDERS_DISPLAY_NAME: string
+  /**
+   * U​s​e​r​ ​d​e​f​a​u​l​t​ ​r​e​m​i​n​d​e​r​s​ ​(​m​e​t​h​o​d​:​ ​e​m​a​i​l​/​p​o​p​u​p​,​ ​m​i​n​u​t​e​s​:​ ​n​u​m​b​e​r​)
+   */
+  DEFAULT_REMINDERS_HINT: string
+  /**
+   * L​i​s​t​ ​E​v​e​n​t​ ​I​n​s​t​a​n​c​e​s
+   */
+  LIST_EVENT_INSTANCES_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​a​l​l​ ​i​n​s​t​a​n​c​e​s​ ​o​f​ ​a​ ​r​e​c​u​r​r​i​n​g​ ​e​v​e​n​t
+   */
+  LIST_EVENT_INSTANCES_DESCRIPTION: string
+  /**
+   * M​o​v​e​ ​E​v​e​n​t
+   */
+  MOVE_EVENT_DISPLAY_NAME: string
+  /**
+   * M​o​v​e​ ​a​n​ ​e​v​e​n​t​ ​t​o​ ​a​n​o​t​h​e​r​ ​c​a​l​e​n​d​a​r
+   */
+  MOVE_EVENT_DESCRIPTION: string
+  /**
+   * Q​u​i​c​k​ ​A​d​d​ ​E​v​e​n​t
+   */
+  QUICK_ADD_EVENT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​n​ ​e​v​e​n​t​ ​f​r​o​m​ ​s​i​m​p​l​e​ ​n​a​t​u​r​a​l​ ​l​a​n​g​u​a​g​e​ ​t​e​x​t
+   */
+  QUICK_ADD_EVENT_DESCRIPTION: string
+  /**
+   * D​e​s​t​i​n​a​t​i​o​n​ ​C​a​l​e​n​d​a​r​ ​I​D
+   */
+  DESTINATION_CALENDAR_DISPLAY_NAME: string
+  /**
+   * T​a​r​g​e​t​ ​c​a​l​e​n​d​a​r​ ​f​o​r​ ​t​h​e​ ​e​v​e​n​t
+   */
+  DESTINATION_CALENDAR_HINT: string
+  /**
+   * E​v​e​n​t​ ​T​e​x​t
+   */
+  QUICK_ADD_TEXT_DISPLAY_NAME: string
+  /**
+   * N​a​t​u​r​a​l​ ​l​a​n​g​u​a​g​e​,​ ​e​.​g​.​ ​'​D​i​n​n​e​r​ ​w​i​t​h​ ​J​o​h​n​ ​t​o​m​o​r​r​o​w​ ​a​t​ ​7​p​m​'
+   */
+  QUICK_ADD_TEXT_HINT: string
+  /**
+   * M​e​e​t​i​n​g​ ​t​o​m​o​r​r​o​w​ ​a​t​ ​2​p​m
+   */
+  QUICK_ADD_TEXT_PLACEHOLDER: string
+  /**
+   * G​e​t​ ​S​e​t​t​i​n​g
+   */
+  SETTINGS_GET_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​a​ ​s​i​n​g​l​e​ ​u​s​e​r​ ​s​e​t​t​i​n​g
+   */
+  SETTINGS_GET_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​S​e​t​t​i​n​g​s
+   */
+  SETTINGS_LIST_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​a​l​l​ ​u​s​e​r​ ​s​e​t​t​i​n​g​s
+   */
+  SETTINGS_LIST_DESCRIPTION: string
+  /**
+   * S​e​t​t​i​n​g​ ​I​D
+   */
+  SETTING_ID_DISPLAY_NAME: string
+  /**
+   * e​.​g​.​ ​t​i​m​e​z​o​n​e​,​ ​l​o​c​a​l​e​,​ ​w​e​e​k​S​t​a​r​t
+   */
+  SETTING_ID_HINT: string
+  /**
+   * G​e​t​ ​C​o​l​o​r​s
+   */
+  COLORS_GET_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​c​a​l​e​n​d​a​r​ ​a​n​d​ ​e​v​e​n​t​ ​c​o​l​o​r​ ​d​e​f​i​n​i​t​i​o​n​s
+   */
+  COLORS_GET_DESCRIPTION: string
+  /**
+   * Q​u​e​r​y​ ​F​r​e​e​/​B​u​s​y
+   */
+  FREEBUSY_QUERY_DISPLAY_NAME: string
+  /**
+   * Q​u​e​r​y​ ​b​u​s​y​/​f​r​e​e​ ​s​t​a​t​u​s​ ​f​o​r​ ​c​a​l​e​n​d​a​r​s​ ​i​n​ ​a​ ​t​i​m​e​ ​r​a​n​g​e
+   */
+  FREEBUSY_QUERY_DESCRIPTION: string
+  /**
+   * C​a​l​e​n​d​a​r​ ​I​D​s
+   */
+  CALENDAR_IDS_DISPLAY_NAME: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​c​a​l​e​n​d​a​r​ ​I​D​s​ ​t​o​ ​q​u​e​r​y
+   */
+  CALENDAR_IDS_HINT: string
+  /**
+   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​I​S​O​ ​8​6​0​1​)
+   */
+  TIME_MIN_REQUIRED_HINT: string
+  /**
+   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​I​S​O​ ​8​6​0​1​)
+   */
+  TIME_MAX_REQUIRED_HINT: string
+  /**
+   * S​e​l​e​c​t​e​d
+   */
+  SELECTED_DISPLAY_NAME: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​s​h​o​w​ ​t​h​i​s​ ​c​a​l​e​n​d​a​r​ ​i​n​ ​t​h​e​ ​U​I
+   */
+  SELECTED_HINT: string
+  /**
+   * C​o​l​o​r​ ​I​D
+   */
+  COLOR_ID_DISPLAY_NAME: string
+  /**
+   * P​r​e​d​e​f​i​n​e​d​ ​c​o​l​o​r​ ​I​D​ ​(​1​-​1​1​ ​f​o​r​ ​c​a​l​e​n​d​a​r​)
+   */
+  COLOR_ID_HINT: string
+  /**
+   * t​i​m​e​z​o​n​e
+   */
+  SETTING_ID_PLACEHOLDER: string
+  /**
+   * p​r​i​m​a​r​y​,​u​s​e​r​@​e​x​a​m​p​l​e​.​c​o​m
+   */
+  CALENDAR_IDS_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
@@ -402,6 +626,230 @@ export type TranslationFunctions = {
    * List calendars in the user's calendar list
    */
   LIST_CALENDARS_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Calendar
+   */
+  GET_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get calendar metadata by ID
+   */
+  GET_CALENDAR_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Calendar
+   */
+  CREATE_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new secondary calendar
+   */
+  CREATE_CALENDAR_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Calendar
+   */
+  UPDATE_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update calendar metadata
+   */
+  UPDATE_CALENDAR_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete Calendar
+   */
+  DELETE_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Delete a secondary calendar
+   */
+  DELETE_CALENDAR_DESCRIPTION: () => LocalizedString
+  /**
+   * Clear Calendar
+   */
+  CLEAR_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Delete all events from a calendar
+   */
+  CLEAR_CALENDAR_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Calendar List Entry
+   */
+  GET_CALENDAR_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a single calendar from the user's calendar list
+   */
+  GET_CALENDAR_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Remove Calendar from List
+   */
+  DELETE_CALENDAR_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Remove a calendar from the user's calendar list
+   */
+  DELETE_CALENDAR_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Calendar List Entry
+   */
+  UPDATE_CALENDAR_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update user-specific calendar list properties
+   */
+  UPDATE_CALENDAR_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Add Calendar to List
+   */
+  INSERT_CALENDAR_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Add an existing calendar to the user's calendar list
+   */
+  INSERT_CALENDAR_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Calendar Title
+   */
+  CALENDAR_SUMMARY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Calendar name/title
+   */
+  CALENDAR_SUMMARY_HINT: () => LocalizedString
+  /**
+   * Calendar description
+   */
+  CALENDAR_DESCRIPTION_HINT: () => LocalizedString
+  /**
+   * Geographic location of the calendar
+   */
+  CALENDAR_LOCATION_HINT: () => LocalizedString
+  /**
+   * Default timezone (IANA format)
+   */
+  CALENDAR_TIMEZONE_HINT: () => LocalizedString
+  /**
+   * Default Reminders
+   */
+  DEFAULT_REMINDERS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * User default reminders (method: email/popup, minutes: number)
+   */
+  DEFAULT_REMINDERS_HINT: () => LocalizedString
+  /**
+   * List Event Instances
+   */
+  LIST_EVENT_INSTANCES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List all instances of a recurring event
+   */
+  LIST_EVENT_INSTANCES_DESCRIPTION: () => LocalizedString
+  /**
+   * Move Event
+   */
+  MOVE_EVENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Move an event to another calendar
+   */
+  MOVE_EVENT_DESCRIPTION: () => LocalizedString
+  /**
+   * Quick Add Event
+   */
+  QUICK_ADD_EVENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create an event from simple natural language text
+   */
+  QUICK_ADD_EVENT_DESCRIPTION: () => LocalizedString
+  /**
+   * Destination Calendar ID
+   */
+  DESTINATION_CALENDAR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Target calendar for the event
+   */
+  DESTINATION_CALENDAR_HINT: () => LocalizedString
+  /**
+   * Event Text
+   */
+  QUICK_ADD_TEXT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Natural language, e.g. 'Dinner with John tomorrow at 7pm'
+   */
+  QUICK_ADD_TEXT_HINT: () => LocalizedString
+  /**
+   * Meeting tomorrow at 2pm
+   */
+  QUICK_ADD_TEXT_PLACEHOLDER: () => LocalizedString
+  /**
+   * Get Setting
+   */
+  SETTINGS_GET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get a single user setting
+   */
+  SETTINGS_GET_DESCRIPTION: () => LocalizedString
+  /**
+   * List Settings
+   */
+  SETTINGS_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List all user settings
+   */
+  SETTINGS_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Setting ID
+   */
+  SETTING_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * e.g. timezone, locale, weekStart
+   */
+  SETTING_ID_HINT: () => LocalizedString
+  /**
+   * Get Colors
+   */
+  COLORS_GET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get calendar and event color definitions
+   */
+  COLORS_GET_DESCRIPTION: () => LocalizedString
+  /**
+   * Query Free/Busy
+   */
+  FREEBUSY_QUERY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Query busy/free status for calendars in a time range
+   */
+  FREEBUSY_QUERY_DESCRIPTION: () => LocalizedString
+  /**
+   * Calendar IDs
+   */
+  CALENDAR_IDS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Comma-separated calendar IDs to query
+   */
+  CALENDAR_IDS_HINT: () => LocalizedString
+  /**
+   * Start of time range (ISO 8601)
+   */
+  TIME_MIN_REQUIRED_HINT: () => LocalizedString
+  /**
+   * End of time range (ISO 8601)
+   */
+  TIME_MAX_REQUIRED_HINT: () => LocalizedString
+  /**
+   * Selected
+   */
+  SELECTED_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Whether to show this calendar in the UI
+   */
+  SELECTED_HINT: () => LocalizedString
+  /**
+   * Color ID
+   */
+  COLOR_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Predefined color ID (1-11 for calendar)
+   */
+  COLOR_ID_HINT: () => LocalizedString
+  /**
+   * timezone
+   */
+  SETTING_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * primary,user@example.com
+   */
+  CALENDAR_IDS_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

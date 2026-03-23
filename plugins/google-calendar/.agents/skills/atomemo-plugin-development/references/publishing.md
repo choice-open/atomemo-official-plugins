@@ -1,70 +1,80 @@
 # Publishing Your Plugin
 
-## Pre-Publishing Checklist
+When you've finished developing a plugin, you can publish it to the official Atomemo plugin repository, allowing all users to discover and install your plugin from the plugin marketplace.
 
-Before submitting, verify:
+The official Atomemo plugin repository is hosted on [GitHub](https://github.com/choice-open/atomemo-official-plugins). The publishing process uses Pull Request (PR) automation for review and release.
 
-1. **Metadata** — `package.json` has accurate `name`, `version`, `description`, `author`
-2. **Code quality** — No debug logs, no linting errors
-3. **Security** — No hardcoded API keys or secrets (use Credentials instead)
-4. **README** — Clear explanation of what the plugin does and how to configure it
-5. **Version** — Increment `version` in `package.json` for updates to existing plugins
+## Before Publishing
 
-## Build for Release
+Before submitting a PR, please complete the following checks:
+
+1. **Metadata Completeness**:
+   - Check that `name`, `version`, `description`, and `author` fields in `package.json` are accurate.
+   - Verify that information in the plugin definition (`createPlugin`) matches `package.json`.
+2. **Code Quality**:
+   - Ensure code has no linting errors.
+   - Remove all debug code (e.g., `console.log`).
+3. **Security**:
+   - **Never** hardcode any private keys (API Keys, Tokens) in your code.
+   - All sensitive information must be collected from users through the [Credentials](./credential.md) mechanism.
+4. **Documentation**:
+   - Provide clear `README.md` documentation explaining the plugin's functionality and usage.
+5. **Build and Release Scripts**:
+   - Before publishing or updating a plugin, always run the release script defined in `package.json` to ensure artifacts and metadata are correct.
+   - If using Bun:
+     ```bash
+     bun run release
+     ```
+   - This script automatically generates/validates manifests, builds artifacts, syncs versions, etc., preventing PR rejection by automated checks.
+
+## Submission Process
+
+### 1. Fork the Official Repository
+
+Visit the [atomemo-official-plugins](https://github.com/choice-open/atomemo-official-plugins) repository and click the **Fork** button in the top right to fork the repository to your personal account.
+
+### 2. Add Your Plugin Code
+
+Clone your forked repository locally:
 
 ```bash
-bun run release
+git clone https://github.com/YOUR_USERNAME/atomemo-official-plugins.git
+cd atomemo-official-plugins
 ```
 
-This single command:
-- Validates all manifests
-- Builds and bundles the plugin
-- Syncs version numbers automatically
+Place your plugin code in the `plugins` directory. Your directory structure should look like this:
 
-Do not manually edit build artifacts.
-
-## Submission Steps
-
-### Step 1: Fork the official plugins repository
-
-Go to: https://github.com/choice-open/atomemo-official-plugins
-
-Fork it to your account.
-
-### Step 2: Add your plugin
-
-Clone your fork, then add your plugin directory:
-
-```
-atomemo-official-plugins/
-└── plugins/
-    └── your-plugin-name/       ← add this directory
-        ├── package.json
-        ├── src/
-        │   ├── index.ts
-        │   ├── tools/
-        │   ├── models/
-        │   └── credentials/
-        └── README.md
+```text
+plugins/
+  your-plugin-name/    # Your plugin directory
+    package.json
+    src/
+    README.md
+    ...
 ```
 
-### Step 3: Submit a Pull Request
+### 3. Submit a Pull Request
 
-- **Title format**: `feat(plugin): add <your-plugin-name>`
-- **Description**: Brief overview of what the plugin does
+Push your code to your fork and then create a Pull Request (PR) to the official repository's `main` branch.
 
-### Step 4: Automated Review
+- **PR Title**: `feat(plugin): add <your-plugin-name>`
+- **PR Description**: Brief introduction to your plugin's functionality.
 
-GitHub Actions runs: Lint → Build → Manifest validation.
+### 4. Automated Review and Publishing
 
-Once automated checks pass and the team reviews, your PR merges and the plugin
-becomes discoverable in the Atomemo marketplace.
+After submitting the PR, GitHub Actions will automatically run a series of checks:
+- **Lint**: Code style checks.
+- **Build**: Ensures the plugin can be built successfully.
+- **Manifest Check**: Validates the manifest file format.
 
-## Updating a Published Plugin
+After passing automated checks and human review, your PR will be merged. Once merged, the Atomemo plugin marketplace will automatically index your plugin, and users can search for and install it.
 
-1. Increment `version` in `package.json`
-2. Make your changes
-3. Run `bun run release`
-4. Submit a new PR with the updated plugin directory
+## Updating Your Plugin
 
-The marketplace detects new versions automatically after merge.
+If you need to update a published plugin (e.g., bug fixes or new features):
+
+1. Modify your plugin code.
+2. **Important**: Update the version number in `package.json` and plugin definition (e.g., from `1.0.0` -> `1.0.1`).
+3. Follow the process above to submit a new Pull Request.
+
+Once the PR is merged, the plugin marketplace will automatically detect the new version and push it to users.

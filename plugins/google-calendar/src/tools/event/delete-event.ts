@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
-import { calendarCredentialParam } from "../lib/parameters"
-import { requireCalendarClient } from "../lib/require-calendar"
+import { t } from "../../i18n/i18n-node"
+import { calendarCredentialParam } from "../../lib/parameters"
+import { requireCalendarClient } from "../../lib/require-calendar"
 
 export const deleteEventTool = {
   name: "delete-event",

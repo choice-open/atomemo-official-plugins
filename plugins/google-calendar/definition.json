@@ -11,34 +11,695 @@
   "icon": "📅",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-calendar",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.0",
   "credentials": [
     {
-      "name": "google-calendar-oauth2"
+      "name": "google-calendar-oauth2",
+      "display_name": {
+        "en_US": "Google Calendar OAuth2",
+        "zh_Hans": "Google 日历 OAuth2"
+      },
+      "description": {
+        "en_US": "OAuth2 for Google Calendar API. Enter Client ID and Client Secret from Google Cloud Console, then authorize via the OAuth flow to connect your calendar.",
+        "zh_Hans": "Google Calendar API 的 OAuth2 凭证。在 Google Cloud Console 填入 Client ID 和 Client Secret，然后通过 OAuth 授权流程连接你的日历。"
+      },
+      "icon": "📅",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth 2.0 Client ID from Google Cloud Console",
+              "zh_Hans": "来自 Google Cloud Console 的 OAuth 2.0 客户端 ID"
+            },
+            "placeholder": {
+              "en_US": "xxx.apps.googleusercontent.com",
+              "zh_Hans": "xxx.apps.googleusercontent.com"
+            },
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth 2.0 Client Secret from Google Cloud Console",
+              "zh_Hans": "来自 Google Cloud Console 的 OAuth 2.0 客户端密钥"
+            },
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
     }
   ],
   "models": [],
   "tools": [
     {
-      "name": "list-calendars"
+      "name": "list-calendars",
+      "display_name": {
+        "en_US": "List Calendars",
+        "zh_Hans": "列出日历"
+      },
+      "description": {
+        "en_US": "List calendars in the user's calendar list",
+        "zh_Hans": "列出用户日历列表中的日历"
+      },
+      "icon": "📆",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        }
+      ]
     },
     {
-      "name": "list-events"
+      "name": "list-events",
+      "display_name": {
+        "en_US": "List Events",
+        "zh_Hans": "列出事件"
+      },
+      "description": {
+        "en_US": "List events from a Google Calendar",
+        "zh_Hans": "从 Google 日历列出事件"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "primary",
+              "zh_Hans": "primary"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "primary"
+        },
+        {
+          "name": "time_min",
+          "display_name": {
+            "en_US": "Time Min",
+            "zh_Hans": "最早时间"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Lower bound for event start time (ISO 8601)",
+              "zh_Hans": "事件开始时间的下限（ISO 8601）"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "time_max",
+          "display_name": {
+            "en_US": "Time Max",
+            "zh_Hans": "最晚时间"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Upper bound for event end time (ISO 8601)",
+              "zh_Hans": "事件结束时间的上限（ISO 8601）"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大返回数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of events to return (1-2500)",
+              "zh_Hans": "返回事件的最大数量（1-2500）"
+            },
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 2500,
+          "minimum": 1
+        }
+      ]
     },
     {
-      "name": "create-event"
+      "name": "create-event",
+      "display_name": {
+        "en_US": "Create Event",
+        "zh_Hans": "创建事件"
+      },
+      "description": {
+        "en_US": "Create a new event on Google Calendar",
+        "zh_Hans": "在 Google 日历上创建新事件"
+      },
+      "icon": "➕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "primary",
+              "zh_Hans": "primary"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "primary"
+        },
+        {
+          "name": "summary",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Event title/summary",
+              "zh_Hans": "事件标题"
+            },
+            "placeholder": {
+              "en_US": "Meeting with team",
+              "zh_Hans": "团队会议"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "display_name": {
+            "en_US": "Description",
+            "zh_Hans": "描述"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Event description",
+              "zh_Hans": "事件描述"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "地点"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Event location (address or place name)",
+              "zh_Hans": "事件地点（地址或场所名称）"
+            },
+            "placeholder": {
+              "en_US": "Conference Room A",
+              "zh_Hans": "会议室 A"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_datetime",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "ISO 8601 format, e.g. 2025-03-18T09:00:00",
+              "zh_Hans": "ISO 8601 格式，例如 2025-03-18T09:00:00"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_datetime",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "ISO 8601 format, e.g. 2025-03-18T10:00:00",
+              "zh_Hans": "ISO 8601 格式，例如 2025-03-18T10:00:00"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "timezone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "IANA timezone, e.g. America/Los_Angeles",
+              "zh_Hans": "IANA 时区，例如 Asia/Shanghai"
+            },
+            "placeholder": {
+              "en_US": "America/Los_Angeles",
+              "zh_Hans": "Asia/Shanghai"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
     },
     {
-      "name": "get-event"
+      "name": "get-event",
+      "display_name": {
+        "en_US": "Get Event",
+        "zh_Hans": "获取事件"
+      },
+      "description": {
+        "en_US": "Get a single event by ID",
+        "zh_Hans": "根据 ID 获取单个事件"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "primary",
+              "zh_Hans": "primary"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "primary"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "事件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The unique identifier of the event",
+              "zh_Hans": "事件的唯一标识符"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
     },
     {
-      "name": "update-event"
+      "name": "update-event",
+      "display_name": {
+        "en_US": "Update Event",
+        "zh_Hans": "更新事件"
+      },
+      "description": {
+        "en_US": "Update an existing event",
+        "zh_Hans": "更新现有事件"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "primary",
+              "zh_Hans": "primary"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "primary"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "事件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The unique identifier of the event",
+              "zh_Hans": "事件的唯一标识符"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "summary",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Event title/summary",
+              "zh_Hans": "事件标题"
+            },
+            "placeholder": {
+              "en_US": "Meeting with team",
+              "zh_Hans": "团队会议"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "display_name": {
+            "en_US": "Description",
+            "zh_Hans": "描述"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Event description",
+              "zh_Hans": "事件描述"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "地点"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Event location (address or place name)",
+              "zh_Hans": "事件地点（地址或场所名称）"
+            },
+            "placeholder": {
+              "en_US": "Conference Room A",
+              "zh_Hans": "会议室 A"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_datetime",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ISO 8601 format, e.g. 2025-03-18T09:00:00",
+              "zh_Hans": "ISO 8601 格式，例如 2025-03-18T09:00:00"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_datetime",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ISO 8601 format, e.g. 2025-03-18T10:00:00",
+              "zh_Hans": "ISO 8601 格式，例如 2025-03-18T10:00:00"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "timezone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "IANA timezone, e.g. America/Los_Angeles",
+              "zh_Hans": "IANA 时区，例如 Asia/Shanghai"
+            },
+            "placeholder": {
+              "en_US": "America/Los_Angeles",
+              "zh_Hans": "Asia/Shanghai"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
     },
     {
-      "name": "delete-event"
+      "name": "delete-event",
+      "display_name": {
+        "en_US": "Delete Event",
+        "zh_Hans": "删除事件"
+      },
+      "description": {
+        "en_US": "Delete an event from Google Calendar",
+        "zh_Hans": "从 Google 日历删除事件"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Google Calendar Credential",
+            "zh_Hans": "Google 日历凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "google-calendar-oauth2"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "primary",
+              "zh_Hans": "primary"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "primary"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "事件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The unique identifier of the event",
+              "zh_Hans": "事件的唯一标识符"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
     }
   ]
 }

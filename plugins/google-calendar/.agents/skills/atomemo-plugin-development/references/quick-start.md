@@ -1,119 +1,162 @@
-# Quick Start: New Plugin Project
+---
+title: Quick Start with Plugin Development
+description: A ten-minute hands-on tutorial to build a complete, functional plugin from scratch.
+---
+
+# Quick Start with Plugin Development
+
+::: info What Can You Do in 10 Minutes?
+Follow this tutorial to develop a **weather lookup tool plugin**. You'll learn the complete workflow from environment setup, project creation, to local debugging.
+:::
 
 ## Prerequisites
 
-- Node.js v20+
-- Git v2+
-- A registered Atomemo account (at https://atomemo.ai)
-- Familiarity with TypeScript/JavaScript
+Before you begin, ensure your development environment meets the following requirements:
 
-## Installation
+- **Basic Knowledge**: Familiarity with TypeScript/JavaScript basics.
+- **Runtime**: Node.js v20+ (Bun v1.0+ recommended for best experience).
+- **Tools**: Git v2+, modern code editor (VS Code recommended).
+- **Account**: Registered {{ PRODUCT_NAME }} account.
 
-```bash
-npm install @choiceopen/atomemo-plugin-cli --global
-atomemo --version   # verify installation
-```
+## Step 1: Install the Command Line Tool
 
-## Create a New Plugin Project
-
-### Step 1: Authenticate (requires user action)
+Open your terminal and install the official {{ PRODUCT_NAME }} plugin development tool:
 
 ```bash
-atomemo auth login
+$ npm install @choiceopen/atomemo-plugin-cli --global
 ```
 
-This uses a **device authorization flow** — it cannot be automated. The command
-prints a verification URL and a code. The user must open the URL in their browser
-and enter the code to complete login.
-
-### Step 2: Initialize project
-
-**Interactive mode** (prompts for each field):
-```bash
-atomemo plugin init
-```
-
-**Non-interactive mode** (all flags provided — can be run automatically):
-```bash
-atomemo plugin init --no-interactive \
-  -n <plugin-name> \
-  -d "<description>" \
-  -l typescript
-```
-
-When a valid `--name` flag is present, the CLI automatically switches to
-non-interactive mode even without `--no-interactive`.
-
-### Step 3: Install dependencies and set up dev key
+::: tip Verify Installation
+After installation, verify success with:
 
 ```bash
-cd <plugin-name>
-atomemo plugin refresh-key   # generates .env with debug API key (expires 24h)
-bun install
-bun run build
-bun run ./dist               # connects to Plugin Hub
+$ atomemo --version
 ```
 
-All of these commands are non-interactive and can be run automatically.
+:::
 
-## Naming Rules
+## Step 2: Initialize Your Project
 
-Plugin names must match: `/^[a-z][a-z0-9_-]{2,62}[a-z0-9]$/`
+Don't create folders manually—use the CLI to generate a standards-compliant project scaffold in one command.
 
-- **Lowercase only** — no uppercase letters
-- Length: 4–64 characters
-- Allowed characters: lowercase letters, digits, underscores, hyphens
-- Must start with a lowercase letter (not a digit or special character)
-- Must end with a lowercase letter or digit (not `_` or `-`)
-- No consecutive special characters (`--` or `__` is invalid)
+### 1. Login to Your Account
 
-Valid: `my-plugin`, `weather-lookup`, `openai-models`
-Invalid: `My-Plugin` (uppercase), `my--plugin` (consecutive hyphens), `plugin-` (ends with `-`)
-
-## Generated Project Structure
-
-```
-<plugin-name>/
-├── src/
-│   ├── index.ts          ← main entry point
-│   ├── tools/            ← tool definitions go here
-│   ├── models/           ← model definitions go here
-│   ├── credentials/      ← credential definitions go here
-│   └── i18n/             ← translation files (SDK-managed)
-├── package.json
-├── tsconfig.json
-└── .env                  ← auto-generated, contains debug API key
-```
-
-## Running Locally
+Before creating a project with the CLI, log in to sync your developer information:
 
 ```bash
-bun run build     # build the plugin
-bun run ./dist    # connect to Plugin Hub
+$ atomemo auth login
 ```
 
-`bun run dev` is watch/rebuild mode only — it does **not** connect to the Hub.
+_The terminal will prompt you to open a login page in your browser. You can close the window after authorization succeeds._
 
-To iterate quickly:
+### 2. Create Your Project
+
+Run the initialization command, and the CLI will guide you through interactive configuration:
+
 ```bash
-bun run build && bun run ./dist
+$ atomemo plugin init
 ```
 
-A successful connection to the Plugin Hub shows:
-```
-status: ok, response: { success: true }
+::: details Interactive Configuration Example
+
+- **Plugin Name**: `weather-lookup`
+- **Description**: `Get current weather for a specific location`
+- **Language**: `TypeScript`
+  :::
+
+### 3. Project Structure Overview
+
+After creation, your directory structure will look like this:
+
+```text
+/weather-lookup
+  ├── src/
+  │    └── index.ts        # Plugin entry point
+  ├── package.json         # Dependency management
+  ├── tsconfig.json        # TypeScript configuration
+  ├── .env                 # Environment variables (auto-generated)
+  └── README.md
 ```
 
-## Dev Key Expiry
+## Step 3: Connect and Debug
 
-The debug API key in `.env` expires after **24 hours**. If you see auth errors, refresh it:
+### 1. Get Debug Credentials
+
+To connect to Hub for debugging, you need to generate a temporary development key. The new CLI provides a quick command to auto-update your `.env` file:
+
 ```bash
-atomemo plugin refresh-key
+$ cd weather-lookup
+$ atomemo plugin refresh-key
 ```
+
+::: warning Credential Validity
+The development key (`DEVELOPMENT_KEY`) is valid for **24 hours**. If debugging shows authentication failure or expiration, simply run `refresh-key` again.
+:::
+
+### 2. Start the Development Server
+
+Install dependencies and start the local development service (Bun recommended):
+
+```bash
+# Install dependencies
+$ bun install
+
+# Start the service, plugin content will be bundled to dist directory in real-time
+$ bun run dev
+```
+
+### 3. Connect to Hub
+
+After building, run the following command to connect your local plugin to the debug server:
+
+```bash
+$ bun run ./dist
+```
+
+::: tip Real-time Feedback
+The terminal will display connection status and interaction logs, which is your main window for verifying plugin behavior.
+:::
+
+#### Successful Connection
+
+When you see an `ok` response like below, the connection is established and your plugin is ready to receive debug commands:
+
+```log
+RECEIVE ok debug_plugin:notion phx_reply (8) {
+  status: "ok",
+  response: {
+    success: true,
+  },
+}
+```
+
+#### Connection Failed
+
+If you encounter a `ZodError`, it usually means the `manifest` configuration doesn't meet specifications. For example, the error below indicates the `name` field contains illegal characters:
+
+```json
+ZodError: [
+  {
+    "origin": "string",
+    "code": "invalid_format",
+    "format": "regex",
+    "pattern": "/^[a-zA-Z](?:(?![_-]{2,})[a-zA-Z0-9_-]){3,63}[a-zA-Z0-9]$/",
+    "path": [
+      "name"
+    ],
+    "message": "Invalid name, should match the following rules: 1. only English letters, numbers, _ and - 2. start with English letter, end with English letter or number 3. _ and - cannot appear consecutively more than twice 4. minimum length 4, maximum length 64"
+  }
+]
+```
+
+Check your `package.json` configuration to ensure it meets naming conventions (e.g., only English letters, numbers, underscores, and hyphens, not starting with a number).
 
 ## Next Steps
 
-After the project is set up:
-- Add a Tool → see `tool-plugin.md`
-- Add a Model → see `model-plugin.md`
-- Add Credentials → see `credential.md`
+You've successfully set up your development environment. Next, you can dive deeper into:
+
+- **[Core Concepts](./core-concepts.md)**: Understand the plugin Manifest structure and lifecycle.
+- **[Developing Plugin Tools](./tool.md)**: Master tool plugin development methods and best practices.
+- **[Developing Plugin Models](./model.md)**: Learn how to integrate AI model functionality into plugins.
+- **[Defining Plugin Credentials](./credential.md)**: Manage sensitive information and third-party API keys.
+- **[Publishing Your Plugin](./publishing.md)**: Share your plugin with the community.

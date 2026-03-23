@@ -1,13 +1,14 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
-import { calendarCredentialParam } from "../lib/parameters"
-import { requireCalendarClient } from "../lib/require-calendar"
+import { t } from "../../i18n/i18n-node"
+import { calendarCredentialParam } from "../../lib/parameters"
+import { requireCalendarClient } from "../../lib/require-calendar"
+import { sanitizeObject } from "../../lib/sanitize-object"
 
-export const listEventsTool = {
-  name: "list-events",
-  display_name: t("LIST_EVENTS_DISPLAY_NAME"),
-  description: t("LIST_EVENTS_DESCRIPTION"),
-  icon: "📋",
+export const listEventInstancesTool: ToolDefinition = {
+  name: "list-event-instances",
+  display_name: t("LIST_EVENT_INSTANCES_DISPLAY_NAME"),
+  description: t("LIST_EVENT_INSTANCES_DESCRIPTION"),
+  icon: "🔁",
   parameters: [
     calendarCredentialParam,
     {
@@ -20,6 +21,18 @@ export const listEventsTool = {
         component: "input",
         hint: t("CALENDAR_ID_HINT"),
         placeholder: t("CALENDAR_ID_PLACEHOLDER"),
+        support_expression: true,
+        width: "full",
+      },
+    },
+    {
+      name: "event_id",
+      type: "string",
+      required: true,
+      display_name: t("EVENT_ID_DISPLAY_NAME"),
+      ui: {
+        component: "input",
+        hint: t("EVENT_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -61,38 +74,17 @@ export const listEventsTool = {
     },
   ],
   async invoke({ args }) {
-    const calendar = requireCalendarClient(args.credentials, args.parameters.credential_id)
-    const { calendar_id, time_min, time_max, max_results } = args.parameters
+    const client = requireCalendarClient(args.credentials, args.parameters.credential_id)
+    const { calendar_id, event_id, time_min, time_max, max_results } = args.parameters
 
-    const res = await calendar.events.list({
+    const res = await client.events.instances({
       calendarId: calendar_id as string,
+      eventId: event_id as string,
       timeMin: time_min || undefined,
       timeMax: time_max || undefined,
       maxResults: max_results ?? 100,
-      singleEvents: true,
-      orderBy: "startTime",
     })
 
-    const toJson = (dt: { date?: string | null; dateTime?: string | null; timeZone?: string | null } | null | undefined) =>
-      dt ? { date: dt.date ?? null, dateTime: dt.dateTime ?? null, timeZone: dt.timeZone ?? null } : null
-    const events = (res.data.items ?? []).map((e) => ({
-      id: e.id ?? null,
-      summary: e.summary ?? null,
-      description: e.description ?? null,
-      location: e.location ?? null,
-      start: toJson(e.start),
-      end: toJson(e.end),
-      status: e.status ?? null,
-      htmlLink: e.htmlLink ?? null,
-      attendees: e.attendees?.map((a) => ({
-        email: a.email ?? null,
-        responseStatus: a.responseStatus ?? null,
-      })) ?? null,
-    }))
-
-    return {
-      events,
-      count: events.length,
-    }
+    return sanitizeObject(res.data)
   },
 } satisfies ToolDefinition

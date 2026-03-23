@@ -1,9 +1,10 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
-import { calendarCredentialParam } from "../lib/parameters"
-import { requireCalendarClient } from "../lib/require-calendar"
+import { t } from "../../i18n/i18n-node"
+import { calendarCredentialParam } from "../../lib/parameters"
+import { requireCalendarClient } from "../../lib/require-calendar"
+import { sanitizeObject } from "../../lib/sanitize-object"
 
-export const updateEventTool = {
+export const updateEventTool: ToolDefinition = {
   name: "update-event",
   display_name: t("UPDATE_EVENT_DISPLAY_NAME"),
   description: t("UPDATE_EVENT_DESCRIPTION"),
@@ -138,18 +139,6 @@ export const updateEventTool = {
       requestBody: body,
     })
 
-    const e = res.data
-    const toJson = (dt: { date?: string | null; dateTime?: string | null; timeZone?: string | null } | null | undefined) =>
-      dt ? { date: dt.date ?? null, dateTime: dt.dateTime ?? null, timeZone: dt.timeZone ?? null } : null
-    return {
-      id: e.id ?? null,
-      summary: e.summary ?? null,
-      description: e.description ?? null,
-      location: e.location ?? null,
-      start: toJson(e.start),
-      end: toJson(e.end),
-      status: e.status ?? null,
-      htmlLink: e.htmlLink ?? null,
-    }
+    return sanitizeObject(res.data)
   },
 } satisfies ToolDefinition
