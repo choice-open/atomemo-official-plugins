@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhqjiang@outlook.com",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "credentials": [
     {
       "name": "airtable",
@@ -234,18 +234,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         }
@@ -296,18 +308,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         },
@@ -334,18 +358,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by table name or select a table",
+                "zh_Hans": "按表名称搜索或选择表"
+              },
               "search_list_method": "search_tables",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "tblXXXXXXXXXXXXXX or Table Name",
+                "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
+              }
             }
           ]
         },
@@ -373,18 +409,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by primary field value or select a record",
+                "zh_Hans": "按主字段值搜索或选择记录"
+              },
               "search_list_method": "search_records",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "recXXXXXXXXXXXXXX",
+                "zh_Hans": "recXXXXXXXXXXXXXX"
+              }
             }
           ]
         }
@@ -435,18 +483,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         },
@@ -473,18 +533,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by table name or select a table",
+                "zh_Hans": "按表名称搜索或选择表"
+              },
               "search_list_method": "search_tables",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "tblXXXXXXXXXXXXXX or Table Name",
+                "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
+              }
             }
           ]
         },
@@ -703,18 +775,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         },
@@ -741,18 +825,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by table name or select a table",
+                "zh_Hans": "按表名称搜索或选择表"
+              },
               "search_list_method": "search_tables",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "tblXXXXXXXXXXXXXX or Table Name",
+                "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
+              }
             }
           ]
         },
@@ -780,18 +876,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by primary field value or select a record",
+                "zh_Hans": "按主字段值搜索或选择记录"
+              },
               "search_list_method": "search_records",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "recXXXXXXXXXXXXXX",
+                "zh_Hans": "recXXXXXXXXXXXXXX"
+              }
             }
           ]
         }
@@ -842,18 +950,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         },
@@ -880,18 +1000,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by table name or select a table",
+                "zh_Hans": "按表名称搜索或选择表"
+              },
               "search_list_method": "search_tables",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "tblXXXXXXXXXXXXXX or Table Name",
+                "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
+              }
             }
           ]
         },
@@ -980,18 +1112,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by base name or select a base",
+                "zh_Hans": "按数据库名称搜索或选择数据库"
+              },
               "search_list_method": "search_bases",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "appXXXXXXXXXXXXXX",
+                "zh_Hans": "appXXXXXXXXXXXXXX"
+              }
             }
           ]
         },
@@ -1018,18 +1162,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by table name or select a table",
+                "zh_Hans": "按表名称搜索或选择表"
+              },
               "search_list_method": "search_tables",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "tblXXXXXXXXXXXXXX or Table Name",
+                "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
+              }
             }
           ]
         },
@@ -1057,18 +1213,30 @@
           "modes": [
             {
               "type": "list",
+              "placeholder": {
+                "en_US": "Search by primary field value or select a record",
+                "zh_Hans": "按主字段值搜索或选择记录"
+              },
               "search_list_method": "search_records",
               "searchable": true
             },
             {
               "type": "url",
+              "placeholder": {
+                "en_US": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX",
+                "zh_Hans": "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX"
+              },
               "extract_value": {
                 "type": "regex",
                 "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
               }
             },
             {
-              "type": "id"
+              "type": "id",
+              "placeholder": {
+                "en_US": "recXXXXXXXXXXXXXX",
+                "zh_Hans": "recXXXXXXXXXXXXXX"
+              }
             }
           ]
         },

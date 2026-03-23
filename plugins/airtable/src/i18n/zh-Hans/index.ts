@@ -22,17 +22,25 @@ const zh_Hans = {
     "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。",
   PARAM_BASE_ID_PLACEHOLDER: "appXXXXXXXXXXXXXX",
   PARAM_BASE_ID_MODE_LIST_LABEL: "从可访问的数据库中选择",
+  PARAM_BASE_ID_MODE_LIST_PLACEHOLDER: "按数据库名称搜索或选择数据库",
+  PARAM_BASE_ID_MODE_URL_PLACEHOLDER: "https://airtable.com/appXXXXXXXXXXXXXX",
   PARAM_BASE_ID_MODE_ID_LABEL: "输入数据库 ID",
   PARAM_TABLE_LABEL: "表",
   PARAM_TABLE_HINT:
     "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。",
   PARAM_TABLE_PLACEHOLDER: "tblXXXXXXXXXXXXXX 或表名称",
   PARAM_TABLE_MODE_LIST_LABEL: "从数据库中的表里选择",
+  PARAM_TABLE_MODE_LIST_PLACEHOLDER: "按表名称搜索或选择表",
+  PARAM_TABLE_MODE_URL_PLACEHOLDER:
+    "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX",
   PARAM_TABLE_MODE_ID_LABEL: "输入表名或表 ID",
   PARAM_RECORD_ID_LABEL: "记录 ID",
   PARAM_RECORD_ID_HINT:
     "必填。记录 ID 格式：rec 加 14 位字母数字（如 recXXXXXXXXXXXXXX）。可从列表/搜索结果的 id、记录链接或右键记录 → 复制记录链接获取。",
   PARAM_RECORD_ID_PLACEHOLDER: "recXXXXXXXXXXXXXX",
+  PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER: "按主字段值搜索或选择记录",
+  PARAM_RECORD_ID_MODE_URL_PLACEHOLDER:
+    "https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX",
   PARAM_FIELDS_LABEL: "字段",
   PARAM_FIELDS_HINT:
     "必填。JSON 对象：键为字段名称（用名称勿用 ID）。值类型：文本、数字、单选、复选框、日期（ISO 8601）；链接记录为记录 ID 数组；协作者为 Airtable 文档中的用户 ID 或邮箱。开启 Typecast 时字符串会按字段类型转换，链接可按主字段值填写。",
