@@ -11,10 +11,13 @@
   "icon": "📅",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-calendar",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [
     {
       "name": "google-calendar-oauth2",
