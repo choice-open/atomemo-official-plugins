@@ -2,20 +2,22 @@ import type {
   PropertyResourceMapper,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { createRecord } from "../../api/client"
+import { updateRecord } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
 import {
   mapTableFieldsMethod,
   searchBasesMethod,
+  searchRecordsMethod,
   searchTablesMethod,
 } from "../_shared/methods"
 import {
   baseIdParamRL,
   credentialParam,
+  recordIdParamRL,
   tableParamRL,
   typecastParam,
 } from "../_shared/parameters"
-import { resolveBaseId, resolveFields, resolveTable } from "../_shared/resolve"
+import { resolveBaseId, resolveFields, resolveRecordId, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
 
 const fieldsParam = {
@@ -30,20 +32,21 @@ const fieldsParam = {
   mapping_method: "map_table_fields",
 } satisfies PropertyResourceMapper<"fields">
 
-export const createRecordTool = {
-  name: "airtable-create-record",
-  display_name: t("CREATE_RECORD_DISPLAY_NAME"),
-  description: t("CREATE_RECORD_DESCRIPTION"),
-  icon: "➕",
+export const updateRecordTool = {
+  name: "airtable-update-record",
+  display_name: t("UPDATE_RECORD_DISPLAY_NAME"),
+  description: t("UPDATE_RECORD_DESCRIPTION"),
+  icon: "✏️",
 
   parameters: [
     credentialParam,
     baseIdParamRL,
     tableParamRL,
+    recordIdParamRL,
     fieldsParam,
     typecastParam,
   ],
-  locator_list: { ...searchBasesMethod, ...searchTablesMethod },
+  locator_list: { ...searchBasesMethod, ...searchTablesMethod, ...searchRecordsMethod },
   resource_mapping: { ...mapTableFieldsMethod },
   async invoke({ args }) {
     const token = getAirtableToken(args)
@@ -52,13 +55,15 @@ export const createRecordTool = {
     const p = (args as { parameters: Record<string, unknown> }).parameters
     const baseId = resolveBaseId(p)
     const table = resolveTable(p)
+    const recordId = resolveRecordId(p)
     const fields = resolveFields(p)
     const typecast = p.typecast === true
 
     if (!baseId) throw new Error(t("ERROR_BASE_ID_REQUIRED").en_US)
     if (!table) throw new Error(t("ERROR_TABLE_REQUIRED").en_US)
+    if (!recordId) throw new Error(t("ERROR_RECORD_ID_REQUIRED").en_US)
 
-    const record = await createRecord(token, baseId, table, fields, typecast)
+    const record = await updateRecord(token, baseId, table, recordId, fields, typecast)
     return { success: true, record }
   },
 } satisfies ToolDefinition

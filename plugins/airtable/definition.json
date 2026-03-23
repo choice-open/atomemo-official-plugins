@@ -16,8 +16,8 @@
     "zh-Hans"
   ],
   "author": "Xavier",
-  "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.4.0",
+  "email": "zhqjiang@outlook.com",
+  "version": "0.5.0",
   "credentials": [
     {
       "name": "airtable",
@@ -221,20 +221,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         }
       ]
     },
@@ -270,20 +283,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "table",
@@ -292,20 +318,36 @@
             "zh_Hans": "表"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
               "zh_Hans": "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "tblXXXXXXXXXXXXXX or Table Name",
-              "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_tables",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "record_id",
@@ -314,20 +356,37 @@
             "zh_Hans": "记录 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Record ID format: rec + 14 alphanumeric characters (e.g. recXXXXXXXXXXXXXX). Find it in List/Search results as id, in the record URL, or right‑click record → Copy record link.",
               "zh_Hans": "必填。记录 ID 格式：rec 加 14 位字母数字（如 recXXXXXXXXXXXXXX）。可从列表/搜索结果的 id、记录链接或右键记录 → 复制记录链接获取。"
-            },
-            "placeholder": {
-              "en_US": "recXXXXXXXXXXXXXX",
-              "zh_Hans": "recXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id",
+            "table"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_records",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         }
       ]
     },
@@ -363,20 +422,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "table",
@@ -385,20 +457,36 @@
             "zh_Hans": "表"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
               "zh_Hans": "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "tblXXXXXXXXXXXXXX or Table Name",
-              "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_tables",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "filter_by_formula",
@@ -602,20 +690,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "table",
@@ -624,20 +725,36 @@
             "zh_Hans": "表"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
               "zh_Hans": "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "tblXXXXXXXXXXXXXX or Table Name",
-              "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_tables",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "record_id",
@@ -646,20 +763,37 @@
             "zh_Hans": "记录 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Record ID format: rec + 14 alphanumeric characters (e.g. recXXXXXXXXXXXXXX). Find it in List/Search results as id, in the record URL, or right‑click record → Copy record link.",
               "zh_Hans": "必填。记录 ID 格式：rec 加 14 位字母数字（如 recXXXXXXXXXXXXXX）。可从列表/搜索结果的 id、记录链接或右键记录 → 复制记录链接获取。"
-            },
-            "placeholder": {
-              "en_US": "recXXXXXXXXXXXXXX",
-              "zh_Hans": "recXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id",
+            "table"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_records",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         }
       ]
     },
@@ -695,20 +829,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "table",
@@ -717,20 +864,36 @@
             "zh_Hans": "表"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
               "zh_Hans": "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "tblXXXXXXXXXXXXXX or Table Name",
-              "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_tables",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "fields",
@@ -739,22 +902,18 @@
             "zh_Hans": "字段"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. JSON object: keys = field names (use names, not field IDs). Values: text, number, single select (string), checkbox (boolean), date (ISO 8601). Linked records: array of record IDs, e.g. \"Project\": [\"recXXX\"]. Collaborator: user ID or email per Airtable docs. With Typecast on, strings are converted to field types and linked records can use primary field value.",
               "zh_Hans": "必填。JSON 对象：键为字段名称（用名称勿用 ID）。值类型：文本、数字、单选、复选框、日期（ISO 8601）；链接记录为记录 ID 数组；协作者为 Airtable 文档中的用户 ID 或邮箱。开启 Typecast 时字符串会按字段类型转换，链接可按主字段值填写。"
-            },
-            "placeholder": {
-              "en_US": "Example: {\"Name\": \"John\", \"Status\": \"Active\", \"Score\": 5, \"Project\": [\"recXXX\"]}",
-              "zh_Hans": "示例：{\"Name\": \"John\", \"Status\": \"Active\", \"Score\": 5, \"Project\": [\"recXXX\"]}"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "code-editor",
-            "language": "json",
-            "rows": 8
+            }
           },
-          "type": "string"
+          "depends_on": [
+            "base_id",
+            "table"
+          ],
+          "type": "resource_mapper",
+          "mapping_method": "map_table_fields"
         },
         {
           "name": "typecast",
@@ -777,16 +936,16 @@
       ]
     },
     {
-      "name": "airtable-upsert-record",
+      "name": "airtable-update-record",
       "display_name": {
-        "en_US": "Create or Update A Record",
-        "zh_Hans": "增改记录"
+        "en_US": "Update Record",
+        "zh_Hans": "更新记录"
       },
       "description": {
-        "en_US": "Create or update a record based on matching field values. If a record with matching field values is found, it will be updated; otherwise, a new record will be created.",
-        "zh_Hans": "根据匹配字段值创建或更新记录。如果找到匹配字段值的记录则更新，否则创建新记录。"
+        "en_US": "Update an existing record in an Airtable table by its record ID.",
+        "zh_Hans": "通过记录 ID 更新 Airtable 表中的现有记录。"
       },
-      "icon": "🔁",
+      "icon": "✏️",
       "parameters": [
         {
           "name": "airtable_credential",
@@ -808,20 +967,33 @@
             "zh_Hans": "数据库 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
               "zh_Hans": "必填。Base ID 来自 base 链接、帮助 → API 文档或「获取多个数据库」。格式：app 加 14 位字母数字（如 appXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "appXXXXXXXXXXXXXX",
-              "zh_Hans": "appXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_bases",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "table",
@@ -830,20 +1002,36 @@
             "zh_Hans": "表"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
               "zh_Hans": "表名称或表 ID。可使用 base 中显示的表名，或从 base 结构中获取的 ID（如 tblXXXXXXXXXXXXXX）。"
-            },
-            "placeholder": {
-              "en_US": "tblXXXXXXXXXXXXXX or Table Name",
-              "zh_Hans": "tblXXXXXXXXXXXXXX 或表名称"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_tables",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "record_id",
@@ -852,20 +1040,37 @@
             "zh_Hans": "记录 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. Record ID format: rec + 14 alphanumeric characters (e.g. recXXXXXXXXXXXXXX). Find it in List/Search results as id, in the record URL, or right‑click record → Copy record link.",
               "zh_Hans": "必填。记录 ID 格式：rec 加 14 位字母数字（如 recXXXXXXXXXXXXXX）。可从列表/搜索结果的 id、记录链接或右键记录 → 复制记录链接获取。"
-            },
-            "placeholder": {
-              "en_US": "recXXXXXXXXXXXXXX",
-              "zh_Hans": "recXXXXXXXXXXXXXX"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "depends_on": [
+            "base_id",
+            "table"
+          ],
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "search_list_method": "search_records",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://airtable.com/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/[a-zA-Z0-9]{2,}/([a-zA-Z0-9]{2,})"
+              }
+            },
+            {
+              "type": "id"
+            }
+          ]
         },
         {
           "name": "fields",
@@ -874,22 +1079,18 @@
             "zh_Hans": "字段"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "Required. JSON object: keys = field names (use names, not field IDs). Values: text, number, single select (string), checkbox (boolean), date (ISO 8601). Linked records: array of record IDs, e.g. \"Project\": [\"recXXX\"]. Collaborator: user ID or email per Airtable docs. With Typecast on, strings are converted to field types and linked records can use primary field value.",
               "zh_Hans": "必填。JSON 对象：键为字段名称（用名称勿用 ID）。值类型：文本、数字、单选、复选框、日期（ISO 8601）；链接记录为记录 ID 数组；协作者为 Airtable 文档中的用户 ID 或邮箱。开启 Typecast 时字符串会按字段类型转换，链接可按主字段值填写。"
-            },
-            "placeholder": {
-              "en_US": "Example: {\"Name\": \"John\", \"Status\": \"Active\", \"Score\": 5, \"Project\": [\"recXXX\"]}",
-              "zh_Hans": "示例：{\"Name\": \"John\", \"Status\": \"Active\", \"Score\": 5, \"Project\": [\"recXXX\"]}"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "code-editor",
-            "language": "json",
-            "rows": 8
+            }
           },
-          "type": "string"
+          "depends_on": [
+            "base_id",
+            "table"
+          ],
+          "type": "resource_mapper",
+          "mapping_method": "map_table_fields"
         },
         {
           "name": "typecast",

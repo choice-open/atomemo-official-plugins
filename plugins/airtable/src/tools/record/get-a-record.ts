@@ -1,20 +1,24 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getRecord } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
+import { searchBasesMethod, searchRecordsMethod, searchTablesMethod } from "../_shared/methods"
+import {
+  baseIdParamRL,
+  credentialParam,
+  recordIdParamRL,
+  tableParamRL,
+} from "../_shared/parameters"
+import { resolveBaseId, resolveRecordId, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
-import { baseIdParam, credentialParam, recordIdParam, tableParam } from "../_shared/parameters"
 
 export const getARecordTool = {
   name: "airtable-get-record",
   display_name: t("GET_RECORD_DISPLAY_NAME"),
   description: t("GET_RECORD_DESCRIPTION"),
   icon: "🔍",
-  parameters: [
-    credentialParam,
-    baseIdParam,
-    tableParam,
-    recordIdParam,
-  ],
+
+  parameters: [credentialParam, baseIdParamRL, tableParamRL, recordIdParamRL],
+  locator_list: { ...searchBasesMethod, ...searchTablesMethod, ...searchRecordsMethod },
   async invoke({ args }) {
     const token = getAirtableToken(args)
     if (!token) {
@@ -24,9 +28,9 @@ export const getARecordTool = {
     }
 
     const p = (args as { parameters: Record<string, unknown> }).parameters
-    const baseId = String(p["base_id"] ?? "").trim()
-    const table = String(p["table"] ?? "").trim()
-    const recordId = String(p["record_id"] ?? "").trim()
+    const baseId = resolveBaseId(p)
+    const table = resolveTable(p)
+    const recordId = resolveRecordId(p)
 
     if (!baseId) throw new Error("base_id is required.")
     if (!table) throw new Error("table is required.")

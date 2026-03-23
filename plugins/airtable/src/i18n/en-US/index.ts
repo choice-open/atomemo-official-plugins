@@ -22,10 +22,14 @@ const en_US = {
   PARAM_BASE_ID_HINT:
     "Required. Base ID from the base URL, Help → API documentation, or Get Many Bases. Format: app followed by 14 alphanumeric characters (e.g. appXXXXXXXXXXXXXX).",
   PARAM_BASE_ID_PLACEHOLDER: "appXXXXXXXXXXXXXX",
+  PARAM_BASE_ID_MODE_LIST_LABEL: "Choose from accessible bases",
+  PARAM_BASE_ID_MODE_ID_LABEL: "Enter base ID",
   PARAM_TABLE_LABEL: "Table",
   PARAM_TABLE_HINT:
     "Required. Table name or table ID. Use the name as shown in the base, or the table ID (e.g. tblXXXXXXXXXXXXXX) from Get Base Schema.",
   PARAM_TABLE_PLACEHOLDER: "tblXXXXXXXXXXXXXX or Table Name",
+  PARAM_TABLE_MODE_LIST_LABEL: "Choose from base tables",
+  PARAM_TABLE_MODE_ID_LABEL: "Enter table name or ID",
   PARAM_RECORD_ID_LABEL: "Record ID",
   PARAM_RECORD_ID_HINT:
     "Required. Record ID format: rec + 14 alphanumeric characters (e.g. recXXXXXXXXXXXXXX). Find it in List/Search results as id, in the record URL, or right‑click record → Copy record link.",
@@ -33,6 +37,10 @@ const en_US = {
   PARAM_FIELDS_LABEL: "Fields",
   PARAM_FIELDS_HINT:
     'Required. JSON object: keys = field names (use names, not field IDs). Values: text, number, single select (string), checkbox (boolean), date (ISO 8601). Linked records: array of record IDs, e.g. "Project": ["recXXX"]. Collaborator: user ID or email per Airtable docs. With Typecast on, strings are converted to field types and linked records can use primary field value.',
+  PARAM_FIELDS_EMPTY_BASE_NOTICE:
+    "Select a base first to load the available Airtable fields.",
+  PARAM_FIELDS_EMPTY_TABLE_NOTICE:
+    "Select a table first to load the available Airtable fields.",
   PARAM_TYPECAST_LABEL: "Typecast",
   PARAM_TYPECAST_HINT:
     'When enabled, Airtable converts string values to the field type (e.g. "5" → number, "true" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.',
