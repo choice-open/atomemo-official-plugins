@@ -7,6 +7,7 @@ export default defineConfig({
     devExports: false,
   },
   format: "esm",
-  inlineOnly: ["typesafe-i18n"],
+  external: [/node_modules/],
+  noExternal: ["typesafe-i18n"],
   sourcemap: true,
 })

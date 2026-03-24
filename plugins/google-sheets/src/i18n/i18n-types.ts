@@ -16,64 +16,496 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * G​o​o​g​l​e​ ​S​h​e​e​t​s
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * R​e​a​d​,​ ​w​r​i​t​e​,​ ​a​n​d​ ​m​a​n​a​g​e​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​s​.
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * D​e​m​o​ ​T​o​o​l
+   * G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​O​A​u​t​h​ ​2​.​0
    */
-  DEMO_TOOL_DISPLAY_NAME: string
+  CREDENTIAL_DISPLAY_NAME: string
   /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​ ​f​o​r​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​A​P​I​ ​a​c​c​e​s​s​.
    */
-  DEMO_TOOL_DESCRIPTION: string
+  CREDENTIAL_DESCRIPTION: string
   /**
-   * L​o​c​a​t​i​o​n
+   * C​l​i​e​n​t​ ​I​D
    */
-  LOCATION_DISPLAY_NAME: string
+  CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
   /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * C​r​e​a​t​e​ ​O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​s​ ​a​t​ ​h​t​t​p​s​:​/​/​c​o​n​s​o​l​e​.​c​l​o​u​d​.​g​o​o​g​l​e​.​c​o​m
    */
-  LOCATION_HINT: string
+  CREDENTIAL_CLIENT_ID_HINT: string
   /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * O​A​u​t​h​ ​2​.​0​ ​C​l​i​e​n​t​ ​I​D​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​C​l​o​u​d
    */
-  LOCATION_PLACEHOLDER: string
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER: string
+  /**
+   * C​l​i​e​n​t​ ​S​e​c​r​e​t
+   */
+  CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​s​ ​a​t​ ​h​t​t​p​s​:​/​/​c​o​n​s​o​l​e​.​c​l​o​u​d​.​g​o​o​g​l​e​.​c​o​m
+   */
+  CREDENTIAL_CLIENT_SECRET_HINT: string
+  /**
+   * O​A​u​t​h​ ​2​.​0​ ​C​l​i​e​n​t​ ​S​e​c​r​e​t​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​C​l​o​u​d
+   */
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: string
+  /**
+   * C​r​e​d​e​n​t​i​a​l
+   */
+  PARAM_CREDENTIAL_LABEL: string
+  /**
+   * S​p​r​e​a​d​s​h​e​e​t​ ​I​D
+   */
+  PARAM_SPREADSHEET_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​ ​(​f​o​u​n​d​ ​i​n​ ​t​h​e​ ​U​R​L​)​.
+   */
+  PARAM_SPREADSHEET_ID_HINT: string
+  /**
+   * e​.​g​.​ ​1​B​x​i​M​V​s​0​X​R​A​5​n​F​M​d​K​v​B​d​B​Z​j​g​m​U​U​q​p​t​l​b​s​7​4​O​g​V​E​2​u​p​m​s
+   */
+  PARAM_SPREADSHEET_ID_PLACEHOLDER: string
+  /**
+   * R​a​n​g​e
+   */
+  PARAM_RANGE_LABEL: string
+  /**
+   * T​h​e​ ​A​1​ ​n​o​t​a​t​i​o​n​ ​o​f​ ​t​h​e​ ​r​a​n​g​e​ ​(​e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​D​1​0​)​.
+   */
+  PARAM_RANGE_HINT: string
+  /**
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​D​1​0
+   */
+  PARAM_RANGE_PLACEHOLDER: string
+  /**
+   * M​a​j​o​r​ ​D​i​m​e​n​s​i​o​n
+   */
+  PARAM_MAJOR_DIMENSION_LABEL: string
+  /**
+   * V​a​l​u​e​ ​R​e​n​d​e​r​ ​O​p​t​i​o​n
+   */
+  PARAM_VALUE_RENDER_OPTION_LABEL: string
+  /**
+   * V​a​l​u​e​ ​I​n​p​u​t​ ​O​p​t​i​o​n
+   */
+  PARAM_VALUE_INPUT_OPTION_LABEL: string
+  /**
+   * R​A​W​:​ ​v​a​l​u​e​s​ ​a​r​e​ ​s​t​o​r​e​d​ ​a​s​-​i​s​.​ ​U​S​E​R​_​E​N​T​E​R​E​D​:​ ​v​a​l​u​e​s​ ​a​r​e​ ​p​a​r​s​e​d​ ​a​s​ ​i​f​ ​t​y​p​e​d​ ​b​y​ ​a​ ​u​s​e​r​.
+   */
+  PARAM_VALUE_INPUT_OPTION_HINT: string
+  /**
+   * V​a​l​u​e​s
+   */
+  PARAM_VALUES_LABEL: string
+  /**
+   * A​ ​2​D​ ​J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​v​a​l​u​e​s​.​ ​e​.​g​.​ ​[​[​"​N​a​m​e​"​,​"​A​g​e​"​]​,​[​"​A​l​i​c​e​"​,​3​0​]​]
+   */
+  PARAM_VALUES_HINT: string
+  /**
+   * [​[​"​v​a​l​u​e​1​"​,​"​v​a​l​u​e​2​"​]​,​[​"​v​a​l​u​e​3​"​,​"​v​a​l​u​e​4​"​]​]
+   */
+  PARAM_VALUES_PLACEHOLDER: string
+  /**
+   * R​e​a​d​ ​R​o​w​s
+   */
+  READ_ROWS_TOOL_DISPLAY_NAME: string
+  /**
+   * R​e​a​d​ ​v​a​l​u​e​s​ ​f​r​o​m​ ​a​ ​s​p​e​c​i​f​i​e​d​ ​r​a​n​g​e​ ​i​n​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  READ_ROWS_TOOL_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​R​o​w​s
+   */
+  UPDATE_ROWS_TOOL_DISPLAY_NAME: string
+  /**
+   * W​r​i​t​e​ ​v​a​l​u​e​s​ ​t​o​ ​a​ ​s​p​e​c​i​f​i​e​d​ ​r​a​n​g​e​ ​i​n​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  UPDATE_ROWS_TOOL_DESCRIPTION: string
+  /**
+   * A​p​p​e​n​d​ ​R​o​w​s
+   */
+  APPEND_ROWS_TOOL_DISPLAY_NAME: string
+  /**
+   * A​p​p​e​n​d​ ​r​o​w​s​ ​o​f​ ​d​a​t​a​ ​a​f​t​e​r​ ​t​h​e​ ​l​a​s​t​ ​r​o​w​ ​o​f​ ​a​ ​t​a​b​l​e​ ​i​n​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  APPEND_ROWS_TOOL_DESCRIPTION: string
+  /**
+   * T​h​e​ ​r​a​n​g​e​ ​t​o​ ​s​e​a​r​c​h​ ​f​o​r​ ​a​ ​t​a​b​l​e​ ​b​o​u​n​d​a​r​y​,​ ​a​f​t​e​r​ ​w​h​i​c​h​ ​v​a​l​u​e​s​ ​w​i​l​l​ ​b​e​ ​a​p​p​e​n​d​e​d​.
+   */
+  PARAM_APPEND_RANGE_HINT: string
+  /**
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​:​D
+   */
+  PARAM_APPEND_RANGE_PLACEHOLDER: string
+  /**
+   * I​n​s​e​r​t​ ​D​a​t​a​ ​O​p​t​i​o​n
+   */
+  PARAM_INSERT_DATA_OPTION_LABEL: string
+  /**
+   * I​N​S​E​R​T​_​R​O​W​S​:​ ​i​n​s​e​r​t​s​ ​n​e​w​ ​r​o​w​s​.​ ​O​V​E​R​W​R​I​T​E​:​ ​o​v​e​r​w​r​i​t​e​s​ ​e​x​i​s​t​i​n​g​ ​d​a​t​a​.
+   */
+  PARAM_INSERT_DATA_OPTION_HINT: string
+  /**
+   * A​ ​2​D​ ​J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​r​o​w​s​ ​t​o​ ​a​p​p​e​n​d​.​ ​e​.​g​.​ ​[​[​"​A​l​i​c​e​"​,​3​0​]​,​[​"​B​o​b​"​,​2​5​]​]
+   */
+  PARAM_APPEND_VALUES_HINT: string
+  /**
+   * C​l​e​a​r​ ​V​a​l​u​e​s
+   */
+  CLEAR_VALUES_TOOL_DISPLAY_NAME: string
+  /**
+   * C​l​e​a​r​ ​a​l​l​ ​v​a​l​u​e​s​ ​f​r​o​m​ ​a​ ​s​p​e​c​i​f​i​e​d​ ​r​a​n​g​e​ ​i​n​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  CLEAR_VALUES_TOOL_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​S​p​r​e​a​d​s​h​e​e​t
+   */
+  CREATE_SPREADSHEET_TOOL_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  CREATE_SPREADSHEET_TOOL_DESCRIPTION: string
+  /**
+   * T​i​t​l​e
+   */
+  PARAM_TITLE_LABEL: string
+  /**
+   * T​h​e​ ​t​i​t​l​e​ ​o​f​ ​t​h​e​ ​n​e​w​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  PARAM_TITLE_HINT: string
+  /**
+   * e​.​g​.​ ​M​y​ ​N​e​w​ ​S​p​r​e​a​d​s​h​e​e​t
+   */
+  PARAM_TITLE_PLACEHOLDER: string
+  /**
+   * S​h​e​e​t​ ​N​a​m​e​s​ ​(​o​p​t​i​o​n​a​l​)
+   */
+  PARAM_SHEET_TITLES_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​s​h​e​e​t​ ​n​a​m​e​s​.​ ​L​e​a​v​e​ ​e​m​p​t​y​ ​f​o​r​ ​a​ ​s​i​n​g​l​e​ ​d​e​f​a​u​l​t​ ​s​h​e​e​t​.
+   */
+  PARAM_SHEET_TITLES_HINT: string
+  /**
+   * e​.​g​.​ ​S​h​e​e​t​1​,​ ​S​h​e​e​t​2​,​ ​D​a​t​a
+   */
+  PARAM_SHEET_TITLES_PLACEHOLDER: string
+  /**
+   * G​e​t​ ​S​p​r​e​a​d​s​h​e​e​t​ ​I​n​f​o
+   */
+  GET_SPREADSHEET_INFO_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​m​e​t​a​d​a​t​a​ ​a​n​d​ ​p​r​o​p​e​r​t​i​e​s​ ​o​f​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   */
+  GET_SPREADSHEET_INFO_TOOL_DESCRIPTION: string
+  /**
+   * I​n​c​l​u​d​e​ ​G​r​i​d​ ​D​a​t​a
+   */
+  PARAM_INCLUDE_GRID_DATA_LABEL: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​t​h​e​ ​f​u​l​l​ ​g​r​i​d​ ​d​a​t​a​ ​(​c​e​l​l​ ​v​a​l​u​e​s​)​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.
+   */
+  PARAM_INCLUDE_GRID_DATA_HINT: string
+  /**
+   * C​o​p​y​ ​S​h​e​e​t
+   */
+  COPY_SHEET_TOOL_DISPLAY_NAME: string
+  /**
+   * C​o​p​y​ ​a​ ​s​i​n​g​l​e​ ​s​h​e​e​t​ ​f​r​o​m​ ​o​n​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​t​o​ ​a​n​o​t​h​e​r​.
+   */
+  COPY_SHEET_TOOL_DESCRIPTION: string
+  /**
+   * S​h​e​e​t​ ​I​D
+   */
+  PARAM_SHEET_ID_LABEL: string
+  /**
+   * T​h​e​ ​n​u​m​e​r​i​c​ ​I​D​ ​o​f​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​ ​c​o​p​y​ ​(​f​o​u​n​d​ ​i​n​ ​t​h​e​ ​s​h​e​e​t​ ​U​R​L​ ​a​s​ ​g​i​d​=​x​x​x​)​.
+   */
+  PARAM_SHEET_ID_HINT: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​s​o​u​r​c​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​c​o​n​t​a​i​n​i​n​g​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​ ​c​o​p​y​.
+   */
+  PARAM_SOURCE_SPREADSHEET_ID_HINT: string
+  /**
+   * D​e​s​t​i​n​a​t​i​o​n​ ​S​p​r​e​a​d​s​h​e​e​t​ ​I​D
+   */
+  PARAM_DESTINATION_SPREADSHEET_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​t​a​r​g​e​t​ ​s​p​r​e​a​d​s​h​e​e​t​ ​t​o​ ​c​o​p​y​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​.
+   */
+  PARAM_DESTINATION_SPREADSHEET_ID_HINT: string
+  /**
+   * B​a​t​c​h​ ​G​e​t​ ​V​a​l​u​e​s
+   */
+  BATCH_GET_VALUES_TOOL_DISPLAY_NAME: string
+  /**
+   * R​e​a​d​ ​v​a​l​u​e​s​ ​f​r​o​m​ ​m​u​l​t​i​p​l​e​ ​r​a​n​g​e​s​ ​i​n​ ​a​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​ ​a​t​ ​o​n​c​e​.
+   */
+  BATCH_GET_VALUES_TOOL_DESCRIPTION: string
+  /**
+   * R​a​n​g​e​s
+   */
+  PARAM_RANGES_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​A​1​ ​n​o​t​a​t​i​o​n​ ​r​a​n​g​e​s​.​ ​e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​B​2​,​ ​S​h​e​e​t​2​!​C​1​:​D​5
+   */
+  PARAM_RANGES_HINT: string
+  /**
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​B​1​0​,​ ​S​h​e​e​t​2​!​A​1​:​C​5
+   */
+  PARAM_RANGES_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Google Sheets
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Read, write, and manage Google Sheets spreadsheets.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
-   * Demo Tool
+   * Google Sheets OAuth 2.0
    */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
+  CREDENTIAL_DISPLAY_NAME: () => LocalizedString
   /**
-   * A tool for testing the plugin
+   * OAuth 2.0 credential for Google Sheets API access.
    */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
+  CREDENTIAL_DESCRIPTION: () => LocalizedString
   /**
-   * Location
+   * Client ID
    */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
+  CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * The location to test
+   * Create OAuth 2.0 credentials at https://console.cloud.google.com
    */
-  LOCATION_HINT: () => LocalizedString
+  CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
   /**
-   * Enter the location to test
+   * OAuth 2.0 Client ID from Google Cloud
    */
-  LOCATION_PLACEHOLDER: () => LocalizedString
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Client Secret
+   */
+  CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create OAuth 2.0 credentials at https://console.cloud.google.com
+   */
+  CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * OAuth 2.0 Client Secret from Google Cloud
+   */
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: () => LocalizedString
+  /**
+   * Credential
+   */
+  PARAM_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * Spreadsheet ID
+   */
+  PARAM_SPREADSHEET_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the Google Sheets spreadsheet (found in the URL).
+   */
+  PARAM_SPREADSHEET_ID_HINT: () => LocalizedString
+  /**
+   * e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms
+   */
+  PARAM_SPREADSHEET_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Range
+   */
+  PARAM_RANGE_LABEL: () => LocalizedString
+  /**
+   * The A1 notation of the range (e.g. Sheet1!A1:D10).
+   */
+  PARAM_RANGE_HINT: () => LocalizedString
+  /**
+   * e.g. Sheet1!A1:D10
+   */
+  PARAM_RANGE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Major Dimension
+   */
+  PARAM_MAJOR_DIMENSION_LABEL: () => LocalizedString
+  /**
+   * Value Render Option
+   */
+  PARAM_VALUE_RENDER_OPTION_LABEL: () => LocalizedString
+  /**
+   * Value Input Option
+   */
+  PARAM_VALUE_INPUT_OPTION_LABEL: () => LocalizedString
+  /**
+   * RAW: values are stored as-is. USER_ENTERED: values are parsed as if typed by a user.
+   */
+  PARAM_VALUE_INPUT_OPTION_HINT: () => LocalizedString
+  /**
+   * Values
+   */
+  PARAM_VALUES_LABEL: () => LocalizedString
+  /**
+   * A 2D JSON array of values. e.g. [["Name","Age"],["Alice",30]]
+   */
+  PARAM_VALUES_HINT: () => LocalizedString
+  /**
+   * [["value1","value2"],["value3","value4"]]
+   */
+  PARAM_VALUES_PLACEHOLDER: () => LocalizedString
+  /**
+   * Read Rows
+   */
+  READ_ROWS_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Read values from a specified range in a Google Sheets spreadsheet.
+   */
+  READ_ROWS_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Rows
+   */
+  UPDATE_ROWS_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Write values to a specified range in a Google Sheets spreadsheet.
+   */
+  UPDATE_ROWS_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Append Rows
+   */
+  APPEND_ROWS_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Append rows of data after the last row of a table in a Google Sheets spreadsheet.
+   */
+  APPEND_ROWS_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * The range to search for a table boundary, after which values will be appended.
+   */
+  PARAM_APPEND_RANGE_HINT: () => LocalizedString
+  /**
+   * e.g. Sheet1!A:D
+   */
+  PARAM_APPEND_RANGE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Insert Data Option
+   */
+  PARAM_INSERT_DATA_OPTION_LABEL: () => LocalizedString
+  /**
+   * INSERT_ROWS: inserts new rows. OVERWRITE: overwrites existing data.
+   */
+  PARAM_INSERT_DATA_OPTION_HINT: () => LocalizedString
+  /**
+   * A 2D JSON array of rows to append. e.g. [["Alice",30],["Bob",25]]
+   */
+  PARAM_APPEND_VALUES_HINT: () => LocalizedString
+  /**
+   * Clear Values
+   */
+  CLEAR_VALUES_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Clear all values from a specified range in a Google Sheets spreadsheet.
+   */
+  CLEAR_VALUES_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Spreadsheet
+   */
+  CREATE_SPREADSHEET_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new Google Sheets spreadsheet.
+   */
+  CREATE_SPREADSHEET_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Title
+   */
+  PARAM_TITLE_LABEL: () => LocalizedString
+  /**
+   * The title of the new spreadsheet.
+   */
+  PARAM_TITLE_HINT: () => LocalizedString
+  /**
+   * e.g. My New Spreadsheet
+   */
+  PARAM_TITLE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Sheet Names (optional)
+   */
+  PARAM_SHEET_TITLES_LABEL: () => LocalizedString
+  /**
+   * Comma-separated list of sheet names. Leave empty for a single default sheet.
+   */
+  PARAM_SHEET_TITLES_HINT: () => LocalizedString
+  /**
+   * e.g. Sheet1, Sheet2, Data
+   */
+  PARAM_SHEET_TITLES_PLACEHOLDER: () => LocalizedString
+  /**
+   * Get Spreadsheet Info
+   */
+  GET_SPREADSHEET_INFO_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get metadata and properties of a Google Sheets spreadsheet.
+   */
+  GET_SPREADSHEET_INFO_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Include Grid Data
+   */
+  PARAM_INCLUDE_GRID_DATA_LABEL: () => LocalizedString
+  /**
+   * Whether to include the full grid data (cell values) in the response.
+   */
+  PARAM_INCLUDE_GRID_DATA_HINT: () => LocalizedString
+  /**
+   * Copy Sheet
+   */
+  COPY_SHEET_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Copy a single sheet from one spreadsheet to another.
+   */
+  COPY_SHEET_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Sheet ID
+   */
+  PARAM_SHEET_ID_LABEL: () => LocalizedString
+  /**
+   * The numeric ID of the sheet to copy (found in the sheet URL as gid=xxx).
+   */
+  PARAM_SHEET_ID_HINT: () => LocalizedString
+  /**
+   * The ID of the source spreadsheet containing the sheet to copy.
+   */
+  PARAM_SOURCE_SPREADSHEET_ID_HINT: () => LocalizedString
+  /**
+   * Destination Spreadsheet ID
+   */
+  PARAM_DESTINATION_SPREADSHEET_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the target spreadsheet to copy the sheet to.
+   */
+  PARAM_DESTINATION_SPREADSHEET_ID_HINT: () => LocalizedString
+  /**
+   * Batch Get Values
+   */
+  BATCH_GET_VALUES_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Read values from multiple ranges in a Google Sheets spreadsheet at once.
+   */
+  BATCH_GET_VALUES_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Ranges
+   */
+  PARAM_RANGES_LABEL: () => LocalizedString
+  /**
+   * Comma-separated A1 notation ranges. e.g. Sheet1!A1:B2, Sheet2!C1:D5
+   */
+  PARAM_RANGES_HINT: () => LocalizedString
+  /**
+   * e.g. Sheet1!A1:B10, Sheet2!A1:C5
+   */
+  PARAM_RANGES_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

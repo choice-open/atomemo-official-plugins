@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
+    "@googleapis/sheets": "^13.0.1",
     "dotenv": "^17.2.4",
+    "google-auth-library": "^10.6.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {
