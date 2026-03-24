@@ -1,7 +1,4 @@
-import type {
-  PropertyResourceMapper,
-  ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { createRecord } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
 import {
@@ -9,26 +6,9 @@ import {
   searchBasesMethod,
   searchTablesMethod,
 } from "../_shared/methods"
-import {
-  baseIdParamRL,
-  credentialParam,
-  tableParamRL,
-  typecastParam,
-} from "../_shared/parameters"
+import { createRecordParams } from "../_shared/parameters"
 import { resolveBaseId, resolveFields, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
-
-const fieldsParam = {
-  name: "fields",
-  type: "resource_mapper",
-  required: true,
-  display_name: t("PARAM_FIELDS_LABEL"),
-  depends_on: ["base_id", "table"],
-  ai: {
-    llm_description: t("PARAM_FIELDS_HINT"),
-  },
-  mapping_method: "map_table_fields",
-} satisfies PropertyResourceMapper<"fields">
 
 export const createRecordTool = {
   name: "airtable-create-record",
@@ -36,13 +16,7 @@ export const createRecordTool = {
   description: t("CREATE_RECORD_DESCRIPTION"),
   icon: "➕",
 
-  parameters: [
-    credentialParam,
-    baseIdParamRL,
-    tableParamRL,
-    fieldsParam,
-    typecastParam,
-  ],
+  parameters: [...createRecordParams],
   locator_list: { ...searchBasesMethod, ...searchTablesMethod },
   resource_mapping: { ...mapTableFieldsMethod },
   async invoke({ args }) {

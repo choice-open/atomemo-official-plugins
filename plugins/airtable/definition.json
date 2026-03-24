@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhqjiang@outlook.com",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "credentials": [
     {
       "name": "airtable",
@@ -90,7 +90,14 @@
             "zh_Hans": "返回全部"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.",
+              "zh_Hans": "是否获取所有可用结果。启用时通过 API 分页拉取全部页面；关闭时最多返回「数量限制」指定条数。"
+            }
+          },
           "ui": {
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -104,10 +111,14 @@
           },
           "required": false,
           "display": {
-            "show": {
-              "return_all": [
-                false
-              ]
+            "hide": {
+              "return_all": true
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When Return All is off: max number of items to return (1–100). When Return All is on, the API uses offset-based pagination and all pages are fetched automatically.",
+              "zh_Hans": "未勾选「返回全部」时：最多返回条数（1–100）。勾选「返回全部」时使用 offset 分页并自动请求所有页。"
             }
           },
           "ui": {
@@ -130,11 +141,18 @@
             "zh_Hans": "权限级别筛选"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Filter results by your permission on each base: None, Read only, Commenter, Creator, or Editor. Leave empty to return all bases regardless of permission level.",
+              "zh_Hans": "可选。按你的权限筛选数据库：无、仅读、评论者、创建者或编辑者。留空则返回所有有权限的数据库。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Filter results by your permission on each base: None, Read only, Commenter, Creator, or Editor. Leave empty to return all bases regardless of permission level.",
               "zh_Hans": "可选。按你的权限筛选数据库：无、仅读、评论者、创建者或编辑者。留空则返回所有有权限的数据库。"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -567,6 +585,12 @@
             "zh_Hans": "过滤公式"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Airtable filterByFormula; only records where the formula result is non-zero, non-empty, and not #Error! are returned. Use field names in curly braces. With View, results are limited to that view then filtered. Request URL length limit (~16k characters) applies. See https://airtable.com/developers/web/api/list-records#query-filterbyformula",
+              "zh_Hans": "可选。Airtable filterByFormula；仅当公式结果非 0、非空且不为 #Error! 时返回记录。字段名用花括号。与视图同用时先限制视图再按公式筛选。注意请求 URL 长度限制（约 16k 字符）。详见 https://airtable.com/developers/web/api/list-records#query-filterbyformula"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Airtable filterByFormula; only records where the formula result is non-zero, non-empty, and not #Error! are returned. Use field names in curly braces. With View, results are limited to that view then filtered. Request URL length limit (~16k characters) applies. See https://airtable.com/developers/web/api/list-records#query-filterbyformula",
@@ -589,7 +613,14 @@
             "zh_Hans": "返回全部"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.",
+              "zh_Hans": "是否获取所有可用结果。启用时通过 API 分页拉取全部页面；关闭时最多返回「数量限制」指定条数。"
+            }
+          },
           "ui": {
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -603,10 +634,14 @@
           },
           "required": false,
           "display": {
-            "show": {
-              "return_all": [
-                false
-              ]
+            "hide": {
+              "return_all": true
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When Return All is off: max number of items to return (1–100). When Return All is on, the API uses offset-based pagination and all pages are fetched automatically.",
+              "zh_Hans": "未勾选「返回全部」时：最多返回条数（1–100）。勾选「返回全部」时使用 offset 分页并自动请求所有页。"
             }
           },
           "ui": {
@@ -629,6 +664,12 @@
             "zh_Hans": "视图"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. View name or ID. Restricts results to records in that view. If Sort is set, it overrides the view sort order. Leave empty for table default.",
+              "zh_Hans": "可选。视图名称或 ID，将结果限制在该视图内。若设置排序会覆盖视图排序。留空使用表默认。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. View name or ID. Restricts results to records in that view. If Sort is set, it overrides the view sort order. Leave empty for table default.",
@@ -647,11 +688,18 @@
             "zh_Hans": "输出字段"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Field names or IDs to return (fields[]); reduces payload. Leave empty to return all fields.",
+              "zh_Hans": "可选。要返回的字段名称或 ID（fields[]），可减少返回数据。留空则返回全部字段。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Field names or IDs to return (fields[]); reduces payload. Leave empty to return all fields.",
               "zh_Hans": "可选。要返回的字段名称或 ID（fields[]），可减少返回数据。留空则返回全部字段。"
             },
+            "support_expression": true,
             "component": "tag-input"
           },
           "type": "array",
@@ -682,6 +730,12 @@
                   "zh_Hans": "字段"
                 },
                 "required": true,
+                "ai": {
+                  "llm_description": {
+                    "en_US": "Field name or ID for sort (sort[0][field], sort[0][direction]). Add multiple rules for secondary sort (asc/desc).",
+                    "zh_Hans": "排序字段名称或 ID（sort[0][field]、sort[0][direction]）。可添加多条规则实现多级排序（升序/降序）。"
+                  }
+                },
                 "ui": {
                   "hint": {
                     "en_US": "Field name or ID for sort (sort[0][field], sort[0][direction]). Add multiple rules for secondary sort (asc/desc).",
@@ -699,7 +753,14 @@
                   "zh_Hans": "方向"
                 },
                 "required": false,
+                "ai": {
+                  "llm_description": {
+                    "en_US": "Sort direction for this rule. Use 'asc' for ascending or 'desc' for descending.",
+                    "zh_Hans": "当前排序规则的方向。使用 'asc' 表示升序，使用 'desc' 表示降序。"
+                  }
+                },
                 "ui": {
+                  "support_expression": true,
                   "options": [
                     {
                       "label": {
@@ -1054,6 +1115,12 @@
             "zh_Hans": "自动类型转换"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
+              "zh_Hans": "启用后，Airtable 会将字符串转为对应类型（例如 '5' 转为数字、'true' 转为复选框），链接记录可用主字段值解析。若已传入正确类型可关闭以避免意外转换。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
@@ -1267,6 +1334,12 @@
             "zh_Hans": "自动类型转换"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
+              "zh_Hans": "启用后，Airtable 会将字符串转为对应类型（例如 '5' 转为数字、'true' 转为复选框），链接记录可用主字段值解析。若已传入正确类型可关闭以避免意外转换。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",

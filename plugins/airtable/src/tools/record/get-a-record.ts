@@ -1,14 +1,17 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getRecord } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
-import { searchBasesMethod, searchRecordsMethod, searchTablesMethod } from "../_shared/methods"
 import {
-  baseIdParamRL,
-  credentialParam,
-  recordIdParamRL,
-  tableParamRL,
-} from "../_shared/parameters"
-import { resolveBaseId, resolveRecordId, resolveTable } from "../_shared/resolve"
+  searchBasesMethod,
+  searchRecordsMethod,
+  searchTablesMethod,
+} from "../_shared/methods"
+import { recordTargetParams } from "../_shared/parameters"
+import {
+  resolveBaseId,
+  resolveRecordId,
+  resolveTable,
+} from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
 
 export const getARecordTool = {
@@ -17,8 +20,12 @@ export const getARecordTool = {
   description: t("GET_RECORD_DESCRIPTION"),
   icon: "🔍",
 
-  parameters: [credentialParam, baseIdParamRL, tableParamRL, recordIdParamRL],
-  locator_list: { ...searchBasesMethod, ...searchTablesMethod, ...searchRecordsMethod },
+  parameters: [...recordTargetParams],
+  locator_list: {
+    ...searchBasesMethod,
+    ...searchTablesMethod,
+    ...searchRecordsMethod,
+  },
   async invoke({ args }) {
     const token = getAirtableToken(args)
     if (!token) {
