@@ -1,0 +1,52 @@
+{
+  "name": "json_reader",
+  "display_name": {
+    "en_US": "JSON Reader",
+    "zh_Hans": "JSON 读取器"
+  },
+  "description": {
+    "en_US": "Read a file and parse it as a JSON object, with BOM header support",
+    "zh_Hans": "读取文件并解析为 JSON 对象，支持 BOM 头"
+  },
+  "icon": "https://server-media-public.atomemo.ai/icons/json-reader.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/json_reader",
+  "locales": ["en-US", "zh-Hans"],
+  "author": "smartepsh",
+  "email": "smartepsh@gmail.com",
+  "version": "0.1.0",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "read-json",
+      "display_name": {
+        "en_US": "Read JSON",
+        "zh_Hans": "读取 JSON"
+      },
+      "description": {
+        "en_US": "Parse a file_ref as JSON object. Automatically handles BOM headers and encoding detection.",
+        "zh_Hans": "将文件解析为 JSON 对象，自动处理 BOM 头和编码检测。"
+      },
+      "icon": "https://server-media-public.atomemo.ai/icons/json-reader.svg",
+      "parameters": [
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The file to parse as JSON",
+              "zh_Hans": "要解析为 JSON 的文件"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
+        }
+      ]
+    }
+  ]
+}
