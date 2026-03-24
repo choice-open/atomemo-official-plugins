@@ -1,0 +1,163 @@
+{
+  "name": "token-forge",
+  "display_name": {
+    "en_US": "Token Forge",
+    "zh_Hans": "令牌锻造"
+  },
+  "description": {
+    "en_US": "A plugin for generating signed tokens (JWT, etc.) for API authentication",
+    "zh_Hans": "用于生成签名令牌（JWT 等）以进行 API 鉴权的插件"
+  },
+  "icon": "https://server-media-public.atomemo.ai/icons/token-forge.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/token-forge",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "smartepsh",
+  "email": "smartepsh@gmail.com",
+  "version": "0.0.1",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "jwt-generator",
+      "display_name": {
+        "en_US": "JWT Token Generator",
+        "zh_Hans": "JWT 令牌生成"
+      },
+      "description": {
+        "en_US": "Generate a signed JWT token with the specified algorithm and claims",
+        "zh_Hans": "使用指定的签名算法和声明生成 JWT 令牌"
+      },
+      "icon": "https://server-media-public.atomemo.ai/icons/jwt.svg",
+      "parameters": [
+        {
+          "name": "algorithm",
+          "display_name": {
+            "en_US": "Signing Algorithm",
+            "zh_Hans": "签名算法"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Select the JWT signing algorithm",
+              "zh_Hans": "选择 JWT 签名算法"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "default": "HS256",
+          "enum": [
+            "HS256",
+            "HS384",
+            "HS512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "PS256",
+            "PS384",
+            "PS512",
+            "ES256",
+            "ES384",
+            "ES512",
+            "EdDSA"
+          ]
+        },
+        {
+          "name": "access_key",
+          "display_name": {
+            "en_US": "Access Key",
+            "zh_Hans": "Access Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The access key used as the JWT 'iss' (issuer) claim",
+              "zh_Hans": "用作 JWT 'iss'（签发者）声明的 Access Key"
+            },
+            "placeholder": {
+              "en_US": "e.g. your_access_key",
+              "zh_Hans": "例如：your_access_key"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "secret_key",
+          "display_name": {
+            "en_US": "Secret Key",
+            "zh_Hans": "Secret Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The secret key used to sign the JWT token. For HMAC algorithms, provide a shared secret string; for RSA/EC algorithms, provide a PEM-encoded private key.",
+              "zh_Hans": "用于签名 JWT 令牌的 Secret Key。HMAC 算法请提供共享密钥字符串；RSA/EC 算法请提供 PEM 格式的私钥。"
+            },
+            "placeholder": {
+              "en_US": "e.g. your_secret_key",
+              "zh_Hans": "例如：your_secret_key"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        },
+        {
+          "name": "expires_in",
+          "display_name": {
+            "en_US": "Expires In (seconds)",
+            "zh_Hans": "过期时间（秒）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token validity duration in seconds (default: 1800 = 30 minutes)",
+              "zh_Hans": "令牌有效期（秒），默认 1800 即 30 分钟"
+            },
+            "placeholder": {
+              "en_US": "1800",
+              "zh_Hans": "1800"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "number",
+          "default": 1800
+        },
+        {
+          "name": "additional_claims",
+          "display_name": {
+            "en_US": "Additional Claims",
+            "zh_Hans": "额外声明"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Additional JWT claims to include in the payload (JSON object). Can override 'exp' and 'nbf' but not 'iss'.",
+              "zh_Hans": "要包含在载荷中的额外 JWT 声明（JSON 对象）。可覆盖 'exp' 和 'nbf'，但不可覆盖 'iss'。"
+            },
+            "placeholder": {
+              "en_US": "JSON object, e.g. sub, role, scope",
+              "zh_Hans": "JSON 对象，例如 sub、role、scope"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "decoder": "json",
+          "type": "object",
+          "properties": []
+        }
+      ]
+    }
+  ]
+}
