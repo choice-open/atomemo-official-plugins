@@ -54,6 +54,8 @@ const en_US = {
   PARAM_TYPECAST_HINT:
     'When enabled, Airtable converts string values to the field type (e.g. "5" → number, "true" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.',
   PARAM_RETURN_ALL_LABEL: "Return All",
+  PARAM_RETURN_ALL_HINT:
+    "Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.",
   PARAM_LIMIT_LABEL: "Limit",
   PARAM_LIMIT_HINT:
     "When Return All is off: max number of items to return (1–100). When Return All is on, the API uses offset-based pagination and all pages are fetched automatically.",
@@ -99,6 +101,8 @@ const en_US = {
   SEARCH_SORT_FIELD_HINT:
     "Field name or ID for sort (sort[0][field], sort[0][direction]). Add multiple rules for secondary sort (asc/desc).",
   SEARCH_SORT_DIRECTION_LABEL: "Direction",
+  SEARCH_SORT_DIRECTION_HINT:
+    "Sort direction for this rule. Use 'asc' for ascending or 'desc' for descending.",
 
   // Update Record
   UPDATE_RECORD_DISPLAY_NAME: "Update Record",

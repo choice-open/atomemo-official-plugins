@@ -1,6 +1,7 @@
 import type {
   Property,
   PropertyResourceLocator,
+  PropertyResourceMapper,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 
@@ -129,9 +130,90 @@ export const typecastParam = {
   required: false,
   default: false,
   display_name: t("PARAM_TYPECAST_LABEL"),
+  ai: {
+    llm_description: t("PARAM_TYPECAST_HINT"),
+  },
   ui: {
     component: "switch",
     hint: t("PARAM_TYPECAST_HINT"),
     support_expression: true,
   },
 } satisfies Property<"typecast">
+
+export const RETURN_ALL_PARAM_NAME = "return_all" as const
+
+export const returnAllParam = {
+  name: RETURN_ALL_PARAM_NAME,
+  type: "boolean",
+  required: false,
+  default: true,
+  display_name: t("PARAM_RETURN_ALL_LABEL"),
+  ai: {
+    llm_description: t("PARAM_RETURN_ALL_HINT"),
+  },
+  ui: { component: "switch", support_expression: true },
+} satisfies Property<"return_all">
+
+export const listLimitParam = {
+  name: "limit",
+  type: "integer",
+  required: false,
+  default: 100,
+  minimum: 1,
+  maximum: 100,
+  display_name: t("PARAM_LIMIT_LABEL"),
+  display: { hide: { [RETURN_ALL_PARAM_NAME]: true } },
+  ai: {
+    llm_description: t("PARAM_LIMIT_HINT"),
+  },
+  ui: {
+    component: "number-input",
+    hint: t("PARAM_LIMIT_HINT"),
+    support_expression: true,
+  },
+} satisfies Property<"limit">
+
+export const fieldsParam = {
+  name: "fields",
+  type: "resource_mapper",
+  required: true,
+  display_name: t("PARAM_FIELDS_LABEL"),
+  depends_on: ["base_id", "table"],
+  ai: {
+    llm_description: t("PARAM_FIELDS_HINT"),
+  },
+  mapping_method: "map_table_fields",
+} satisfies PropertyResourceMapper<"fields">
+
+// Common parameter groups reused across multiple tools.
+export const baseScopeParams = [credentialParam, baseIdParamRL] as const
+
+export const baseTableScopeParams = [
+  credentialParam,
+  baseIdParamRL,
+  tableParamRL,
+] as const
+
+export const recordTargetParams = [
+  credentialParam,
+  baseIdParamRL,
+  tableParamRL,
+  recordIdParamRL,
+] as const
+
+export const createRecordParams = [
+  credentialParam,
+  baseIdParamRL,
+  tableParamRL,
+  fieldsParam,
+  typecastParam,
+] as const
+
+export const updateRecordParams = [
+  credentialParam,
+  baseIdParamRL,
+  tableParamRL,
+  recordIdParamRL,
+  fieldsParam,
+  typecastParam,
+] as const

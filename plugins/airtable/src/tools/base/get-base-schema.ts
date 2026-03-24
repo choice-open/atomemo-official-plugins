@@ -2,7 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getBaseSchema } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
 import { searchBasesMethod } from "../_shared/methods"
-import { baseIdParamRL, credentialParam } from "../_shared/parameters"
+import { baseScopeParams } from "../_shared/parameters"
 import { resolveBaseId } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
 
@@ -12,7 +12,7 @@ export const getBaseSchemaTool = {
   description: t("GET_BASE_SCHEMA_DESCRIPTION"),
   icon: "📋",
 
-  parameters: [credentialParam, baseIdParamRL],
+  parameters: [...baseScopeParams],
   locator_list: { ...searchBasesMethod },
   async invoke({ args }) {
     const token = getAirtableToken(args)

@@ -1,13 +1,10 @@
+import type { ToolLocatorListFunction } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getBaseSchema, listBases, searchRecords } from "../../../api/client"
 import { t } from "../../../i18n/i18n-node"
 import { resolveBaseId, resolveTable } from "../resolve"
 import { getAirtableToken } from "../utils"
 
-type LocatorCtx = {
-  credentials: Record<string, unknown>
-  filter?: string | null
-  parameters: Record<string, unknown>
-}
+type LocatorCtx = Parameters<ToolLocatorListFunction>[0]
 
 function matchesFilter(
   values: Array<string | undefined>,
@@ -66,15 +63,27 @@ export const searchRecordsMethod = {
     const table = resolveTable(parameters)
     if (!baseId || !table) return { results: [] }
 
-    const records = await searchRecords(token, baseId, table, { returnAll: true })
+    const [tables, records] = await Promise.all([
+      getBaseSchema(token, baseId),
+      searchRecords(token, baseId, table, {
+        returnAll: true,
+      }),
+    ])
+    const matchedTable = tables.find((c) => c.id === table || c.name === table)
+    const primaryFieldName = matchedTable?.fields.find(
+      (field) => field.id === matchedTable.primaryFieldId,
+    )?.name
     const results = records
       .filter((r) => {
-        if (!filter) return true
-        const name = String(r.fields.Name ?? r.id).toLowerCase()
-        return name.includes(filter.trim().toLowerCase())
+        if (!filter || filter.trim().length === 0) return true
+        const primaryFieldText = String(
+          primaryFieldName ? (r.fields[primaryFieldName] ?? "") : "",
+        ).toLowerCase()
+
+        return primaryFieldText.includes(filter.trim().toLowerCase())
       })
       .map((r) => ({
-        label: String(r.fields.Name ?? r.id),
+        label: String(primaryFieldName ? (r.fields[primaryFieldName] ?? "") : ""),
         value: r.id,
       }))
 

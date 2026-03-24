@@ -152,6 +152,10 @@ type RootTranslation = {
    */
   PARAM_RETURN_ALL_LABEL: string
   /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​f​e​t​c​h​ ​a​l​l​ ​a​v​a​i​l​a​b​l​e​ ​r​e​s​u​l​t​s​.​ ​E​n​a​b​l​e​d​ ​u​s​e​s​ ​A​P​I​ ​p​a​g​i​n​a​t​i​o​n​ ​t​o​ ​r​e​t​r​i​e​v​e​ ​e​v​e​r​y​ ​p​a​g​e​;​ ​d​i​s​a​b​l​e​d​ ​r​e​t​u​r​n​s​ ​u​p​ ​t​o​ ​L​i​m​i​t​ ​i​t​e​m​s​.
+   */
+  PARAM_RETURN_ALL_HINT: string
+  /**
    * L​i​m​i​t
    */
   PARAM_LIMIT_LABEL: string
@@ -248,6 +252,10 @@ type RootTranslation = {
    * D​i​r​e​c​t​i​o​n
    */
   SEARCH_SORT_DIRECTION_LABEL: string
+  /**
+   * S​o​r​t​ ​d​i​r​e​c​t​i​o​n​ ​f​o​r​ ​t​h​i​s​ ​r​u​l​e​.​ ​U​s​e​ ​'​a​s​c​'​ ​f​o​r​ ​a​s​c​e​n​d​i​n​g​ ​o​r​ ​'​d​e​s​c​'​ ​f​o​r​ ​d​e​s​c​e​n​d​i​n​g​.
+   */
+  SEARCH_SORT_DIRECTION_HINT: string
   /**
    * U​p​d​a​t​e​ ​R​e​c​o​r​d
    */
@@ -476,6 +484,10 @@ export type TranslationFunctions = {
    */
   PARAM_RETURN_ALL_LABEL: () => LocalizedString
   /**
+   * Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.
+   */
+  PARAM_RETURN_ALL_HINT: () => LocalizedString
+  /**
    * Limit
    */
   PARAM_LIMIT_LABEL: () => LocalizedString
@@ -572,6 +584,10 @@ export type TranslationFunctions = {
    * Direction
    */
   SEARCH_SORT_DIRECTION_LABEL: () => LocalizedString
+  /**
+   * Sort direction for this rule. Use 'asc' for ascending or 'desc' for descending.
+   */
+  SEARCH_SORT_DIRECTION_HINT: () => LocalizedString
   /**
    * Update Record
    */
