@@ -1,0 +1,547 @@
+{
+  "name": "jwt-toolkit",
+  "display_name": {
+    "en_US": "JWT Toolkit",
+    "zh_Hans": "JWT 工具箱"
+  },
+  "description": {
+    "en_US": "Sign, verify, and decode JSON Web Tokens (JWT).",
+    "zh_Hans": "签名、验证和解码 JSON Web Token (JWT)。"
+  },
+  "icon": "https://cdn.jsdelivr.net/gh/nicepkg/gpt-runner-media/jwt-icon.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/token-forge",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "smartepsh",
+  "email": "smartepsh@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "jwt-secret",
+      "display_name": {
+        "en_US": "JWT Secret",
+        "zh_Hans": "JWT 密钥"
+      },
+      "description": {
+        "en_US": "The secret key or private key used for signing and verifying JWT tokens.",
+        "zh_Hans": "用于签名和验证 JWT Token 的密钥或私钥。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "secret_key",
+          "display_name": {
+            "en_US": "Secret / Private Key",
+            "zh_Hans": "密钥 / 私钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "For HMAC algorithms: the shared secret string. For RSA/EC/EdDSA: the PEM-encoded private key.",
+              "zh_Hans": "HMAC 算法：共享密钥字符串。RSA/EC/EdDSA：PEM 编码的私钥。"
+            },
+            "placeholder": {
+              "en_US": "Enter secret or paste PEM private key",
+              "zh_Hans": "输入密钥或粘贴 PEM 私钥"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "jwt-signer",
+      "display_name": {
+        "en_US": "JWT Signer",
+        "zh_Hans": "JWT Signer"
+      },
+      "description": {
+        "en_US": "Generate a signed JWT token with the specified algorithm and claims.",
+        "zh_Hans": "使用指定算法和声明生成签名的 JWT Token。"
+      },
+      "icon": "🔏",
+      "parameters": [
+        {
+          "name": "jwt_credential",
+          "display_name": {
+            "en_US": "JWT Credential",
+            "zh_Hans": "JWT 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "jwt-secret"
+        },
+        {
+          "name": "algorithm",
+          "display_name": {
+            "en_US": "Algorithm",
+            "zh_Hans": "算法"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The signing algorithm to use. HMAC algorithms (HS*) use a shared secret; RSA/EC/EdDSA algorithms use a PEM-encoded private key.",
+              "zh_Hans": "签名算法。HMAC 算法（HS*）使用共享密钥；RSA/EC/EdDSA 算法使用 PEM 编码的私钥。"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "HS256",
+                  "zh_Hans": "HS256"
+                },
+                "value": "HS256"
+              },
+              {
+                "label": {
+                  "en_US": "HS384",
+                  "zh_Hans": "HS384"
+                },
+                "value": "HS384"
+              },
+              {
+                "label": {
+                  "en_US": "HS512",
+                  "zh_Hans": "HS512"
+                },
+                "value": "HS512"
+              },
+              {
+                "label": {
+                  "en_US": "RS256",
+                  "zh_Hans": "RS256"
+                },
+                "value": "RS256"
+              },
+              {
+                "label": {
+                  "en_US": "RS384",
+                  "zh_Hans": "RS384"
+                },
+                "value": "RS384"
+              },
+              {
+                "label": {
+                  "en_US": "RS512",
+                  "zh_Hans": "RS512"
+                },
+                "value": "RS512"
+              },
+              {
+                "label": {
+                  "en_US": "PS256",
+                  "zh_Hans": "PS256"
+                },
+                "value": "PS256"
+              },
+              {
+                "label": {
+                  "en_US": "PS384",
+                  "zh_Hans": "PS384"
+                },
+                "value": "PS384"
+              },
+              {
+                "label": {
+                  "en_US": "PS512",
+                  "zh_Hans": "PS512"
+                },
+                "value": "PS512"
+              },
+              {
+                "label": {
+                  "en_US": "ES256",
+                  "zh_Hans": "ES256"
+                },
+                "value": "ES256"
+              },
+              {
+                "label": {
+                  "en_US": "ES384",
+                  "zh_Hans": "ES384"
+                },
+                "value": "ES384"
+              },
+              {
+                "label": {
+                  "en_US": "ES512",
+                  "zh_Hans": "ES512"
+                },
+                "value": "ES512"
+              },
+              {
+                "label": {
+                  "en_US": "EdDSA",
+                  "zh_Hans": "EdDSA"
+                },
+                "value": "EdDSA"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "HS256"
+        },
+        {
+          "name": "issuer",
+          "display_name": {
+            "en_US": "Issuer (iss)",
+            "zh_Hans": "签发者 (iss)"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "The issuer claim (iss). Identifies the principal that issued the JWT.",
+              "zh_Hans": "签发者声明 (iss)，标识签发 JWT 的主体。"
+            },
+            "placeholder": {
+              "en_US": "e.g. my-service",
+              "zh_Hans": "如 my-service"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject (sub)",
+            "zh_Hans": "主题 (sub)"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "The subject claim (sub). Identifies the principal that is the subject of the JWT.",
+              "zh_Hans": "主题声明 (sub)，标识 JWT 的主体。"
+            },
+            "placeholder": {
+              "en_US": "e.g. user-id-123",
+              "zh_Hans": "如 user-id-123"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "audience",
+          "display_name": {
+            "en_US": "Audience (aud)",
+            "zh_Hans": "受众 (aud)"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "The audience claim (aud). Identifies the recipients that the JWT is intended for.",
+              "zh_Hans": "受众声明 (aud)，标识 JWT 的预期接收者。"
+            },
+            "placeholder": {
+              "en_US": "e.g. https://api.example.com",
+              "zh_Hans": "如 https://api.example.com"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "expires_in",
+          "display_name": {
+            "en_US": "Expires In (seconds)",
+            "zh_Hans": "过期时间（秒）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token validity duration in seconds from now. Default: 1800 (30 minutes).",
+              "zh_Hans": "Token 从当前时间起的有效秒数。默认：1800（30 分钟）。"
+            },
+            "placeholder": {
+              "en_US": "1800",
+              "zh_Hans": "1800"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "additional_claims",
+          "display_name": {
+            "en_US": "Additional Claims",
+            "zh_Hans": "附加声明"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Extra claims to include in the JWT payload as a JSON object.",
+              "zh_Hans": "以 JSON 对象形式添加额外的 JWT 载荷声明。"
+            },
+            "support_expression": true,
+            "component": "code-editor",
+            "language": "json",
+            "min_height": 120
+          },
+          "type": "string",
+          "default": "{}"
+        }
+      ]
+    },
+    {
+      "name": "jwt-verifier",
+      "display_name": {
+        "en_US": "JWT Verifier",
+        "zh_Hans": "JWT Verifier"
+      },
+      "description": {
+        "en_US": "Verify a JWT token's signature and check its validity (expiration, not-before, etc.).",
+        "zh_Hans": "验证 JWT Token 的签名并检查其有效性（过期时间、生效时间等）。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "jwt_credential",
+          "display_name": {
+            "en_US": "JWT Credential",
+            "zh_Hans": "JWT 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "jwt-secret"
+        },
+        {
+          "name": "token",
+          "display_name": {
+            "en_US": "Token",
+            "zh_Hans": "Token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The JWT token string to verify.",
+              "zh_Hans": "要验证的 JWT Token 字符串。"
+            },
+            "placeholder": {
+              "en_US": "eyJhbGciOiJIUzI1NiIs...",
+              "zh_Hans": "eyJhbGciOiJIUzI1NiIs..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "algorithms",
+          "display_name": {
+            "en_US": "Allowed Algorithms",
+            "zh_Hans": "允许的算法"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optionally restrict which algorithms are accepted. If empty, the algorithm from the token header is used.",
+              "zh_Hans": "可选限制接受的算法。留空则使用 Token 头部中的算法。"
+            },
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "HS256",
+                  "zh_Hans": "HS256"
+                },
+                "value": "HS256"
+              },
+              {
+                "label": {
+                  "en_US": "HS384",
+                  "zh_Hans": "HS384"
+                },
+                "value": "HS384"
+              },
+              {
+                "label": {
+                  "en_US": "HS512",
+                  "zh_Hans": "HS512"
+                },
+                "value": "HS512"
+              },
+              {
+                "label": {
+                  "en_US": "RS256",
+                  "zh_Hans": "RS256"
+                },
+                "value": "RS256"
+              },
+              {
+                "label": {
+                  "en_US": "RS384",
+                  "zh_Hans": "RS384"
+                },
+                "value": "RS384"
+              },
+              {
+                "label": {
+                  "en_US": "RS512",
+                  "zh_Hans": "RS512"
+                },
+                "value": "RS512"
+              },
+              {
+                "label": {
+                  "en_US": "PS256",
+                  "zh_Hans": "PS256"
+                },
+                "value": "PS256"
+              },
+              {
+                "label": {
+                  "en_US": "PS384",
+                  "zh_Hans": "PS384"
+                },
+                "value": "PS384"
+              },
+              {
+                "label": {
+                  "en_US": "PS512",
+                  "zh_Hans": "PS512"
+                },
+                "value": "PS512"
+              },
+              {
+                "label": {
+                  "en_US": "ES256",
+                  "zh_Hans": "ES256"
+                },
+                "value": "ES256"
+              },
+              {
+                "label": {
+                  "en_US": "ES384",
+                  "zh_Hans": "ES384"
+                },
+                "value": "ES384"
+              },
+              {
+                "label": {
+                  "en_US": "ES512",
+                  "zh_Hans": "ES512"
+                },
+                "value": "ES512"
+              },
+              {
+                "label": {
+                  "en_US": "EdDSA",
+                  "zh_Hans": "EdDSA"
+                },
+                "value": "EdDSA"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "issuer",
+          "display_name": {
+            "en_US": "Expected Issuer (iss)",
+            "zh_Hans": "期望签发者 (iss)"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If provided, the token's issuer claim must match this value.",
+              "zh_Hans": "如提供，Token 的签发者声明必须匹配此值。"
+            },
+            "placeholder": {
+              "en_US": "e.g. my-service",
+              "zh_Hans": "如 my-service"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "audience",
+          "display_name": {
+            "en_US": "Expected Audience (aud)",
+            "zh_Hans": "期望受众 (aud)"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If provided, the token's audience claim must match this value.",
+              "zh_Hans": "如提供，Token 的受众声明必须匹配此值。"
+            },
+            "placeholder": {
+              "en_US": "e.g. https://api.example.com",
+              "zh_Hans": "如 https://api.example.com"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "jwt-decoder",
+      "display_name": {
+        "en_US": "JWT Decoder",
+        "zh_Hans": "JWT Decoder"
+      },
+      "description": {
+        "en_US": "Decode a JWT token without verifying its signature. Useful for inspecting headers and payload.",
+        "zh_Hans": "解码 JWT Token，无需验证签名。适用于查看头部和载荷内容。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "token",
+          "display_name": {
+            "en_US": "Token",
+            "zh_Hans": "Token"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The JWT token string to decode.",
+              "zh_Hans": "要解码的 JWT Token 字符串。"
+            },
+            "placeholder": {
+              "en_US": "eyJhbGciOiJIUzI1NiIs...",
+              "zh_Hans": "eyJhbGciOiJIUzI1NiIs..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
