@@ -40,10 +40,10 @@ const en_US = {
   MAX_RESULTS_HINT: "Maximum number of events to return (1-2500)",
   TIME_MIN_DISPLAY_NAME: "Time Min",
   TIME_MIN_HINT:
-    "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
+    "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
   TIME_MAX_DISPLAY_NAME: "Time Max",
   TIME_MAX_HINT:
-    "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
+    "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
   LIST_EVENTS_DISPLAY_NAME: "List Events",
   LIST_EVENTS_DESCRIPTION: "List events from a Google Calendar",
   CREATE_EVENT_DISPLAY_NAME: "Create Event",
