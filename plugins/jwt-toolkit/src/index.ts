@@ -1,0 +1,31 @@
+import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
+import packageJSON from "../package.json"
+import { t } from "./i18n/i18n-node"
+import { locales } from "./i18n/i18n-util"
+import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
+import { jwtCredential } from "./credentials/jwt"
+import { jwtDecodeTool } from "./tools/jwt-decode"
+import { jwtSignTool } from "./tools/jwt-sign"
+import { jwtVerifyTool } from "./tools/jwt-verify"
+
+await loadAllLocalesAsync()
+
+const plugin = await createPlugin({
+  name: packageJSON.name,
+  display_name: t("PLUGIN_DISPLAY_NAME"),
+  description: t("PLUGIN_DESCRIPTION"),
+  icon: "https://cdn.jsdelivr.net/gh/nicepkg/gpt-runner-media/jwt-icon.svg",
+  lang: "typescript",
+  version: packageJSON.version,
+  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/token-forge",
+  locales,
+  transporterOptions: {},
+})
+
+plugin.addCredential(jwtCredential)
+
+plugin.addTool(jwtSignTool)
+plugin.addTool(jwtVerifyTool)
+plugin.addTool(jwtDecodeTool)
+
+plugin.run()
