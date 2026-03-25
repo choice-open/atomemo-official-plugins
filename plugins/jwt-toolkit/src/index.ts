@@ -14,7 +14,7 @@ const plugin = await createPlugin({
   name: packageJSON.name,
   display_name: t("PLUGIN_DISPLAY_NAME"),
   description: t("PLUGIN_DESCRIPTION"),
-  icon: "https://cdn.jsdelivr.net/gh/nicepkg/gpt-runner-media/jwt-icon.svg",
+  icon: "https://server-media-public.atomemo.ai/icons/jwt.svg",
   lang: "typescript",
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/token-forge",
