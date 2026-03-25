@@ -1,6 +1,10 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  eventIdParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 
@@ -11,32 +15,8 @@ export const listEventInstancesTool: ToolDefinition = {
   icon: "🔁",
   parameters: [
     calendarCredentialParam,
-    {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "event_id",
-      type: "string",
-      required: true,
-      display_name: t("EVENT_ID_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("EVENT_ID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-    },
+    calendarIdParam,
+    eventIdParam,
     {
       name: "use_time_range",
       type: "boolean",
@@ -45,6 +25,7 @@ export const listEventInstancesTool: ToolDefinition = {
       default: false,
       ui: {
         component: "switch",
+        support_expression: true,
         hint: t("USE_TIME_RANGE_HINT"),
       },
     },
@@ -53,6 +34,14 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIME_MIN_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "Lower bound (exclusive) for event end time. RFC3339 timestamp with mandatory timezone offset, e.g. 2025-03-18T00:00:00Z.",
+          zh_Hans:
+            "事件结束时间的下限（不含）。RFC3339 时间戳，必须包含时区偏移，例如 2025-03-18T00:00:00Z。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("TIME_MIN_HINT"),
@@ -67,6 +56,14 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIME_MAX_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "Upper bound (exclusive) for event start time. RFC3339 timestamp with mandatory timezone offset. Must be greater than timeMin.",
+          zh_Hans:
+            "事件开始时间的上限（不含）。RFC3339 时间戳，必须包含时区偏移。必须大于 timeMin。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("TIME_MAX_HINT"),
@@ -81,12 +78,20 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "integer",
       required: false,
       display_name: t("MAX_RESULTS_DISPLAY_NAME"),
-      default: 100,
+      default: 250,
       minimum: 1,
       maximum: 2500,
+      ai: {
+        llm_description: {
+          en_US:
+            "Maximum number of instances returned per page. Default 250, max 2500.",
+          zh_Hans: "每页返回的最大实例数。默认 250，最大 2500。",
+        },
+      },
       ui: {
         component: "number-input",
         hint: t("MAX_RESULTS_HINT"),
+        support_expression: true,
       },
     },
   ],
@@ -103,7 +108,7 @@ export const listEventInstancesTool: ToolDefinition = {
       eventId: event_id as string,
       timeMin: time_min || undefined,
       timeMax: time_max || undefined,
-      maxResults: max_results ?? 100,
+      maxResults: max_results ?? 250,
     })
 
     return sanitizeObject(res.data)
