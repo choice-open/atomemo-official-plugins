@@ -240,11 +240,11 @@ type RootTranslation = {
    */
   DELETE_CALENDAR_DESCRIPTION: string
   /**
-   * C​l​e​a​r​ ​C​a​l​e​n​d​a​r
+   * ⚠​️​ ​C​l​e​a​r​ ​C​a​l​e​n​d​a​r
    */
   CLEAR_CALENDAR_DISPLAY_NAME: string
   /**
-   * D​e​l​e​t​e​ ​a​l​l​ ​e​v​e​n​t​s​ ​f​r​o​m​ ​a​ ​c​a​l​e​n​d​a​r
+   * D​A​N​G​E​R​O​U​S​:​ ​P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​A​L​L​ ​e​v​e​n​t​s​ ​f​r​o​m​ ​t​h​e​ ​p​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​.​ ​T​h​i​s​ ​o​p​e​r​a​t​i​o​n​ ​o​n​l​y​ ​w​o​r​k​s​ ​o​n​ ​t​h​e​ ​p​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​ ​a​n​d​ ​c​a​n​n​o​t​ ​b​e​ ​u​n​d​o​n​e​.
    */
   CLEAR_CALENDAR_DESCRIPTION: string
   /**
@@ -883,11 +883,11 @@ export type TranslationFunctions = {
    */
   DELETE_CALENDAR_DESCRIPTION: () => LocalizedString
   /**
-   * Clear Calendar
+   * ⚠️ Clear Calendar
    */
   CLEAR_CALENDAR_DISPLAY_NAME: () => LocalizedString
   /**
-   * Delete all events from a calendar
+   * DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.
    */
   CLEAR_CALENDAR_DESCRIPTION: () => LocalizedString
   /**

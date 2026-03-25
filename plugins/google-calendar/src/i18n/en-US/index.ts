@@ -63,8 +63,9 @@ const en_US = {
   UPDATE_CALENDAR_DESCRIPTION: "Update calendar metadata",
   DELETE_CALENDAR_DISPLAY_NAME: "Delete Calendar",
   DELETE_CALENDAR_DESCRIPTION: "Delete a secondary calendar",
-  CLEAR_CALENDAR_DISPLAY_NAME: "Clear Calendar",
-  CLEAR_CALENDAR_DESCRIPTION: "Delete all events from a calendar",
+  CLEAR_CALENDAR_DISPLAY_NAME: "⚠️ Clear Calendar",
+  CLEAR_CALENDAR_DESCRIPTION:
+    "DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.",
   GET_CALENDAR_LIST_DISPLAY_NAME: "Get Calendar List Entry",
   GET_CALENDAR_LIST_DESCRIPTION:
     "Get a single calendar from the user's calendar list",

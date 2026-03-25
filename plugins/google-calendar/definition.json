@@ -488,14 +488,14 @@
     {
       "name": "clear-calendar",
       "display_name": {
-        "en_US": "Clear Calendar",
-        "zh_Hans": "清空日历"
+        "en_US": "⚠️ Clear Calendar",
+        "zh_Hans": "⚠️ 清空日历"
       },
       "description": {
-        "en_US": "Delete all events from a calendar",
-        "zh_Hans": "删除日历中的所有事件"
+        "en_US": "DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.",
+        "zh_Hans": "危险操作：永久删除主日历中的所有事件。此操作仅适用于主日历，且不可撤销。"
       },
-      "icon": "🧹",
+      "icon": "⚠️",
       "parameters": [
         {
           "name": "credential_id",
@@ -519,24 +519,21 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Only \"primary\" is allowed. This dangerous operation clears ALL events from the primary calendar and CANNOT be undone.",
+              "zh_Hans": "仅允许 \"primary\"。此危险操作将永久删除主日历中的所有事件，且不可撤销。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "⚠️ Only works on primary calendar. This will permanently delete ALL events!",
+              "zh_Hans": "⚠️ 仅适用于主日历。将永久删除所有事件！"
             },
-            "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
-            },
-            "support_expression": true,
+            "readonly": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
+          "constant": "primary",
           "default": "primary"
         }
       ]
