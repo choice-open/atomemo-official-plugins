@@ -11,10 +11,13 @@
   "icon": "https://server-media-public.atomemo.ai/icons/json-reader.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/json_reader",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "author": "smartepsh",
   "email": "smartepsh@gmail.com",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [],
   "models": [],
   "tools": [
@@ -46,7 +49,8 @@
           },
           "type": "file_ref"
         }
-      ]
+      ],
+      "skill": "# json_reader / read-json\n\nParse an uploaded file as a JSON object. Automatically detects and strips BOM headers (UTF-8, UTF-16 LE/BE, UTF-32 LE/BE) before parsing.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `file` | `file_ref` | yes | — | The file to parse as JSON. Must contain valid JSON content. |\n\n### Example Input\n```json\n{\n  \"file\": \"<file_ref:uploaded-data.json>\"\n}\n```\n\n## Credential\n\nNo credential required.\n\n## Success Output\n\nReturns the parsed JSON value directly — the shape depends on the file content.\n\n```json\n{\n  \"hello\": \"world\",\n  \"num\": 42\n}\n```\n"
     }
   ]
 }
