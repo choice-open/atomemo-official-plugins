@@ -1305,7 +1305,7 @@
             "en_US": "All-day Event",
             "zh_Hans": "全天事件"
           },
-          "required": false,
+          "required": true,
           "ui": {
             "hint": {
               "en_US": "If enabled, use date only (no time)",
@@ -1536,7 +1536,7 @@
             "en_US": "Include Details",
             "zh_Hans": "包含详情"
           },
-          "required": false,
+          "required": true,
           "ui": {
             "hint": {
               "en_US": "Add description and location",
@@ -1618,7 +1618,7 @@
             "en_US": "Advanced Options",
             "zh_Hans": "高级选项"
           },
-          "required": false,
+          "required": true,
           "ui": {
             "hint": {
               "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",

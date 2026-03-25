@@ -40,10 +40,10 @@ const zh_Hans = {
   MAX_RESULTS_HINT: "返回事件的最大数量（1-2500）",
   TIME_MIN_DISPLAY_NAME: "最早时间",
   TIME_MIN_HINT:
-    "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z",
+    "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00",
   TIME_MAX_DISPLAY_NAME: "最晚时间",
   TIME_MAX_HINT:
-    "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z",
+    "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00",
   LIST_EVENTS_DISPLAY_NAME: "列出事件",
   LIST_EVENTS_DESCRIPTION: "从 Google 日历列出事件",
   CREATE_EVENT_DISPLAY_NAME: "创建事件",
