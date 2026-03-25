@@ -8,7 +8,7 @@
     "en_US": "Manage Google Tasks - create, read, update, and delete tasks and task lists",
     "zh_Hans": "管理 Google Tasks — 创建、查询、更新和删除任务及任务列表"
   },
-  "icon": "link:google-tasks",
+  "icon": "✅️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-tasks",
   "locales": [
@@ -29,7 +29,7 @@
         "en_US": "OAuth2 credential for accessing Google Tasks API",
         "zh_Hans": "用于访问 Google Tasks API 的 OAuth2 凭证"
       },
-      "icon": "link:google-tasks",
+      "icon": "🔑",
       "oauth2": true,
       "parameters": [
         {

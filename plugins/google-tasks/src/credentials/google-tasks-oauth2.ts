@@ -9,7 +9,7 @@ export const googleTasksOAuth2Credential = {
   name: "google-tasks-oauth2",
   display_name: t("CREDENTIAL_DISPLAY_NAME"),
   description: t("CREDENTIAL_DESCRIPTION"),
-  icon: "link:google-tasks",
+  icon: "🔑",
 
   oauth2: true,
 
