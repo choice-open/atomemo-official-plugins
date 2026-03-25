@@ -40,11 +40,13 @@ describe("list-events tool", () => {
 
     expect(mockList).toHaveBeenCalledWith({
       calendarId: "primary",
+      q: undefined,
       timeMin: undefined,
       timeMax: undefined,
-      maxResults: 100,
+      maxResults: 250,
       singleEvents: true,
       orderBy: "startTime",
+      showDeleted: undefined,
     })
     expect(result).toMatchObject({
       items: [{ id: "1", summary: "Event 1" }],
@@ -68,11 +70,13 @@ describe("list-events tool", () => {
 
     expect(mockList).toHaveBeenCalledWith({
       calendarId: "primary",
+      q: undefined,
       timeMin: "2025-03-01T00:00:00Z",
       timeMax: "2025-03-31T23:59:59Z",
       maxResults: 50,
       singleEvents: true,
       orderBy: "startTime",
+      showDeleted: undefined,
     })
   })
 })

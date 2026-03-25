@@ -17,6 +17,12 @@ export const updateCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("SUMMARY_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "New title of the calendar. Leave empty to keep unchanged.",
+          zh_Hans: "新的日历标题。留空则不修改。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_SUMMARY_HINT"),
@@ -29,6 +35,12 @@ export const updateCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("DESCRIPTION_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "New description of the calendar.",
+          zh_Hans: "新的日历描述。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_DESCRIPTION_HINT"),
@@ -41,6 +53,12 @@ export const updateCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("LOCATION_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "New geographic location as free-form text.",
+          zh_Hans: "新的地理位置，自由格式文本。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_LOCATION_HINT"),
@@ -53,6 +71,14 @@ export const updateCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIMEZONE_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            'New IANA timezone for the calendar, e.g. "Asia/Shanghai", "America/Los_Angeles".',
+          zh_Hans:
+            '新的 IANA 时区，例如 "Asia/Shanghai"、"America/Los_Angeles"。',
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_TIMEZONE_HINT"),

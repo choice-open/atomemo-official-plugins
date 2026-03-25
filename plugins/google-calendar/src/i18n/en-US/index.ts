@@ -14,8 +14,8 @@ const en_US = {
   CREDENTIAL_DISPLAY_NAME: "Google Calendar Credential",
   CALENDAR_ID_DISPLAY_NAME: "Calendar ID",
   CALENDAR_ID_HINT:
-    'Primary calendar: "primary". Or use calendar email address.',
-  CALENDAR_ID_PLACEHOLDER: "primary",
+    'Use "primary" for your main calendar, or a calendar email address. Run "List Calendars" to find IDs.',
+  CALENDAR_ID_PLACEHOLDER: "primary or user@group.calendar.google.com",
   EVENT_ID_DISPLAY_NAME: "Event ID",
   EVENT_ID_HINT: "The unique identifier of the event",
   SUMMARY_DISPLAY_NAME: "Title",
@@ -27,18 +27,23 @@ const en_US = {
   LOCATION_HINT: "Event location (address or place name)",
   LOCATION_PLACEHOLDER: "Conference Room A",
   START_DATETIME_DISPLAY_NAME: "Start Time",
-  START_DATETIME_HINT: "ISO 8601 format, e.g. 2025-03-18T09:00:00",
+  START_DATETIME_HINT:
+    "RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)",
   END_DATETIME_DISPLAY_NAME: "End Time",
-  END_DATETIME_HINT: "ISO 8601 format, e.g. 2025-03-18T10:00:00",
+  END_DATETIME_HINT:
+    "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
   TIMEZONE_DISPLAY_NAME: "Timezone",
-  TIMEZONE_HINT: "IANA timezone, e.g. America/Los_Angeles",
-  TIMEZONE_PLACEHOLDER: "America/Los_Angeles",
+  TIMEZONE_HINT:
+    "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
+  TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "Max Results",
   MAX_RESULTS_HINT: "Maximum number of events to return (1-2500)",
   TIME_MIN_DISPLAY_NAME: "Time Min",
-  TIME_MIN_HINT: "Lower bound for event start time (ISO 8601)",
+  TIME_MIN_HINT:
+    "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
   TIME_MAX_DISPLAY_NAME: "Time Max",
-  TIME_MAX_HINT: "Upper bound for event end time (ISO 8601)",
+  TIME_MAX_HINT:
+    "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
   LIST_EVENTS_DISPLAY_NAME: "List Events",
   LIST_EVENTS_DESCRIPTION: "List events from a Google Calendar",
   CREATE_EVENT_DISPLAY_NAME: "Create Event",
@@ -59,8 +64,9 @@ const en_US = {
   UPDATE_CALENDAR_DESCRIPTION: "Update calendar metadata",
   DELETE_CALENDAR_DISPLAY_NAME: "Delete Calendar",
   DELETE_CALENDAR_DESCRIPTION: "Delete a secondary calendar",
-  CLEAR_CALENDAR_DISPLAY_NAME: "Clear Calendar",
-  CLEAR_CALENDAR_DESCRIPTION: "Delete all events from a calendar",
+  CLEAR_CALENDAR_DISPLAY_NAME: "⚠️ Clear Calendar",
+  CLEAR_CALENDAR_DESCRIPTION:
+    "DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.",
   GET_CALENDAR_LIST_DISPLAY_NAME: "Get Calendar List Entry",
   GET_CALENDAR_LIST_DESCRIPTION:
     "Get a single calendar from the user's calendar list",
@@ -77,7 +83,8 @@ const en_US = {
   CALENDAR_SUMMARY_HINT: "Calendar name/title",
   CALENDAR_DESCRIPTION_HINT: "Calendar description",
   CALENDAR_LOCATION_HINT: "Geographic location of the calendar",
-  CALENDAR_TIMEZONE_HINT: "Default timezone (IANA format)",
+  CALENDAR_TIMEZONE_HINT:
+    "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
   DEFAULT_REMINDERS_DISPLAY_NAME: "Default Reminders",
   DEFAULT_REMINDERS_HINT:
     "User default reminders (method: email/popup, minutes: number)",
@@ -107,8 +114,10 @@ const en_US = {
     "Query busy/free status for calendars in a time range",
   CALENDAR_IDS_DISPLAY_NAME: "Calendar IDs",
   CALENDAR_IDS_HINT: "Comma-separated calendar IDs to query",
-  TIME_MIN_REQUIRED_HINT: "Start of time range (ISO 8601)",
-  TIME_MAX_REQUIRED_HINT: "End of time range (ISO 8601)",
+  TIME_MIN_REQUIRED_HINT:
+    "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
+  TIME_MAX_REQUIRED_HINT:
+    "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
   SELECTED_DISPLAY_NAME: "Selected",
   SELECTED_HINT: "Whether to show this calendar in the UI",
   COLOR_ID_DISPLAY_NAME: "Color ID",
@@ -124,11 +133,63 @@ const en_US = {
   UPDATE_TIME_DISPLAY_NAME: "Update Time",
   UPDATE_TIME_HINT: "Change event start/end time",
   START_DATE_DISPLAY_NAME: "Start Date",
-  START_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
+  START_DATE_HINT:
+    "Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18",
   START_DATE_PLACEHOLDER: "2025-03-18",
   END_DATE_DISPLAY_NAME: "End Date",
-  END_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
-  END_DATE_PLACEHOLDER: "2025-03-18",
+  END_DATE_HINT:
+    "End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19",
+  END_DATE_PLACEHOLDER: "2025-03-19",
+  SEND_UPDATES_DISPLAY_NAME: "Send Updates",
+  SEND_UPDATES_HINT: "Whether to send notifications about the event change",
+  SEND_UPDATES_NONE: "None",
+  SEND_UPDATES_ALL: "All guests",
+  SEND_UPDATES_EXTERNAL_ONLY: "External guests only",
+  VISIBILITY_DISPLAY_NAME: "Visibility",
+  VISIBILITY_HINT: "Visibility of the event",
+  VISIBILITY_DEFAULT: "Default",
+  VISIBILITY_PUBLIC: "Public",
+  VISIBILITY_PRIVATE: "Private",
+  VISIBILITY_CONFIDENTIAL: "Confidential",
+  TRANSPARENCY_DISPLAY_NAME: "Show Me As",
+  TRANSPARENCY_HINT: "Whether the event blocks time on the calendar",
+  TRANSPARENCY_OPAQUE: "Busy",
+  TRANSPARENCY_TRANSPARENT: "Available",
+  EVENT_STATUS_DISPLAY_NAME: "Status",
+  EVENT_STATUS_HINT: "Status of the event",
+  EVENT_STATUS_CONFIRMED: "Confirmed",
+  EVENT_STATUS_TENTATIVE: "Tentative",
+  EVENT_COLOR_ID_DISPLAY_NAME: "Event Color",
+  EVENT_COLOR_ID_HINT:
+    "Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.",
+  SEARCH_QUERY_DISPLAY_NAME: "Search Query",
+  SEARCH_QUERY_HINT:
+    "Free text search in summary, description, location, attendees, etc.",
+  SEARCH_QUERY_PLACEHOLDER: "team meeting",
+  ORDER_BY_DISPLAY_NAME: "Order By",
+  ORDER_BY_HINT: "Result order. 'startTime' requires singleEvents=true.",
+  ORDER_BY_START_TIME: "Start Time",
+  ORDER_BY_UPDATED: "Last Modified",
+  SINGLE_EVENTS_DISPLAY_NAME: "Expand Recurring",
+  SINGLE_EVENTS_HINT:
+    "Expand recurring events into individual instances. Required for orderBy=startTime.",
+  SHOW_DELETED_DISPLAY_NAME: "Show Deleted",
+  SHOW_DELETED_HINT: "Include cancelled/deleted events in results",
+  RECURRENCE_DISPLAY_NAME: "Recurrence Rule",
+  RECURRENCE_HINT: "RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
+  RECURRENCE_PLACEHOLDER: "RRULE:FREQ=DAILY;COUNT=5",
+  ATTENDEES_DISPLAY_NAME: "Attendees",
+  ATTENDEES_HINT: "Comma-separated email addresses of attendees",
+  ATTENDEES_PLACEHOLDER: "user1@example.com,user2@example.com",
+  USE_ADVANCED_OPTIONS_DISPLAY_NAME: "Advanced Options",
+  USE_ADVANCED_OPTIONS_HINT:
+    "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
+  CONFERENCE_DATA_VERSION_DISPLAY_NAME: "Conference Data Version",
+  CONFERENCE_DATA_VERSION_HINT:
+    "0 = no conference data, 1 = enable conference creation/copy",
+  SECONDARY_CALENDAR_ID_HINT:
+    'Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.',
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies BaseTranslation
 
 export default en_US

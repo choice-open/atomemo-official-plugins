@@ -60,11 +60,11 @@ type RootTranslation = {
    */
   CALENDAR_ID_DISPLAY_NAME: string
   /**
-   * P​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​:​ ​"​p​r​i​m​a​r​y​"​.​ ​O​r​ ​u​s​e​ ​c​a​l​e​n​d​a​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.
+   * U​s​e​ ​"​p​r​i​m​a​r​y​"​ ​f​o​r​ ​y​o​u​r​ ​m​a​i​n​ ​c​a​l​e​n​d​a​r​,​ ​o​r​ ​a​ ​c​a​l​e​n​d​a​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
    */
   CALENDAR_ID_HINT: string
   /**
-   * p​r​i​m​a​r​y
+   * p​r​i​m​a​r​y​ ​o​r​ ​u​s​e​r​@​g​r​o​u​p​.​c​a​l​e​n​d​a​r​.​g​o​o​g​l​e​.​c​o​m
    */
   CALENDAR_ID_PLACEHOLDER: string
   /**
@@ -112,7 +112,7 @@ type RootTranslation = {
    */
   START_DATETIME_DISPLAY_NAME: string
   /**
-   * I​S​O​ ​8​6​0​1​ ​f​o​r​m​a​t​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0
+   * R​F​C​3​3​3​9​ ​d​a​t​e​t​i​m​e​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​s​:​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0​+​0​8​:​0​0​ ​(​U​T​C​+​8​)​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​1​:​0​0​:​0​0​Z​ ​(​U​T​C​)​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0​-​0​5​:​0​0​ ​(​E​S​T​)
    */
   START_DATETIME_HINT: string
   /**
@@ -120,7 +120,7 @@ type RootTranslation = {
    */
   END_DATETIME_DISPLAY_NAME: string
   /**
-   * I​S​O​ ​8​6​0​1​ ​f​o​r​m​a​t​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​8​T​1​0​:​0​0​:​0​0
+   * R​F​C​3​3​3​9​ ​d​a​t​e​t​i​m​e​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​ ​t​i​m​e​.​ ​E​x​a​m​p​l​e​s​:​ ​2​0​2​5​-​0​3​-​1​8​T​1​0​:​0​0​:​0​0​+​0​8​:​0​0​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​2​:​0​0​:​0​0​Z
    */
   END_DATETIME_HINT: string
   /**
@@ -128,11 +128,11 @@ type RootTranslation = {
    */
   TIMEZONE_DISPLAY_NAME: string
   /**
-   * I​A​N​A​ ​t​i​m​e​z​o​n​e​,​ ​e​.​g​.​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s
+   * I​A​N​A​ ​t​i​m​e​z​o​n​e​ ​n​a​m​e​.​ ​E​x​a​m​p​l​e​s​:​ ​A​s​i​a​/​S​h​a​n​g​h​a​i​,​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s​,​ ​E​u​r​o​p​e​/​L​o​n​d​o​n​,​ ​A​s​i​a​/​T​o​k​y​o​,​ ​U​T​C
    */
   TIMEZONE_HINT: string
   /**
-   * A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s
+   * A​s​i​a​/​S​h​a​n​g​h​a​i
    */
   TIMEZONE_PLACEHOLDER: string
   /**
@@ -148,7 +148,7 @@ type RootTranslation = {
    */
   TIME_MIN_DISPLAY_NAME: string
   /**
-   * L​o​w​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​e​v​e​n​t​ ​s​t​a​r​t​ ​t​i​m​e​ ​(​I​S​O​ ​8​6​0​1​)
+   * L​o​w​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​e​n​d​ ​t​i​m​e​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​0​1​T​0​0​:​0​0​:​0​0​Z
    */
   TIME_MIN_HINT: string
   /**
@@ -156,7 +156,7 @@ type RootTranslation = {
    */
   TIME_MAX_DISPLAY_NAME: string
   /**
-   * U​p​p​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​e​v​e​n​t​ ​e​n​d​ ​t​i​m​e​ ​(​I​S​O​ ​8​6​0​1​)
+   * U​p​p​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​s​t​a​r​t​ ​t​i​m​e​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​T​i​m​e​ ​M​i​n​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​3​1​T​2​3​:​5​9​:​5​9​Z
    */
   TIME_MAX_HINT: string
   /**
@@ -240,11 +240,11 @@ type RootTranslation = {
    */
   DELETE_CALENDAR_DESCRIPTION: string
   /**
-   * C​l​e​a​r​ ​C​a​l​e​n​d​a​r
+   * ⚠​️​ ​C​l​e​a​r​ ​C​a​l​e​n​d​a​r
    */
   CLEAR_CALENDAR_DISPLAY_NAME: string
   /**
-   * D​e​l​e​t​e​ ​a​l​l​ ​e​v​e​n​t​s​ ​f​r​o​m​ ​a​ ​c​a​l​e​n​d​a​r
+   * D​A​N​G​E​R​O​U​S​:​ ​P​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​ ​A​L​L​ ​e​v​e​n​t​s​ ​f​r​o​m​ ​t​h​e​ ​p​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​.​ ​T​h​i​s​ ​o​p​e​r​a​t​i​o​n​ ​o​n​l​y​ ​w​o​r​k​s​ ​o​n​ ​t​h​e​ ​p​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​ ​a​n​d​ ​c​a​n​n​o​t​ ​b​e​ ​u​n​d​o​n​e​.
    */
   CLEAR_CALENDAR_DESCRIPTION: string
   /**
@@ -296,7 +296,7 @@ type RootTranslation = {
    */
   CALENDAR_LOCATION_HINT: string
   /**
-   * D​e​f​a​u​l​t​ ​t​i​m​e​z​o​n​e​ ​(​I​A​N​A​ ​f​o​r​m​a​t​)
+   * D​e​f​a​u​l​t​ ​t​i​m​e​z​o​n​e​ ​i​n​ ​I​A​N​A​ ​f​o​r​m​a​t​.​ ​E​x​a​m​p​l​e​s​:​ ​A​s​i​a​/​S​h​a​n​g​h​a​i​,​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s​,​ ​E​u​r​o​p​e​/​L​o​n​d​o​n
    */
   CALENDAR_TIMEZONE_HINT: string
   /**
@@ -400,11 +400,11 @@ type RootTranslation = {
    */
   CALENDAR_IDS_HINT: string
   /**
-   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​I​S​O​ ​8​6​0​1​)
+   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​8​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​8​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MIN_REQUIRED_HINT: string
   /**
-   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​I​S​O​ ​8​6​0​1​)
+   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​9​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​9​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MAX_REQUIRED_HINT: string
   /**
@@ -468,7 +468,7 @@ type RootTranslation = {
    */
   START_DATE_DISPLAY_NAME: string
   /**
-   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   * S​t​a​r​t​ ​d​a​t​e​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s​,​ ​f​o​r​m​a​t​:​ ​y​y​y​y​-​m​m​-​d​d​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​8
    */
   START_DATE_HINT: string
   /**
@@ -480,13 +480,189 @@ type RootTranslation = {
    */
   END_DATE_DISPLAY_NAME: string
   /**
-   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   * E​n​d​ ​d​a​t​e​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​ ​d​a​t​e​.​ ​F​o​r​ ​a​ ​s​i​n​g​l​e​ ​d​a​y​,​ ​s​e​t​ ​t​o​ ​t​h​e​ ​n​e​x​t​ ​d​a​y​.​ ​E​x​a​m​p​l​e​:​ ​o​n​e​-​d​a​y​ ​e​v​e​n​t​ ​o​n​ ​M​a​r​ ​1​8​ ​→​ ​e​n​d​_​d​a​t​e​ ​=​ ​2​0​2​5​-​0​3​-​1​9
    */
   END_DATE_HINT: string
   /**
-   * 2​0​2​5​-​0​3​-​1​8
+   * 2​0​2​5​-​0​3​-​1​9
    */
   END_DATE_PLACEHOLDER: string
+  /**
+   * S​e​n​d​ ​U​p​d​a​t​e​s
+   */
+  SEND_UPDATES_DISPLAY_NAME: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​s​e​n​d​ ​n​o​t​i​f​i​c​a​t​i​o​n​s​ ​a​b​o​u​t​ ​t​h​e​ ​e​v​e​n​t​ ​c​h​a​n​g​e
+   */
+  SEND_UPDATES_HINT: string
+  /**
+   * N​o​n​e
+   */
+  SEND_UPDATES_NONE: string
+  /**
+   * A​l​l​ ​g​u​e​s​t​s
+   */
+  SEND_UPDATES_ALL: string
+  /**
+   * E​x​t​e​r​n​a​l​ ​g​u​e​s​t​s​ ​o​n​l​y
+   */
+  SEND_UPDATES_EXTERNAL_ONLY: string
+  /**
+   * V​i​s​i​b​i​l​i​t​y
+   */
+  VISIBILITY_DISPLAY_NAME: string
+  /**
+   * V​i​s​i​b​i​l​i​t​y​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
+   */
+  VISIBILITY_HINT: string
+  /**
+   * D​e​f​a​u​l​t
+   */
+  VISIBILITY_DEFAULT: string
+  /**
+   * P​u​b​l​i​c
+   */
+  VISIBILITY_PUBLIC: string
+  /**
+   * P​r​i​v​a​t​e
+   */
+  VISIBILITY_PRIVATE: string
+  /**
+   * C​o​n​f​i​d​e​n​t​i​a​l
+   */
+  VISIBILITY_CONFIDENTIAL: string
+  /**
+   * S​h​o​w​ ​M​e​ ​A​s
+   */
+  TRANSPARENCY_DISPLAY_NAME: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​h​e​ ​e​v​e​n​t​ ​b​l​o​c​k​s​ ​t​i​m​e​ ​o​n​ ​t​h​e​ ​c​a​l​e​n​d​a​r
+   */
+  TRANSPARENCY_HINT: string
+  /**
+   * B​u​s​y
+   */
+  TRANSPARENCY_OPAQUE: string
+  /**
+   * A​v​a​i​l​a​b​l​e
+   */
+  TRANSPARENCY_TRANSPARENT: string
+  /**
+   * S​t​a​t​u​s
+   */
+  EVENT_STATUS_DISPLAY_NAME: string
+  /**
+   * S​t​a​t​u​s​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
+   */
+  EVENT_STATUS_HINT: string
+  /**
+   * C​o​n​f​i​r​m​e​d
+   */
+  EVENT_STATUS_CONFIRMED: string
+  /**
+   * T​e​n​t​a​t​i​v​e
+   */
+  EVENT_STATUS_TENTATIVE: string
+  /**
+   * E​v​e​n​t​ ​C​o​l​o​r
+   */
+  EVENT_COLOR_ID_DISPLAY_NAME: string
+  /**
+   * C​o​l​o​r​ ​I​D​ ​f​r​o​m​ ​c​o​l​o​r​s​ ​e​n​d​p​o​i​n​t​ ​(​1​-​1​1​)​.​ ​U​s​e​ ​'​G​e​t​ ​C​o​l​o​r​s​'​ ​t​o​ ​s​e​e​ ​o​p​t​i​o​n​s​.
+   */
+  EVENT_COLOR_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​Q​u​e​r​y
+   */
+  SEARCH_QUERY_DISPLAY_NAME: string
+  /**
+   * F​r​e​e​ ​t​e​x​t​ ​s​e​a​r​c​h​ ​i​n​ ​s​u​m​m​a​r​y​,​ ​d​e​s​c​r​i​p​t​i​o​n​,​ ​l​o​c​a​t​i​o​n​,​ ​a​t​t​e​n​d​e​e​s​,​ ​e​t​c​.
+   */
+  SEARCH_QUERY_HINT: string
+  /**
+   * t​e​a​m​ ​m​e​e​t​i​n​g
+   */
+  SEARCH_QUERY_PLACEHOLDER: string
+  /**
+   * O​r​d​e​r​ ​B​y
+   */
+  ORDER_BY_DISPLAY_NAME: string
+  /**
+   * R​e​s​u​l​t​ ​o​r​d​e​r​.​ ​'​s​t​a​r​t​T​i​m​e​'​ ​r​e​q​u​i​r​e​s​ ​s​i​n​g​l​e​E​v​e​n​t​s​=​t​r​u​e​.
+   */
+  ORDER_BY_HINT: string
+  /**
+   * S​t​a​r​t​ ​T​i​m​e
+   */
+  ORDER_BY_START_TIME: string
+  /**
+   * L​a​s​t​ ​M​o​d​i​f​i​e​d
+   */
+  ORDER_BY_UPDATED: string
+  /**
+   * E​x​p​a​n​d​ ​R​e​c​u​r​r​i​n​g
+   */
+  SINGLE_EVENTS_DISPLAY_NAME: string
+  /**
+   * E​x​p​a​n​d​ ​r​e​c​u​r​r​i​n​g​ ​e​v​e​n​t​s​ ​i​n​t​o​ ​i​n​d​i​v​i​d​u​a​l​ ​i​n​s​t​a​n​c​e​s​.​ ​R​e​q​u​i​r​e​d​ ​f​o​r​ ​o​r​d​e​r​B​y​=​s​t​a​r​t​T​i​m​e​.
+   */
+  SINGLE_EVENTS_HINT: string
+  /**
+   * S​h​o​w​ ​D​e​l​e​t​e​d
+   */
+  SHOW_DELETED_DISPLAY_NAME: string
+  /**
+   * I​n​c​l​u​d​e​ ​c​a​n​c​e​l​l​e​d​/​d​e​l​e​t​e​d​ ​e​v​e​n​t​s​ ​i​n​ ​r​e​s​u​l​t​s
+   */
+  SHOW_DELETED_HINT: string
+  /**
+   * R​e​c​u​r​r​e​n​c​e​ ​R​u​l​e
+   */
+  RECURRENCE_DISPLAY_NAME: string
+  /**
+   * R​R​U​L​E​ ​p​e​r​ ​R​F​C​5​5​4​5​,​ ​e​.​g​.​ ​R​R​U​L​E​:​F​R​E​Q​=​W​E​E​K​L​Y​;​B​Y​D​A​Y​=​M​O​,​W​E​,​F​R
+   */
+  RECURRENCE_HINT: string
+  /**
+   * R​R​U​L​E​:​F​R​E​Q​=​D​A​I​L​Y​;​C​O​U​N​T​=​5
+   */
+  RECURRENCE_PLACEHOLDER: string
+  /**
+   * A​t​t​e​n​d​e​e​s
+   */
+  ATTENDEES_DISPLAY_NAME: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​e​s​ ​o​f​ ​a​t​t​e​n​d​e​e​s
+   */
+  ATTENDEES_HINT: string
+  /**
+   * u​s​e​r​1​@​e​x​a​m​p​l​e​.​c​o​m​,​u​s​e​r​2​@​e​x​a​m​p​l​e​.​c​o​m
+   */
+  ATTENDEES_PLACEHOLDER: string
+  /**
+   * A​d​v​a​n​c​e​d​ ​O​p​t​i​o​n​s
+   */
+  USE_ADVANCED_OPTIONS_DISPLAY_NAME: string
+  /**
+   * S​h​o​w​ ​a​d​d​i​t​i​o​n​a​l​ ​e​v​e​n​t​ ​o​p​t​i​o​n​s​:​ ​v​i​s​i​b​i​l​i​t​y​,​ ​t​r​a​n​s​p​a​r​e​n​c​y​,​ ​s​t​a​t​u​s​,​ ​c​o​l​o​r​,​ ​r​e​c​u​r​r​e​n​c​e​ ​a​n​d​ ​a​t​t​e​n​d​e​e​s
+   */
+  USE_ADVANCED_OPTIONS_HINT: string
+  /**
+   * C​o​n​f​e​r​e​n​c​e​ ​D​a​t​a​ ​V​e​r​s​i​o​n
+   */
+  CONFERENCE_DATA_VERSION_DISPLAY_NAME: string
+  /**
+   * 0​ ​=​ ​n​o​ ​c​o​n​f​e​r​e​n​c​e​ ​d​a​t​a​,​ ​1​ ​=​ ​e​n​a​b​l​e​ ​c​o​n​f​e​r​e​n​c​e​ ​c​r​e​a​t​i​o​n​/​c​o​p​y
+   */
+  CONFERENCE_DATA_VERSION_HINT: string
+  /**
+   * S​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r​ ​I​D​ ​(​e​m​a​i​l​ ​a​d​d​r​e​s​s​)​.​ ​C​a​n​n​o​t​ ​u​s​e​ ​"​p​r​i​m​a​r​y​"​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
+   */
+  SECONDARY_CALENDAR_ID_HINT: string
+  /**
+   * a​b​c​d​e​f​1​2​3​4​@​g​r​o​u​p​.​c​a​l​e​n​d​a​r​.​g​o​o​g​l​e​.​c​o​m
+   */
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
@@ -535,11 +711,11 @@ export type TranslationFunctions = {
    */
   CALENDAR_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * Primary calendar: "primary". Or use calendar email address.
+   * Use "primary" for your main calendar, or a calendar email address. Run "List Calendars" to find IDs.
    */
   CALENDAR_ID_HINT: () => LocalizedString
   /**
-   * primary
+   * primary or user@group.calendar.google.com
    */
   CALENDAR_ID_PLACEHOLDER: () => LocalizedString
   /**
@@ -587,7 +763,7 @@ export type TranslationFunctions = {
    */
   START_DATETIME_DISPLAY_NAME: () => LocalizedString
   /**
-   * ISO 8601 format, e.g. 2025-03-18T09:00:00
+   * RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)
    */
   START_DATETIME_HINT: () => LocalizedString
   /**
@@ -595,7 +771,7 @@ export type TranslationFunctions = {
    */
   END_DATETIME_DISPLAY_NAME: () => LocalizedString
   /**
-   * ISO 8601 format, e.g. 2025-03-18T10:00:00
+   * RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z
    */
   END_DATETIME_HINT: () => LocalizedString
   /**
@@ -603,11 +779,11 @@ export type TranslationFunctions = {
    */
   TIMEZONE_DISPLAY_NAME: () => LocalizedString
   /**
-   * IANA timezone, e.g. America/Los_Angeles
+   * IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC
    */
   TIMEZONE_HINT: () => LocalizedString
   /**
-   * America/Los_Angeles
+   * Asia/Shanghai
    */
   TIMEZONE_PLACEHOLDER: () => LocalizedString
   /**
@@ -623,7 +799,7 @@ export type TranslationFunctions = {
    */
   TIME_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Lower bound for event start time (ISO 8601)
+   * Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z
    */
   TIME_MIN_HINT: () => LocalizedString
   /**
@@ -631,7 +807,7 @@ export type TranslationFunctions = {
    */
   TIME_MAX_DISPLAY_NAME: () => LocalizedString
   /**
-   * Upper bound for event end time (ISO 8601)
+   * Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z
    */
   TIME_MAX_HINT: () => LocalizedString
   /**
@@ -715,11 +891,11 @@ export type TranslationFunctions = {
    */
   DELETE_CALENDAR_DESCRIPTION: () => LocalizedString
   /**
-   * Clear Calendar
+   * ⚠️ Clear Calendar
    */
   CLEAR_CALENDAR_DISPLAY_NAME: () => LocalizedString
   /**
-   * Delete all events from a calendar
+   * DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.
    */
   CLEAR_CALENDAR_DESCRIPTION: () => LocalizedString
   /**
@@ -771,7 +947,7 @@ export type TranslationFunctions = {
    */
   CALENDAR_LOCATION_HINT: () => LocalizedString
   /**
-   * Default timezone (IANA format)
+   * Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London
    */
   CALENDAR_TIMEZONE_HINT: () => LocalizedString
   /**
@@ -875,11 +1051,11 @@ export type TranslationFunctions = {
    */
   CALENDAR_IDS_HINT: () => LocalizedString
   /**
-   * Start of time range (ISO 8601)
+   * Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00
    */
   TIME_MIN_REQUIRED_HINT: () => LocalizedString
   /**
-   * End of time range (ISO 8601)
+   * End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00
    */
   TIME_MAX_REQUIRED_HINT: () => LocalizedString
   /**
@@ -943,7 +1119,7 @@ export type TranslationFunctions = {
    */
   START_DATE_DISPLAY_NAME: () => LocalizedString
   /**
-   * Date only (yyyy-mm-dd) for all-day events
+   * Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18
    */
   START_DATE_HINT: () => LocalizedString
   /**
@@ -955,13 +1131,189 @@ export type TranslationFunctions = {
    */
   END_DATE_DISPLAY_NAME: () => LocalizedString
   /**
-   * Date only (yyyy-mm-dd) for all-day events
+   * End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19
    */
   END_DATE_HINT: () => LocalizedString
   /**
-   * 2025-03-18
+   * 2025-03-19
    */
   END_DATE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Send Updates
+   */
+  SEND_UPDATES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Whether to send notifications about the event change
+   */
+  SEND_UPDATES_HINT: () => LocalizedString
+  /**
+   * None
+   */
+  SEND_UPDATES_NONE: () => LocalizedString
+  /**
+   * All guests
+   */
+  SEND_UPDATES_ALL: () => LocalizedString
+  /**
+   * External guests only
+   */
+  SEND_UPDATES_EXTERNAL_ONLY: () => LocalizedString
+  /**
+   * Visibility
+   */
+  VISIBILITY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Visibility of the event
+   */
+  VISIBILITY_HINT: () => LocalizedString
+  /**
+   * Default
+   */
+  VISIBILITY_DEFAULT: () => LocalizedString
+  /**
+   * Public
+   */
+  VISIBILITY_PUBLIC: () => LocalizedString
+  /**
+   * Private
+   */
+  VISIBILITY_PRIVATE: () => LocalizedString
+  /**
+   * Confidential
+   */
+  VISIBILITY_CONFIDENTIAL: () => LocalizedString
+  /**
+   * Show Me As
+   */
+  TRANSPARENCY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Whether the event blocks time on the calendar
+   */
+  TRANSPARENCY_HINT: () => LocalizedString
+  /**
+   * Busy
+   */
+  TRANSPARENCY_OPAQUE: () => LocalizedString
+  /**
+   * Available
+   */
+  TRANSPARENCY_TRANSPARENT: () => LocalizedString
+  /**
+   * Status
+   */
+  EVENT_STATUS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Status of the event
+   */
+  EVENT_STATUS_HINT: () => LocalizedString
+  /**
+   * Confirmed
+   */
+  EVENT_STATUS_CONFIRMED: () => LocalizedString
+  /**
+   * Tentative
+   */
+  EVENT_STATUS_TENTATIVE: () => LocalizedString
+  /**
+   * Event Color
+   */
+  EVENT_COLOR_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.
+   */
+  EVENT_COLOR_ID_HINT: () => LocalizedString
+  /**
+   * Search Query
+   */
+  SEARCH_QUERY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Free text search in summary, description, location, attendees, etc.
+   */
+  SEARCH_QUERY_HINT: () => LocalizedString
+  /**
+   * team meeting
+   */
+  SEARCH_QUERY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Order By
+   */
+  ORDER_BY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Result order. 'startTime' requires singleEvents=true.
+   */
+  ORDER_BY_HINT: () => LocalizedString
+  /**
+   * Start Time
+   */
+  ORDER_BY_START_TIME: () => LocalizedString
+  /**
+   * Last Modified
+   */
+  ORDER_BY_UPDATED: () => LocalizedString
+  /**
+   * Expand Recurring
+   */
+  SINGLE_EVENTS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Expand recurring events into individual instances. Required for orderBy=startTime.
+   */
+  SINGLE_EVENTS_HINT: () => LocalizedString
+  /**
+   * Show Deleted
+   */
+  SHOW_DELETED_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Include cancelled/deleted events in results
+   */
+  SHOW_DELETED_HINT: () => LocalizedString
+  /**
+   * Recurrence Rule
+   */
+  RECURRENCE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR
+   */
+  RECURRENCE_HINT: () => LocalizedString
+  /**
+   * RRULE:FREQ=DAILY;COUNT=5
+   */
+  RECURRENCE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Attendees
+   */
+  ATTENDEES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Comma-separated email addresses of attendees
+   */
+  ATTENDEES_HINT: () => LocalizedString
+  /**
+   * user1@example.com,user2@example.com
+   */
+  ATTENDEES_PLACEHOLDER: () => LocalizedString
+  /**
+   * Advanced Options
+   */
+  USE_ADVANCED_OPTIONS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Show additional event options: visibility, transparency, status, color, recurrence and attendees
+   */
+  USE_ADVANCED_OPTIONS_HINT: () => LocalizedString
+  /**
+   * Conference Data Version
+   */
+  CONFERENCE_DATA_VERSION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * 0 = no conference data, 1 = enable conference creation/copy
+   */
+  CONFERENCE_DATA_VERSION_HINT: () => LocalizedString
+  /**
+   * Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.
+   */
+  SECONDARY_CALENDAR_ID_HINT: () => LocalizedString
+  /**
+   * abcdef1234@group.calendar.google.com
+   */
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

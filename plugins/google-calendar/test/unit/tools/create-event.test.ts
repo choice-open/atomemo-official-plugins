@@ -124,7 +124,7 @@ describe("create-event tool", () => {
     })
   })
 
-  it("throws when all-day event missing start_date or end_date", async () => {
+  it("throws when all-day event has invalid date format", async () => {
     await expect(
       createEventTool.invoke({
         args: {
@@ -138,7 +138,7 @@ describe("create-event tool", () => {
           },
         },
       }),
-    ).rejects.toThrow("Start date and end date are required for all-day events")
+    ).rejects.toThrow("Must be yyyy-mm-dd format")
 
     await expect(
       createEventTool.invoke({
@@ -149,14 +149,14 @@ describe("create-event tool", () => {
             summary: "Event",
             is_all_day_event: true,
             start_date: "2025-03-23",
-            end_date: "",
+            end_date: "not-a-date",
           },
         },
       }),
-    ).rejects.toThrow("Start date and end date are required for all-day events")
+    ).rejects.toThrow("Must be yyyy-mm-dd format")
   })
 
-  it("throws when timed event missing start_datetime or end_datetime", async () => {
+  it("throws when timed event has invalid RFC3339 format", async () => {
     await expect(
       createEventTool.invoke({
         args: {
@@ -165,11 +165,28 @@ describe("create-event tool", () => {
             ...baseArgs.parameters,
             summary: "Event",
             is_all_day_event: false,
-            start_datetime: "",
+            start_datetime: "2025-03-23 10:00",
             end_datetime: "2025-03-23T11:00:00Z",
           },
         },
       }),
-    ).rejects.toThrow("Start time and end time are required for timed events")
+    ).rejects.toThrow("Must be RFC3339 format")
+  })
+
+  it("throws when end_datetime is before start_datetime", async () => {
+    await expect(
+      createEventTool.invoke({
+        args: {
+          ...baseArgs,
+          parameters: {
+            ...baseArgs.parameters,
+            summary: "Event",
+            is_all_day_event: false,
+            start_datetime: "2025-03-23T12:00:00Z",
+            end_datetime: "2025-03-23T10:00:00Z",
+          },
+        },
+      }),
+    ).rejects.toThrow("end_datetime must be after start_datetime")
   })
 })

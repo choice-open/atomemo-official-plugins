@@ -15,7 +15,14 @@ export const createCalendarTool: ToolDefinition = {
       name: "summary",
       type: "string",
       required: true,
+      min_length: 1,
       display_name: t("CALENDAR_SUMMARY_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "Title of the calendar.",
+          zh_Hans: "日历标题。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_SUMMARY_HINT"),
@@ -29,6 +36,12 @@ export const createCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("DESCRIPTION_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "Description of the calendar.",
+          zh_Hans: "日历描述。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_DESCRIPTION_HINT"),
@@ -41,6 +54,12 @@ export const createCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("LOCATION_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US: "Geographic location of the calendar as free-form text.",
+          zh_Hans: "日历的地理位置，自由格式文本。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_LOCATION_HINT"),
@@ -53,6 +72,14 @@ export const createCalendarTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIMEZONE_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            'IANA Time Zone Database name for the calendar, e.g. "America/Los_Angeles", "Asia/Shanghai".',
+          zh_Hans:
+            'IANA 时区名称，例如 "Asia/Shanghai"、"America/Los_Angeles"。',
+        },
+      },
       ui: {
         component: "input",
         hint: t("CALENDAR_TIMEZONE_HINT"),
