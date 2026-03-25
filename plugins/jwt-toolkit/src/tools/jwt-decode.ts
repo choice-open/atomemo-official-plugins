@@ -4,12 +4,14 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import * as jose from "jose"
 import { t } from "../i18n/i18n-node"
+import { getSkill } from "../skills"
 
 export const jwtDecodeTool = {
   name: "jwt-decoder",
   display_name: t("JWT_DECODE_DISPLAY_NAME"),
   description: t("JWT_DECODE_DESCRIPTION"),
   icon: "📋",
+  skill: getSkill("jwt-decoder"),
   parameters: [
     {
       name: "token",

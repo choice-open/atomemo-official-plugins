@@ -8,7 +8,7 @@
     "en_US": "Sign, verify, and decode JSON Web Tokens (JWT).",
     "zh_Hans": "签名、验证和解码 JSON Web Token (JWT)。"
   },
-  "icon": "https://cdn.jsdelivr.net/gh/nicepkg/gpt-runner-media/jwt-icon.svg",
+  "icon": "https://server-media-public.atomemo.ai/icons/jwt.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/token-forge",
   "locales": [
@@ -17,7 +17,7 @@
   ],
   "author": "smartepsh",
   "email": "smartepsh@gmail.com",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [
     {
       "name": "jwt-secret",
@@ -302,7 +302,8 @@
           "type": "string",
           "default": "{}"
         }
-      ]
+      ],
+      "skill": "# jwt-toolkit / jwt-signer\n\nGenerate a signed JWT token with the specified algorithm and claims.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `jwt_credential` | `credential_id` | yes | — | Links to credential `jwt-secret`. |\n| `algorithm` | `string` | yes | `HS256` | Signing algorithm. HMAC (HS256/384/512) uses a shared secret; RSA (RS/PS256/384/512), EC (ES256/384/512), and EdDSA use a PEM-encoded private key. Enum: HS256, HS384, HS512, RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512, EdDSA. |\n| `issuer` | `string` | no | — | The `iss` claim. Identifies the principal that issued the JWT. |\n| `subject` | `string` | no | — | The `sub` claim. Identifies the principal that is the subject of the JWT. |\n| `audience` | `string` | no | — | The `aud` claim. Identifies the recipients the JWT is intended for. |\n| `expires_in` | `number` | no | `1800` | Token validity duration in seconds from now. Defaults to 1800 (30 minutes). |\n| `additional_claims` | `string` | no | `{}` | Extra claims as a JSON object string merged into the JWT payload. |\n\n### Cross-field Rules\n- `algorithm` determines which key type is expected in the credential: HMAC algorithms (HS*) require a shared secret string; RSA/EC/EdDSA algorithms require a PEM-encoded private key.\n\n### Example Input\n\\`\\`\\`json\n{\n  \"jwt_credential\": \"my-jwt-secret\",\n  \"algorithm\": \"HS256\",\n  \"issuer\": \"auth-service\",\n  \"subject\": \"user-42\",\n  \"audience\": \"https://api.example.com\",\n  \"expires_in\": 3600,\n  \"additional_claims\": \"{\\\"role\\\": \\\"admin\\\", \\\"org_id\\\": \\\"org-7\\\"}\"\n}\n\\`\\`\\`\n\n## Credential\n\n- Credential name: `jwt-secret`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `secret_key` | `encrypted_string` | yes | For HMAC algorithms: the shared secret string. For RSA/EC/EdDSA: the PEM-encoded private key. |\n\n## Success Output\n\n\\`\\`\\`json\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJvcmdfaWQiOiJvcmctNyIsImlhdCI6MTcxMTAwMDAwMCwibmJmIjoxNzEwOTk5OTk1LCJleHAiOjE3MTEwMDM2MDAsImlzcyI6ImF1dGgtc2VydmljZSIsInN1YiI6InVzZXItNDIiLCJhdWQiOiJodHRwczovL2FwaS5leGFtcGxlLmNvbSJ9.signature\",\n  \"algorithm\": \"HS256\",\n  \"issued_at\": \"2024-03-21T12:00:00.000Z\",\n  \"expires_at\": \"2024-03-21T13:00:00.000Z\"\n}\n\\`\\`\\`\n\n### Output Notes\n- `token` is the compact JWS string (header.payload.signature).\n- The tool automatically sets `iat` (issued at), `nbf` (not before, 5 seconds before now), and `exp` (expiration) claims.\n"
     },
     {
       "name": "jwt-verifier",
@@ -505,7 +506,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# jwt-toolkit / jwt-verifier\n\nVerify a JWT token's signature and check its validity (expiration, not-before, etc.).\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `jwt_credential` | `credential_id` | yes | — | Links to credential `jwt-secret`. |\n| `token` | `string` | yes | — | The JWT token string to verify. |\n| `algorithms` | `string` | no | — | Restrict accepted algorithm. If empty, uses the algorithm from the token header. Enum: HS256, HS384, HS512, RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512, EdDSA. |\n| `issuer` | `string` | no | — | Expected `iss` claim. Verification fails if the token's issuer does not match. |\n| `audience` | `string` | no | — | Expected `aud` claim. Verification fails if the token's audience does not match. |\n\n### Cross-field Rules\n- When `algorithms` is set, the token's header algorithm must match — otherwise verification fails.\n- For HMAC tokens the credential's `secret_key` should be the shared secret; for RSA/EC/EdDSA tokens it should be the PEM-encoded **public** key (imported via SPKI).\n\n### Example Input\n\\`\\`\\`json\n{\n  \"jwt_credential\": \"my-jwt-secret\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTQyIiwiaWF0IjoxNzExMDAwMDAwfQ.signature\",\n  \"algorithms\": \"HS256\",\n  \"issuer\": \"auth-service\",\n  \"audience\": \"https://api.example.com\"\n}\n\\`\\`\\`\n\n## Credential\n\n- Credential name: `jwt-secret`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `secret_key` | `encrypted_string` | yes | For HMAC algorithms: the shared secret. For RSA/EC/EdDSA: the PEM-encoded public key (SPKI format). |\n\n## Success Output\n\n\\`\\`\\`json\n{\n  \"valid\": true,\n  \"header\": {\n    \"alg\": \"HS256\",\n    \"typ\": \"JWT\"\n  },\n  \"payload\": {\n    \"sub\": \"user-42\",\n    \"role\": \"admin\",\n    \"iat\": 1711000000,\n    \"exp\": 1711003600,\n    \"iss\": \"auth-service\",\n    \"aud\": \"https://api.example.com\"\n  }\n}\n\\`\\`\\`\n\n### Output Notes\n- `valid` is always `true` on success — verification failure throws an error instead of returning `valid: false`.\n- `header` and `payload` are the decoded JWT sections.\n"
     },
     {
       "name": "jwt-decoder",
@@ -541,7 +543,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# jwt-toolkit / jwt-decoder\n\nDecode a JWT token without verifying its signature. Useful for inspecting headers and payload.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `token` | `string` | yes | — | The JWT token string to decode. |\n\n### Example Input\n\\`\\`\\`json\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTQyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzExMDAwMDAwLCJleHAiOjE3MTEwMDM2MDAsIm5iZiI6MTcxMDk5OTk5NX0.signature\"\n}\n\\`\\`\\`\n\n## Credential\n\nNo credential required.\n\n## Success Output\n\n\\`\\`\\`json\n{\n  \"header\": {\n    \"alg\": \"HS256\",\n    \"typ\": \"JWT\"\n  },\n  \"payload\": {\n    \"sub\": \"user-42\",\n    \"role\": \"admin\",\n    \"iat\": 1711000000,\n    \"exp\": 1711003600,\n    \"nbf\": 1710999995\n  },\n  \"issued_at\": \"2024-03-21T12:00:00.000Z\",\n  \"expires_at\": \"2024-03-21T13:00:00.000Z\",\n  \"is_expired\": false,\n  \"not_before\": \"2024-03-21T11:59:55.000Z\"\n}\n\\`\\`\\`\n\n### Output Notes\n- `issued_at`, `expires_at`, `not_before` are human-readable ISO timestamps — only present when the corresponding `iat`, `exp`, `nbf` claims exist in the payload.\n- `is_expired` is only present when `exp` exists. It reflects whether the token is expired at the time of decoding.\n"
     }
   ]
 }
