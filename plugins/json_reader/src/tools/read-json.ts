@@ -1,5 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
+import { getSkill } from "../skills"
 
 function detectBomEncoding(bytes: Uint8Array): {
   encoding: string
@@ -45,6 +46,7 @@ export const readJsonTool = {
   display_name: t("READ_JSON_TOOL_DISPLAY_NAME"),
   description: t("READ_JSON_TOOL_DESCRIPTION"),
   icon: "https://server-media-public.atomemo.ai/icons/json-reader.svg",
+  skill: getSkill("read-json"),
   parameters: [
     {
       name: "file",

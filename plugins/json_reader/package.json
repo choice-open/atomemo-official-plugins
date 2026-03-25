@@ -1,7 +1,7 @@
 {
   "name": "json_reader",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Input a file ref, output the json. support read file by bom header.",
   "author": "smartepsh <smartepsh@gmail.com>",
   "license": "MIT",
