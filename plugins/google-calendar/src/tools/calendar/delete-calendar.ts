@@ -1,7 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   calendarCredentialParam,
-  secondaryCalendarIdParam,
+  calendarIdParam,
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
@@ -12,7 +12,7 @@ export const deleteCalendarTool: ToolDefinition = {
   display_name: t("DELETE_CALENDAR_DISPLAY_NAME"),
   description: t("DELETE_CALENDAR_DESCRIPTION"),
   icon: "🗑️",
-  parameters: [calendarCredentialParam, secondaryCalendarIdParam],
+  parameters: [calendarCredentialParam, calendarIdParam],
   async invoke({ args }) {
     const client = requireCalendarClient(
       args.credentials,

@@ -307,25 +307,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
-              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
+              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
+              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
+              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary or user@group.calendar.google.com",
-              "zh_Hans": "primary 或 user@group.calendar.google.com"
+              "en_US": "abcdef1234@group.calendar.google.com",
+              "zh_Hans": "abcdef1234@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         },
         {
           "name": "summary",
@@ -463,25 +463,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
-              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "abcdef1234@group.calendar.google.com",
-              "zh_Hans": "abcdef1234@group.calendar.google.com"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "min_length": 1
+          "default": "primary"
         }
       ]
     },
@@ -655,25 +655,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
-              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "abcdef1234@group.calendar.google.com",
-              "zh_Hans": "abcdef1234@group.calendar.google.com"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "min_length": 1
+          "default": "primary"
         },
         {
           "name": "selected",
@@ -777,25 +777,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
-              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
+              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
+              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
+              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary or user@group.calendar.google.com",
-              "zh_Hans": "primary 或 user@group.calendar.google.com"
+              "en_US": "abcdef1234@group.calendar.google.com",
+              "zh_Hans": "abcdef1234@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         },
         {
           "name": "summaryOverride",
@@ -1059,8 +1059,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
-              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z"
+              "en_US": "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
+              "zh_Hans": "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00"
             },
             "support_expression": true,
             "component": "input"
@@ -1089,8 +1089,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
-              "zh_Hans": "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z"
+              "en_US": "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
+              "zh_Hans": "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00"
             },
             "support_expression": true,
             "component": "input"
@@ -1305,7 +1305,7 @@
             "en_US": "All-day Event",
             "zh_Hans": "全天事件"
           },
-          "required": true,
+          "required": false,
           "ui": {
             "hint": {
               "en_US": "If enabled, use date only (no time)",
@@ -1536,7 +1536,7 @@
             "en_US": "Include Details",
             "zh_Hans": "包含详情"
           },
-          "required": true,
+          "required": false,
           "ui": {
             "hint": {
               "en_US": "Add description and location",
@@ -1618,7 +1618,7 @@
             "en_US": "Advanced Options",
             "zh_Hans": "高级选项"
           },
-          "required": true,
+          "required": false,
           "ui": {
             "hint": {
               "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
@@ -2072,52 +2072,16 @@
           "min_length": 5
         },
         {
-          "name": "update_time",
-          "display_name": {
-            "en_US": "Update Time",
-            "zh_Hans": "更新时间"
-          },
-          "required": false,
-          "ui": {
-            "hint": {
-              "en_US": "Change event start/end time",
-              "zh_Hans": "修改事件开始/结束时间"
-            },
-            "support_expression": true,
-            "component": "switch"
-          },
-          "type": "boolean",
-          "default": false
-        },
-        {
-          "name": "include_details",
-          "display_name": {
-            "en_US": "Include Details",
-            "zh_Hans": "包含详情"
-          },
-          "required": false,
-          "ui": {
-            "hint": {
-              "en_US": "Add description and location",
-              "zh_Hans": "添加描述和地点"
-            },
-            "support_expression": true,
-            "component": "switch"
-          },
-          "type": "boolean",
-          "default": false
-        },
-        {
           "name": "summary",
           "display_name": {
             "en_US": "Title",
             "zh_Hans": "标题"
           },
-          "required": false,
+          "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "New title of the event. Leave empty to keep unchanged.",
-              "zh_Hans": "新的事件标题。留空则不修改。"
+              "en_US": "Title of the event.",
+              "zh_Hans": "事件标题。"
             }
           },
           "ui": {
@@ -2136,69 +2100,21 @@
           "type": "string"
         },
         {
-          "name": "description",
+          "name": "is_all_day_event",
           "display_name": {
-            "en_US": "Description",
-            "zh_Hans": "描述"
+            "en_US": "All-day Event",
+            "zh_Hans": "全天事件"
           },
           "required": false,
-          "display": {
-            "show": {
-              "include_details": {
-                "$eq": true
-              }
-            }
-          },
-          "ai": {
-            "llm_description": {
-              "en_US": "New description of the event. Can contain HTML.",
-              "zh_Hans": "新的事件描述。支持 HTML 格式。"
-            }
-          },
           "ui": {
             "hint": {
-              "en_US": "Event description",
-              "zh_Hans": "事件描述"
+              "en_US": "If enabled, use date only (no time)",
+              "zh_Hans": "启用时仅使用日期（不含时间）"
             },
-            "support_expression": true,
-            "width": "full",
-            "component": "textarea"
+            "component": "switch"
           },
-          "type": "string"
-        },
-        {
-          "name": "location",
-          "display_name": {
-            "en_US": "Location",
-            "zh_Hans": "地点"
-          },
-          "required": false,
-          "display": {
-            "show": {
-              "include_details": {
-                "$eq": true
-              }
-            }
-          },
-          "ai": {
-            "llm_description": {
-              "en_US": "New geographic location as free-form text.",
-              "zh_Hans": "新的地理位置，自由格式文本。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "Event location (address or place name)",
-              "zh_Hans": "事件地点（地址或场所名称）"
-            },
-            "placeholder": {
-              "en_US": "Conference Room A",
-              "zh_Hans": "会议室 A"
-            },
-            "support_expression": true,
-            "component": "input"
-          },
-          "type": "string"
+          "type": "boolean",
+          "default": false
         },
         {
           "name": "start_datetime",
@@ -2206,18 +2122,18 @@
             "en_US": "Start Time",
             "zh_Hans": "开始时间"
           },
-          "required": false,
+          "required": true,
           "display": {
             "show": {
-              "update_time": {
-                "$eq": true
+              "is_all_day_event": {
+                "$eq": false
               }
             }
           },
           "ai": {
             "llm_description": {
-              "en_US": "New start time in RFC3339 format with timezone offset, e.g. 2025-03-18T09:00:00+08:00.",
-              "zh_Hans": "RFC3339 格式的新开始时间（含时区偏移），例如 2025-03-18T09:00:00+08:00。"
+              "en_US": "Start time in RFC3339 format. A timezone offset is required unless timezone is specified, e.g. 2025-03-18T09:00:00+08:00 or 2025-03-18T01:00:00Z.",
+              "zh_Hans": "RFC3339 格式的开始时间。除非指定了时区，否则必须包含时区偏移，例如 2025-03-18T09:00:00+08:00 或 2025-03-18T01:00:00Z。"
             }
           },
           "ui": {
@@ -2236,24 +2152,92 @@
             "en_US": "End Time",
             "zh_Hans": "结束时间"
           },
-          "required": false,
+          "required": true,
           "display": {
             "show": {
-              "update_time": {
-                "$eq": true
+              "is_all_day_event": {
+                "$eq": false
               }
             }
           },
           "ai": {
             "llm_description": {
-              "en_US": "New exclusive end time in RFC3339 format with timezone offset. Must be after start time.",
-              "zh_Hans": "RFC3339 格式的新结束时间（不含，含时区偏移）。必须晚于开始时间。"
+              "en_US": "Exclusive end time in RFC3339 format. Must be after start time. A timezone offset is required unless timezone is specified.",
+              "zh_Hans": "RFC3339 格式的结束时间（不含）。必须晚于开始时间。除非指定了时区，否则必须包含时区偏移。"
             }
           },
           "ui": {
             "hint": {
               "en_US": "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
               "zh_Hans": "RFC3339 日期时间，需含时区偏移，必须晚于开始时间。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_date",
+          "display_name": {
+            "en_US": "Start Date",
+            "zh_Hans": "开始日期"
+          },
+          "required": true,
+          "display": {
+            "show": {
+              "is_all_day_event": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Start date for all-day events in \"yyyy-mm-dd\" format, e.g. 2025-03-18.",
+              "zh_Hans": "全天事件的开始日期，格式为 \"yyyy-mm-dd\"，例如 2025-03-18。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18",
+              "zh_Hans": "全天事件开始日期，格式：yyyy-mm-dd。示例：2025-03-18"
+            },
+            "placeholder": {
+              "en_US": "2025-03-18",
+              "zh_Hans": "2025-03-18"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_date",
+          "display_name": {
+            "en_US": "End Date",
+            "zh_Hans": "结束日期"
+          },
+          "required": true,
+          "display": {
+            "show": {
+              "is_all_day_event": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Exclusive end date for all-day events in \"yyyy-mm-dd\" format. For a single-day event, set to the day after start_date.",
+              "zh_Hans": "全天事件的结束日期（不含），格式为 \"yyyy-mm-dd\"。单日事件应设为 start_date 的下一天。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19",
+              "zh_Hans": "全天事件结束日期（不含），必须晚于开始日期。单日事件需设为开始日期的下一天。示例：3月18日一天的事件 → 结束日期 = 2025-03-19"
+            },
+            "placeholder": {
+              "en_US": "2025-03-19",
+              "zh_Hans": "2025-03-19"
             },
             "support_expression": true,
             "component": "input"
@@ -2269,15 +2253,15 @@
           "required": false,
           "display": {
             "show": {
-              "update_time": {
-                "$eq": true
+              "is_all_day_event": {
+                "$eq": false
               }
             }
           },
           "ai": {
             "llm_description": {
-              "en_US": "IANA Time Zone Database name, e.g. \"Asia/Shanghai\", \"America/Los_Angeles\".",
-              "zh_Hans": "IANA 时区名称，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。"
+              "en_US": "IANA Time Zone Database name, e.g. \"America/Los_Angeles\", \"Asia/Shanghai\", \"Europe/Zurich\". Used for start/end times.",
+              "zh_Hans": "IANA 时区数据库名称，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。用于开始/结束时间。"
             }
           },
           "ui": {
@@ -2347,6 +2331,88 @@
           ]
         },
         {
+          "name": "include_details",
+          "display_name": {
+            "en_US": "Include Details",
+            "zh_Hans": "包含详情"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Add description and location",
+              "zh_Hans": "添加描述和地点"
+            },
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "description",
+          "display_name": {
+            "en_US": "Description",
+            "zh_Hans": "描述"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "include_details": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Description of the event. Can contain HTML.",
+              "zh_Hans": "事件描述。支持 HTML 格式。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Event description",
+              "zh_Hans": "事件描述"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "地点"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "include_details": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Geographic location of the event as free-form text.",
+              "zh_Hans": "事件地理位置，自由格式文本。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Event location (address or place name)",
+              "zh_Hans": "事件地点（地址或场所名称）"
+            },
+            "placeholder": {
+              "en_US": "Conference Room A",
+              "zh_Hans": "会议室 A"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
           "name": "use_advanced_options",
           "display_name": {
             "en_US": "Advanced Options",
@@ -2358,7 +2424,6 @@
               "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
               "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者"
             },
-            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -2380,8 +2445,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Event visibility. \"default\" = calendar default, \"public\" = visible to all, \"private\" = only attendees, \"confidential\" = same as private.",
-              "zh_Hans": "事件可见性。\"default\" = 日历默认, \"public\" = 对所有人可见, \"private\" = 仅参与者可见, \"confidential\" = 同 private。"
+              "en_US": "Event visibility. \"default\" = calendar default, \"public\" = visible to all, \"private\" = only attendees, \"confidential\" = same as private (compatibility).",
+              "zh_Hans": "事件可见性。\"default\" = 日历默认, \"public\" = 对所有人可见, \"private\" = 仅参与者可见, \"confidential\" = 同 private（兼容性）。"
             }
           },
           "ui": {
@@ -2389,7 +2454,6 @@
               "en_US": "Visibility of the event",
               "zh_Hans": "事件的可见性"
             },
-            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2423,6 +2487,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "default",
           "enum": [
             "default",
             "public",
@@ -2446,8 +2511,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "\"opaque\" = busy (default), \"transparent\" = available/free.",
-              "zh_Hans": "\"opaque\" = 忙碌（默认），\"transparent\" = 有空。"
+              "en_US": "Whether the event blocks time on the calendar. \"opaque\" = busy (default), \"transparent\" = available.",
+              "zh_Hans": "事件是否在日历上占用时间。\"opaque\" = 忙碌（默认），\"transparent\" = 有空。"
             }
           },
           "ui": {
@@ -2455,7 +2520,6 @@
               "en_US": "Whether the event blocks time on the calendar",
               "zh_Hans": "事件是否在日历上占用时间"
             },
-            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2475,6 +2539,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "opaque",
           "enum": [
             "opaque",
             "transparent"
@@ -2496,8 +2561,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "\"confirmed\" = default, \"tentative\" = tentatively confirmed.",
-              "zh_Hans": "\"confirmed\" = 已确认（默认），\"tentative\" = 暂定。"
+              "en_US": "Status of the event. \"confirmed\" = default, \"tentative\" = tentatively confirmed.",
+              "zh_Hans": "事件状态。\"confirmed\" = 已确认（默认），\"tentative\" = 暂定。"
             }
           },
           "ui": {
@@ -2505,7 +2570,6 @@
               "en_US": "Status of the event",
               "zh_Hans": "事件状态"
             },
-            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2525,6 +2589,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "confirmed",
           "enum": [
             "confirmed",
             "tentative"
@@ -2546,8 +2611,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Event color ID (1-11) from the colors endpoint.",
-              "zh_Hans": "事件颜色 ID（1-11），来自颜色端点。"
+              "en_US": "Event color ID (1-11) referencing the event colors definition. Use the 'Get Colors' tool to see available options.",
+              "zh_Hans": "事件颜色 ID（1-11），引用事件颜色定义。使用「获取颜色」工具查看可用选项。"
             }
           },
           "ui": {
@@ -2555,7 +2620,6 @@
               "en_US": "Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.",
               "zh_Hans": "颜色端点中的颜色 ID（1-11），使用「获取颜色」查看选项"
             },
-            "support_expression": true,
             "component": "select"
           },
           "type": "string",
@@ -2572,6 +2636,76 @@
             "10",
             "11"
           ]
+        },
+        {
+          "name": "recurrence",
+          "display_name": {
+            "en_US": "Recurrence Rule",
+            "zh_Hans": "重复规则"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Recurrence rule per RFC5545. Examples: RRULE:FREQ=DAILY;COUNT=5, RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR, RRULE:FREQ=MONTHLY;BYMONTHDAY=15.",
+              "zh_Hans": "RFC5545 重复规则。例如：RRULE:FREQ=DAILY;COUNT=5, RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR, RRULE:FREQ=MONTHLY;BYMONTHDAY=15。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
+              "zh_Hans": "RFC5545 RRULE 规则，例如 RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR"
+            },
+            "placeholder": {
+              "en_US": "RRULE:FREQ=DAILY;COUNT=5",
+              "zh_Hans": "RRULE:FREQ=DAILY;COUNT=5"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "attendees",
+          "display_name": {
+            "en_US": "Attendees",
+            "zh_Hans": "参与者"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated email addresses of attendees. Each must be a valid email per RFC5322.",
+              "zh_Hans": "参与者邮箱地址，逗号分隔。每个地址必须符合 RFC5322 邮箱格式。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated email addresses of attendees",
+              "zh_Hans": "参与者邮箱地址，逗号分隔"
+            },
+            "placeholder": {
+              "en_US": "user1@example.com,user2@example.com",
+              "zh_Hans": "user1@example.com,user2@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -2829,8 +2963,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
-              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z"
+              "en_US": "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
+              "zh_Hans": "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00"
             },
             "support_expression": true,
             "component": "input"
@@ -2859,8 +2993,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
-              "zh_Hans": "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z"
+              "en_US": "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
+              "zh_Hans": "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00"
             },
             "support_expression": true,
             "component": "input"

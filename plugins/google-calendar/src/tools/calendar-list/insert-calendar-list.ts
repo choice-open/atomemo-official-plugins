@@ -2,7 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import {
   calendarCredentialParam,
-  secondaryCalendarIdParam,
+  calendarIdParam,
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
@@ -14,7 +14,7 @@ export const insertCalendarListTool: ToolDefinition = {
   icon: "➕",
   parameters: [
     calendarCredentialParam,
-    secondaryCalendarIdParam,
+    calendarIdParam,
     {
       name: "selected",
       type: "boolean",
