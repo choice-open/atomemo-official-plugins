@@ -8,7 +8,7 @@ import { createTaskListTool } from "./tools/task-lists/create-task-list"
 import { deleteTaskListTool } from "./tools/task-lists/delete-task-list"
 import { getTaskListTool } from "./tools/task-lists/get-task-list"
 import { listTaskListsTool } from "./tools/task-lists/list-task-lists"
-import { replaceTaskListTool } from "./tools/task-lists/replace-task-list"
+// import { replaceTaskListTool } from "./tools/task-lists/replace-task-list"
 import { updateTaskListTool } from "./tools/task-lists/update-task-list"
 import { clearCompletedTasksTool } from "./tools/tasks/clear-completed-tasks"
 import { createTaskTool } from "./tools/tasks/create-task"
@@ -16,7 +16,7 @@ import { deleteTaskTool } from "./tools/tasks/delete-task"
 import { getTaskTool } from "./tools/tasks/get-task"
 import { listTasksTool } from "./tools/tasks/list-tasks"
 import { moveTaskTool } from "./tools/tasks/move-task"
-import { replaceTaskTool } from "./tools/tasks/replace-task"
+// import { replaceTaskTool } from "./tools/tasks/replace-task"
 import { updateTaskTool } from "./tools/tasks/update-task"
 
 await loadAllLocalesAsync()
@@ -38,14 +38,14 @@ plugin.addCredential(googleTasksOAuth2Credential)
 plugin.addTool(listTaskListsTool)
 plugin.addTool(getTaskListTool)
 plugin.addTool(createTaskListTool)
-plugin.addTool(replaceTaskListTool)
+// plugin.addTool(replaceTaskListTool)
 plugin.addTool(updateTaskListTool)
 plugin.addTool(deleteTaskListTool)
 
 plugin.addTool(listTasksTool)
 plugin.addTool(getTaskTool)
 plugin.addTool(createTaskTool)
-plugin.addTool(replaceTaskTool)
+// plugin.addTool(replaceTaskTool)
 plugin.addTool(updateTaskTool)
 plugin.addTool(deleteTaskTool)
 plugin.addTool(moveTaskTool)
