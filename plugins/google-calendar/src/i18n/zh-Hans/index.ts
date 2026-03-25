@@ -13,8 +13,9 @@ const zh_Hans = {
   CLIENT_SECRET_HINT: "来自 Google Cloud Console 的 OAuth 2.0 客户端密钥",
   CREDENTIAL_DISPLAY_NAME: "Google 日历凭证",
   CALENDAR_ID_DISPLAY_NAME: "日历 ID",
-  CALENDAR_ID_HINT: '主日历使用 "primary"，或使用日历的邮箱地址',
-  CALENDAR_ID_PLACEHOLDER: "primary",
+  CALENDAR_ID_HINT:
+    '主日历使用 "primary"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。',
+  CALENDAR_ID_PLACEHOLDER: "primary 或 user@group.calendar.google.com",
   EVENT_ID_DISPLAY_NAME: "事件 ID",
   EVENT_ID_HINT: "事件的唯一标识符",
   SUMMARY_DISPLAY_NAME: "标题",
@@ -27,19 +28,22 @@ const zh_Hans = {
   LOCATION_PLACEHOLDER: "会议室 A",
   START_DATETIME_DISPLAY_NAME: "开始时间",
   START_DATETIME_HINT:
-    "RFC3339 格式，例如 2025-03-18T09:00:00+08:00 或 2025-03-18T01:00:00Z",
+    "RFC3339 日期时间，需含时区偏移。示例：2025-03-18T09:00:00+08:00（东八区）、2025-03-18T01:00:00Z（UTC）、2025-03-18T09:00:00-05:00（美东）",
   END_DATETIME_DISPLAY_NAME: "结束时间",
   END_DATETIME_HINT:
-    "RFC3339 格式，例如 2025-03-18T10:00:00+08:00 或 2025-03-18T02:00:00Z",
+    "RFC3339 日期时间，需含时区偏移，必须晚于开始时间。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z",
   TIMEZONE_DISPLAY_NAME: "时区",
-  TIMEZONE_HINT: "IANA 时区，例如 Asia/Shanghai",
+  TIMEZONE_HINT:
+    "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC",
   TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "最大返回数",
   MAX_RESULTS_HINT: "返回事件的最大数量（1-2500）",
   TIME_MIN_DISPLAY_NAME: "最早时间",
-  TIME_MIN_HINT: "事件结束时间的下限（RFC3339 含时区偏移）",
+  TIME_MIN_HINT:
+    "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z",
   TIME_MAX_DISPLAY_NAME: "最晚时间",
-  TIME_MAX_HINT: "事件开始时间的上限（RFC3339 含时区偏移）",
+  TIME_MAX_HINT:
+    "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z",
   LIST_EVENTS_DISPLAY_NAME: "列出事件",
   LIST_EVENTS_DESCRIPTION: "从 Google 日历列出事件",
   CREATE_EVENT_DISPLAY_NAME: "创建事件",
@@ -75,7 +79,8 @@ const zh_Hans = {
   CALENDAR_SUMMARY_HINT: "日历名称",
   CALENDAR_DESCRIPTION_HINT: "日历描述",
   CALENDAR_LOCATION_HINT: "日历的地理位置",
-  CALENDAR_TIMEZONE_HINT: "默认时区（IANA 格式）",
+  CALENDAR_TIMEZONE_HINT:
+    "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London",
   DEFAULT_REMINDERS_DISPLAY_NAME: "默认提醒",
   DEFAULT_REMINDERS_HINT: "用户默认提醒（method: email/popup, minutes: 数字）",
   LIST_EVENT_INSTANCES_DISPLAY_NAME: "列出事件实例",
@@ -101,8 +106,10 @@ const zh_Hans = {
   FREEBUSY_QUERY_DESCRIPTION: "查询指定时间范围内日历的忙闲状态",
   CALENDAR_IDS_DISPLAY_NAME: "日历 ID 列表",
   CALENDAR_IDS_HINT: "要查询的日历 ID，逗号分隔",
-  TIME_MIN_REQUIRED_HINT: "时间范围起始（RFC3339，例如 2025-03-18T00:00:00Z）",
-  TIME_MAX_REQUIRED_HINT: "时间范围结束（RFC3339，例如 2025-03-19T00:00:00Z）",
+  TIME_MIN_REQUIRED_HINT:
+    "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00",
+  TIME_MAX_REQUIRED_HINT:
+    "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00",
   SELECTED_DISPLAY_NAME: "已选中",
   SELECTED_HINT: "是否在界面中显示此日历",
   COLOR_ID_DISPLAY_NAME: "颜色 ID",
@@ -118,11 +125,12 @@ const zh_Hans = {
   UPDATE_TIME_DISPLAY_NAME: "更新时间",
   UPDATE_TIME_HINT: "修改事件开始/结束时间",
   START_DATE_DISPLAY_NAME: "开始日期",
-  START_DATE_HINT: "全天事件的日期（yyyy-mm-dd）",
+  START_DATE_HINT: "全天事件开始日期，格式：yyyy-mm-dd。示例：2025-03-18",
   START_DATE_PLACEHOLDER: "2025-03-18",
   END_DATE_DISPLAY_NAME: "结束日期",
-  END_DATE_HINT: "全天事件的日期（yyyy-mm-dd）",
-  END_DATE_PLACEHOLDER: "2025-03-18",
+  END_DATE_HINT:
+    "全天事件结束日期（不含），必须晚于开始日期。单日事件需设为开始日期的下一天。示例：3月18日一天的事件 → 结束日期 = 2025-03-19",
+  END_DATE_PLACEHOLDER: "2025-03-19",
   SEND_UPDATES_DISPLAY_NAME: "发送通知",
   SEND_UPDATES_HINT: "是否发送关于事件变更的通知",
   SEND_UPDATES_NONE: "不通知",
@@ -166,6 +174,9 @@ const zh_Hans = {
     "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者",
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "会议数据版本",
   CONFERENCE_DATA_VERSION_HINT: "0 = 无会议数据，1 = 启用会议创建/复制",
+  SECONDARY_CALENDAR_ID_HINT:
+    '次要日历 ID（邮箱地址格式）。不能使用 "primary"。可通过「列出日历」获取 ID。',
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies Translation
 
 export default zh_Hans

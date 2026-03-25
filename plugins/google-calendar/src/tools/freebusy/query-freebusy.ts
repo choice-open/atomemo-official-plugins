@@ -3,6 +3,7 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import { parseRequiredTimeRange } from "../../lib/validators"
 
 export const queryFreebusyTool: ToolDefinition = {
   name: "query-freebusy",
@@ -81,6 +82,8 @@ export const queryFreebusyTool: ToolDefinition = {
     )
     const { time_min, time_max, calendar_ids } = args.parameters
 
+    const { timeMin, timeMax } = parseRequiredTimeRange(time_min, time_max)
+
     const ids = (calendar_ids as string)
       .split(",")
       .map((id) => id.trim())
@@ -88,8 +91,8 @@ export const queryFreebusyTool: ToolDefinition = {
 
     const res = await client.freebusy.query({
       requestBody: {
-        timeMin: time_min as string,
-        timeMax: time_max as string,
+        timeMin,
+        timeMax,
         items: ids.map((id) => ({ id })),
       },
     })

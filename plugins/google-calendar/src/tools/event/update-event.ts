@@ -8,6 +8,10 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import {
+  optionalIanaTimezoneSchema,
+  optionalRfc3339Schema,
+} from "../../lib/validators"
 
 export const updateEventTool: ToolDefinition = {
   name: "update-event",
@@ -306,16 +310,20 @@ export const updateEventTool: ToolDefinition = {
       color_id,
     } = args.parameters
 
-    const tz = (timezone as string) || "UTC"
+    const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
+    const sdt = optionalRfc3339Schema.parse(start_datetime)
+    const edt = optionalRfc3339Schema.parse(end_datetime)
+
+    if (sdt && edt && new Date(sdt) >= new Date(edt)) {
+      throw new Error("end_datetime must be after start_datetime")
+    }
 
     const body: Record<string, unknown> = {}
     if (summary !== undefined) body.summary = summary
     if (description !== undefined) body.description = description
     if (location !== undefined) body.location = location
-    if (start_datetime !== undefined)
-      body.start = { dateTime: start_datetime, timeZone: tz }
-    if (end_datetime !== undefined)
-      body.end = { dateTime: end_datetime, timeZone: tz }
+    if (sdt) body.start = { dateTime: sdt, timeZone: tz }
+    if (edt) body.end = { dateTime: edt, timeZone: tz }
     if (visibility !== undefined) body.visibility = visibility
     if (transparency !== undefined) body.transparency = transparency
     if (status !== undefined) body.status = status

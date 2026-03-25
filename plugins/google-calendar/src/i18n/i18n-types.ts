@@ -60,11 +60,11 @@ type RootTranslation = {
    */
   CALENDAR_ID_DISPLAY_NAME: string
   /**
-   * P​r​i​m​a​r​y​ ​c​a​l​e​n​d​a​r​:​ ​"​p​r​i​m​a​r​y​"​.​ ​O​r​ ​u​s​e​ ​c​a​l​e​n​d​a​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.
+   * U​s​e​ ​"​p​r​i​m​a​r​y​"​ ​f​o​r​ ​y​o​u​r​ ​m​a​i​n​ ​c​a​l​e​n​d​a​r​,​ ​o​r​ ​a​ ​c​a​l​e​n​d​a​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
    */
   CALENDAR_ID_HINT: string
   /**
-   * p​r​i​m​a​r​y
+   * p​r​i​m​a​r​y​ ​o​r​ ​u​s​e​r​@​g​r​o​u​p​.​c​a​l​e​n​d​a​r​.​g​o​o​g​l​e​.​c​o​m
    */
   CALENDAR_ID_PLACEHOLDER: string
   /**
@@ -112,7 +112,7 @@ type RootTranslation = {
    */
   START_DATETIME_DISPLAY_NAME: string
   /**
-   * R​F​C​3​3​3​9​ ​f​o​r​m​a​t​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0​+​0​8​:​0​0​ ​o​r​ ​2​0​2​5​-​0​3​-​1​8​T​0​1​:​0​0​:​0​0​Z
+   * R​F​C​3​3​3​9​ ​d​a​t​e​t​i​m​e​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​s​:​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0​+​0​8​:​0​0​ ​(​U​T​C​+​8​)​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​1​:​0​0​:​0​0​Z​ ​(​U​T​C​)​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​9​:​0​0​:​0​0​-​0​5​:​0​0​ ​(​E​S​T​)
    */
   START_DATETIME_HINT: string
   /**
@@ -120,7 +120,7 @@ type RootTranslation = {
    */
   END_DATETIME_DISPLAY_NAME: string
   /**
-   * R​F​C​3​3​3​9​ ​f​o​r​m​a​t​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​8​T​1​0​:​0​0​:​0​0​+​0​8​:​0​0​ ​o​r​ ​2​0​2​5​-​0​3​-​1​8​T​0​2​:​0​0​:​0​0​Z
+   * R​F​C​3​3​3​9​ ​d​a​t​e​t​i​m​e​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​ ​t​i​m​e​.​ ​E​x​a​m​p​l​e​s​:​ ​2​0​2​5​-​0​3​-​1​8​T​1​0​:​0​0​:​0​0​+​0​8​:​0​0​,​ ​2​0​2​5​-​0​3​-​1​8​T​0​2​:​0​0​:​0​0​Z
    */
   END_DATETIME_HINT: string
   /**
@@ -128,11 +128,11 @@ type RootTranslation = {
    */
   TIMEZONE_DISPLAY_NAME: string
   /**
-   * I​A​N​A​ ​t​i​m​e​z​o​n​e​,​ ​e​.​g​.​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s
+   * I​A​N​A​ ​t​i​m​e​z​o​n​e​ ​n​a​m​e​.​ ​E​x​a​m​p​l​e​s​:​ ​A​s​i​a​/​S​h​a​n​g​h​a​i​,​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s​,​ ​E​u​r​o​p​e​/​L​o​n​d​o​n​,​ ​A​s​i​a​/​T​o​k​y​o​,​ ​U​T​C
    */
   TIMEZONE_HINT: string
   /**
-   * A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s
+   * A​s​i​a​/​S​h​a​n​g​h​a​i
    */
   TIMEZONE_PLACEHOLDER: string
   /**
@@ -148,7 +148,7 @@ type RootTranslation = {
    */
   TIME_MIN_DISPLAY_NAME: string
   /**
-   * L​o​w​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​e​v​e​n​t​ ​e​n​d​ ​t​i​m​e​ ​(​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​)
+   * L​o​w​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​e​n​d​ ​t​i​m​e​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​0​1​T​0​0​:​0​0​:​0​0​Z
    */
   TIME_MIN_HINT: string
   /**
@@ -156,7 +156,7 @@ type RootTranslation = {
    */
   TIME_MAX_DISPLAY_NAME: string
   /**
-   * U​p​p​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​e​v​e​n​t​ ​s​t​a​r​t​ ​t​i​m​e​ ​(​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​)
+   * U​p​p​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​s​t​a​r​t​ ​t​i​m​e​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​T​i​m​e​ ​M​i​n​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​3​1​T​2​3​:​5​9​:​5​9​Z
    */
   TIME_MAX_HINT: string
   /**
@@ -296,7 +296,7 @@ type RootTranslation = {
    */
   CALENDAR_LOCATION_HINT: string
   /**
-   * D​e​f​a​u​l​t​ ​t​i​m​e​z​o​n​e​ ​(​I​A​N​A​ ​f​o​r​m​a​t​)
+   * D​e​f​a​u​l​t​ ​t​i​m​e​z​o​n​e​ ​i​n​ ​I​A​N​A​ ​f​o​r​m​a​t​.​ ​E​x​a​m​p​l​e​s​:​ ​A​s​i​a​/​S​h​a​n​g​h​a​i​,​ ​A​m​e​r​i​c​a​/​L​o​s​_​A​n​g​e​l​e​s​,​ ​E​u​r​o​p​e​/​L​o​n​d​o​n
    */
   CALENDAR_TIMEZONE_HINT: string
   /**
@@ -400,11 +400,11 @@ type RootTranslation = {
    */
   CALENDAR_IDS_HINT: string
   /**
-   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​R​F​C​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​8​T​0​0​:​0​0​:​0​0​Z​)
+   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​8​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​8​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MIN_REQUIRED_HINT: string
   /**
-   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​R​F​C​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​0​3​-​1​9​T​0​0​:​0​0​:​0​0​Z​)
+   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​9​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​9​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MAX_REQUIRED_HINT: string
   /**
@@ -468,7 +468,7 @@ type RootTranslation = {
    */
   START_DATE_DISPLAY_NAME: string
   /**
-   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   * S​t​a​r​t​ ​d​a​t​e​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s​,​ ​f​o​r​m​a​t​:​ ​y​y​y​y​-​m​m​-​d​d​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​8
    */
   START_DATE_HINT: string
   /**
@@ -480,11 +480,11 @@ type RootTranslation = {
    */
   END_DATE_DISPLAY_NAME: string
   /**
-   * D​a​t​e​ ​o​n​l​y​ ​(​y​y​y​y​-​m​m​-​d​d​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s
+   * E​n​d​ ​d​a​t​e​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​a​l​l​-​d​a​y​ ​e​v​e​n​t​s​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​ ​d​a​t​e​.​ ​F​o​r​ ​a​ ​s​i​n​g​l​e​ ​d​a​y​,​ ​s​e​t​ ​t​o​ ​t​h​e​ ​n​e​x​t​ ​d​a​y​.​ ​E​x​a​m​p​l​e​:​ ​o​n​e​-​d​a​y​ ​e​v​e​n​t​ ​o​n​ ​M​a​r​ ​1​8​ ​→​ ​e​n​d​_​d​a​t​e​ ​=​ ​2​0​2​5​-​0​3​-​1​9
    */
   END_DATE_HINT: string
   /**
-   * 2​0​2​5​-​0​3​-​1​8
+   * 2​0​2​5​-​0​3​-​1​9
    */
   END_DATE_PLACEHOLDER: string
   /**
@@ -655,6 +655,14 @@ type RootTranslation = {
    * 0​ ​=​ ​n​o​ ​c​o​n​f​e​r​e​n​c​e​ ​d​a​t​a​,​ ​1​ ​=​ ​e​n​a​b​l​e​ ​c​o​n​f​e​r​e​n​c​e​ ​c​r​e​a​t​i​o​n​/​c​o​p​y
    */
   CONFERENCE_DATA_VERSION_HINT: string
+  /**
+   * S​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r​ ​I​D​ ​(​e​m​a​i​l​ ​a​d​d​r​e​s​s​)​.​ ​C​a​n​n​o​t​ ​u​s​e​ ​"​p​r​i​m​a​r​y​"​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
+   */
+  SECONDARY_CALENDAR_ID_HINT: string
+  /**
+   * a​b​c​d​e​f​1​2​3​4​@​g​r​o​u​p​.​c​a​l​e​n​d​a​r​.​g​o​o​g​l​e​.​c​o​m
+   */
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
@@ -703,11 +711,11 @@ export type TranslationFunctions = {
    */
   CALENDAR_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * Primary calendar: "primary". Or use calendar email address.
+   * Use "primary" for your main calendar, or a calendar email address. Run "List Calendars" to find IDs.
    */
   CALENDAR_ID_HINT: () => LocalizedString
   /**
-   * primary
+   * primary or user@group.calendar.google.com
    */
   CALENDAR_ID_PLACEHOLDER: () => LocalizedString
   /**
@@ -755,7 +763,7 @@ export type TranslationFunctions = {
    */
   START_DATETIME_DISPLAY_NAME: () => LocalizedString
   /**
-   * RFC3339 format, e.g. 2025-03-18T09:00:00+08:00 or 2025-03-18T01:00:00Z
+   * RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)
    */
   START_DATETIME_HINT: () => LocalizedString
   /**
@@ -763,7 +771,7 @@ export type TranslationFunctions = {
    */
   END_DATETIME_DISPLAY_NAME: () => LocalizedString
   /**
-   * RFC3339 format, e.g. 2025-03-18T10:00:00+08:00 or 2025-03-18T02:00:00Z
+   * RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z
    */
   END_DATETIME_HINT: () => LocalizedString
   /**
@@ -771,11 +779,11 @@ export type TranslationFunctions = {
    */
   TIMEZONE_DISPLAY_NAME: () => LocalizedString
   /**
-   * IANA timezone, e.g. America/Los_Angeles
+   * IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC
    */
   TIMEZONE_HINT: () => LocalizedString
   /**
-   * America/Los_Angeles
+   * Asia/Shanghai
    */
   TIMEZONE_PLACEHOLDER: () => LocalizedString
   /**
@@ -791,7 +799,7 @@ export type TranslationFunctions = {
    */
   TIME_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Lower bound for event end time (RFC3339 with timezone offset)
+   * Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z
    */
   TIME_MIN_HINT: () => LocalizedString
   /**
@@ -799,7 +807,7 @@ export type TranslationFunctions = {
    */
   TIME_MAX_DISPLAY_NAME: () => LocalizedString
   /**
-   * Upper bound for event start time (RFC3339 with timezone offset)
+   * Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z
    */
   TIME_MAX_HINT: () => LocalizedString
   /**
@@ -939,7 +947,7 @@ export type TranslationFunctions = {
    */
   CALENDAR_LOCATION_HINT: () => LocalizedString
   /**
-   * Default timezone (IANA format)
+   * Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London
    */
   CALENDAR_TIMEZONE_HINT: () => LocalizedString
   /**
@@ -1043,11 +1051,11 @@ export type TranslationFunctions = {
    */
   CALENDAR_IDS_HINT: () => LocalizedString
   /**
-   * Start of time range (RFC3339, e.g. 2025-03-18T00:00:00Z)
+   * Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00
    */
   TIME_MIN_REQUIRED_HINT: () => LocalizedString
   /**
-   * End of time range (RFC3339, e.g. 2025-03-19T00:00:00Z)
+   * End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00
    */
   TIME_MAX_REQUIRED_HINT: () => LocalizedString
   /**
@@ -1111,7 +1119,7 @@ export type TranslationFunctions = {
    */
   START_DATE_DISPLAY_NAME: () => LocalizedString
   /**
-   * Date only (yyyy-mm-dd) for all-day events
+   * Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18
    */
   START_DATE_HINT: () => LocalizedString
   /**
@@ -1123,11 +1131,11 @@ export type TranslationFunctions = {
    */
   END_DATE_DISPLAY_NAME: () => LocalizedString
   /**
-   * Date only (yyyy-mm-dd) for all-day events
+   * End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19
    */
   END_DATE_HINT: () => LocalizedString
   /**
-   * 2025-03-18
+   * 2025-03-19
    */
   END_DATE_PLACEHOLDER: () => LocalizedString
   /**
@@ -1298,6 +1306,14 @@ export type TranslationFunctions = {
    * 0 = no conference data, 1 = enable conference creation/copy
    */
   CONFERENCE_DATA_VERSION_HINT: () => LocalizedString
+  /**
+   * Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.
+   */
+  SECONDARY_CALENDAR_ID_HINT: () => LocalizedString
+  /**
+   * abcdef1234@group.calendar.google.com
+   */
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}

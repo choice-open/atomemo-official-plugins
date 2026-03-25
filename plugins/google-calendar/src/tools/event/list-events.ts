@@ -3,6 +3,7 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam, calendarIdParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import { parseTimeRange } from "../../lib/validators"
 
 export const listEventsTool: ToolDefinition = {
   name: "list-events",
@@ -191,6 +192,8 @@ export const listEventsTool: ToolDefinition = {
       show_deleted,
     } = args.parameters
 
+    const { timeMin, timeMax } = parseTimeRange(time_min, time_max)
+
     const singleEvents = single_events !== false
     const orderByValue =
       singleEvents && (order_by as string) !== "updated"
@@ -200,8 +203,8 @@ export const listEventsTool: ToolDefinition = {
     const res = await calendar.events.list({
       calendarId: calendar_id as string,
       q: (q as string) || undefined,
-      timeMin: time_min || undefined,
-      timeMax: time_max || undefined,
+      timeMin,
+      timeMax,
       maxResults: max_results ?? 250,
       singleEvents,
       orderBy: orderByValue,

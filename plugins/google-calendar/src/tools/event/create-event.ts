@@ -7,6 +7,11 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import {
+  dateOnlySchema,
+  optionalIanaTimezoneSchema,
+  rfc3339Schema,
+} from "../../lib/validators"
 
 export const createEventTool: ToolDefinition = {
   name: "create-event",
@@ -403,19 +408,7 @@ export const createEventTool: ToolDefinition = {
       attendees,
     } = params
 
-    const tz = (timezone as string) || "UTC"
-
-    if (is_all_day_event) {
-      if (!start_date || !end_date) {
-        throw new Error(
-          "Start date and end date are required for all-day events",
-        )
-      }
-    } else {
-      if (!start_datetime || !end_datetime) {
-        throw new Error("Start time and end time are required for timed events")
-      }
-    }
+    const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
 
     const requestBody: Record<string, unknown> = {
       summary: summary as string,
@@ -424,11 +417,21 @@ export const createEventTool: ToolDefinition = {
     }
 
     if (is_all_day_event) {
-      requestBody.start = { date: start_date as string }
-      requestBody.end = { date: end_date as string }
+      const sd = dateOnlySchema.parse(start_date)
+      const ed = dateOnlySchema.parse(end_date)
+      if (new Date(sd) >= new Date(ed)) {
+        throw new Error("end_date must be after start_date")
+      }
+      requestBody.start = { date: sd }
+      requestBody.end = { date: ed }
     } else {
-      requestBody.start = { dateTime: start_datetime as string, timeZone: tz }
-      requestBody.end = { dateTime: end_datetime as string, timeZone: tz }
+      const sdt = rfc3339Schema.parse(start_datetime)
+      const edt = rfc3339Schema.parse(end_datetime)
+      if (new Date(sdt) >= new Date(edt)) {
+        throw new Error("end_datetime must be after start_datetime")
+      }
+      requestBody.start = { dateTime: sdt, timeZone: tz }
+      requestBody.end = { dateTime: edt, timeZone: tz }
     }
 
     if (visibility && visibility !== "default")

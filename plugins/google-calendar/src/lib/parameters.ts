@@ -19,15 +19,38 @@ export const calendarIdParam: Property<"calendar_id"> = {
   ai: {
     llm_description: {
       en_US:
-        'Calendar identifier. Use "primary" for the authenticated user\'s primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).',
+        'Calendar identifier. Use the keyword "primary" to access the currently authenticated user\'s primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner\'s email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the "List Calendars" tool) to retrieve all available calendar IDs.',
       zh_Hans:
-        '日历标识符。使用 "primary" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。',
+        '日历标识符。使用关键字 "primary" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。',
     },
   },
   ui: {
     component: "input" as const,
     hint: t("CALENDAR_ID_HINT"),
     placeholder: t("CALENDAR_ID_PLACEHOLDER"),
+    support_expression: true,
+    width: "full",
+  },
+}
+
+export const secondaryCalendarIdParam: Property = {
+  name: "calendar_id",
+  type: "string" as const,
+  required: true,
+  min_length: 1,
+  display_name: t("CALENDAR_ID_DISPLAY_NAME"),
+  ai: {
+    llm_description: {
+      en_US:
+        'Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use "primary" — this operation cannot target the primary calendar. Call "List Calendars" to find available IDs.',
+      zh_Hans:
+        '次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 "primary"——此操作不能用于主日历。调用「列出日历」获取可用 ID。',
+    },
+  },
+  ui: {
+    component: "input" as const,
+    hint: t("SECONDARY_CALENDAR_ID_HINT"),
+    placeholder: t("SECONDARY_CALENDAR_ID_PLACEHOLDER"),
     support_expression: true,
     width: "full",
   },

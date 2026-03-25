@@ -14,8 +14,8 @@ const en_US = {
   CREDENTIAL_DISPLAY_NAME: "Google Calendar Credential",
   CALENDAR_ID_DISPLAY_NAME: "Calendar ID",
   CALENDAR_ID_HINT:
-    'Primary calendar: "primary". Or use calendar email address.',
-  CALENDAR_ID_PLACEHOLDER: "primary",
+    'Use "primary" for your main calendar, or a calendar email address. Run "List Calendars" to find IDs.',
+  CALENDAR_ID_PLACEHOLDER: "primary or user@group.calendar.google.com",
   EVENT_ID_DISPLAY_NAME: "Event ID",
   EVENT_ID_HINT: "The unique identifier of the event",
   SUMMARY_DISPLAY_NAME: "Title",
@@ -28,21 +28,22 @@ const en_US = {
   LOCATION_PLACEHOLDER: "Conference Room A",
   START_DATETIME_DISPLAY_NAME: "Start Time",
   START_DATETIME_HINT:
-    "RFC3339 format, e.g. 2025-03-18T09:00:00+08:00 or 2025-03-18T01:00:00Z",
+    "RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)",
   END_DATETIME_DISPLAY_NAME: "End Time",
   END_DATETIME_HINT:
-    "RFC3339 format, e.g. 2025-03-18T10:00:00+08:00 or 2025-03-18T02:00:00Z",
+    "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
   TIMEZONE_DISPLAY_NAME: "Timezone",
-  TIMEZONE_HINT: "IANA timezone, e.g. America/Los_Angeles",
-  TIMEZONE_PLACEHOLDER: "America/Los_Angeles",
+  TIMEZONE_HINT:
+    "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
+  TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "Max Results",
   MAX_RESULTS_HINT: "Maximum number of events to return (1-2500)",
   TIME_MIN_DISPLAY_NAME: "Time Min",
   TIME_MIN_HINT:
-    "Lower bound for event end time (RFC3339 with timezone offset)",
+    "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
   TIME_MAX_DISPLAY_NAME: "Time Max",
   TIME_MAX_HINT:
-    "Upper bound for event start time (RFC3339 with timezone offset)",
+    "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
   LIST_EVENTS_DISPLAY_NAME: "List Events",
   LIST_EVENTS_DESCRIPTION: "List events from a Google Calendar",
   CREATE_EVENT_DISPLAY_NAME: "Create Event",
@@ -82,7 +83,8 @@ const en_US = {
   CALENDAR_SUMMARY_HINT: "Calendar name/title",
   CALENDAR_DESCRIPTION_HINT: "Calendar description",
   CALENDAR_LOCATION_HINT: "Geographic location of the calendar",
-  CALENDAR_TIMEZONE_HINT: "Default timezone (IANA format)",
+  CALENDAR_TIMEZONE_HINT:
+    "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
   DEFAULT_REMINDERS_DISPLAY_NAME: "Default Reminders",
   DEFAULT_REMINDERS_HINT:
     "User default reminders (method: email/popup, minutes: number)",
@@ -113,9 +115,9 @@ const en_US = {
   CALENDAR_IDS_DISPLAY_NAME: "Calendar IDs",
   CALENDAR_IDS_HINT: "Comma-separated calendar IDs to query",
   TIME_MIN_REQUIRED_HINT:
-    "Start of time range (RFC3339, e.g. 2025-03-18T00:00:00Z)",
+    "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
   TIME_MAX_REQUIRED_HINT:
-    "End of time range (RFC3339, e.g. 2025-03-19T00:00:00Z)",
+    "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
   SELECTED_DISPLAY_NAME: "Selected",
   SELECTED_HINT: "Whether to show this calendar in the UI",
   COLOR_ID_DISPLAY_NAME: "Color ID",
@@ -131,11 +133,13 @@ const en_US = {
   UPDATE_TIME_DISPLAY_NAME: "Update Time",
   UPDATE_TIME_HINT: "Change event start/end time",
   START_DATE_DISPLAY_NAME: "Start Date",
-  START_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
+  START_DATE_HINT:
+    "Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18",
   START_DATE_PLACEHOLDER: "2025-03-18",
   END_DATE_DISPLAY_NAME: "End Date",
-  END_DATE_HINT: "Date only (yyyy-mm-dd) for all-day events",
-  END_DATE_PLACEHOLDER: "2025-03-18",
+  END_DATE_HINT:
+    "End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19",
+  END_DATE_PLACEHOLDER: "2025-03-19",
   SEND_UPDATES_DISPLAY_NAME: "Send Updates",
   SEND_UPDATES_HINT: "Whether to send notifications about the event change",
   SEND_UPDATES_NONE: "None",
@@ -183,6 +187,9 @@ const en_US = {
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "Conference Data Version",
   CONFERENCE_DATA_VERSION_HINT:
     "0 = no conference data, 1 = enable conference creation/copy",
+  SECONDARY_CALENDAR_ID_HINT:
+    'Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.',
+  SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies BaseTranslation
 
 export default en_US

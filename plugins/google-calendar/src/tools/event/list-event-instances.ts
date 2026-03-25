@@ -7,6 +7,7 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import { parseTimeRange } from "../../lib/validators"
 
 export const listEventInstancesTool: ToolDefinition = {
   name: "list-event-instances",
@@ -103,11 +104,13 @@ export const listEventInstancesTool: ToolDefinition = {
     const { calendar_id, event_id, time_min, time_max, max_results } =
       args.parameters
 
+    const { timeMin, timeMax } = parseTimeRange(time_min, time_max)
+
     const res = await client.events.instances({
       calendarId: calendar_id as string,
       eventId: event_id as string,
-      timeMin: time_min || undefined,
-      timeMax: time_max || undefined,
+      timeMin,
+      timeMax,
       maxResults: max_results ?? 250,
     })
 

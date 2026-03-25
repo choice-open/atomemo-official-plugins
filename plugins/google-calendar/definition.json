@@ -119,18 +119,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -258,11 +258,11 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Default timezone (IANA format)",
-              "zh_Hans": "默认时区（IANA 格式）"
+              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
+              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London"
             },
             "placeholder": {
-              "en_US": "America/Los_Angeles",
+              "en_US": "Asia/Shanghai",
               "zh_Hans": "Asia/Shanghai"
             },
             "support_expression": true,
@@ -307,18 +307,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -414,11 +414,11 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Default timezone (IANA format)",
-              "zh_Hans": "默认时区（IANA 格式）"
+              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
+              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London"
             },
             "placeholder": {
-              "en_US": "America/Los_Angeles",
+              "en_US": "Asia/Shanghai",
               "zh_Hans": "Asia/Shanghai"
             },
             "support_expression": true,
@@ -463,25 +463,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
+              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "abcdef1234@group.calendar.google.com",
+              "zh_Hans": "abcdef1234@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         }
       ]
     },
@@ -599,18 +599,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -655,25 +655,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
+              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "abcdef1234@group.calendar.google.com",
+              "zh_Hans": "abcdef1234@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         },
         {
           "name": "selected",
@@ -777,18 +777,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -916,25 +916,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Secondary calendar identifier. Must be a calendar email address (e.g. abcdef1234@group.calendar.google.com). Do NOT use \"primary\" — this operation cannot target the primary calendar. Call \"List Calendars\" to find available IDs.",
+              "zh_Hans": "次要日历标识符。必须为日历邮箱地址（如 abcdef1234@group.calendar.google.com）。不能使用 \"primary\"——此操作不能用于主日历。调用「列出日历」获取可用 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "abcdef1234@group.calendar.google.com",
+              "zh_Hans": "abcdef1234@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         }
       ]
     },
@@ -972,18 +972,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -1059,8 +1059,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Lower bound for event end time (RFC3339 with timezone offset)",
-              "zh_Hans": "事件结束时间的下限（RFC3339 含时区偏移）"
+              "en_US": "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
+              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z"
             },
             "support_expression": true,
             "component": "input"
@@ -1089,8 +1089,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Upper bound for event start time (RFC3339 with timezone offset)",
-              "zh_Hans": "事件开始时间的上限（RFC3339 含时区偏移）"
+              "en_US": "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
+              "zh_Hans": "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z"
             },
             "support_expression": true,
             "component": "input"
@@ -1251,18 +1251,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -1338,8 +1338,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RFC3339 format, e.g. 2025-03-18T09:00:00+08:00 or 2025-03-18T01:00:00Z",
-              "zh_Hans": "RFC3339 格式，例如 2025-03-18T09:00:00+08:00 或 2025-03-18T01:00:00Z"
+              "en_US": "RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)",
+              "zh_Hans": "RFC3339 日期时间，需含时区偏移。示例：2025-03-18T09:00:00+08:00（东八区）、2025-03-18T01:00:00Z（UTC）、2025-03-18T09:00:00-05:00（美东）"
             },
             "support_expression": true,
             "component": "input"
@@ -1368,8 +1368,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RFC3339 format, e.g. 2025-03-18T10:00:00+08:00 or 2025-03-18T02:00:00Z",
-              "zh_Hans": "RFC3339 格式，例如 2025-03-18T10:00:00+08:00 或 2025-03-18T02:00:00Z"
+              "en_US": "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
+              "zh_Hans": "RFC3339 日期时间，需含时区偏移，必须晚于开始时间。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z"
             },
             "support_expression": true,
             "component": "input"
@@ -1398,8 +1398,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Date only (yyyy-mm-dd) for all-day events",
-              "zh_Hans": "全天事件的日期（yyyy-mm-dd）"
+              "en_US": "Start date for all-day events, format: yyyy-mm-dd. Example: 2025-03-18",
+              "zh_Hans": "全天事件开始日期，格式：yyyy-mm-dd。示例：2025-03-18"
             },
             "placeholder": {
               "en_US": "2025-03-18",
@@ -1432,12 +1432,12 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Date only (yyyy-mm-dd) for all-day events",
-              "zh_Hans": "全天事件的日期（yyyy-mm-dd）"
+              "en_US": "End date (exclusive) for all-day events, must be after start date. For a single day, set to the next day. Example: one-day event on Mar 18 → end_date = 2025-03-19",
+              "zh_Hans": "全天事件结束日期（不含），必须晚于开始日期。单日事件需设为开始日期的下一天。示例：3月18日一天的事件 → 结束日期 = 2025-03-19"
             },
             "placeholder": {
-              "en_US": "2025-03-18",
-              "zh_Hans": "2025-03-18"
+              "en_US": "2025-03-19",
+              "zh_Hans": "2025-03-19"
             },
             "support_expression": true,
             "component": "input"
@@ -1466,11 +1466,11 @@
           },
           "ui": {
             "hint": {
-              "en_US": "IANA timezone, e.g. America/Los_Angeles",
-              "zh_Hans": "IANA 时区，例如 Asia/Shanghai"
+              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
+              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC"
             },
             "placeholder": {
-              "en_US": "America/Los_Angeles",
+              "en_US": "Asia/Shanghai",
               "zh_Hans": "Asia/Shanghai"
             },
             "support_expression": true,
@@ -1943,18 +1943,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -2025,18 +2025,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -2222,8 +2222,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RFC3339 format, e.g. 2025-03-18T09:00:00+08:00 or 2025-03-18T01:00:00Z",
-              "zh_Hans": "RFC3339 格式，例如 2025-03-18T09:00:00+08:00 或 2025-03-18T01:00:00Z"
+              "en_US": "RFC3339 datetime with timezone offset. Examples: 2025-03-18T09:00:00+08:00 (UTC+8), 2025-03-18T01:00:00Z (UTC), 2025-03-18T09:00:00-05:00 (EST)",
+              "zh_Hans": "RFC3339 日期时间，需含时区偏移。示例：2025-03-18T09:00:00+08:00（东八区）、2025-03-18T01:00:00Z（UTC）、2025-03-18T09:00:00-05:00（美东）"
             },
             "support_expression": true,
             "component": "input"
@@ -2252,8 +2252,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RFC3339 format, e.g. 2025-03-18T10:00:00+08:00 or 2025-03-18T02:00:00Z",
-              "zh_Hans": "RFC3339 格式，例如 2025-03-18T10:00:00+08:00 或 2025-03-18T02:00:00Z"
+              "en_US": "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
+              "zh_Hans": "RFC3339 日期时间，需含时区偏移，必须晚于开始时间。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z"
             },
             "support_expression": true,
             "component": "input"
@@ -2282,11 +2282,11 @@
           },
           "ui": {
             "hint": {
-              "en_US": "IANA timezone, e.g. America/Los_Angeles",
-              "zh_Hans": "IANA 时区，例如 Asia/Shanghai"
+              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
+              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC"
             },
             "placeholder": {
-              "en_US": "America/Los_Angeles",
+              "en_US": "Asia/Shanghai",
               "zh_Hans": "Asia/Shanghai"
             },
             "support_expression": true,
@@ -2609,18 +2609,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -2743,18 +2743,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -2829,8 +2829,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Lower bound for event end time (RFC3339 with timezone offset)",
-              "zh_Hans": "事件结束时间的下限（RFC3339 含时区偏移）"
+              "en_US": "Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z",
+              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 格式含时区偏移。示例：2025-03-01T00:00:00Z"
             },
             "support_expression": true,
             "component": "input"
@@ -2859,8 +2859,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Upper bound for event start time (RFC3339 with timezone offset)",
-              "zh_Hans": "事件开始时间的上限（RFC3339 含时区偏移）"
+              "en_US": "Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z",
+              "zh_Hans": "事件开始时间的上限（不含），必须晚于最早时间。RFC3339 格式含时区偏移。示例：2025-03-31T23:59:59Z"
             },
             "support_expression": true,
             "component": "input"
@@ -2929,18 +2929,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -2994,8 +2994,8 @@
               "zh_Hans": "事件的目标日历"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -3091,18 +3091,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use \"primary\" for the authenticated user's primary calendar, or a calendar email address (e.g. user@group.calendar.google.com).",
-              "zh_Hans": "日历标识符。使用 \"primary\" 表示当前用户的主日历，或使用日历邮箱地址（如 user@group.calendar.google.com）。"
+              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
+              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Primary calendar: \"primary\". Or use calendar email address.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历的邮箱地址"
+              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
             },
             "placeholder": {
-              "en_US": "primary",
-              "zh_Hans": "primary"
+              "en_US": "primary or user@group.calendar.google.com",
+              "zh_Hans": "primary 或 user@group.calendar.google.com"
             },
             "support_expression": true,
             "width": "full",
@@ -3343,8 +3343,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Start of time range (RFC3339, e.g. 2025-03-18T00:00:00Z)",
-              "zh_Hans": "时间范围起始（RFC3339，例如 2025-03-18T00:00:00Z）"
+              "en_US": "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
+              "zh_Hans": "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00"
             },
             "support_expression": true,
             "width": "full",
@@ -3367,8 +3367,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "End of time range (RFC3339, e.g. 2025-03-19T00:00:00Z)",
-              "zh_Hans": "时间范围结束（RFC3339，例如 2025-03-19T00:00:00Z）"
+              "en_US": "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
+              "zh_Hans": "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00"
             },
             "support_expression": true,
             "width": "full",
