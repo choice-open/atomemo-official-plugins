@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
+    "@googleapis/docs": "^9.2.1",
     "dotenv": "^17.3.1",
     "zod": "^4.3.6"
   },

@@ -1,14 +1,32 @@
+import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import { describe, expect, it, type Mock, vi } from "vitest"
+import { googleDocsOAuth2Credential } from "../src/credentials/google-docs-oauth2"
+import { batchUpdateDocumentTool } from "../src/tools/docs/batch-update-document"
+import { createDocumentTool } from "../src/tools/docs/create-document"
+import { getDocumentTool } from "../src/tools/docs/get-document"
 
-// Mock the SDK before importing anything that uses it
+const docsCreateMock = vi.fn()
+const docsGetMock = vi.fn()
+const docsBatchUpdateMock = vi.fn()
+
 vi.mock("@choiceopen/atomemo-plugin-sdk-js", () => ({
   createPlugin: vi.fn().mockResolvedValue({
     addTool: vi.fn(),
+    addCredential: vi.fn(),
     run: vi.fn(),
   }),
 }))
 
-// Mock i18n
+vi.mock("@googleapis/docs", () => ({
+  docs: vi.fn(() => ({
+    documents: {
+      create: docsCreateMock,
+      get: docsGetMock,
+      batchUpdate: docsBatchUpdateMock,
+    },
+  })),
+}))
+
 vi.mock("../src/i18n/i18n-node", () => ({
   t: vi.fn((key: string) => ({ en_US: key })),
 }))
@@ -21,80 +39,110 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
   loadAllLocalesAsync: vi.fn().mockResolvedValue({ en_US: {} }),
 }))
 
-import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import { demoTool } from "../src/tools/demo"
+vi.mock("../src/tools/demo", () => ({
+  demoTool: {
+    name: "demo-tool",
+  },
+}))
 
-describe("demo plugin", () => {
-  describe("plugin initialization", () => {
-    it("should create a plugin instance with correct properties", async () => {
-      const plugin = await createPlugin({
-        name: "demo-plugin",
-        display_name: { en_US: "Demo Plugin" },
-        description: { en_US: "A demo plugin" },
-        icon: "🎛️",
-        lang: "typescript",
-        version: "0.5.0",
-        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
-        locales: ["en-US"],
-        transporterOptions: {},
-      })
+describe("google docs plugin", () => {
+  it("should register docs credential and tools", async () => {
+    const addTool = vi.fn()
+    const addCredential = vi.fn()
+    const run = vi.fn()
 
-      expect(plugin).toBeDefined()
-      expect(plugin.addTool).toBeDefined()
-      expect(typeof plugin.addTool).toBe("function")
-      expect(plugin.run).toBeDefined()
-      expect(typeof plugin.run).toBe("function")
+    const createPluginMock = createPlugin as Mock
+    createPluginMock.mockResolvedValueOnce({
+      addTool,
+      addCredential,
+      run,
     })
 
-    it("should call all initialization methods when imported", async () => {
-      // Create mock plugin methods
-      const addTool = vi.fn()
-      const run = vi.fn()
+    await import("../src/index")
 
-      // Replace the mock implementation
-      const createPluginMock = createPlugin as Mock
-      createPluginMock.mockResolvedValueOnce({
-        addTool,
-        run,
-      })
-
-      // Dynamically import the plugin to trigger initialization
-      await import("../src/index")
-
-      // Verify all methods were called
-      expect(createPluginMock).toHaveBeenCalled()
-      expect(addTool).toHaveBeenCalledWith(demoTool)
-      expect(run).toHaveBeenCalled()
-    })
+    expect(createPluginMock).toHaveBeenCalled()
+    expect(addCredential).toHaveBeenCalledWith(googleDocsOAuth2Credential)
+    expect(addTool).toHaveBeenCalledWith(createDocumentTool)
+    expect(addTool).toHaveBeenCalledWith(getDocumentTool)
+    expect(addTool).toHaveBeenCalledWith(batchUpdateDocumentTool)
+    expect(run).toHaveBeenCalled()
   })
 
-  describe("demo tool", () => {
-    it("should have correct properties", () => {
-      expect(demoTool).toEqual(
-        expect.objectContaining({
-          name: "demo-tool",
-          icon: "🧰",
-          parameters: expect.arrayContaining([
-            expect.objectContaining({
-              name: "location",
-              type: "string",
-              required: true,
-            }),
-          ]),
-        }),
-      )
+  it("create-document should call docs api", async () => {
+    docsCreateMock.mockResolvedValueOnce({
+      data: {
+        documentId: "doc_1",
+        title: "Doc Title",
+      },
     })
 
-    it("should return correct message when invoked", async () => {
-      const location = "Beijing"
-      const result = await demoTool.invoke({
-        args: { parameters: { location } },
-      })
+    const result = await createDocumentTool.invoke({
+      args: {
+        parameters: {
+          google_credential: "google_credential",
+          title: "Doc Title",
+        },
+        credentials: {
+          google_credential: {
+            access_token: "token",
+            client_id: "id",
+            client_secret: "secret",
+          },
+        },
+      },
+    } as any)
 
-      expect(result).toEqual(
-        expect.objectContaining({
-          message: `Testing the plugin with location: ${location}`,
-        }),
-      )
-    })
+    expect(docsCreateMock).toHaveBeenCalled()
+    expect(result).toEqual(
+      expect.objectContaining({
+        documentId: "doc_1",
+        title: "Doc Title",
+      }),
+    )
   })
+
+  it("batch-update-document should support structured insert_text operation", async () => {
+    docsBatchUpdateMock.mockResolvedValueOnce({
+      data: {
+        documentId: "doc_1",
+      },
+    })
+
+    const result = await batchUpdateDocumentTool.invoke({
+      args: {
+        parameters: {
+          google_credential: "google_credential",
+          document_id: "doc_1",
+          operation: "insert_text",
+          insert_text: "Hello",
+          insert_index: 1,
+        },
+        credentials: {
+          google_credential: {
+            access_token: "token",
+            client_id: "id",
+            client_secret: "secret",
+          },
+        },
+      },
+    } as any)
+
+    expect(docsBatchUpdateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        documentId: "doc_1",
+        requestBody: {
+          requests: [
+            {
+              insertText: {
+                location: { index: 1 },
+                text: "Hello",
+              },
+            },
+          ],
+          writeControl: undefined,
+        },
+      }),
+    )
+    expect(result).toEqual(expect.objectContaining({ documentId: "doc_1" }))
+  })
+})

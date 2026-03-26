@@ -1,8 +1,12 @@
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import packageJSON from "../package.json"
+import { googleDocsOAuth2Credential } from "./credentials/google-docs-oauth2"
 import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
+import { batchUpdateDocumentTool } from "./tools/docs/batch-update-document"
+import { createDocumentTool } from "./tools/docs/create-document"
+import { getDocumentTool } from "./tools/docs/get-document"
 import { demoTool } from "./tools/demo"
 
 await loadAllLocalesAsync()
@@ -20,5 +24,10 @@ const plugin = await createPlugin({
 })
 
 plugin.addTool(demoTool)
+plugin.addCredential(googleDocsOAuth2Credential)
+
+plugin.addTool(createDocumentTool)
+plugin.addTool(getDocumentTool)
+plugin.addTool(batchUpdateDocumentTool)
 
 plugin.run()
