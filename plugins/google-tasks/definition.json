@@ -8,7 +8,7 @@
     "en_US": "Manage Google Tasks - create, read, update, and delete tasks and task lists",
     "zh_Hans": "管理 Google Tasks — 创建、查询、更新和删除任务及任务列表"
   },
-  "icon": "✅️",
+  "icon": "https://fonts.gstatic.com/s/i/productlogos/tasks/v10/192px.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-tasks",
   "locales": [
