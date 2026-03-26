@@ -43,6 +43,7 @@ export const listEventsTool: ToolDefinition = {
       ui: {
         component: "switch",
         hint: t("USE_TIME_RANGE_HINT"),
+        support_expression: true,
       },
     },
     {
