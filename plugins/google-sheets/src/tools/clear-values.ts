@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseClearValuesParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames = "credential_id" | "spreadsheet_id" | "range"
@@ -38,7 +40,7 @@ const parameters: Array<Property<ParameterNames>> = [
     display_name: t("PARAM_RANGE_LABEL"),
     ui: {
       component: "input",
-      hint: t("PARAM_RANGE_HINT"),
+      hint: t("PARAM_CLEAR_RANGE_HINT"),
       placeholder: t("PARAM_RANGE_PLACEHOLDER"),
       support_expression: true,
       width: "full",
@@ -53,21 +55,15 @@ export const clearValuesTool: ToolDefinition = {
   icon: "🧹",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const params = parseClearValuesParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
-
-    const range = typeof p.range === "string" ? p.range.trim() : ""
-    if (!range) throw new Error("Missing range")
-
-    const res = await sheets.spreadsheets.values.clear({
-      spreadsheetId,
-      range,
-      requestBody: {},
-    })
+    const res = await callSheets(() =>
+      sheets.spreadsheets.values.clear({
+        ...params,
+        requestBody: {},
+      }),
+    )
 
     return res.data as unknown as JsonValue
   },

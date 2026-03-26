@@ -1,14 +1,13 @@
 import { describe, expect, it, type Mock, vi } from "vitest"
 
-// Mock the SDK before importing anything that uses it
 vi.mock("@choiceopen/atomemo-plugin-sdk-js", () => ({
   createPlugin: vi.fn().mockResolvedValue({
+    addCredential: vi.fn(),
     addTool: vi.fn(),
     run: vi.fn(),
   }),
 }))
 
-// Mock i18n
 vi.mock("../src/i18n/i18n-node", () => ({
   t: vi.fn((key: string) => ({ en_US: key })),
 }))
@@ -22,61 +21,49 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
 }))
 
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import { demoTool } from "../src/tools/demo"
+import { parseReadRowsParams } from "../src/helpers/schemas"
+import {
+  appendRowsTool,
+  batchGetValuesTool,
+  clearValuesTool,
+  copySheetTool,
+  createSpreadsheetTool,
+  getSpreadsheetInfoTool,
+  readRowsTool,
+  updateRowsTool,
+} from "../src/tools"
 
-describe("demo plugin", () => {
+describe("google-sheets plugin", () => {
   describe("plugin initialization", () => {
-    it("should create a plugin instance with correct properties", async () => {
-      const plugin = await createPlugin({
-        name: "demo-plugin",
-        display_name: { en_US: "Demo Plugin" },
-        description: { en_US: "A demo plugin" },
-        icon: "🎛️",
-        lang: "typescript",
-        version: "0.5.0",
-        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
-        locales: ["en-US"],
-        transporterOptions: {},
-      })
-
-      expect(plugin).toBeDefined()
-      expect(plugin.addTool).toBeDefined()
-      expect(typeof plugin.addTool).toBe("function")
-      expect(plugin.run).toBeDefined()
-      expect(typeof plugin.run).toBe("function")
-    })
-
-    it("should call all initialization methods when imported", async () => {
-      // Create mock plugin methods
+    it("registers credential, eight tools, and run()", async () => {
+      const addCredential = vi.fn()
       const addTool = vi.fn()
       const run = vi.fn()
-
-      // Replace the mock implementation
       const createPluginMock = createPlugin as Mock
       createPluginMock.mockResolvedValueOnce({
+        addCredential,
         addTool,
         run,
       })
 
-      // Dynamically import the plugin to trigger initialization
+      vi.resetModules()
       await import("../src/index")
 
-      // Verify all methods were called
       expect(createPluginMock).toHaveBeenCalled()
-      expect(addTool).toHaveBeenCalledWith(demoTool)
-      expect(run).toHaveBeenCalled()
+      expect(addCredential).toHaveBeenCalledTimes(1)
+      expect(addTool).toHaveBeenCalledTimes(8)
+      expect(run).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe("demo tool", () => {
-    it("should have correct properties", () => {
-      expect(demoTool).toEqual(
+  describe("read rows tool definition", () => {
+    it("exposes expected tool name and parameters", () => {
+      expect(readRowsTool).toEqual(
         expect.objectContaining({
-          name: "demo-tool",
-          icon: "🧰",
+          name: "google-sheets-read-rows",
           parameters: expect.arrayContaining([
             expect.objectContaining({
-              name: "location",
+              name: "spreadsheet_id",
               type: "string",
               required: true,
             }),
@@ -84,17 +71,61 @@ describe("demo plugin", () => {
         }),
       )
     })
+  })
 
-    it("should return correct message when invoked", async () => {
-      const location = "Beijing"
-      const result = await demoTool.invoke({
-        args: { parameters: { location } },
+  describe("parseReadRowsParams (Zod)", () => {
+    it("maps Atomemo parameters to Sheets API field names", () => {
+      const out = parseReadRowsParams({
+        credential_id: "cred-1",
+        spreadsheet_id: "abc123",
+        range: "Sheet1!A1:B2",
+        major_dimension: "COLUMNS",
+        value_render_option: "FORMULA",
       })
+      expect(out).toEqual({
+        spreadsheetId: "abc123",
+        range: "Sheet1!A1:B2",
+        majorDimension: "COLUMNS",
+        valueRenderOption: "FORMULA",
+      })
+    })
 
-      expect(result).toEqual(
-        expect.objectContaining({
-          message: `Testing the plugin with location: ${location}`,
+    it("throws on invalid major_dimension", () => {
+      expect(() =>
+        parseReadRowsParams({
+          credential_id: "c",
+          spreadsheet_id: "id",
+          range: "A1",
+          major_dimension: "INVALID",
         }),
+      ).toThrow()
+    })
+  })
+
+  describe("tool registry", () => {
+    it("exports all eight tools with stable names", () => {
+      const names = [
+        readRowsTool.name,
+        updateRowsTool.name,
+        appendRowsTool.name,
+        clearValuesTool.name,
+        createSpreadsheetTool.name,
+        getSpreadsheetInfoTool.name,
+        copySheetTool.name,
+        batchGetValuesTool.name,
+      ].sort()
+      expect(names).toEqual(
+        [
+          "google-sheets-append-rows",
+          "google-sheets-batch-get-values",
+          "google-sheets-clear-values",
+          "google-sheets-copy-sheet",
+          "google-sheets-create-spreadsheet",
+          "google-sheets-get-spreadsheet-info",
+          "google-sheets-read-rows",
+          "google-sheets-update-rows",
+        ].sort(),
       )
     })
   })
+})

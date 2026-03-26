@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseCreateSpreadsheetParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames = "credential_id" | "title" | "sheet_titles"
@@ -53,26 +55,12 @@ export const createSpreadsheetTool: ToolDefinition = {
   icon: "📝",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const { requestBody } = parseCreateSpreadsheetParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const title = typeof p.title === "string" ? p.title.trim() : ""
-    if (!title) throw new Error("Missing title")
-
-    const sheetTitlesRaw =
-      typeof p.sheet_titles === "string" ? p.sheet_titles.trim() : ""
-    const sheetsList = sheetTitlesRaw
-      ? sheetTitlesRaw.split(",").map((s, i) => ({
-          properties: { title: s.trim(), index: i },
-        }))
-      : undefined
-
-    const res = await sheets.spreadsheets.create({
-      requestBody: {
-        properties: { title },
-        ...(sheetsList && sheetsList.length > 0 ? { sheets: sheetsList } : {}),
-      },
-    })
+    const res = await callSheets(() =>
+      sheets.spreadsheets.create({ requestBody }),
+    )
 
     return res.data as unknown as JsonValue
   },

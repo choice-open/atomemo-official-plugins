@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseCopySheetParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames =
@@ -43,6 +45,7 @@ const parameters: Array<Property<ParameterNames>> = [
     ui: {
       component: "number-input",
       hint: t("PARAM_SHEET_ID_HINT"),
+      placeholder: t("PARAM_SHEET_ID_PLACEHOLDER"),
       support_expression: true,
       width: "full",
     },
@@ -69,29 +72,17 @@ export const copySheetTool: ToolDefinition = {
   icon: "📋",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const { spreadsheetId, sheetId, destinationSpreadsheetId } =
+      parseCopySheetParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
-
-    const sheetId =
-      typeof p.sheet_id === "number" ? p.sheet_id : Number(p.sheet_id)
-    if (Number.isNaN(sheetId)) throw new Error("Missing or invalid sheet_id")
-
-    const destinationSpreadsheetId =
-      typeof p.destination_spreadsheet_id === "string"
-        ? p.destination_spreadsheet_id.trim()
-        : ""
-    if (!destinationSpreadsheetId)
-      throw new Error("Missing destination_spreadsheet_id")
-
-    const res = await sheets.spreadsheets.sheets.copyTo({
-      spreadsheetId,
-      sheetId,
-      requestBody: { destinationSpreadsheetId },
-    })
+    const res = await callSheets(() =>
+      sheets.spreadsheets.sheets.copyTo({
+        spreadsheetId,
+        sheetId,
+        requestBody: { destinationSpreadsheetId },
+      }),
+    )
 
     return res.data as unknown as JsonValue
   },

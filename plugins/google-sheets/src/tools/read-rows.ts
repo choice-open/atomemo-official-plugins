@@ -2,17 +2,19 @@ import type {
   JsonValue,
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
-import { resolveCredential } from "../helpers/credentials"
-import { t } from "../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2";
+import { resolveCredential } from "../helpers/credentials";
+import { parseReadRowsParams } from "../helpers/schemas";
+import { callSheets } from "../helpers/sheets-api-error";
+import { t } from "../i18n/i18n-node";
 
 type ParameterNames =
   | "credential_id"
   | "spreadsheet_id"
   | "range"
   | "major_dimension"
-  | "value_render_option"
+  | "value_render_option";
 
 const parameters: Array<Property<ParameterNames>> = [
   {
@@ -56,7 +58,12 @@ const parameters: Array<Property<ParameterNames>> = [
     display_name: t("PARAM_MAJOR_DIMENSION_LABEL"),
     default: "ROWS",
     enum: ["ROWS", "COLUMNS"],
-    ui: { component: "select", width: "medium" },
+    ui: {
+      component: "select",
+      hint: t("PARAM_MAJOR_DIMENSION_HINT"),
+      width: "medium",
+      support_expression: true,
+    },
   },
   {
     name: "value_render_option",
@@ -65,9 +72,14 @@ const parameters: Array<Property<ParameterNames>> = [
     display_name: t("PARAM_VALUE_RENDER_OPTION_LABEL"),
     default: "FORMATTED_VALUE",
     enum: ["FORMATTED_VALUE", "UNFORMATTED_VALUE", "FORMULA"],
-    ui: { component: "select", width: "medium" },
+    ui: {
+      component: "select",
+      hint: t("PARAM_VALUE_RENDER_OPTION_HINT"),
+      width: "medium",
+      support_expression: true,
+    },
   },
-]
+];
 
 export const readRowsTool: ToolDefinition = {
   name: "google-sheets-read-rows",
@@ -76,32 +88,11 @@ export const readRowsTool: ToolDefinition = {
   icon: "📖",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const { sheets } = resolveCredential(args as never)
+    const params = parseReadRowsParams(args.parameters ?? {});
+    const { sheets } = resolveCredential(args as never);
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
+    const res = await callSheets(() => sheets.spreadsheets.values.get(params));
 
-    const range = typeof p.range === "string" ? p.range.trim() : ""
-    if (!range) throw new Error("Missing range")
-
-    const majorDimension = (
-      typeof p.major_dimension === "string" ? p.major_dimension : "ROWS"
-    ) as "ROWS" | "COLUMNS"
-    const valueRenderOption = (
-      typeof p.value_render_option === "string"
-        ? p.value_render_option
-        : "FORMATTED_VALUE"
-    ) as "FORMATTED_VALUE" | "UNFORMATTED_VALUE" | "FORMULA"
-
-    const res = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
-      majorDimension,
-      valueRenderOption,
-    })
-
-    return res.data as unknown as JsonValue
+    return res.data as unknown as JsonValue;
   },
-}
+};

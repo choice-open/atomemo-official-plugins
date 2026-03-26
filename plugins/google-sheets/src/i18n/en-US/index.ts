@@ -10,33 +10,38 @@ const en_US = {
   CREDENTIAL_DESCRIPTION: "OAuth 2.0 credential for Google Sheets API access.",
   CREDENTIAL_CLIENT_ID_DISPLAY_NAME: "Client ID",
   CREDENTIAL_CLIENT_ID_HINT:
-    "Create OAuth 2.0 credentials at https://console.cloud.google.com",
-  CREDENTIAL_CLIENT_ID_PLACEHOLDER: "OAuth 2.0 Client ID from Google Cloud",
+    "Google Cloud Console → APIs & Services → Credentials → Create credentials → OAuth client ID. Use a Desktop or Web client; enable the Google Sheets API for the project; add the redirect URI your Atomemo / plugin flow shows. The Client ID looks like digits followed by .apps.googleusercontent.com.",
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER:
+    "e.g. 123456789-abc.apps.googleusercontent.com",
   CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: "Client Secret",
   CREDENTIAL_CLIENT_SECRET_HINT:
-    "Create OAuth 2.0 credentials at https://console.cloud.google.com",
-  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER:
-    "OAuth 2.0 Client Secret from Google Cloud",
+    "Issued together with the Client ID for the same OAuth client. Treat it like a password — never commit it to public repos. If rotated, update this field and re-authorize if prompted.",
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: "e.g. GOCSPX-xxxxxxxxxxxx",
 
   // Common parameters
   PARAM_CREDENTIAL_LABEL: "Credential",
   PARAM_SPREADSHEET_ID_LABEL: "Spreadsheet ID",
   PARAM_SPREADSHEET_ID_HINT:
-    "The ID of the Google Sheets spreadsheet (found in the URL).",
+    "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
   PARAM_SPREADSHEET_ID_PLACEHOLDER:
     "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
   PARAM_RANGE_LABEL: "Range",
-  PARAM_RANGE_HINT: "The A1 notation of the range (e.g. Sheet1!A1:D10).",
-  PARAM_RANGE_PLACEHOLDER: "e.g. Sheet1!A1:D10",
+  PARAM_RANGE_HINT:
+    "A1 notation: optional sheet name, then !, then cells. Examples: Sheet1!A1:D10 (rectangle), Sheet1!A2:A (one column from row 2), Sheet1 (entire first sheet). Sheet names with spaces or special chars: 'Q1 Sales'!B2:E20.",
+  PARAM_RANGE_PLACEHOLDER: "e.g. Sheet1!A1:D10 or 'My Sheet'!A:C",
   PARAM_MAJOR_DIMENSION_LABEL: "Major Dimension",
+  PARAM_MAJOR_DIMENSION_HINT:
+    "ROWS: each inner array is one row (usual for tables). COLUMNS: each inner array is one column. Controls how the API returns nested arrays for reads.",
   PARAM_VALUE_RENDER_OPTION_LABEL: "Value Render Option",
+  PARAM_VALUE_RENDER_OPTION_HINT:
+    "FORMATTED_VALUE: display text as in the UI (default). UNFORMATTED_VALUE: raw numbers/dates without display formatting. FORMULA: return formula strings like =SUM(A1:A10) when the cell has a formula.",
   PARAM_VALUE_INPUT_OPTION_LABEL: "Value Input Option",
   PARAM_VALUE_INPUT_OPTION_HINT:
-    "RAW: values are stored as-is. USER_ENTERED: values are parsed as if typed by a user.",
+    'RAW: store values exactly as strings (e.g. "1-2" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).',
   PARAM_VALUES_LABEL: "Values",
   PARAM_VALUES_HINT:
-    'A 2D JSON array of values. e.g. [["Name","Age"],["Alice",30]]',
-  PARAM_VALUES_PLACEHOLDER: '[[\"value1\",\"value2\"],[\"value3\",\"value4\"]]',
+    'JSON 2D array: outer = rows, inner = cells. For Update, dimensions should match the range. Examples: [["Name","Score"],["Ada",95]]; mixed types [["SKU",12,true]].',
+  PARAM_VALUES_PLACEHOLDER: 'e.g. [["Name","Age"],["Alice",30],["Bob",25]]',
 
   // Read Rows
   READ_ROWS_TOOL_DISPLAY_NAME: "Read Rows",
@@ -53,13 +58,13 @@ const en_US = {
   APPEND_ROWS_TOOL_DESCRIPTION:
     "Append rows of data after the last row of a table in a Google Sheets spreadsheet.",
   PARAM_APPEND_RANGE_HINT:
-    "The range to search for a table boundary, after which values will be appended.",
-  PARAM_APPEND_RANGE_PLACEHOLDER: "e.g. Sheet1!A:D",
+    "Sheets finds the last row with data inside this range, then appends after it. Cover all table columns (same width as each values row), e.g. Sheet1!A:F or Data!B:E. Too narrow a range can mis-detect the table end.",
+  PARAM_APPEND_RANGE_PLACEHOLDER: "e.g. Sheet1!A:D or Orders!B:G",
   PARAM_INSERT_DATA_OPTION_LABEL: "Insert Data Option",
   PARAM_INSERT_DATA_OPTION_HINT:
-    "INSERT_ROWS: inserts new rows. OVERWRITE: overwrites existing data.",
+    "INSERT_ROWS: insert new rows and shift existing rows down (safer when data may exist below). OVERWRITE: write into the next rows without inserting — can overwrite cells if the write range overlaps existing data.",
   PARAM_APPEND_VALUES_HINT:
-    'A 2D JSON array of rows to append. e.g. [["Alice",30],["Bob",25]]',
+    'One inner array per new row; column count should match the table. Examples: [["Eve","eve@ex.com",1],["Dan","dan@ex.com",2]]; single row [["2025-03-26",42.5]].',
 
   // Clear Values
   CLEAR_VALUES_TOOL_DISPLAY_NAME: "Clear Values",
@@ -71,12 +76,13 @@ const en_US = {
   CREATE_SPREADSHEET_TOOL_DESCRIPTION:
     "Create a new Google Sheets spreadsheet.",
   PARAM_TITLE_LABEL: "Title",
-  PARAM_TITLE_HINT: "The title of the new spreadsheet.",
-  PARAM_TITLE_PLACEHOLDER: "e.g. My New Spreadsheet",
+  PARAM_TITLE_HINT:
+    "Shown in Drive and as the spreadsheet title bar. Examples: FY2025 Budget, Team Roster — Q1.",
+  PARAM_TITLE_PLACEHOLDER: "e.g. FY2025 Budget Tracker",
   PARAM_SHEET_TITLES_LABEL: "Sheet Names (optional)",
   PARAM_SHEET_TITLES_HINT:
-    "Comma-separated list of sheet names. Leave empty for a single default sheet.",
-  PARAM_SHEET_TITLES_PLACEHOLDER: "e.g. Sheet1, Sheet2, Data",
+    "Comma-separated tab names, created left-to-right in this order. Leave empty for one default sheet. Example: Summary,Raw Data,Archive. Avoid commas inside a name here (rename in Sheets after creation if needed).",
+  PARAM_SHEET_TITLES_PLACEHOLDER: "e.g. Summary, Raw Data, Archive",
 
   // Get Spreadsheet Info
   GET_SPREADSHEET_INFO_TOOL_DISPLAY_NAME: "Get Spreadsheet Info",
@@ -84,7 +90,7 @@ const en_US = {
     "Get metadata and properties of a Google Sheets spreadsheet.",
   PARAM_INCLUDE_GRID_DATA_LABEL: "Include Grid Data",
   PARAM_INCLUDE_GRID_DATA_HINT:
-    "Whether to include the full grid data (cell values) in the response.",
+    "When enabled, responses include cell values and can be very large on big spreadsheets. Leave off (default) for titles, sheetIds, grid size, and other metadata only — faster and lighter.",
 
   // Copy Sheet
   COPY_SHEET_TOOL_DISPLAY_NAME: "Copy Sheet",
@@ -92,12 +98,13 @@ const en_US = {
     "Copy a single sheet from one spreadsheet to another.",
   PARAM_SHEET_ID_LABEL: "Sheet ID",
   PARAM_SHEET_ID_HINT:
-    "The numeric ID of the sheet to copy (found in the sheet URL as gid=xxx).",
+    "Numeric sheetId used by the API. From the browser: open the tab and read gid= in the URL (e.g. ...#gid=1234567890 → use 1234567890). The first sheet is often 0; confirm via Get Spreadsheet Info if unsure.",
+  PARAM_SHEET_ID_PLACEHOLDER: "e.g. 0 or gid from URL (e.g. 1234567890)",
   PARAM_SOURCE_SPREADSHEET_ID_HINT:
-    "The ID of the source spreadsheet containing the sheet to copy.",
+    'The spreadsheet that currently contains the sheet to copy — same ID as "Spreadsheet ID" (between /d/ and /edit in the URL). Example: https://docs.google.com/spreadsheets/d/SOURCE_ID/edit',
   PARAM_DESTINATION_SPREADSHEET_ID_LABEL: "Destination Spreadsheet ID",
   PARAM_DESTINATION_SPREADSHEET_ID_HINT:
-    "The ID of the target spreadsheet to copy the sheet to.",
+    "An existing spreadsheet where a new tab will be added as a copy. Your account needs edit access. The new sheet name may get a suffix if a duplicate name exists.",
 
   // Batch Get Values
   BATCH_GET_VALUES_TOOL_DISPLAY_NAME: "Batch Get Values",
@@ -105,8 +112,13 @@ const en_US = {
     "Read values from multiple ranges in a Google Sheets spreadsheet at once.",
   PARAM_RANGES_LABEL: "Ranges",
   PARAM_RANGES_HINT:
-    "Comma-separated A1 notation ranges. e.g. Sheet1!A1:B2, Sheet2!C1:D5",
-  PARAM_RANGES_PLACEHOLDER: "e.g. Sheet1!A1:B10, Sheet2!A1:C5",
+    "Several ranges in one request, separated by commas. Each uses A1 notation; spaces after commas are fine. Examples: Sheet1!A1:C10,Sheet2!A1:C10; 'Jan'!B:B,'Feb'!B:B for whole columns on quoted sheet names.",
+  PARAM_RANGES_PLACEHOLDER:
+    "e.g. Sheet1!A1:B10, Sheet2!A1:C5, 'Sales Q1'!D2:F99",
+
+  // Clear-values tool — range field
+  PARAM_CLEAR_RANGE_HINT:
+    "Clears cell values only — formatting, notes, and validation remain. Same A1 rules as Read. Examples: Sheet1!C2:C500 (part of a column), Data!A1:Z200 (block).",
 } satisfies BaseTranslation
 
 export default en_US

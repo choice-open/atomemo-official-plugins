@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseGetSpreadsheetInfoParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames = "credential_id" | "spreadsheet_id" | "include_grid_data"
@@ -51,19 +53,10 @@ export const getSpreadsheetInfoTool: ToolDefinition = {
   icon: "ℹ️",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const params = parseGetSpreadsheetInfoParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
-
-    const includeGridData = p.include_grid_data === true
-
-    const res = await sheets.spreadsheets.get({
-      spreadsheetId,
-      includeGridData,
-    })
+    const res = await callSheets(() => sheets.spreadsheets.get(params))
 
     return res.data as unknown as JsonValue
   },

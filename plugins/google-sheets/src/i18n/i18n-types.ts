@@ -36,11 +36,11 @@ type RootTranslation = {
    */
   CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
   /**
-   * C​r​e​a​t​e​ ​O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​s​ ​a​t​ ​h​t​t​p​s​:​/​/​c​o​n​s​o​l​e​.​c​l​o​u​d​.​g​o​o​g​l​e​.​c​o​m
+   * G​o​o​g​l​e​ ​C​l​o​u​d​ ​C​o​n​s​o​l​e​ ​→​ ​A​P​I​s​ ​&​ ​S​e​r​v​i​c​e​s​ ​→​ ​C​r​e​d​e​n​t​i​a​l​s​ ​→​ ​C​r​e​a​t​e​ ​c​r​e​d​e​n​t​i​a​l​s​ ​→​ ​O​A​u​t​h​ ​c​l​i​e​n​t​ ​I​D​.​ ​U​s​e​ ​a​ ​D​e​s​k​t​o​p​ ​o​r​ ​W​e​b​ ​c​l​i​e​n​t​;​ ​e​n​a​b​l​e​ ​t​h​e​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​A​P​I​ ​f​o​r​ ​t​h​e​ ​p​r​o​j​e​c​t​;​ ​a​d​d​ ​t​h​e​ ​r​e​d​i​r​e​c​t​ ​U​R​I​ ​y​o​u​r​ ​A​t​o​m​e​m​o​ ​/​ ​p​l​u​g​i​n​ ​f​l​o​w​ ​s​h​o​w​s​.​ ​T​h​e​ ​C​l​i​e​n​t​ ​I​D​ ​l​o​o​k​s​ ​l​i​k​e​ ​d​i​g​i​t​s​ ​f​o​l​l​o​w​e​d​ ​b​y​ ​.​a​p​p​s​.​g​o​o​g​l​e​u​s​e​r​c​o​n​t​e​n​t​.​c​o​m​.
    */
   CREDENTIAL_CLIENT_ID_HINT: string
   /**
-   * O​A​u​t​h​ ​2​.​0​ ​C​l​i​e​n​t​ ​I​D​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​C​l​o​u​d
+   * e​.​g​.​ ​1​2​3​4​5​6​7​8​9​-​a​b​c​.​a​p​p​s​.​g​o​o​g​l​e​u​s​e​r​c​o​n​t​e​n​t​.​c​o​m
    */
   CREDENTIAL_CLIENT_ID_PLACEHOLDER: string
   /**
@@ -48,11 +48,11 @@ type RootTranslation = {
    */
   CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
   /**
-   * C​r​e​a​t​e​ ​O​A​u​t​h​ ​2​.​0​ ​c​r​e​d​e​n​t​i​a​l​s​ ​a​t​ ​h​t​t​p​s​:​/​/​c​o​n​s​o​l​e​.​c​l​o​u​d​.​g​o​o​g​l​e​.​c​o​m
+   * I​s​s​u​e​d​ ​t​o​g​e​t​h​e​r​ ​w​i​t​h​ ​t​h​e​ ​C​l​i​e​n​t​ ​I​D​ ​f​o​r​ ​t​h​e​ ​s​a​m​e​ ​O​A​u​t​h​ ​c​l​i​e​n​t​.​ ​T​r​e​a​t​ ​i​t​ ​l​i​k​e​ ​a​ ​p​a​s​s​w​o​r​d​ ​—​ ​n​e​v​e​r​ ​c​o​m​m​i​t​ ​i​t​ ​t​o​ ​p​u​b​l​i​c​ ​r​e​p​o​s​.​ ​I​f​ ​r​o​t​a​t​e​d​,​ ​u​p​d​a​t​e​ ​t​h​i​s​ ​f​i​e​l​d​ ​a​n​d​ ​r​e​-​a​u​t​h​o​r​i​z​e​ ​i​f​ ​p​r​o​m​p​t​e​d​.
    */
   CREDENTIAL_CLIENT_SECRET_HINT: string
   /**
-   * O​A​u​t​h​ ​2​.​0​ ​C​l​i​e​n​t​ ​S​e​c​r​e​t​ ​f​r​o​m​ ​G​o​o​g​l​e​ ​C​l​o​u​d
+   * e​.​g​.​ ​G​O​C​S​P​X​-​x​x​x​x​x​x​x​x​x​x​x​x
    */
   CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: string
   /**
@@ -64,7 +64,7 @@ type RootTranslation = {
    */
   PARAM_SPREADSHEET_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​G​o​o​g​l​e​ ​S​h​e​e​t​s​ ​s​p​r​e​a​d​s​h​e​e​t​ ​(​f​o​u​n​d​ ​i​n​ ​t​h​e​ ​U​R​L​)​.
+   * O​p​e​n​ ​t​h​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​i​n​ ​t​h​e​ ​b​r​o​w​s​e​r​.​ ​C​o​p​y​ ​t​h​e​ ​l​o​n​g​ ​s​e​g​m​e​n​t​ ​b​e​t​w​e​e​n​ ​/​d​/​ ​a​n​d​ ​/​e​d​i​t​ ​(​o​r​ ​/​e​d​i​t​#​g​i​d​=​…​)​ ​i​n​ ​t​h​e​ ​U​R​L​ ​—​ ​t​h​a​t​ ​i​s​ ​t​h​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​I​D​.​ ​E​x​a​m​p​l​e​:​ ​h​t​t​p​s​:​/​/​d​o​c​s​.​g​o​o​g​l​e​.​c​o​m​/​s​p​r​e​a​d​s​h​e​e​t​s​/​d​/​T​H​I​S​_​P​A​R​T​_​I​S​_​T​H​E​_​I​D​/​e​d​i​t
    */
   PARAM_SPREADSHEET_ID_HINT: string
   /**
@@ -76,11 +76,11 @@ type RootTranslation = {
    */
   PARAM_RANGE_LABEL: string
   /**
-   * T​h​e​ ​A​1​ ​n​o​t​a​t​i​o​n​ ​o​f​ ​t​h​e​ ​r​a​n​g​e​ ​(​e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​D​1​0​)​.
+   * A​1​ ​n​o​t​a​t​i​o​n​:​ ​o​p​t​i​o​n​a​l​ ​s​h​e​e​t​ ​n​a​m​e​,​ ​t​h​e​n​ ​!​,​ ​t​h​e​n​ ​c​e​l​l​s​.​ ​E​x​a​m​p​l​e​s​:​ ​S​h​e​e​t​1​!​A​1​:​D​1​0​ ​(​r​e​c​t​a​n​g​l​e​)​,​ ​S​h​e​e​t​1​!​A​2​:​A​ ​(​o​n​e​ ​c​o​l​u​m​n​ ​f​r​o​m​ ​r​o​w​ ​2​)​,​ ​S​h​e​e​t​1​ ​(​e​n​t​i​r​e​ ​f​i​r​s​t​ ​s​h​e​e​t​)​.​ ​S​h​e​e​t​ ​n​a​m​e​s​ ​w​i​t​h​ ​s​p​a​c​e​s​ ​o​r​ ​s​p​e​c​i​a​l​ ​c​h​a​r​s​:​ ​'​Q​1​ ​S​a​l​e​s​'​!​B​2​:​E​2​0​.
    */
   PARAM_RANGE_HINT: string
   /**
-   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​D​1​0
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​D​1​0​ ​o​r​ ​'​M​y​ ​S​h​e​e​t​'​!​A​:​C
    */
   PARAM_RANGE_PLACEHOLDER: string
   /**
@@ -88,15 +88,23 @@ type RootTranslation = {
    */
   PARAM_MAJOR_DIMENSION_LABEL: string
   /**
+   * R​O​W​S​:​ ​e​a​c​h​ ​i​n​n​e​r​ ​a​r​r​a​y​ ​i​s​ ​o​n​e​ ​r​o​w​ ​(​u​s​u​a​l​ ​f​o​r​ ​t​a​b​l​e​s​)​.​ ​C​O​L​U​M​N​S​:​ ​e​a​c​h​ ​i​n​n​e​r​ ​a​r​r​a​y​ ​i​s​ ​o​n​e​ ​c​o​l​u​m​n​.​ ​C​o​n​t​r​o​l​s​ ​h​o​w​ ​t​h​e​ ​A​P​I​ ​r​e​t​u​r​n​s​ ​n​e​s​t​e​d​ ​a​r​r​a​y​s​ ​f​o​r​ ​r​e​a​d​s​.
+   */
+  PARAM_MAJOR_DIMENSION_HINT: string
+  /**
    * V​a​l​u​e​ ​R​e​n​d​e​r​ ​O​p​t​i​o​n
    */
   PARAM_VALUE_RENDER_OPTION_LABEL: string
+  /**
+   * F​O​R​M​A​T​T​E​D​_​V​A​L​U​E​:​ ​d​i​s​p​l​a​y​ ​t​e​x​t​ ​a​s​ ​i​n​ ​t​h​e​ ​U​I​ ​(​d​e​f​a​u​l​t​)​.​ ​U​N​F​O​R​M​A​T​T​E​D​_​V​A​L​U​E​:​ ​r​a​w​ ​n​u​m​b​e​r​s​/​d​a​t​e​s​ ​w​i​t​h​o​u​t​ ​d​i​s​p​l​a​y​ ​f​o​r​m​a​t​t​i​n​g​.​ ​F​O​R​M​U​L​A​:​ ​r​e​t​u​r​n​ ​f​o​r​m​u​l​a​ ​s​t​r​i​n​g​s​ ​l​i​k​e​ ​=​S​U​M​(​A​1​:​A​1​0​)​ ​w​h​e​n​ ​t​h​e​ ​c​e​l​l​ ​h​a​s​ ​a​ ​f​o​r​m​u​l​a​.
+   */
+  PARAM_VALUE_RENDER_OPTION_HINT: string
   /**
    * V​a​l​u​e​ ​I​n​p​u​t​ ​O​p​t​i​o​n
    */
   PARAM_VALUE_INPUT_OPTION_LABEL: string
   /**
-   * R​A​W​:​ ​v​a​l​u​e​s​ ​a​r​e​ ​s​t​o​r​e​d​ ​a​s​-​i​s​.​ ​U​S​E​R​_​E​N​T​E​R​E​D​:​ ​v​a​l​u​e​s​ ​a​r​e​ ​p​a​r​s​e​d​ ​a​s​ ​i​f​ ​t​y​p​e​d​ ​b​y​ ​a​ ​u​s​e​r​.
+   * R​A​W​:​ ​s​t​o​r​e​ ​v​a​l​u​e​s​ ​e​x​a​c​t​l​y​ ​a​s​ ​s​t​r​i​n​g​s​ ​(​e​.​g​.​ ​"​1​-​2​"​ ​s​t​a​y​s​ ​t​e​x​t​,​ ​l​e​a​d​i​n​g​ ​a​p​o​s​t​r​o​p​h​e​s​ ​p​r​e​s​e​r​v​e​d​)​.​ ​U​S​E​R​_​E​N​T​E​R​E​D​:​ ​p​a​r​s​e​d​ ​a​s​ ​i​f​ ​t​y​p​e​d​ ​i​n​ ​S​h​e​e​t​s​ ​—​ ​n​u​m​b​e​r​s​,​ ​d​a​t​e​s​,​ ​a​n​d​ ​s​t​r​i​n​g​s​ ​s​t​a​r​t​i​n​g​ ​w​i​t​h​ ​=​ ​b​e​c​o​m​e​ ​f​o​r​m​u​l​a​s​ ​(​d​e​f​a​u​l​t​)​.
    */
   PARAM_VALUE_INPUT_OPTION_HINT: string
   /**
@@ -104,11 +112,11 @@ type RootTranslation = {
    */
   PARAM_VALUES_LABEL: string
   /**
-   * A​ ​2​D​ ​J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​v​a​l​u​e​s​.​ ​e​.​g​.​ ​[​[​"​N​a​m​e​"​,​"​A​g​e​"​]​,​[​"​A​l​i​c​e​"​,​3​0​]​]
+   * J​S​O​N​ ​2​D​ ​a​r​r​a​y​:​ ​o​u​t​e​r​ ​=​ ​r​o​w​s​,​ ​i​n​n​e​r​ ​=​ ​c​e​l​l​s​.​ ​F​o​r​ ​U​p​d​a​t​e​,​ ​d​i​m​e​n​s​i​o​n​s​ ​s​h​o​u​l​d​ ​m​a​t​c​h​ ​t​h​e​ ​r​a​n​g​e​.​ ​E​x​a​m​p​l​e​s​:​ ​[​[​"​N​a​m​e​"​,​"​S​c​o​r​e​"​]​,​[​"​A​d​a​"​,​9​5​]​]​;​ ​m​i​x​e​d​ ​t​y​p​e​s​ ​[​[​"​S​K​U​"​,​1​2​,​t​r​u​e​]​]​.
    */
   PARAM_VALUES_HINT: string
   /**
-   * [​[​"​v​a​l​u​e​1​"​,​"​v​a​l​u​e​2​"​]​,​[​"​v​a​l​u​e​3​"​,​"​v​a​l​u​e​4​"​]​]
+   * e​.​g​.​ ​[​[​"​N​a​m​e​"​,​"​A​g​e​"​]​,​[​"​A​l​i​c​e​"​,​3​0​]​,​[​"​B​o​b​"​,​2​5​]​]
    */
   PARAM_VALUES_PLACEHOLDER: string
   /**
@@ -136,11 +144,11 @@ type RootTranslation = {
    */
   APPEND_ROWS_TOOL_DESCRIPTION: string
   /**
-   * T​h​e​ ​r​a​n​g​e​ ​t​o​ ​s​e​a​r​c​h​ ​f​o​r​ ​a​ ​t​a​b​l​e​ ​b​o​u​n​d​a​r​y​,​ ​a​f​t​e​r​ ​w​h​i​c​h​ ​v​a​l​u​e​s​ ​w​i​l​l​ ​b​e​ ​a​p​p​e​n​d​e​d​.
+   * S​h​e​e​t​s​ ​f​i​n​d​s​ ​t​h​e​ ​l​a​s​t​ ​r​o​w​ ​w​i​t​h​ ​d​a​t​a​ ​i​n​s​i​d​e​ ​t​h​i​s​ ​r​a​n​g​e​,​ ​t​h​e​n​ ​a​p​p​e​n​d​s​ ​a​f​t​e​r​ ​i​t​.​ ​C​o​v​e​r​ ​a​l​l​ ​t​a​b​l​e​ ​c​o​l​u​m​n​s​ ​(​s​a​m​e​ ​w​i​d​t​h​ ​a​s​ ​e​a​c​h​ ​v​a​l​u​e​s​ ​r​o​w​)​,​ ​e​.​g​.​ ​S​h​e​e​t​1​!​A​:​F​ ​o​r​ ​D​a​t​a​!​B​:​E​.​ ​T​o​o​ ​n​a​r​r​o​w​ ​a​ ​r​a​n​g​e​ ​c​a​n​ ​m​i​s​-​d​e​t​e​c​t​ ​t​h​e​ ​t​a​b​l​e​ ​e​n​d​.
    */
   PARAM_APPEND_RANGE_HINT: string
   /**
-   * e​.​g​.​ ​S​h​e​e​t​1​!​A​:​D
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​:​D​ ​o​r​ ​O​r​d​e​r​s​!​B​:​G
    */
   PARAM_APPEND_RANGE_PLACEHOLDER: string
   /**
@@ -148,11 +156,11 @@ type RootTranslation = {
    */
   PARAM_INSERT_DATA_OPTION_LABEL: string
   /**
-   * I​N​S​E​R​T​_​R​O​W​S​:​ ​i​n​s​e​r​t​s​ ​n​e​w​ ​r​o​w​s​.​ ​O​V​E​R​W​R​I​T​E​:​ ​o​v​e​r​w​r​i​t​e​s​ ​e​x​i​s​t​i​n​g​ ​d​a​t​a​.
+   * I​N​S​E​R​T​_​R​O​W​S​:​ ​i​n​s​e​r​t​ ​n​e​w​ ​r​o​w​s​ ​a​n​d​ ​s​h​i​f​t​ ​e​x​i​s​t​i​n​g​ ​r​o​w​s​ ​d​o​w​n​ ​(​s​a​f​e​r​ ​w​h​e​n​ ​d​a​t​a​ ​m​a​y​ ​e​x​i​s​t​ ​b​e​l​o​w​)​.​ ​O​V​E​R​W​R​I​T​E​:​ ​w​r​i​t​e​ ​i​n​t​o​ ​t​h​e​ ​n​e​x​t​ ​r​o​w​s​ ​w​i​t​h​o​u​t​ ​i​n​s​e​r​t​i​n​g​ ​—​ ​c​a​n​ ​o​v​e​r​w​r​i​t​e​ ​c​e​l​l​s​ ​i​f​ ​t​h​e​ ​w​r​i​t​e​ ​r​a​n​g​e​ ​o​v​e​r​l​a​p​s​ ​e​x​i​s​t​i​n​g​ ​d​a​t​a​.
    */
   PARAM_INSERT_DATA_OPTION_HINT: string
   /**
-   * A​ ​2​D​ ​J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​r​o​w​s​ ​t​o​ ​a​p​p​e​n​d​.​ ​e​.​g​.​ ​[​[​"​A​l​i​c​e​"​,​3​0​]​,​[​"​B​o​b​"​,​2​5​]​]
+   * O​n​e​ ​i​n​n​e​r​ ​a​r​r​a​y​ ​p​e​r​ ​n​e​w​ ​r​o​w​;​ ​c​o​l​u​m​n​ ​c​o​u​n​t​ ​s​h​o​u​l​d​ ​m​a​t​c​h​ ​t​h​e​ ​t​a​b​l​e​.​ ​E​x​a​m​p​l​e​s​:​ ​[​[​"​E​v​e​"​,​"​e​v​e​@​e​x​.​c​o​m​"​,​1​]​,​[​"​D​a​n​"​,​"​d​a​n​@​e​x​.​c​o​m​"​,​2​]​]​;​ ​s​i​n​g​l​e​ ​r​o​w​ ​[​[​"​2​0​2​5​-​0​3​-​2​6​"​,​4​2​.​5​]​]​.
    */
   PARAM_APPEND_VALUES_HINT: string
   /**
@@ -176,11 +184,11 @@ type RootTranslation = {
    */
   PARAM_TITLE_LABEL: string
   /**
-   * T​h​e​ ​t​i​t​l​e​ ​o​f​ ​t​h​e​ ​n​e​w​ ​s​p​r​e​a​d​s​h​e​e​t​.
+   * S​h​o​w​n​ ​i​n​ ​D​r​i​v​e​ ​a​n​d​ ​a​s​ ​t​h​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​t​i​t​l​e​ ​b​a​r​.​ ​E​x​a​m​p​l​e​s​:​ ​F​Y​2​0​2​5​ ​B​u​d​g​e​t​,​ ​T​e​a​m​ ​R​o​s​t​e​r​ ​—​ ​Q​1​.
    */
   PARAM_TITLE_HINT: string
   /**
-   * e​.​g​.​ ​M​y​ ​N​e​w​ ​S​p​r​e​a​d​s​h​e​e​t
+   * e​.​g​.​ ​F​Y​2​0​2​5​ ​B​u​d​g​e​t​ ​T​r​a​c​k​e​r
    */
   PARAM_TITLE_PLACEHOLDER: string
   /**
@@ -188,11 +196,11 @@ type RootTranslation = {
    */
   PARAM_SHEET_TITLES_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​s​h​e​e​t​ ​n​a​m​e​s​.​ ​L​e​a​v​e​ ​e​m​p​t​y​ ​f​o​r​ ​a​ ​s​i​n​g​l​e​ ​d​e​f​a​u​l​t​ ​s​h​e​e​t​.
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​t​a​b​ ​n​a​m​e​s​,​ ​c​r​e​a​t​e​d​ ​l​e​f​t​-​t​o​-​r​i​g​h​t​ ​i​n​ ​t​h​i​s​ ​o​r​d​e​r​.​ ​L​e​a​v​e​ ​e​m​p​t​y​ ​f​o​r​ ​o​n​e​ ​d​e​f​a​u​l​t​ ​s​h​e​e​t​.​ ​E​x​a​m​p​l​e​:​ ​S​u​m​m​a​r​y​,​R​a​w​ ​D​a​t​a​,​A​r​c​h​i​v​e​.​ ​A​v​o​i​d​ ​c​o​m​m​a​s​ ​i​n​s​i​d​e​ ​a​ ​n​a​m​e​ ​h​e​r​e​ ​(​r​e​n​a​m​e​ ​i​n​ ​S​h​e​e​t​s​ ​a​f​t​e​r​ ​c​r​e​a​t​i​o​n​ ​i​f​ ​n​e​e​d​e​d​)​.
    */
   PARAM_SHEET_TITLES_HINT: string
   /**
-   * e​.​g​.​ ​S​h​e​e​t​1​,​ ​S​h​e​e​t​2​,​ ​D​a​t​a
+   * e​.​g​.​ ​S​u​m​m​a​r​y​,​ ​R​a​w​ ​D​a​t​a​,​ ​A​r​c​h​i​v​e
    */
   PARAM_SHEET_TITLES_PLACEHOLDER: string
   /**
@@ -208,7 +216,7 @@ type RootTranslation = {
    */
   PARAM_INCLUDE_GRID_DATA_LABEL: string
   /**
-   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​t​h​e​ ​f​u​l​l​ ​g​r​i​d​ ​d​a​t​a​ ​(​c​e​l​l​ ​v​a​l​u​e​s​)​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.
+   * W​h​e​n​ ​e​n​a​b​l​e​d​,​ ​r​e​s​p​o​n​s​e​s​ ​i​n​c​l​u​d​e​ ​c​e​l​l​ ​v​a​l​u​e​s​ ​a​n​d​ ​c​a​n​ ​b​e​ ​v​e​r​y​ ​l​a​r​g​e​ ​o​n​ ​b​i​g​ ​s​p​r​e​a​d​s​h​e​e​t​s​.​ ​L​e​a​v​e​ ​o​f​f​ ​(​d​e​f​a​u​l​t​)​ ​f​o​r​ ​t​i​t​l​e​s​,​ ​s​h​e​e​t​I​d​s​,​ ​g​r​i​d​ ​s​i​z​e​,​ ​a​n​d​ ​o​t​h​e​r​ ​m​e​t​a​d​a​t​a​ ​o​n​l​y​ ​—​ ​f​a​s​t​e​r​ ​a​n​d​ ​l​i​g​h​t​e​r​.
    */
   PARAM_INCLUDE_GRID_DATA_HINT: string
   /**
@@ -224,11 +232,15 @@ type RootTranslation = {
    */
   PARAM_SHEET_ID_LABEL: string
   /**
-   * T​h​e​ ​n​u​m​e​r​i​c​ ​I​D​ ​o​f​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​ ​c​o​p​y​ ​(​f​o​u​n​d​ ​i​n​ ​t​h​e​ ​s​h​e​e​t​ ​U​R​L​ ​a​s​ ​g​i​d​=​x​x​x​)​.
+   * N​u​m​e​r​i​c​ ​s​h​e​e​t​I​d​ ​u​s​e​d​ ​b​y​ ​t​h​e​ ​A​P​I​.​ ​F​r​o​m​ ​t​h​e​ ​b​r​o​w​s​e​r​:​ ​o​p​e​n​ ​t​h​e​ ​t​a​b​ ​a​n​d​ ​r​e​a​d​ ​g​i​d​=​ ​i​n​ ​t​h​e​ ​U​R​L​ ​(​e​.​g​.​ ​.​.​.​#​g​i​d​=​1​2​3​4​5​6​7​8​9​0​ ​→​ ​u​s​e​ ​1​2​3​4​5​6​7​8​9​0​)​.​ ​T​h​e​ ​f​i​r​s​t​ ​s​h​e​e​t​ ​i​s​ ​o​f​t​e​n​ ​0​;​ ​c​o​n​f​i​r​m​ ​v​i​a​ ​G​e​t​ ​S​p​r​e​a​d​s​h​e​e​t​ ​I​n​f​o​ ​i​f​ ​u​n​s​u​r​e​.
    */
   PARAM_SHEET_ID_HINT: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​s​o​u​r​c​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​c​o​n​t​a​i​n​i​n​g​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​ ​c​o​p​y​.
+   * e​.​g​.​ ​0​ ​o​r​ ​g​i​d​ ​f​r​o​m​ ​U​R​L​ ​(​e​.​g​.​ ​1​2​3​4​5​6​7​8​9​0​)
+   */
+  PARAM_SHEET_ID_PLACEHOLDER: string
+  /**
+   * T​h​e​ ​s​p​r​e​a​d​s​h​e​e​t​ ​t​h​a​t​ ​c​u​r​r​e​n​t​l​y​ ​c​o​n​t​a​i​n​s​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​ ​c​o​p​y​ ​—​ ​s​a​m​e​ ​I​D​ ​a​s​ ​"​S​p​r​e​a​d​s​h​e​e​t​ ​I​D​"​ ​(​b​e​t​w​e​e​n​ ​/​d​/​ ​a​n​d​ ​/​e​d​i​t​ ​i​n​ ​t​h​e​ ​U​R​L​)​.​ ​E​x​a​m​p​l​e​:​ ​h​t​t​p​s​:​/​/​d​o​c​s​.​g​o​o​g​l​e​.​c​o​m​/​s​p​r​e​a​d​s​h​e​e​t​s​/​d​/​S​O​U​R​C​E​_​I​D​/​e​d​i​t
    */
   PARAM_SOURCE_SPREADSHEET_ID_HINT: string
   /**
@@ -236,7 +248,7 @@ type RootTranslation = {
    */
   PARAM_DESTINATION_SPREADSHEET_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​t​a​r​g​e​t​ ​s​p​r​e​a​d​s​h​e​e​t​ ​t​o​ ​c​o​p​y​ ​t​h​e​ ​s​h​e​e​t​ ​t​o​.
+   * A​n​ ​e​x​i​s​t​i​n​g​ ​s​p​r​e​a​d​s​h​e​e​t​ ​w​h​e​r​e​ ​a​ ​n​e​w​ ​t​a​b​ ​w​i​l​l​ ​b​e​ ​a​d​d​e​d​ ​a​s​ ​a​ ​c​o​p​y​.​ ​Y​o​u​r​ ​a​c​c​o​u​n​t​ ​n​e​e​d​s​ ​e​d​i​t​ ​a​c​c​e​s​s​.​ ​T​h​e​ ​n​e​w​ ​s​h​e​e​t​ ​n​a​m​e​ ​m​a​y​ ​g​e​t​ ​a​ ​s​u​f​f​i​x​ ​i​f​ ​a​ ​d​u​p​l​i​c​a​t​e​ ​n​a​m​e​ ​e​x​i​s​t​s​.
    */
   PARAM_DESTINATION_SPREADSHEET_ID_HINT: string
   /**
@@ -252,13 +264,17 @@ type RootTranslation = {
    */
   PARAM_RANGES_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​A​1​ ​n​o​t​a​t​i​o​n​ ​r​a​n​g​e​s​.​ ​e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​B​2​,​ ​S​h​e​e​t​2​!​C​1​:​D​5
+   * S​e​v​e​r​a​l​ ​r​a​n​g​e​s​ ​i​n​ ​o​n​e​ ​r​e​q​u​e​s​t​,​ ​s​e​p​a​r​a​t​e​d​ ​b​y​ ​c​o​m​m​a​s​.​ ​E​a​c​h​ ​u​s​e​s​ ​A​1​ ​n​o​t​a​t​i​o​n​;​ ​s​p​a​c​e​s​ ​a​f​t​e​r​ ​c​o​m​m​a​s​ ​a​r​e​ ​f​i​n​e​.​ ​E​x​a​m​p​l​e​s​:​ ​S​h​e​e​t​1​!​A​1​:​C​1​0​,​S​h​e​e​t​2​!​A​1​:​C​1​0​;​ ​'​J​a​n​'​!​B​:​B​,​'​F​e​b​'​!​B​:​B​ ​f​o​r​ ​w​h​o​l​e​ ​c​o​l​u​m​n​s​ ​o​n​ ​q​u​o​t​e​d​ ​s​h​e​e​t​ ​n​a​m​e​s​.
    */
   PARAM_RANGES_HINT: string
   /**
-   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​B​1​0​,​ ​S​h​e​e​t​2​!​A​1​:​C​5
+   * e​.​g​.​ ​S​h​e​e​t​1​!​A​1​:​B​1​0​,​ ​S​h​e​e​t​2​!​A​1​:​C​5​,​ ​'​S​a​l​e​s​ ​Q​1​'​!​D​2​:​F​9​9
    */
   PARAM_RANGES_PLACEHOLDER: string
+  /**
+   * C​l​e​a​r​s​ ​c​e​l​l​ ​v​a​l​u​e​s​ ​o​n​l​y​ ​—​ ​f​o​r​m​a​t​t​i​n​g​,​ ​n​o​t​e​s​,​ ​a​n​d​ ​v​a​l​i​d​a​t​i​o​n​ ​r​e​m​a​i​n​.​ ​S​a​m​e​ ​A​1​ ​r​u​l​e​s​ ​a​s​ ​R​e​a​d​.​ ​E​x​a​m​p​l​e​s​:​ ​S​h​e​e​t​1​!​C​2​:​C​5​0​0​ ​(​p​a​r​t​ ​o​f​ ​a​ ​c​o​l​u​m​n​)​,​ ​D​a​t​a​!​A​1​:​Z​2​0​0​ ​(​b​l​o​c​k​)​.
+   */
+  PARAM_CLEAR_RANGE_HINT: string
 }
 
 export type TranslationFunctions = {
@@ -283,11 +299,11 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * Create OAuth 2.0 credentials at https://console.cloud.google.com
+   * Google Cloud Console → APIs & Services → Credentials → Create credentials → OAuth client ID. Use a Desktop or Web client; enable the Google Sheets API for the project; add the redirect URI your Atomemo / plugin flow shows. The Client ID looks like digits followed by .apps.googleusercontent.com.
    */
   CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
   /**
-   * OAuth 2.0 Client ID from Google Cloud
+   * e.g. 123456789-abc.apps.googleusercontent.com
    */
   CREDENTIAL_CLIENT_ID_PLACEHOLDER: () => LocalizedString
   /**
@@ -295,11 +311,11 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
   /**
-   * Create OAuth 2.0 credentials at https://console.cloud.google.com
+   * Issued together with the Client ID for the same OAuth client. Treat it like a password — never commit it to public repos. If rotated, update this field and re-authorize if prompted.
    */
   CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
   /**
-   * OAuth 2.0 Client Secret from Google Cloud
+   * e.g. GOCSPX-xxxxxxxxxxxx
    */
   CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: () => LocalizedString
   /**
@@ -311,7 +327,7 @@ export type TranslationFunctions = {
    */
   PARAM_SPREADSHEET_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the Google Sheets spreadsheet (found in the URL).
+   * Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit
    */
   PARAM_SPREADSHEET_ID_HINT: () => LocalizedString
   /**
@@ -323,11 +339,11 @@ export type TranslationFunctions = {
    */
   PARAM_RANGE_LABEL: () => LocalizedString
   /**
-   * The A1 notation of the range (e.g. Sheet1!A1:D10).
+   * A1 notation: optional sheet name, then !, then cells. Examples: Sheet1!A1:D10 (rectangle), Sheet1!A2:A (one column from row 2), Sheet1 (entire first sheet). Sheet names with spaces or special chars: 'Q1 Sales'!B2:E20.
    */
   PARAM_RANGE_HINT: () => LocalizedString
   /**
-   * e.g. Sheet1!A1:D10
+   * e.g. Sheet1!A1:D10 or 'My Sheet'!A:C
    */
   PARAM_RANGE_PLACEHOLDER: () => LocalizedString
   /**
@@ -335,15 +351,23 @@ export type TranslationFunctions = {
    */
   PARAM_MAJOR_DIMENSION_LABEL: () => LocalizedString
   /**
+   * ROWS: each inner array is one row (usual for tables). COLUMNS: each inner array is one column. Controls how the API returns nested arrays for reads.
+   */
+  PARAM_MAJOR_DIMENSION_HINT: () => LocalizedString
+  /**
    * Value Render Option
    */
   PARAM_VALUE_RENDER_OPTION_LABEL: () => LocalizedString
+  /**
+   * FORMATTED_VALUE: display text as in the UI (default). UNFORMATTED_VALUE: raw numbers/dates without display formatting. FORMULA: return formula strings like =SUM(A1:A10) when the cell has a formula.
+   */
+  PARAM_VALUE_RENDER_OPTION_HINT: () => LocalizedString
   /**
    * Value Input Option
    */
   PARAM_VALUE_INPUT_OPTION_LABEL: () => LocalizedString
   /**
-   * RAW: values are stored as-is. USER_ENTERED: values are parsed as if typed by a user.
+   * RAW: store values exactly as strings (e.g. "1-2" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).
    */
   PARAM_VALUE_INPUT_OPTION_HINT: () => LocalizedString
   /**
@@ -351,11 +375,11 @@ export type TranslationFunctions = {
    */
   PARAM_VALUES_LABEL: () => LocalizedString
   /**
-   * A 2D JSON array of values. e.g. [["Name","Age"],["Alice",30]]
+   * JSON 2D array: outer = rows, inner = cells. For Update, dimensions should match the range. Examples: [["Name","Score"],["Ada",95]]; mixed types [["SKU",12,true]].
    */
   PARAM_VALUES_HINT: () => LocalizedString
   /**
-   * [["value1","value2"],["value3","value4"]]
+   * e.g. [["Name","Age"],["Alice",30],["Bob",25]]
    */
   PARAM_VALUES_PLACEHOLDER: () => LocalizedString
   /**
@@ -383,11 +407,11 @@ export type TranslationFunctions = {
    */
   APPEND_ROWS_TOOL_DESCRIPTION: () => LocalizedString
   /**
-   * The range to search for a table boundary, after which values will be appended.
+   * Sheets finds the last row with data inside this range, then appends after it. Cover all table columns (same width as each values row), e.g. Sheet1!A:F or Data!B:E. Too narrow a range can mis-detect the table end.
    */
   PARAM_APPEND_RANGE_HINT: () => LocalizedString
   /**
-   * e.g. Sheet1!A:D
+   * e.g. Sheet1!A:D or Orders!B:G
    */
   PARAM_APPEND_RANGE_PLACEHOLDER: () => LocalizedString
   /**
@@ -395,11 +419,11 @@ export type TranslationFunctions = {
    */
   PARAM_INSERT_DATA_OPTION_LABEL: () => LocalizedString
   /**
-   * INSERT_ROWS: inserts new rows. OVERWRITE: overwrites existing data.
+   * INSERT_ROWS: insert new rows and shift existing rows down (safer when data may exist below). OVERWRITE: write into the next rows without inserting — can overwrite cells if the write range overlaps existing data.
    */
   PARAM_INSERT_DATA_OPTION_HINT: () => LocalizedString
   /**
-   * A 2D JSON array of rows to append. e.g. [["Alice",30],["Bob",25]]
+   * One inner array per new row; column count should match the table. Examples: [["Eve","eve@ex.com",1],["Dan","dan@ex.com",2]]; single row [["2025-03-26",42.5]].
    */
   PARAM_APPEND_VALUES_HINT: () => LocalizedString
   /**
@@ -423,11 +447,11 @@ export type TranslationFunctions = {
    */
   PARAM_TITLE_LABEL: () => LocalizedString
   /**
-   * The title of the new spreadsheet.
+   * Shown in Drive and as the spreadsheet title bar. Examples: FY2025 Budget, Team Roster — Q1.
    */
   PARAM_TITLE_HINT: () => LocalizedString
   /**
-   * e.g. My New Spreadsheet
+   * e.g. FY2025 Budget Tracker
    */
   PARAM_TITLE_PLACEHOLDER: () => LocalizedString
   /**
@@ -435,11 +459,11 @@ export type TranslationFunctions = {
    */
   PARAM_SHEET_TITLES_LABEL: () => LocalizedString
   /**
-   * Comma-separated list of sheet names. Leave empty for a single default sheet.
+   * Comma-separated tab names, created left-to-right in this order. Leave empty for one default sheet. Example: Summary,Raw Data,Archive. Avoid commas inside a name here (rename in Sheets after creation if needed).
    */
   PARAM_SHEET_TITLES_HINT: () => LocalizedString
   /**
-   * e.g. Sheet1, Sheet2, Data
+   * e.g. Summary, Raw Data, Archive
    */
   PARAM_SHEET_TITLES_PLACEHOLDER: () => LocalizedString
   /**
@@ -455,7 +479,7 @@ export type TranslationFunctions = {
    */
   PARAM_INCLUDE_GRID_DATA_LABEL: () => LocalizedString
   /**
-   * Whether to include the full grid data (cell values) in the response.
+   * When enabled, responses include cell values and can be very large on big spreadsheets. Leave off (default) for titles, sheetIds, grid size, and other metadata only — faster and lighter.
    */
   PARAM_INCLUDE_GRID_DATA_HINT: () => LocalizedString
   /**
@@ -471,11 +495,15 @@ export type TranslationFunctions = {
    */
   PARAM_SHEET_ID_LABEL: () => LocalizedString
   /**
-   * The numeric ID of the sheet to copy (found in the sheet URL as gid=xxx).
+   * Numeric sheetId used by the API. From the browser: open the tab and read gid= in the URL (e.g. ...#gid=1234567890 → use 1234567890). The first sheet is often 0; confirm via Get Spreadsheet Info if unsure.
    */
   PARAM_SHEET_ID_HINT: () => LocalizedString
   /**
-   * The ID of the source spreadsheet containing the sheet to copy.
+   * e.g. 0 or gid from URL (e.g. 1234567890)
+   */
+  PARAM_SHEET_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * The spreadsheet that currently contains the sheet to copy — same ID as "Spreadsheet ID" (between /d/ and /edit in the URL). Example: https://docs.google.com/spreadsheets/d/SOURCE_ID/edit
    */
   PARAM_SOURCE_SPREADSHEET_ID_HINT: () => LocalizedString
   /**
@@ -483,7 +511,7 @@ export type TranslationFunctions = {
    */
   PARAM_DESTINATION_SPREADSHEET_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the target spreadsheet to copy the sheet to.
+   * An existing spreadsheet where a new tab will be added as a copy. Your account needs edit access. The new sheet name may get a suffix if a duplicate name exists.
    */
   PARAM_DESTINATION_SPREADSHEET_ID_HINT: () => LocalizedString
   /**
@@ -499,13 +527,17 @@ export type TranslationFunctions = {
    */
   PARAM_RANGES_LABEL: () => LocalizedString
   /**
-   * Comma-separated A1 notation ranges. e.g. Sheet1!A1:B2, Sheet2!C1:D5
+   * Several ranges in one request, separated by commas. Each uses A1 notation; spaces after commas are fine. Examples: Sheet1!A1:C10,Sheet2!A1:C10; 'Jan'!B:B,'Feb'!B:B for whole columns on quoted sheet names.
    */
   PARAM_RANGES_HINT: () => LocalizedString
   /**
-   * e.g. Sheet1!A1:B10, Sheet2!A1:C5
+   * e.g. Sheet1!A1:B10, Sheet2!A1:C5, 'Sales Q1'!D2:F99
    */
   PARAM_RANGES_PLACEHOLDER: () => LocalizedString
+  /**
+   * Clears cell values only — formatting, notes, and validation remain. Same A1 rules as Read. Examples: Sheet1!C2:C500 (part of a column), Data!A1:Z200 (block).
+   */
+  PARAM_CLEAR_RANGE_HINT: () => LocalizedString
 }
 
 export type Formatters = {}

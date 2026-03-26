@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseAppendRowsParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames =
@@ -92,28 +94,6 @@ const parameters: Array<Property<ParameterNames>> = [
   },
 ]
 
-function parseValues(raw: unknown): unknown[][] {
-  let values: unknown[][]
-  if (typeof raw === "string") {
-    try {
-      values = JSON.parse(raw)
-    } catch {
-      throw new Error(
-        'Invalid JSON format for values. Expected a 2D array like [["a","b"]]',
-      )
-    }
-  } else if (Array.isArray(raw)) {
-    values = raw as unknown[][]
-  } else {
-    throw new Error("Missing or invalid values")
-  }
-
-  if (!Array.isArray(values) || values.length === 0) {
-    throw new Error("values must be a non-empty 2D array")
-  }
-  return values
-}
-
 export const appendRowsTool: ToolDefinition = {
   name: "google-sheets-append-rows",
   display_name: t("APPEND_ROWS_TOOL_DISPLAY_NAME"),
@@ -121,35 +101,19 @@ export const appendRowsTool: ToolDefinition = {
   icon: "➕",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const { spreadsheetId, range, valueInputOption, insertDataOption, values } =
+      parseAppendRowsParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
-
-    const range = typeof p.range === "string" ? p.range.trim() : ""
-    if (!range) throw new Error("Missing range")
-
-    const valueInputOption =
-      typeof p.value_input_option === "string"
-        ? p.value_input_option
-        : "USER_ENTERED"
-    const insertDataOption = (
-      typeof p.insert_data_option === "string"
-        ? p.insert_data_option
-        : "INSERT_ROWS"
-    ) as "OVERWRITE" | "INSERT_ROWS"
-
-    const values = parseValues(p.values)
-
-    const res = await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range,
-      valueInputOption,
-      insertDataOption,
-      requestBody: { range, majorDimension: "ROWS", values },
-    })
+    const res = await callSheets(() =>
+      sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range,
+        valueInputOption,
+        insertDataOption,
+        requestBody: { range, majorDimension: "ROWS", values },
+      }),
+    )
 
     return res.data as unknown as JsonValue
   },

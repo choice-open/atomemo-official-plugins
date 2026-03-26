@@ -1,19 +1,23 @@
+import { z } from "zod"
+import { parseParameters } from "./parse-zod"
 import { createSheetsClient, type SheetsClient } from "./sheets-client"
 
 export type GoogleSheetsOAuthCredential = {
   access_token?: string
 }
 
+const parametersForCredentialSchema = z.object({
+  credential_id: z.string().trim().min(1, "credential_id must not be empty"),
+})
+
 export function resolveCredential(args: {
   parameters: Record<string, unknown>
   credentials: Record<string, unknown>
 }): { credentialId: string; accessToken: string; sheets: SheetsClient } {
-  const p = args.parameters ?? {}
-  const credentialId =
-    typeof p.credential_id === "string" ? p.credential_id.trim() : ""
-  if (!credentialId) {
-    throw new Error("Missing credential_id")
-  }
+  const { credential_id: credentialId } = parseParameters(
+    parametersForCredentialSchema,
+    args.parameters ?? {},
+  )
 
   const credentials = args.credentials ?? {}
   const cred = credentials[credentialId] as

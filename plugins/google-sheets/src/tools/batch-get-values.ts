@@ -5,6 +5,8 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
 import { resolveCredential } from "../helpers/credentials"
+import { parseBatchGetValuesParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
 
 type ParameterNames =
@@ -56,7 +58,11 @@ const parameters: Array<Property<ParameterNames>> = [
     display_name: t("PARAM_MAJOR_DIMENSION_LABEL"),
     default: "ROWS",
     enum: ["ROWS", "COLUMNS"],
-    ui: { component: "select", width: "medium" },
+    ui: {
+      component: "select",
+      hint: t("PARAM_MAJOR_DIMENSION_HINT"),
+      width: "medium",
+    },
   },
   {
     name: "value_render_option",
@@ -65,7 +71,11 @@ const parameters: Array<Property<ParameterNames>> = [
     display_name: t("PARAM_VALUE_RENDER_OPTION_LABEL"),
     default: "FORMATTED_VALUE",
     enum: ["FORMATTED_VALUE", "UNFORMATTED_VALUE", "FORMULA"],
-    ui: { component: "select", width: "medium" },
+    ui: {
+      component: "select",
+      hint: t("PARAM_VALUE_RENDER_OPTION_HINT"),
+      width: "medium",
+    },
   },
 ]
 
@@ -76,37 +86,12 @@ export const batchGetValuesTool: ToolDefinition = {
   icon: "📚",
   parameters,
   async invoke({ args }) {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const params = parseBatchGetValuesParams(args.parameters ?? {})
     const { sheets } = resolveCredential(args as never)
 
-    const spreadsheetId =
-      typeof p.spreadsheet_id === "string" ? p.spreadsheet_id.trim() : ""
-    if (!spreadsheetId) throw new Error("Missing spreadsheet_id")
-
-    const rangesRaw = typeof p.ranges === "string" ? p.ranges.trim() : ""
-    if (!rangesRaw) throw new Error("Missing ranges")
-
-    const ranges = rangesRaw
-      .split(",")
-      .map((r) => r.trim())
-      .filter(Boolean)
-    if (ranges.length === 0) throw new Error("At least one range is required")
-
-    const majorDimension = (
-      typeof p.major_dimension === "string" ? p.major_dimension : "ROWS"
-    ) as "ROWS" | "COLUMNS"
-    const valueRenderOption = (
-      typeof p.value_render_option === "string"
-        ? p.value_render_option
-        : "FORMATTED_VALUE"
-    ) as "FORMATTED_VALUE" | "UNFORMATTED_VALUE" | "FORMULA"
-
-    const res = await sheets.spreadsheets.values.batchGet({
-      spreadsheetId,
-      ranges,
-      majorDimension,
-      valueRenderOption,
-    })
+    const res = await callSheets(() =>
+      sheets.spreadsheets.values.batchGet(params),
+    )
 
     return res.data as unknown as JsonValue
   },
