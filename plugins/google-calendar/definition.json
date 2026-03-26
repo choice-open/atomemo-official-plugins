@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "credentials": [
     {
       "name": "google-calendar-oauth2",
@@ -148,8 +148,8 @@
         "zh_Hans": "创建日历"
       },
       "description": {
-        "en_US": "Create a new secondary calendar",
-        "zh_Hans": "创建新的次要日历"
+        "en_US": "Create a new calendar",
+        "zh_Hans": "创建新的日历"
       },
       "icon": "➕",
       "parameters": [
@@ -313,8 +313,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
+              "en_US": "calendar ID (email address). Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
               "en_US": "abcdef1234@group.calendar.google.com",
@@ -436,8 +436,8 @@
         "zh_Hans": "删除日历"
       },
       "description": {
-        "en_US": "Delete a secondary calendar",
-        "zh_Hans": "删除次要日历"
+        "en_US": "Delete a calendar",
+        "zh_Hans": "删除日历"
       },
       "icon": "🗑️",
       "parameters": [
@@ -783,8 +783,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
+              "en_US": "calendar ID (email address). Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
               "en_US": "abcdef1234@group.calendar.google.com",
@@ -922,8 +922,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Secondary calendar ID (email address). Cannot use \"primary\". Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "次要日历 ID（邮箱地址格式）。不能使用 \"primary\"。可通过「列出日历」获取 ID。"
+              "en_US": "calendar ID (email address). Run \"List Calendars\" to find IDs.",
+              "zh_Hans": "日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
               "en_US": "abcdef1234@group.calendar.google.com",
