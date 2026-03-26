@@ -18,11 +18,7 @@ export const createEventTool: ToolDefinition = {
   display_name: t("CREATE_EVENT_DISPLAY_NAME"),
   description: t("CREATE_EVENT_DESCRIPTION"),
   icon: "➕",
-  parameters: [
-    calendarCredentialParam,
-    calendarIdParam,
-    ...updateEventParams,
-  ],
+  parameters: [calendarCredentialParam, calendarIdParam, ...updateEventParams],
   async invoke({ args }) {
     const calendar = requireCalendarClient(
       args.credentials,
@@ -47,6 +43,11 @@ export const createEventTool: ToolDefinition = {
       color_id,
       recurrence,
       attendees,
+      use_advanced_options,
+      guests_can_invite_others,
+      guests_can_modify,
+      guests_can_see_other_guests,
+      max_attendees,
     } = params
 
     const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
@@ -98,9 +99,24 @@ export const createEventTool: ToolDefinition = {
       requestBody.attendees = emails.map((email) => ({ email }))
     }
 
+    if (use_advanced_options) {
+      requestBody.guestsCanInviteOthers = guests_can_invite_others as boolean
+      requestBody.guestsCanModify = guests_can_modify as boolean
+      requestBody.guestsCanSeeOtherGuests =
+        guests_can_see_other_guests as boolean
+    }
+
+    const maxAttendees =
+      use_advanced_options &&
+      typeof max_attendees === "number" &&
+      max_attendees >= 1
+        ? max_attendees
+        : undefined
+
     const res = await calendar.events.insert({
       calendarId: calendar_id as string,
       sendUpdates: (send_updates as string) || undefined,
+      maxAttendees,
       requestBody,
     })
 

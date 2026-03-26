@@ -1,6 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam, secondaryCalendarIdParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  secondaryCalendarIdParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 
@@ -30,8 +33,30 @@ export const updateCalendarListTool: ToolDefinition = {
       required: false,
       display_name: t("COLOR_ID_DISPLAY_NAME"),
       enum: [
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-        "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
       ],
       ai: {
         llm_description: {

@@ -192,9 +192,9 @@ export const updateEventParams: Property[] = [
     ai: {
       llm_description: {
         en_US:
-          "Exclusive end time in RFC3339 format. Must be after start time. A timezone offset is required unless timezone is specified.",
+          "Exclusive end in RFC3339; must be after start. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z.",
         zh_Hans:
-          "RFC3339 格式的结束时间（不含）。必须晚于开始时间。除非指定了时区，否则必须包含时区偏移。",
+          "RFC3339 结束时间（不含），须晚于开始。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z。",
       },
     },
     ui: {
@@ -214,9 +214,9 @@ export const updateEventParams: Property[] = [
     ai: {
       llm_description: {
         en_US:
-          'Start date for all-day events in "yyyy-mm-dd" format, e.g. 2025-03-18.',
+          "All-day start date (yyyy-mm-dd). Examples: 2025-03-18, 2025-12-01.",
         zh_Hans:
-          '全天事件的开始日期，格式为 "yyyy-mm-dd"，例如 2025-03-18。',
+          "全天事件开始日期（yyyy-mm-dd）。示例：2025-03-18、2025-12-01。",
       },
     },
     ui: {
@@ -237,9 +237,9 @@ export const updateEventParams: Property[] = [
     ai: {
       llm_description: {
         en_US:
-          'Exclusive end date for all-day events in "yyyy-mm-dd" format. For a single-day event, set to the day after start_date.',
+          "Exclusive end date (yyyy-mm-dd); for one-day event use the day after start_date. Examples: range Mar 18 only → end 2025-03-19.",
         zh_Hans:
-          '全天事件的结束日期（不含），格式为 "yyyy-mm-dd"。单日事件应设为 start_date 的下一天。',
+          "全天结束日期（不含）；单日事件填开始日的下一天。示例：仅 3/18 一天 → 结束 2025-03-19。",
       },
     },
     ui: {
@@ -260,9 +260,9 @@ export const updateEventParams: Property[] = [
     ai: {
       llm_description: {
         en_US:
-          'IANA Time Zone Database name, e.g. "America/Los_Angeles", "Asia/Shanghai", "Europe/Zurich". Used for start/end times.',
+          'IANA Time Zone Database name for timed events. Examples: "Asia/Shanghai", "America/New_York", "Europe/Berlin", "Etc/UTC".',
         zh_Hans:
-          'IANA 时区数据库名称，例如 "Asia/Shanghai"、"America/Los_Angeles"。用于开始/结束时间。',
+          'IANA 时区名称（用于非全天事件的开始/结束）。示例："Asia/Shanghai"、"America/New_York"、"Europe/Berlin"、"Etc/UTC"。',
       },
     },
     ui: {
@@ -493,6 +493,92 @@ export const updateEventParams: Property[] = [
       placeholder: t("ATTENDEES_PLACEHOLDER"),
       support_expression: true,
       width: "full",
+    },
+    display: {
+      show: { use_advanced_options: { $eq: true } },
+    },
+  },
+  {
+    name: "guests_can_invite_others",
+    type: "boolean",
+    required: false,
+    display_name: t("GUESTS_CAN_INVITE_OTHERS_DISPLAY_NAME"),
+    default: true,
+    ai: {
+      llm_description: {
+        en_US: "Whether attendees other than the organizer can invite others.",
+        zh_Hans: "是否允许非组织者的参与者邀请他人。",
+      },
+    },
+    ui: {
+      component: "switch",
+      hint: t("GUESTS_CAN_INVITE_OTHERS_HINT"),
+      support_expression: true,
+    },
+    display: {
+      show: { use_advanced_options: { $eq: true } },
+    },
+  },
+  {
+    name: "guests_can_modify",
+    type: "boolean",
+    required: false,
+    display_name: t("GUESTS_CAN_MODIFY_DISPLAY_NAME"),
+    default: false,
+    ai: {
+      llm_description: {
+        en_US:
+          "Whether attendees other than the organizer can modify the event.",
+        zh_Hans: "是否允许非组织者的参与者修改事件。",
+      },
+    },
+    ui: {
+      component: "switch",
+      hint: t("GUESTS_CAN_MODIFY_HINT"),
+      support_expression: true,
+    },
+    display: {
+      show: { use_advanced_options: { $eq: true } },
+    },
+  },
+  {
+    name: "guests_can_see_other_guests",
+    type: "boolean",
+    required: false,
+    display_name: t("GUESTS_CAN_SEE_OTHER_GUESTS_DISPLAY_NAME"),
+    default: true,
+    ai: {
+      llm_description: {
+        en_US: "Whether attendees can see other guests on the event.",
+        zh_Hans: "参与者是否可见其他参与者。",
+      },
+    },
+    ui: {
+      component: "switch",
+      hint: t("GUESTS_CAN_SEE_OTHER_GUESTS_HINT"),
+      support_expression: true,
+    },
+    display: {
+      show: { use_advanced_options: { $eq: true } },
+    },
+  },
+  {
+    name: "max_attendees",
+    type: "integer",
+    required: false,
+    display_name: t("MAX_ATTENDEES_DISPLAY_NAME"),
+    minimum: 1,
+    ai: {
+      llm_description: {
+        en_US:
+          "Max attendees to include in the API response for create/update. Omit for no cap.",
+        zh_Hans: "创建/更新时 API 响应中包含的最大参与者数。不填表示不限制。",
+      },
+    },
+    ui: {
+      component: "number-input",
+      hint: t("MAX_ATTENDEES_HINT"),
+      support_expression: true,
     },
     display: {
       show: { use_advanced_options: { $eq: true } },

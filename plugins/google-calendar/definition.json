@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "credentials": [
     {
       "name": "google-calendar-oauth2",
@@ -252,14 +252,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "IANA Time Zone Database name for the calendar, e.g. \"America/Los_Angeles\", \"Asia/Shanghai\".",
-              "zh_Hans": "IANA 时区名称，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。"
+              "en_US": "Default IANA timezone for the calendar. Examples: \"Asia/Shanghai\", \"America/New_York\", \"Europe/Berlin\", \"Etc/UTC\".",
+              "zh_Hans": "日历默认 IANA 时区。示例：\"Asia/Shanghai\"、\"America/New_York\"、\"Europe/Berlin\"、\"Etc/UTC\"。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
-              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London"
+              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Etc/UTC",
+              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Etc/UTC"
             },
             "placeholder": {
               "en_US": "Asia/Shanghai",
@@ -408,14 +408,14 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "New IANA timezone for the calendar, e.g. \"Asia/Shanghai\", \"America/Los_Angeles\".",
-              "zh_Hans": "新的 IANA 时区，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。"
+              "en_US": "New IANA timezone. Examples: \"Asia/Shanghai\", \"America/New_York\", \"Europe/Berlin\", \"Etc/UTC\".",
+              "zh_Hans": "新的 IANA 时区。示例：\"Asia/Shanghai\"、\"America/New_York\"、\"Europe/Berlin\"、\"Etc/UTC\"。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
-              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London"
+              "en_US": "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Etc/UTC",
+              "zh_Hans": "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Etc/UTC"
             },
             "placeholder": {
               "en_US": "Asia/Shanghai",
@@ -947,8 +947,8 @@
         "zh_Hans": "列出事件"
       },
       "description": {
-        "en_US": "List events from a Google Calendar",
-        "zh_Hans": "从 Google 日历列出事件"
+        "en_US": "List events via Calendar API v3 events.list (see Google documentation for query parameters).",
+        "zh_Hans": "通过 Calendar API v3 的 events.list 列出事件（参数与官方文档一致）。"
       },
       "icon": "📋",
       "parameters": [
@@ -995,26 +995,48 @@
           "default": "primary"
         },
         {
-          "name": "q",
+          "name": "max_results",
           "display_name": {
-            "en_US": "Search Query",
-            "zh_Hans": "搜索关键词"
+            "en_US": "Max Results",
+            "zh_Hans": "最大返回数"
           },
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Free text search terms. Matches against summary, description, location, attendee displayName/email, and organizer displayName/email.",
-              "zh_Hans": "自由文本搜索。匹配标题、描述、地点、参与者姓名/邮箱、组织者姓名/邮箱。"
+              "en_US": "maxResults: max events per page (default 250, max 2500). See nextPageToken for pagination.",
+              "zh_Hans": "maxResults：单页最大事件数（默认 250，最大 2500）。分页使用响应中的 nextPageToken。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Free text search in summary, description, location, attendees, etc.",
-              "zh_Hans": "在标题、描述、地点、参与者等字段中搜索"
+              "en_US": "maxResults: events per page, default 250, maximum 2500 (Google Calendar API).",
+              "zh_Hans": "maxResults：每页事件数，默认 250，最大 2500（Google Calendar API）。"
             },
-            "placeholder": {
-              "en_US": "team meeting",
-              "zh_Hans": "团队会议"
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 250,
+          "maximum": 2500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "pageToken from a previous response’s nextPageToken to fetch the next page.",
+              "zh_Hans": "上一页响应中 nextPageToken 的值，用于请求下一页。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "pageToken from nextPageToken to fetch the next page.",
+              "zh_Hans": "使用上一页响应中的 nextPageToken 作为 pageToken 获取下一页。"
             },
             "support_expression": true,
             "width": "full",
@@ -1023,22 +1045,28 @@
           "type": "string"
         },
         {
-          "name": "use_time_range",
+          "name": "sync_token",
           "display_name": {
-            "en_US": "Filter by Time Range",
-            "zh_Hans": "按时间范围筛选"
+            "en_US": "Sync Token",
+            "zh_Hans": "同步令牌"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "syncToken from a prior list response’s nextSyncToken for incremental sync. Cannot be combined with time_min, time_max, updated_min, q, i_cal_uid, order_by, or extended-property filters.",
+              "zh_Hans": "增量同步：使用上次列表结果最后一页的 nextSyncToken。不可与 time_min、time_max、updated_min、q、i_cal_uid、order_by 及扩展属性筛选同时使用。"
+            }
+          },
           "ui": {
             "hint": {
-              "en_US": "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
-              "zh_Hans": "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
+              "en_US": "syncToken from nextSyncToken for incremental sync; cannot mix with time filters, q, iCalUID, orderBy, or extended properties.",
+              "zh_Hans": "使用上次列表结果中的 nextSyncToken 做增量同步；不可与时间筛选、q、iCalUID、orderBy、扩展属性同时使用。"
             },
             "support_expression": true,
-            "component": "switch"
+            "width": "full",
+            "component": "input"
           },
-          "type": "boolean",
-          "default": false
+          "type": "string"
         },
         {
           "name": "time_min",
@@ -1047,23 +1075,16 @@
             "zh_Hans": "最早时间"
           },
           "required": false,
-          "display": {
-            "show": {
-              "use_time_range": {
-                "$eq": true
-              }
-            }
-          },
           "ai": {
             "llm_description": {
-              "en_US": "Lower bound (exclusive) for event end time. RFC3339 timestamp with mandatory timezone offset, e.g. 2025-03-18T00:00:00Z. If timeMax is set, timeMin must be smaller.",
-              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 时间戳，必须包含时区偏移。若设置了 timeMax，timeMin 必须更小。"
+              "en_US": "timeMin: lower bound (exclusive) for an event’s end time. RFC3339 with offset. Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
+              "zh_Hans": "timeMin：事件结束时间的下限（不含）。RFC3339 须含时区偏移。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
-              "zh_Hans": "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00"
+              "en_US": "timeMin (optional): RFC3339 with timezone offset; lower bound (exclusive) for event end time. Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
+              "zh_Hans": "timeMin（可选）：RFC3339 含时区偏移；事件结束时间的下限（不含）。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。"
             },
             "support_expression": true,
             "component": "input"
@@ -1077,23 +1098,16 @@
             "zh_Hans": "最晚时间"
           },
           "required": false,
-          "display": {
-            "show": {
-              "use_time_range": {
-                "$eq": true
-              }
-            }
-          },
           "ai": {
             "llm_description": {
-              "en_US": "Upper bound (exclusive) for event start time. RFC3339 timestamp with mandatory timezone offset. Must be greater than timeMin.",
-              "zh_Hans": "事件开始时间的上限（不含）。RFC3339 时间戳，必须包含时区偏移。必须大于 timeMin。"
+              "en_US": "timeMax: upper bound (exclusive) for an event’s start time. RFC3339; must be > timeMin if both set. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
+              "zh_Hans": "timeMax：事件开始时间的上限（不含）。RFC3339；与 timeMin 同时设置时必须更晚。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
-              "zh_Hans": "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00"
+              "en_US": "timeMax (optional): RFC3339 with timezone offset; upper bound (exclusive) for event start time; must be after timeMin if both set. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
+              "zh_Hans": "timeMax（可选）：RFC3339 含时区偏移；事件开始时间的上限（不含）；须晚于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。"
             },
             "support_expression": true,
             "component": "input"
@@ -1101,54 +1115,107 @@
           "type": "string"
         },
         {
-          "name": "max_results",
+          "name": "time_zone",
           "display_name": {
-            "en_US": "Max Results",
-            "zh_Hans": "最大返回数"
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
           },
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Maximum number of events per page. Default 250, max 2500. Use nextPageToken for pagination.",
-              "zh_Hans": "每页最大事件数。默认 250，最大 2500。使用 nextPageToken 分页。"
+              "en_US": "timeZone: IANA id for times in the response (default: calendar’s zone). Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+              "zh_Hans": "timeZone：响应时间的 IANA 时区（默认取日历时区）。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
-              "zh_Hans": "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
+              "en_US": "timeZone used in the API response (default: calendar timezone). Examples: Asia/Shanghai, Europe/Berlin, America/New_York, Etc/UTC.",
+              "zh_Hans": "timeZone：响应中使用的时区（默认取日历时区）。示例：Asia/Shanghai、Europe/Berlin、America/New_York、Etc/UTC。"
+            },
+            "placeholder": {
+              "en_US": "Asia/Shanghai",
+              "zh_Hans": "Asia/Shanghai"
             },
             "support_expression": true,
-            "component": "number-input"
+            "component": "input"
           },
-          "type": "integer",
-          "default": 250,
-          "maximum": 2500,
-          "minimum": 1
+          "type": "string"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Query",
+            "zh_Hans": "查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "q: free-text search over summary, description, location, attendees, organizer, working-location fields, etc.",
+              "zh_Hans": "q：自由文本搜索，匹配标题、描述、地点、参与者、组织者、工作地点相关字段等。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "q: free-text search (summary, description, location, attendees, organizer, working location fields, etc.).",
+              "zh_Hans": "q：自由文本搜索（标题、描述、地点、参与者、组织者、工作地点相关字段等）。"
+            },
+            "placeholder": {
+              "en_US": "team meeting",
+              "zh_Hans": "团队会议"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "i_cal_uid",
+          "display_name": {
+            "en_US": "iCal UID",
+            "zh_Hans": "iCal UID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "iCalUID: filter by iCalendar event UID.",
+              "zh_Hans": "iCalUID：按 iCalendar 活动 ID 筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by iCalendar UID.",
+              "zh_Hans": "按 iCalendar UID 筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "single_events",
           "display_name": {
-            "en_US": "Expand Recurring",
-            "zh_Hans": "展开重复事件"
+            "en_US": "Single Events (expand recurring)",
+            "zh_Hans": "展开重复事件（singleEvents）"
           },
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "If true, expand recurring events into instances and return only single one-off events and instances. Required for orderBy=startTime. Default: true.",
-              "zh_Hans": "为 true 时将重复事件展开为实例。按开始时间排序时必须为 true。默认：true。"
+              "en_US": "singleEvents: if true, expand recurring events into instances (API default is false). Required for orderBy=startTime.",
+              "zh_Hans": "singleEvents：为 true 时展开重复事件为实例（API 默认为 false）。orderBy=startTime 时必须为 true。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Expand recurring events into individual instances. Required for orderBy=startTime.",
-              "zh_Hans": "将重复事件展开为单独实例，按开始时间排序时必须开启"
+              "en_US": "singleEvents: expand recurring into instances (API default false). Must be true for orderBy=startTime.",
+              "zh_Hans": "singleEvents：为 true 时展开重复事件为实例（API 默认为 false）。orderBy=startTime 时必须为 true。"
             },
             "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "order_by",
@@ -1159,8 +1226,8 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Result ordering. \"startTime\" (ascending, requires singleEvents=true) or \"updated\" (ascending, last modification time).",
-              "zh_Hans": "结果排序。\"startTime\"（升序，需要 singleEvents=true）或 \"updated\"（升序，按最后修改时间）。"
+              "en_US": "orderBy: startTime (ascending; only when singleEvents=true) or updated (ascending by last modification). Omit for API default stable order.",
+              "zh_Hans": "orderBy：startTime（升序，仅当 singleEvents=true）或 updated（按最后修改时间升序）。不填则使用 API 默认稳定顺序。"
             }
           },
           "ui": {
@@ -1188,11 +1255,94 @@
             "component": "select"
           },
           "type": "string",
-          "default": "startTime",
           "enum": [
             "startTime",
             "updated"
           ]
+        },
+        {
+          "name": "event_types",
+          "display_name": {
+            "en_US": "Event Types",
+            "zh_Hans": "事件类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "eventTypes: comma-separated event types — birthday, default, focusTime, fromGmail, outOfOffice, workingLocation.",
+              "zh_Hans": "eventTypes：逗号分隔，可选值：birthday、default、focusTime、fromGmail、outOfOffice、workingLocation。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "eventTypes: comma-separated — birthday, default, focusTime, fromGmail, outOfOffice, workingLocation.",
+              "zh_Hans": "eventTypes：逗号分隔，如 birthday、default、focusTime、fromGmail、outOfOffice、workingLocation。"
+            },
+            "placeholder": {
+              "en_US": "default,workingLocation",
+              "zh_Hans": "default,workingLocation"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "private_extended_properties",
+          "display_name": {
+            "en_US": "Private Extended Properties",
+            "zh_Hans": "私有扩展属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "privateExtendedProperty: comma-separated constraints as propertyName=value (matches private extended properties only).",
+              "zh_Hans": "privateExtendedProperty：逗号分隔的 propertyName=value，仅匹配私有扩展属性。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "privateExtendedProperty: comma-separated propertyName=value pairs.",
+              "zh_Hans": "privateExtendedProperty：逗号分隔的 propertyName=value。"
+            },
+            "placeholder": {
+              "en_US": "key1=value1,key2=value2",
+              "zh_Hans": "key1=value1,key2=value2"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "shared_extended_properties",
+          "display_name": {
+            "en_US": "Shared Extended Properties",
+            "zh_Hans": "共享扩展属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "sharedExtendedProperty: comma-separated propertyName=value (shared extended properties only).",
+              "zh_Hans": "sharedExtendedProperty：逗号分隔的 propertyName=value，仅匹配共享扩展属性。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "sharedExtendedProperty: comma-separated propertyName=value pairs.",
+              "zh_Hans": "sharedExtendedProperty：逗号分隔的 propertyName=value。"
+            },
+            "placeholder": {
+              "en_US": "key1=value1",
+              "zh_Hans": "key1=value1"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "show_deleted",
@@ -1203,8 +1353,8 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Whether to include deleted events (status \"cancelled\") in the result. Default: false.",
-              "zh_Hans": "是否在结果中包含已删除事件（状态为 \"cancelled\"）。默认：false。"
+              "en_US": "showDeleted: include cancelled events (status \"cancelled\"). Default false.",
+              "zh_Hans": "showDeleted：是否包含已取消事件（status 为 \"cancelled\"）。默认 false。"
             }
           },
           "ui": {
@@ -1217,6 +1367,105 @@
           },
           "type": "boolean",
           "default": false
+        },
+        {
+          "name": "show_hidden_invitations",
+          "display_name": {
+            "en_US": "Show Hidden Invitations",
+            "zh_Hans": "显示隐藏邀请"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "showHiddenInvitations: include hidden invitations. Default false.",
+              "zh_Hans": "showHiddenInvitations：是否包含隐藏邀请。默认 false。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Include hidden invitations.",
+              "zh_Hans": "包含隐藏邀请。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "updated_min",
+          "display_name": {
+            "en_US": "Updated Min",
+            "zh_Hans": "更新时间下限"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "updatedMin: RFC3339 lower bound on last modification time; deletes since then are always included. Examples: 2025-03-01T00:00:00Z, 2025-03-01T09:00:00+09:00.",
+              "zh_Hans": "updatedMin：最后修改时间的 RFC3339 下限；此后删除的条目始终包含。示例：2025-03-01T00:00:00Z、2025-03-01T09:00:00+09:00。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "RFC3339 lower bound on last modification time. Examples: 2025-03-01T00:00:00Z, 2025-03-01T09:00:00+09:00.",
+              "zh_Hans": "按最后修改时间的 RFC3339 下限。示例：2025-03-01T00:00:00Z、2025-03-01T09:00:00+09:00。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_attendees",
+          "display_name": {
+            "en_US": "Max Attendees (response)",
+            "zh_Hans": "最大参与者数（响应）"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "maxAttendees: max attendees per event in the response; if exceeded, only the participant may be returned.",
+              "zh_Hans": "maxAttendees：每个事件在响应中最多返回的参与者数；超过时可能仅返回参与者。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Truncate attendees per event in the list response.",
+              "zh_Hans": "列表中每个事件返回的参与者数量上限。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "fields",
+          "display_name": {
+            "en_US": "Fields",
+            "zh_Hans": "字段"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "fields: partial response mask (Google Common Parameters), e.g. items(id,summary,start) or *.",
+              "zh_Hans": "fields：部分响应字段掩码（Google 通用参数），例如 items(id,summary,start) 或 *。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Partial response field mask, e.g. items(id,summary) or *.",
+              "zh_Hans": "部分响应字段掩码，如 items(id,summary) 或 *。"
+            },
+            "placeholder": {
+              "en_US": "items(id,summary,start)",
+              "zh_Hans": "items(id,summary,start)"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -1366,8 +1615,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Exclusive end time in RFC3339 format. Must be after start time. A timezone offset is required unless timezone is specified.",
-              "zh_Hans": "RFC3339 格式的结束时间（不含）。必须晚于开始时间。除非指定了时区，否则必须包含时区偏移。"
+              "en_US": "Exclusive end in RFC3339; must be after start. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z.",
+              "zh_Hans": "RFC3339 结束时间（不含），须晚于开始。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z。"
             }
           },
           "ui": {
@@ -1396,8 +1645,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Start date for all-day events in \"yyyy-mm-dd\" format, e.g. 2025-03-18.",
-              "zh_Hans": "全天事件的开始日期，格式为 \"yyyy-mm-dd\"，例如 2025-03-18。"
+              "en_US": "All-day start date (yyyy-mm-dd). Examples: 2025-03-18, 2025-12-01.",
+              "zh_Hans": "全天事件开始日期（yyyy-mm-dd）。示例：2025-03-18、2025-12-01。"
             }
           },
           "ui": {
@@ -1430,8 +1679,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Exclusive end date for all-day events in \"yyyy-mm-dd\" format. For a single-day event, set to the day after start_date.",
-              "zh_Hans": "全天事件的结束日期（不含），格式为 \"yyyy-mm-dd\"。单日事件应设为 start_date 的下一天。"
+              "en_US": "Exclusive end date (yyyy-mm-dd); for one-day event use the day after start_date. Examples: range Mar 18 only → end 2025-03-19.",
+              "zh_Hans": "全天结束日期（不含）；单日事件填开始日的下一天。示例：仅 3/18 一天 → 结束 2025-03-19。"
             }
           },
           "ui": {
@@ -1464,14 +1713,14 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "IANA Time Zone Database name, e.g. \"America/Los_Angeles\", \"Asia/Shanghai\", \"Europe/Zurich\". Used for start/end times.",
-              "zh_Hans": "IANA 时区数据库名称，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。用于开始/结束时间。"
+              "en_US": "IANA Time Zone Database name for timed events. Examples: \"Asia/Shanghai\", \"America/New_York\", \"Europe/Berlin\", \"Etc/UTC\".",
+              "zh_Hans": "IANA 时区名称（用于非全天事件的开始/结束）。示例：\"Asia/Shanghai\"、\"America/New_York\"、\"Europe/Berlin\"、\"Etc/UTC\"。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
-              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC"
+              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, Etc/UTC",
+              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、Etc/UTC"
             },
             "placeholder": {
               "en_US": "Asia/Shanghai",
@@ -1626,8 +1875,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
-              "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者"
+              "en_US": "Show additional event options: visibility, show-as, status, color, recurrence, attendees, guest permissions, and max attendees",
+              "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则、参与者、来宾权限与最大参与者数"
             },
             "support_expression": true,
             "component": "switch"
@@ -1869,8 +2118,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
-              "zh_Hans": "RFC5545 RRULE 规则，例如 RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR"
+              "en_US": "RRULE per RFC5545. Examples: RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15",
+              "zh_Hans": "RFC5545 RRULE。示例：RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15"
             },
             "placeholder": {
               "en_US": "RRULE:FREQ=DAILY;COUNT=5",
@@ -1916,6 +2165,130 @@
             "component": "input"
           },
           "type": "string"
+        },
+        {
+          "name": "guests_can_invite_others",
+          "display_name": {
+            "en_US": "Guests Can Invite Others",
+            "zh_Hans": "参与者可邀请他人"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees other than the organizer can invite others.",
+              "zh_Hans": "是否允许非组织者的参与者邀请他人。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Non-organizer attendees may invite others.",
+              "zh_Hans": "非组织者参与者是否可邀请他人。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "guests_can_modify",
+          "display_name": {
+            "en_US": "Guests Can Modify",
+            "zh_Hans": "参与者可修改"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees other than the organizer can modify the event.",
+              "zh_Hans": "是否允许非组织者的参与者修改事件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Non-organizer attendees may edit the event.",
+              "zh_Hans": "非组织者参与者是否可编辑事件。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "guests_can_see_other_guests",
+          "display_name": {
+            "en_US": "Guests Can See Other Guests",
+            "zh_Hans": "参与者可见其他参与者"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees can see other guests on the event.",
+              "zh_Hans": "参与者是否可见其他参与者。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Attendees can see the guest list.",
+              "zh_Hans": "参与者是否可见来宾列表。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "max_attendees",
+          "display_name": {
+            "en_US": "Max Attendees (API)",
+            "zh_Hans": "最大参与者数（API）"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Max attendees to include in the API response for create/update. Omit for no cap.",
+              "zh_Hans": "创建/更新时 API 响应中包含的最大参与者数。不填表示不限制。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Cap attendees returned by create/update API.",
+              "zh_Hans": "创建/更新接口返回的参与者数量上限。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
         }
       ]
     },
@@ -1998,6 +2371,57 @@
           "type": "string",
           "max_length": 1024,
           "min_length": 5
+        },
+        {
+          "name": "max_attendees",
+          "display_name": {
+            "en_US": "Max Attendees",
+            "zh_Hans": "最大参与者数"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Cap attendees in the response (n8n Get → Options → Max Attendees).",
+              "zh_Hans": "限制响应中的参与者数量。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Cap attendees in get response.",
+              "zh_Hans": "获取事件响应中的参与者数量上限。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "time_zone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "timeZone (IANA) for times in the response. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+              "zh_Hans": "响应中时间的 IANA 时区。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "IANA timezone for returned times. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+              "zh_Hans": "返回时间的 IANA 时区。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。"
+            },
+            "placeholder": {
+              "en_US": "Asia/Shanghai",
+              "zh_Hans": "Asia/Shanghai"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -2173,8 +2597,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Exclusive end time in RFC3339 format. Must be after start time. A timezone offset is required unless timezone is specified.",
-              "zh_Hans": "RFC3339 格式的结束时间（不含）。必须晚于开始时间。除非指定了时区，否则必须包含时区偏移。"
+              "en_US": "Exclusive end in RFC3339; must be after start. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z.",
+              "zh_Hans": "RFC3339 结束时间（不含），须晚于开始。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z。"
             }
           },
           "ui": {
@@ -2203,8 +2627,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Start date for all-day events in \"yyyy-mm-dd\" format, e.g. 2025-03-18.",
-              "zh_Hans": "全天事件的开始日期，格式为 \"yyyy-mm-dd\"，例如 2025-03-18。"
+              "en_US": "All-day start date (yyyy-mm-dd). Examples: 2025-03-18, 2025-12-01.",
+              "zh_Hans": "全天事件开始日期（yyyy-mm-dd）。示例：2025-03-18、2025-12-01。"
             }
           },
           "ui": {
@@ -2237,8 +2661,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Exclusive end date for all-day events in \"yyyy-mm-dd\" format. For a single-day event, set to the day after start_date.",
-              "zh_Hans": "全天事件的结束日期（不含），格式为 \"yyyy-mm-dd\"。单日事件应设为 start_date 的下一天。"
+              "en_US": "Exclusive end date (yyyy-mm-dd); for one-day event use the day after start_date. Examples: range Mar 18 only → end 2025-03-19.",
+              "zh_Hans": "全天结束日期（不含）；单日事件填开始日的下一天。示例：仅 3/18 一天 → 结束 2025-03-19。"
             }
           },
           "ui": {
@@ -2271,14 +2695,14 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "IANA Time Zone Database name, e.g. \"America/Los_Angeles\", \"Asia/Shanghai\", \"Europe/Zurich\". Used for start/end times.",
-              "zh_Hans": "IANA 时区数据库名称，例如 \"Asia/Shanghai\"、\"America/Los_Angeles\"。用于开始/结束时间。"
+              "en_US": "IANA Time Zone Database name for timed events. Examples: \"Asia/Shanghai\", \"America/New_York\", \"Europe/Berlin\", \"Etc/UTC\".",
+              "zh_Hans": "IANA 时区名称（用于非全天事件的开始/结束）。示例：\"Asia/Shanghai\"、\"America/New_York\"、\"Europe/Berlin\"、\"Etc/UTC\"。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
-              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC"
+              "en_US": "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, Etc/UTC",
+              "zh_Hans": "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、Etc/UTC"
             },
             "placeholder": {
               "en_US": "Asia/Shanghai",
@@ -2433,8 +2857,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
-              "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者"
+              "en_US": "Show additional event options: visibility, show-as, status, color, recurrence, attendees, guest permissions, and max attendees",
+              "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则、参与者、来宾权限与最大参与者数"
             },
             "support_expression": true,
             "component": "switch"
@@ -2676,8 +3100,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
-              "zh_Hans": "RFC5545 RRULE 规则，例如 RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR"
+              "en_US": "RRULE per RFC5545. Examples: RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15",
+              "zh_Hans": "RFC5545 RRULE。示例：RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15"
             },
             "placeholder": {
               "en_US": "RRULE:FREQ=DAILY;COUNT=5",
@@ -2723,6 +3147,130 @@
             "component": "input"
           },
           "type": "string"
+        },
+        {
+          "name": "guests_can_invite_others",
+          "display_name": {
+            "en_US": "Guests Can Invite Others",
+            "zh_Hans": "参与者可邀请他人"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees other than the organizer can invite others.",
+              "zh_Hans": "是否允许非组织者的参与者邀请他人。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Non-organizer attendees may invite others.",
+              "zh_Hans": "非组织者参与者是否可邀请他人。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "guests_can_modify",
+          "display_name": {
+            "en_US": "Guests Can Modify",
+            "zh_Hans": "参与者可修改"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees other than the organizer can modify the event.",
+              "zh_Hans": "是否允许非组织者的参与者修改事件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Non-organizer attendees may edit the event.",
+              "zh_Hans": "非组织者参与者是否可编辑事件。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "guests_can_see_other_guests",
+          "display_name": {
+            "en_US": "Guests Can See Other Guests",
+            "zh_Hans": "参与者可见其他参与者"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether attendees can see other guests on the event.",
+              "zh_Hans": "参与者是否可见其他参与者。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Attendees can see the guest list.",
+              "zh_Hans": "参与者是否可见来宾列表。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "max_attendees",
+          "display_name": {
+            "en_US": "Max Attendees (API)",
+            "zh_Hans": "最大参与者数（API）"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "use_advanced_options": {
+                "$eq": true
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Max attendees to include in the API response for create/update. Omit for no cap.",
+              "zh_Hans": "创建/更新时 API 响应中包含的最大参与者数。不填表示不限制。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Cap attendees returned by create/update API.",
+              "zh_Hans": "创建/更新接口返回的参与者数量上限。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
         }
       ]
     },
@@ -2949,8 +3497,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
-              "zh_Hans": "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
+              "en_US": "Limit results to a time window using time_min / time_max (RFC3339). Example pair: 2025-03-01T00:00:00Z … 2025-03-31T23:59:59Z. Ensure returned text fits your model context.",
+              "zh_Hans": "开启后用 time_min / time_max（RFC3339）限定时间窗。示例：2025-03-01T00:00:00Z 至 2025-03-31T23:59:59Z。注意返回内容不要超过模型上下文上限。"
             },
             "support_expression": true,
             "component": "switch"
@@ -2974,14 +3522,14 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Lower bound (exclusive) for event end time. RFC3339 timestamp with mandatory timezone offset, e.g. 2025-03-18T00:00:00Z.",
-              "zh_Hans": "事件结束时间的下限（不含）。RFC3339 时间戳，必须包含时区偏移，例如 2025-03-18T00:00:00Z。"
+              "en_US": "timeMin: lower bound (exclusive) for event end time (RFC3339). Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
+              "zh_Hans": "timeMin：事件结束时间的下限（不含），RFC3339。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
-              "zh_Hans": "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00"
+              "en_US": "timeMin (optional): RFC3339 with timezone offset; lower bound (exclusive) for event end time. Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
+              "zh_Hans": "timeMin（可选）：RFC3339 含时区偏移；事件结束时间的下限（不含）。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。"
             },
             "support_expression": true,
             "component": "input"
@@ -3004,14 +3552,14 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Upper bound (exclusive) for event start time. RFC3339 timestamp with mandatory timezone offset. Must be greater than timeMin.",
-              "zh_Hans": "事件开始时间的上限（不含）。RFC3339 时间戳，必须包含时区偏移。必须大于 timeMin。"
+              "en_US": "timeMax: upper bound (exclusive) for event start time (RFC3339). Must be > timeMin. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
+              "zh_Hans": "timeMax：事件开始时间的上限（不含），RFC3339。须大于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
-              "zh_Hans": "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00"
+              "en_US": "timeMax (optional): RFC3339 with timezone offset; upper bound (exclusive) for event start time; must be after timeMin if both set. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
+              "zh_Hans": "timeMax（可选）：RFC3339 含时区偏移；事件开始时间的上限（不含）；须晚于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。"
             },
             "support_expression": true,
             "component": "input"
@@ -3033,8 +3581,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
-              "zh_Hans": "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
+              "en_US": "maxResults: events per page, default 250, maximum 2500 (Google Calendar API).",
+              "zh_Hans": "maxResults：每页事件数，默认 250，最大 2500（Google Calendar API）。"
             },
             "support_expression": true,
             "component": "number-input"
@@ -3461,8 +4009,8 @@
         "zh_Hans": "查询忙闲"
       },
       "description": {
-        "en_US": "Query busy/free status for calendars in a time range",
-        "zh_Hans": "查询指定时间范围内日历的忙闲状态"
+        "en_US": "freeBusy.query (Calendar API v3): free/busy for calendars and/or groups",
+        "zh_Hans": "freeBusy.query（Calendar API v3）：查询日历与/或群组的忙闲信息"
       },
       "icon": "📊",
       "parameters": [
@@ -3488,8 +4036,8 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Start of the time range to query. RFC3339 timestamp with timezone offset, e.g. 2025-03-18T00:00:00Z.",
-              "zh_Hans": "查询时间范围的起始。RFC3339 时间戳（含时区偏移），例如 2025-03-18T00:00:00Z。"
+              "en_US": "timeMin: start of the query interval (RFC3339 with offset). Examples: 2025-03-18T00:00:00Z, 2025-03-18T08:00:00+08:00.",
+              "zh_Hans": "timeMin：查询间隔起始（RFC3339，须含时区偏移）。示例：2025-03-18T00:00:00Z、2025-03-18T08:00:00+08:00。"
             }
           },
           "ui": {
@@ -3512,8 +4060,8 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "End of the time range to query. RFC3339 timestamp with timezone offset. Must be after time_min.",
-              "zh_Hans": "查询时间范围的结束。RFC3339 时间戳（含时区偏移）。必须晚于 time_min。"
+              "en_US": "timeMax: end of the query interval (RFC3339). Must be after timeMin. Examples: 2025-03-23T23:59:59Z, 2025-03-24T00:00:00+08:00.",
+              "zh_Hans": "timeMax：查询间隔结束（RFC3339），须晚于 timeMin。示例：2025-03-23T23:59:59Z、2025-03-24T00:00:00+08:00。"
             }
           },
           "ui": {
@@ -3528,22 +4076,22 @@
           "type": "string"
         },
         {
-          "name": "calendar_ids",
+          "name": "items",
           "display_name": {
-            "en_US": "Calendar IDs",
-            "zh_Hans": "日历 ID 列表"
+            "en_US": "Items (calendar or group IDs)",
+            "zh_Hans": "条目（日历或群组 ID）"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated calendar IDs to query. Use \"primary\" for the user's primary calendar, or calendar email addresses.",
-              "zh_Hans": "要查询的日历 ID，逗号分隔。使用 \"primary\" 表示用户主日历，或使用日历邮箱地址。"
+              "en_US": "items: comma-separated calendar or group ids (maps to request body items[].id). Use \"primary\" or email-style calendar ids.",
+              "zh_Hans": "items：逗号分隔的日历或群组标识（对应请求体 items[].id）。可使用 \"primary\" 或邮箱形式日历 ID。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated calendar IDs to query",
-              "zh_Hans": "要查询的日历 ID，逗号分隔"
+              "en_US": "Comma-separated ids → request body items[].id (calendars and/or groups).",
+              "zh_Hans": "逗号分隔的标识，对应请求体 items[].id（日历与/或群组）。"
             },
             "placeholder": {
               "en_US": "primary,user@example.com",
@@ -3555,6 +4103,83 @@
           },
           "type": "string",
           "min_length": 1
+        },
+        {
+          "name": "time_zone",
+          "display_name": {
+            "en_US": "Timezone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "timeZone: IANA id for the response. Optional; API default UTC. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+              "zh_Hans": "timeZone：响应使用的 IANA 时区。可选，API 默认 UTC。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "timeZone in request body (IANA). Optional; API default is UTC. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+              "zh_Hans": "请求体 timeZone（IANA）。可选，API 默认为 UTC。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。"
+            },
+            "placeholder": {
+              "en_US": "Asia/Shanghai",
+              "zh_Hans": "Asia/Shanghai"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "group_expansion_max",
+          "display_name": {
+            "en_US": "Group expansion max",
+            "zh_Hans": "群组展开上限"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "groupExpansionMax: max calendar identifiers expanded for a single group (optional, max 100).",
+              "zh_Hans": "groupExpansionMax：单个群组最多展开的日历标识数量（可选，最大 100）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "groupExpansionMax: max ids expanded per group (1–100, optional).",
+              "zh_Hans": "groupExpansionMax：单个群组最多展开的日历标识数（可选，1–100）。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "maximum": 100,
+          "minimum": 1
+        },
+        {
+          "name": "calendar_expansion_max",
+          "display_name": {
+            "en_US": "Calendar expansion max",
+            "zh_Hans": "日历展开上限"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "calendarExpansionMax: max calendars for which FreeBusy is returned (optional, max 50).",
+              "zh_Hans": "calendarExpansionMax：返回忙闲信息的日历数量上限（可选，最大 50）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "calendarExpansionMax: max calendars in response (1–50, optional).",
+              "zh_Hans": "calendarExpansionMax：返回忙闲信息的日历数量上限（可选，1–50）。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "maximum": 50,
+          "minimum": 1
         }
       ]
     }

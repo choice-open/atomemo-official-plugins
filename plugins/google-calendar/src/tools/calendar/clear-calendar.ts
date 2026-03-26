@@ -30,7 +30,7 @@ export const clearCalendarTool: ToolDefinition = {
         component: "input",
         hint: {
           en_US:
-            '⚠️ Only works on primary calendar. This will permanently delete ALL events!',
+            "⚠️ Only works on primary calendar. This will permanently delete ALL events!",
           zh_Hans: "⚠️ 仅适用于主日历。将永久删除所有事件！",
         },
         readonly: true,

@@ -37,18 +37,20 @@ const en_US = {
     "RFC3339 datetime with timezone offset, must be after start time. Examples: 2025-03-18T10:00:00+08:00, 2025-03-18T02:00:00Z",
   TIMEZONE_DISPLAY_NAME: "Timezone",
   TIMEZONE_HINT:
-    "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
+    "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, Etc/UTC",
   TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "Max Results",
-  MAX_RESULTS_HINT: "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+  MAX_RESULTS_HINT:
+    "maxResults: events per page, default 250, maximum 2500 (Google Calendar API).",
   TIME_MIN_DISPLAY_NAME: "Time Min",
   TIME_MIN_HINT:
-    "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
+    "timeMin (optional): RFC3339 with timezone offset; lower bound (exclusive) for event end time. Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
   TIME_MAX_DISPLAY_NAME: "Time Max",
   TIME_MAX_HINT:
-    "End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00",
+    "timeMax (optional): RFC3339 with timezone offset; upper bound (exclusive) for event start time; must be after timeMin if both set. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
   LIST_EVENTS_DISPLAY_NAME: "List Events",
-  LIST_EVENTS_DESCRIPTION: "List events from a Google Calendar",
+  LIST_EVENTS_DESCRIPTION:
+    "List events via Calendar API v3 events.list (see Google documentation for query parameters).",
   CREATE_EVENT_DISPLAY_NAME: "Create Event",
   CREATE_EVENT_DESCRIPTION: "Create a new event on Google Calendar",
   GET_EVENT_DISPLAY_NAME: "Get Event",
@@ -87,7 +89,7 @@ const en_US = {
   CALENDAR_DESCRIPTION_HINT: "Calendar description",
   CALENDAR_LOCATION_HINT: "Geographic location of the calendar",
   CALENDAR_TIMEZONE_HINT:
-    "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London",
+    "Default timezone in IANA format. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Etc/UTC",
   DEFAULT_REMINDERS_DISPLAY_NAME: "Default Reminders",
   DEFAULT_REMINDERS_HINT:
     "User default reminders (method: email/popup, minutes: number)",
@@ -114,9 +116,17 @@ const en_US = {
   COLORS_GET_DESCRIPTION: "Get calendar and event color definitions",
   FREEBUSY_QUERY_DISPLAY_NAME: "Query Free/Busy",
   FREEBUSY_QUERY_DESCRIPTION:
-    "Query busy/free status for calendars in a time range",
-  CALENDAR_IDS_DISPLAY_NAME: "Calendar IDs",
-  CALENDAR_IDS_HINT: "Comma-separated calendar IDs to query",
+    "freeBusy.query (Calendar API v3): free/busy for calendars and/or groups",
+  FREEBUSY_ITEMS_DISPLAY_NAME: "Items (calendar or group IDs)",
+  FREEBUSY_ITEMS_HINT:
+    "Comma-separated ids → request body items[].id (calendars and/or groups).",
+  FREEBUSY_ITEMS_PLACEHOLDER: "primary,user@example.com",
+  FREEBUSY_GROUP_EXPANSION_MAX_DISPLAY_NAME: "Group expansion max",
+  FREEBUSY_GROUP_EXPANSION_MAX_HINT:
+    "groupExpansionMax: max ids expanded per group (1–100, optional).",
+  FREEBUSY_CALENDAR_EXPANSION_MAX_DISPLAY_NAME: "Calendar expansion max",
+  FREEBUSY_CALENDAR_EXPANSION_MAX_HINT:
+    "calendarExpansionMax: max calendars in response (1–50, optional).",
   TIME_MIN_REQUIRED_HINT:
     "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
   TIME_MAX_REQUIRED_HINT:
@@ -126,13 +136,13 @@ const en_US = {
   COLOR_ID_DISPLAY_NAME: "Color ID",
   COLOR_ID_HINT: "Predefined color ID (1-11 for calendar)",
   SETTING_ID_PLACEHOLDER: "timezone",
-  CALENDAR_IDS_PLACEHOLDER: "primary,user@example.com",
   IS_ALL_DAY_EVENT_DISPLAY_NAME: "All-day Event",
   IS_ALL_DAY_EVENT_HINT: "If enabled, use date only (no time)",
   INCLUDE_DETAILS_DISPLAY_NAME: "Include Details",
   INCLUDE_DETAILS_HINT: "Add description and location",
   USE_TIME_RANGE_DISPLAY_NAME: "Filter by Time Range",
-  USE_TIME_RANGE_HINT: "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+  USE_TIME_RANGE_HINT:
+    "Limit results to a time window using time_min / time_max (RFC3339). Example pair: 2025-03-01T00:00:00Z … 2025-03-31T23:59:59Z. Ensure returned text fits your model context.",
   UPDATE_TIME_DISPLAY_NAME: "Update Time",
   UPDATE_TIME_HINT: "Change event start/end time",
   START_DATE_DISPLAY_NAME: "Start Date",
@@ -165,28 +175,80 @@ const en_US = {
   EVENT_COLOR_ID_DISPLAY_NAME: "Event Color",
   EVENT_COLOR_ID_HINT:
     "Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.",
-  SEARCH_QUERY_DISPLAY_NAME: "Search Query",
+  SEARCH_QUERY_DISPLAY_NAME: "Query",
   SEARCH_QUERY_HINT:
-    "Free text search in summary, description, location, attendees, etc.",
+    "q: free-text search (summary, description, location, attendees, organizer, working location fields, etc.).",
   SEARCH_QUERY_PLACEHOLDER: "team meeting",
+  PAGE_TOKEN_DISPLAY_NAME: "Page Token",
+  PAGE_TOKEN_HINT: "pageToken from nextPageToken to fetch the next page.",
+  SYNC_TOKEN_DISPLAY_NAME: "Sync Token",
+  SYNC_TOKEN_HINT:
+    "syncToken from nextSyncToken for incremental sync; cannot mix with time filters, q, iCalUID, orderBy, or extended properties.",
+  EVENT_TYPES_DISPLAY_NAME: "Event Types",
+  EVENT_TYPES_HINT:
+    "eventTypes: comma-separated — birthday, default, focusTime, fromGmail, outOfOffice, workingLocation.",
+  EVENT_TYPES_PLACEHOLDER: "default,workingLocation",
+  PRIVATE_EXTENDED_PROPERTY_DISPLAY_NAME: "Private Extended Properties",
+  PRIVATE_EXTENDED_PROPERTY_HINT:
+    "privateExtendedProperty: comma-separated propertyName=value pairs.",
+  PRIVATE_EXTENDED_PROPERTY_PLACEHOLDER: "key1=value1,key2=value2",
+  SHARED_EXTENDED_PROPERTY_DISPLAY_NAME: "Shared Extended Properties",
+  SHARED_EXTENDED_PROPERTY_HINT:
+    "sharedExtendedProperty: comma-separated propertyName=value pairs.",
+  SHARED_EXTENDED_PROPERTY_PLACEHOLDER: "key1=value1",
+  LIST_TIME_ZONE_DISPLAY_NAME: "Timezone",
+  LIST_TIME_ZONE_HINT:
+    "timeZone used in the API response (default: calendar timezone). Examples: Asia/Shanghai, Europe/Berlin, America/New_York, Etc/UTC.",
+  ICAL_UID_DISPLAY_NAME: "iCal UID",
+  ICAL_UID_HINT: "Filter by iCalendar UID.",
+  LIST_MAX_ATTENDEES_DISPLAY_NAME: "Max Attendees (response)",
+  LIST_MAX_ATTENDEES_HINT: "Truncate attendees per event in the list response.",
+  FIELDS_DISPLAY_NAME: "Fields",
+  FIELDS_HINT: "Partial response field mask, e.g. items(id,summary) or *.",
+  FIELDS_PLACEHOLDER: "items(id,summary,start)",
+  SHOW_HIDDEN_INVITATIONS_DISPLAY_NAME: "Show Hidden Invitations",
+  SHOW_HIDDEN_INVITATIONS_HINT: "Include hidden invitations.",
+  UPDATED_MIN_DISPLAY_NAME: "Updated Min",
+  UPDATED_MIN_HINT:
+    "RFC3339 lower bound on last modification time. Examples: 2025-03-01T00:00:00Z, 2025-03-01T09:00:00+09:00.",
+  GUESTS_CAN_INVITE_OTHERS_DISPLAY_NAME: "Guests Can Invite Others",
+  GUESTS_CAN_INVITE_OTHERS_HINT: "Non-organizer attendees may invite others.",
+  GUESTS_CAN_MODIFY_DISPLAY_NAME: "Guests Can Modify",
+  GUESTS_CAN_MODIFY_HINT: "Non-organizer attendees may edit the event.",
+  GUESTS_CAN_SEE_OTHER_GUESTS_DISPLAY_NAME: "Guests Can See Other Guests",
+  GUESTS_CAN_SEE_OTHER_GUESTS_HINT: "Attendees can see the guest list.",
+  MAX_ATTENDEES_DISPLAY_NAME: "Max Attendees (API)",
+  MAX_ATTENDEES_HINT: "Cap attendees returned by create/update API.",
+  GET_EVENT_MAX_ATTENDEES_DISPLAY_NAME: "Max Attendees",
+  GET_EVENT_MAX_ATTENDEES_HINT: "Cap attendees in get response.",
+  GET_EVENT_TIME_ZONE_DISPLAY_NAME: "Timezone",
+  GET_EVENT_TIME_ZONE_HINT:
+    "IANA timezone for returned times. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+  RETURN_NEXT_INSTANCE_DISPLAY_NAME: "Return Next Instance",
+  RETURN_NEXT_INSTANCE_HINT:
+    "For recurring events, return the next instance from now.",
+  FREEBUSY_TIME_ZONE_DISPLAY_NAME: "Timezone",
+  FREEBUSY_TIME_ZONE_HINT:
+    "timeZone in request body (IANA). Optional; API default is UTC. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
   ORDER_BY_DISPLAY_NAME: "Order By",
   ORDER_BY_HINT: "Result order. 'startTime' requires singleEvents=true.",
   ORDER_BY_START_TIME: "Start Time",
   ORDER_BY_UPDATED: "Last Modified",
-  SINGLE_EVENTS_DISPLAY_NAME: "Expand Recurring",
+  SINGLE_EVENTS_DISPLAY_NAME: "Single Events (expand recurring)",
   SINGLE_EVENTS_HINT:
-    "Expand recurring events into individual instances. Required for orderBy=startTime.",
+    "singleEvents: expand recurring into instances (API default false). Must be true for orderBy=startTime.",
   SHOW_DELETED_DISPLAY_NAME: "Show Deleted",
   SHOW_DELETED_HINT: "Include cancelled/deleted events in results",
   RECURRENCE_DISPLAY_NAME: "Recurrence Rule",
-  RECURRENCE_HINT: "RRULE per RFC5545, e.g. RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
+  RECURRENCE_HINT:
+    "RRULE per RFC5545. Examples: RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15",
   RECURRENCE_PLACEHOLDER: "RRULE:FREQ=DAILY;COUNT=5",
   ATTENDEES_DISPLAY_NAME: "Attendees",
   ATTENDEES_HINT: "Comma-separated email addresses of attendees",
   ATTENDEES_PLACEHOLDER: "user1@example.com,user2@example.com",
   USE_ADVANCED_OPTIONS_DISPLAY_NAME: "Advanced Options",
   USE_ADVANCED_OPTIONS_HINT:
-    "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
+    "Show additional event options: visibility, show-as, status, color, recurrence, attendees, guest permissions, and max attendees",
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "Conference Data Version",
   CONFERENCE_DATA_VERSION_HINT:
     "0 = no conference data, 1 = enable conference creation/copy",

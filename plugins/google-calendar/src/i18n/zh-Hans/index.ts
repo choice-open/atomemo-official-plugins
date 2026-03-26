@@ -37,18 +37,20 @@ const zh_Hans = {
     "RFC3339 日期时间，需含时区偏移，必须晚于开始时间。示例：2025-03-18T10:00:00+08:00、2025-03-18T02:00:00Z",
   TIMEZONE_DISPLAY_NAME: "时区",
   TIMEZONE_HINT:
-    "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC",
+    "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、Etc/UTC",
   TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "最大返回数",
-  MAX_RESULTS_HINT: "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。",
+  MAX_RESULTS_HINT:
+    "maxResults：每页事件数，默认 250，最大 2500（Google Calendar API）。",
   TIME_MIN_DISPLAY_NAME: "最早时间",
   TIME_MIN_HINT:
-    "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00",
+    "timeMin（可选）：RFC3339 含时区偏移；事件结束时间的下限（不含）。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。",
   TIME_MAX_DISPLAY_NAME: "最晚时间",
   TIME_MAX_HINT:
-    "时间范围结束（必填），必须晚于起始时间。RFC3339 格式含时区偏移。示例：2025-03-19T00:00:00Z 或 2025-03-19T08:00:00+08:00",
+    "timeMax（可选）：RFC3339 含时区偏移；事件开始时间的上限（不含）；须晚于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。",
   LIST_EVENTS_DISPLAY_NAME: "列出事件",
-  LIST_EVENTS_DESCRIPTION: "从 Google 日历列出事件",
+  LIST_EVENTS_DESCRIPTION:
+    "通过 Calendar API v3 的 events.list 列出事件（参数与官方文档一致）。",
   CREATE_EVENT_DISPLAY_NAME: "创建事件",
   CREATE_EVENT_DESCRIPTION: "在 Google 日历上创建新事件",
   GET_EVENT_DISPLAY_NAME: "获取事件",
@@ -83,7 +85,7 @@ const zh_Hans = {
   CALENDAR_DESCRIPTION_HINT: "日历描述",
   CALENDAR_LOCATION_HINT: "日历的地理位置",
   CALENDAR_TIMEZONE_HINT:
-    "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London",
+    "默认时区，IANA 格式。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Etc/UTC",
   DEFAULT_REMINDERS_DISPLAY_NAME: "默认提醒",
   DEFAULT_REMINDERS_HINT: "用户默认提醒（method: email/popup, minutes: 数字）",
   LIST_EVENT_INSTANCES_DISPLAY_NAME: "列出事件实例",
@@ -106,9 +108,18 @@ const zh_Hans = {
   COLORS_GET_DISPLAY_NAME: "获取颜色",
   COLORS_GET_DESCRIPTION: "获取日历和事件的颜色定义",
   FREEBUSY_QUERY_DISPLAY_NAME: "查询忙闲",
-  FREEBUSY_QUERY_DESCRIPTION: "查询指定时间范围内日历的忙闲状态",
-  CALENDAR_IDS_DISPLAY_NAME: "日历 ID 列表",
-  CALENDAR_IDS_HINT: "要查询的日历 ID，逗号分隔",
+  FREEBUSY_QUERY_DESCRIPTION:
+    "freeBusy.query（Calendar API v3）：查询日历与/或群组的忙闲信息",
+  FREEBUSY_ITEMS_DISPLAY_NAME: "条目（日历或群组 ID）",
+  FREEBUSY_ITEMS_HINT:
+    "逗号分隔的标识，对应请求体 items[].id（日历与/或群组）。",
+  FREEBUSY_ITEMS_PLACEHOLDER: "primary,user@example.com",
+  FREEBUSY_GROUP_EXPANSION_MAX_DISPLAY_NAME: "群组展开上限",
+  FREEBUSY_GROUP_EXPANSION_MAX_HINT:
+    "groupExpansionMax：单个群组最多展开的日历标识数（可选，1–100）。",
+  FREEBUSY_CALENDAR_EXPANSION_MAX_DISPLAY_NAME: "日历展开上限",
+  FREEBUSY_CALENDAR_EXPANSION_MAX_HINT:
+    "calendarExpansionMax：返回忙闲信息的日历数量上限（可选，1–50）。",
   TIME_MIN_REQUIRED_HINT:
     "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00",
   TIME_MAX_REQUIRED_HINT:
@@ -118,13 +129,13 @@ const zh_Hans = {
   COLOR_ID_DISPLAY_NAME: "颜色 ID",
   COLOR_ID_HINT: "预定义颜色 ID（1-11）",
   SETTING_ID_PLACEHOLDER: "timezone",
-  CALENDAR_IDS_PLACEHOLDER: "primary,user@example.com",
   IS_ALL_DAY_EVENT_DISPLAY_NAME: "全天事件",
   IS_ALL_DAY_EVENT_HINT: "启用时仅使用日期（不含时间）",
   INCLUDE_DETAILS_DISPLAY_NAME: "包含详情",
   INCLUDE_DETAILS_HINT: "添加描述和地点",
   USE_TIME_RANGE_DISPLAY_NAME: "按时间范围筛选",
-  USE_TIME_RANGE_HINT: "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。",
+  USE_TIME_RANGE_HINT:
+    "开启后用 time_min / time_max（RFC3339）限定时间窗。示例：2025-03-01T00:00:00Z 至 2025-03-31T23:59:59Z。注意返回内容不要超过模型上下文上限。",
   UPDATE_TIME_DISPLAY_NAME: "更新时间",
   UPDATE_TIME_HINT: "修改事件开始/结束时间",
   START_DATE_DISPLAY_NAME: "开始日期",
@@ -155,26 +166,80 @@ const zh_Hans = {
   EVENT_STATUS_TENTATIVE: "暂定",
   EVENT_COLOR_ID_DISPLAY_NAME: "事件颜色",
   EVENT_COLOR_ID_HINT: "颜色端点中的颜色 ID（1-11），使用「获取颜色」查看选项",
-  SEARCH_QUERY_DISPLAY_NAME: "搜索关键词",
-  SEARCH_QUERY_HINT: "在标题、描述、地点、参与者等字段中搜索",
+  SEARCH_QUERY_DISPLAY_NAME: "查询",
+  SEARCH_QUERY_HINT:
+    "q：自由文本搜索（标题、描述、地点、参与者、组织者、工作地点相关字段等）。",
   SEARCH_QUERY_PLACEHOLDER: "团队会议",
+  PAGE_TOKEN_DISPLAY_NAME: "分页令牌",
+  PAGE_TOKEN_HINT:
+    "使用上一页响应中的 nextPageToken 作为 pageToken 获取下一页。",
+  SYNC_TOKEN_DISPLAY_NAME: "同步令牌",
+  SYNC_TOKEN_HINT:
+    "使用上次列表结果中的 nextSyncToken 做增量同步；不可与时间筛选、q、iCalUID、orderBy、扩展属性同时使用。",
+  EVENT_TYPES_DISPLAY_NAME: "事件类型",
+  EVENT_TYPES_HINT:
+    "eventTypes：逗号分隔，如 birthday、default、focusTime、fromGmail、outOfOffice、workingLocation。",
+  EVENT_TYPES_PLACEHOLDER: "default,workingLocation",
+  PRIVATE_EXTENDED_PROPERTY_DISPLAY_NAME: "私有扩展属性",
+  PRIVATE_EXTENDED_PROPERTY_HINT:
+    "privateExtendedProperty：逗号分隔的 propertyName=value。",
+  PRIVATE_EXTENDED_PROPERTY_PLACEHOLDER: "key1=value1,key2=value2",
+  SHARED_EXTENDED_PROPERTY_DISPLAY_NAME: "共享扩展属性",
+  SHARED_EXTENDED_PROPERTY_HINT:
+    "sharedExtendedProperty：逗号分隔的 propertyName=value。",
+  SHARED_EXTENDED_PROPERTY_PLACEHOLDER: "key1=value1",
+  LIST_TIME_ZONE_DISPLAY_NAME: "时区",
+  LIST_TIME_ZONE_HINT:
+    "timeZone：响应中使用的时区（默认取日历时区）。示例：Asia/Shanghai、Europe/Berlin、America/New_York、Etc/UTC。",
+  ICAL_UID_DISPLAY_NAME: "iCal UID",
+  ICAL_UID_HINT: "按 iCalendar UID 筛选。",
+  LIST_MAX_ATTENDEES_DISPLAY_NAME: "最大参与者数（响应）",
+  LIST_MAX_ATTENDEES_HINT: "列表中每个事件返回的参与者数量上限。",
+  FIELDS_DISPLAY_NAME: "字段",
+  FIELDS_HINT: "部分响应字段掩码，如 items(id,summary) 或 *。",
+  FIELDS_PLACEHOLDER: "items(id,summary,start)",
+  SHOW_HIDDEN_INVITATIONS_DISPLAY_NAME: "显示隐藏邀请",
+  SHOW_HIDDEN_INVITATIONS_HINT: "包含隐藏邀请。",
+  UPDATED_MIN_DISPLAY_NAME: "更新时间下限",
+  UPDATED_MIN_HINT:
+    "按最后修改时间的 RFC3339 下限。示例：2025-03-01T00:00:00Z、2025-03-01T09:00:00+09:00。",
+  GUESTS_CAN_INVITE_OTHERS_DISPLAY_NAME: "参与者可邀请他人",
+  GUESTS_CAN_INVITE_OTHERS_HINT: "非组织者参与者是否可邀请他人。",
+  GUESTS_CAN_MODIFY_DISPLAY_NAME: "参与者可修改",
+  GUESTS_CAN_MODIFY_HINT: "非组织者参与者是否可编辑事件。",
+  GUESTS_CAN_SEE_OTHER_GUESTS_DISPLAY_NAME: "参与者可见其他参与者",
+  GUESTS_CAN_SEE_OTHER_GUESTS_HINT: "参与者是否可见来宾列表。",
+  MAX_ATTENDEES_DISPLAY_NAME: "最大参与者数（API）",
+  MAX_ATTENDEES_HINT: "创建/更新接口返回的参与者数量上限。",
+  GET_EVENT_MAX_ATTENDEES_DISPLAY_NAME: "最大参与者数",
+  GET_EVENT_MAX_ATTENDEES_HINT: "获取事件响应中的参与者数量上限。",
+  GET_EVENT_TIME_ZONE_DISPLAY_NAME: "时区",
+  GET_EVENT_TIME_ZONE_HINT:
+    "返回时间的 IANA 时区。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。",
+  RETURN_NEXT_INSTANCE_DISPLAY_NAME: "返回下一实例",
+  RETURN_NEXT_INSTANCE_HINT: "对重复事件返回当前起的下一实例。",
+  FREEBUSY_TIME_ZONE_DISPLAY_NAME: "时区",
+  FREEBUSY_TIME_ZONE_HINT:
+    "请求体 timeZone（IANA）。可选，API 默认为 UTC。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。",
   ORDER_BY_DISPLAY_NAME: "排序方式",
   ORDER_BY_HINT: "结果排序方式，'startTime' 需要展开重复事件",
   ORDER_BY_START_TIME: "开始时间",
   ORDER_BY_UPDATED: "最后修改时间",
-  SINGLE_EVENTS_DISPLAY_NAME: "展开重复事件",
-  SINGLE_EVENTS_HINT: "将重复事件展开为单独实例，按开始时间排序时必须开启",
+  SINGLE_EVENTS_DISPLAY_NAME: "展开重复事件（singleEvents）",
+  SINGLE_EVENTS_HINT:
+    "singleEvents：为 true 时展开重复事件为实例（API 默认为 false）。orderBy=startTime 时必须为 true。",
   SHOW_DELETED_DISPLAY_NAME: "显示已删除",
   SHOW_DELETED_HINT: "在结果中包含已取消/已删除的事件",
   RECURRENCE_DISPLAY_NAME: "重复规则",
-  RECURRENCE_HINT: "RFC5545 RRULE 规则，例如 RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
+  RECURRENCE_HINT:
+    "RFC5545 RRULE。示例：RRULE:FREQ=DAILY;COUNT=5 — RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR — RRULE:FREQ=MONTHLY;BYMONTHDAY=15",
   RECURRENCE_PLACEHOLDER: "RRULE:FREQ=DAILY;COUNT=5",
   ATTENDEES_DISPLAY_NAME: "参与者",
   ATTENDEES_HINT: "参与者邮箱地址，逗号分隔",
   ATTENDEES_PLACEHOLDER: "user1@example.com,user2@example.com",
   USE_ADVANCED_OPTIONS_DISPLAY_NAME: "高级选项",
   USE_ADVANCED_OPTIONS_HINT:
-    "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者",
+    "显示更多事件选项：可见性、显示为、状态、颜色、重复规则、参与者、来宾权限与最大参与者数",
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "会议数据版本",
   CONFERENCE_DATA_VERSION_HINT: "0 = 无会议数据，1 = 启用会议创建/复制",
   SECONDARY_CALENDAR_ID_HINT:
