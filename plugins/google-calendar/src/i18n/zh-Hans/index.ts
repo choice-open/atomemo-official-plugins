@@ -40,7 +40,7 @@ const zh_Hans = {
     "IANA 时区名称。示例：Asia/Shanghai、America/Los_Angeles、Europe/London、Asia/Tokyo、UTC",
   TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "最大返回数",
-  MAX_RESULTS_HINT: "返回事件的最大数量（1-2500）",
+  MAX_RESULTS_HINT: "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。",
   TIME_MIN_DISPLAY_NAME: "最早时间",
   TIME_MIN_HINT:
     "时间范围起始（必填）。RFC3339 格式含时区偏移。示例：2025-03-18T00:00:00Z 或 2025-03-18T08:00:00+08:00",
@@ -124,7 +124,7 @@ const zh_Hans = {
   INCLUDE_DETAILS_DISPLAY_NAME: "包含详情",
   INCLUDE_DETAILS_HINT: "添加描述和地点",
   USE_TIME_RANGE_DISPLAY_NAME: "按时间范围筛选",
-  USE_TIME_RANGE_HINT: "将结果限制在指定时间范围内",
+  USE_TIME_RANGE_HINT: "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。",
   UPDATE_TIME_DISPLAY_NAME: "更新时间",
   UPDATE_TIME_HINT: "修改事件开始/结束时间",
   START_DATE_DISPLAY_NAME: "开始日期",

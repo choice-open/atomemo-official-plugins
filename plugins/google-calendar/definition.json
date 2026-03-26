@@ -529,6 +529,7 @@
               "zh_Hans": "⚠️ 仅适用于主日历。将永久删除所有事件！"
             },
             "readonly": true,
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
@@ -876,6 +877,7 @@
               "en_US": "Whether to show this calendar in the UI",
               "zh_Hans": "是否在界面中显示此日历"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean"
@@ -1029,9 +1031,10 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Limit results to a specific time window",
-              "zh_Hans": "将结果限制在指定时间范围内"
+              "en_US": "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+              "zh_Hans": "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -1112,8 +1115,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Maximum number of events to return (1-2500)",
-              "zh_Hans": "返回事件的最大数量（1-2500）"
+              "en_US": "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+              "zh_Hans": "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
             },
             "support_expression": true,
             "component": "number-input"
@@ -1311,6 +1314,7 @@
               "en_US": "If enabled, use date only (no time)",
               "zh_Hans": "启用时仅使用日期（不含时间）"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -1542,6 +1546,7 @@
               "en_US": "Add description and location",
               "zh_Hans": "添加描述和地点"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -1624,6 +1629,7 @@
               "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
               "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -1654,6 +1660,7 @@
               "en_US": "Visibility of the event",
               "zh_Hans": "事件的可见性"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -1720,6 +1727,7 @@
               "en_US": "Whether the event blocks time on the calendar",
               "zh_Hans": "事件是否在日历上占用时间"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -1770,6 +1778,7 @@
               "en_US": "Status of the event",
               "zh_Hans": "事件状态"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -1820,6 +1829,7 @@
               "en_US": "Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.",
               "zh_Hans": "颜色端点中的颜色 ID（1-11），使用「获取颜色」查看选项"
             },
+            "support_expression": true,
             "component": "select"
           },
           "type": "string",
@@ -2111,6 +2121,7 @@
               "en_US": "If enabled, use date only (no time)",
               "zh_Hans": "启用时仅使用日期（不含时间）"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -2342,6 +2353,7 @@
               "en_US": "Add description and location",
               "zh_Hans": "添加描述和地点"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -2424,6 +2436,7 @@
               "en_US": "Show additional event options: visibility, transparency, status, color, recurrence and attendees",
               "zh_Hans": "显示更多事件选项：可见性、显示为、状态、颜色、重复规则和参与者"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -2454,6 +2467,7 @@
               "en_US": "Visibility of the event",
               "zh_Hans": "事件的可见性"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2520,6 +2534,7 @@
               "en_US": "Whether the event blocks time on the calendar",
               "zh_Hans": "事件是否在日历上占用时间"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2570,6 +2585,7 @@
               "en_US": "Status of the event",
               "zh_Hans": "事件状态"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -2620,6 +2636,7 @@
               "en_US": "Color ID from colors endpoint (1-11). Use 'Get Colors' to see options.",
               "zh_Hans": "颜色端点中的颜色 ID（1-11），使用「获取颜色」查看选项"
             },
+            "support_expression": true,
             "component": "select"
           },
           "type": "string",
@@ -2932,8 +2949,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Limit results to a specific time window",
-              "zh_Hans": "将结果限制在指定时间范围内"
+              "en_US": "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+              "zh_Hans": "将结果限制在指定时间范围内，请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
             },
             "support_expression": true,
             "component": "switch"
@@ -3016,8 +3033,8 @@
           },
           "ui": {
             "hint": {
-              "en_US": "Maximum number of events to return (1-2500)",
-              "zh_Hans": "返回事件的最大数量（1-2500）"
+              "en_US": "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
+              "zh_Hans": "返回事件的最大数量（1-2500）请确保返回的日历事件实例总文本长度，不超过所选AI模型的处理能力上限。"
             },
             "support_expression": true,
             "component": "number-input"

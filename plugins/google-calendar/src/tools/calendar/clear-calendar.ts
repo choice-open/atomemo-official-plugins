@@ -35,6 +35,7 @@ export const clearCalendarTool: ToolDefinition = {
         },
         readonly: true,
         width: "full",
+        support_expression: true,
       },
     },
   ],

@@ -159,6 +159,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "switch",
       hint: t("IS_ALL_DAY_EVENT_HINT"),
+      support_expression: true,
     },
   },
   {
@@ -284,6 +285,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "switch",
       hint: t("INCLUDE_DETAILS_HINT"),
+      support_expression: true,
     },
   },
   {
@@ -337,6 +339,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "switch",
       hint: t("USE_ADVANCED_OPTIONS_HINT"),
+      support_expression: true,
     },
   },
   {
@@ -357,6 +360,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "select",
       hint: t("VISIBILITY_HINT"),
+      support_expression: true,
       options: [
         { label: t("VISIBILITY_DEFAULT"), value: "default" },
         { label: t("VISIBILITY_PUBLIC"), value: "public" },
@@ -386,6 +390,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "select",
       hint: t("TRANSPARENCY_HINT"),
+      support_expression: true,
       options: [
         { label: t("TRANSPARENCY_OPAQUE"), value: "opaque" },
         { label: t("TRANSPARENCY_TRANSPARENT"), value: "transparent" },
@@ -412,6 +417,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "select",
       hint: t("EVENT_STATUS_HINT"),
+      support_expression: true,
       options: [
         { label: t("EVENT_STATUS_CONFIRMED"), value: "confirmed" },
         { label: t("EVENT_STATUS_TENTATIVE"), value: "tentative" },
@@ -438,6 +444,7 @@ export const updateEventParams: Property[] = [
     ui: {
       component: "select",
       hint: t("EVENT_COLOR_ID_HINT"),
+      support_expression: true,
     },
     display: {
       show: { use_advanced_options: { $eq: true } },

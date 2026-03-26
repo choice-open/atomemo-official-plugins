@@ -40,7 +40,7 @@ const en_US = {
     "IANA timezone name. Examples: Asia/Shanghai, America/Los_Angeles, Europe/London, Asia/Tokyo, UTC",
   TIMEZONE_PLACEHOLDER: "Asia/Shanghai",
   MAX_RESULTS_DISPLAY_NAME: "Max Results",
-  MAX_RESULTS_HINT: "Maximum number of events to return (1-2500)",
+  MAX_RESULTS_HINT: "Maximum number of events to return (1-2500). Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
   TIME_MIN_DISPLAY_NAME: "Time Min",
   TIME_MIN_HINT:
     "Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00",
@@ -132,7 +132,7 @@ const en_US = {
   INCLUDE_DETAILS_DISPLAY_NAME: "Include Details",
   INCLUDE_DETAILS_HINT: "Add description and location",
   USE_TIME_RANGE_DISPLAY_NAME: "Filter by Time Range",
-  USE_TIME_RANGE_HINT: "Limit results to a specific time window",
+  USE_TIME_RANGE_HINT: "Limit results to a specific time window. Ensure the total text length of the returned calendar event instances does not exceed the processing limit of the selected AI model.",
   UPDATE_TIME_DISPLAY_NAME: "Update Time",
   UPDATE_TIME_HINT: "Change event start/end time",
   START_DATE_DISPLAY_NAME: "Start Date",

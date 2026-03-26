@@ -55,6 +55,7 @@ export const updateCalendarListTool: ToolDefinition = {
       ui: {
         component: "switch",
         hint: t("SELECTED_HINT"),
+        support_expression: true,
       },
     },
   ],
