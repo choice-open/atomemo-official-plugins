@@ -1,7 +1,7 @@
 {
   "name": "google-calendar",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "google calendar api client",
   "author": "yong yu <leoyyong@gmail.com>",
   "license": "MIT",

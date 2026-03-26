@@ -64,16 +64,16 @@ export const updateEventTool: ToolDefinition = {
       if (new Date(sd) >= new Date(ed)) {
         throw new Error("end_date must be after start_date")
       }
-      body.start = { date: sd }
-      body.end = { date: ed }
+      body.start = { date: sd, timeZone: null, dateTime: null }
+      body.end = { date: ed, timeZone: null, dateTime: null }
     } else if (start_datetime && end_datetime) {
       const sdt = rfc3339Schema.parse(start_datetime)
       const edt = rfc3339Schema.parse(end_datetime)
       if (new Date(sdt) >= new Date(edt)) {
         throw new Error("end_datetime must be after start_datetime")
       }
-      body.start = { dateTime: sdt, timeZone: tz }
-      body.end = { dateTime: edt, timeZone: tz }
+      body.start = { dateTime: sdt, timeZone: tz, date: null }
+      body.end = { dateTime: edt, timeZone: tz, date: null }
     }
     if (visibility !== undefined) body.visibility = visibility
     if (transparency !== undefined) body.transparency = transparency
