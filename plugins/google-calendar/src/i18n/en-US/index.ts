@@ -59,11 +59,11 @@ const en_US = {
   GET_CALENDAR_DISPLAY_NAME: "Get Calendar",
   GET_CALENDAR_DESCRIPTION: "Get calendar metadata by ID",
   CREATE_CALENDAR_DISPLAY_NAME: "Create Calendar",
-  CREATE_CALENDAR_DESCRIPTION: "Create a new secondary calendar",
+  CREATE_CALENDAR_DESCRIPTION: "Create a new calendar",
   UPDATE_CALENDAR_DISPLAY_NAME: "Update Calendar",
   UPDATE_CALENDAR_DESCRIPTION: "Update calendar metadata",
   DELETE_CALENDAR_DISPLAY_NAME: "Delete Calendar",
-  DELETE_CALENDAR_DESCRIPTION: "Delete a secondary calendar",
+  DELETE_CALENDAR_DESCRIPTION: "Delete a calendar",
   CLEAR_CALENDAR_DISPLAY_NAME: "⚠️ Clear Calendar",
   CLEAR_CALENDAR_DESCRIPTION:
     "DANGEROUS: Permanently delete ALL events from the primary calendar. This operation only works on the primary calendar and cannot be undone.",
@@ -188,7 +188,7 @@ const en_US = {
   CONFERENCE_DATA_VERSION_HINT:
     "0 = no conference data, 1 = enable conference creation/copy",
   SECONDARY_CALENDAR_ID_HINT:
-    'Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.',
+    'calendar ID (email address). Run "List Calendars" to find IDs.',
   SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies BaseTranslation
 

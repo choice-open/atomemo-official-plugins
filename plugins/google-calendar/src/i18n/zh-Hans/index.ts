@@ -59,11 +59,11 @@ const zh_Hans = {
   GET_CALENDAR_DISPLAY_NAME: "获取日历",
   GET_CALENDAR_DESCRIPTION: "根据 ID 获取日历元数据",
   CREATE_CALENDAR_DISPLAY_NAME: "创建日历",
-  CREATE_CALENDAR_DESCRIPTION: "创建新的次要日历",
+  CREATE_CALENDAR_DESCRIPTION: "创建新的日历",
   UPDATE_CALENDAR_DISPLAY_NAME: "更新日历",
   UPDATE_CALENDAR_DESCRIPTION: "更新日历元数据",
   DELETE_CALENDAR_DISPLAY_NAME: "删除日历",
-  DELETE_CALENDAR_DESCRIPTION: "删除次要日历",
+  DELETE_CALENDAR_DESCRIPTION: "删除日历",
   CLEAR_CALENDAR_DISPLAY_NAME: "⚠️ 清空日历",
   CLEAR_CALENDAR_DESCRIPTION:
     "危险操作：永久删除主日历中的所有事件。此操作仅适用于主日历，且不可撤销。",
@@ -175,7 +175,7 @@ const zh_Hans = {
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "会议数据版本",
   CONFERENCE_DATA_VERSION_HINT: "0 = 无会议数据，1 = 启用会议创建/复制",
   SECONDARY_CALENDAR_ID_HINT:
-    '次要日历 ID（邮箱地址格式）。不能使用 "primary"。可通过「列出日历」获取 ID。',
+    '日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。',
   SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies Translation
 
