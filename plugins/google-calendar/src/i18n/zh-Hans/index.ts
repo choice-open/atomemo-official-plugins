@@ -16,6 +16,9 @@ const zh_Hans = {
   CALENDAR_ID_HINT:
     '主日历使用 "primary"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。',
   CALENDAR_ID_PLACEHOLDER: "primary 或 user@group.calendar.google.com",
+  CALENDAR_ID_DELETE_INSERT_HINT:
+    "日历 ID（如 abcdef@group.calendar.google.com）。可通过「列出日历」获取 ID。",
+  CALENDAR_ID_DELETE_INSERT_PLACEHOLDER: "user@gmail.com",
   EVENT_ID_DISPLAY_NAME: "事件 ID",
   EVENT_ID_HINT: "事件的唯一标识符",
   SUMMARY_DISPLAY_NAME: "标题",
@@ -175,7 +178,7 @@ const zh_Hans = {
   CONFERENCE_DATA_VERSION_DISPLAY_NAME: "会议数据版本",
   CONFERENCE_DATA_VERSION_HINT: "0 = 无会议数据，1 = 启用会议创建/复制",
   SECONDARY_CALENDAR_ID_HINT:
-    '日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。',
+    "日历 ID（邮箱地址格式）。可通过「列出日历」获取 ID。",
   SECONDARY_CALENDAR_ID_PLACEHOLDER: "abcdef1234@group.calendar.google.com",
 } satisfies Translation
 

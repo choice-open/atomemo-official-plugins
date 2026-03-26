@@ -33,6 +33,30 @@ export const calendarIdParam: Property<"calendar_id"> = {
   },
 }
 
+/** For calendars.delete and calendarList.insert: no default; do not suggest primary. */
+export const calendarIdParamDeleteOrInsert: Property<"calendar_id"> = {
+  name: "calendar_id",
+  type: "string" as const,
+  required: true,
+  min_length: 1,
+  display_name: t("CALENDAR_ID_DISPLAY_NAME"),
+  ai: {
+    llm_description: {
+      en_US:
+        "Calendar ID (e.g. abcdef1234@group.calendar.google.com). Use the List Calendars tool to discover IDs.",
+      zh_Hans:
+        "日历 ID（如 abcdef1234@group.calendar.google.com）。通过「列出日历」查找。",
+    },
+  },
+  ui: {
+    component: "input" as const,
+    hint: t("CALENDAR_ID_DELETE_INSERT_HINT"),
+    placeholder: t("CALENDAR_ID_DELETE_INSERT_PLACEHOLDER"),
+    support_expression: true,
+    width: "full",
+  },
+}
+
 export const secondaryCalendarIdParam: Property = {
   name: "calendar_id",
   type: "string" as const,
