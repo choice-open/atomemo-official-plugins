@@ -75,9 +75,9 @@ export const createCalendarTool: ToolDefinition = {
       ai: {
         llm_description: {
           en_US:
-            'IANA Time Zone Database name for the calendar, e.g. "America/Los_Angeles", "Asia/Shanghai".',
+            'Default IANA timezone for the calendar. Examples: "Asia/Shanghai", "America/New_York", "Europe/Berlin", "Etc/UTC".',
           zh_Hans:
-            'IANA 时区名称，例如 "Asia/Shanghai"、"America/Los_Angeles"。',
+            '日历默认 IANA 时区。示例："Asia/Shanghai"、"America/New_York"、"Europe/Berlin"、"Etc/UTC"。',
         },
       },
       ui: {

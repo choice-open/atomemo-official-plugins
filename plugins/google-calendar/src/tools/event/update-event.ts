@@ -49,6 +49,11 @@ export const updateEventTool: ToolDefinition = {
       color_id,
       recurrence,
       attendees,
+      use_advanced_options,
+      guests_can_invite_others,
+      guests_can_modify,
+      guests_can_see_other_guests,
+      max_attendees,
     } = args.parameters
 
     const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
@@ -94,11 +99,24 @@ export const updateEventTool: ToolDefinition = {
       body.attendees = emails.map((email) => ({ email }))
     }
 
+    if (use_advanced_options) {
+      body.guestsCanInviteOthers = guests_can_invite_others as boolean
+      body.guestsCanModify = guests_can_modify as boolean
+      body.guestsCanSeeOtherGuests = guests_can_see_other_guests as boolean
+    }
+
+    const maxAttendees =
+      use_advanced_options &&
+      typeof max_attendees === "number" &&
+      max_attendees >= 1
+        ? max_attendees
+        : undefined
 
     const res = await calendar.events.patch({
       calendarId: calendar_id as string,
       eventId: event_id as string,
       sendUpdates: (send_updates as string) || undefined,
+      maxAttendees,
       requestBody: body,
     })
 

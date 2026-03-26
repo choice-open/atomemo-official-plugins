@@ -5,7 +5,7 @@ const RFC3339_RE =
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 
-const IANA_TZ_RE = /^[A-Za-z_]+\/[A-Za-z_\-\/]+$/
+const IANA_TZ_RE = /^[A-Za-z_]+\/[A-Za-z_\-/]+$/
 
 function isValidDate(value: string): boolean {
   const d = new Date(value)

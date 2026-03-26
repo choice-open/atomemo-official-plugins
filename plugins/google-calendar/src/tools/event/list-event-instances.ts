@@ -38,9 +38,9 @@ export const listEventInstancesTool: ToolDefinition = {
       ai: {
         llm_description: {
           en_US:
-            "Lower bound (exclusive) for event end time. RFC3339 timestamp with mandatory timezone offset, e.g. 2025-03-18T00:00:00Z.",
+            "timeMin: lower bound (exclusive) for event end time (RFC3339). Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
           zh_Hans:
-            "事件结束时间的下限（不含）。RFC3339 时间戳，必须包含时区偏移，例如 2025-03-18T00:00:00Z。",
+            "timeMin：事件结束时间的下限（不含），RFC3339。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。",
         },
       },
       ui: {
@@ -60,9 +60,9 @@ export const listEventInstancesTool: ToolDefinition = {
       ai: {
         llm_description: {
           en_US:
-            "Upper bound (exclusive) for event start time. RFC3339 timestamp with mandatory timezone offset. Must be greater than timeMin.",
+            "timeMax: upper bound (exclusive) for event start time (RFC3339). Must be > timeMin. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
           zh_Hans:
-            "事件开始时间的上限（不含）。RFC3339 时间戳，必须包含时区偏移。必须大于 timeMin。",
+            "timeMax：事件开始时间的上限（不含），RFC3339。须大于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。",
         },
       },
       ui: {

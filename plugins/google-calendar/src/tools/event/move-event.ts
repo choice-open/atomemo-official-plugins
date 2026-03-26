@@ -27,8 +27,7 @@ export const moveEventTool: ToolDefinition = {
         llm_description: {
           en_US:
             'Target calendar identifier to move the event to. Use "primary" or a calendar email address.',
-          zh_Hans:
-            '目标日历标识符。使用 "primary" 或日历邮箱地址。',
+          zh_Hans: '目标日历标识符。使用 "primary" 或日历邮箱地址。',
         },
       },
       ui: {

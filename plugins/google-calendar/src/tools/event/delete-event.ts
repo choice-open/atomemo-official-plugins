@@ -13,7 +13,12 @@ export const deleteEventTool = {
   display_name: t("DELETE_EVENT_DISPLAY_NAME"),
   description: t("DELETE_EVENT_DESCRIPTION"),
   icon: "🗑️",
-  parameters: [calendarCredentialParam, calendarIdParam, eventIdParam, sendUpdatesParam],
+  parameters: [
+    calendarCredentialParam,
+    calendarIdParam,
+    eventIdParam,
+    sendUpdatesParam,
+  ],
   async invoke({ args }) {
     const calendar = requireCalendarClient(
       args.credentials,

@@ -5,6 +5,7 @@
 | 文档 | 说明 |
 |------|------|
 | [google-calendar-api-modules.md](./google-calendar-api-modules.md) | Google Calendar API 模块功能完整说明，包含各资源类型、API 方法、属性及参考链接 |
+| [TOOL_USAGE_EXAMPLES.md](./TOOL_USAGE_EXAMPLES.md) | 所有已实现 Tool 的最小可运行调用示例（按模块分类） |
 
 ## 插件工具与 API 对照
 

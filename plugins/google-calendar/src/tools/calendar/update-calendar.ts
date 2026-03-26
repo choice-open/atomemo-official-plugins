@@ -1,6 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam, secondaryCalendarIdParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  secondaryCalendarIdParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 
@@ -74,9 +77,9 @@ export const updateCalendarTool: ToolDefinition = {
       ai: {
         llm_description: {
           en_US:
-            'New IANA timezone for the calendar, e.g. "Asia/Shanghai", "America/Los_Angeles".',
+            'New IANA timezone. Examples: "Asia/Shanghai", "America/New_York", "Europe/Berlin", "Etc/UTC".',
           zh_Hans:
-            '新的 IANA 时区，例如 "Asia/Shanghai"、"America/Los_Angeles"。',
+            '新的 IANA 时区。示例："Asia/Shanghai"、"America/New_York"、"Europe/Berlin"、"Etc/UTC"。',
         },
       },
       ui: {

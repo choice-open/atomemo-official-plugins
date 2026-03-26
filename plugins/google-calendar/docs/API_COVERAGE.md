@@ -20,10 +20,10 @@
 | API 方法 | 插件工具 | 说明 |
 |---------|---------|------|
 | list | list-calendars | 列出用户日历列表 |
-| get | get-calendars | 获取日历列表中某日历 |
+| get | get-calendar-list | 获取日历列表中某日历 |
 | insert | insert-calendar-list | 添加日历到列表 |
 | update | update-calendar-list | 更新日历列表项 |
-| delete | delete-calendars | 从列表移除日历 |
+| delete | delete-calendar-list | 从列表移除日历 |
 
 ### Events API
 

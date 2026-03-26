@@ -20,7 +20,7 @@ describe("query-freebusy tool", () => {
       credential_id: "cred1",
       time_min: "2025-03-23T00:00:00Z",
       time_max: "2025-03-23T23:59:59Z",
-      calendar_ids: "primary,user@example.com",
+      items: "primary,user@example.com",
     },
   }
 
@@ -28,7 +28,7 @@ describe("query-freebusy tool", () => {
     mockQuery.mockReset()
   })
 
-  it("queries freebusy for multiple calendars", async () => {
+  it("maps to freeBusy.query request body (timeMin, timeMax, items)", async () => {
     mockQuery.mockResolvedValue({
       data: {
         calendars: {
@@ -65,7 +65,7 @@ describe("query-freebusy tool", () => {
     })
   })
 
-  it("trims and filters empty calendar IDs", async () => {
+  it("trims item ids and ignores empty segments", async () => {
     mockQuery.mockResolvedValue({ data: { calendars: {} } })
 
     await queryFreebusyTool.invoke({
@@ -73,7 +73,7 @@ describe("query-freebusy tool", () => {
         ...baseArgs,
         parameters: {
           ...baseArgs.parameters,
-          calendar_ids: " primary , , user@test.com ",
+          items: " primary , , user@test.com ",
         },
       },
     })
@@ -85,5 +85,69 @@ describe("query-freebusy tool", () => {
         items: [{ id: "primary" }, { id: "user@test.com" }],
       },
     })
+  })
+
+  it("passes timeZone and expansion limits per API", async () => {
+    mockQuery.mockResolvedValue({ data: { calendars: {} } })
+
+    await queryFreebusyTool.invoke({
+      args: {
+        ...baseArgs,
+        parameters: {
+          ...baseArgs.parameters,
+          time_zone: "Europe/Berlin",
+          group_expansion_max: 50,
+          calendar_expansion_max: 25,
+        },
+      },
+    })
+
+    expect(mockQuery).toHaveBeenCalledWith({
+      requestBody: {
+        timeMin: "2025-03-23T00:00:00Z",
+        timeMax: "2025-03-23T23:59:59Z",
+        timeZone: "Europe/Berlin",
+        groupExpansionMax: 50,
+        calendarExpansionMax: 25,
+        items: [{ id: "primary" }, { id: "user@example.com" }],
+      },
+    })
+  })
+
+  it("omits out-of-range expansion integers", async () => {
+    mockQuery.mockResolvedValue({ data: { calendars: {} } })
+
+    await queryFreebusyTool.invoke({
+      args: {
+        ...baseArgs,
+        parameters: {
+          ...baseArgs.parameters,
+          group_expansion_max: 101,
+          calendar_expansion_max: 0,
+        },
+      },
+    })
+
+    expect(mockQuery).toHaveBeenCalledWith({
+      requestBody: {
+        timeMin: "2025-03-23T00:00:00Z",
+        timeMax: "2025-03-23T23:59:59Z",
+        items: [{ id: "primary" }, { id: "user@example.com" }],
+      },
+    })
+  })
+
+  it("throws when items resolves to no ids", async () => {
+    await expect(
+      queryFreebusyTool.invoke({
+        args: {
+          ...baseArgs,
+          parameters: {
+            ...baseArgs.parameters,
+            items: " , , ",
+          },
+        },
+      }),
+    ).rejects.toThrow("items must contain at least one")
   })
 })
