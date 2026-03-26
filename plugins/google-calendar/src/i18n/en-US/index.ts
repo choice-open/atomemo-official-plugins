@@ -16,6 +16,9 @@ const en_US = {
   CALENDAR_ID_HINT:
     'Use "primary" for your main calendar, or a calendar email address. Run "List Calendars" to find IDs.',
   CALENDAR_ID_PLACEHOLDER: "primary or user@group.calendar.google.com",
+  CALENDAR_ID_DELETE_INSERT_HINT:
+    "Calendar ID (e.g. abcdef@group.calendar.google.com). Run List Calendars to find IDs.",
+  CALENDAR_ID_DELETE_INSERT_PLACEHOLDER: "user@gmail.com",
   EVENT_ID_DISPLAY_NAME: "Event ID",
   EVENT_ID_HINT: "The unique identifier of the event",
   SUMMARY_DISPLAY_NAME: "Title",

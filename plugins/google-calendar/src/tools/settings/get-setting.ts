@@ -19,9 +19,9 @@ export const getSettingTool: ToolDefinition = {
       ai: {
         llm_description: {
           en_US:
-            "The ID of the user setting. Common values: timezone, locale, weekStart, dateFieldOrder, timeFieldOrder, showDeclinedEvents.",
+            "The ID of the user setting. Common values: timezone, locale, weekStart, dateFieldOrder, showDeclinedEvents.",
           zh_Hans:
-            "用户设置的 ID。常见值：timezone、locale、weekStart、dateFieldOrder、timeFieldOrder、showDeclinedEvents。",
+            "用户设置的 ID。常见值：timezone、locale、weekStart、dateFieldOrder、showDeclinedEvents。",
         },
       },
       ui: {

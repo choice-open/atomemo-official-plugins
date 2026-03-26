@@ -463,25 +463,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
-              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
+              "en_US": "Calendar ID (e.g. abcdef1234@group.calendar.google.com). Use the List Calendars tool to discover IDs.",
+              "zh_Hans": "日历 ID（如 abcdef1234@group.calendar.google.com）。通过「列出日历」查找。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
+              "en_US": "Calendar ID (e.g. abcdef@group.calendar.google.com). Run List Calendars to find IDs.",
+              "zh_Hans": "日历 ID（如 abcdef@group.calendar.google.com）。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary or user@group.calendar.google.com",
-              "zh_Hans": "primary 或 user@group.calendar.google.com"
+              "en_US": "user@gmail.com",
+              "zh_Hans": "user@gmail.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         }
       ]
     },
@@ -655,25 +655,25 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Calendar identifier. Use the keyword \"primary\" to access the currently authenticated user's primary calendar. For other calendars, use the calendar ID which is typically an email address — either the owner's email (e.g. user@gmail.com) or the calendar-specific address (e.g. abcdef1234@group.calendar.google.com). Call calendarList.list (the \"List Calendars\" tool) to retrieve all available calendar IDs.",
-              "zh_Hans": "日历标识符。使用关键字 \"primary\" 访问当前登录用户的主日历。其他日历使用日历 ID，通常为邮箱地址格式——可以是所有者邮箱（如 user@gmail.com）或日历专属地址（如 abcdef1234@group.calendar.google.com）。调用「列出日历」工具可获取所有可用的日历 ID。"
+              "en_US": "Calendar ID (e.g. abcdef1234@group.calendar.google.com). Use the List Calendars tool to discover IDs.",
+              "zh_Hans": "日历 ID（如 abcdef1234@group.calendar.google.com）。通过「列出日历」查找。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Use \"primary\" for your main calendar, or a calendar email address. Run \"List Calendars\" to find IDs.",
-              "zh_Hans": "主日历使用 \"primary\"，或使用日历邮箱地址。可通过「列出日历」获取所有日历 ID。"
+              "en_US": "Calendar ID (e.g. abcdef@group.calendar.google.com). Run List Calendars to find IDs.",
+              "zh_Hans": "日历 ID（如 abcdef@group.calendar.google.com）。可通过「列出日历」获取 ID。"
             },
             "placeholder": {
-              "en_US": "primary or user@group.calendar.google.com",
-              "zh_Hans": "primary 或 user@group.calendar.google.com"
+              "en_US": "user@gmail.com",
+              "zh_Hans": "user@gmail.com"
             },
             "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string",
-          "default": "primary"
+          "min_length": 1
         },
         {
           "name": "selected",
@@ -3362,8 +3362,8 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the user setting. Common values: timezone, locale, weekStart, dateFieldOrder, timeFieldOrder, showDeclinedEvents.",
-              "zh_Hans": "用户设置的 ID。常见值：timezone、locale、weekStart、dateFieldOrder、timeFieldOrder、showDeclinedEvents。"
+              "en_US": "The ID of the user setting. Common values: timezone, locale, weekStart, dateFieldOrder, showDeclinedEvents.",
+              "zh_Hans": "用户设置的 ID。常见值：timezone、locale、weekStart、dateFieldOrder、showDeclinedEvents。"
             }
           },
           "ui": {

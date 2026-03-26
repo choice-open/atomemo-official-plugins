@@ -68,6 +68,14 @@ type RootTranslation = {
    */
   CALENDAR_ID_PLACEHOLDER: string
   /**
+   * C​a​l​e​n​d​a​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​—​t​h​e​ ​o​w​n​e​r​'​s​ ​e​m​a​i​l​ ​(​e​.​g​.​ ​u​s​e​r​@​g​m​a​i​l​.​c​o​m​)​ ​o​r​ ​a​ ​g​r​o​u​p​ ​c​a​l​e​n​d​a​r​ ​I​D​ ​(​e​.​g​.​ ​a​b​c​d​e​f​@​g​r​o​u​p​.​c​a​l​e​n​d​a​r​.​g​o​o​g​l​e​.​c​o​m​)​.​ ​R​u​n​ ​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
+   */
+  CALENDAR_ID_DELETE_INSERT_HINT: string
+  /**
+   * u​s​e​r​@​g​m​a​i​l​.​c​o​m
+   */
+  CALENDAR_ID_DELETE_INSERT_PLACEHOLDER: string
+  /**
    * E​v​e​n​t​ ​I​D
    */
   EVENT_ID_DISPLAY_NAME: string
@@ -148,7 +156,7 @@ type RootTranslation = {
    */
   TIME_MIN_DISPLAY_NAME: string
   /**
-   * L​o​w​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​e​n​d​ ​t​i​m​e​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​0​1​T​0​0​:​0​0​:​0​0​Z
+   * S​t​a​r​t​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​8​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​8​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MIN_HINT: string
   /**
@@ -156,7 +164,7 @@ type RootTranslation = {
    */
   TIME_MAX_DISPLAY_NAME: string
   /**
-   * U​p​p​e​r​ ​b​o​u​n​d​ ​(​e​x​c​l​u​s​i​v​e​)​ ​f​o​r​ ​e​v​e​n​t​ ​s​t​a​r​t​ ​t​i​m​e​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​T​i​m​e​ ​M​i​n​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​3​1​T​2​3​:​5​9​:​5​9​Z
+   * E​n​d​ ​o​f​ ​t​i​m​e​ ​r​a​n​g​e​ ​(​r​e​q​u​i​r​e​d​)​,​ ​m​u​s​t​ ​b​e​ ​a​f​t​e​r​ ​s​t​a​r​t​.​ ​R​F​C​3​3​3​9​ ​w​i​t​h​ ​t​i​m​e​z​o​n​e​ ​o​f​f​s​e​t​.​ ​E​x​a​m​p​l​e​:​ ​2​0​2​5​-​0​3​-​1​9​T​0​0​:​0​0​:​0​0​Z​ ​o​r​ ​2​0​2​5​-​0​3​-​1​9​T​0​8​:​0​0​:​0​0​+​0​8​:​0​0
    */
   TIME_MAX_HINT: string
   /**
@@ -220,7 +228,7 @@ type RootTranslation = {
    */
   CREATE_CALENDAR_DISPLAY_NAME: string
   /**
-   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​s​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​c​a​l​e​n​d​a​r
    */
   CREATE_CALENDAR_DESCRIPTION: string
   /**
@@ -236,7 +244,7 @@ type RootTranslation = {
    */
   DELETE_CALENDAR_DISPLAY_NAME: string
   /**
-   * D​e​l​e​t​e​ ​a​ ​s​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r
+   * D​e​l​e​t​e​ ​a​ ​c​a​l​e​n​d​a​r
    */
   DELETE_CALENDAR_DESCRIPTION: string
   /**
@@ -656,7 +664,7 @@ type RootTranslation = {
    */
   CONFERENCE_DATA_VERSION_HINT: string
   /**
-   * S​e​c​o​n​d​a​r​y​ ​c​a​l​e​n​d​a​r​ ​I​D​ ​(​e​m​a​i​l​ ​a​d​d​r​e​s​s​)​.​ ​C​a​n​n​o​t​ ​u​s​e​ ​"​p​r​i​m​a​r​y​"​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
+   * c​a​l​e​n​d​a​r​ ​I​D​ ​(​e​m​a​i​l​ ​a​d​d​r​e​s​s​)​.​ ​R​u​n​ ​"​L​i​s​t​ ​C​a​l​e​n​d​a​r​s​"​ ​t​o​ ​f​i​n​d​ ​I​D​s​.
    */
   SECONDARY_CALENDAR_ID_HINT: string
   /**
@@ -718,6 +726,14 @@ export type TranslationFunctions = {
    * primary or user@group.calendar.google.com
    */
   CALENDAR_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Calendar email address—the owner's email (e.g. user@gmail.com) or a group calendar ID (e.g. abcdef@group.calendar.google.com). Run List Calendars to find IDs.
+   */
+  CALENDAR_ID_DELETE_INSERT_HINT: () => LocalizedString
+  /**
+   * user@gmail.com
+   */
+  CALENDAR_ID_DELETE_INSERT_PLACEHOLDER: () => LocalizedString
   /**
    * Event ID
    */
@@ -799,7 +815,7 @@ export type TranslationFunctions = {
    */
   TIME_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Lower bound (exclusive) for event end time. RFC3339 with timezone offset. Example: 2025-03-01T00:00:00Z
+   * Start of time range (required). RFC3339 with timezone offset. Example: 2025-03-18T00:00:00Z or 2025-03-18T08:00:00+08:00
    */
   TIME_MIN_HINT: () => LocalizedString
   /**
@@ -807,7 +823,7 @@ export type TranslationFunctions = {
    */
   TIME_MAX_DISPLAY_NAME: () => LocalizedString
   /**
-   * Upper bound (exclusive) for event start time, must be after Time Min. RFC3339 with timezone offset. Example: 2025-03-31T23:59:59Z
+   * End of time range (required), must be after start. RFC3339 with timezone offset. Example: 2025-03-19T00:00:00Z or 2025-03-19T08:00:00+08:00
    */
   TIME_MAX_HINT: () => LocalizedString
   /**
@@ -871,7 +887,7 @@ export type TranslationFunctions = {
    */
   CREATE_CALENDAR_DISPLAY_NAME: () => LocalizedString
   /**
-   * Create a new secondary calendar
+   * Create a new calendar
    */
   CREATE_CALENDAR_DESCRIPTION: () => LocalizedString
   /**
@@ -887,7 +903,7 @@ export type TranslationFunctions = {
    */
   DELETE_CALENDAR_DISPLAY_NAME: () => LocalizedString
   /**
-   * Delete a secondary calendar
+   * Delete a calendar
    */
   DELETE_CALENDAR_DESCRIPTION: () => LocalizedString
   /**
@@ -1307,7 +1323,7 @@ export type TranslationFunctions = {
    */
   CONFERENCE_DATA_VERSION_HINT: () => LocalizedString
   /**
-   * Secondary calendar ID (email address). Cannot use "primary". Run "List Calendars" to find IDs.
+   * calendar ID (email address). Run "List Calendars" to find IDs.
    */
   SECONDARY_CALENDAR_ID_HINT: () => LocalizedString
   /**
