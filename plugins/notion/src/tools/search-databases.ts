@@ -17,6 +17,9 @@ import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 import { sortRelatedParameters } from "./_shared-parameters/sort"
+import searchDatabasesSkill from "./search-databases-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<keyof SearchParameters, ExcludedNames>
@@ -84,6 +87,7 @@ export const searchDatabasesTool: ToolDefinition = {
   display_name: t("SEARCH_DATABASES_TOOL_DISPLAY_NAME"),
   description: t("SEARCH_DATABASES_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: searchDatabasesSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

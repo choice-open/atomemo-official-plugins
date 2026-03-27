@@ -17,6 +17,7 @@ import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 import { sortRelatedParameters } from "./_shared-parameters/sort"
+import searchPagesSkill from "./search-pages-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Exclude<keyof SearchParameters, ExcludedNames>
@@ -92,6 +93,7 @@ export const searchPagesTool: ToolDefinition = {
   display_name: t("SEARCH_PAGES_TOOL_DISPLAY_NAME"),
   description: t("SEARCH_PAGES_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: searchPagesSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
