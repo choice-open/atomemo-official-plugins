@@ -16,6 +16,7 @@ import {
   customBodyParameter,
   firecrawlCredentialParameter,
 } from "../_shared-parameters"
+import mapWebsiteSkill from "./map-website-skill.md" with { type: "text" }
 
 const options: PropertyObject = {
   type: "object",
@@ -128,6 +129,7 @@ export const MapWebsiteTool: ToolDefinition = {
   display_name: t("TOOL_MAP_WEBSITE_DISPLAY_NAME"),
   description: t("TOOL_MAP_WEBSITE_DESCRIPTION"),
   icon: "🗺️",
+  skill: mapWebsiteSkill,
   parameters: [
     firecrawlCredentialParameter,
     {

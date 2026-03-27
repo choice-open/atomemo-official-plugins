@@ -1500,7 +1500,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / crawl-a-website\n\nStart an asynchronous website crawl and return Firecrawl's crawl job metadata.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `url` | `string` | yes | - | Starting URL for the crawl job. |\n| `requestOptions` | `object` | no | - | Structured crawl request fields. Includes `useCustomBody` to switch between form-based input and raw JSON body mode. |\n\n### `requestOptions` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, ignore the structured fields below and send `customBody` as the crawl payload. |\n| `prompt` | `string` | no | - | Natural-language crawl guidance for Firecrawl. |\n| `limit` | `integer` | no | `10000` | Maximum number of pages to crawl. |\n| `delay` | `integer` | no | `123` | Delay between crawl requests in milliseconds. |\n| `maxConcurrency` | `integer` | no | `8` | Maximum number of concurrent crawl workers. |\n| `excludePaths` | `array<string>` | no | - | Path patterns to skip. |\n| `includePaths` | `array<string>` | no | - | Restrict the crawl to specific path patterns. |\n| `sitemap` | `string` | no | `include` | Sitemap handling mode. Allowed values: `include`, `skip`. |\n| `ignoreQueryParameters` | `boolean` | no | `false` | Treat URLs that only differ by query string as the same page. |\n| `allowExternalLinks` | `boolean` | no | `false` | Permit crawling links that leave the starting domain. |\n| `allowSubdomains` | `boolean` | no | `false` | Permit crawling subdomains of the starting URL. |\n| `scrapeOptions` | `object` | no | - | Shared scrape options such as output formats, headers, actions, timeouts, location, and proxy settings. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string sent directly to Firecrawl when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"url\": \"https://example.com\",\n  \"requestOptions\": {\n    \"prompt\": \"Crawl only product and docs pages relevant to pricing.\",\n    \"limit\": 250,\n    \"includePaths\": [\n      \"/docs\",\n      \"/pricing\"\n    ],\n    \"excludePaths\": [\n      \"/privacy\",\n      \"/terms\"\n    ],\n    \"allowSubdomains\": false,\n    \"scrapeOptions\": {\n      \"formats\": [\n        {\n          \"type\": \"markdown\"\n        },\n        {\n          \"type\": \"links\"\n        }\n      ],\n      \"onlyMainContent\": true\n    }\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"id\": \"crl_123456789\",\n  \"url\": \"https://example.com\"\n}\n```\n\n### Output Notes\n- The installed SDK types `startCrawl()` as `Promise<CrawlResponse>`, which includes `id` and `url`.\n- When `requestOptions.useCustomBody` is `true`, the plugin parses `requestOptions.customBody` as JSON and sends that object instead of assembling a request from the individual fields.\n"
     },
     {
       "name": "firecrawl-cancel-crawl",
@@ -1544,7 +1545,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / cancel-crawl\n\nCancel a running Firecrawl crawl job by its crawl ID.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `id` | `string` | yes | - | Firecrawl crawl ID to cancel. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"id\": \"crl_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\ntrue\n```\n\n### Output Notes\n- The installed `@mendable/firecrawl-js` client types `cancelCrawl()` as `Promise<boolean>`, so a successful result is the boolean `true`.\n"
     },
     {
       "name": "firecrawl-get-crawl-errors",
@@ -1588,7 +1590,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / get-crawl-errors\n\nFetch the error list for a crawl job so failed pages can be inspected separately.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `id` | `string` | yes | - | Firecrawl crawl ID to inspect. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"id\": \"crl_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"errors\": [\n    {\n      \"id\": \"err_123\",\n      \"url\": \"https://example.com/broken\",\n      \"error\": \"Navigation timeout exceeded\"\n    }\n  ],\n  \"robotsBlocked\": []\n}\n```\n\n### Output Notes\n- The installed SDK types this response as `CrawlErrorsResponse`, with `errors` and `robotsBlocked` fields.\n"
     },
     {
       "name": "firecrawl-get-crawl-status",
@@ -1632,7 +1635,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / get-crawl-status\n\nRetrieve the current status and progress information for a crawl job.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `id` | `string` | yes | - | Firecrawl crawl ID to inspect. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"id\": \"crl_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"id\": \"crl_123456789\",\n  \"status\": \"completed\",\n  \"total\": 42,\n  \"completed\": 42,\n  \"data\": [\n    {\n      \"markdown\": \"# Example page\",\n      \"metadata\": {\n        \"sourceURL\": \"https://example.com/page\"\n      }\n    }\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types `getCrawlStatus()` as `Promise<CrawlJob>`, which includes `id`, `status`, `total`, `completed`, and a `data` array of scraped `Document` objects.\n- Completed crawl-status responses may also include crawled data, depending on Firecrawl's response shape at the time of the request.\n"
     },
     {
       "name": "firecrawl-list-active-crawls",
@@ -1659,7 +1663,8 @@
           "type": "credential_id",
           "credential_name": "firecrawl"
         }
-      ]
+      ],
+      "skill": "# firecrawl / list-active-crawls\n\nList crawl jobs that are still active for the authenticated Firecrawl account.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"crawls\": [\n    {\n      \"id\": \"crl_123456789\",\n      \"teamId\": \"team_123\",\n      \"url\": \"https://example.com\",\n      \"options\": {\n        \"limit\": 250\n      }\n    }\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types each active crawl with `id`, `teamId`, `url`, and optional `options`; it does not guarantee a `status` field here.\n"
     },
     {
       "name": "firecrawl-preview-crawl-params",
@@ -1721,7 +1726,8 @@
           "type": "string",
           "max_length": 10000
         }
-      ]
+      ],
+      "skill": "# firecrawl / preview-crawl-params\n\nAsk Firecrawl to suggest crawl parameters for a URL based on a natural-language prompt.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `url` | `string` | yes | - | Website URL to analyze. |\n| `prompt` | `string` | yes | - | Instruction telling Firecrawl how to shape the crawl configuration. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"url\": \"https://example.com\",\n  \"prompt\": \"Suggest a crawl config that focuses on blog posts and skips legal pages.\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"includePaths\": [\n    \"/blog\"\n  ],\n  \"excludePaths\": [\n    \"/privacy\",\n    \"/terms\"\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types `crawlParamsPreview()` as `Promise<Record<string, unknown>>`, so the preview payload is intentionally open-ended.\n"
     },
     {
       "name": "firecrawl-scrape",
@@ -2970,7 +2976,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / scrape-a-url-and-get-its-content\n\nScrape a single URL and return its extracted content.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `url` | `string` | yes | - | URL to scrape. |\n| `options` | `object` | no | - | Structured scrape settings. Includes `useCustomBody` to switch to raw JSON request mode. |\n\n### `options` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, send `customBody` instead of building the request from the fields below. |\n| `parsers` | `array<string>` | no | `[\"pdf\"]` | Parser list for specialized extraction. The plugin currently exposes Firecrawl's `pdf` parser option. |\n| `scrapeOptions` | `object` | no | - | Shared scrape settings such as formats, actions, headers, tags, timeouts, location, caching, and proxy behavior. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string used as the request body when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"url\": \"https://example.com/docs/getting-started\",\n  \"options\": {\n    \"scrapeOptions\": {\n      \"formats\": [\n        {\n          \"type\": \"markdown\"\n        },\n        {\n          \"type\": \"html\"\n        }\n      ],\n      \"onlyMainContent\": true,\n      \"timeout\": 45000\n    }\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"markdown\": \"# Getting Started\",\n    \"metadata\": {\n      \"title\": \"Getting Started\",\n      \"sourceURL\": \"https://example.com/docs/getting-started\"\n    }\n  }\n}\n```\n\n### Output Notes\n- Unlike most other tools in this plugin, this tool wraps Firecrawl's scrape response inside `{ \"success\": true, \"data\": ... }`.\n- When `options.useCustomBody` is enabled, `options.customBody` is parsed as JSON and sent directly to Firecrawl.\n"
     },
     {
       "name": "firecrawl-batch-scrape",
@@ -4219,7 +4226,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / batch-scrape\n\nStart a batch scrape job for multiple URLs at once.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `urls` | `string` | yes | - | Newline-delimited list of URLs to scrape in a single batch job. |\n| `options` | `object` | no | - | Structured batch-scrape settings. Includes `useCustomBody` to switch to raw JSON request mode. |\n\n### `options` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, send `customBody` instead of building the request from the fields below. |\n| `parsers` | `array<string>` | no | `[\"pdf\"]` | Parser list for specialized extraction. The plugin currently exposes Firecrawl's `pdf` parser option. |\n| `scrapeOptions` | `object` | no | - | Shared scrape settings such as formats, actions, headers, tags, timeouts, location, caching, and proxy behavior. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string used as the request body when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"urls\": \"https://example.com/page1\\nhttps://example.com/page2\",\n  \"options\": {\n    \"scrapeOptions\": {\n      \"formats\": [\n        {\n          \"type\": \"markdown\"\n        }\n      ],\n      \"onlyMainContent\": true\n    }\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"id\": \"batch_123456789\",\n  \"url\": \"https://example.com/page1\",\n  \"invalidURLs\": []\n}\n```\n\n### Output Notes\n- The plugin splits `urls` on newlines before sending the request unless `options.useCustomBody` is enabled.\n- The installed SDK types `startBatchScrape()` as `Promise<BatchScrapeResponse>`, which includes `id`, `url`, and optional `invalidURLs`.\n"
     },
     {
       "name": "firecrawl-cancel-batch-scrape",
@@ -4263,7 +4271,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / cancel-batch-scrape\n\nCancel a running Firecrawl batch scrape job.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `batchId` | `string` | yes | - | Batch scrape ID to cancel. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"batchId\": \"batch_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\ntrue\n```\n\n### Output Notes\n- The installed `@mendable/firecrawl-js` client types `cancelBatchScrape()` as `Promise<boolean>`, so a successful result is the boolean `true`.\n"
     },
     {
       "name": "firecrawl-batch-scrape-errors",
@@ -4307,7 +4316,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / get-batch-scrape-errors\n\nFetch the error list for a Firecrawl batch scrape job.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `batchId` | `string` | yes | - | Batch scrape ID to inspect. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"batchId\": \"batch_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"errors\": [\n    {\n      \"id\": \"err_456\",\n      \"url\": \"https://example.com/missing\",\n      \"error\": \"404 Not Found\"\n    }\n  ],\n  \"robotsBlocked\": []\n}\n```\n\n### Output Notes\n- The installed SDK types this response as `CrawlErrorsResponse`, with `errors` and `robotsBlocked` fields.\n"
     },
     {
       "name": "firecrawl-batch-scrape-status",
@@ -4351,7 +4361,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / get-batch-scrape-status\n\nRetrieve status, progress, and results for a Firecrawl batch scrape job.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `batchId` | `string` | yes | - | Batch scrape ID to inspect. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"batchId\": \"batch_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"id\": \"batch_123456789\",\n  \"status\": \"completed\",\n  \"total\": 2,\n  \"completed\": 2,\n  \"data\": [\n    {\n      \"markdown\": \"# Page 1\",\n      \"metadata\": {\n        \"sourceURL\": \"https://example.com/page1\"\n      }\n    }\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types `getBatchScrapeStatus()` as `Promise<BatchScrapeJob>`, which includes `id`, `status`, `total`, `completed`, and a `data` array of scraped `Document` objects.\n"
     },
     {
       "name": "firecrawl-map",
@@ -4569,7 +4580,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / map-website\n\nMap a site and return discovered URLs without scraping each page in full.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `url` | `string` | yes | - | Starting URL for sitemap/link discovery. |\n| `options` | `object` | no | - | Structured map settings. Includes `useCustomBody` to switch to raw JSON request mode. |\n\n### `options` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, send `customBody` instead of building the request from the fields below. |\n| `search` | `string` | no | - | Optional search phrase to focus mapped URLs. |\n| `sitemap` | `string` | no | `include` | Sitemap handling mode. Allowed values: `skip`, `include`, `only`. |\n| `includeSubdomains` | `boolean` | no | `true` | Include URLs discovered on subdomains. |\n| `ignoreQueryParameters` | `boolean` | no | `true` | Treat URLs that only differ by query string as the same page. |\n| `limit` | `integer` | no | `5000` | Maximum number of URLs to return. |\n| `timeout` | `integer` | no | `10000` | Timeout in milliseconds for the map request. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string used as the request body when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"url\": \"https://example.com\",\n  \"options\": {\n    \"search\": \"pricing docs\",\n    \"limit\": 200,\n    \"includeSubdomains\": false\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"links\": [\n    {\n      \"url\": \"https://example.com/\",\n      \"title\": \"Home\"\n    },\n    {\n      \"url\": \"https://example.com/docs\",\n      \"title\": \"Docs\"\n    }\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types `map()` as `Promise<MapData>`, where `links` is an array of search-result objects rather than plain strings.\n- When `options.useCustomBody` is enabled, `options.customBody` is parsed as JSON and sent directly to Firecrawl.\n"
     },
     {
       "name": "firecrawl-search",
@@ -6054,7 +6066,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / search-content\n\nSearch the web through Firecrawl and optionally enrich results with scrape output.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `query` | `string` | yes | - | Search query to send to Firecrawl. |\n| `options` | `object` | no | - | Structured search settings. Includes `useCustomBody` to switch to raw JSON request mode. |\n\n### `options` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, send `customBody` instead of building the request from the fields below. |\n| `limit` | `integer` | no | `5` | Maximum number of search results to return. |\n| `sources` | `array<object>` | no | - | Source selectors such as `{ \"type\": \"web\" }`, `{ \"type\": \"images\" }`, or `{ \"type\": \"news\" }`. Web sources can also include `tbs` and `location`. |\n| `categories` | `array<object>` | no | - | Optional result categories such as `{ \"type\": \"github\" }`, `{ \"type\": \"research\" }`, or `{ \"type\": \"pdf\" }`. |\n| `tbs` | `string` | no | - | Time-based search string used by Firecrawl search. |\n| `location` | `string` | no | - | Location hint for search ranking. |\n| `country` | `string` | no | `US` | Country code for localized search behavior. |\n| `timeout` | `integer` | no | `60000` | Timeout in milliseconds for the search request. |\n| `ignoreInvalidURLs` | `boolean` | no | `false` | Skip invalid URLs returned by upstream search sources. |\n| `scrapeOptions` | `object` | no | - | Shared scrape settings applied when Firecrawl enriches results with scraped content. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string used as the request body when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"query\": \"open source vector database comparison\",\n  \"options\": {\n    \"limit\": 3,\n    \"sources\": [\n      {\n        \"type\": \"web\"\n      },\n      {\n        \"type\": \"news\"\n      }\n    ],\n    \"categories\": [\n      {\n        \"type\": \"research\"\n      }\n    ],\n    \"scrapeOptions\": {\n      \"formats\": [\n        {\n          \"type\": \"markdown\"\n        }\n      ]\n    }\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"web\": [\n    {\n      \"url\": \"https://example.com/article\",\n      \"title\": \"Vector DB Comparison\",\n      \"description\": \"A comparison of open source vector databases.\"\n    }\n  ],\n  \"news\": [\n    {\n      \"title\": \"Vector database funding update\",\n      \"url\": \"https://news.example.com/vector-db\",\n      \"snippet\": \"Recent funding activity in the vector database market.\"\n    }\n  ]\n}\n```\n\n### Output Notes\n- The installed SDK types `search()` as `Promise<SearchData>`, grouping results under optional `web`, `news`, and `images` arrays rather than a top-level `data` field.\n- When `options.useCustomBody` is enabled, `options.customBody` is parsed as JSON and sent directly to Firecrawl.\n"
     },
     {
       "name": "firecrawl-extract",
@@ -7426,7 +7439,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# firecrawl / extract-data\n\nStart an asynchronous structured-data extraction job across one or more URLs.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `urls` | `string` | yes | - | Newline-delimited list of URLs to extract from. |\n| `options` | `object` | no | - | Structured extract settings. Includes `useCustomBody` to switch to raw JSON request mode. |\n\n### `options` fields\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `useCustomBody` | `boolean` | no | `false` | When `true`, send `customBody` instead of building the request from the fields below. |\n| `prompt` | `string` | no | - | Instruction describing what structured information Firecrawl should extract. |\n| `schema` | `string` | no | `{}` | JSON object string describing the expected extraction schema. The plugin parses this string into an object before sending it. |\n| `enableWebSearch` | `boolean` | no | `false` | Allow Firecrawl to use web search during extraction. |\n| `ignoreSitemap` | `boolean` | no | `false` | Skip sitemap hints when expanding the extraction target set. |\n| `includeSubdomains` | `boolean` | no | `true` | Allow extraction to cover subdomains. |\n| `showSources` | `boolean` | no | `false` | Request source attribution in the extraction result where available. |\n| `ignoreInvalidURLs` | `boolean` | no | `true` | Skip invalid URLs instead of failing the request. |\n| `scrapeOptions` | `object` | no | - | Shared scrape settings such as formats, actions, headers, tags, timeouts, location, caching, and proxy behavior. |\n| `customBody` | `string` | no | `{}` | Raw JSON object string used as the request body when `useCustomBody` is enabled. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"urls\": \"https://example.com/products/a\\nhttps://example.com/products/b\",\n  \"options\": {\n    \"prompt\": \"Extract product name, price, and availability.\",\n    \"schema\": \"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"name\\\":{\\\"type\\\":\\\"string\\\"},\\\"price\\\":{\\\"type\\\":\\\"string\\\"},\\\"availability\\\":{\\\"type\\\":\\\"string\\\"}}}\",\n    \"showSources\": true\n  }\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"id\": \"ext_123456789\",\n  \"status\": \"processing\"\n}\n```\n\n### Output Notes\n- The plugin splits `urls` on newlines before sending the request unless `options.useCustomBody` is enabled.\n- The installed SDK types `startExtract()` as `Promise<ExtractResponse>`, with optional `success`, `id`, `status`, `data`, `error`, `warning`, `sources`, `expiresAt`, and `creditsUsed` fields.\n"
     },
     {
       "name": "firecrawl-get-extract-status",
@@ -7469,7 +7483,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# firecrawl / get-extract-status\n\nRetrieve status and results for a previously started Firecrawl extract job.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | - | Links to credential `firecrawl`. |\n| `id` | `string` | yes | - | Extract job ID to inspect. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"my-firecrawl-account\",\n  \"id\": \"ext_123456789\"\n}\n```\n\n## Credential\n\n- Credential name: `firecrawl`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Firecrawl API key used to authenticate requests. The plugin expects a value that starts with `fc-`. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"id\": \"ext_123456789\",\n  \"status\": \"completed\",\n  \"data\": [\n    {\n      \"name\": \"Example Product\",\n      \"price\": \"$99\",\n      \"availability\": \"In stock\"\n    }\n  ],\n  \"expiresAt\": \"2026-03-27T12:00:00.000Z\"\n}\n```\n\n### Output Notes\n- The installed SDK types `getExtractStatus()` as `Promise<ExtractResponse>`, so `data` remains `unknown` at the SDK level and depends on the schema/prompt you used when starting the job.\n"
     }
   ]
 }

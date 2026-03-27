@@ -173,7 +173,10 @@ export function getArgs(argsInput: unknown): {
 
 export type FirecrawlToolArgs = {
   parameters: Record<string, unknown>
-  credentials?: Record<string, Record<string, string | number | boolean | null | undefined>>
+  credentials?: Record<
+    string,
+    Record<string, string | number | boolean | null | undefined>
+  >
 }
 
 /**

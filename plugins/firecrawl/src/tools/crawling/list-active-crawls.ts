@@ -7,12 +7,16 @@ import {
   getFirecrawlApiKey,
 } from "../_shared/firecrawl-client"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
+import listActiveCrawlsSkill from "./list-active-crawls-skill.md" with {
+  type: "text",
+}
 
 export const ListActiveCrawlsTool: ToolDefinition = {
   name: "firecrawl-list-active-crawls",
   display_name: t("TOOL_LIST_ACTIVE_CRAWLS_DISPLAY_NAME"),
   description: t("TOOL_LIST_ACTIVE_CRAWLS_DESCRIPTION"),
   icon: "📋",
+  skill: listActiveCrawlsSkill,
   parameters: [firecrawlCredentialParameter],
   invoke: async ({ args }) => {
     try {

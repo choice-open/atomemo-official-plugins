@@ -11,12 +11,16 @@ import {
   batchIdParameter,
   firecrawlCredentialParameter,
 } from "../../_shared-parameters"
+import getBatchScrapeErrorsSkill from "./get-batch-scrape-errors-skill.md" with {
+  type: "text",
+}
 
 export const GetBatchScrapeErrorsTool: ToolDefinition = {
   name: "firecrawl-batch-scrape-errors",
   display_name: t("TOOL_BATCH_SCRAPE_ERRORS_DISPLAY_NAME"),
   description: t("TOOL_BATCH_SCRAPE_ERRORS_DESCRIPTION"),
   icon: "⚠️",
+  skill: getBatchScrapeErrorsSkill,
   parameters: [firecrawlCredentialParameter, batchIdParameter],
   invoke: async ({ args }) => {
     try {
