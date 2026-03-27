@@ -13,12 +13,14 @@ import {
   resolveTable,
 } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import getRecordSkill from "./get-record-skill.md" with { type: "text" }
 
 export const getARecordTool = {
   name: "airtable-get-record",
   display_name: t("GET_RECORD_DISPLAY_NAME"),
   description: t("GET_RECORD_DESCRIPTION"),
   icon: "🔍",
+  skill: getRecordSkill,
 
   parameters: [...recordTargetParams],
   locator_list: {

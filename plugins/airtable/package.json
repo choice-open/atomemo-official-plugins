@@ -1,7 +1,7 @@
 {
   "name": "airtable",
   "type": "module",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Work with Airtable bases and records",
   "author": "",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@choiceopen/atomemo-plugin-sdk-js": "^0.6.4",
+    "@choiceopen/atomemo-plugin-sdk-js": "^0.6.5",
     "dotenv": "^17.2.4",
     "zod": "^4.3.6"
   },

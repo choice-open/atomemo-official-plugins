@@ -8,15 +8,8 @@ export default defineConfig({
   },
   format: "esm",
   inlineOnly: ["typesafe-i18n"],
+  loader: {
+    ".md": "text",
+  },
   sourcemap: true,
-  plugins: [
-    {
-      name: "md-text",
-      transform(code, id) {
-        if (id.endsWith(".md")) {
-          return { code: `export default ${code}`, map: null }
-        }
-      },
-    },
-  ],
 })

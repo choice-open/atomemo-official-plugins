@@ -5,12 +5,16 @@ import { searchBasesMethod } from "../_shared/methods"
 import { baseScopeParams } from "../_shared/parameters"
 import { resolveBaseId } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import getBaseSchemaSkill from "./get-base-schema-skill.md" with {
+  type: "text",
+}
 
 export const getBaseSchemaTool = {
   name: "airtable-get-base-schema",
   display_name: t("GET_BASE_SCHEMA_DISPLAY_NAME"),
   description: t("GET_BASE_SCHEMA_DESCRIPTION"),
   icon: "📋",
+  skill: getBaseSchemaSkill,
 
   parameters: [...baseScopeParams],
   locator_list: { ...searchBasesMethod },

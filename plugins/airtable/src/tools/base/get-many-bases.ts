@@ -8,12 +8,14 @@ import {
   returnAllParam,
 } from "../_shared/parameters"
 import { getAirtableToken } from "../_shared/utils"
+import listBasesSkill from "./list-bases-skill.md" with { type: "text" }
 
 export const getManyBasesTool = {
   name: "airtable-list-bases",
   display_name: t("LIST_BASES_DISPLAY_NAME"),
   description: t("LIST_BASES_DESCRIPTION"),
   icon: "🗂️",
+  skill: listBasesSkill,
 
   parameters: [
     credentialParam,

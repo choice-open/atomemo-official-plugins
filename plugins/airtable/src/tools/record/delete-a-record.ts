@@ -13,12 +13,14 @@ import {
   resolveTable,
 } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import deleteRecordSkill from "./delete-record-skill.md" with { type: "text" }
 
 export const deleteRecordTool = {
   name: "airtable-delete-record",
   display_name: t("DELETE_RECORD_DISPLAY_NAME"),
   description: t("DELETE_RECORD_DESCRIPTION"),
   icon: "🗑️",
+  skill: deleteRecordSkill,
 
   parameters: [...recordTargetParams],
   locator_list: {

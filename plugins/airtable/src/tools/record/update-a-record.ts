@@ -15,12 +15,14 @@ import {
   resolveTable,
 } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import updateRecordSkill from "./update-record-skill.md" with { type: "text" }
 
 export const updateRecordTool = {
   name: "airtable-update-record",
   display_name: t("UPDATE_RECORD_DISPLAY_NAME"),
   description: t("UPDATE_RECORD_DESCRIPTION"),
   icon: "✏️",
+  skill: updateRecordSkill,
 
   parameters: [...updateRecordParams],
   locator_list: {
@@ -38,7 +40,7 @@ export const updateRecordTool = {
     const table = resolveTable(p)
     const recordId = resolveRecordId(p)
     const typecast = p.typecast === true
-    const fields = await resolveFields(p, token, baseId, table)
+    const fields = await resolveFields(p, token, baseId, table, typecast)
 
     if (!baseId) throw new Error(t("ERROR_BASE_ID_REQUIRED").en_US)
     if (!table) throw new Error(t("ERROR_TABLE_REQUIRED").en_US)
