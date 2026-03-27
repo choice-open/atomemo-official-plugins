@@ -26,8 +26,8 @@ export const createRecordTool = {
     const p = (args as { parameters: Record<string, unknown> }).parameters
     const baseId = resolveBaseId(p)
     const table = resolveTable(p)
-    const fields = resolveFields(p)
     const typecast = p.typecast === true
+    const fields = await resolveFields(p, token, baseId, table)
 
     if (!baseId) throw new Error(t("ERROR_BASE_ID_REQUIRED").en_US)
     if (!table) throw new Error(t("ERROR_TABLE_REQUIRED").en_US)
