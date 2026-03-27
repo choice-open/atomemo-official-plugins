@@ -4,6 +4,7 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { type AirtableField, getBaseSchema } from "../../../api/client"
 import { t } from "../../../i18n/i18n-node"
+import { mapAirtableFieldType } from "../field-types"
 import { resolveBaseId, resolveTable } from "../resolve"
 import { getAirtableToken } from "../utils"
 
@@ -156,31 +157,6 @@ function isNonInsertableField(field: AirtableField): boolean {
   }
 
   return false
-}
-
-function mapAirtableFieldType(
-  fieldType: string,
-): ToolResourceMappingField["type"] {
-  switch (fieldType) {
-    case "checkbox":
-      return "boolean"
-    case "count":
-      return "integer"
-    case "currency":
-    case "number":
-    case "percent":
-    case "rating":
-      return "number"
-    case "lookup":
-    case "multipleAttachments":
-    case "multipleCollaborators":
-    case "multipleLookupValues":
-    case "multipleRecordLinks":
-    case "multipleSelects":
-      return "array"
-    default:
-      return "string"
-  }
 }
 
 function mapSchemaFieldHint(fieldType: string): LocalizedText {

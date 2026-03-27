@@ -38,7 +38,7 @@ export const updateRecordTool = {
     const table = resolveTable(p)
     const recordId = resolveRecordId(p)
     const typecast = p.typecast === true
-    const fields = await resolveFields(p, token, baseId, table)
+    const fields = await resolveFields(p, token, baseId, table, typecast)
 
     if (!baseId) throw new Error(t("ERROR_BASE_ID_REQUIRED").en_US)
     if (!table) throw new Error(t("ERROR_TABLE_REQUIRED").en_US)

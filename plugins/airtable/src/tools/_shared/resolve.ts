@@ -2,8 +2,10 @@ import {
   extractResourceLocator,
   extractResourceMapper,
 } from "@choiceopen/atomemo-plugin-sdk-js"
+import type { ToolResourceMappingField } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import type { AirtableField } from "../../api/client"
 import { getBaseSchema } from "../../api/client"
+import { mapAirtableFieldType } from "./field-types"
 import {
   BASE_ID_URL_REGEX,
   RecordID_URL_REGEX,
@@ -43,21 +45,42 @@ function parseFieldsObject(raw: string): Record<string, unknown> {
   return {}
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
+
+function isResourceMapperValue(value: unknown): boolean {
+  return isRecord(value) && value.__type__ === "resource_mapper"
+}
+
 function resolveRawFields(
   parameters: Record<string, unknown>,
 ): Record<string, unknown> {
   const raw = parameters.fields
-  const extracted = extractResourceMapper(raw)
-  if (extracted == null) return {}
-  if (typeof extracted === "object" && !Array.isArray(extracted)) {
-    return extracted as Record<string, unknown>
-  }
-  if (typeof extracted === "string") return parseFieldsObject(extracted)
-
   if (raw == null || raw === "") return {}
-  if (typeof raw === "object" && !Array.isArray(raw))
-    return raw as Record<string, unknown>
-  if (typeof raw === "string") return parseFieldsObject(raw)
+  if (isRecord(raw)) {
+    if (!isResourceMapperValue(raw)) return raw
+
+    const extracted = extractResourceMapper(raw)
+    if (extracted == null) return {}
+    if (isRecord(extracted)) return extracted
+    if (typeof extracted === "string") return parseFieldsObject(extracted)
+    return {}
+  }
+
+  if (typeof raw === "string") {
+    const parsed = parseFieldsObject(raw)
+    if (isResourceMapperValue(parsed)) {
+      const extracted = extractResourceMapper(parsed)
+      if (extracted == null) return {}
+      if (isRecord(extracted)) return extracted
+      if (typeof extracted === "string") return parseFieldsObject(extracted)
+      return {}
+    }
+
+    return parsed
+  }
+
   return {}
 }
 
@@ -65,14 +88,18 @@ function trimString(value: string): string {
   return value.trim()
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
-
 function asNonEmptyString(value: unknown): string | null {
   if (typeof value !== "string") return null
   const trimmed = trimString(value)
   return trimmed.length > 0 ? trimmed : null
+}
+
+function parseJsonString(raw: string): unknown {
+  try {
+    return JSON.parse(raw)
+  } catch {
+    return raw
+  }
 }
 
 function normalizeRecordLinkItem(value: unknown): unknown {
@@ -171,8 +198,21 @@ function normalizeNumericValue(value: unknown): unknown {
   return Number.isFinite(numericValue) ? numericValue : value
 }
 
-function normalizeCheckboxValue(value: unknown): unknown {
-  if (value === null) return false
+function normalizeIntegerValue(value: unknown): unknown {
+  if (typeof value === "number") return value
+  if (typeof value === "bigint") {
+    const numericValue = Number(value)
+    return Number.isSafeInteger(numericValue) ? numericValue : value
+  }
+
+  const normalizedValue = normalizeNumericValue(value)
+  return typeof normalizedValue === "number" &&
+    Number.isInteger(normalizedValue)
+    ? normalizedValue
+    : value
+}
+
+function normalizeBooleanValue(value: unknown): unknown {
   if (value === undefined) return undefined
   if (typeof value === "boolean") return value
   if (typeof value === "number") {
@@ -196,6 +236,11 @@ function normalizeCheckboxValue(value: unknown): unknown {
     default:
       return value
   }
+}
+
+function normalizeCheckboxValue(value: unknown): unknown {
+  if (value === null) return false
+  return normalizeBooleanValue(value)
 }
 
 function normalizeSelectItem(value: unknown): unknown {
@@ -253,7 +298,47 @@ function normalizeDateTimeValue(value: unknown): unknown {
   return value
 }
 
-export function normalizeFieldValue(
+function normalizeArrayValue(value: unknown): unknown {
+  if (Array.isArray(value)) return value
+
+  const stringValue = asNonEmptyString(value)
+  if (!stringValue) return value
+
+  const parsed = parseJsonString(stringValue)
+  return Array.isArray(parsed) ? parsed : value
+}
+
+function normalizeObjectValue(value: unknown): unknown {
+  if (isRecord(value)) return value
+
+  const stringValue = asNonEmptyString(value)
+  if (!stringValue) return value
+
+  const parsed = parseJsonString(stringValue)
+  return isRecord(parsed) ? parsed : value
+}
+
+export function normalizeMappedFieldValue(
+  mappingType: ToolResourceMappingField["type"],
+  value: unknown,
+): unknown {
+  switch (mappingType) {
+    case "number":
+      return normalizeNumericValue(value)
+    case "integer":
+      return normalizeIntegerValue(value)
+    case "boolean":
+      return normalizeBooleanValue(value)
+    case "array":
+      return normalizeArrayValue(value)
+    case "object":
+      return normalizeObjectValue(value)
+    default:
+      return value
+  }
+}
+
+function normalizeAirtableFieldValue(
   fieldType: string,
   value: unknown,
 ): unknown {
@@ -306,9 +391,11 @@ export async function resolveFields(
   token: string,
   baseId: string,
   table: string,
+  typecast: boolean,
 ): Promise<Record<string, unknown>> {
   const resolvedFields = resolveRawFields(parameters)
   if (Object.keys(resolvedFields).length === 0) return resolvedFields
+  if (!typecast) return resolvedFields
 
   try {
     const tables = await getBaseSchema(token, baseId)
@@ -320,7 +407,12 @@ export async function resolveFields(
       ([key, value]) => {
         const field = fieldMap.get(key)
         if (!field) return [key, value] as const
-        return [key, normalizeFieldValue(field.type, value)] as const
+        const mappingType = mapAirtableFieldType(field.type)
+        const mappedValue = normalizeMappedFieldValue(mappingType, value)
+        return [
+          key,
+          normalizeAirtableFieldValue(field.type, mappedValue),
+        ] as const
       },
     )
 
