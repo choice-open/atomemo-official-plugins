@@ -15,12 +15,14 @@ import {
   resolveTable,
 } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import updateRecordSkill from "./update-record-skill.md" with { type: "text" }
 
 export const updateRecordTool = {
   name: "airtable-update-record",
   display_name: t("UPDATE_RECORD_DISPLAY_NAME"),
   description: t("UPDATE_RECORD_DESCRIPTION"),
   icon: "✏️",
+  skill: updateRecordSkill,
 
   parameters: [...updateRecordParams],
   locator_list: {

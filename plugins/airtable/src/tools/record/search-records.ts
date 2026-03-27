@@ -10,12 +10,14 @@ import {
 } from "../_shared/parameters"
 import { resolveBaseId, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import searchRecordsSkill from "./search-records-skill.md" with { type: "text" }
 
 export const searchRecordsTool = {
   name: "airtable-search-records",
   display_name: t("SEARCH_RECORDS_DISPLAY_NAME"),
   description: t("SEARCH_RECORDS_DESCRIPTION"),
   icon: "🔎",
+  skill: searchRecordsSkill,
 
   parameters: [
     ...baseTableScopeParams,

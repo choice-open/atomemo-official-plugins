@@ -9,12 +9,14 @@ import {
 import { createRecordParams } from "../_shared/parameters"
 import { resolveBaseId, resolveFields, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import createRecordSkill from "./create-record-skill.md" with { type: "text" }
 
 export const createRecordTool = {
   name: "airtable-create-record",
   display_name: t("CREATE_RECORD_DISPLAY_NAME"),
   description: t("CREATE_RECORD_DESCRIPTION"),
   icon: "➕",
+  skill: createRecordSkill,
 
   parameters: [...createRecordParams],
   locator_list: { ...searchBasesMethod, ...searchTablesMethod },
