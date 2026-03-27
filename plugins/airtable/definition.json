@@ -11,10 +11,7 @@
   "icon": "symbol:icon-airtable",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/airtable",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "Xavier",
   "email": "zhqjiang@outlook.com",
   "version": "0.5.3",
@@ -196,13 +193,7 @@
           "items": {
             "name": "permission",
             "type": "string",
-            "enum": [
-              "none",
-              "read",
-              "comment",
-              "create",
-              "edit"
-            ]
+            "enum": ["none", "read", "comment", "create", "edit"]
           }
         }
       ]
@@ -369,9 +360,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id"
-          ],
+          "depends_on": ["base_id"],
           "type": "resource_locator",
           "modes": [
             {
@@ -419,10 +408,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id",
-            "table"
-          ],
+          "depends_on": ["base_id", "table"],
           "type": "resource_locator",
           "modes": [
             {
@@ -544,9 +530,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id"
-          ],
+          "depends_on": ["base_id"],
           "type": "resource_locator",
           "modes": [
             {
@@ -781,10 +765,7 @@
                 },
                 "type": "string",
                 "default": "asc",
-                "enum": [
-                  "asc",
-                  "desc"
-                ]
+                "enum": ["asc", "desc"]
               }
             ]
           }
@@ -879,9 +860,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id"
-          ],
+          "depends_on": ["base_id"],
           "type": "resource_locator",
           "modes": [
             {
@@ -929,10 +908,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id",
-            "table"
-          ],
+          "depends_on": ["base_id", "table"],
           "type": "resource_locator",
           "modes": [
             {
@@ -1054,9 +1030,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id"
-          ],
+          "depends_on": ["base_id"],
           "type": "resource_locator",
           "modes": [
             {
@@ -1101,10 +1075,7 @@
               "zh_Hans": "必填。JSON 对象：键为字段名称（用名称勿用 ID）。值类型：文本、数字、单选、复选框、日期（ISO 8601）；链接记录为记录 ID 数组；协作者为 Airtable 文档中的用户 ID 或邮箱。开启 Typecast 时字符串会按字段类型转换，链接可按主字段值填写。"
             }
           },
-          "depends_on": [
-            "base_id",
-            "table"
-          ],
+          "depends_on": ["base_id", "table"],
           "type": "resource_mapper",
           "mapping_method": "map_table_fields"
         },
@@ -1222,9 +1193,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id"
-          ],
+          "depends_on": ["base_id"],
           "type": "resource_locator",
           "modes": [
             {
@@ -1272,10 +1241,7 @@
           "ui": {
             "support_expression": true
           },
-          "depends_on": [
-            "base_id",
-            "table"
-          ],
+          "depends_on": ["base_id", "table"],
           "type": "resource_locator",
           "modes": [
             {
@@ -1320,10 +1286,7 @@
               "zh_Hans": "必填。JSON 对象：键为字段名称（用名称勿用 ID）。值类型：文本、数字、单选、复选框、日期（ISO 8601）；链接记录为记录 ID 数组；协作者为 Airtable 文档中的用户 ID 或邮箱。开启 Typecast 时字符串会按字段类型转换，链接可按主字段值填写。"
             }
           },
-          "depends_on": [
-            "base_id",
-            "table"
-          ],
+          "depends_on": ["base_id", "table"],
           "type": "resource_mapper",
           "mapping_method": "map_table_fields"
         },

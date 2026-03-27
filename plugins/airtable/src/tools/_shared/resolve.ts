@@ -172,8 +172,8 @@ function normalizeNumericValue(value: unknown): unknown {
 }
 
 function normalizeCheckboxValue(value: unknown): unknown {
-  if(value === null) return false
-  if(value === undefined) return undefined
+  if (value === null) return false
+  if (value === undefined) return undefined
   if (typeof value === "boolean") return value
   if (typeof value === "number") {
     if (value === 1) return true
