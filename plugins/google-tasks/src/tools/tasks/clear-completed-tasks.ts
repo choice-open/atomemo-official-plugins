@@ -1,7 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken } from "../../utils/api"
-import clearCompletedTasksSkill from "./clear-completed-tasks-skill.md" with { type: "text" }
+import clearCompletedTasksSkill from "./clear-completed-tasks-skill.md" with {
+  type: "text",
+}
 
 export const clearCompletedTasksTool: ToolDefinition = {
   name: "clear-completed-tasks",
@@ -39,10 +41,15 @@ export const clearCompletedTasksTool: ToolDefinition = {
       if (res.status === 204) {
         return { success: true, clearedTaskList: taskListId }
       }
-      throw new Error(`Unexpected response status: ${res.status} ${res.statusText}`)
+      throw new Error(
+        `Unexpected response status: ${res.status} ${res.statusText}`,
+      )
     } catch (err: any) {
-      const message = err?.errors?.[0]?.message || err?.message || "Unknown error"
-      throw new Error(`Failed to clear completed tasks from list "${taskListId}": ${message}`)
+      const message =
+        err?.errors?.[0]?.message || err?.message || "Unknown error"
+      throw new Error(
+        `Failed to clear completed tasks from list "${taskListId}": ${message}`,
+      )
     }
   },
 }

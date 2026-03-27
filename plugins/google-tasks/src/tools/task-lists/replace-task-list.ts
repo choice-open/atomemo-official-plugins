@@ -1,7 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken, toJSON } from "../../utils/api"
-import replaceTaskListSkill from "./replace-task-list-skill.md" with { type: "text" }
+import replaceTaskListSkill from "./replace-task-list-skill.md" with {
+  type: "text",
+}
 
 export const replaceTaskListTool: ToolDefinition = {
   name: "replace-task-list",

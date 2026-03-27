@@ -1,7 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken } from "../../utils/api"
-import deleteTaskListSkill from "./delete-task-list-skill.md" with { type: "text" }
+import deleteTaskListSkill from "./delete-task-list-skill.md" with {
+  type: "text",
+}
 
 export const deleteTaskListTool: ToolDefinition = {
   name: "delete-task-list",
@@ -39,9 +41,12 @@ export const deleteTaskListTool: ToolDefinition = {
       if (res.status === 204) {
         return { success: true, deletedTaskList: taskListId }
       }
-      throw new Error(`Unexpected response status: ${res.status} ${res.statusText}`)
+      throw new Error(
+        `Unexpected response status: ${res.status} ${res.statusText}`,
+      )
     } catch (err: any) {
-      const message = err?.errors?.[0]?.message || err?.message || "Unknown error"
+      const message =
+        err?.errors?.[0]?.message || err?.message || "Unknown error"
       throw new Error(`Failed to delete task list "${taskListId}": ${message}`)
     }
   },

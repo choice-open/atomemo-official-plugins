@@ -77,7 +77,9 @@ export const googleTasksOAuth2Credential = {
     const data = (await response.json()) as Record<string, any>
 
     if (!response.ok) {
-      throw new Error(`Failed to get token: ${data.error_description || data.error}`)
+      throw new Error(
+        `Failed to get token: ${data.error_description || data.error}`,
+      )
     }
 
     return {
@@ -106,7 +108,9 @@ export const googleTasksOAuth2Credential = {
     const data = (await response.json()) as Record<string, any>
 
     if (!response.ok) {
-      throw new Error(`Failed to refresh token: ${data.error_description || data.error}`)
+      throw new Error(
+        `Failed to refresh token: ${data.error_description || data.error}`,
+      )
     }
 
     return {

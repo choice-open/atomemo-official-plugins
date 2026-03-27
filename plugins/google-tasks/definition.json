@@ -11,10 +11,7 @@
   "icon": "https://fonts.gstatic.com/s/i/productlogos/tasks/v10/192px.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-tasks",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.4",
@@ -145,7 +142,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List Task Lists Tool Documentation\n\n## Tool\n\n- **Name**: `list-task-lists`\n- **Purpose**: Lists available Google task lists.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of task lists to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from previous response. | `\"next_page_token\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#taskLists\",\n  \"items\": [\n    {\n      \"id\": \"task_list_id_xxx\",\n      \"title\": \"Work Tasks\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
     },
     {
       "name": "get-task-list",
@@ -191,7 +189,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Task List Tool Documentation\n\n## Tool\n\n- **Name**: `get-task-list`\n- **Purpose**: Gets a single task list by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID to retrieve. | `\"task_list_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks\"\n}\n```\n"
     },
     {
       "name": "create-task-list",
@@ -233,7 +232,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Create Task List Tool Documentation\n\n## Tool\n\n- **Name**: `create-task-list`\n- **Purpose**: Creates a new Google Tasks list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `title` | `string` | `true` | `input` | Task list title. | `\"Work Tasks\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"title\": \"Work Tasks\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks\"\n}\n```\n"
     },
     {
       "name": "update-task-list",
@@ -297,7 +297,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Update Task List Tool Documentation\n\n## Tool\n\n- **Name**: `update-task-list`\n- **Purpose**: Partially updates an existing task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Target task list ID. | `\"task_list_id_xxx\"` |\n| `title` | `string` | `true` | `input` | New task list title. | `\"Work Tasks (Updated)\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\",\n    \"title\": \"Work Tasks (Updated)\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks (Updated)\"\n}\n```\n"
     },
     {
       "name": "delete-task-list",
@@ -343,7 +344,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Delete Task List Tool Documentation\n\n## Tool\n\n- **Name**: `delete-task-list`\n- **Purpose**: Deletes a task list by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID to delete. | `\"task_list_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"deletedTaskList\": \"task_list_id_xxx\"\n}\n```\n"
     },
     {
       "name": "list-tasks",
@@ -591,7 +593,8 @@
           "type": "boolean",
           "default": true
         }
-      ]
+      ],
+      "skill": "# List Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `list-tasks`\n- **Purpose**: Lists tasks in a specified task list with optional filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of tasks to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from a previous response. | `\"next_page_token\"` |\n| `show_completed` | `boolean` | `false` | `switch` | Include completed tasks. | `true` |\n| `show_deleted` | `boolean` | `false` | `switch` | Include deleted tasks. | `false` |\n| `show_hidden` | `boolean` | `false` | `switch` | Include hidden tasks. | `true` |\n| `due_min` | `string` | `false` | `input` | Due date lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `due_max` | `string` | `false` | `input` | Due date upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `updated_min` | `string` | `false` | `input` | Updated time lower bound (RFC 3339). | `\"2026-03-20T00:00:00Z\"` |\n| `completed_min` | `string` | `false` | `input` | Completion time lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `completed_max` | `string` | `false` | `input` | Completion time upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `show_assigned` | `boolean` | `false` | `switch` | Include assigned tasks. | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"max_results\": 20,\n    \"show_completed\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#tasks\",\n  \"items\": [\n    {\n      \"id\": \"task_id_xxx\",\n      \"title\": \"Buy milk\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
     },
     {
       "name": "get-task",
@@ -659,7 +662,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Task Tool Documentation\n\n## Tool\n\n- **Name**: `get-task`\n- **Purpose**: Gets a single task by task list ID and task ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to retrieve. | `\"task_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"title\": \"Buy milk\",\n  \"status\": \"needsAction\"\n}\n```\n"
     },
     {
       "name": "create-task",
@@ -835,7 +839,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Create Task Tool Documentation\n\n## Tool\n\n- **Name**: `create-task`\n- **Purpose**: Creates a new task in a specified Google Tasks list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Target task list ID. | `\"MDQ2...\"` |\n| `title` | `string` | `true` | `input` | Task title. | `\"Buy milk\"` |\n| `notes` | `string` | `false` | `textarea` | Task notes/description. | `\"2 liters\"` |\n| `due` | `string` | `false` | `input` | Due date in RFC 3339 format. | `\"2026-03-31T09:00:00Z\"` |\n| `status` | `string` | `false` | `select` | Task status: `needsAction` or `completed`. | `\"needsAction\"` |\n| `parent` | `string` | `false` | `input` | Parent task ID for subtasks. | `\"parent_task_id\"` |\n| `previous` | `string` | `false` | `input` | Previous sibling task ID for ordering. | `\"previous_task_id\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"title\": \"Buy milk\",\n    \"notes\": \"2 liters\",\n    \"due\": \"2026-03-31T09:00:00Z\",\n    \"status\": \"needsAction\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"title\": \"Buy milk\",\n  \"status\": \"needsAction\"\n}\n```\n"
     },
     {
       "name": "update-task",
@@ -988,7 +993,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Update Task Tool Documentation\n\n## Tool\n\n- **Name**: `update-task`\n- **Purpose**: Partially updates fields of an existing task.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID containing the task. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Target task ID. | `\"task_id_xxx\"` |\n| `title` | `string` | `false` | `input` | New task title. | `\"Buy milk and eggs\"` |\n| `notes` | `string` | `false` | `textarea` | New task notes. | `\"2 liters + 12 eggs\"` |\n| `status` | `string` | `false` | `select` | Task status: `needsAction` or `completed`. | `\"completed\"` |\n| `due` | `string` | `false` | `input` | Due date in RFC 3339 format. | `\"2026-03-31T09:00:00Z\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\",\n    \"status\": \"completed\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"status\": \"completed\"\n}\n```\n"
     },
     {
       "name": "delete-task",
@@ -1056,7 +1062,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Delete Task Tool Documentation\n\n## Tool\n\n- **Name**: `delete-task`\n- **Purpose**: Deletes a task from a task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to delete. | `\"task_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"deletedTask\": \"task_id_xxx\",\n  \"fromTaskList\": \"MDQ2...\"\n}\n```\n"
     },
     {
       "name": "move-task",
@@ -1190,7 +1197,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Move Task Tool Documentation\n\n## Tool\n\n- **Name**: `move-task`\n- **Purpose**: Moves a task to a new position or another task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Source task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to move. | `\"task_id_xxx\"` |\n| `parent` | `string` | `false` | `input` | New parent task ID. | `\"parent_task_id\"` |\n| `previous` | `string` | `false` | `input` | Previous sibling task ID in target position. | `\"previous_task_id\"` |\n| `destination_tasklist` | `string` | `false` | `input` | Destination task list ID. | `\"dest_list_id\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\",\n    \"destination_tasklist\": \"dest_list_id\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"selfLink\": \"https://www.googleapis.com/tasks/v1/lists/...\"\n}\n```\n"
     },
     {
       "name": "clear-completed-tasks",
@@ -1236,7 +1244,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Clear Completed Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `clear-completed-tasks`\n- **Purpose**: Clears all completed tasks in a specified task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"clearedTaskList\": \"MDQ2...\"\n}\n```\n"
     }
   ]
 }
