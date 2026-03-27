@@ -17,6 +17,9 @@ import {
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
+import crawlAWebsiteSkill from "./crawl-a-website-skill.md" with {
+  type: "text",
+}
 
 const requestOptions: PropertyObject = {
   type: "object",
@@ -195,6 +198,7 @@ export const CrawlAWebsiteTool: ToolDefinition = {
   display_name: t("TOOL_NAME_FIRECRAWL_CRAWL"),
   description: t("TOOL_DESCRIPTION_FIRECRAWL_CRAWL"),
   icon: "🕸️",
+  skill: crawlAWebsiteSkill,
   parameters: [
     firecrawlCredentialParameter,
     {

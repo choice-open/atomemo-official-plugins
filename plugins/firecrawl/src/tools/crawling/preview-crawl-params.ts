@@ -8,12 +8,16 @@ import {
   getFirecrawlApiKey,
 } from "../_shared/firecrawl-client"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
+import previewCrawlParamsSkill from "./preview-crawl-params-skill.md" with {
+  type: "text",
+}
 
 export const PreviewCrawlParamsTool: ToolDefinition = {
   name: "firecrawl-preview-crawl-params",
   display_name: t("TOOL_PREVIEW_CRAWL_PARAMS_DISPLAY_NAME"),
   description: t("TOOL_PREVIEW_CRAWL_PARAMS_DESCRIPTION"),
   icon: "🔍",
+  skill: previewCrawlParamsSkill,
   parameters: [
     firecrawlCredentialParameter,
     {
