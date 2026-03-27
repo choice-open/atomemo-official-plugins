@@ -13,7 +13,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
   discriminator: "type",
   any_of: [
     {
-      name: "markdown-format",
+      name: "markdown_format",
       type: "object",
       properties: [
         {
@@ -24,7 +24,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "html-format",
+      name: "html_format",
       type: "object",
       properties: [
         {
@@ -35,7 +35,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "rawHtml-format",
+      name: "rawHtml_format",
       type: "object",
       properties: [
         {
@@ -46,7 +46,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "links-format",
+      name: "links_format",
       type: "object",
       properties: [
         {
@@ -57,7 +57,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "images-format",
+      name: "images_format",
       type: "object",
       properties: [
         {
@@ -68,7 +68,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "screenshot-format",
+      name: "screenshot_format",
       type: "object",
       properties: [
         {
@@ -134,7 +134,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "summary-format",
+      name: "summary_format",
       type: "object",
       properties: [
         {
@@ -145,7 +145,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "change-tracking-format",
+      name: "change_tracking_format",
       type: "object",
       properties: [
         {
@@ -208,7 +208,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "json-format",
+      name: "json_format",
       type: "object",
       properties: [
         {
@@ -242,7 +242,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "attributes-format",
+      name: "attributes_format",
       type: "object",
       properties: [
         {
@@ -253,7 +253,7 @@ const formatItemParameter: PropertyDiscriminatedUnion<"type"> = {
       ],
     },
     {
-      name: "branding-format",
+      name: "branding_format",
       type: "object",
       properties: [
         {
@@ -287,7 +287,7 @@ const headersParameter: PropertyObject<"headers"> = {
   properties: [],
   additional_properties: {
     type: "string",
-    name: "header-value",
+    name: "header_value",
   },
   ui: {
     component: "section",
@@ -304,7 +304,7 @@ const actionsParameter: PropertyArray = {
     discriminator: "type",
     any_of: [
       {
-        name: "wait-action",
+        name: "wait_action",
         type: "object",
         properties: [
           {
@@ -340,7 +340,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "screenshot-action",
+        name: "screenshot_action",
         type: "object",
         properties: [
           {
@@ -405,7 +405,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "click-action",
+        name: "click_action",
         type: "object",
         properties: [
           {
@@ -431,7 +431,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "write-action",
+        name: "write_action",
         type: "object",
         properties: [
           {
@@ -457,7 +457,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "press-action",
+        name: "press_action",
         type: "object",
         properties: [
           {
@@ -483,7 +483,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "scroll-action",
+        name: "scroll_action",
         type: "object",
         properties: [
           {
@@ -531,7 +531,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "scrape-action",
+        name: "scrape_action",
         type: "object",
         properties: [
           {
@@ -546,7 +546,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "execute-javascript-action",
+        name: "execute_javascript_action",
         type: "object",
         properties: [
           {
@@ -573,7 +573,7 @@ const actionsParameter: PropertyArray = {
         ],
       },
       {
-        name: "pdf-action",
+        name: "pdf_action",
         type: "object",
         properties: [
           {
