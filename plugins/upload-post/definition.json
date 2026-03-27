@@ -1,0 +1,332 @@
+{
+  "name": "upload-post",
+  "display_name": {
+    "en_US": "Upload Post",
+    "zh_Hans": "跨平台发布"
+  },
+  "description": {
+    "en_US": "Upload media to multiple social platforms with Upload-Post API",
+    "zh_Hans": "通过 Upload-Post API 一次性发布内容到多个社交平台"
+  },
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/upload-post",
+  "icon": "https://server-media-public.atomemo.ai/icons/upload-post.png",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "smartepsh",
+  "email": "smartepsh@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "upload-post-api-key",
+      "display_name": {
+        "en_US": "Upload-Post API Key",
+        "zh_Hans": "Upload-Post API Key"
+      },
+      "description": {
+        "en_US": "API key used to authenticate Upload-Post API requests.",
+        "zh_Hans": "用于 Upload-Post API 请求鉴权的 API Key。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "Upload-Post API Key",
+            "zh_Hans": "Upload-Post API Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Paste your Upload-Post API key.",
+              "zh_Hans": "输入你的 Upload-Post API Key。"
+            },
+            "placeholder": {
+              "en_US": "up_********************************",
+              "zh_Hans": "up_********************************"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "upload_media",
+      "display_name": {
+        "en_US": "Upload Media",
+        "zh_Hans": "上传媒体"
+      },
+      "description": {
+        "en_US": "Submit media URL to Upload-Post for multi-platform publishing",
+        "zh_Hans": "提交媒体 URL 到 Upload-Post 执行多平台发布"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "credentialId",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "upload-post-api-key"
+        },
+        {
+          "name": "user",
+          "display_name": {
+            "en_US": "Profile",
+            "zh_Hans": "Profile"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Upload-Post user/profile identifier",
+              "zh_Hans": "Upload-Post 用户/配置标识"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "platforms",
+          "display_name": {
+            "en_US": "Target Platforms",
+            "zh_Hans": "目标平台"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Choose one or more target platforms",
+              "zh_Hans": "选择一个或多个目标平台"
+            },
+            "support_expression": true,
+            "width": "full",
+            "options": [
+              {
+                "label": {
+                  "en_US": "TikTok",
+                  "zh_Hans": "TikTok"
+                },
+                "value": "tiktok"
+              },
+              {
+                "label": {
+                  "en_US": "Instagram",
+                  "zh_Hans": "Instagram"
+                },
+                "value": "instagram"
+              },
+              {
+                "label": {
+                  "en_US": "YouTube",
+                  "zh_Hans": "YouTube"
+                },
+                "value": "youtube"
+              },
+              {
+                "label": {
+                  "en_US": "Facebook",
+                  "zh_Hans": "Facebook"
+                },
+                "value": "facebook"
+              },
+              {
+                "label": {
+                  "en_US": "LinkedIn",
+                  "zh_Hans": "LinkedIn"
+                },
+                "value": "linkedin"
+              },
+              {
+                "label": {
+                  "en_US": "X (Twitter)",
+                  "zh_Hans": "X（Twitter）"
+                },
+                "value": "x"
+              },
+              {
+                "label": {
+                  "en_US": "Threads",
+                  "zh_Hans": "Threads"
+                },
+                "value": "threads"
+              },
+              {
+                "label": {
+                  "en_US": "Pinterest",
+                  "zh_Hans": "Pinterest"
+                },
+                "value": "pinterest"
+              },
+              {
+                "label": {
+                  "en_US": "Reddit",
+                  "zh_Hans": "Reddit"
+                },
+                "value": "reddit"
+              },
+              {
+                "label": {
+                  "en_US": "Bluesky",
+                  "zh_Hans": "Bluesky"
+                },
+                "value": "bluesky"
+              }
+            ],
+            "component": "multi-select"
+          },
+          "type": "array",
+          "items": {
+            "name": "platform",
+            "type": "string",
+            "enum": [
+              "tiktok",
+              "instagram",
+              "youtube",
+              "facebook",
+              "linkedin",
+              "x",
+              "threads",
+              "pinterest",
+              "reddit",
+              "bluesky"
+            ]
+          },
+          "min_items": 1
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "media_url",
+          "display_name": {
+            "en_US": "Media URL",
+            "zh_Hans": "媒体 URL"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Public media URL to upload",
+              "zh_Hans": "需要上传的公开媒体 URL"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "media_type",
+          "display_name": {
+            "en_US": "Media Type",
+            "zh_Hans": "媒体类型"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Choose media type",
+              "zh_Hans": "选择媒体类型"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Video",
+                  "zh_Hans": "视频"
+                },
+                "value": "video"
+              },
+              {
+                "label": {
+                  "en_US": "Image",
+                  "zh_Hans": "图片"
+                },
+                "value": "image"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "video",
+          "enum": [
+            "video",
+            "image"
+          ]
+        }
+      ],
+      "skill": "# upload-post / upload-media\n\nSubmit a media URL to Upload-Post for multi-platform publishing.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | — | Links to credential `upload-post-api-key`. |\n| `user` | `string` | yes | — | Upload-Post profile identifier used to route the post to a related profile. |\n| `platforms` | `array<string>` | yes | — | One or more target platforms. Allowed values: `tiktok`, `instagram`, `youtube`, `facebook`, `linkedin`, `x`, `threads`, `pinterest`, `reddit`, `bluesky`. |\n| `title` | `string` | no | — | Post title/caption text sent when provided. |\n| `media_url` | `string` | yes | — | Public URL of the media to publish. |\n| `media_type` | `string` | no | `\"video\"` | Media category selector. Allowed values: `video`, `image`. |\n\n### Cross-field Rules\n- If `media_type` is `image`, `platforms` cannot include `youtube`.\n\n### Example Input\n```json\n{\n  \"credentialId\": \"upload-post-prod\",\n  \"user\": \"brand_profile_main\",\n  \"platforms\": [\"instagram\", \"x\", \"threads\"],\n  \"title\": \"New product teaser drops today\",\n  \"media_url\": \"https://cdn.example.com/media/teaser-2026-03-27.jpg\",\n  \"media_type\": \"image\"\n}\n```\n\n## Credential\n\n- Credential name: `upload-post-api-key`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Upload-Post API key used for authenticated API requests. |\n\n## Success Output\n\nWhat the user receives on success:\n\n```json\n{\n  \"request_id\": \"req_8a5f4d2f\",\n  \"message\": \"submitted\",\n  \"total_platforms\": 3\n}\n```\n"
+    },
+    {
+      "name": "get_upload_status",
+      "display_name": {
+        "en_US": "Get Upload Status",
+        "zh_Hans": "查询上传状态"
+      },
+      "description": {
+        "en_US": "Query Upload-Post async task status by request_id",
+        "zh_Hans": "根据 request_id 查询 Upload-Post 异步任务状态"
+      },
+      "icon": "📊",
+      "parameters": [
+        {
+          "name": "credentialId",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "upload-post-api-key"
+        },
+        {
+          "name": "request_id",
+          "display_name": {
+            "en_US": "Request ID",
+            "zh_Hans": "请求 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The request_id returned by upload_media",
+              "zh_Hans": "upload_media 返回的 request_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# upload-post / get-upload-status\n\nQuery Upload-Post task status by a previously returned request ID.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credentialId` | `credential_id` | yes | — | Links to credential `upload-post-api-key`. |\n| `request_id` | `string` | yes | — | Request ID returned by `upload_media`. |\n\n### Example Input\n```json\n{\n  \"credentialId\": \"upload-post-prod\",\n  \"request_id\": \"req_8a5f4d2f\"\n}\n```\n\n## Credential\n\n- Credential name: `upload-post-api-key`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Upload-Post API key used for authenticated API requests. |\n\n## Success Output\n\nWhat the user receives on success:\n\n```json\n{\n  \"request_id\": \"req_8a5f4d2f\",\n  \"status\": \"done\"\n}\n```\n\n### Output Notes\n- Returns the API status payload as-is. Additional fields may be present depending on Upload-Post response (Inferred).\n"
+    }
+  ]
+}
