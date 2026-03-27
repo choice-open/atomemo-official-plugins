@@ -10,6 +10,12 @@
 - `get-document`: 读取文档
 - `batch-update-document`: 批量更新文档（透传 Google Docs `requests[]`）
 
+### Tool Docs
+
+- `src/tools/docs/create-document-skill.md`
+- `src/tools/docs/get-document-skill.md`
+- `src/tools/docs/batch-update-document-skill.md`
+
 ## Usage Examples
 
 ### 1) create-document

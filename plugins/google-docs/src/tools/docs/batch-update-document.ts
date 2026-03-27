@@ -4,11 +4,13 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { requireDocsClient } from "../../lib/docs-client"
+import batchUpdateDocumentSkill from "./batch-update-document-skill.md" with { type: "text" }
 
 export const batchUpdateDocumentTool: ToolDefinition = {
   name: "batch-update-document",
   display_name: t("BATCH_UPDATE_DOCUMENT_TOOL_DISPLAY_NAME"),
   description: t("BATCH_UPDATE_DOCUMENT_TOOL_DESCRIPTION"),
+  skill: batchUpdateDocumentSkill,
   icon: "🛠️",
   parameters: [
     {

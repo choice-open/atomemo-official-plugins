@@ -4,11 +4,13 @@ import type {
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { requireDocsClient } from "../../lib/docs-client"
+import getDocumentSkill from "./get-document-skill.md" with { type: "text" }
 
 export const getDocumentTool: ToolDefinition = {
   name: "get-document",
   display_name: t("GET_DOCUMENT_TOOL_DISPLAY_NAME"),
   description: t("GET_DOCUMENT_TOOL_DESCRIPTION"),
+  skill: getDocumentSkill,
   icon: "📖",
   parameters: [
     {

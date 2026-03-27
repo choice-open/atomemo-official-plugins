@@ -45,6 +45,18 @@ vi.mock("../src/tools/demo", () => ({
   },
 }))
 
+vi.mock("../src/tools/docs/get-document-skill.md", () => ({
+  default: "Get document skill",
+}))
+
+vi.mock("../src/tools/docs/create-document-skill.md", () => ({
+  default: "Create document skill",
+}))
+
+vi.mock("../src/tools/docs/batch-update-document-skill.md", () => ({
+  default: "Batch update document skill",
+}))
+
 describe("google docs plugin", () => {
   it("should register docs credential and tools", async () => {
     const addTool = vi.fn()
