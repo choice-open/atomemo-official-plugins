@@ -14,7 +14,7 @@
   "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "credentials": [
     {
       "name": "google-tasks-oauth2",
