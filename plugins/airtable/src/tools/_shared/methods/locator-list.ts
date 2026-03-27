@@ -83,7 +83,9 @@ export const searchRecordsMethod = {
         return primaryFieldText.includes(filter.trim().toLowerCase())
       })
       .map((r) => ({
-        label: String(primaryFieldName ? (r.fields[primaryFieldName] ?? "") : ""),
+        label: String(
+          primaryFieldName ? (r.fields[primaryFieldName] ?? "") : "",
+        ),
         value: r.id,
       }))
 
