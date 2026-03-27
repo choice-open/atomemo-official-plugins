@@ -10,9 +10,9 @@
  * Run:  GOOGLE_TASKS_ACCESS_TOKEN=... bun run test -- test/e2e
  */
 import "dotenv/config"
+import type { tasks_v1 } from "@googleapis/tasks"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import { createTasksClient, toJSON } from "../../src/utils/api"
-import type { tasks_v1 } from "@googleapis/tasks"
 
 const ACCESS_TOKEN = process.env.GOOGLE_TASKS_ACCESS_TOKEN
 

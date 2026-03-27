@@ -10,11 +10,11 @@ vi.mock("../../src/utils/api", () => ({
   toJSON: (data: unknown) => JSON.parse(JSON.stringify(data)),
 }))
 
-import { createTasksClient } from "../../src/utils/api"
 import { createTaskListTool } from "../../src/tools/task-lists/create-task-list"
 import { deleteTaskListTool } from "../../src/tools/task-lists/delete-task-list"
 import { listTaskListsTool } from "../../src/tools/task-lists/list-task-lists"
 import { updateTaskListTool } from "../../src/tools/task-lists/update-task-list"
+import { createTasksClient } from "../../src/utils/api"
 
 const mockCreateTasksClient = vi.mocked(createTasksClient)
 
@@ -32,7 +32,10 @@ describe("listTaskListsTool", () => {
     expect(listTaskListsTool.name).toBe("list-task-lists")
     expect(listTaskListsTool.parameters).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ name: "credential_id", type: "credential_id" }),
+        expect.objectContaining({
+          name: "credential_id",
+          type: "credential_id",
+        }),
         expect.objectContaining({ name: "max_results", required: false }),
         expect.objectContaining({ name: "page_token", required: false }),
       ]),
@@ -40,11 +43,18 @@ describe("listTaskListsTool", () => {
   })
 
   it("should call tasklists.list and return data", async () => {
-    const mockData = { kind: "tasks#taskLists", items: [{ id: "list-1", title: "My List" }] }
+    const mockData = {
+      kind: "tasks#taskLists",
+      items: [{ id: "list-1", title: "My List" }],
+    }
     const mockList = vi.fn().mockResolvedValue({ data: mockData })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { list: mockList } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { list: mockList },
+    } as any)
 
-    const result = await listTaskListsTool.invoke(makeArgs({ max_results: 10 }) as any)
+    const result = await listTaskListsTool.invoke(
+      makeArgs({ max_results: 10 }) as any,
+    )
 
     expect(mockList).toHaveBeenCalledWith({
       maxResults: 10,
@@ -55,7 +65,9 @@ describe("listTaskListsTool", () => {
 
   it("should pass pageToken when provided", async () => {
     const mockList = vi.fn().mockResolvedValue({ data: { items: [] } })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { list: mockList } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { list: mockList },
+    } as any)
 
     await listTaskListsTool.invoke(makeArgs({ page_token: "next-page" }) as any)
 
@@ -78,9 +90,13 @@ describe("createTaskListTool", () => {
   it("should call tasklists.insert with title", async () => {
     const mockData = { id: "new-list", title: "Work" }
     const mockInsert = vi.fn().mockResolvedValue({ data: mockData })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { insert: mockInsert } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { insert: mockInsert },
+    } as any)
 
-    const result = await createTaskListTool.invoke(makeArgs({ title: "Work" }) as any)
+    const result = await createTaskListTool.invoke(
+      makeArgs({ title: "Work" }) as any,
+    )
 
     expect(mockInsert).toHaveBeenCalledWith({
       requestBody: { title: "Work" },
@@ -103,7 +119,9 @@ describe("updateTaskListTool", () => {
   it("should call tasklists.patch with id and new title", async () => {
     const mockData = { id: "list-1", title: "Renamed" }
     const mockPatch = vi.fn().mockResolvedValue({ data: mockData })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { patch: mockPatch } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { patch: mockPatch },
+    } as any)
 
     const result = await updateTaskListTool.invoke(
       makeArgs({ task_list_id: "list-1", title: "Renamed" }) as any,
@@ -124,7 +142,9 @@ describe("deleteTaskListTool", () => {
 
   it("should return success on 204 response", async () => {
     const mockDelete = vi.fn().mockResolvedValue({ status: 204 })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { delete: mockDelete } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { delete: mockDelete },
+    } as any)
 
     const result = await deleteTaskListTool.invoke(
       makeArgs({ task_list_id: "list-1" }) as any,
@@ -135,8 +155,12 @@ describe("deleteTaskListTool", () => {
   })
 
   it("should throw on unexpected status", async () => {
-    const mockDelete = vi.fn().mockResolvedValue({ status: 500, statusText: "Internal Server Error" })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { delete: mockDelete } } as any)
+    const mockDelete = vi
+      .fn()
+      .mockResolvedValue({ status: 500, statusText: "Internal Server Error" })
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { delete: mockDelete },
+    } as any)
 
     await expect(
       deleteTaskListTool.invoke(makeArgs({ task_list_id: "list-1" }) as any),
@@ -148,10 +172,14 @@ describe("deleteTaskListTool", () => {
       message: "Not Found",
       errors: [{ message: "Task list not found" }],
     })
-    mockCreateTasksClient.mockReturnValue({ tasklists: { delete: mockDelete } } as any)
+    mockCreateTasksClient.mockReturnValue({
+      tasklists: { delete: mockDelete },
+    } as any)
 
     await expect(
       deleteTaskListTool.invoke(makeArgs({ task_list_id: "bad-id" }) as any),
-    ).rejects.toThrow('Failed to delete task list "bad-id": Task list not found')
+    ).rejects.toThrow(
+      'Failed to delete task list "bad-id": Task list not found',
+    )
   })
 })
