@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken } from "../../utils/api"
+import clearCompletedTasksSkill from "./clear-completed-tasks-skill.md" with { type: "text" }
 
 export const clearCompletedTasksTool: ToolDefinition = {
   name: "clear-completed-tasks",
   display_name: t("CLEAR_COMPLETED_DISPLAY_NAME"),
   description: t("CLEAR_COMPLETED_DESCRIPTION"),
+  skill: clearCompletedTasksSkill,
   icon: "🧹",
   parameters: [
     {

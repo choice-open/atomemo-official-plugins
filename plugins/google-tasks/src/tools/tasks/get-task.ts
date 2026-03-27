@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken, toJSON } from "../../utils/api"
+import getTaskSkill from "./get-task-skill.md" with { type: "text" }
 
 export const getTaskTool: ToolDefinition = {
   name: "get-task",
   display_name: t("GET_TASK_DISPLAY_NAME"),
   description: t("GET_TASK_DESCRIPTION"),
+  skill: getTaskSkill,
   icon: "🔍",
   parameters: [
     {

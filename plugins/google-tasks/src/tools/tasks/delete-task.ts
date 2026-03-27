@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
 import { t } from "../../i18n/i18n-node";
 import { createTasksClient, getAccessToken } from "../../utils/api";
+import deleteTaskSkill from "./delete-task-skill.md" with { type: "text" };
 
 export const deleteTaskTool: ToolDefinition = {
   name: "delete-task",
   display_name: t("DELETE_TASK_DISPLAY_NAME"),
   description: t("DELETE_TASK_DESCRIPTION"),
+  skill: deleteTaskSkill,
   icon: "🗑️",
   parameters: [
     {

@@ -37,7 +37,7 @@
     "tsdown": "^0.20.3",
     "typesafe-i18n": "^5.27.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.1"
+    "vitest": "^4.1.2"
   },
   "publishConfig": {
     "exports": {
