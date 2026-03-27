@@ -19,6 +19,9 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import { iconProperty } from "./_shared-parameters/icon"
 import { pagePropertiesProperty } from "./_shared-parameters/page-properties/page-properties"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import createAPageInADatabaseSkill from "./create-a-page-in-a-database-skill.md" with {
+  type: "text",
+}
 
 const parentProperty: PropertyObject<"parent"> = {
   name: "parent",
@@ -73,6 +76,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
   display_name: t("CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME"),
   description: t("CREATE_PAGE_IN_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: createAPageInADatabaseSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
@@ -94,7 +98,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
-        parent: { data_source_id: dataSourceId, type:'data_source_id' },
+        parent: { data_source_id: dataSourceId, type: "data_source_id" },
         properties: mapPageProperties(rawParameters.properties),
       } satisfies CreatePageParameters)
       return transformNotionOutput(data, simplifyOutput)

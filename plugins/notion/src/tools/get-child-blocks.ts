@@ -15,6 +15,9 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import getChildBlocksSkill from "./get-child-blocks-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<keyof ListBlockChildrenParameters, ExcludedNames>
@@ -51,6 +54,7 @@ export const getChildBlocksTool: ToolDefinition = {
   display_name: t("GET_CHILD_BLOCKS_TOOL_DISPLAY_NAME"),
   description: t("GET_CHILD_BLOCKS_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: getChildBlocksSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

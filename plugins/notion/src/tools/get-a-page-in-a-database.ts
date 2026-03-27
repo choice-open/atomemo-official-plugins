@@ -14,6 +14,9 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageIdProperty } from "./_shared-parameters/page-id"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import getAPageSkill from "./get-a-page-in-a-database-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<keyof GetPageParameters, ExcludedNames>
@@ -50,6 +53,7 @@ export const getAPageInADatabaseTool: ToolDefinition = {
   display_name: t("GET_PAGE_TOOL_DISPLAY_NAME"),
   description: t("GET_PAGE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: getAPageSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

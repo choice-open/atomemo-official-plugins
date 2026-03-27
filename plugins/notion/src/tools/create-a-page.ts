@@ -18,6 +18,7 @@ import { blocksProperty } from "./_shared-parameters/blocks"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import { iconProperty } from "./_shared-parameters/icon"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import createAPageSkill from "./create-a-page-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Extract<
@@ -81,6 +82,7 @@ export const createAPageTool: ToolDefinition = {
   display_name: t("CREATE_PAGE_TOOL_DISPLAY_NAME"),
   description: t("CREATE_PAGE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: createAPageSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

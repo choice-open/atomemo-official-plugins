@@ -17,6 +17,9 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import queryDatabaseSkill from "./get-many-pages-in-a-database-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<
@@ -161,6 +164,7 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
   display_name: t("QUERY_DATABASE_TOOL_DISPLAY_NAME"),
   description: t("QUERY_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: queryDatabaseSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
