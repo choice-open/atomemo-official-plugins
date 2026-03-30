@@ -8,6 +8,9 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseGetSpreadsheetInfoParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import getSpreadsheetInfoSkill from "./get-spreadsheet-info-skill.md" with {
+  type: "text",
+}
 
 type ParameterNames = "credential_id" | "spreadsheet_id" | "include_grid_data"
 
@@ -50,6 +53,7 @@ export const getSpreadsheetInfoTool: ToolDefinition = {
   name: "google-sheets-get-spreadsheet-info",
   display_name: t("GET_SPREADSHEET_INFO_TOOL_DISPLAY_NAME"),
   description: t("GET_SPREADSHEET_INFO_TOOL_DESCRIPTION"),
+  skill: getSpreadsheetInfoSkill,
   icon: "ℹ️",
   parameters,
   async invoke({ args }) {

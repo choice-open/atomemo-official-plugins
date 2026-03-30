@@ -8,6 +8,9 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseCreateSpreadsheetParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import createSpreadsheetSkill from "./create-spreadsheet-skill.md" with {
+  type: "text",
+}
 
 type ParameterNames = "credential_id" | "title" | "sheet_titles"
 
@@ -52,6 +55,7 @@ export const createSpreadsheetTool: ToolDefinition = {
   name: "google-sheets-create-spreadsheet",
   display_name: t("CREATE_SPREADSHEET_TOOL_DISPLAY_NAME"),
   description: t("CREATE_SPREADSHEET_TOOL_DESCRIPTION"),
+  skill: createSpreadsheetSkill,
   icon: "📝",
   parameters,
   async invoke({ args }) {

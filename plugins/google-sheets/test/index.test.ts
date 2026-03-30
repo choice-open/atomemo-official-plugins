@@ -20,6 +20,15 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
   loadAllLocalesAsync: vi.fn().mockResolvedValue({ en_US: {} }),
 }))
 
+vi.mock("../src/tools/append-rows-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/batch-get-values-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/clear-values-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/copy-sheet-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/create-spreadsheet-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/get-spreadsheet-info-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/read-rows-skill.md", () => ({ default: "" }))
+vi.mock("../src/tools/update-rows-skill.md", () => ({ default: "" }))
+
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import { parseReadRowsParams } from "../src/helpers/schemas"
 import {

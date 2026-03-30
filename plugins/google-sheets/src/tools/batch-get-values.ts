@@ -8,6 +8,9 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseBatchGetValuesParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import batchGetValuesSkill from "./batch-get-values-skill.md" with {
+  type: "text",
+}
 
 type ParameterNames =
   | "credential_id"
@@ -83,6 +86,7 @@ export const batchGetValuesTool: ToolDefinition = {
   name: "google-sheets-batch-get-values",
   display_name: t("BATCH_GET_VALUES_TOOL_DISPLAY_NAME"),
   description: t("BATCH_GET_VALUES_TOOL_DESCRIPTION"),
+  skill: batchGetValuesSkill,
   icon: "📚",
   parameters,
   async invoke({ args }) {

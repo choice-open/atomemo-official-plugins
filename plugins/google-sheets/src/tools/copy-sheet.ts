@@ -8,6 +8,7 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseCopySheetParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import copySheetSkill from "./copy-sheet-skill.md" with { type: "text" }
 
 type ParameterNames =
   | "credential_id"
@@ -69,6 +70,7 @@ export const copySheetTool: ToolDefinition = {
   name: "google-sheets-copy-sheet",
   display_name: t("COPY_SHEET_TOOL_DISPLAY_NAME"),
   description: t("COPY_SHEET_TOOL_DESCRIPTION"),
+  skill: copySheetSkill,
   icon: "📋",
   parameters,
   async invoke({ args }) {

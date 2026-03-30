@@ -8,6 +8,7 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseUpdateRowsParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import updateRowsSkill from "./update-rows-skill.md" with { type: "text" }
 
 type ParameterNames =
   | "credential_id"
@@ -84,6 +85,7 @@ export const updateRowsTool: ToolDefinition = {
   name: "google-sheets-update-rows",
   display_name: t("UPDATE_ROWS_TOOL_DISPLAY_NAME"),
   description: t("UPDATE_ROWS_TOOL_DESCRIPTION"),
+  skill: updateRowsSkill,
   icon: "✏️",
   parameters,
   async invoke({ args }) {

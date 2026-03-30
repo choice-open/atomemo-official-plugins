@@ -8,6 +8,7 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseClearValuesParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import clearValuesSkill from "./clear-values-skill.md" with { type: "text" }
 
 type ParameterNames = "credential_id" | "spreadsheet_id" | "range"
 
@@ -52,6 +53,7 @@ export const clearValuesTool: ToolDefinition = {
   name: "google-sheets-clear-values",
   display_name: t("CLEAR_VALUES_TOOL_DISPLAY_NAME"),
   description: t("CLEAR_VALUES_TOOL_DESCRIPTION"),
+  skill: clearValuesSkill,
   icon: "🧹",
   parameters,
   async invoke({ args }) {

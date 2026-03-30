@@ -2,19 +2,20 @@ import type {
   JsonValue,
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
-import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2";
-import { resolveCredential } from "../helpers/credentials";
-import { parseReadRowsParams } from "../helpers/schemas";
-import { callSheets } from "../helpers/sheets-api-error";
-import { t } from "../i18n/i18n-node";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
+import { resolveCredential } from "../helpers/credentials"
+import { parseReadRowsParams } from "../helpers/schemas"
+import { callSheets } from "../helpers/sheets-api-error"
+import { t } from "../i18n/i18n-node"
+import readRowsSkill from "./read-rows-skill.md" with { type: "text" }
 
 type ParameterNames =
   | "credential_id"
   | "spreadsheet_id"
   | "range"
   | "major_dimension"
-  | "value_render_option";
+  | "value_render_option"
 
 const parameters: Array<Property<ParameterNames>> = [
   {
@@ -79,20 +80,21 @@ const parameters: Array<Property<ParameterNames>> = [
       support_expression: true,
     },
   },
-];
+]
 
 export const readRowsTool: ToolDefinition = {
   name: "google-sheets-read-rows",
   display_name: t("READ_ROWS_TOOL_DISPLAY_NAME"),
   description: t("READ_ROWS_TOOL_DESCRIPTION"),
+  skill: readRowsSkill,
   icon: "📖",
   parameters,
   async invoke({ args }) {
-    const params = parseReadRowsParams(args.parameters ?? {});
-    const { sheets } = resolveCredential(args as never);
+    const params = parseReadRowsParams(args.parameters ?? {})
+    const { sheets } = resolveCredential(args as never)
 
-    const res = await callSheets(() => sheets.spreadsheets.values.get(params));
+    const res = await callSheets(() => sheets.spreadsheets.values.get(params))
 
-    return res.data as unknown as JsonValue;
+    return res.data as unknown as JsonValue
   },
-};
+}

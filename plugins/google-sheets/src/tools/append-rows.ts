@@ -8,6 +8,7 @@ import { resolveCredential } from "../helpers/credentials"
 import { parseAppendRowsParams } from "../helpers/schemas"
 import { callSheets } from "../helpers/sheets-api-error"
 import { t } from "../i18n/i18n-node"
+import appendRowsSkill from "./append-rows-skill.md" with { type: "text" }
 
 type ParameterNames =
   | "credential_id"
@@ -98,6 +99,7 @@ export const appendRowsTool: ToolDefinition = {
   name: "google-sheets-append-rows",
   display_name: t("APPEND_ROWS_TOOL_DISPLAY_NAME"),
   description: t("APPEND_ROWS_TOOL_DESCRIPTION"),
+  skill: appendRowsSkill,
   icon: "➕",
   parameters,
   async invoke({ args }) {
