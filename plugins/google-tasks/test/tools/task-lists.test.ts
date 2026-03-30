@@ -10,6 +10,22 @@ vi.mock("../../src/utils/api", () => ({
   toJSON: (data: unknown) => JSON.parse(JSON.stringify(data)),
 }))
 
+vi.mock("../../src/tools/task-lists/list-task-lists-skill.md", () => ({
+  default: "",
+}))
+vi.mock("../../src/tools/task-lists/create-task-list-skill.md", () => ({
+  default: "",
+}))
+vi.mock("../../src/tools/task-lists/get-task-list-skill.md", () => ({
+  default: "",
+}))
+vi.mock("../../src/tools/task-lists/update-task-list-skill.md", () => ({
+  default: "",
+}))
+vi.mock("../../src/tools/task-lists/delete-task-list-skill.md", () => ({
+  default: "",
+}))
+
 import { createTaskListTool } from "../../src/tools/task-lists/create-task-list"
 import { deleteTaskListTool } from "../../src/tools/task-lists/delete-task-list"
 import { listTaskListsTool } from "../../src/tools/task-lists/list-task-lists"

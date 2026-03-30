@@ -57,6 +57,12 @@ const zh_Hans = {
   DUE_MAX_HINT: "过滤：最晚截止日期（RFC 3339）",
   UPDATED_MIN_DISPLAY_NAME: "更新时间不早于",
   UPDATED_MIN_HINT: "过滤：最早修改时间（RFC 3339）",
+  COMPLETED_MIN_DISPLAY_NAME: "完成时间最小值",
+  COMPLETED_MIN_HINT: "过滤：最早完成时间（RFC 3339）",
+  COMPLETED_MAX_DISPLAY_NAME: "完成时间最大值",
+  COMPLETED_MAX_HINT: "过滤：最晚完成时间（RFC 3339）",
+  SHOW_ASSIGNED_DISPLAY_NAME: "显示已分配",
+  SHOW_ASSIGNED_HINT: "是否包含已分配任务",
 
   // TaskList tools
   LIST_TASK_LISTS_DISPLAY_NAME: "列出任务列表",

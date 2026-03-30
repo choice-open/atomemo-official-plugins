@@ -60,6 +60,12 @@ const en_US = {
   DUE_MAX_HINT: "Filter: maximum due date (RFC 3339)",
   UPDATED_MIN_DISPLAY_NAME: "Updated After",
   UPDATED_MIN_HINT: "Filter: minimum last modification time (RFC 3339)",
+  COMPLETED_MIN_DISPLAY_NAME: "Completed Min",
+  COMPLETED_MIN_HINT: "Filter: minimum completion time (RFC 3339)",
+  COMPLETED_MAX_DISPLAY_NAME: "Completed Max",
+  COMPLETED_MAX_HINT: "Filter: maximum completion time (RFC 3339)",
+  SHOW_ASSIGNED_DISPLAY_NAME: "Show Assigned",
+  SHOW_ASSIGNED_HINT: "Whether to include assigned tasks",
 
   // TaskList tools
   LIST_TASK_LISTS_DISPLAY_NAME: "List Task Lists",
