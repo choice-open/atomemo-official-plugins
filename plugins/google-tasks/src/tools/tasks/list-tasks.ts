@@ -83,7 +83,7 @@ export const listTasksTool: ToolDefinition = {
       name: "show_hidden",
       type: "boolean",
       required: false,
-      default: true,
+      default: false,
       display_name: t("SHOW_HIDDEN_DISPLAY_NAME"),
       ui: {
         component: "switch",
@@ -155,7 +155,7 @@ export const listTasksTool: ToolDefinition = {
       name: "show_assigned",
       type: "boolean",
       required: false,
-      default: true,
+      default: false,
       display_name: t("SHOW_ASSIGNED_DISPLAY_NAME"),
       ui: {
         component: "switch",
