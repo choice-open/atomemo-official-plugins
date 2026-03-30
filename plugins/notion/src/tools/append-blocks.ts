@@ -15,6 +15,7 @@ import { blocksProperty } from "./_shared-parameters/blocks"
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import appendBlocksSkill from "./append-blocks-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Exclude<keyof AppendBlockChildrenParameters, ExcludedNames>
@@ -52,6 +53,7 @@ export const appendBlocksTool: ToolDefinition = {
   display_name: t("APPEND_BLOCKS_TOOL_DISPLAY_NAME"),
   description: t("APPEND_BLOCKS_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: appendBlocksSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

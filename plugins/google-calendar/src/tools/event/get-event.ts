@@ -1,8 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  eventIdParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import { optionalIanaTimezoneSchema } from "../../lib/validators"
 
 export const getEventTool: ToolDefinition = {
   name: "get-event",
@@ -11,30 +16,45 @@ export const getEventTool: ToolDefinition = {
   icon: "🔍",
   parameters: [
     calendarCredentialParam,
+    calendarIdParam,
+    eventIdParam,
     {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
+      name: "max_attendees",
+      type: "integer",
+      required: false,
+      display_name: t("GET_EVENT_MAX_ATTENDEES_DISPLAY_NAME"),
+      minimum: 1,
+      ai: {
+        llm_description: {
+          en_US:
+            "Cap attendees in the response (n8n Get → Options → Max Attendees).",
+          zh_Hans: "限制响应中的参与者数量。",
+        },
+      },
       ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
+        component: "number-input",
+        hint: t("GET_EVENT_MAX_ATTENDEES_HINT"),
         support_expression: true,
-        width: "full",
       },
     },
     {
-      name: "event_id",
+      name: "time_zone",
       type: "string",
-      required: true,
-      display_name: t("EVENT_ID_DISPLAY_NAME"),
+      required: false,
+      display_name: t("GET_EVENT_TIME_ZONE_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "timeZone (IANA) for times in the response. Examples: Asia/Shanghai, Europe/Berlin, Etc/UTC.",
+          zh_Hans:
+            "响应中时间的 IANA 时区。示例：Asia/Shanghai、Europe/Berlin、Etc/UTC。",
+        },
+      },
       ui: {
         component: "input",
-        hint: t("EVENT_ID_HINT"),
+        hint: t("GET_EVENT_TIME_ZONE_HINT"),
+        placeholder: t("TIMEZONE_PLACEHOLDER"),
         support_expression: true,
-        width: "full",
       },
     },
   ],
@@ -43,11 +63,19 @@ export const getEventTool: ToolDefinition = {
       args.credentials,
       args.parameters.credential_id,
     )
-    const { calendar_id, event_id } = args.parameters
+    const { calendar_id, event_id, max_attendees, time_zone } = args.parameters
+
+    const tz = optionalIanaTimezoneSchema.parse(time_zone)
+    const maxAttendees =
+      typeof max_attendees === "number" && max_attendees >= 1
+        ? max_attendees
+        : undefined
 
     const res = await calendar.events.get({
       calendarId: calendar_id as string,
       eventId: event_id as string,
+      maxAttendees,
+      timeZone: tz,
     })
 
     return sanitizeObject(res.data)

@@ -11,12 +11,16 @@ import {
   crawlIdParameter,
   firecrawlCredentialParameter,
 } from "../_shared-parameters"
+import getCrawlStatusSkill from "./get-crawl-status-skill.md" with {
+  type: "text",
+}
 
 export const GetCrawlStatusTool: ToolDefinition = {
   name: "firecrawl-get-crawl-status",
   display_name: t("TOOL_GET_CRAWL_STATUS_DISPLAY_NAME"),
   description: t("TOOL_GET_CRAWL_STATUS_DESCRIPTION"),
   icon: "📈",
+  skill: getCrawlStatusSkill,
   parameters: [firecrawlCredentialParameter, crawlIdParameter],
   invoke: async ({ args }) => {
     try {

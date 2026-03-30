@@ -1,8 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  eventIdParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import { parseTimeRange } from "../../lib/validators"
 
 export const listEventInstancesTool: ToolDefinition = {
   name: "list-event-instances",
@@ -11,32 +16,8 @@ export const listEventInstancesTool: ToolDefinition = {
   icon: "🔁",
   parameters: [
     calendarCredentialParam,
-    {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "event_id",
-      type: "string",
-      required: true,
-      display_name: t("EVENT_ID_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("EVENT_ID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-    },
+    calendarIdParam,
+    eventIdParam,
     {
       name: "use_time_range",
       type: "boolean",
@@ -45,6 +26,7 @@ export const listEventInstancesTool: ToolDefinition = {
       default: false,
       ui: {
         component: "switch",
+        support_expression: true,
         hint: t("USE_TIME_RANGE_HINT"),
       },
     },
@@ -53,6 +35,14 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIME_MIN_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "timeMin: lower bound (exclusive) for event end time (RFC3339). Examples: 2025-03-01T00:00:00Z, 2025-03-01T08:00:00+08:00.",
+          zh_Hans:
+            "timeMin：事件结束时间的下限（不含），RFC3339。示例：2025-03-01T00:00:00Z、2025-03-01T08:00:00+08:00。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("TIME_MIN_HINT"),
@@ -67,6 +57,14 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("TIME_MAX_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "timeMax: upper bound (exclusive) for event start time (RFC3339). Must be > timeMin. Examples: 2025-03-31T23:59:59Z, 2025-04-01T00:00:00+08:00.",
+          zh_Hans:
+            "timeMax：事件开始时间的上限（不含），RFC3339。须大于 timeMin。示例：2025-03-31T23:59:59Z、2025-04-01T00:00:00+08:00。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("TIME_MAX_HINT"),
@@ -81,12 +79,20 @@ export const listEventInstancesTool: ToolDefinition = {
       type: "integer",
       required: false,
       display_name: t("MAX_RESULTS_DISPLAY_NAME"),
-      default: 100,
+      default: 250,
       minimum: 1,
       maximum: 2500,
+      ai: {
+        llm_description: {
+          en_US:
+            "Maximum number of instances returned per page. Default 250, max 2500.",
+          zh_Hans: "每页返回的最大实例数。默认 250，最大 2500。",
+        },
+      },
       ui: {
         component: "number-input",
         hint: t("MAX_RESULTS_HINT"),
+        support_expression: true,
       },
     },
   ],
@@ -98,12 +104,14 @@ export const listEventInstancesTool: ToolDefinition = {
     const { calendar_id, event_id, time_min, time_max, max_results } =
       args.parameters
 
+    const { timeMin, timeMax } = parseTimeRange(time_min, time_max)
+
     const res = await client.events.instances({
       calendarId: calendar_id as string,
       eventId: event_id as string,
-      timeMin: time_min || undefined,
-      timeMax: time_max || undefined,
-      maxResults: max_results ?? 100,
+      timeMin,
+      timeMax,
+      maxResults: max_results ?? 250,
     })
 
     return sanitizeObject(res.data)

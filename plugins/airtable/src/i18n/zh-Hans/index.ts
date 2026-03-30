@@ -51,6 +51,8 @@ const zh_Hans = {
   PARAM_TYPECAST_HINT:
     "启用后，Airtable 会将字符串转为对应类型（例如 '5' 转为数字、'true' 转为复选框），链接记录可用主字段值解析。若已传入正确类型可关闭以避免意外转换。",
   PARAM_RETURN_ALL_LABEL: "返回全部",
+  PARAM_RETURN_ALL_HINT:
+    "是否获取所有可用结果。启用时通过 API 分页拉取全部页面；关闭时最多返回「数量限制」指定条数。",
   PARAM_LIMIT_LABEL: "数量限制",
   PARAM_LIMIT_HINT:
     "未勾选「返回全部」时：最多返回条数（1–100）。勾选「返回全部」时使用 offset 分页并自动请求所有页。",
@@ -96,6 +98,8 @@ const zh_Hans = {
   SEARCH_SORT_FIELD_HINT:
     "排序字段名称或 ID（sort[0][field]、sort[0][direction]）。可添加多条规则实现多级排序（升序/降序）。",
   SEARCH_SORT_DIRECTION_LABEL: "方向",
+  SEARCH_SORT_DIRECTION_HINT:
+    "当前排序规则的方向。使用 'asc' 表示升序，使用 'desc' 表示降序。",
 
   // Update Record
   UPDATE_RECORD_DISPLAY_NAME: "更新记录",

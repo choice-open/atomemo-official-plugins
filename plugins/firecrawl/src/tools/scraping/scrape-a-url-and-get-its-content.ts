@@ -18,6 +18,9 @@ import {
   parsersParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
+import scrapeAUrlAndGetItsContentSkill from "./scrape-a-url-and-get-its-content-skill.md" with {
+  type: "text",
+}
 
 const options: PropertyObject = {
   type: "object",
@@ -58,6 +61,7 @@ export const ScrapeAUrlAndGetItsContentTool: ToolDefinition = {
   display_name: t("TOOL_SCRAPE_URL_DISPLAY_NAME"),
   description: t("TOOL_SCRAPE_URL_DESCRIPTION"),
   icon: "🧹",
+  skill: scrapeAUrlAndGetItsContentSkill,
   parameters: [
     firecrawlCredentialParameter,
     {

@@ -11,12 +11,16 @@ import {
   batchIdParameter,
   firecrawlCredentialParameter,
 } from "../../_shared-parameters"
+import cancelBatchScrapeSkill from "./cancel-batch-scrape-skill.md" with {
+  type: "text",
+}
 
 export const CancelBatchScrapeTool: ToolDefinition = {
   name: "firecrawl-cancel-batch-scrape",
   display_name: t("TOOL_CANCEL_BATCH_SCRAPE_DISPLAY_NAME"),
   description: t("TOOL_CANCEL_BATCH_SCRAPE_DESCRIPTION"),
   icon: "🛑",
+  skill: cancelBatchScrapeSkill,
   parameters: [firecrawlCredentialParameter, batchIdParameter],
   invoke: async ({ args }) => {
     try {

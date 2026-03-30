@@ -1,6 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam, calendarIdParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParamDeleteOrInsert,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 
@@ -11,7 +14,7 @@ export const insertCalendarListTool: ToolDefinition = {
   icon: "➕",
   parameters: [
     calendarCredentialParam,
-    calendarIdParam,
+    calendarIdParamDeleteOrInsert,
     {
       name: "selected",
       type: "boolean",
@@ -20,6 +23,7 @@ export const insertCalendarListTool: ToolDefinition = {
       ui: {
         component: "switch",
         hint: t("SELECTED_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -27,8 +31,41 @@ export const insertCalendarListTool: ToolDefinition = {
       type: "string",
       required: false,
       display_name: t("COLOR_ID_DISPLAY_NAME"),
+      enum: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+      ],
+      ai: {
+        llm_description: {
+          en_US:
+            "Calendar color ID (1-24) referencing the calendar section of the colors definition.",
+          zh_Hans: "日历颜色 ID（1-24），引用颜色定义中的日历部分。",
+        },
+      },
       ui: {
-        component: "input",
+        component: "select",
         hint: t("COLOR_ID_HINT"),
         support_expression: true,
       },

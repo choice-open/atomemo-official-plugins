@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhqjiang@outlook.com",
-  "version": "0.5.1",
+  "version": "0.5.4",
   "credentials": [
     {
       "name": "airtable",
@@ -90,7 +90,14 @@
             "zh_Hans": "返回全部"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.",
+              "zh_Hans": "是否获取所有可用结果。启用时通过 API 分页拉取全部页面；关闭时最多返回「数量限制」指定条数。"
+            }
+          },
           "ui": {
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -104,10 +111,14 @@
           },
           "required": false,
           "display": {
-            "show": {
-              "return_all": [
-                false
-              ]
+            "hide": {
+              "return_all": true
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When Return All is off: max number of items to return (1–100). When Return All is on, the API uses offset-based pagination and all pages are fetched automatically.",
+              "zh_Hans": "未勾选「返回全部」时：最多返回条数（1–100）。勾选「返回全部」时使用 offset 分页并自动请求所有页。"
             }
           },
           "ui": {
@@ -130,11 +141,18 @@
             "zh_Hans": "权限级别筛选"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Filter results by your permission on each base: None, Read only, Commenter, Creator, or Editor. Leave empty to return all bases regardless of permission level.",
+              "zh_Hans": "可选。按你的权限筛选数据库：无、仅读、评论者、创建者或编辑者。留空则返回所有有权限的数据库。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Filter results by your permission on each base: None, Read only, Commenter, Creator, or Editor. Leave empty to return all bases regardless of permission level.",
               "zh_Hans": "可选。按你的权限筛选数据库：无、仅读、评论者、创建者或编辑者。留空则返回所有有权限的数据库。"
             },
+            "support_expression": true,
             "options": [
               {
                 "label": {
@@ -187,7 +205,8 @@
             ]
           }
         }
-      ]
+      ],
+      "skill": "# airtable / list-bases\n\nList Airtable bases available to the selected Airtable credential.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `return_all` | `boolean` | no | `true` | When `true`, fetches every page of bases available to the credential. When `false`, returns up to `limit` results. |\n| `limit` | `integer` | no | `100` | Maximum number of bases to return when `return_all` is `false`. Range: 1-100. |\n| `permission_level` | `array<string>` | no | - | Optional permission filter. Allowed values: `none`, `read`, `comment`, `create`, `edit`. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"return_all\": false,\n  \"limit\": 25,\n  \"permission_level\": [\"read\", \"edit\"]\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"bases\": [\n    {\n      \"id\": \"appA1B2C3D4E5F6G\",\n      \"name\": \"Marketing Ops\",\n      \"permissionLevel\": \"edit\"\n    },\n    {\n      \"id\": \"appH7I8J9K0L1M2N\",\n      \"name\": \"Sales CRM\",\n      \"permissionLevel\": \"read\"\n    }\n  ],\n  \"total\": 2\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `bases` follows Airtable's `list-bases` response shape for each base object: `id`, `name`, and `permissionLevel`.\n- `total` is the number of bases returned after any permission filtering is applied.\n- When `return_all` is `true`, the tool follows Airtable pagination automatically until all pages are collected, so Airtable's `offset` pagination token is not exposed in the tool response.\n"
     },
     {
       "name": "airtable-get-base-schema",
@@ -261,7 +280,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# airtable / get-base-schema\n\nRetrieve the table and field schema for a specific Airtable base.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports selecting from a list, pasting a base URL, or entering a base ID such as `appA1B2C3D4E5F6G`. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"tables\": [\n    {\n      \"id\": \"tblTasks123456789\",\n      \"name\": \"Tasks\",\n      \"primaryFieldId\": \"fldTaskName123456\",\n      \"fields\": [\n        {\n          \"id\": \"fldTaskName123456\",\n          \"name\": \"Task Name\",\n          \"type\": \"singleLineText\"\n        },\n        {\n          \"id\": \"fldStatus12345678\",\n          \"name\": \"Status\",\n          \"type\": \"singleSelect\",\n          \"options\": {\n            \"choices\": [\n              { \"name\": \"Backlog\" },\n              { \"name\": \"In Progress\" },\n              { \"name\": \"Done\" }\n            ]\n          }\n        }\n      ],\n      \"views\": [\n        {\n          \"id\": \"viwAllTasks123456\",\n          \"name\": \"All tasks\",\n          \"type\": \"grid\"\n        }\n      ]\n    }\n  ],\n  \"total\": 1\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `tables` follows Airtable's `get-base-schema` response shape, including table metadata, field definitions, and view definitions exposed by Airtable.\n- `total` is the number of tables returned for the base.\n"
     },
     {
       "name": "airtable-get-record",
@@ -436,7 +456,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# airtable / get-record\n\nFetch a single Airtable record by base, table, and record ID.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports list selection, Airtable base URLs, or direct base IDs. |\n| `table` | `resource_locator` | yes | - | Airtable table identifier. Supports list selection, Airtable table URLs, or direct table IDs. |\n| `record_id` | `resource_locator` | yes | - | Airtable record identifier. Supports list selection, Airtable record URLs, or direct record IDs. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  },\n  \"table\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"tblTasks123456789\"\n  },\n  \"record_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"recTask000000001\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"record\": {\n    \"id\": \"recTask000000001\",\n    \"fields\": {\n      \"Task Name\": \"Launch homepage refresh\",\n      \"Status\": \"In Progress\",\n      \"Owner\": [\"usrDesignLead\"],\n      \"Priority\": 1\n    },\n    \"createdTime\": \"2025-03-20T14:15:22.000Z\"\n  }\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `record` follows Airtable's single-record response shape: `id`, `fields`, and `createdTime`.\n"
     },
     {
       "name": "airtable-search-records",
@@ -567,6 +588,12 @@
             "zh_Hans": "过滤公式"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Airtable filterByFormula; only records where the formula result is non-zero, non-empty, and not #Error! are returned. Use field names in curly braces. With View, results are limited to that view then filtered. Request URL length limit (~16k characters) applies. See https://airtable.com/developers/web/api/list-records#query-filterbyformula",
+              "zh_Hans": "可选。Airtable filterByFormula；仅当公式结果非 0、非空且不为 #Error! 时返回记录。字段名用花括号。与视图同用时先限制视图再按公式筛选。注意请求 URL 长度限制（约 16k 字符）。详见 https://airtable.com/developers/web/api/list-records#query-filterbyformula"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Airtable filterByFormula; only records where the formula result is non-zero, non-empty, and not #Error! are returned. Use field names in curly braces. With View, results are limited to that view then filtered. Request URL length limit (~16k characters) applies. See https://airtable.com/developers/web/api/list-records#query-filterbyformula",
@@ -589,7 +616,14 @@
             "zh_Hans": "返回全部"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.",
+              "zh_Hans": "是否获取所有可用结果。启用时通过 API 分页拉取全部页面；关闭时最多返回「数量限制」指定条数。"
+            }
+          },
           "ui": {
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -603,10 +637,14 @@
           },
           "required": false,
           "display": {
-            "show": {
-              "return_all": [
-                false
-              ]
+            "hide": {
+              "return_all": true
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When Return All is off: max number of items to return (1–100). When Return All is on, the API uses offset-based pagination and all pages are fetched automatically.",
+              "zh_Hans": "未勾选「返回全部」时：最多返回条数（1–100）。勾选「返回全部」时使用 offset 分页并自动请求所有页。"
             }
           },
           "ui": {
@@ -629,6 +667,12 @@
             "zh_Hans": "视图"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. View name or ID. Restricts results to records in that view. If Sort is set, it overrides the view sort order. Leave empty for table default.",
+              "zh_Hans": "可选。视图名称或 ID，将结果限制在该视图内。若设置排序会覆盖视图排序。留空使用表默认。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. View name or ID. Restricts results to records in that view. If Sort is set, it overrides the view sort order. Leave empty for table default.",
@@ -647,11 +691,18 @@
             "zh_Hans": "输出字段"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional. Field names or IDs to return (fields[]); reduces payload. Leave empty to return all fields.",
+              "zh_Hans": "可选。要返回的字段名称或 ID（fields[]），可减少返回数据。留空则返回全部字段。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Optional. Field names or IDs to return (fields[]); reduces payload. Leave empty to return all fields.",
               "zh_Hans": "可选。要返回的字段名称或 ID（fields[]），可减少返回数据。留空则返回全部字段。"
             },
+            "support_expression": true,
             "component": "tag-input"
           },
           "type": "array",
@@ -682,6 +733,12 @@
                   "zh_Hans": "字段"
                 },
                 "required": true,
+                "ai": {
+                  "llm_description": {
+                    "en_US": "Field name or ID for sort (sort[0][field], sort[0][direction]). Add multiple rules for secondary sort (asc/desc).",
+                    "zh_Hans": "排序字段名称或 ID（sort[0][field]、sort[0][direction]）。可添加多条规则实现多级排序（升序/降序）。"
+                  }
+                },
                 "ui": {
                   "hint": {
                     "en_US": "Field name or ID for sort (sort[0][field], sort[0][direction]). Add multiple rules for secondary sort (asc/desc).",
@@ -699,7 +756,14 @@
                   "zh_Hans": "方向"
                 },
                 "required": false,
+                "ai": {
+                  "llm_description": {
+                    "en_US": "Sort direction for this rule. Use 'asc' for ascending or 'desc' for descending.",
+                    "zh_Hans": "当前排序规则的方向。使用 'asc' 表示升序，使用 'desc' 表示降序。"
+                  }
+                },
                 "ui": {
+                  "support_expression": true,
                   "options": [
                     {
                       "label": {
@@ -728,7 +792,8 @@
             ]
           }
         }
-      ]
+      ],
+      "skill": "# airtable / search-records\n\nSearch Airtable records in a table with optional formula filters, view scoping, field selection, sorting, and pagination controls.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports list selection, Airtable base URLs, or direct base IDs. |\n| `table` | `resource_locator` | yes | - | Airtable table identifier. Supports list selection, Airtable table URLs, or direct table IDs. |\n| `filter_by_formula` | `string` | no | - | Airtable formula used to filter matching records. |\n| `return_all` | `boolean` | no | `true` | When `true`, fetches every page of matching records. When `false`, returns up to `limit` results. |\n| `limit` | `integer` | no | `100` | Maximum number of records to return when `return_all` is `false`. Range: 1-100. |\n| `view` | `string` | no | - | Optional Airtable view name or ID used to scope the search. |\n| `output_fields` | `array<string>` | no | - | Optional list of field names to include in the returned records. |\n| `sort` | `array<object>` | no | - | Optional sort rules. Each item must include `field` and may include `direction` (`asc` or `desc`). |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  },\n  \"table\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"tblTasks123456789\"\n  },\n  \"filter_by_formula\": \"AND({Status}='In Progress', {Priority}<=2)\",\n  \"return_all\": false,\n  \"limit\": 10,\n  \"view\": \"viwActiveTasks123\",\n  \"output_fields\": [\"Task Name\", \"Status\", \"Priority\", \"Owner\"],\n  \"sort\": [\n    {\n      \"field\": \"Priority\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"field\": \"Task Name\",\n      \"direction\": \"asc\"\n    }\n  ]\n}\n```\n\n### Query Notes\n- Airtable formulas follow Airtable's formula syntax, for example `AND({Status}='Active', {Region}='EMEA')`.\n- `sort` is applied in array order, so the first rule is the primary sort and later rules are tie-breakers.\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"records\": [\n    {\n      \"id\": \"recTask000000001\",\n      \"fields\": {\n        \"Task Name\": \"Launch homepage refresh\",\n        \"Status\": \"In Progress\",\n        \"Priority\": 1,\n        \"Owner\": [\"usrDesignLead\"]\n      },\n      \"createdTime\": \"2025-03-20T14:15:22.000Z\"\n    },\n    {\n      \"id\": \"recTask000000014\",\n      \"fields\": {\n        \"Task Name\": \"Prepare launch checklist\",\n        \"Status\": \"In Progress\",\n        \"Priority\": 2,\n        \"Owner\": [\"usrProjectMgr\"]\n      },\n      \"createdTime\": \"2025-03-22T09:00:00.000Z\"\n    }\n  ],\n  \"total\": 2\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- Each item in `records` follows Airtable's `list-records` response shape: `id`, `fields`, and `createdTime`.\n- `total` is the number of records returned in this response.\n- When `return_all` is `true`, the tool follows Airtable pagination automatically until all matching records are collected, so Airtable's `offset` pagination token is not exposed in the tool response.\n- When `output_fields` is provided, Airtable only returns those fields in each record's `fields` object.\n"
     },
     {
       "name": "airtable-delete-record",
@@ -903,7 +968,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# airtable / delete-record\n\nDelete an Airtable record by record ID.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports list selection, Airtable base URLs, or direct base IDs. |\n| `table` | `resource_locator` | yes | - | Airtable table identifier. Supports list selection, Airtable table URLs, or direct table IDs. |\n| `record_id` | `resource_locator` | yes | - | Airtable record identifier. Supports list selection, Airtable record URLs, or direct record IDs. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  },\n  \"table\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"tblTasks123456789\"\n  },\n  \"record_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"recTask000000001\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"id\": \"recTask000000001\",\n  \"deleted\": true\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `id` and `deleted` follow Airtable's delete-record response shape.\n- The delete response is a confirmation object, not the deleted record body.\n- `id` is the Airtable record ID that was deleted.\n"
     },
     {
       "name": "airtable-create-record",
@@ -1054,6 +1120,12 @@
             "zh_Hans": "自动类型转换"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
+              "zh_Hans": "启用后，Airtable 会将字符串转为对应类型（例如 '5' 转为数字、'true' 转为复选框），链接记录可用主字段值解析。若已传入正确类型可关闭以避免意外转换。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
@@ -1065,7 +1137,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# airtable / create-record\n\nCreate a new record in an Airtable table.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports list selection, Airtable base URLs, or direct base IDs. |\n| `table` | `resource_locator` | yes | - | Airtable table identifier. Supports list selection, Airtable table URLs, or direct table IDs. |\n| `fields` | `resource_mapper` | yes | - | Dynamic field mapping for the selected table. Provide field names and values that match the table schema. |\n| `typecast` | `boolean` | no | `false` | When `true`, asks Airtable to coerce provided values into the destination field types where possible. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  },\n  \"table\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"tblTasks123456789\"\n  },\n  \"fields\": {\n    \"__type__\": \"resource_mapper\",\n    \"mapping_mode\": \"manual\",\n    \"value\": {\n      \"Task Name\": \"Publish Q2 campaign brief\",\n      \"Status\": \"Backlog\",\n      \"Priority\": 2,\n      \"Due Date\": \"2025-04-15\",\n      \"Owner\": [\"usrMarketingMgr\"]\n    }\n  },\n  \"typecast\": true\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"record\": {\n    \"id\": \"recTask000000099\",\n    \"fields\": {\n      \"Task Name\": \"Publish Q2 campaign brief\",\n      \"Status\": \"Backlog\",\n      \"Priority\": 2,\n      \"Due Date\": \"2025-04-15\",\n      \"Owner\": [\"usrMarketingMgr\"]\n    },\n    \"createdTime\": \"2025-03-27T09:30:00.000Z\"\n  }\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `record` follows Airtable's create-record response shape and includes the generated record ID, returned `fields`, and `createdTime`.\n"
     },
     {
       "name": "airtable-update-record",
@@ -1267,6 +1340,12 @@
             "zh_Hans": "自动类型转换"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
+              "zh_Hans": "启用后，Airtable 会将字符串转为对应类型（例如 '5' 转为数字、'true' 转为复选框），链接记录可用主字段值解析。若已传入正确类型可关闭以避免意外转换。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "When enabled, Airtable converts string values to the field type (e.g. \"5\" → number, \"true\" → checkbox) and can resolve linked records by primary field value instead of record ID. Disable when sending already-typed values to avoid unintended conversion.",
@@ -1278,7 +1357,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# airtable / update-record\n\nUpdate an existing Airtable record by record ID.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `airtable_credential` | `credential_id` | yes | - | Links to credential `airtable`. |\n| `base_id` | `resource_locator` | yes | - | Airtable base identifier. Supports list selection, Airtable base URLs, or direct base IDs. |\n| `table` | `resource_locator` | yes | - | Airtable table identifier. Supports list selection, Airtable table URLs, or direct table IDs. |\n| `record_id` | `resource_locator` | yes | - | Airtable record identifier. Supports list selection, Airtable record URLs, or direct record IDs. |\n| `fields` | `resource_mapper` | yes | - | Dynamic field mapping for the selected table. Provide the field values to update on the target record. |\n| `typecast` | `boolean` | no | `false` | When `true`, asks Airtable to coerce provided values into the destination field types where possible. |\n\n### Example Input\n```json\n{\n  \"airtable_credential\": \"my-airtable-account\",\n  \"base_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"appA1B2C3D4E5F6G\"\n  },\n  \"table\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"tblTasks123456789\"\n  },\n  \"record_id\": {\n    \"__type__\": \"resource_locator\",\n    \"mode_name\": \"id\",\n    \"value\": \"recTask000000001\"\n  },\n  \"fields\": {\n    \"__type__\": \"resource_mapper\",\n    \"mapping_mode\": \"manual\",\n    \"value\": {\n      \"Status\": \"Done\",\n      \"Priority\": 1,\n      \"Completed On\": \"2025-03-27\"\n    }\n  },\n  \"typecast\": true\n}\n```\n\n## Credential\n\n- Credential name: `airtable`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `api_key` | `encrypted_string` | yes | Airtable personal access token used to authenticate API requests. |\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"record\": {\n    \"id\": \"recTask000000001\",\n    \"fields\": {\n      \"Task Name\": \"Launch homepage refresh\",\n      \"Status\": \"Done\",\n      \"Priority\": 1,\n      \"Completed On\": \"2025-03-27\"\n    },\n    \"createdTime\": \"2025-03-20T14:15:22.000Z\"\n  }\n}\n```\n\n### Output Notes\n- `success` is added by this tool's `invoke()` wrapper.\n- `record` follows Airtable's update-record response shape, including the returned `id`, `fields`, and `createdTime`.\n- Airtable may include unchanged fields in the returned record body.\n"
     }
   ]
 }

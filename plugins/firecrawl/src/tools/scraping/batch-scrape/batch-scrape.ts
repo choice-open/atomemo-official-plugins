@@ -20,6 +20,7 @@ import {
   parsersParameter,
   scrapeOptionsParameter,
 } from "../../_shared-parameters"
+import batchScrapeSkill from "./batch-scrape-skill.md" with { type: "text" }
 
 const options: PropertyObject = {
   type: "object",
@@ -76,6 +77,7 @@ export const BatchScrapeTool: ToolDefinition = {
   display_name: t("TOOL_BATCH_SCRAPE_DISPLAY_NAME"),
   description: t("TOOL_BATCH_SCRAPE_DESCRIPTION"),
   icon: "📡",
+  skill: batchScrapeSkill,
   parameters: [firecrawlCredentialParameter, urlsParameter, options],
   invoke: async ({ args }) => {
     try {

@@ -16,6 +16,14 @@ export const getSettingTool: ToolDefinition = {
       type: "string",
       required: true,
       display_name: t("SETTING_ID_DISPLAY_NAME"),
+      ai: {
+        llm_description: {
+          en_US:
+            "The ID of the user setting. Common values: timezone, locale, weekStart, dateFieldOrder, showDeclinedEvents.",
+          zh_Hans:
+            "用户设置的 ID。常见值：timezone、locale、weekStart、dateFieldOrder、showDeclinedEvents。",
+        },
+      },
       ui: {
         component: "input",
         hint: t("SETTING_ID_HINT"),

@@ -4,11 +4,7 @@ import type {
   SearchParameters,
   UpdatePageParameters,
 } from "@notionhq/client"
-import {
-  APIErrorCode,
-  APIResponseError,
-  Client,
-} from "@notionhq/client"
+import { APIErrorCode, APIResponseError, Client } from "@notionhq/client"
 
 type GenericRecord = Record<string, unknown>
 
@@ -17,7 +13,7 @@ const isRecord = (value: unknown): value is GenericRecord =>
 
 export type NotionToolArgs = {
   parameters: Record<string, unknown>
-  credentials?: Record<string, { api_key: string }>
+  credentials?: Record<string, unknown>
 }
 
 export const handleNotionError = (error: unknown) => {
@@ -78,7 +74,11 @@ export const getNotionClient = (
   }
 
   const credential = credentials[credentialId]
-  const apiKey = credential?.api_key
+  if (!isRecord(credential)) {
+    return null
+  }
+
+  const apiKey = credential.api_key
   if (typeof apiKey !== "string" || apiKey.trim() === "") {
     return null
   }

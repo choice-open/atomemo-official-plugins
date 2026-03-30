@@ -1,24 +1,33 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { deleteRecord } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
-import { searchBasesMethod, searchRecordsMethod, searchTablesMethod } from "../_shared/methods"
 import {
-  baseIdParamRL,
-  credentialParam,
-  recordIdParamRL,
-  tableParamRL,
-} from "../_shared/parameters"
-import { resolveBaseId, resolveRecordId, resolveTable } from "../_shared/resolve"
+  searchBasesMethod,
+  searchRecordsMethod,
+  searchTablesMethod,
+} from "../_shared/methods"
+import { recordTargetParams } from "../_shared/parameters"
+import {
+  resolveBaseId,
+  resolveRecordId,
+  resolveTable,
+} from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
+import deleteRecordSkill from "./delete-record-skill.md" with { type: "text" }
 
 export const deleteRecordTool = {
   name: "airtable-delete-record",
   display_name: t("DELETE_RECORD_DISPLAY_NAME"),
   description: t("DELETE_RECORD_DESCRIPTION"),
   icon: "🗑️",
+  skill: deleteRecordSkill,
 
-  parameters: [credentialParam, baseIdParamRL, tableParamRL, recordIdParamRL],
-  locator_list: { ...searchBasesMethod, ...searchTablesMethod, ...searchRecordsMethod },
+  parameters: [...recordTargetParams],
+  locator_list: {
+    ...searchBasesMethod,
+    ...searchTablesMethod,
+    ...searchRecordsMethod,
+  },
   async invoke({ args }) {
     const token = getAirtableToken(args)
     if (!token) {

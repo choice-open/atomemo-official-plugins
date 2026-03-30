@@ -20,6 +20,7 @@ import {
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
+import searchContentSkill from "./search-content-skill.md" with { type: "text" }
 
 const tbsParameter: PropertyString<"tbs"> = {
   type: "string",
@@ -250,6 +251,7 @@ export const SearchContentTool: ToolDefinition = {
   display_name: t("TOOL_SEARCH_CONTENT_DISPLAY_NAME"),
   description: t("TOOL_SEARCH_CONTENT_DESCRIPTION"),
   icon: "🔎",
+  skill: searchContentSkill,
   parameters: [
     firecrawlCredentialParameter,
     {

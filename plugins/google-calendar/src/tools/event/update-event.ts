@@ -1,8 +1,18 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  eventIdParam,
+  updateEventParams,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import {
+  dateOnlySchema,
+  optionalIanaTimezoneSchema,
+  rfc3339Schema,
+} from "../../lib/validators"
 
 export const updateEventTool: ToolDefinition = {
   name: "update-event",
@@ -11,140 +21,9 @@ export const updateEventTool: ToolDefinition = {
   icon: "✏️",
   parameters: [
     calendarCredentialParam,
-    {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "event_id",
-      type: "string",
-      required: true,
-      display_name: t("EVENT_ID_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("EVENT_ID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "update_time",
-      type: "boolean",
-      required: false,
-      display_name: t("UPDATE_TIME_DISPLAY_NAME"),
-      default: false,
-      ui: {
-        component: "switch",
-        hint: t("UPDATE_TIME_HINT"),
-      },
-    },
-    {
-      name: "include_details",
-      type: "boolean",
-      required: false,
-      display_name: t("INCLUDE_DETAILS_DISPLAY_NAME"),
-      default: false,
-      ui: {
-        component: "switch",
-        hint: t("INCLUDE_DETAILS_HINT"),
-      },
-    },
-    {
-      name: "summary",
-      type: "string",
-      required: false,
-      display_name: t("SUMMARY_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("SUMMARY_HINT"),
-        placeholder: t("SUMMARY_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "description",
-      type: "string",
-      required: false,
-      display_name: t("DESCRIPTION_DISPLAY_NAME"),
-      ui: {
-        component: "textarea",
-        hint: t("DESCRIPTION_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-      display: {
-        show: { include_details: { $eq: true } },
-      },
-    },
-    {
-      name: "location",
-      type: "string",
-      required: false,
-      display_name: t("LOCATION_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("LOCATION_HINT"),
-        placeholder: t("LOCATION_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { include_details: { $eq: true } },
-      },
-    },
-    {
-      name: "start_datetime",
-      type: "string",
-      required: false,
-      display_name: t("START_DATETIME_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("START_DATETIME_HINT"),
-        support_expression: true,
-      },
-      display: {
-        show: { update_time: { $eq: true } },
-      },
-    },
-    {
-      name: "end_datetime",
-      type: "string",
-      required: false,
-      display_name: t("END_DATETIME_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("END_DATETIME_HINT"),
-        support_expression: true,
-      },
-      display: {
-        show: { update_time: { $eq: true } },
-      },
-    },
-    {
-      name: "timezone",
-      type: "string",
-      required: false,
-      display_name: t("TIMEZONE_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("TIMEZONE_HINT"),
-        placeholder: t("TIMEZONE_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { update_time: { $eq: true } },
-      },
-    },
+    calendarIdParam,
+    eventIdParam,
+    ...updateEventParams,
   ],
   async invoke({ args }) {
     const calendar = requireCalendarClient(
@@ -157,25 +36,87 @@ export const updateEventTool: ToolDefinition = {
       summary,
       description,
       location,
+      is_all_day_event,
       start_datetime,
       end_datetime,
+      start_date,
+      end_date,
       timezone,
+      send_updates,
+      visibility,
+      transparency,
+      status,
+      color_id,
+      recurrence,
+      attendees,
+      use_advanced_options,
+      guests_can_invite_others,
+      guests_can_modify,
+      guests_can_see_other_guests,
+      max_attendees,
     } = args.parameters
 
-    const tz = (timezone as string) || "UTC"
+    const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
 
     const body: Record<string, unknown> = {}
     if (summary !== undefined) body.summary = summary
     if (description !== undefined) body.description = description
     if (location !== undefined) body.location = location
-    if (start_datetime !== undefined)
-      body.start = { dateTime: start_datetime, timeZone: tz }
-    if (end_datetime !== undefined)
-      body.end = { dateTime: end_datetime, timeZone: tz }
+
+    if (is_all_day_event && start_date && end_date) {
+      const sd = dateOnlySchema.parse(start_date)
+      const ed = dateOnlySchema.parse(end_date)
+      if (new Date(sd) >= new Date(ed)) {
+        throw new Error("end_date must be after start_date")
+      }
+      body.start = { date: sd, timeZone: null, dateTime: null }
+      body.end = { date: ed, timeZone: null, dateTime: null }
+    } else if (start_datetime && end_datetime) {
+      const sdt = rfc3339Schema.parse(start_datetime)
+      const edt = rfc3339Schema.parse(end_datetime)
+      if (new Date(sdt) >= new Date(edt)) {
+        throw new Error("end_datetime must be after start_datetime")
+      }
+      body.start = { dateTime: sdt, timeZone: tz, date: null }
+      body.end = { dateTime: edt, timeZone: tz, date: null }
+    }
+    if (visibility !== undefined) body.visibility = visibility
+    if (transparency !== undefined) body.transparency = transparency
+    if (status !== undefined) body.status = status
+    if (color_id !== undefined) body.colorId = color_id
+    if (recurrence) {
+      const rules = (recurrence as string)
+        .split("\n")
+        .map((r) => r.trim())
+        .filter(Boolean)
+      body.recurrence = rules
+    }
+    if (attendees) {
+      const emails = (attendees as string)
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean)
+      body.attendees = emails.map((email) => ({ email }))
+    }
+
+    if (use_advanced_options) {
+      body.guestsCanInviteOthers = guests_can_invite_others as boolean
+      body.guestsCanModify = guests_can_modify as boolean
+      body.guestsCanSeeOtherGuests = guests_can_see_other_guests as boolean
+    }
+
+    const maxAttendees =
+      use_advanced_options &&
+      typeof max_attendees === "number" &&
+      max_attendees >= 1
+        ? max_attendees
+        : undefined
 
     const res = await calendar.events.patch({
       calendarId: calendar_id as string,
       eventId: event_id as string,
+      sendUpdates: (send_updates as string) || undefined,
+      maxAttendees,
       requestBody: body,
     })
 

@@ -1,0 +1,107 @@
+import type { Translation } from "../i18n-types"
+
+const zh_Hans = {
+  // Plugin
+  PLUGIN_DISPLAY_NAME: "Google Tasks",
+  PLUGIN_DESCRIPTION:
+    "管理 Google Tasks — 创建、查询、更新和删除任务及任务列表",
+
+  // Credential
+  CREDENTIAL_DISPLAY_NAME: "Google Tasks OAuth2",
+  CREDENTIAL_DESCRIPTION: "用于访问 Google Tasks API 的 OAuth2 凭证",
+  CLIENT_ID_DISPLAY_NAME: "Client ID",
+  CLIENT_ID_PLACEHOLDER: "输入 Google OAuth2 Client ID",
+  CLIENT_SECRET_DISPLAY_NAME: "Client Secret",
+  CLIENT_SECRET_PLACEHOLDER: "输入 Google OAuth2 Client Secret",
+
+  // Common parameters
+  CREDENTIAL_ID_DISPLAY_NAME: "凭证",
+  TASK_LIST_ID_DISPLAY_NAME: "任务列表 ID",
+  TASK_LIST_ID_HINT: "任务列表的 ID。可使用「列出任务列表」获取。",
+  TASK_LIST_ID_PLACEHOLDER: "例如 MTUzNTQ0...",
+  TASK_ID_DISPLAY_NAME: "任务 ID",
+  TASK_ID_HINT: "任务的 ID。可使用「列出任务」获取。",
+  TASK_ID_PLACEHOLDER: "例如 dGFza19pZA...",
+  TITLE_DISPLAY_NAME: "标题",
+  TITLE_PLACEHOLDER: "输入标题（最长1024个字符）",
+  NOTES_DISPLAY_NAME: "备注",
+  NOTES_PLACEHOLDER:
+    "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。",
+  STATUS_DISPLAY_NAME: "状态",
+  DUE_DATE_DISPLAY_NAME: "截止日期",
+  DUE_DATE_HINT:
+    "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。",
+  DUE_DATE_PLACEHOLDER: "2025-12-31T00:00:00Z",
+  MAX_RESULTS_DISPLAY_NAME: "最大返回数",
+  MAX_RESULTS_HINT: "每页最多返回100条（默认20）",
+  PAGE_TOKEN_DISPLAY_NAME: "分页 Token",
+  PAGE_TOKEN_HINT: "用于获取下一页结果的 Token",
+  PAGE_TOKEN_PLACEHOLDER: "输入分页 Token",
+  SHOW_COMPLETED_DISPLAY_NAME: "显示已完成",
+  SHOW_COMPLETED_HINT:
+    "包含已完成的任务。需要同时开启「显示已隐藏」才能显示第一方客户端（网页、移动端）完成的任务。",
+  SHOW_DELETED_DISPLAY_NAME: "显示已删除",
+  SHOW_DELETED_HINT: "是否包含已删除的任务",
+  SHOW_HIDDEN_DISPLAY_NAME: "显示已隐藏",
+  SHOW_HIDDEN_HINT: "包含已隐藏的任务（任务列表上次清除时标记完成的任务）",
+  PARENT_TASK_ID_DISPLAY_NAME: "父任务 ID",
+  PARENT_TASK_ID_HINT:
+    "父任务 ID。不能在已分配或重复任务下创建子任务。留空则在顶层创建。",
+  PARENT_TASK_ID_PLACEHOLDER: "输入父任务 ID（可选）",
+  PREVIOUS_TASK_ID_DISPLAY_NAME: "前一个任务 ID",
+  PREVIOUS_TASK_ID_HINT: "前一个兄弟任务 ID。留空则移动到第一个位置。",
+  PREVIOUS_TASK_ID_PLACEHOLDER: "输入前一个任务 ID（可选）",
+  DESTINATION_TASK_LIST_ID_DISPLAY_NAME: "目标任务列表 ID",
+  DESTINATION_TASK_LIST_ID_HINT:
+    "目标任务列表 ID。留空则在当前列表内移动。重复任务不能跨列表移动。",
+  DESTINATION_TASK_LIST_ID_PLACEHOLDER: "输入目标任务列表 ID（可选）",
+  DUE_MIN_DISPLAY_NAME: "截止日期最小值",
+  DUE_MIN_HINT: "过滤：截止日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）",
+  DUE_MAX_DISPLAY_NAME: "截止日期最大值",
+  DUE_MAX_HINT: "过滤：截止日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）",
+  UPDATED_MIN_DISPLAY_NAME: "更新时间不早于",
+  UPDATED_MIN_HINT: "过滤：最早修改时间（RFC 3339，例如 2025-01-01T00:00:00Z）",
+  COMPLETED_MIN_DISPLAY_NAME: "完成时间最小值",
+  COMPLETED_MIN_HINT:
+    "过滤：最早完成时间（RFC 3339，例如 2025-01-01T00:00:00Z）",
+  COMPLETED_MAX_DISPLAY_NAME: "完成时间最大值",
+  COMPLETED_MAX_HINT:
+    "过滤：最晚完成时间（RFC 3339，例如 2025-12-31T23:59:59Z）",
+  SHOW_ASSIGNED_DISPLAY_NAME: "显示已分配",
+  SHOW_ASSIGNED_HINT: "包含来源于文档或聊天空间的已分配任务",
+
+  // TaskList tools
+  LIST_TASK_LISTS_DISPLAY_NAME: "列出任务列表",
+  LIST_TASK_LISTS_DESCRIPTION: "获取当前用户的所有任务列表",
+  CREATE_TASK_LIST_DISPLAY_NAME: "创建任务列表",
+  CREATE_TASK_LIST_DESCRIPTION: "创建一个新的任务列表",
+  GET_TASK_LIST_DISPLAY_NAME: "获取任务列表",
+  GET_TASK_LIST_DESCRIPTION: "获取指定任务列表详情",
+  REPLACE_TASK_LIST_DISPLAY_NAME: "替换任务列表",
+  REPLACE_TASK_LIST_DESCRIPTION:
+    "通过 tasklists.update 对指定任务列表进行全量替换",
+  UPDATE_TASK_LIST_DISPLAY_NAME: "更新任务列表",
+  UPDATE_TASK_LIST_DESCRIPTION: "更新指定任务列表的标题",
+  DELETE_TASK_LIST_DISPLAY_NAME: "删除任务列表",
+  DELETE_TASK_LIST_DESCRIPTION: "删除指定的任务列表",
+
+  // Task tools
+  LIST_TASKS_DISPLAY_NAME: "列出任务",
+  LIST_TASKS_DESCRIPTION: "获取指定任务列表中的所有任务",
+  GET_TASK_DISPLAY_NAME: "获取任务",
+  GET_TASK_DESCRIPTION: "获取指定的任务详情",
+  CREATE_TASK_DISPLAY_NAME: "创建任务",
+  CREATE_TASK_DESCRIPTION: "在指定任务列表中创建新任务",
+  REPLACE_TASK_DISPLAY_NAME: "替换任务",
+  REPLACE_TASK_DESCRIPTION: "通过 tasks.update 对指定任务进行全量替换",
+  UPDATE_TASK_DISPLAY_NAME: "更新任务",
+  UPDATE_TASK_DESCRIPTION: "更新指定任务（标题、备注、状态、截止日期）",
+  DELETE_TASK_DISPLAY_NAME: "删除任务",
+  DELETE_TASK_DESCRIPTION: "从任务列表中删除指定任务",
+  MOVE_TASK_DISPLAY_NAME: "移动任务",
+  MOVE_TASK_DESCRIPTION: "将任务移动到其他位置或任务列表",
+  CLEAR_COMPLETED_DISPLAY_NAME: "清除已完成任务",
+  CLEAR_COMPLETED_DESCRIPTION: "清除指定任务列表中所有已完成的任务",
+} satisfies Translation
+
+export default zh_Hans

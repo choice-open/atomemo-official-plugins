@@ -1,6 +1,11 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  eventIdParam,
+  sendUpdatesParam,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 
 export const deleteEventTool = {
@@ -10,42 +15,20 @@ export const deleteEventTool = {
   icon: "🗑️",
   parameters: [
     calendarCredentialParam,
-    {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "event_id",
-      type: "string",
-      required: true,
-      display_name: t("EVENT_ID_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("EVENT_ID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-    },
+    calendarIdParam,
+    eventIdParam,
+    sendUpdatesParam,
   ],
   async invoke({ args }) {
     const calendar = requireCalendarClient(
       args.credentials,
       args.parameters.credential_id,
     )
-    const { calendar_id, event_id } = args.parameters
+    const { calendar_id, event_id, send_updates } = args.parameters
     await calendar.events.delete({
       calendarId: calendar_id as string,
       eventId: event_id as string,
+      sendUpdates: (send_updates as string) || undefined,
     })
 
     return { success: true, deleted_event_id: event_id }

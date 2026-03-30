@@ -1,169 +1,24 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { calendarCredentialParam } from "../../lib/parameters"
+import {
+  calendarCredentialParam,
+  calendarIdParam,
+  updateEventParams,
+} from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import {
+  dateOnlySchema,
+  optionalIanaTimezoneSchema,
+  rfc3339Schema,
+} from "../../lib/validators"
 
 export const createEventTool: ToolDefinition = {
   name: "create-event",
   display_name: t("CREATE_EVENT_DISPLAY_NAME"),
   description: t("CREATE_EVENT_DESCRIPTION"),
   icon: "➕",
-  parameters: [
-    calendarCredentialParam,
-    {
-      name: "calendar_id",
-      type: "string",
-      required: true,
-      display_name: t("CALENDAR_ID_DISPLAY_NAME"),
-      default: "primary",
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        placeholder: t("CALENDAR_ID_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "summary",
-      type: "string",
-      required: true,
-      display_name: t("SUMMARY_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("SUMMARY_HINT"),
-        placeholder: t("SUMMARY_PLACEHOLDER"),
-        support_expression: true,
-        width: "full",
-      },
-    },
-    {
-      name: "is_all_day_event",
-      type: "boolean",
-      required: false,
-      display_name: t("IS_ALL_DAY_EVENT_DISPLAY_NAME"),
-      default: false,
-      ui: {
-        component: "switch",
-        hint: t("IS_ALL_DAY_EVENT_HINT"),
-      },
-    },
-    {
-      name: "start_datetime",
-      type: "string",
-      required: true,
-      display_name: t("START_DATETIME_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("START_DATETIME_HINT"),
-        support_expression: true,
-      },
-      display: {
-        show: { is_all_day_event: { $eq: false } },
-      },
-    },
-    {
-      name: "end_datetime",
-      type: "string",
-      required: true,
-      display_name: t("END_DATETIME_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("END_DATETIME_HINT"),
-        support_expression: true,
-      },
-      display: {
-        show: { is_all_day_event: { $eq: false } },
-      },
-    },
-    {
-      name: "start_date",
-      type: "string",
-      required: true,
-      display_name: t("START_DATE_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("START_DATE_HINT"),
-        placeholder: t("START_DATE_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { is_all_day_event: { $eq: true } },
-      },
-    },
-    {
-      name: "end_date",
-      type: "string",
-      required: true,
-      display_name: t("END_DATE_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("END_DATE_HINT"),
-        placeholder: t("END_DATE_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { is_all_day_event: { $eq: true } },
-      },
-    },
-    {
-      name: "timezone",
-      type: "string",
-      required: false,
-      display_name: t("TIMEZONE_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("TIMEZONE_HINT"),
-        placeholder: t("TIMEZONE_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { is_all_day_event: { $eq: false } },
-      },
-    },
-    {
-      name: "include_details",
-      type: "boolean",
-      required: false,
-      display_name: t("INCLUDE_DETAILS_DISPLAY_NAME"),
-      default: false,
-      ui: {
-        component: "switch",
-        hint: t("INCLUDE_DETAILS_HINT"),
-      },
-    },
-    {
-      name: "description",
-      type: "string",
-      required: false,
-      display_name: t("DESCRIPTION_DISPLAY_NAME"),
-      ui: {
-        component: "textarea",
-        hint: t("DESCRIPTION_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-      display: {
-        show: { include_details: { $eq: true } },
-      },
-    },
-    {
-      name: "location",
-      type: "string",
-      required: false,
-      display_name: t("LOCATION_DISPLAY_NAME"),
-      ui: {
-        component: "input",
-        hint: t("LOCATION_HINT"),
-        placeholder: t("LOCATION_PLACEHOLDER"),
-        support_expression: true,
-      },
-      display: {
-        show: { include_details: { $eq: true } },
-      },
-    },
-  ],
+  parameters: [calendarCredentialParam, calendarIdParam, ...updateEventParams],
   async invoke({ args }) {
     const calendar = requireCalendarClient(
       args.credentials,
@@ -181,21 +36,21 @@ export const createEventTool: ToolDefinition = {
       start_date,
       end_date,
       timezone,
+      send_updates,
+      visibility,
+      transparency,
+      status,
+      color_id,
+      recurrence,
+      attendees,
+      use_advanced_options,
+      guests_can_invite_others,
+      guests_can_modify,
+      guests_can_see_other_guests,
+      max_attendees,
     } = params
 
-    const tz = (timezone as string) || "UTC"
-
-    if (is_all_day_event) {
-      if (!start_date || !end_date) {
-        throw new Error(
-          "Start date and end date are required for all-day events",
-        )
-      }
-    } else {
-      if (!start_datetime || !end_datetime) {
-        throw new Error("Start time and end time are required for timed events")
-      }
-    }
+    const tz = optionalIanaTimezoneSchema.parse(timezone) ?? "UTC"
 
     const requestBody: Record<string, unknown> = {
       summary: summary as string,
@@ -204,15 +59,64 @@ export const createEventTool: ToolDefinition = {
     }
 
     if (is_all_day_event) {
-      requestBody.start = { date: start_date as string }
-      requestBody.end = { date: end_date as string }
+      const sd = dateOnlySchema.parse(start_date)
+      const ed = dateOnlySchema.parse(end_date)
+      if (new Date(sd) >= new Date(ed)) {
+        throw new Error("end_date must be after start_date")
+      }
+      requestBody.start = { date: sd }
+      requestBody.end = { date: ed }
     } else {
-      requestBody.start = { dateTime: start_datetime as string, timeZone: tz }
-      requestBody.end = { dateTime: end_datetime as string, timeZone: tz }
+      const sdt = rfc3339Schema.parse(start_datetime)
+      const edt = rfc3339Schema.parse(end_datetime)
+      if (new Date(sdt) >= new Date(edt)) {
+        throw new Error("end_datetime must be after start_datetime")
+      }
+      requestBody.start = { dateTime: sdt, timeZone: tz }
+      requestBody.end = { dateTime: edt, timeZone: tz }
     }
+
+    if (visibility && visibility !== "default")
+      requestBody.visibility = visibility
+    if (transparency && transparency !== "opaque")
+      requestBody.transparency = transparency
+    if (status && status !== "confirmed") requestBody.status = status
+    if (color_id) requestBody.colorId = color_id
+
+    if (recurrence) {
+      const rules = (recurrence as string)
+        .split("\n")
+        .map((r) => r.trim())
+        .filter(Boolean)
+      requestBody.recurrence = rules
+    }
+
+    if (attendees) {
+      const emails = (attendees as string)
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean)
+      requestBody.attendees = emails.map((email) => ({ email }))
+    }
+
+    if (use_advanced_options) {
+      requestBody.guestsCanInviteOthers = guests_can_invite_others as boolean
+      requestBody.guestsCanModify = guests_can_modify as boolean
+      requestBody.guestsCanSeeOtherGuests =
+        guests_can_see_other_guests as boolean
+    }
+
+    const maxAttendees =
+      use_advanced_options &&
+      typeof max_attendees === "number" &&
+      max_attendees >= 1
+        ? max_attendees
+        : undefined
 
     const res = await calendar.events.insert({
       calendarId: calendar_id as string,
+      sendUpdates: (send_updates as string) || undefined,
+      maxAttendees,
       requestBody,
     })
 
