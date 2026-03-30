@@ -212,6 +212,30 @@ type RootTranslation = {
    */
   UPDATED_MIN_HINT: string
   /**
+   * C​o​m​p​l​e​t​e​d​ ​M​i​n
+   */
+  COMPLETED_MIN_DISPLAY_NAME: string
+  /**
+   * F​i​l​t​e​r​:​ ​m​i​n​i​m​u​m​ ​c​o​m​p​l​e​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​)
+   */
+  COMPLETED_MIN_HINT: string
+  /**
+   * C​o​m​p​l​e​t​e​d​ ​M​a​x
+   */
+  COMPLETED_MAX_DISPLAY_NAME: string
+  /**
+   * F​i​l​t​e​r​:​ ​m​a​x​i​m​u​m​ ​c​o​m​p​l​e​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​)
+   */
+  COMPLETED_MAX_HINT: string
+  /**
+   * S​h​o​w​ ​A​s​s​i​g​n​e​d
+   */
+  SHOW_ASSIGNED_DISPLAY_NAME: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​a​s​s​i​g​n​e​d​ ​t​a​s​k​s
+   */
+  SHOW_ASSIGNED_HINT: string
+  /**
    * L​i​s​t​ ​T​a​s​k​ ​L​i​s​t​s
    */
   LIST_TASK_LISTS_DISPLAY_NAME: string
@@ -522,6 +546,30 @@ export type TranslationFunctions = {
    * Filter: minimum last modification time (RFC 3339)
    */
   UPDATED_MIN_HINT: () => LocalizedString
+  /**
+   * Completed Min
+   */
+  COMPLETED_MIN_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Filter: minimum completion time (RFC 3339)
+   */
+  COMPLETED_MIN_HINT: () => LocalizedString
+  /**
+   * Completed Max
+   */
+  COMPLETED_MAX_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Filter: maximum completion time (RFC 3339)
+   */
+  COMPLETED_MAX_HINT: () => LocalizedString
+  /**
+   * Show Assigned
+   */
+  SHOW_ASSIGNED_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Whether to include assigned tasks
+   */
+  SHOW_ASSIGNED_HINT: () => LocalizedString
   /**
    * List Task Lists
    */

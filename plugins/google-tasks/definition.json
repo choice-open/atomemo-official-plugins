@@ -11,10 +11,13 @@
   "icon": "https://fonts.gstatic.com/s/i/productlogos/tasks/v10/192px.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-tasks",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "credentials": [
     {
       "name": "google-tasks-oauth2",
@@ -111,8 +114,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Maximum number of results to return per page",
-              "zh_Hans": "每页返回的最大结果数"
+              "en_US": "Maximum 100 results per page (default: 20)",
+              "zh_Hans": "每页最多返回100条（默认20）"
             },
             "support_expression": true,
             "width": "medium",
@@ -223,8 +226,8 @@
           "required": true,
           "ui": {
             "placeholder": {
-              "en_US": "Enter title",
-              "zh_Hans": "输入标题"
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
             },
             "support_expression": true,
             "width": "full",
@@ -288,8 +291,8 @@
           "required": true,
           "ui": {
             "placeholder": {
-              "en_US": "Enter title",
-              "zh_Hans": "输入标题"
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
             },
             "support_expression": true,
             "width": "full",
@@ -400,8 +403,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Maximum number of results to return per page",
-              "zh_Hans": "每页返回的最大结果数"
+              "en_US": "Maximum 100 results per page (default: 20)",
+              "zh_Hans": "每页最多返回100条（默认20）"
             },
             "support_expression": true,
             "width": "medium",
@@ -440,8 +443,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Whether to include completed tasks",
-              "zh_Hans": "是否包含已完成的任务"
+              "en_US": "Include completed tasks. Requires showHidden to also be true to show tasks completed in first-party clients (web UI, mobile apps).",
+              "zh_Hans": "包含已完成的任务。需要同时开启「显示已隐藏」才能显示第一方客户端（网页、移动端）完成的任务。"
             },
             "width": "medium",
             "component": "switch"
@@ -476,14 +479,14 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Whether to include hidden tasks",
-              "zh_Hans": "是否包含已隐藏的任务"
+              "en_US": "Include hidden tasks (tasks marked completed when the list was last cleared)",
+              "zh_Hans": "包含已隐藏的任务（任务列表上次清除时标记完成的任务）"
             },
             "width": "medium",
             "component": "switch"
           },
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "due_min",
@@ -494,8 +497,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Filter: minimum due date (RFC 3339)",
-              "zh_Hans": "过滤：最早截止日期（RFC 3339）"
+              "en_US": "Filter: lower bound for due date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：截止日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -512,8 +515,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Filter: maximum due date (RFC 3339)",
-              "zh_Hans": "过滤：最晚截止日期（RFC 3339）"
+              "en_US": "Filter: upper bound for due date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
+              "zh_Hans": "过滤：截止日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -530,8 +533,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Filter: minimum last modification time (RFC 3339)",
-              "zh_Hans": "过滤：最早修改时间（RFC 3339）"
+              "en_US": "Filter: lower bound for last modification time (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：最早修改时间（RFC 3339，例如 2025-01-01T00:00:00Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -548,8 +551,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Filter: minimum completion time (RFC 3339)",
-              "zh_Hans": "过滤：最早完成时间（RFC 3339）"
+              "en_US": "Filter: lower bound for completion date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：最早完成时间（RFC 3339，例如 2025-01-01T00:00:00Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -566,8 +569,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Filter: maximum completion time (RFC 3339)",
-              "zh_Hans": "过滤：最晚完成时间（RFC 3339）"
+              "en_US": "Filter: upper bound for completion date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
+              "zh_Hans": "过滤：最晚完成时间（RFC 3339，例如 2025-12-31T23:59:59Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -584,14 +587,14 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Whether to include assigned tasks",
-              "zh_Hans": "是否包含已分配任务"
+              "en_US": "Include tasks assigned from Docs or Chat Spaces",
+              "zh_Hans": "包含来源于文档或聊天空间的已分配任务"
             },
             "width": "medium",
             "component": "switch"
           },
           "type": "boolean",
-          "default": true
+          "default": false
         }
       ],
       "skill": "# List Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `list-tasks`\n- **Purpose**: Lists tasks in a specified task list with optional filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of tasks to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from a previous response. | `\"next_page_token\"` |\n| `show_completed` | `boolean` | `false` | `switch` | Include completed tasks. | `true` |\n| `show_deleted` | `boolean` | `false` | `switch` | Include deleted tasks. | `false` |\n| `show_hidden` | `boolean` | `false` | `switch` | Include hidden tasks. | `true` |\n| `due_min` | `string` | `false` | `input` | Due date lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `due_max` | `string` | `false` | `input` | Due date upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `updated_min` | `string` | `false` | `input` | Updated time lower bound (RFC 3339). | `\"2026-03-20T00:00:00Z\"` |\n| `completed_min` | `string` | `false` | `input` | Completion time lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `completed_max` | `string` | `false` | `input` | Completion time upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `show_assigned` | `boolean` | `false` | `switch` | Include assigned tasks. | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"max_results\": 20,\n    \"show_completed\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#tasks\",\n  \"items\": [\n    {\n      \"id\": \"task_id_xxx\",\n      \"title\": \"Buy milk\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
@@ -718,8 +721,8 @@
           "required": true,
           "ui": {
             "placeholder": {
-              "en_US": "Enter title",
-              "zh_Hans": "输入标题"
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
             },
             "support_expression": true,
             "width": "full",
@@ -736,8 +739,8 @@
           "required": false,
           "ui": {
             "placeholder": {
-              "en_US": "Enter notes (optional)",
-              "zh_Hans": "输入备注（可选）"
+              "en_US": "Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.",
+              "zh_Hans": "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。"
             },
             "support_expression": true,
             "width": "full",
@@ -754,12 +757,12 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00.000Z). Only the date portion is used.",
-              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00.000Z），仅日期部分有效。"
+              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.",
+              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。"
             },
             "placeholder": {
-              "en_US": "2025-12-31T00:00:00.000Z",
-              "zh_Hans": "2025-12-31T00:00:00.000Z"
+              "en_US": "2025-12-31T00:00:00Z",
+              "zh_Hans": "2025-12-31T00:00:00Z"
             },
             "support_expression": true,
             "width": "full",
@@ -804,8 +807,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "ID of the parent task (for creating/moving sub-tasks)",
-              "zh_Hans": "父任务的 ID（用于创建/移动子任务）"
+              "en_US": "ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.",
+              "zh_Hans": "父任务 ID。不能在已分配或重复任务下创建子任务。留空则在顶层创建。"
             },
             "placeholder": {
               "en_US": "Enter parent task ID (optional)",
@@ -826,8 +829,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "ID of the previous sibling task (for ordering)",
-              "zh_Hans": "前一个兄弟任务的 ID（用于排序）"
+              "en_US": "ID of previous sibling task. Omit to move to first position among siblings.",
+              "zh_Hans": "前一个兄弟任务 ID。留空则移动到第一个位置。"
             },
             "placeholder": {
               "en_US": "Enter previous task ID (optional)",
@@ -917,8 +920,8 @@
           "required": false,
           "ui": {
             "placeholder": {
-              "en_US": "Enter title",
-              "zh_Hans": "输入标题"
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
             },
             "support_expression": true,
             "width": "full",
@@ -935,8 +938,8 @@
           "required": false,
           "ui": {
             "placeholder": {
-              "en_US": "Enter notes (optional)",
-              "zh_Hans": "输入备注（可选）"
+              "en_US": "Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.",
+              "zh_Hans": "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。"
             },
             "support_expression": true,
             "width": "full",
@@ -980,12 +983,12 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00.000Z). Only the date portion is used.",
-              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00.000Z），仅日期部分有效。"
+              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.",
+              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。"
             },
             "placeholder": {
-              "en_US": "2025-12-31T00:00:00.000Z",
-              "zh_Hans": "2025-12-31T00:00:00.000Z"
+              "en_US": "2025-12-31T00:00:00Z",
+              "zh_Hans": "2025-12-31T00:00:00Z"
             },
             "support_expression": true,
             "width": "full",
@@ -1140,8 +1143,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "ID of the parent task (for creating/moving sub-tasks)",
-              "zh_Hans": "父任务的 ID（用于创建/移动子任务）"
+              "en_US": "ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.",
+              "zh_Hans": "父任务 ID。不能在已分配或重复任务下创建子任务。留空则在顶层创建。"
             },
             "placeholder": {
               "en_US": "Enter parent task ID (optional)",
@@ -1162,8 +1165,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "ID of the previous sibling task (for ordering)",
-              "zh_Hans": "前一个兄弟任务的 ID（用于排序）"
+              "en_US": "ID of previous sibling task. Omit to move to first position among siblings.",
+              "zh_Hans": "前一个兄弟任务 ID。留空则移动到第一个位置。"
             },
             "placeholder": {
               "en_US": "Enter previous task ID (optional)",
@@ -1184,8 +1187,8 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "ID of the destination task list (for cross-list moves)",
-              "zh_Hans": "目标任务列表的 ID（跨列表移动时使用）"
+              "en_US": "ID of destination task list. Omit to move within current list. Repeating tasks cannot be moved between lists.",
+              "zh_Hans": "目标任务列表 ID。留空则在当前列表内移动。重复任务不能跨列表移动。"
             },
             "placeholder": {
               "en_US": "Enter destination task list ID (optional)",

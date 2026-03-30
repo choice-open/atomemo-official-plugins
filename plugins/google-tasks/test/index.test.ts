@@ -35,7 +35,7 @@ describe("plugin initialization", () => {
 
     expect(createPluginMock).toHaveBeenCalled()
     expect(addCredential).toHaveBeenCalledTimes(1)
-    expect(addTool).toHaveBeenCalledTimes(11)
+    expect(addTool).toHaveBeenCalledTimes(9)
     expect(run).toHaveBeenCalledTimes(1)
 
     const toolNames = addTool.mock.calls.map((call: any[]) => call[0].name)

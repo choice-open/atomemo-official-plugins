@@ -83,7 +83,7 @@ export const listTasksTool: ToolDefinition = {
       name: "show_hidden",
       type: "boolean",
       required: false,
-      default: true,
+      default: false,
       display_name: t("SHOW_HIDDEN_DISPLAY_NAME"),
       ui: {
         component: "switch",
@@ -131,13 +131,10 @@ export const listTasksTool: ToolDefinition = {
       name: "completed_min",
       type: "string",
       required: false,
-      display_name: { en_US: "Completed Min", zh_Hans: "完成时间最小值" },
+      display_name: t("COMPLETED_MIN_DISPLAY_NAME"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "Filter: minimum completion time (RFC 3339)",
-          zh_Hans: "过滤：最早完成时间（RFC 3339）",
-        },
+        hint: t("COMPLETED_MIN_HINT"),
         support_expression: true,
         width: "medium",
       },
@@ -146,13 +143,10 @@ export const listTasksTool: ToolDefinition = {
       name: "completed_max",
       type: "string",
       required: false,
-      display_name: { en_US: "Completed Max", zh_Hans: "完成时间最大值" },
+      display_name: t("COMPLETED_MAX_DISPLAY_NAME"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "Filter: maximum completion time (RFC 3339)",
-          zh_Hans: "过滤：最晚完成时间（RFC 3339）",
-        },
+        hint: t("COMPLETED_MAX_HINT"),
         support_expression: true,
         width: "medium",
       },
@@ -161,14 +155,11 @@ export const listTasksTool: ToolDefinition = {
       name: "show_assigned",
       type: "boolean",
       required: false,
-      default: true,
-      display_name: { en_US: "Show Assigned", zh_Hans: "显示已分配" },
+      default: false,
+      display_name: t("SHOW_ASSIGNED_DISPLAY_NAME"),
       ui: {
         component: "switch",
-        hint: {
-          en_US: "Whether to include assigned tasks",
-          zh_Hans: "是否包含已分配任务",
-        },
+        hint: t("SHOW_ASSIGNED_HINT"),
         width: "medium",
       },
     },

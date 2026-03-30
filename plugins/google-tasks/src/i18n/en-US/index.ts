@@ -24,42 +24,58 @@ const en_US = {
   TASK_ID_HINT: "The ID of the task. Use 'List Tasks' to find available IDs.",
   TASK_ID_PLACEHOLDER: "e.g. dGFza19pZA...",
   TITLE_DISPLAY_NAME: "Title",
-  TITLE_PLACEHOLDER: "Enter title",
+  TITLE_PLACEHOLDER: "Enter title (max 1024 characters)",
   NOTES_DISPLAY_NAME: "Notes",
-  NOTES_PLACEHOLDER: "Enter notes (optional)",
+  NOTES_PLACEHOLDER:
+    "Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.",
   STATUS_DISPLAY_NAME: "Status",
   DUE_DATE_DISPLAY_NAME: "Due Date",
   DUE_DATE_HINT:
-    "RFC 3339 format (e.g. 2025-12-31T00:00:00.000Z). Only the date portion is used.",
-  DUE_DATE_PLACEHOLDER: "2025-12-31T00:00:00.000Z",
+    "RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.",
+  DUE_DATE_PLACEHOLDER: "2025-12-31T00:00:00Z",
   MAX_RESULTS_DISPLAY_NAME: "Max Results",
-  MAX_RESULTS_HINT: "Maximum number of results to return per page",
+  MAX_RESULTS_HINT: "Maximum 100 results per page (default: 20)",
   PAGE_TOKEN_DISPLAY_NAME: "Page Token",
   PAGE_TOKEN_HINT: "Token for fetching the next page of results",
   PAGE_TOKEN_PLACEHOLDER: "Enter page token",
   SHOW_COMPLETED_DISPLAY_NAME: "Show Completed",
-  SHOW_COMPLETED_HINT: "Whether to include completed tasks",
+  SHOW_COMPLETED_HINT:
+    "Include completed tasks. Requires showHidden to also be true to show tasks completed in first-party clients (web UI, mobile apps).",
   SHOW_DELETED_DISPLAY_NAME: "Show Deleted",
   SHOW_DELETED_HINT: "Whether to include deleted tasks",
   SHOW_HIDDEN_DISPLAY_NAME: "Show Hidden",
-  SHOW_HIDDEN_HINT: "Whether to include hidden tasks",
+  SHOW_HIDDEN_HINT:
+    "Include hidden tasks (tasks marked completed when the list was last cleared)",
   PARENT_TASK_ID_DISPLAY_NAME: "Parent Task ID",
-  PARENT_TASK_ID_HINT: "ID of the parent task (for creating/moving sub-tasks)",
+  PARENT_TASK_ID_HINT:
+    "ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.",
   PARENT_TASK_ID_PLACEHOLDER: "Enter parent task ID (optional)",
   PREVIOUS_TASK_ID_DISPLAY_NAME: "Previous Task ID",
-  PREVIOUS_TASK_ID_HINT: "ID of the previous sibling task (for ordering)",
+  PREVIOUS_TASK_ID_HINT:
+    "ID of previous sibling task. Omit to move to first position among siblings.",
   PREVIOUS_TASK_ID_PLACEHOLDER: "Enter previous task ID (optional)",
   DESTINATION_TASK_LIST_ID_DISPLAY_NAME: "Destination Task List ID",
   DESTINATION_TASK_LIST_ID_HINT:
-    "ID of the destination task list (for cross-list moves)",
+    "ID of destination task list. Omit to move within current list. Repeating tasks cannot be moved between lists.",
   DESTINATION_TASK_LIST_ID_PLACEHOLDER:
     "Enter destination task list ID (optional)",
   DUE_MIN_DISPLAY_NAME: "Due Date Min",
-  DUE_MIN_HINT: "Filter: minimum due date (RFC 3339)",
+  DUE_MIN_HINT:
+    "Filter: lower bound for due date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
   DUE_MAX_DISPLAY_NAME: "Due Date Max",
-  DUE_MAX_HINT: "Filter: maximum due date (RFC 3339)",
+  DUE_MAX_HINT:
+    "Filter: upper bound for due date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
   UPDATED_MIN_DISPLAY_NAME: "Updated After",
-  UPDATED_MIN_HINT: "Filter: minimum last modification time (RFC 3339)",
+  UPDATED_MIN_HINT:
+    "Filter: lower bound for last modification time (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+  COMPLETED_MIN_DISPLAY_NAME: "Completed Min",
+  COMPLETED_MIN_HINT:
+    "Filter: lower bound for completion date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+  COMPLETED_MAX_DISPLAY_NAME: "Completed Max",
+  COMPLETED_MAX_HINT:
+    "Filter: upper bound for completion date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
+  SHOW_ASSIGNED_DISPLAY_NAME: "Show Assigned",
+  SHOW_ASSIGNED_HINT: "Include tasks assigned from Docs or Chat Spaces",
 
   // TaskList tools
   LIST_TASK_LISTS_DISPLAY_NAME: "List Task Lists",
