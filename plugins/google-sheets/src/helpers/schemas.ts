@@ -63,7 +63,7 @@ export function parseValues2d(raw: unknown, fieldName = "values"): unknown[][] {
   const rowSchema = z.array(z.unknown())
   const result = z
     .array(rowSchema)
-    .min(1, `${fieldName} must be a non-empty 2D array`)
+    .min(0, `${fieldName} must be a valid 2D array`)
     .refine((rows) => rows.every((row) => Array.isArray(row)), {
       message: `${fieldName}: each row must be an array (Sheets ValueRange.values)`,
     })
