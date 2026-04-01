@@ -391,11 +391,9 @@ export async function resolveFields(
   token: string,
   baseId: string,
   table: string,
-  typecast: boolean,
 ): Promise<Record<string, unknown>> {
   const resolvedFields = resolveRawFields(parameters)
   if (Object.keys(resolvedFields).length === 0) return resolvedFields
-  if (!typecast) return resolvedFields
 
   try {
     const tables = await getBaseSchema(token, baseId)
