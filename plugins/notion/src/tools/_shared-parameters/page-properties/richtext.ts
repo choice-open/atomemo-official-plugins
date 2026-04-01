@@ -3,18 +3,21 @@ import type {
   PropertyDiscriminatedUnion,
   PropertyObject,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../../i18n/i18n-node"
 import { apiColorOptions } from "../api-colors"
 
 export const annotationParameter: PropertyObject<"annotations"> = {
   name: "annotations",
   type: "object",
   required: false,
+  display_name: t("BLOCKS_ANNOTATIONS_DISPLAY_NAME"),
   properties: [
     {
       name: "bold",
       type: "boolean",
       default: false,
       required: false,
+      display_name: t("BLOCKS_ANNOTATION_BOLD_DISPLAY_NAME"),
       ui: { component: "switch", support_expression: true },
     },
     {
@@ -22,6 +25,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       type: "boolean",
       default: false,
       required: false,
+      display_name: t("BLOCKS_ANNOTATION_ITALIC_DISPLAY_NAME"),
       ui: { component: "switch", support_expression: true },
     },
     {
@@ -29,6 +33,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       type: "boolean",
       default: false,
       required: false,
+      display_name: t("BLOCKS_ANNOTATION_STRIKETHROUGH_DISPLAY_NAME"),
       ui: { component: "switch", support_expression: true },
     },
     {
@@ -36,6 +41,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       type: "boolean",
       default: false,
       required: false,
+      display_name: t("BLOCKS_ANNOTATION_UNDERLINE_DISPLAY_NAME"),
       ui: { component: "switch", support_expression: true },
     },
     {
@@ -43,6 +49,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       type: "boolean",
       default: false,
       required: false,
+      display_name: t("BLOCKS_ANNOTATION_CODE_DISPLAY_NAME"),
       ui: { component: "switch", support_expression: true },
     },
     {
@@ -50,6 +57,7 @@ export const annotationParameter: PropertyObject<"annotations"> = {
       type: "string",
       required: false,
       default: "default",
+      display_name: t("BLOCKS_COLOR_DISPLAY_NAME"),
       ui: {
         component: "select",
         options: apiColorOptions,
@@ -83,16 +91,19 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
           type: "string",
           constant: "user",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
         },
         {
           name: "user",
           type: "object",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           properties: [
             {
               name: "id",
               type: "string",
               required: true,
+              display_name: t("ID_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
             {
@@ -100,6 +111,7 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
               type: "string",
               constant: "user",
               required: true,
+              display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
           ],
@@ -115,29 +127,34 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
           type: "string",
           constant: "date",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           ui: { component: "input", support_expression: true },
         },
         {
           name: "date",
           type: "object",
           required: true,
+          display_name: t("PAGE_PROPERTIES_DATE_DISPLAY_NAME"),
           properties: [
             {
               name: "start",
               type: "string",
               required: true,
+              display_name: t("PAGE_PROPERTIES_START_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
             {
               name: "end",
               type: "string",
               required: false,
+              display_name: t("PAGE_PROPERTIES_END_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
             {
               name: "time_zone",
               type: "string",
               required: false,
+              display_name: t("PAGE_PROPERTIES_TIME_ZONE_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
           ],
@@ -153,17 +170,20 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
           type: "string",
           constant: "page",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           ui: { component: "input", support_expression: true },
         },
         {
           name: "page",
           type: "object",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           properties: [
             {
               name: "id",
               type: "string",
               required: true,
+              display_name: t("ID_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
           ],
@@ -179,32 +199,37 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
           type: "string",
           constant: "database",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           ui: { component: "input", support_expression: true },
         },
         {
           name: "database",
           type: "object",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           properties: [
             {
               name: "id",
               type: "string",
               required: true,
+              display_name: t("ID_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
           ],
         },
       ],
     },
-    {
-      name: "template_mention",
-      ...commonProps,
-      properties: [
+      {
+        name: "template_mention",
+        ...commonProps,
+        display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
+        properties: [
         {
           name: "type",
           type: "string",
           constant: "template_mention",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           ui: { component: "input", support_expression: true },
         },
         // TODO
@@ -254,37 +279,43 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
         // >,
       ],
     },
-    {
-      name: "custom_emoji",
-      ...commonProps,
-      properties: [
+      {
+        name: "custom_emoji",
+        ...commonProps,
+        display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
+        properties: [
         {
           name: "type",
           type: "string",
           constant: "custom_emoji",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
         },
         {
           name: "custom_emoji",
           type: "object",
           required: true,
+          display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           properties: [
             {
               name: "id",
               type: "string",
               required: true,
+              display_name: t("ID_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
             {
               name: "name",
               type: "string",
               required: false,
+              display_name: t("NAME_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
             {
               name: "url",
               type: "string",
               required: false,
+              display_name: t("PAGE_PROPERTIES_URL_DISPLAY_NAME"),
               ui: { component: "input", support_expression: true },
             },
           ],
@@ -297,6 +328,7 @@ export const mentionValueParameter: PropertyDiscriminatedUnion<"type"> = {
 export const titleArrayParameter: PropertyArray<"title"> = {
   name: "title",
   type: "array",
+  display_name: t("BLOCKS_TITLE_DISPLAY_NAME"),
   items: {
     type: "discriminated_union",
     discriminator: "type",
@@ -304,8 +336,15 @@ export const titleArrayParameter: PropertyArray<"title"> = {
       {
         type: "object",
         name: "text",
+        display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
         properties: [
-          { name: "type", type: "string", constant: "text", required: true },
+          {
+            name: "type",
+            type: "string",
+            constant: "text",
+            required: true,
+            display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
+          },
           {
             name: "text",
             type: "object",
@@ -315,6 +354,7 @@ export const titleArrayParameter: PropertyArray<"title"> = {
                 name: "content",
                 type: "string",
                 required: true,
+                display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
                 ui: {
                   component: "textarea",
                   support_expression: true,
@@ -324,6 +364,7 @@ export const titleArrayParameter: PropertyArray<"title"> = {
                 name: "link",
                 type: "string",
                 required: false,
+                display_name: t("BLOCKS_LINK_DISPLAY_NAME"),
                 ui: { component: "input", support_expression: true },
               },
             ],
@@ -334,8 +375,15 @@ export const titleArrayParameter: PropertyArray<"title"> = {
       {
         type: "object",
         name: "mention",
+        display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
         properties: [
-          { name: "type", type: "string", constant: "mention", required: true },
+          {
+            name: "type",
+            type: "string",
+            constant: "mention",
+            required: true,
+            display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
+          },
           // mentionValueParameter, // toDo
           annotationParameter,
         ],
@@ -343,22 +391,26 @@ export const titleArrayParameter: PropertyArray<"title"> = {
       {
         type: "object",
         name: "equation",
+        display_name: t("BLOCKS_EXPRESSION_DISPLAY_NAME"),
         properties: [
           {
             name: "type",
             type: "string",
             constant: "equation",
             required: true,
+            display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           },
-          {
-            name: "equation",
-            type: "object",
-            required: true,
-            properties: [
+        {
+          name: "equation",
+          type: "object",
+          required: true,
+          display_name: t("BLOCKS_EXPRESSION_DISPLAY_NAME"),
+          properties: [
               {
                 name: "expression",
                 type: "string",
                 required: true,
+                display_name: t("BLOCKS_EXPRESSION_DISPLAY_NAME"),
                 ui: { component: "input", support_expression: true },
               },
             ],
@@ -374,4 +426,5 @@ export const titleArrayParameter: PropertyArray<"title"> = {
 export const richTextArrayParameter: PropertyArray<"rich_text"> = {
   ...titleArrayParameter,
   name: "rich_text",
+  display_name: t("BLOCKS_RICH_TEXT_DISPLAY_NAME"),
 }

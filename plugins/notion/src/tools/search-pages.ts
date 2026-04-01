@@ -33,6 +33,7 @@ const parameters: Array<Property<ParametersNames>> = [
     // Constant filter to only return pages
     name: "filter",
     type: "object",
+    display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
     required: false,
     ai: {
       llm_description: t("SEARCH_PAGES_FILTER_LLM_DESCRIPTION"),
@@ -42,6 +43,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "property",
         type: "string",
         constant: "object",
+        display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -52,6 +54,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "value",
         type: "string",
         constant: "page",
+        display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -117,7 +120,7 @@ export const searchPagesTool: ToolDefinition = {
         : undefined
     const query =
       typeof rawParameters.query === "string" &&
-      rawParameters.query.trim() !== ""
+        rawParameters.query.trim() !== ""
         ? rawParameters.query
         : undefined
 

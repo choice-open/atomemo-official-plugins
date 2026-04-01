@@ -19,6 +19,7 @@ export const colorProperty: PropertyString<"color"> = {
   type: "string",
   required: false,
   default: "default",
+  display_name: t("BLOCKS_COLOR_DISPLAY_NAME"),
   ui: {
     component: "select",
     options: apiColorOptions,
@@ -31,6 +32,7 @@ export const isToggleableProperty = {
   type: "boolean",
   default: false,
   required: false,
+  display_name: t("BLOCKS_HEADING_IS_TOGGLEABLE_DISPLAY_NAME"),
   ui: {
     component: "switch",
     support_expression: true,
@@ -42,16 +44,19 @@ export const createTypeProperty = (blockType: string) =>
   ({
     name: "type",
     type: "string",
+    display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
     constant: blockType,
   }) as const
 
 export const createBlockContentProperty = (
   blockType: string,
+  blockTypeDisplayName: ReturnType<typeof t>,
   properties: Property[],
 ) =>
   ({
     name: blockType,
     type: "object",
+    display_name: blockTypeDisplayName,
     required: true,
     ui: blockContentUISection,
     properties,
@@ -66,6 +71,7 @@ export const urlProperty: PropertyString<"url"> = {
   name: "url",
   type: "string",
   required: true,
+  display_name: t("BLOCKS_URL_DISPLAY_NAME"),
   ui: {
     component: "input",
     support_expression: true,
@@ -77,6 +83,7 @@ export const externalUrlProperty: PropertyObject<"external"> = {
   name: "external",
   type: "object",
   required: false,
+  display_name: t("BLOCKS_EXTERNAL_URL_DISPLAY_NAME"),
   ui: {
     component: "section",
     support_expression: false,
@@ -90,7 +97,10 @@ export const paragraphBlock: PropertyObject<string, "type"> = {
   display_name: t("BLOCKS_PARAGRAPH_DISPLAY_NAME"),
   properties: [
     createTypeProperty("paragraph"),
-    createBlockContentProperty("paragraph", [richTextProperty, colorProperty]),
+    createBlockContentProperty("paragraph", t("BLOCKS_PARAGRAPH_DISPLAY_NAME"), [
+      richTextProperty,
+      colorProperty,
+    ]),
   ],
 }
 
@@ -100,7 +110,7 @@ export const heading1Block: PropertyObject<string, "type"> = {
   display_name: t("BLOCKS_HEADING_1_DISPLAY_NAME"),
   properties: [
     createTypeProperty("heading_1"),
-    createBlockContentProperty("heading_1", [
+    createBlockContentProperty("heading_1", t("BLOCKS_HEADING_1_DISPLAY_NAME"), [
       richTextProperty,
       colorProperty,
       isToggleableProperty,
@@ -114,7 +124,7 @@ export const heading2Block: PropertyObject<"heading_2", "type"> = {
   display_name: t("BLOCKS_HEADING_2_DISPLAY_NAME"),
   properties: [
     createTypeProperty("heading_2"),
-    createBlockContentProperty("heading_2", [
+    createBlockContentProperty("heading_2", t("BLOCKS_HEADING_2_DISPLAY_NAME"), [
       richTextProperty,
       colorProperty,
       isToggleableProperty,
@@ -128,7 +138,7 @@ export const heading3Block: PropertyObject<"heading_3", "type"> = {
   display_name: t("BLOCKS_HEADING_3_DISPLAY_NAME"),
   properties: [
     createTypeProperty("heading_3"),
-    createBlockContentProperty("heading_3", [
+    createBlockContentProperty("heading_3", t("BLOCKS_HEADING_3_DISPLAY_NAME"), [
       richTextProperty,
       colorProperty,
       isToggleableProperty,
@@ -145,10 +155,14 @@ export const bulletedListItemBlock: PropertyObject<
   display_name: t("BLOCKS_BULLETED_LIST_DISPLAY_NAME"),
   properties: [
     createTypeProperty("bulleted_list_item"),
-    createBlockContentProperty("bulleted_list_item", [
+    createBlockContentProperty(
+      "bulleted_list_item",
+      t("BLOCKS_BULLETED_LIST_DISPLAY_NAME"),
+      [
       richTextProperty,
       colorProperty,
-    ]),
+      ],
+    ),
   ],
 }
 
@@ -161,10 +175,14 @@ export const numberedListItemBlock: PropertyObject<
   display_name: t("BLOCKS_NUMBERED_LIST_DISPLAY_NAME"),
   properties: [
     createTypeProperty("numbered_list_item"),
-    createBlockContentProperty("numbered_list_item", [
+    createBlockContentProperty(
+      "numbered_list_item",
+      t("BLOCKS_NUMBERED_LIST_DISPLAY_NAME"),
+      [
       richTextProperty,
       colorProperty,
-    ]),
+      ],
+    ),
   ],
 }
 
@@ -174,7 +192,10 @@ export const quoteBlock: PropertyObject<"quote", "type"> = {
   display_name: t("BLOCKS_QUOTE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("quote"),
-    createBlockContentProperty("quote", [richTextProperty, colorProperty]),
+    createBlockContentProperty("quote", t("BLOCKS_QUOTE_DISPLAY_NAME"), [
+      richTextProperty,
+      colorProperty,
+    ]),
   ],
 }
 
@@ -184,7 +205,7 @@ export const todoBlock: PropertyObject<"to_do", "type"> = {
   display_name: t("BLOCKS_TO_DO_DISPLAY_NAME"),
   properties: [
     createTypeProperty("to_do"),
-    createBlockContentProperty("to_do", [
+    createBlockContentProperty("to_do", t("BLOCKS_TO_DO_DISPLAY_NAME"), [
       richTextProperty,
       colorProperty,
       {
@@ -192,6 +213,7 @@ export const todoBlock: PropertyObject<"to_do", "type"> = {
         type: "boolean",
         default: false,
         required: false,
+        display_name: t("BLOCKS_CHECKED_DISPLAY_NAME"),
         ui: {
           component: "switch",
           support_expression: true,
@@ -208,7 +230,10 @@ export const toggleBlock: PropertyObject<"toggle", "type"> = {
   display_name: t("BLOCKS_TOGGLE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("toggle"),
-    createBlockContentProperty("toggle", [richTextProperty, colorProperty]),
+    createBlockContentProperty("toggle", t("BLOCKS_TOGGLE_DISPLAY_NAME"), [
+      richTextProperty,
+      colorProperty,
+    ]),
   ],
 }
 
@@ -218,7 +243,9 @@ export const templateBlock: PropertyObject<"template", "type"> = {
   display_name: t("BLOCKS_TEMPLATE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("template"),
-    createBlockContentProperty("template", [richTextProperty]),
+    createBlockContentProperty("template", t("BLOCKS_TEMPLATE_DISPLAY_NAME"), [
+      richTextProperty,
+    ]),
   ],
 }
 
@@ -228,19 +255,21 @@ export const calloutBlock: PropertyObject<"callout", "type"> = {
   display_name: t("BLOCKS_CALLOUT_DISPLAY_NAME"),
   properties: [
     createTypeProperty("callout"),
-    createBlockContentProperty("callout", [
+    createBlockContentProperty("callout", t("BLOCKS_CALLOUT_DISPLAY_NAME"), [
       richTextProperty,
       colorProperty,
       {
         name: "icon",
         type: "object",
         required: false,
+        display_name: t("BLOCKS_ICON_DISPLAY_NAME"),
         ui: blockContentUISection,
         properties: [
           {
             name: "type",
             type: "string",
             required: true,
+            display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
             ui: {
               component: "input",
               support_expression: true,
@@ -259,20 +288,23 @@ export const codeBlock: PropertyObject<"code", "type"> = {
   display_name: t("BLOCKS_CODE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("code"),
-    createBlockContentProperty("code", [
+    createBlockContentProperty("code", t("BLOCKS_CODE_DISPLAY_NAME"), [
       {
         name: "rich_text",
         type: "array",
         required: true,
+        display_name: t("BLOCKS_RICH_TEXT_DISPLAY_NAME"),
         items: {
           type: "object",
           name: "rich_text",
+          display_name: t("BLOCKS_RICH_TEXT_DISPLAY_NAME"),
           ui: blockContentUISection,
           properties: [
             {
               name: "text",
               type: "string",
               required: true,
+              display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
               ui: {
                 component: "input",
                 support_expression: true,
@@ -285,6 +317,7 @@ export const codeBlock: PropertyObject<"code", "type"> = {
         name: "language",
         type: "string",
         required: true,
+        display_name: t("BLOCKS_LANGUAGE_DISPLAY_NAME"),
         ui: {
           component: "input",
           support_expression: true,
@@ -295,6 +328,7 @@ export const codeBlock: PropertyObject<"code", "type"> = {
         name: "caption",
         type: "array",
         required: false,
+        display_name: t("BLOCKS_CAPTION_DISPLAY_NAME"),
         ui: {
           component: "array-section",
           hint: t("BLOCKS_CODE_CAPTION_HINT"),
@@ -302,12 +336,14 @@ export const codeBlock: PropertyObject<"code", "type"> = {
         items: {
           type: "object",
           name: "rich_text",
+          display_name: t("BLOCKS_RICH_TEXT_DISPLAY_NAME"),
           ui: blockContentUISection,
           properties: [
             {
               name: "text",
               type: "string",
               required: true,
+              display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
               ui: {
                 component: "input",
                 support_expression: true,
@@ -326,11 +362,12 @@ export const equationBlock: PropertyObject<"equation", "type"> = {
   display_name: t("BLOCKS_EQUATION_DISPLAY_NAME"),
   properties: [
     createTypeProperty("equation"),
-    createBlockContentProperty("equation", [
+    createBlockContentProperty("equation", t("BLOCKS_EQUATION_DISPLAY_NAME"), [
       {
         name: "expression",
         type: "string",
         required: true,
+        display_name: t("BLOCKS_EXPRESSION_DISPLAY_NAME"),
         ui: {
           component: "input",
           support_expression: true,
@@ -356,15 +393,19 @@ export const dividerBlock: PropertyObject<"divider", "type"> = {
 }
 
 export const tableOfContentsBlock: PropertyObject<"table_of_contents", "type"> =
-  {
-    type: "object",
-    name: "table_of_contents",
-    display_name: t("BLOCKS_TABLE_OF_CONTENTS_DISPLAY_NAME"),
-    properties: [
-      createTypeProperty("table_of_contents"),
-      createBlockContentProperty("table_of_contents", [colorProperty]),
-    ],
-  }
+{
+  type: "object",
+  name: "table_of_contents",
+  display_name: t("BLOCKS_TABLE_OF_CONTENTS_DISPLAY_NAME"),
+  properties: [
+    createTypeProperty("table_of_contents"),
+    createBlockContentProperty(
+      "table_of_contents",
+      t("BLOCKS_TABLE_OF_CONTENTS_DISPLAY_NAME"),
+      [colorProperty],
+    ),
+  ],
+}
 
 export const embedBlock: PropertyObject<"embed", "type"> = {
   type: "object",
@@ -372,7 +413,9 @@ export const embedBlock: PropertyObject<"embed", "type"> = {
   display_name: t("BLOCKS_EMBED_DISPLAY_NAME"),
   properties: [
     createTypeProperty("embed"),
-    createBlockContentProperty("embed", [urlProperty]),
+    createBlockContentProperty("embed", t("BLOCKS_EMBED_DISPLAY_NAME"), [
+      urlProperty,
+    ]),
   ],
 }
 
@@ -382,7 +425,9 @@ export const bookmarkBlock: PropertyObject<"bookmark", "type"> = {
   display_name: t("BLOCKS_BOOKMARK_DISPLAY_NAME"),
   properties: [
     createTypeProperty("bookmark"),
-    createBlockContentProperty("bookmark", [urlProperty]),
+    createBlockContentProperty("bookmark", t("BLOCKS_BOOKMARK_DISPLAY_NAME"), [
+      urlProperty,
+    ]),
   ],
 }
 
@@ -392,7 +437,9 @@ export const imageBlock: PropertyObject<"image", "type"> = {
   display_name: t("BLOCKS_IMAGE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("image"),
-    createBlockContentProperty("image", [externalUrlProperty]),
+    createBlockContentProperty("image", t("BLOCKS_IMAGE_DISPLAY_NAME"), [
+      externalUrlProperty,
+    ]),
   ],
 }
 
@@ -402,7 +449,9 @@ export const videoBlock: PropertyObject<"video", "type"> = {
   display_name: t("BLOCKS_VIDEO_DISPLAY_NAME"),
   properties: [
     createTypeProperty("video"),
-    createBlockContentProperty("video", [externalUrlProperty]),
+    createBlockContentProperty("video", t("BLOCKS_VIDEO_DISPLAY_NAME"), [
+      externalUrlProperty,
+    ]),
   ],
 }
 
@@ -412,7 +461,9 @@ export const pdfBlock: PropertyObject<"pdf", "type"> = {
   display_name: t("BLOCKS_PDF_DISPLAY_NAME"),
   properties: [
     createTypeProperty("pdf"),
-    createBlockContentProperty("pdf", [externalUrlProperty]),
+    createBlockContentProperty("pdf", t("BLOCKS_PDF_DISPLAY_NAME"), [
+      externalUrlProperty,
+    ]),
   ],
 }
 
@@ -422,7 +473,9 @@ export const fileBlock: PropertyObject<"file", "type"> = {
   display_name: t("BLOCKS_FILE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("file"),
-    createBlockContentProperty("file", [externalUrlProperty]),
+    createBlockContentProperty("file", t("BLOCKS_FILE_DISPLAY_NAME"), [
+      externalUrlProperty,
+    ]),
   ],
 }
 
@@ -432,7 +485,9 @@ export const audioBlock: PropertyObject<"audio", "type"> = {
   display_name: t("BLOCKS_AUDIO_DISPLAY_NAME"),
   properties: [
     createTypeProperty("audio"),
-    createBlockContentProperty("audio", [externalUrlProperty]),
+    createBlockContentProperty("audio", t("BLOCKS_AUDIO_DISPLAY_NAME"), [
+      externalUrlProperty,
+    ]),
   ],
 }
 
@@ -442,11 +497,15 @@ export const linkToPageBlock: PropertyObject<"link_to_page", "type"> = {
   display_name: t("BLOCKS_LINK_TO_PAGE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("link_to_page"),
-    createBlockContentProperty("link_to_page", [
+    createBlockContentProperty(
+      "link_to_page",
+      t("BLOCKS_LINK_TO_PAGE_DISPLAY_NAME"),
+      [
       {
         name: "page_id",
         type: "string",
         required: true,
+        display_name: t("BLOCKS_PAGE_ID_DISPLAY_NAME"),
         ui: {
           component: "input",
           support_expression: true,
@@ -457,8 +516,10 @@ export const linkToPageBlock: PropertyObject<"link_to_page", "type"> = {
         name: "type",
         type: "string",
         constant: "page_id",
+        display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
       },
-    ]),
+      ],
+    ),
   ],
 }
 
@@ -468,17 +529,22 @@ export const syncedBlockBlock: PropertyObject<"synced_block", "type"> = {
   display_name: t("BLOCKS_SYNCED_BLOCK_DISPLAY_NAME"),
   properties: [
     createTypeProperty("synced_block"),
-    createBlockContentProperty("synced_block", [
+    createBlockContentProperty(
+      "synced_block",
+      t("BLOCKS_SYNCED_BLOCK_DISPLAY_NAME"),
+      [
       {
         name: "synced_from",
         type: "object",
         required: false,
+        display_name: t("BLOCKS_SYNCED_FROM_DISPLAY_NAME"),
         ui: blockContentUISection,
         properties: [
           {
             name: "block_id",
             type: "string",
             required: true,
+            display_name: t("BLOCKS_BLOCK_ID_DISPLAY_NAME"),
             ui: {
               component: "input",
               support_expression: true,
@@ -489,10 +555,12 @@ export const syncedBlockBlock: PropertyObject<"synced_block", "type"> = {
             name: "type",
             type: "string",
             constant: "block_id",
+            display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
           },
         ],
       },
-    ]),
+      ],
+    ),
   ],
 }
 
@@ -509,11 +577,12 @@ export const columnBlock: PropertyObject<"column", "type"> = {
   display_name: t("BLOCKS_COLUMN_DISPLAY_NAME"),
   properties: [
     createTypeProperty("column"),
-    createBlockContentProperty("column", [
+    createBlockContentProperty("column", t("BLOCKS_COLUMN_DISPLAY_NAME"), [
       {
         name: "width_ratio",
         type: "number",
         required: false,
+        display_name: t("BLOCKS_WIDTH_RATIO_DISPLAY_NAME"),
         ui: {
           component: "number-input",
           support_expression: true,
@@ -530,11 +599,12 @@ export const tableBlock: PropertyObject<"table", "type"> = {
   display_name: t("BLOCKS_TABLE_DISPLAY_NAME"),
   properties: [
     createTypeProperty("table"),
-    createBlockContentProperty("table", [
+    createBlockContentProperty("table", t("BLOCKS_TABLE_DISPLAY_NAME"), [
       {
         name: "table_width",
         type: "number",
         required: true,
+        display_name: t("BLOCKS_TABLE_WIDTH_DISPLAY_NAME"),
         ui: {
           component: "number-input",
           support_expression: true,
@@ -546,6 +616,7 @@ export const tableBlock: PropertyObject<"table", "type"> = {
         type: "boolean",
         default: false,
         required: false,
+        display_name: t("BLOCKS_HAS_COLUMN_HEADER_DISPLAY_NAME"),
         ui: {
           component: "switch",
           support_expression: true,
@@ -557,6 +628,7 @@ export const tableBlock: PropertyObject<"table", "type"> = {
         type: "boolean",
         default: false,
         required: false,
+        display_name: t("BLOCKS_HAS_ROW_HEADER_DISPLAY_NAME"),
         ui: {
           component: "switch",
           support_expression: true,
@@ -573,38 +645,43 @@ export const tableRowBlock: PropertyObject<"table_row", "type"> = {
   display_name: t("BLOCKS_TABLE_ROW_DISPLAY_NAME"),
   properties: [
     createTypeProperty("table_row"),
-    createBlockContentProperty("table_row", [
+    createBlockContentProperty("table_row", t("BLOCKS_TABLE_ROW_DISPLAY_NAME"), [
       {
         name: "cells",
         type: "array",
         required: true,
+        display_name: t("BLOCKS_CELLS_DISPLAY_NAME"),
         ui: {
           component: "array-section",
           hint: t("BLOCKS_TABLE_ROW_CELLS_HINT"),
         },
-        items: {
+          items: {
           type: "array",
           name: "cell",
           items: {
             type: "object",
             name: "text",
+            display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
             ui: blockContentUISection,
             properties: [
               {
                 name: "type",
                 type: "string",
                 constant: "text",
+                display_name: t("BLOCKS_TYPE_DISPLAY_NAME"),
               },
               {
                 name: "text",
                 type: "object",
                 required: true,
+                display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
                 ui: blockContentUISection,
                 properties: [
                   {
                     name: "content",
                     type: "string",
                     required: true,
+                    display_name: t("BLOCKS_CONTENT_DISPLAY_NAME"),
                     ui: {
                       component: "input",
                       support_expression: true,
@@ -614,6 +691,7 @@ export const tableRowBlock: PropertyObject<"table_row", "type"> = {
                     name: "link",
                     type: "object",
                     required: false,
+                    display_name: t("BLOCKS_LINK_DISPLAY_NAME"),
                     ui: blockContentUISection,
                     properties: [urlProperty],
                   },

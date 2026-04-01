@@ -21,6 +21,7 @@ const en_US = {
   SORT_DIRECTION_DISPLAY_NAME: "Sort by Direction",
   SORT_DIRECTION_OPTION_ASCENDING: "Ascending",
   SORT_DIRECTION_OPTION_DESCENDING: "Descending",
+  SORT_TIMESTAMP_DISPLAY_NAME: "Timestamp",
   SORT_ENABLE_DISPLAY_NAME: "Enable Sort",
   SORT_ENABLE_HINT: "Whether to enable sorting of results.",
   SORT_ENABLE_LLM_DESCRIPTION:
@@ -65,6 +66,7 @@ const en_US = {
   // Search Databases
   SEARCH_DATABASES_FILTER_LLM_DESCRIPTION:
     "Filter is fixed to return only databases (data sources).",
+  SEARCH_DATABASES_FILTER_DISPLAY_NAME: "Filter",
   SEARCH_DATABASES_QUERY_DISPLAY_NAME: "Query",
   SEARCH_DATABASES_QUERY_LLM_DESCRIPTION:
     "Search term to filter databases (data sources) by title. If omitted, returns all.",
@@ -113,6 +115,7 @@ const en_US = {
     "ID of the underlying data source (database) where the new page should be created. In Notion, use the data source identified under Manage data sources, not just a specific view URL. Learn more: https://www.notion.com/help/data-sources-and-linked-databases#manage-data-sources",
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION:
     "The ID of the parent data source (database) where the new page will be created.",
+  CREATE_PAGE_IN_DATABASE_PARENT_DISPLAY_NAME: "Parent",
   CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: "Notion Create Page in Database",
   CREATE_PAGE_IN_DATABASE_TOOL_DESCRIPTION:
     "Create a new page inside a Notion database (data source).",
@@ -121,6 +124,7 @@ const en_US = {
   CREATE_PAGE_PARENT_PAGE_ID_DISPLAY_NAME: "Parent Page ID",
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION:
     "The ID of the parent page where the new page will be created.",
+  CREATE_PAGE_PARENT_DISPLAY_NAME: "Parent",
   CREATE_PAGE_TITLE_DISPLAY_NAME: "Page title",
   PAGE_TITLE_LLM_DESCRIPTION: "The title of the page to create.",
   CREATE_PAGE_TOOL_DISPLAY_NAME: "Notion Create Page",
@@ -156,9 +160,32 @@ const en_US = {
     "Query a Notion database (data source) with filters and sorts.",
 
   // Blocks - Heading
+  BLOCKS_HEADING_IS_TOGGLEABLE_DISPLAY_NAME: "Is Toggleable",
   BLOCKS_HEADING_IS_TOGGLEABLE_HINT:
     "Whether the heading can be toggled to show/hide nested content",
+  BLOCKS_URL_DISPLAY_NAME: "URL",
   BLOCKS_URL_HINT: "URL of the external resource to embed or link to",
+  BLOCKS_COLOR_DISPLAY_NAME: "Color",
+  BLOCKS_EXTERNAL_URL_DISPLAY_NAME: "External URL",
+
+  // Blocks - Rich Text
+  BLOCKS_RICH_TEXT_DISPLAY_NAME: "Rich Text",
+  BLOCKS_TITLE_DISPLAY_NAME: "Title",
+  BLOCKS_ANNOTATIONS_DISPLAY_NAME: "Annotations",
+  BLOCKS_ANNOTATION_BOLD_DISPLAY_NAME: "Bold",
+  BLOCKS_ANNOTATION_ITALIC_DISPLAY_NAME: "Italic",
+  BLOCKS_ANNOTATION_STRIKETHROUGH_DISPLAY_NAME: "Strikethrough",
+  BLOCKS_ANNOTATION_UNDERLINE_DISPLAY_NAME: "Underline",
+  BLOCKS_ANNOTATION_CODE_DISPLAY_NAME: "Code",
+  ID_DISPLAY_NAME: "ID",
+  NAME_DISPLAY_NAME: "Name",
+  DESCRIPTION_DISPLAY_NAME: "Description",
+  COLOR_DISPLAY_NAME: "Color",
+
+  // Blocks - Select Option
+  BLOCKS_SELECT_OPTION_DISPLAY_NAME: "Select Option",
+
+  PROPERTY_ID_OR_NAME_DISPLAY_NAME: "Property ID or Name",
 
   // Blocks - Types
   BLOCKS_PARAGRAPH_DISPLAY_NAME: "Paragraph",
@@ -217,12 +244,29 @@ const en_US = {
     "Array of Notion content blocks (paragraphs, headings, lists, images, etc.) to add as nested content within the page.",
   BLOCKS_CHILDREN_LLM_DESCRIPTION:
     "Array of block objects to add as content to the page",
+  BLOCKS_CHECKED_DISPLAY_NAME: "Checked",
+  BLOCKS_ICON_DISPLAY_NAME: "Icon",
+  BLOCKS_TYPE_DISPLAY_NAME: "Type",
+  BLOCKS_EXPRESSION_DISPLAY_NAME: "Expression",
+  BLOCKS_PAGE_ID_DISPLAY_NAME: "Page ID",
+  BLOCKS_SYNCED_FROM_DISPLAY_NAME: "Synced From",
+  BLOCKS_BLOCK_ID_DISPLAY_NAME: "Block ID",
+  BLOCKS_WIDTH_RATIO_DISPLAY_NAME: "Width Ratio",
+  BLOCKS_TABLE_WIDTH_DISPLAY_NAME: "Table Width",
+  BLOCKS_HAS_COLUMN_HEADER_DISPLAY_NAME: "Has Column Header",
+  BLOCKS_HAS_ROW_HEADER_DISPLAY_NAME: "Has Row Header",
+  BLOCKS_CELLS_DISPLAY_NAME: "Cells",
+  BLOCKS_CONTENT_DISPLAY_NAME: "Content",
+  BLOCKS_LINK_DISPLAY_NAME: "Link",
+  BLOCKS_LANGUAGE_DISPLAY_NAME: "Language",
+  BLOCKS_CAPTION_DISPLAY_NAME: "Caption",
 
   // Page Properties
   PAGE_PROPERTIES_VALUE_DISPLAY_NAME: "Property value",
   PAGE_PROPERTIES_VALUE_HINT:
     "Select the property type that matches the database schema, then provide the value in that shape.",
   PAGE_PROPERTIES_TITLE_DISPLAY_NAME: "Title",
+  PAGE_PROPERTIES_TYPE_DISPLAY_NAME: "Type",
   PAGE_PROPERTIES_TITLE_HINT:
     "Rich text fragments for the page title; at least one text node is required. Supports text, mentions, and equations.",
   PAGE_PROPERTIES_RICH_TEXT_DISPLAY_NAME: "Rich text",
@@ -262,6 +306,15 @@ const en_US = {
   PAGE_PROPERTIES_PLACE_DISPLAY_NAME: "Location",
   PAGE_PROPERTIES_PLACE_HINT:
     "Geographic location with coordinates; latitude and longitude are required.",
+  PAGE_PROPERTIES_START_DISPLAY_NAME: "Start",
+  PAGE_PROPERTIES_END_DISPLAY_NAME: "End",
+  PAGE_PROPERTIES_TIME_ZONE_DISPLAY_NAME: "Time Zone",
+  PAGE_PROPERTIES_EXPIRY_TIME_DISPLAY_NAME: "Expiry Time",
+  PAGE_PROPERTIES_LAT_DISPLAY_NAME: "Latitude",
+  PAGE_PROPERTIES_LON_DISPLAY_NAME: "Longitude",
+  PAGE_PROPERTIES_ADDRESS_DISPLAY_NAME: "Address",
+  PAGE_PROPERTIES_GOOGLE_PLACE_ID_DISPLAY_NAME: "Google Place ID",
+  PAGE_PROPERTIES_AWS_PLACE_ID_DISPLAY_NAME: "AWS Place ID",
   PAGE_PROPERTIES_PROPERTIES_DISPLAY_NAME: "Page Properties",
   PAGE_PROPERTIES_PROPERTIES_LLM_DESCRIPTION:
     "Property values for the new page. Each key should match a property name in the database schema.",
