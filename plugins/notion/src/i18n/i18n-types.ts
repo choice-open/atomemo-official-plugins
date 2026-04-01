@@ -60,6 +60,10 @@ type RootTranslation = {
    */
   SORT_DIRECTION_OPTION_DESCENDING: string
   /**
+   * T​i​m​e​s​t​a​m​p
+   */
+  SORT_TIMESTAMP_DISPLAY_NAME: string
+  /**
    * E​n​a​b​l​e​ ​S​o​r​t
    */
   SORT_ENABLE_DISPLAY_NAME: string
@@ -147,6 +151,10 @@ type RootTranslation = {
    * F​i​l​t​e​r​ ​i​s​ ​f​i​x​e​d​ ​t​o​ ​r​e​t​u​r​n​ ​o​n​l​y​ ​d​a​t​a​b​a​s​e​s​ ​(​d​a​t​a​ ​s​o​u​r​c​e​s​)​.
    */
   SEARCH_DATABASES_FILTER_LLM_DESCRIPTION: string
+  /**
+   * F​i​l​t​e​r
+   */
+  SEARCH_DATABASES_FILTER_DISPLAY_NAME: string
   /**
    * Q​u​e​r​y
    */
@@ -256,6 +264,10 @@ type RootTranslation = {
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION: string
   /**
+   * P​a​r​e​n​t
+   */
+  CREATE_PAGE_IN_DATABASE_PARENT_DISPLAY_NAME: string
+  /**
    * N​o​t​i​o​n​ ​C​r​e​a​t​e​ ​P​a​g​e​ ​i​n​ ​D​a​t​a​b​a​s​e
    */
   CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: string
@@ -271,6 +283,10 @@ type RootTranslation = {
    * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​p​a​r​e​n​t​ ​p​a​g​e​ ​w​h​e​r​e​ ​t​h​e​ ​n​e​w​ ​p​a​g​e​ ​w​i​l​l​ ​b​e​ ​c​r​e​a​t​e​d​.
    */
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: string
+  /**
+   * P​a​r​e​n​t
+   */
+  CREATE_PAGE_PARENT_DISPLAY_NAME: string
   /**
    * P​a​g​e​ ​t​i​t​l​e
    */
@@ -360,13 +376,85 @@ type RootTranslation = {
    */
   QUERY_DATABASE_TOOL_DESCRIPTION: string
   /**
+   * I​s​ ​T​o​g​g​l​e​a​b​l​e
+   */
+  BLOCKS_HEADING_IS_TOGGLEABLE_DISPLAY_NAME: string
+  /**
    * W​h​e​t​h​e​r​ ​t​h​e​ ​h​e​a​d​i​n​g​ ​c​a​n​ ​b​e​ ​t​o​g​g​l​e​d​ ​t​o​ ​s​h​o​w​/​h​i​d​e​ ​n​e​s​t​e​d​ ​c​o​n​t​e​n​t
    */
   BLOCKS_HEADING_IS_TOGGLEABLE_HINT: string
   /**
+   * U​R​L
+   */
+  BLOCKS_URL_DISPLAY_NAME: string
+  /**
    * U​R​L​ ​o​f​ ​t​h​e​ ​e​x​t​e​r​n​a​l​ ​r​e​s​o​u​r​c​e​ ​t​o​ ​e​m​b​e​d​ ​o​r​ ​l​i​n​k​ ​t​o
    */
   BLOCKS_URL_HINT: string
+  /**
+   * C​o​l​o​r
+   */
+  BLOCKS_COLOR_DISPLAY_NAME: string
+  /**
+   * E​x​t​e​r​n​a​l​ ​U​R​L
+   */
+  BLOCKS_EXTERNAL_URL_DISPLAY_NAME: string
+  /**
+   * R​i​c​h​ ​T​e​x​t
+   */
+  BLOCKS_RICH_TEXT_DISPLAY_NAME: string
+  /**
+   * T​i​t​l​e
+   */
+  BLOCKS_TITLE_DISPLAY_NAME: string
+  /**
+   * A​n​n​o​t​a​t​i​o​n​s
+   */
+  BLOCKS_ANNOTATIONS_DISPLAY_NAME: string
+  /**
+   * B​o​l​d
+   */
+  BLOCKS_ANNOTATION_BOLD_DISPLAY_NAME: string
+  /**
+   * I​t​a​l​i​c
+   */
+  BLOCKS_ANNOTATION_ITALIC_DISPLAY_NAME: string
+  /**
+   * S​t​r​i​k​e​t​h​r​o​u​g​h
+   */
+  BLOCKS_ANNOTATION_STRIKETHROUGH_DISPLAY_NAME: string
+  /**
+   * U​n​d​e​r​l​i​n​e
+   */
+  BLOCKS_ANNOTATION_UNDERLINE_DISPLAY_NAME: string
+  /**
+   * C​o​d​e
+   */
+  BLOCKS_ANNOTATION_CODE_DISPLAY_NAME: string
+  /**
+   * I​D
+   */
+  ID_DISPLAY_NAME: string
+  /**
+   * N​a​m​e
+   */
+  NAME_DISPLAY_NAME: string
+  /**
+   * D​e​s​c​r​i​p​t​i​o​n
+   */
+  DESCRIPTION_DISPLAY_NAME: string
+  /**
+   * C​o​l​o​r
+   */
+  COLOR_DISPLAY_NAME: string
+  /**
+   * S​e​l​e​c​t​ ​O​p​t​i​o​n
+   */
+  BLOCKS_SELECT_OPTION_DISPLAY_NAME: string
+  /**
+   * P​r​o​p​e​r​t​y​ ​I​D​ ​o​r​ ​N​a​m​e
+   */
+  PROPERTY_ID_OR_NAME_DISPLAY_NAME: string
   /**
    * P​a​r​a​g​r​a​p​h
    */
@@ -544,6 +632,70 @@ type RootTranslation = {
    */
   BLOCKS_CHILDREN_LLM_DESCRIPTION: string
   /**
+   * C​h​e​c​k​e​d
+   */
+  BLOCKS_CHECKED_DISPLAY_NAME: string
+  /**
+   * I​c​o​n
+   */
+  BLOCKS_ICON_DISPLAY_NAME: string
+  /**
+   * T​y​p​e
+   */
+  BLOCKS_TYPE_DISPLAY_NAME: string
+  /**
+   * E​x​p​r​e​s​s​i​o​n
+   */
+  BLOCKS_EXPRESSION_DISPLAY_NAME: string
+  /**
+   * P​a​g​e​ ​I​D
+   */
+  BLOCKS_PAGE_ID_DISPLAY_NAME: string
+  /**
+   * S​y​n​c​e​d​ ​F​r​o​m
+   */
+  BLOCKS_SYNCED_FROM_DISPLAY_NAME: string
+  /**
+   * B​l​o​c​k​ ​I​D
+   */
+  BLOCKS_BLOCK_ID_DISPLAY_NAME: string
+  /**
+   * W​i​d​t​h​ ​R​a​t​i​o
+   */
+  BLOCKS_WIDTH_RATIO_DISPLAY_NAME: string
+  /**
+   * T​a​b​l​e​ ​W​i​d​t​h
+   */
+  BLOCKS_TABLE_WIDTH_DISPLAY_NAME: string
+  /**
+   * H​a​s​ ​C​o​l​u​m​n​ ​H​e​a​d​e​r
+   */
+  BLOCKS_HAS_COLUMN_HEADER_DISPLAY_NAME: string
+  /**
+   * H​a​s​ ​R​o​w​ ​H​e​a​d​e​r
+   */
+  BLOCKS_HAS_ROW_HEADER_DISPLAY_NAME: string
+  /**
+   * C​e​l​l​s
+   */
+  BLOCKS_CELLS_DISPLAY_NAME: string
+  /**
+   * C​o​n​t​e​n​t
+   */
+  BLOCKS_CONTENT_DISPLAY_NAME: string
+  /**
+   * L​i​n​k
+   */
+  BLOCKS_LINK_DISPLAY_NAME: string
+  /**
+   * L​a​n​g​u​a​g​e
+   */
+  BLOCKS_LANGUAGE_DISPLAY_NAME: string
+  /**
+   * C​a​p​t​i​o​n
+   */
+  BLOCKS_CAPTION_DISPLAY_NAME: string
+  /**
    * P​r​o​p​e​r​t​y​ ​v​a​l​u​e
    */
   PAGE_PROPERTIES_VALUE_DISPLAY_NAME: string
@@ -555,6 +707,10 @@ type RootTranslation = {
    * T​i​t​l​e
    */
   PAGE_PROPERTIES_TITLE_DISPLAY_NAME: string
+  /**
+   * T​y​p​e
+   */
+  PAGE_PROPERTIES_TYPE_DISPLAY_NAME: string
   /**
    * R​i​c​h​ ​t​e​x​t​ ​f​r​a​g​m​e​n​t​s​ ​f​o​r​ ​t​h​e​ ​p​a​g​e​ ​t​i​t​l​e​;​ ​a​t​ ​l​e​a​s​t​ ​o​n​e​ ​t​e​x​t​ ​n​o​d​e​ ​i​s​ ​r​e​q​u​i​r​e​d​.​ ​S​u​p​p​o​r​t​s​ ​t​e​x​t​,​ ​m​e​n​t​i​o​n​s​,​ ​a​n​d​ ​e​q​u​a​t​i​o​n​s​.
    */
@@ -672,6 +828,42 @@ type RootTranslation = {
    */
   PAGE_PROPERTIES_PLACE_HINT: string
   /**
+   * S​t​a​r​t
+   */
+  PAGE_PROPERTIES_START_DISPLAY_NAME: string
+  /**
+   * E​n​d
+   */
+  PAGE_PROPERTIES_END_DISPLAY_NAME: string
+  /**
+   * T​i​m​e​ ​Z​o​n​e
+   */
+  PAGE_PROPERTIES_TIME_ZONE_DISPLAY_NAME: string
+  /**
+   * E​x​p​i​r​y​ ​T​i​m​e
+   */
+  PAGE_PROPERTIES_EXPIRY_TIME_DISPLAY_NAME: string
+  /**
+   * L​a​t​i​t​u​d​e
+   */
+  PAGE_PROPERTIES_LAT_DISPLAY_NAME: string
+  /**
+   * L​o​n​g​i​t​u​d​e
+   */
+  PAGE_PROPERTIES_LON_DISPLAY_NAME: string
+  /**
+   * A​d​d​r​e​s​s
+   */
+  PAGE_PROPERTIES_ADDRESS_DISPLAY_NAME: string
+  /**
+   * G​o​o​g​l​e​ ​P​l​a​c​e​ ​I​D
+   */
+  PAGE_PROPERTIES_GOOGLE_PLACE_ID_DISPLAY_NAME: string
+  /**
+   * A​W​S​ ​P​l​a​c​e​ ​I​D
+   */
+  PAGE_PROPERTIES_AWS_PLACE_ID_DISPLAY_NAME: string
+  /**
    * P​a​g​e​ ​P​r​o​p​e​r​t​i​e​s
    */
   PAGE_PROPERTIES_PROPERTIES_DISPLAY_NAME: string
@@ -726,6 +918,10 @@ export type TranslationFunctions = {
    * Descending
    */
   SORT_DIRECTION_OPTION_DESCENDING: () => LocalizedString
+  /**
+   * Timestamp
+   */
+  SORT_TIMESTAMP_DISPLAY_NAME: () => LocalizedString
   /**
    * Enable Sort
    */
@@ -814,6 +1010,10 @@ export type TranslationFunctions = {
    * Filter is fixed to return only databases (data sources).
    */
   SEARCH_DATABASES_FILTER_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Filter
+   */
+  SEARCH_DATABASES_FILTER_DISPLAY_NAME: () => LocalizedString
   /**
    * Query
    */
@@ -923,6 +1123,10 @@ export type TranslationFunctions = {
    */
   CREATE_PAGE_IN_DATABASE_PARENT_ID_LLM_DESCRIPTION: () => LocalizedString
   /**
+   * Parent
+   */
+  CREATE_PAGE_IN_DATABASE_PARENT_DISPLAY_NAME: () => LocalizedString
+  /**
    * Notion Create Page in Database
    */
   CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME: () => LocalizedString
@@ -938,6 +1142,10 @@ export type TranslationFunctions = {
    * The ID of the parent page where the new page will be created.
    */
   CREATE_PAGE_PARENT_PAGE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Parent
+   */
+  CREATE_PAGE_PARENT_DISPLAY_NAME: () => LocalizedString
   /**
    * Page title
    */
@@ -1027,13 +1235,85 @@ export type TranslationFunctions = {
    */
   QUERY_DATABASE_TOOL_DESCRIPTION: () => LocalizedString
   /**
+   * Is Toggleable
+   */
+  BLOCKS_HEADING_IS_TOGGLEABLE_DISPLAY_NAME: () => LocalizedString
+  /**
    * Whether the heading can be toggled to show/hide nested content
    */
   BLOCKS_HEADING_IS_TOGGLEABLE_HINT: () => LocalizedString
   /**
+   * URL
+   */
+  BLOCKS_URL_DISPLAY_NAME: () => LocalizedString
+  /**
    * URL of the external resource to embed or link to
    */
   BLOCKS_URL_HINT: () => LocalizedString
+  /**
+   * Color
+   */
+  BLOCKS_COLOR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * External URL
+   */
+  BLOCKS_EXTERNAL_URL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Rich Text
+   */
+  BLOCKS_RICH_TEXT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Title
+   */
+  BLOCKS_TITLE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Annotations
+   */
+  BLOCKS_ANNOTATIONS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Bold
+   */
+  BLOCKS_ANNOTATION_BOLD_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Italic
+   */
+  BLOCKS_ANNOTATION_ITALIC_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Strikethrough
+   */
+  BLOCKS_ANNOTATION_STRIKETHROUGH_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Underline
+   */
+  BLOCKS_ANNOTATION_UNDERLINE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Code
+   */
+  BLOCKS_ANNOTATION_CODE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * ID
+   */
+  ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Name
+   */
+  NAME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Description
+   */
+  DESCRIPTION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Color
+   */
+  COLOR_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Select Option
+   */
+  BLOCKS_SELECT_OPTION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Property ID or Name
+   */
+  PROPERTY_ID_OR_NAME_DISPLAY_NAME: () => LocalizedString
   /**
    * Paragraph
    */
@@ -1211,6 +1491,70 @@ export type TranslationFunctions = {
    */
   BLOCKS_CHILDREN_LLM_DESCRIPTION: () => LocalizedString
   /**
+   * Checked
+   */
+  BLOCKS_CHECKED_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Icon
+   */
+  BLOCKS_ICON_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Type
+   */
+  BLOCKS_TYPE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Expression
+   */
+  BLOCKS_EXPRESSION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Page ID
+   */
+  BLOCKS_PAGE_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Synced From
+   */
+  BLOCKS_SYNCED_FROM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Block ID
+   */
+  BLOCKS_BLOCK_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Width Ratio
+   */
+  BLOCKS_WIDTH_RATIO_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Table Width
+   */
+  BLOCKS_TABLE_WIDTH_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Has Column Header
+   */
+  BLOCKS_HAS_COLUMN_HEADER_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Has Row Header
+   */
+  BLOCKS_HAS_ROW_HEADER_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Cells
+   */
+  BLOCKS_CELLS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Content
+   */
+  BLOCKS_CONTENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Link
+   */
+  BLOCKS_LINK_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Language
+   */
+  BLOCKS_LANGUAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Caption
+   */
+  BLOCKS_CAPTION_DISPLAY_NAME: () => LocalizedString
+  /**
    * Property value
    */
   PAGE_PROPERTIES_VALUE_DISPLAY_NAME: () => LocalizedString
@@ -1222,6 +1566,10 @@ export type TranslationFunctions = {
    * Title
    */
   PAGE_PROPERTIES_TITLE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Type
+   */
+  PAGE_PROPERTIES_TYPE_DISPLAY_NAME: () => LocalizedString
   /**
    * Rich text fragments for the page title; at least one text node is required. Supports text, mentions, and equations.
    */
@@ -1338,6 +1686,42 @@ export type TranslationFunctions = {
    * Geographic location with coordinates; latitude and longitude are required.
    */
   PAGE_PROPERTIES_PLACE_HINT: () => LocalizedString
+  /**
+   * Start
+   */
+  PAGE_PROPERTIES_START_DISPLAY_NAME: () => LocalizedString
+  /**
+   * End
+   */
+  PAGE_PROPERTIES_END_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Time Zone
+   */
+  PAGE_PROPERTIES_TIME_ZONE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Expiry Time
+   */
+  PAGE_PROPERTIES_EXPIRY_TIME_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Latitude
+   */
+  PAGE_PROPERTIES_LAT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Longitude
+   */
+  PAGE_PROPERTIES_LON_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Address
+   */
+  PAGE_PROPERTIES_ADDRESS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Google Place ID
+   */
+  PAGE_PROPERTIES_GOOGLE_PLACE_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * AWS Place ID
+   */
+  PAGE_PROPERTIES_AWS_PLACE_ID_DISPLAY_NAME: () => LocalizedString
   /**
    * Page Properties
    */

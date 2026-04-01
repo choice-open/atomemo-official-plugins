@@ -33,6 +33,7 @@ const parameters: Array<Property<ParametersNames>> = [
     items: {
       type: "string",
       name: "property_id_or_name",
+      display_name: t("PROPERTY_ID_OR_NAME_DISPLAY_NAME"),
       ui: { component: "input", support_expression: true },
     },
     default: [],
@@ -74,10 +75,10 @@ export const getAPageInADatabaseTool: ToolDefinition = {
       const data = await client.pages.retrieve({
         filter_properties:
           Array.isArray(rawParameters.filter_properties) &&
-          rawParameters.filter_properties.length > 0
+            rawParameters.filter_properties.length > 0
             ? rawParameters.filter_properties.filter(
-                (item): item is string => typeof item === "string",
-              )
+              (item): item is string => typeof item === "string",
+            )
             : undefined,
         page_id: pageId,
       } satisfies GetPageParameters)

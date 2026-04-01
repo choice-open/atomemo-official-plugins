@@ -22,21 +22,23 @@ import createAPageSkill from "./create-a-page-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Extract<
-      keyof CreatePageParameters,
-      "parent" | "children" | "icon" | "properties"
-    >
+    keyof CreatePageParameters,
+    "parent" | "children" | "icon" | "properties"
+  >
   | "api_key"
   | "simplify_output"
 
 const parentProperty: PropertyObject<"parent"> = {
   name: "parent",
   type: "object",
+  display_name: t("CREATE_PAGE_PARENT_DISPLAY_NAME"),
   properties: [
     {
       name: "type",
       type: "string",
       required: false,
       constant: "page_id",
+      display_name: t("CREATE_PAGE_PARENT_DISPLAY_NAME"),
       ui: {
         component: "input",
         display_none: true,
@@ -116,16 +118,16 @@ export const createAPageTool: ToolDefinition = {
 
 function formatTitleProperty(title: unknown):
   | {
-      title: {
-        title: Array<{
-          type?: "text"
-          text: {
-            content: string
-          }
-        }>
-        type?: "title"
-      }
+    title: {
+      title: Array<{
+        type?: "text"
+        text: {
+          content: string
+        }
+      }>
+      type?: "title"
     }
+  }
   | undefined {
   if (typeof title !== "string" || title.trim() === "") {
     return undefined

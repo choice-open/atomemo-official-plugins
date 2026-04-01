@@ -34,6 +34,7 @@ const parameters: Array<Property<ParametersNames>> = [
     // Constant filter to only return databases (data sources)
     name: "filter",
     type: "object",
+    display_name: t("SEARCH_DATABASES_FILTER_DISPLAY_NAME"),
     required: false,
     ai: {
       llm_description: t("SEARCH_DATABASES_FILTER_LLM_DESCRIPTION"),
@@ -43,6 +44,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "property",
         type: "string",
         constant: "object",
+        display_name: t("SEARCH_DATABASES_FILTER_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -53,6 +55,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "value",
         type: "string",
         constant: "data_source",
+        display_name: t("SEARCH_DATABASES_FILTER_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -103,7 +106,7 @@ export const searchDatabasesTool: ToolDefinition = {
         : 100
     const query =
       typeof rawParameters.query === "string" &&
-      rawParameters.query.trim() !== ""
+        rawParameters.query.trim() !== ""
         ? rawParameters.query
         : undefined
     const sort =
