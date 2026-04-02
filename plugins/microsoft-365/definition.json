@@ -1,0 +1,159 @@
+{
+  "name": "microsoft-365",
+  "display_name": {
+    "en_US": "Testing Plugin",
+    "zh_Hans": "测试插件"
+  },
+  "description": {
+    "en_US": "A plugin for testing the plugin",
+    "zh_Hans": "一个用于测试插件的插件"
+  },
+  "icon": "🎛️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/microsoft-365",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "余凡",
+  "email": "dev.yufan@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "microsoft-365-oauth2",
+      "display_name": {
+        "en_US": "Microsoft 365 OAuth2",
+        "zh_Hans": "Microsoft 365 OAuth2"
+      },
+      "description": {
+        "en_US": "OAuth2 credential for accessing Microsoft Graph APIs.",
+        "zh_Hans": "用于访问 Microsoft Graph API 的 OAuth2 凭据。"
+      },
+      "icon": "🔑",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter your Microsoft Entra application client ID",
+              "zh_Hans": "输入 Microsoft Entra 应用的 Client ID"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "Client Secret"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter your Microsoft Entra application client secret",
+              "zh_Hans": "输入 Microsoft Entra 应用的 Client Secret"
+            },
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "tenant_id",
+          "display_name": {
+            "en_US": "Custom Tenant ID",
+            "zh_Hans": "自定义 Tenant ID"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter your custom tenant ID (GUID or domain)",
+              "zh_Hans": "输入自定义租户 ID（GUID 或域名）"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "demo-tool",
+      "display_name": {
+        "en_US": "Demo Tool",
+        "zh_Hans": "演示工具"
+      },
+      "description": {
+        "en_US": "A tool for testing the plugin",
+        "zh_Hans": "一个用于测试插件的工具"
+      },
+      "icon": "🧰",
+      "parameters": [
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "位置"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The location to test",
+              "zh_Hans": "要测试的位置"
+            },
+            "placeholder": {
+              "en_US": "Enter the location to test",
+              "zh_Hans": "输入要测试的位置"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭据"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Select a configured Microsoft 365 OAuth2 credential.",
+              "zh_Hans": "选择已配置的 Microsoft 365 OAuth2 凭据。"
+            },
+            "width": "full",
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "microsoft-365-oauth2"
+        }
+      ],
+      "skill": "# Demo Tool Documentation\n\n## Tool\n\n- **Name**: `demo-tool`\n- **Purpose**: Returns a test message using the provided location value.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `location` | `string` | `true` | `input` | Location text provided by the user. Supports expressions. | `\"Singapore\"` |\n\n## Tool Input Example\n\n```json\n{\n \"parameters\": {\n   \"location\": \"Singapore\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": \"Testing the plugin with location: Singapore\"\n}\n```\n"
+    }
+  ]
+}
