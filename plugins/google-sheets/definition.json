@@ -289,6 +289,7 @@
               "en_US": "RAW: store values exactly as strings (e.g. \"1-2\" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).",
               "zh_Hans": "RAW：按字符串原样写入（例如 \"1-2\" 保持为文本）。USER_ENTERED：像在表格里手工输入一样解析——数字、日期、以 = 开头的字符串会按公式处理（默认）。"
             },
+            "support_expression": true,
             "width": "medium",
             "component": "select"
           },
@@ -406,6 +407,7 @@
               "en_US": "RAW: store values exactly as strings (e.g. \"1-2\" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).",
               "zh_Hans": "RAW：按字符串原样写入（例如 \"1-2\" 保持为文本）。USER_ENTERED：像在表格里手工输入一样解析——数字、日期、以 = 开头的字符串会按公式处理（默认）。"
             },
+            "support_expression": true,
             "width": "medium",
             "component": "select"
           },
@@ -428,6 +430,7 @@
               "en_US": "INSERT_ROWS: insert new rows and shift existing rows down (safer when data may exist below). OVERWRITE: write into the next rows without inserting — can overwrite cells if the write range overlaps existing data.",
               "zh_Hans": "INSERT_ROWS：插入新行并下移已有行（下方有数据时更安全）。OVERWRITE：不插入行，直接往后写——若与已有区域重叠可能覆盖单元格。"
             },
+            "support_expression": true,
             "width": "medium",
             "component": "select"
           },
@@ -667,6 +670,7 @@
               "en_US": "When enabled, responses include cell values and can be very large on big spreadsheets. Leave off (default) for titles, sheetIds, grid size, and other metadata only — faster and lighter.",
               "zh_Hans": "开启后响应会包含单元格内容，大表可能非常庞大。关闭（默认）仅返回标题、sheetId、行列规模等元数据，更轻、更快。"
             },
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
@@ -850,6 +854,7 @@
               "en_US": "ROWS: each inner array is one row (usual for tables). COLUMNS: each inner array is one column. Controls how the API returns nested arrays for reads.",
               "zh_Hans": "ROWS：内层数组表示一行（表格常用）。COLUMNS：内层数组表示一列。影响读取接口返回的二维数组如何组织。"
             },
+            "support_expression": true,
             "width": "medium",
             "component": "select"
           },
@@ -872,6 +877,7 @@
               "en_US": "FORMATTED_VALUE: display text as in the UI (default). UNFORMATTED_VALUE: raw numbers/dates without display formatting. FORMULA: return formula strings like =SUM(A1:A10) when the cell has a formula.",
               "zh_Hans": "FORMATTED_VALUE：与界面显示一致（默认）。UNFORMATTED_VALUE：原始数字/日期，不含显示格式。FORMULA：若单元格为公式则返回如 =SUM(A1:A10) 的公式文本。"
             },
+            "support_expression": true,
             "width": "medium",
             "component": "select"
           },
