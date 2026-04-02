@@ -6,11 +6,15 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import deleteCalendarSkill from "./delete-calendar-skill.md" with {
+  type: "text",
+}
 
 export const deleteCalendarTool: ToolDefinition = {
   name: "delete-calendar",
   display_name: t("DELETE_CALENDAR_DISPLAY_NAME"),
   description: t("DELETE_CALENDAR_DESCRIPTION"),
+  skill: deleteCalendarSkill,
   icon: "🗑️",
   parameters: [calendarCredentialParam, calendarIdParamDeleteOrInsert],
   async invoke({ args }) {

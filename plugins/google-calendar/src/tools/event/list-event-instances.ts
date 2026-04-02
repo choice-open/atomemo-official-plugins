@@ -8,11 +8,15 @@ import {
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 import { parseTimeRange } from "../../lib/validators"
+import listEventInstancesSkill from "./list-event-instances-skill.md" with {
+  type: "text",
+}
 
 export const listEventInstancesTool: ToolDefinition = {
   name: "list-event-instances",
   display_name: t("LIST_EVENT_INSTANCES_DISPLAY_NAME"),
   description: t("LIST_EVENT_INSTANCES_DESCRIPTION"),
+  skill: listEventInstancesSkill,
   icon: "🔁",
   parameters: [
     calendarCredentialParam,

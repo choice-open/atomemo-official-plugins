@@ -9,6 +9,7 @@ import {
   optionalRfc3339Schema,
   parseTimeRange,
 } from "../../lib/validators"
+import listEventsSkill from "./list-events-skill.md" with { type: "text" }
 
 function splitToArray(value: unknown): string[] | undefined {
   if (value === undefined || value === null || value === "") return undefined
@@ -34,6 +35,7 @@ export const listEventsTool: ToolDefinition = {
   name: "list-events",
   display_name: t("LIST_EVENTS_DISPLAY_NAME"),
   description: t("LIST_EVENTS_DESCRIPTION"),
+  skill: listEventsSkill,
   icon: "📋",
   parameters: [
     calendarCredentialParam,

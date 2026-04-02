@@ -1,6 +1,18 @@
+import { readFileSync } from "node:fs"
 import { defineConfig } from "vitest/config"
 
 export default defineConfig({
+  plugins: [
+    {
+      name: "skill-md-as-text",
+      enforce: "pre",
+      load(id) {
+        if (!id.endsWith("-skill.md")) return
+        const text = readFileSync(id, "utf-8")
+        return `export default ${JSON.stringify(text)}`
+      },
+    },
+  ],
   test: {
     include: ["test/**/*.test.ts"],
     exclude: ["**/node_modules/**"],

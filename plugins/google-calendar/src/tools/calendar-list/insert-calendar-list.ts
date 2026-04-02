@@ -6,11 +6,15 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import insertCalendarListSkill from "./insert-calendar-list-skill.md" with {
+  type: "text",
+}
 
 export const insertCalendarListTool: ToolDefinition = {
   name: "insert-calendar-list",
   display_name: t("INSERT_CALENDAR_LIST_DISPLAY_NAME"),
   description: t("INSERT_CALENDAR_LIST_DESCRIPTION"),
+  skill: insertCalendarListSkill,
   icon: "➕",
   parameters: [
     calendarCredentialParam,

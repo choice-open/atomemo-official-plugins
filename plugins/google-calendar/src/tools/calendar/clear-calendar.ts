@@ -3,11 +3,13 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import clearCalendarSkill from "./clear-calendar-skill.md" with { type: "text" }
 
 export const clearCalendarTool: ToolDefinition = {
   name: "clear-calendar",
   display_name: t("CLEAR_CALENDAR_DISPLAY_NAME"),
   description: t("CLEAR_CALENDAR_DESCRIPTION"),
+  skill: clearCalendarSkill,
   icon: "⚠️",
   parameters: [
     calendarCredentialParam,
