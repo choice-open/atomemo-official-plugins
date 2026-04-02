@@ -2,22 +2,20 @@ import type {
   JsonValue,
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
-import { resolveCredential } from "../helpers/credentials"
-import { parseBatchGetValuesParams } from "../helpers/schemas"
-import { callSheets } from "../helpers/sheets-api-error"
-import { t } from "../i18n/i18n-node"
-import batchGetValuesSkill from "./batch-get-values-skill.md" with {
-  type: "text",
-}
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2";
+import { resolveCredential } from "../helpers/credentials";
+import { parseBatchGetValuesParams } from "../helpers/schemas";
+import { callSheets } from "../helpers/sheets-api-error";
+import { t } from "../i18n/i18n-node";
+import batchGetValuesSkill from "./batch-get-values-skill.md" with { type: "text" };
 
 type ParameterNames =
   | "credential_id"
   | "spreadsheet_id"
   | "ranges"
   | "major_dimension"
-  | "value_render_option"
+  | "value_render_option";
 
 const parameters: Array<Property<ParameterNames>> = [
   {
@@ -65,6 +63,7 @@ const parameters: Array<Property<ParameterNames>> = [
       component: "select",
       hint: t("PARAM_MAJOR_DIMENSION_HINT"),
       width: "medium",
+      support_expression: true,
     },
   },
   {
@@ -78,9 +77,10 @@ const parameters: Array<Property<ParameterNames>> = [
       component: "select",
       hint: t("PARAM_VALUE_RENDER_OPTION_HINT"),
       width: "medium",
+      support_expression: true,
     },
   },
-]
+];
 
 export const batchGetValuesTool: ToolDefinition = {
   name: "google-sheets-batch-get-values",
@@ -90,13 +90,13 @@ export const batchGetValuesTool: ToolDefinition = {
   icon: "📚",
   parameters,
   async invoke({ args }) {
-    const params = parseBatchGetValuesParams(args.parameters ?? {})
-    const { sheets } = resolveCredential(args as never)
+    const params = parseBatchGetValuesParams(args.parameters ?? {});
+    const { sheets } = resolveCredential(args as never);
 
     const res = await callSheets(() =>
       sheets.spreadsheets.values.batchGet(params),
-    )
+    );
 
-    return res.data as unknown as JsonValue
+    return res.data as unknown as JsonValue;
   },
-}
+};

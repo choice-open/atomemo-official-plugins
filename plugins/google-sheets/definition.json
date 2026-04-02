@@ -8,7 +8,7 @@
     "en_US": "Read, write, and manage Google Sheets spreadsheets.",
     "zh_Hans": "读取、写入和管理 Google Sheets 电子表格。"
   },
-  "icon": "symbol:icon-google-sheets",
+  "icon": "https://fonts.gstatic.com/s/i/productlogos/sheets_2020q4/v9/192px.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-sheets",
   "locales": [
