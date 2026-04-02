@@ -1,0 +1,441 @@
+{
+  "name": "hacker-news",
+  "display_name": {
+    "en_US": "Hacker News",
+    "zh_Hans": "Hacker News"
+  },
+  "description": {
+    "en_US": "Consume the Hacker News API powered by Algolia",
+    "zh_Hans": "使用 Algolia 驱动的 Hacker News API"
+  },
+  "icon": "https://news.ycombinator.com/y18.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/hacker-news",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "search-hacker-news",
+      "display_name": {
+        "en_US": "Search Hacker News",
+        "zh_Hans": "搜索 Hacker News"
+      },
+      "description": {
+        "en_US": "Search stories and comments from Hacker News",
+        "zh_Hans": "搜索 Hacker News 中的文章和评论"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search query string for filtering Hacker News stories. Supports Algolia search syntax",
+              "zh_Hans": "用于搜索 Hacker News 文章的查询字符串，支持 Algolia 搜索语法"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The keyword for filtering the results of the query",
+              "zh_Hans": "用于过滤查询结果的关键词"
+            },
+            "placeholder": {
+              "en_US": "Launch HN, AI agents, YC",
+              "zh_Hans": "Launch HN、AI agents、YC"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "",
+          "min_length": 0
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional zero-based page number for Algolia pagination.",
+              "zh_Hans": "可选的 Algolia 分页页码，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Zero-based result page to fetch from the Hacker News Algolia API",
+              "zh_Hans": "从 Hacker News Algolia API 获取的结果页码，从 0 开始"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        },
+        {
+          "name": "results_per_page",
+          "display_name": {
+            "en_US": "Results Per Page",
+            "zh_Hans": "每页结果数"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Maximum number of search results to return per page. Range: 1-100",
+              "zh_Hans": "每页返回搜索结果的最大数量。范围：1-100"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return per page",
+              "zh_Hans": "每页返回结果的最大数量"
+            },
+            "placeholder": {
+              "en_US": "100",
+              "zh_Hans": "100"
+            },
+            "support_expression": true,
+            "width": "small",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1
+        },
+        {
+          "name": "search_by_date",
+          "display_name": {
+            "en_US": "Search By Date",
+            "zh_Hans": "按日期搜索"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When true, calls the Hacker News Algolia search_by_date endpoint instead of search.",
+              "zh_Hans": "启用后调用 Hacker News Algolia 的 search_by_date 端点，而不是 search。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Use Algolia's search_by_date endpoint to sort by newest first",
+              "zh_Hans": "使用 Algolia 的 search_by_date 端点按最新优先排序"
+            },
+            "support_expression": true,
+            "width": "small",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "tags",
+          "display_name": {
+            "en_US": "Tags",
+            "zh_Hans": "标签"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter results by one or more Hacker News item tags: story, comment, poll, pollopt, show_hn, ask_hn, or front_page",
+              "zh_Hans": "按一个或多个 Hacker News 标签过滤结果：story、comment、poll、pollopt、show_hn、ask_hn 或 front_page"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optionally narrow results to one or more Hacker News item types",
+              "zh_Hans": "可选地将结果限制为一个或多个 Hacker News 条目类型"
+            },
+            "support_expression": true,
+            "width": "full",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Story",
+                  "zh_Hans": "文章"
+                },
+                "value": "story"
+              },
+              {
+                "label": {
+                  "en_US": "Comment",
+                  "zh_Hans": "评论"
+                },
+                "value": "comment"
+              },
+              {
+                "label": {
+                  "en_US": "Poll",
+                  "zh_Hans": "投票"
+                },
+                "value": "poll"
+              },
+              {
+                "label": {
+                  "en_US": "Poll Option",
+                  "zh_Hans": "投票选项"
+                },
+                "value": "pollopt"
+              },
+              {
+                "label": {
+                  "en_US": "Show HN",
+                  "zh_Hans": "Show HN"
+                },
+                "value": "show_hn"
+              },
+              {
+                "label": {
+                  "en_US": "Ask HN",
+                  "zh_Hans": "Ask HN"
+                },
+                "value": "ask_hn"
+              },
+              {
+                "label": {
+                  "en_US": "Front Page",
+                  "zh_Hans": "首页"
+                },
+                "value": "front_page"
+              }
+            ],
+            "component": "multi-select"
+          },
+          "type": "array",
+          "default": [],
+          "items": {
+            "name": "tag",
+            "display_name": {
+              "en_US": "Tags",
+              "zh_Hans": "标签"
+            },
+            "ai": {
+              "llm_description": {
+                "en_US": "Filter results by one or more Hacker News item tags: story, comment, poll, pollopt, show_hn, ask_hn, or front_page",
+                "zh_Hans": "按一个或多个 Hacker News 标签过滤结果：story、comment、poll、pollopt、show_hn、ask_hn 或 front_page"
+              }
+            },
+            "type": "string"
+          }
+        },
+        {
+          "name": "author",
+          "display_name": {
+            "en_US": "Author",
+            "zh_Hans": "作者"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Hacker News username filter. This is mapped to the Algolia tag syntax author_USERNAME.",
+              "zh_Hans": "可选的 Hacker News 用户名过滤条件，会映射为 Algolia 的 author_USERNAME 标签语法。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter results to items by a specific Hacker News username",
+              "zh_Hans": "将结果过滤为某个指定的 Hacker News 用户"
+            },
+            "placeholder": {
+              "en_US": "pg",
+              "zh_Hans": "pg"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "",
+          "min_length": 0
+        },
+        {
+          "name": "story_id",
+          "display_name": {
+            "en_US": "Story ID",
+            "zh_Hans": "Story ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Hacker News story ID filter. This is mapped to the Algolia tag syntax story_ID.",
+              "zh_Hans": "可选的 Hacker News 故事 ID 过滤条件，会映射为 Algolia 的 story_ID 标签语法。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter results to a specific Hacker News story ID context",
+              "zh_Hans": "将结果过滤到某个特定的 Hacker News 故事 ID 上下文"
+            },
+            "placeholder": {
+              "en_US": "8863",
+              "zh_Hans": "8863"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "numeric_filters",
+          "display_name": {
+            "en_US": "Numeric Filters",
+            "zh_Hans": "数值过滤"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional raw Algolia numericFilters query string, such as filters on created_at_i, points, or num_comments.",
+              "zh_Hans": "可选的原始 Algolia numericFilters 查询字符串，例如针对 created_at_i、points 或 num_comments 的过滤。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Advanced Algolia numericFilters string, for example created_at_i>1700000000 or points>100",
+              "zh_Hans": "高级 Algolia numericFilters 字符串，例如 created_at_i>1700000000 或 points>100"
+            },
+            "placeholder": {
+              "en_US": "created_at_i>1700000000",
+              "zh_Hans": "created_at_i>1700000000"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "",
+          "min_length": 0
+        }
+      ],
+      "skill": "# hacker-news / search-hacker-news\n\nSearch Hacker News stories and comments through the Algolia API.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `results_per_page` | `integer` | no | `100` | Maximum number of results to return per page. Range: 1-100. |\n| `search_by_date` | `boolean` | no | `false` | When `true`, calls Algolia's `search_by_date` endpoint instead of `search`. |\n| `keyword` | `string` | no | `\"\"` | Search query text. |\n| `tags` | `array<string>` | no | `[]` | Optional Hacker News tags. Allowed values: `story`, `comment`, `poll`, `pollopt`, `show_hn`, `ask_hn`, `front_page`. |\n| `page` | `integer` | no | `0` | Zero-based result page for Algolia pagination. |\n| `author` | `string` | no | `\"\"` | Optional Hacker News username. Internally mapped to Algolia tag syntax `author_USERNAME`. |\n| `story_id` | `integer` | no | - | Optional Hacker News story ID. Internally mapped to Algolia tag syntax `story_ID`. |\n| `numeric_filters` | `string` | no | `\"\"` | Optional raw Algolia `numericFilters` string, such as `created_at_i>1700000000` or `points>100`. |\n\n### Example Input\n\n```json\n{\n  \"keyword\": \"YC\",\n  \"tags\": [\"story\"],\n  \"search_by_date\": true,\n  \"results_per_page\": 1,\n  \"page\": 0\n}\n```\n\n## Credential\n\n- No credential is required.\n\n## Success Output\n\n```json\n{\n  \"query\": \"YC\",\n  \"tags\": [\"story\"],\n  \"total\": 28560,\n  \"count\": 1,\n  \"items\": [\n    {\n      \"id\": \"47612289\",\n      \"type\": \"story\",\n      \"title\": \"Please stop flagging everything going against Israel\",\n      \"url\": null,\n      \"author\": \"throwaw12\",\n      \"created_at\": \"2026-04-02T10:03:02Z\",\n      \"points\": 5,\n      \"comment_count\": 3,\n      \"text\": \"Another post got flagged: https://news.ycombinator.com/item?id=47612053\",\n      \"story_id\": 47612289\n    }\n  ]\n}\n```\n\n### Output Notes\n\n- `query` echoes the search text sent to Algolia.\n- `tags` includes only the user-selected Hacker News tag filters, not derived helper tags such as `author_USERNAME`.\n- `items` are normalized Algolia hits with common fields such as `id`, `type`, `title`, `author`, `points`, `comment_count`, and `text`.\n"
+    },
+    {
+      "name": "get-hacker-news-article",
+      "display_name": {
+        "en_US": "Get Hacker News Article",
+        "zh_Hans": "获取 Hacker News 文章"
+      },
+      "description": {
+        "en_US": "Fetch a Hacker News item by ID, optionally including comments",
+        "zh_Hans": "根据 ID 获取 Hacker News 条目，并可选择包含其评论树"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "article_id",
+          "display_name": {
+            "en_US": "Article ID",
+            "zh_Hans": "文章 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The unique identifier of a Hacker News item to fetch. Numeric ID from the URL",
+              "zh_Hans": "要获取的 Hacker News 条目的唯一标识符，URL 中的数字 ID"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the Hacker News item to be returned",
+              "zh_Hans": "要返回的 Hacker News 条目 ID"
+            },
+            "placeholder": {
+              "en_US": "Example: 8863",
+              "zh_Hans": "示例：8863"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "",
+          "min_length": 1
+        },
+        {
+          "name": "include_comments",
+          "display_name": {
+            "en_US": "Include Comments",
+            "zh_Hans": "包含评论"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "When true, includes the full comment tree in the response. When false, returns only the normalized item metadata",
+              "zh_Hans": "启用时返回完整评论树，关闭时仅返回标准化后的条目元数据"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Whether to include the full comment tree for the Hacker News item",
+              "zh_Hans": "是否包含该 Hacker News 条目的完整评论树"
+            },
+            "support_expression": true,
+            "width": "small",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "skill": "# hacker-news / get-hacker-news-article\n\nFetch a Hacker News item by ID and optionally include its comment tree.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `article_id` | `string` | yes | `\"\"` | Hacker News item ID to fetch. |\n| `include_comments` | `boolean` | no | `false` | When `true`, includes the normalized comment tree for the item. |\n\n### Example Input\n\n```json\n{\n  \"article_id\": \"8863\",\n  \"include_comments\": true\n}\n```\n\n## Credential\n\n- No credential is required.\n\n## Success Output\n\n```json\n{\n  \"item\": {\n    \"id\": 8863,\n    \"type\": \"story\",\n    \"title\": \"My YC app: Dropbox - Throw away your USB drive\",\n    \"url\": \"http://www.getdropbox.com/u/2/screencast.html\",\n    \"author\": \"dhouston\",\n    \"created_at\": \"2007-04-04T19:16:40.000Z\",\n    \"points\": 104,\n    \"text\": null,\n    \"parent_id\": null,\n    \"children_count\": 32\n  },\n  \"comments\": [\n    {\n      \"id\": 8865,\n      \"author\": \"dhouston\",\n      \"text\": \"oh, and a mac port is coming :)\",\n      \"created_at\": \"2007-04-04T19:22:55.000Z\",\n      \"parent_id\": 8863,\n      \"children_count\": 1,\n      \"children\": [\n        {\n          \"id\": 9007,\n          \"author\": \"vlad\",\n          \"text\": \"Drew, this is awesome! All of the features you mentioned are exactly what people need.\",\n          \"created_at\": \"2007-04-05T01:48:11.000Z\",\n          \"parent_id\": 8865,\n          \"children_count\": 0,\n          \"children\": []\n        }\n      ]\n    }\n  ]\n}\n```\n\n### Output Notes\n\n- `item` is always returned and contains normalized metadata for the requested Hacker News item.\n- `comments` is only returned when `include_comments` is `true`.\n- Comment entries are recursive and each child uses the same normalized shape.\n"
+    },
+    {
+      "name": "get-hacker-news-user",
+      "display_name": {
+        "en_US": "Get Hacker News User",
+        "zh_Hans": "获取 Hacker News 用户"
+      },
+      "description": {
+        "en_US": "Fetch a Hacker News user profile by username",
+        "zh_Hans": "根据用户名获取 Algolia API 暴露的 Hacker News 用户字段"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "username",
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The Hacker News username to fetch profile information for",
+              "zh_Hans": "要获取 Algolia API 暴露用户字段的 Hacker News 用户名"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The Hacker News username to return",
+              "zh_Hans": "要返回的 Hacker News 用户名"
+            },
+            "placeholder": {
+              "en_US": "Example: pg",
+              "zh_Hans": "示例：pg"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "",
+          "min_length": 1
+        }
+      ],
+      "skill": "# hacker-news / get-hacker-news-user\n\nFetch a Hacker News user profile by username through the Algolia API.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `username` | `string` | yes | `\"\"` | Hacker News username to fetch. |\n\n### Example Input\n\n```json\n{\n  \"username\": \"pg\"\n}\n```\n\n## Credential\n\n- No credential is required.\n\n## Success Output\n\n```json\n{\n  \"user\": {\n    \"username\": \"pg\",\n    \"karma\": 157316,\n    \"about\": \"Bug fixer.\"\n  }\n}\n```\n\n### Output Notes\n\n- `user.username` is the normalized Hacker News username.\n- `karma` and `about` may be `null` when the upstream API omits them.\n"
+    }
+  ]
+}
