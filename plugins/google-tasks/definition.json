@@ -492,13 +492,13 @@
           "name": "due_min",
           "display_name": {
             "en_US": "Due Date Min",
-            "zh_Hans": "截止日期最小值"
+            "zh_Hans": "预定日期最小值"
           },
           "required": false,
           "ui": {
             "hint": {
               "en_US": "Filter: lower bound for due date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
-              "zh_Hans": "过滤：截止日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）"
+              "zh_Hans": "过滤：预定日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -510,13 +510,13 @@
           "name": "due_max",
           "display_name": {
             "en_US": "Due Date Max",
-            "zh_Hans": "截止日期最大值"
+            "zh_Hans": "预定日期最大值"
           },
           "required": false,
           "ui": {
             "hint": {
               "en_US": "Filter: upper bound for due date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
-              "zh_Hans": "过滤：截止日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）"
+              "zh_Hans": "过滤：预定日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）"
             },
             "support_expression": true,
             "width": "medium",
@@ -734,7 +734,7 @@
           "name": "due",
           "display_name": {
             "en_US": "Due Date",
-            "zh_Hans": "截止日期"
+            "zh_Hans": "预定日期"
           },
           "required": false,
           "ui": {
@@ -836,7 +836,7 @@
       },
       "description": {
         "en_US": "Updates the specified task (title, notes, status, due date)",
-        "zh_Hans": "更新指定任务（标题、备注、状态、截止日期）"
+        "zh_Hans": "更新指定任务（标题、备注、状态、预定日期）"
       },
       "icon": "✏️",
       "parameters": [
@@ -962,7 +962,7 @@
           "name": "due",
           "display_name": {
             "en_US": "Due Date",
-            "zh_Hans": "截止日期"
+            "zh_Hans": "预定日期"
           },
           "required": false,
           "ui": {
