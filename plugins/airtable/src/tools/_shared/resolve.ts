@@ -384,13 +384,21 @@ function buildFieldMap(fields: AirtableField[]): Map<string, AirtableField> {
   return map
 }
 
+function removeNullValuedKeys(
+  fields: Record<string, unknown>,
+): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(fields).filter(([, value]) => value !== null),
+  )
+}
+
 export async function resolveFields(
   parameters: Record<string, unknown>,
   token: string,
   baseId: string,
   table: string,
 ): Promise<Record<string, unknown>> {
-  const resolvedFields = resolveRawFields(parameters)
+  const resolvedFields = removeNullValuedKeys(resolveRawFields(parameters))
   if (Object.keys(resolvedFields).length === 0) return resolvedFields
 
   try {
@@ -412,7 +420,7 @@ export async function resolveFields(
       },
     )
 
-    return Object.fromEntries(normalizedEntries)
+    return removeNullValuedKeys(Object.fromEntries(normalizedEntries))
   } catch {
     return resolvedFields
   }
