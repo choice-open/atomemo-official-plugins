@@ -3,6 +3,17 @@ import { t } from "../../i18n/i18n-node"
 import { createTasksClient, getAccessToken, toJSON } from "../../utils/api"
 import listTasksSkill from "./list-tasks-skill.md" with { type: "text" }
 
+function coerceBoolean(value: unknown, defaultValue: boolean): boolean {
+  if (value === undefined || value === null) return defaultValue
+  if (typeof value === "boolean") return value
+  if (typeof value === "string") {
+    const s = value.toLowerCase().trim()
+    if (s === "true" || s === "1") return true
+    if (s === "false" || s === "0") return false
+  }
+  return defaultValue
+}
+
 export const listTasksTool: ToolDefinition = {
   name: "list-tasks",
   display_name: t("LIST_TASKS_DISPLAY_NAME"),
@@ -151,35 +162,29 @@ export const listTasksTool: ToolDefinition = {
         width: "medium",
       },
     },
-    {
-      name: "show_assigned",
-      type: "boolean",
-      required: false,
-      default: false,
-      display_name: t("SHOW_ASSIGNED_DISPLAY_NAME"),
-      ui: {
-        component: "switch",
-        hint: t("SHOW_ASSIGNED_HINT"),
-        width: "medium",
-      },
-    },
   ],
   async invoke({ args }) {
     const client = createTasksClient(getAccessToken(args))
     const p = args.parameters
+
+    const showCompleted = coerceBoolean(p.show_completed, true)
+    const showHiddenExplicit = coerceBoolean(p.show_hidden, false)
+    // Google API: showHidden must be true to return tasks completed in web/mobile clients.
+    const showHidden = showHiddenExplicit || showCompleted
+    const showDeleted = coerceBoolean(p.show_deleted, false)
+
     const res = await client.tasks.list({
       tasklist: p.task_list_id,
       maxResults: p.max_results || undefined,
       pageToken: p.page_token || undefined,
-      showCompleted: p.show_completed,
-      showDeleted: p.show_deleted,
-      showHidden: p.show_hidden,
-      dueMin: p.due_min || undefined,
-      dueMax: p.due_max || undefined,
-      updatedMin: p.updated_min || undefined,
-      completedMin: p.completed_min || undefined,
-      completedMax: p.completed_max || undefined,
-      showAssigned: p.show_assigned,
+      showCompleted,
+      showDeleted,
+      showHidden,
+      dueMin: p.due_min?.trim() || undefined,
+      dueMax: p.due_max?.trim() || undefined,
+      updatedMin: p.updated_min?.trim() || undefined,
+      completedMin: p.completed_min?.trim() || undefined,
+      completedMax: p.completed_max?.trim() || undefined,
     })
     return toJSON(res.data)
   },

@@ -26,7 +26,7 @@ export const clearCompletedTasksTool: ToolDefinition = {
       display_name: t("TASK_LIST_ID_DISPLAY_NAME"),
       ui: {
         component: "input",
-        hint: t("TASK_LIST_ID_HINT"),
+        hint: t("CLEAR_COMPLETED_TASK_LIST_ID_HINT"),
         placeholder: t("TASK_LIST_ID_PLACEHOLDER"),
         support_expression: true,
         width: "full",
@@ -39,7 +39,11 @@ export const clearCompletedTasksTool: ToolDefinition = {
     try {
       const res = await client.tasks.clear({ tasklist: taskListId })
       if (res.status === 204) {
-        return { success: true, clearedTaskList: taskListId }
+        return {
+          success: true,
+          clearedTaskList: taskListId,
+          googleTasksApiNote: t("CLEAR_COMPLETED_SUCCESS_API_NOTE"),
+        }
       }
       throw new Error(
         `Unexpected response status: ${res.status} ${res.statusText}`,
