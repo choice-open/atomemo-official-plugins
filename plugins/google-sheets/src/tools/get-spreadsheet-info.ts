@@ -2,17 +2,15 @@ import type {
   JsonValue,
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
-import { resolveCredential } from "../helpers/credentials"
-import { parseGetSpreadsheetInfoParams } from "../helpers/schemas"
-import { callSheets } from "../helpers/sheets-api-error"
-import { t } from "../i18n/i18n-node"
-import getSpreadsheetInfoSkill from "./get-spreadsheet-info-skill.md" with {
-  type: "text",
-}
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2";
+import { resolveCredential } from "../helpers/credentials";
+import { parseGetSpreadsheetInfoParams } from "../helpers/schemas";
+import { callSheets } from "../helpers/sheets-api-error";
+import { t } from "../i18n/i18n-node";
+import getSpreadsheetInfoSkill from "./get-spreadsheet-info-skill.md" with { type: "text" };
 
-type ParameterNames = "credential_id" | "spreadsheet_id" | "include_grid_data"
+type ParameterNames = "credential_id" | "spreadsheet_id" | "include_grid_data";
 
 const parameters: Array<Property<ParameterNames>> = [
   {
@@ -45,9 +43,10 @@ const parameters: Array<Property<ParameterNames>> = [
     ui: {
       component: "switch",
       hint: t("PARAM_INCLUDE_GRID_DATA_HINT"),
+      support_expression: true,
     },
   },
-]
+];
 
 export const getSpreadsheetInfoTool: ToolDefinition = {
   name: "google-sheets-get-spreadsheet-info",
@@ -57,11 +56,11 @@ export const getSpreadsheetInfoTool: ToolDefinition = {
   icon: "ℹ️",
   parameters,
   async invoke({ args }) {
-    const params = parseGetSpreadsheetInfoParams(args.parameters ?? {})
-    const { sheets } = resolveCredential(args as never)
+    const params = parseGetSpreadsheetInfoParams(args.parameters ?? {});
+    const { sheets } = resolveCredential(args as never);
 
-    const res = await callSheets(() => sheets.spreadsheets.get(params))
+    const res = await callSheets(() => sheets.spreadsheets.get(params));
 
-    return res.data as unknown as JsonValue
+    return res.data as unknown as JsonValue;
   },
-}
+};

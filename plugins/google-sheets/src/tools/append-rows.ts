@@ -2,13 +2,13 @@ import type {
   JsonValue,
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2"
-import { resolveCredential } from "../helpers/credentials"
-import { parseAppendRowsParams } from "../helpers/schemas"
-import { callSheets } from "../helpers/sheets-api-error"
-import { t } from "../i18n/i18n-node"
-import appendRowsSkill from "./append-rows-skill.md" with { type: "text" }
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { GOOGLE_SHEETS_OAUTH2_CREDENTIAL_NAME } from "../credentials/google-sheets-oauth2";
+import { resolveCredential } from "../helpers/credentials";
+import { parseAppendRowsParams } from "../helpers/schemas";
+import { callSheets } from "../helpers/sheets-api-error";
+import { t } from "../i18n/i18n-node";
+import appendRowsSkill from "./append-rows-skill.md" with { type: "text" };
 
 type ParameterNames =
   | "credential_id"
@@ -16,7 +16,7 @@ type ParameterNames =
   | "range"
   | "values"
   | "value_input_option"
-  | "insert_data_option"
+  | "insert_data_option";
 
 const parameters: Array<Property<ParameterNames>> = [
   {
@@ -64,6 +64,7 @@ const parameters: Array<Property<ParameterNames>> = [
       component: "select",
       hint: t("PARAM_VALUE_INPUT_OPTION_HINT"),
       width: "medium",
+      support_expression: true,
     },
   },
   {
@@ -77,6 +78,7 @@ const parameters: Array<Property<ParameterNames>> = [
       component: "select",
       hint: t("PARAM_INSERT_DATA_OPTION_HINT"),
       width: "medium",
+      support_expression: true,
     },
   },
   {
@@ -93,7 +95,7 @@ const parameters: Array<Property<ParameterNames>> = [
       width: "full",
     },
   },
-]
+];
 
 export const appendRowsTool: ToolDefinition = {
   name: "google-sheets-append-rows",
@@ -104,8 +106,8 @@ export const appendRowsTool: ToolDefinition = {
   parameters,
   async invoke({ args }) {
     const { spreadsheetId, range, valueInputOption, insertDataOption, values } =
-      parseAppendRowsParams(args.parameters ?? {})
-    const { sheets } = resolveCredential(args as never)
+      parseAppendRowsParams(args.parameters ?? {});
+    const { sheets } = resolveCredential(args as never);
 
     const res = await callSheets(() =>
       sheets.spreadsheets.values.append({
@@ -115,8 +117,8 @@ export const appendRowsTool: ToolDefinition = {
         insertDataOption,
         requestBody: { range, majorDimension: "ROWS", values },
       }),
-    )
+    );
 
-    return res.data as unknown as JsonValue
+    return res.data as unknown as JsonValue;
   },
-}
+};
