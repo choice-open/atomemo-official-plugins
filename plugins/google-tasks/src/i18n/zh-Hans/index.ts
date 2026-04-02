@@ -101,7 +101,12 @@ const zh_Hans = {
   MOVE_TASK_DISPLAY_NAME: "移动任务",
   MOVE_TASK_DESCRIPTION: "将任务移动到其他位置或任务列表",
   CLEAR_COMPLETED_DISPLAY_NAME: "清除已完成任务",
-  CLEAR_COMPLETED_DESCRIPTION: "清除指定任务列表中所有已完成的任务",
+  CLEAR_COMPLETED_DESCRIPTION:
+    "对应 Google Tasks 的 tasks.clear：将当时已完成的任务标为隐藏（hidden），并非从服务端删除。默认「列出任务」不返回隐藏项；仅当 showHidden=true 时仍会列出。若要彻底删除单条任务请使用「删除任务」（tasks.delete）。",
+  CLEAR_COMPLETED_TASK_LIST_ID_HINT:
+    "任务列表 ID，请与「列出任务」使用的是同一列表。清除后若列出任务时开启「显示已隐藏」，仍可能看到已被标为隐藏的已完成任务。",
+  CLEAR_COMPLETED_SUCCESS_API_NOTE:
+    "Google Tasks API：tasks.clear 会把「清除时已完成」的任务标为 hidden（只读）。tasks.list 默认不包含 hidden；showHidden=true 时才会返回。彻底删除任务需使用 tasks.delete（删除任务）。",
 } satisfies Translation
 
 export default zh_Hans

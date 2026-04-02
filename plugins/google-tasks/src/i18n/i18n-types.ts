@@ -80,7 +80,7 @@ type RootTranslation = {
    */
   TITLE_DISPLAY_NAME: string
   /**
-   * E​n​t​e​r​ ​t​i​t​l​e
+   * E​n​t​e​r​ ​t​i​t​l​e​ ​(​m​a​x​ ​1​0​2​4​ ​c​h​a​r​a​c​t​e​r​s​)
    */
   TITLE_PLACEHOLDER: string
   /**
@@ -88,7 +88,7 @@ type RootTranslation = {
    */
   NOTES_DISPLAY_NAME: string
   /**
-   * E​n​t​e​r​ ​n​o​t​e​s​ ​(​o​p​t​i​o​n​a​l​)
+   * E​n​t​e​r​ ​n​o​t​e​s​ ​(​o​p​t​i​o​n​a​l​,​ ​m​a​x​ ​8​1​9​2​ ​c​h​a​r​s​)​.​ ​D​o​c​s​-​a​s​s​i​g​n​e​d​ ​t​a​s​k​s​ ​c​a​n​n​o​t​ ​h​a​v​e​ ​n​o​t​e​s​.
    */
   NOTES_PLACEHOLDER: string
   /**
@@ -100,11 +100,11 @@ type RootTranslation = {
    */
   DUE_DATE_DISPLAY_NAME: string
   /**
-   * R​F​C​ ​3​3​3​9​ ​f​o​r​m​a​t​ ​(​e​.​g​.​ ​2​0​2​5​-​1​2​-​3​1​T​0​0​:​0​0​:​0​0​.​0​0​0​Z​)​.​ ​O​n​l​y​ ​t​h​e​ ​d​a​t​e​ ​p​o​r​t​i​o​n​ ​i​s​ ​u​s​e​d​.
+   * R​F​C​ ​3​3​3​9​ ​f​o​r​m​a​t​ ​(​e​.​g​.​ ​2​0​2​5​-​1​2​-​3​1​T​0​0​:​0​0​:​0​0​Z​)​.​ ​O​n​l​y​ ​d​a​t​e​ ​p​o​r​t​i​o​n​ ​i​s​ ​u​s​e​d​;​ ​t​i​m​e​ ​i​s​ ​d​i​s​c​a​r​d​e​d​.
    */
   DUE_DATE_HINT: string
   /**
-   * 2​0​2​5​-​1​2​-​3​1​T​0​0​:​0​0​:​0​0​.​0​0​0​Z
+   * 2​0​2​5​-​1​2​-​3​1​T​0​0​:​0​0​:​0​0​Z
    */
   DUE_DATE_PLACEHOLDER: string
   /**
@@ -112,7 +112,7 @@ type RootTranslation = {
    */
   MAX_RESULTS_DISPLAY_NAME: string
   /**
-   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​t​o​ ​r​e​t​u​r​n​ ​p​e​r​ ​p​a​g​e
+   * M​a​x​i​m​u​m​ ​1​0​0​ ​r​e​s​u​l​t​s​ ​p​e​r​ ​p​a​g​e​ ​(​d​e​f​a​u​l​t​:​ ​2​0​)
    */
   MAX_RESULTS_HINT: string
   /**
@@ -132,7 +132,7 @@ type RootTranslation = {
    */
   SHOW_COMPLETED_DISPLAY_NAME: string
   /**
-   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s
+   * I​n​c​l​u​d​e​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​.​ ​R​e​q​u​i​r​e​s​ ​s​h​o​w​H​i​d​d​e​n​ ​t​o​ ​a​l​s​o​ ​b​e​ ​t​r​u​e​ ​t​o​ ​s​h​o​w​ ​t​a​s​k​s​ ​c​o​m​p​l​e​t​e​d​ ​i​n​ ​f​i​r​s​t​-​p​a​r​t​y​ ​c​l​i​e​n​t​s​ ​(​w​e​b​ ​U​I​,​ ​m​o​b​i​l​e​ ​a​p​p​s​)​.
    */
   SHOW_COMPLETED_HINT: string
   /**
@@ -148,7 +148,7 @@ type RootTranslation = {
    */
   SHOW_HIDDEN_DISPLAY_NAME: string
   /**
-   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​h​i​d​d​e​n​ ​t​a​s​k​s
+   * I​n​c​l​u​d​e​ ​h​i​d​d​e​n​ ​t​a​s​k​s​ ​(​t​a​s​k​s​ ​m​a​r​k​e​d​ ​c​o​m​p​l​e​t​e​d​ ​w​h​e​n​ ​t​h​e​ ​l​i​s​t​ ​w​a​s​ ​l​a​s​t​ ​c​l​e​a​r​e​d​)
    */
   SHOW_HIDDEN_HINT: string
   /**
@@ -156,7 +156,7 @@ type RootTranslation = {
    */
   PARENT_TASK_ID_DISPLAY_NAME: string
   /**
-   * I​D​ ​o​f​ ​t​h​e​ ​p​a​r​e​n​t​ ​t​a​s​k​ ​(​f​o​r​ ​c​r​e​a​t​i​n​g​/​m​o​v​i​n​g​ ​s​u​b​-​t​a​s​k​s​)
+   * I​D​ ​o​f​ ​p​a​r​e​n​t​ ​t​a​s​k​.​ ​C​a​n​n​o​t​ ​b​e​ ​a​n​ ​a​s​s​i​g​n​e​d​ ​o​r​ ​r​e​p​e​a​t​i​n​g​ ​t​a​s​k​.​ ​O​m​i​t​ ​t​o​ ​c​r​e​a​t​e​ ​a​t​ ​t​o​p​ ​l​e​v​e​l​.
    */
   PARENT_TASK_ID_HINT: string
   /**
@@ -168,7 +168,7 @@ type RootTranslation = {
    */
   PREVIOUS_TASK_ID_DISPLAY_NAME: string
   /**
-   * I​D​ ​o​f​ ​t​h​e​ ​p​r​e​v​i​o​u​s​ ​s​i​b​l​i​n​g​ ​t​a​s​k​ ​(​f​o​r​ ​o​r​d​e​r​i​n​g​)
+   * I​D​ ​o​f​ ​p​r​e​v​i​o​u​s​ ​s​i​b​l​i​n​g​ ​t​a​s​k​.​ ​O​m​i​t​ ​t​o​ ​m​o​v​e​ ​t​o​ ​f​i​r​s​t​ ​p​o​s​i​t​i​o​n​ ​a​m​o​n​g​ ​s​i​b​l​i​n​g​s​.
    */
   PREVIOUS_TASK_ID_HINT: string
   /**
@@ -180,7 +180,7 @@ type RootTranslation = {
    */
   DESTINATION_TASK_LIST_ID_DISPLAY_NAME: string
   /**
-   * I​D​ ​o​f​ ​t​h​e​ ​d​e​s​t​i​n​a​t​i​o​n​ ​t​a​s​k​ ​l​i​s​t​ ​(​f​o​r​ ​c​r​o​s​s​-​l​i​s​t​ ​m​o​v​e​s​)
+   * I​D​ ​o​f​ ​d​e​s​t​i​n​a​t​i​o​n​ ​t​a​s​k​ ​l​i​s​t​.​ ​O​m​i​t​ ​t​o​ ​m​o​v​e​ ​w​i​t​h​i​n​ ​c​u​r​r​e​n​t​ ​l​i​s​t​.​ ​R​e​p​e​a​t​i​n​g​ ​t​a​s​k​s​ ​c​a​n​n​o​t​ ​b​e​ ​m​o​v​e​d​ ​b​e​t​w​e​e​n​ ​l​i​s​t​s​.
    */
   DESTINATION_TASK_LIST_ID_HINT: string
   /**
@@ -192,7 +192,7 @@ type RootTranslation = {
    */
   DUE_MIN_DISPLAY_NAME: string
   /**
-   * F​i​l​t​e​r​:​ ​m​i​n​i​m​u​m​ ​d​u​e​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​)
+   * F​i​l​t​e​r​:​ ​l​o​w​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​d​u​e​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​0​1​-​0​1​T​0​0​:​0​0​:​0​0​Z​)
    */
   DUE_MIN_HINT: string
   /**
@@ -200,7 +200,7 @@ type RootTranslation = {
    */
   DUE_MAX_DISPLAY_NAME: string
   /**
-   * F​i​l​t​e​r​:​ ​m​a​x​i​m​u​m​ ​d​u​e​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​)
+   * F​i​l​t​e​r​:​ ​u​p​p​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​d​u​e​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​1​2​-​3​1​T​2​3​:​5​9​:​5​9​Z​)
    */
   DUE_MAX_HINT: string
   /**
@@ -208,7 +208,7 @@ type RootTranslation = {
    */
   UPDATED_MIN_DISPLAY_NAME: string
   /**
-   * F​i​l​t​e​r​:​ ​m​i​n​i​m​u​m​ ​l​a​s​t​ ​m​o​d​i​f​i​c​a​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​)
+   * F​i​l​t​e​r​:​ ​l​o​w​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​l​a​s​t​ ​m​o​d​i​f​i​c​a​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​0​1​-​0​1​T​0​0​:​0​0​:​0​0​Z​)
    */
   UPDATED_MIN_HINT: string
   /**
@@ -216,7 +216,7 @@ type RootTranslation = {
    */
   COMPLETED_MIN_DISPLAY_NAME: string
   /**
-   * F​i​l​t​e​r​:​ ​m​i​n​i​m​u​m​ ​c​o​m​p​l​e​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​)
+   * F​i​l​t​e​r​:​ ​l​o​w​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​c​o​m​p​l​e​t​i​o​n​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​0​1​-​0​1​T​0​0​:​0​0​:​0​0​Z​)
    */
   COMPLETED_MIN_HINT: string
   /**
@@ -224,7 +224,7 @@ type RootTranslation = {
    */
   COMPLETED_MAX_DISPLAY_NAME: string
   /**
-   * F​i​l​t​e​r​:​ ​m​a​x​i​m​u​m​ ​c​o​m​p​l​e​t​i​o​n​ ​t​i​m​e​ ​(​R​F​C​ ​3​3​3​9​)
+   * F​i​l​t​e​r​:​ ​u​p​p​e​r​ ​b​o​u​n​d​ ​f​o​r​ ​c​o​m​p​l​e​t​i​o​n​ ​d​a​t​e​ ​(​R​F​C​ ​3​3​3​9​,​ ​e​.​g​.​ ​2​0​2​5​-​1​2​-​3​1​T​2​3​:​5​9​:​5​9​Z​)
    */
   COMPLETED_MAX_HINT: string
   /**
@@ -232,7 +232,7 @@ type RootTranslation = {
    */
   SHOW_ASSIGNED_DISPLAY_NAME: string
   /**
-   * W​h​e​t​h​e​r​ ​t​o​ ​i​n​c​l​u​d​e​ ​a​s​s​i​g​n​e​d​ ​t​a​s​k​s
+   * I​n​c​l​u​d​e​ ​t​a​s​k​s​ ​a​s​s​i​g​n​e​d​ ​f​r​o​m​ ​D​o​c​s​ ​o​r​ ​C​h​a​t​ ​S​p​a​c​e​s
    */
   SHOW_ASSIGNED_HINT: string
   /**
@@ -344,9 +344,17 @@ type RootTranslation = {
    */
   CLEAR_COMPLETED_DISPLAY_NAME: string
   /**
-   * C​l​e​a​r​s​ ​a​l​l​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​ ​f​r​o​m​ ​t​h​e​ ​s​p​e​c​i​f​i​e​d​ ​t​a​s​k​ ​l​i​s​t
+   * G​o​o​g​l​e​ ​t​a​s​k​s​.​c​l​e​a​r​:​ ​m​a​r​k​s​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​ ​a​s​ ​h​i​d​d​e​n​ ​(​n​o​t​ ​d​e​l​e​t​e​d​)​.​ ​D​e​f​a​u​l​t​ ​t​a​s​k​s​.​l​i​s​t​ ​o​m​i​t​s​ ​t​h​e​m​;​ ​s​e​t​ ​s​h​o​w​H​i​d​d​e​n​=​t​r​u​e​ ​t​o​ ​s​t​i​l​l​ ​r​e​t​r​i​e​v​e​.​ ​U​s​e​ ​d​e​l​e​t​e​-​t​a​s​k​ ​t​o​ ​r​e​m​o​v​e​ ​a​ ​t​a​s​k​ ​p​e​r​m​a​n​e​n​t​l​y​.
    */
   CLEAR_COMPLETED_DESCRIPTION: string
+  /**
+   * T​a​s​k​ ​l​i​s​t​ ​I​D​—​u​s​e​ ​t​h​e​ ​s​a​m​e​ ​l​i​s​t​ ​I​D​ ​a​s​ ​i​n​ ​l​i​s​t​-​t​a​s​k​s​.​ ​A​f​t​e​r​ ​c​l​e​a​r​,​ ​l​i​s​t​-​t​a​s​k​s​ ​s​t​i​l​l​ ​r​e​t​u​r​n​s​ ​h​i​d​d​e​n​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​ ​w​h​e​n​ ​s​h​o​w​H​i​d​d​e​n​=​t​r​u​e​.
+   */
+  CLEAR_COMPLETED_TASK_LIST_ID_HINT: string
+  /**
+   * P​e​r​ ​G​o​o​g​l​e​ ​T​a​s​k​s​ ​A​P​I​:​ ​t​a​s​k​s​.​c​l​e​a​r​ ​m​a​r​k​s​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​ ​a​s​ ​h​i​d​d​e​n​ ​(​T​a​s​k​.​h​i​d​d​e​n​ ​i​s​ ​r​e​a​d​-​o​n​l​y​)​.​ ​t​a​s​k​s​.​l​i​s​t​ ​e​x​c​l​u​d​e​s​ ​h​i​d​d​e​n​ ​t​a​s​k​s​ ​u​n​l​e​s​s​ ​s​h​o​w​H​i​d​d​e​n​=​t​r​u​e​.​ ​T​o​ ​p​e​r​m​a​n​e​n​t​l​y​ ​r​e​m​o​v​e​ ​a​ ​t​a​s​k​,​ ​c​a​l​l​ ​t​a​s​k​s​.​d​e​l​e​t​e​ ​(​d​e​l​e​t​e​-​t​a​s​k​)​.
+   */
+  CLEAR_COMPLETED_SUCCESS_API_NOTE: string
 }
 
 export type TranslationFunctions = {
@@ -415,7 +423,7 @@ export type TranslationFunctions = {
    */
   TITLE_DISPLAY_NAME: () => LocalizedString
   /**
-   * Enter title
+   * Enter title (max 1024 characters)
    */
   TITLE_PLACEHOLDER: () => LocalizedString
   /**
@@ -423,7 +431,7 @@ export type TranslationFunctions = {
    */
   NOTES_DISPLAY_NAME: () => LocalizedString
   /**
-   * Enter notes (optional)
+   * Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.
    */
   NOTES_PLACEHOLDER: () => LocalizedString
   /**
@@ -435,11 +443,11 @@ export type TranslationFunctions = {
    */
   DUE_DATE_DISPLAY_NAME: () => LocalizedString
   /**
-   * RFC 3339 format (e.g. 2025-12-31T00:00:00.000Z). Only the date portion is used.
+   * RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.
    */
   DUE_DATE_HINT: () => LocalizedString
   /**
-   * 2025-12-31T00:00:00.000Z
+   * 2025-12-31T00:00:00Z
    */
   DUE_DATE_PLACEHOLDER: () => LocalizedString
   /**
@@ -447,7 +455,7 @@ export type TranslationFunctions = {
    */
   MAX_RESULTS_DISPLAY_NAME: () => LocalizedString
   /**
-   * Maximum number of results to return per page
+   * Maximum 100 results per page (default: 20)
    */
   MAX_RESULTS_HINT: () => LocalizedString
   /**
@@ -467,7 +475,7 @@ export type TranslationFunctions = {
    */
   SHOW_COMPLETED_DISPLAY_NAME: () => LocalizedString
   /**
-   * Whether to include completed tasks
+   * Include completed tasks. Requires showHidden to also be true to show tasks completed in first-party clients (web UI, mobile apps).
    */
   SHOW_COMPLETED_HINT: () => LocalizedString
   /**
@@ -483,7 +491,7 @@ export type TranslationFunctions = {
    */
   SHOW_HIDDEN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Whether to include hidden tasks
+   * Include hidden tasks (tasks marked completed when the list was last cleared)
    */
   SHOW_HIDDEN_HINT: () => LocalizedString
   /**
@@ -491,7 +499,7 @@ export type TranslationFunctions = {
    */
   PARENT_TASK_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * ID of the parent task (for creating/moving sub-tasks)
+   * ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.
    */
   PARENT_TASK_ID_HINT: () => LocalizedString
   /**
@@ -503,7 +511,7 @@ export type TranslationFunctions = {
    */
   PREVIOUS_TASK_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * ID of the previous sibling task (for ordering)
+   * ID of previous sibling task. Omit to move to first position among siblings.
    */
   PREVIOUS_TASK_ID_HINT: () => LocalizedString
   /**
@@ -515,7 +523,7 @@ export type TranslationFunctions = {
    */
   DESTINATION_TASK_LIST_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * ID of the destination task list (for cross-list moves)
+   * ID of destination task list. Omit to move within current list. Repeating tasks cannot be moved between lists.
    */
   DESTINATION_TASK_LIST_ID_HINT: () => LocalizedString
   /**
@@ -527,7 +535,7 @@ export type TranslationFunctions = {
    */
   DUE_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Filter: minimum due date (RFC 3339)
+   * Filter: lower bound for due date (RFC 3339, e.g. 2025-01-01T00:00:00Z)
    */
   DUE_MIN_HINT: () => LocalizedString
   /**
@@ -535,7 +543,7 @@ export type TranslationFunctions = {
    */
   DUE_MAX_DISPLAY_NAME: () => LocalizedString
   /**
-   * Filter: maximum due date (RFC 3339)
+   * Filter: upper bound for due date (RFC 3339, e.g. 2025-12-31T23:59:59Z)
    */
   DUE_MAX_HINT: () => LocalizedString
   /**
@@ -543,7 +551,7 @@ export type TranslationFunctions = {
    */
   UPDATED_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Filter: minimum last modification time (RFC 3339)
+   * Filter: lower bound for last modification time (RFC 3339, e.g. 2025-01-01T00:00:00Z)
    */
   UPDATED_MIN_HINT: () => LocalizedString
   /**
@@ -551,7 +559,7 @@ export type TranslationFunctions = {
    */
   COMPLETED_MIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Filter: minimum completion time (RFC 3339)
+   * Filter: lower bound for completion date (RFC 3339, e.g. 2025-01-01T00:00:00Z)
    */
   COMPLETED_MIN_HINT: () => LocalizedString
   /**
@@ -559,7 +567,7 @@ export type TranslationFunctions = {
    */
   COMPLETED_MAX_DISPLAY_NAME: () => LocalizedString
   /**
-   * Filter: maximum completion time (RFC 3339)
+   * Filter: upper bound for completion date (RFC 3339, e.g. 2025-12-31T23:59:59Z)
    */
   COMPLETED_MAX_HINT: () => LocalizedString
   /**
@@ -567,7 +575,7 @@ export type TranslationFunctions = {
    */
   SHOW_ASSIGNED_DISPLAY_NAME: () => LocalizedString
   /**
-   * Whether to include assigned tasks
+   * Include tasks assigned from Docs or Chat Spaces
    */
   SHOW_ASSIGNED_HINT: () => LocalizedString
   /**
@@ -679,9 +687,17 @@ export type TranslationFunctions = {
    */
   CLEAR_COMPLETED_DISPLAY_NAME: () => LocalizedString
   /**
-   * Clears all completed tasks from the specified task list
+   * Google tasks.clear: marks completed tasks as hidden (not deleted). Default tasks.list omits them; set showHidden=true to still retrieve. Use delete-task to remove a task permanently.
    */
   CLEAR_COMPLETED_DESCRIPTION: () => LocalizedString
+  /**
+   * Task list ID—use the same list ID as in list-tasks. After clear, list-tasks still returns hidden completed tasks when showHidden=true.
+   */
+  CLEAR_COMPLETED_TASK_LIST_ID_HINT: () => LocalizedString
+  /**
+   * Per Google Tasks API: tasks.clear marks completed tasks as hidden (Task.hidden is read-only). tasks.list excludes hidden tasks unless showHidden=true. To permanently remove a task, call tasks.delete (delete-task).
+   */
+  CLEAR_COMPLETED_SUCCESS_API_NOTE: () => LocalizedString
 }
 
 export type Formatters = {}

@@ -79,6 +79,7 @@ export const updateTaskTool: ToolDefinition = {
           { label: { en_US: "Completed" }, value: "completed" },
         ],
         width: "medium",
+        support_expression: true,
       },
     },
     {

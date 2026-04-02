@@ -112,7 +112,11 @@ const en_US = {
   MOVE_TASK_DESCRIPTION: "Moves a task to another position or task list",
   CLEAR_COMPLETED_DISPLAY_NAME: "Clear Completed Tasks",
   CLEAR_COMPLETED_DESCRIPTION:
-    "Clears all completed tasks from the specified task list",
+    "Google tasks.clear: marks completed tasks as hidden (not deleted). Default tasks.list omits them; set showHidden=true to still retrieve. Use delete-task to remove a task permanently.",
+  CLEAR_COMPLETED_TASK_LIST_ID_HINT:
+    "Task list ID—use the same list ID as in list-tasks. After clear, list-tasks still returns hidden completed tasks when showHidden=true.",
+  CLEAR_COMPLETED_SUCCESS_API_NOTE:
+    "Per Google Tasks API: tasks.clear marks completed tasks as hidden (Task.hidden is read-only). tasks.list excludes hidden tasks unless showHidden=true. To permanently remove a task, call tasks.delete (delete-task).",
 } satisfies BaseTranslation
 
 export default en_US

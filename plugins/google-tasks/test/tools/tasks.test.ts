@@ -86,7 +86,8 @@ describe("listTasksTool", () => {
         maxResults: 5,
         showCompleted: true,
         showDeleted: false,
-        showHidden: false,
+        // show_completed true forces showHidden true (Google API needs showHidden for cleared/completed visibility)
+        showHidden: true,
       }),
     )
     expect(result).toEqual(mockData)
@@ -369,7 +370,15 @@ describe("clearCompletedTasksTool", () => {
     )
 
     expect(mockClear).toHaveBeenCalledWith({ tasklist: "list-1" })
-    expect(result).toEqual({ success: true, clearedTaskList: "list-1" })
+    expect(result).toEqual(
+      expect.objectContaining({
+        success: true,
+        clearedTaskList: "list-1",
+        googleTasksApiNote: {
+          en_US: "CLEAR_COMPLETED_SUCCESS_API_NOTE",
+        },
+      }),
+    )
   })
 
   it("should throw on unexpected status", async () => {

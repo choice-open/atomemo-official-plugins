@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "credentials": [
     {
       "name": "google-tasks-oauth2",
@@ -577,24 +577,6 @@
             "component": "input"
           },
           "type": "string"
-        },
-        {
-          "name": "show_assigned",
-          "display_name": {
-            "en_US": "Show Assigned",
-            "zh_Hans": "显示已分配"
-          },
-          "required": false,
-          "ui": {
-            "hint": {
-              "en_US": "Include tasks assigned from Docs or Chat Spaces",
-              "zh_Hans": "包含来源于文档或聊天空间的已分配任务"
-            },
-            "width": "medium",
-            "component": "switch"
-          },
-          "type": "boolean",
-          "default": false
         }
       ],
       "skill": "# List Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `list-tasks`\n- **Purpose**: Lists tasks in a specified task list with optional filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of tasks to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from a previous response. | `\"next_page_token\"` |\n| `show_completed` | `boolean` | `false` | `switch` | Include completed tasks. | `true` |\n| `show_deleted` | `boolean` | `false` | `switch` | Include deleted tasks. | `false` |\n| `show_hidden` | `boolean` | `false` | `switch` | Include hidden tasks. | `true` |\n| `due_min` | `string` | `false` | `input` | Due date lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `due_max` | `string` | `false` | `input` | Due date upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `updated_min` | `string` | `false` | `input` | Updated time lower bound (RFC 3339). | `\"2026-03-20T00:00:00Z\"` |\n| `completed_min` | `string` | `false` | `input` | Completion time lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `completed_max` | `string` | `false` | `input` | Completion time upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `show_assigned` | `boolean` | `false` | `switch` | Include assigned tasks. | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"max_results\": 20,\n    \"show_completed\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#tasks\",\n  \"items\": [\n    {\n      \"id\": \"task_id_xxx\",\n      \"title\": \"Buy milk\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
@@ -778,6 +760,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "medium",
             "options": [
               {
@@ -955,6 +938,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "medium",
             "options": [
               {
@@ -1210,8 +1194,8 @@
         "zh_Hans": "清除已完成任务"
       },
       "description": {
-        "en_US": "Clears all completed tasks from the specified task list",
-        "zh_Hans": "清除指定任务列表中所有已完成的任务"
+        "en_US": "Google tasks.clear: marks completed tasks as hidden (not deleted). Default tasks.list omits them; set showHidden=true to still retrieve. Use delete-task to remove a task permanently.",
+        "zh_Hans": "对应 Google Tasks 的 tasks.clear：将当时已完成的任务标为隐藏（hidden），并非从服务端删除。默认「列出任务」不返回隐藏项；仅当 showHidden=true 时仍会列出。若要彻底删除单条任务请使用「删除任务」（tasks.delete）。"
       },
       "icon": "🧹",
       "parameters": [
@@ -1234,8 +1218,8 @@
           "required": true,
           "ui": {
             "hint": {
-              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
-              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+              "en_US": "Task list ID—use the same list ID as in list-tasks. After clear, list-tasks still returns hidden completed tasks when showHidden=true.",
+              "zh_Hans": "任务列表 ID，请与「列出任务」使用的是同一列表。清除后若列出任务时开启「显示已隐藏」，仍可能看到已被标为隐藏的已完成任务。"
             },
             "placeholder": {
               "en_US": "e.g. MTUzNTQ0...",
@@ -1248,7 +1232,7 @@
           "type": "string"
         }
       ],
-      "skill": "# Clear Completed Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `clear-completed-tasks`\n- **Purpose**: Clears all completed tasks in a specified task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"clearedTaskList\": \"MDQ2...\"\n}\n```\n"
+      "skill": "# Clear Completed Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `clear-completed-tasks`\n- **Purpose**: Calls Google Tasks **`tasks.clear`** for a task list.\n\n## Google Tasks API behavior (important)\n\nOfficial reference: [tasks.clear](https://developers.google.com/workspace/tasks/reference/rest/v1/tasks/clear)\n\n- **`tasks.clear` does not delete task records.** It clears completed tasks from the list by marking affected tasks as **`hidden: true`** (the `hidden` field on the [Task resource](https://developers.google.com/workspace/tasks/reference/rest/v1/tasks) is **read-only**).\n- Google states: affected tasks **are no longer returned by default** when listing tasks.\n- **`tasks.list`** has query parameter **`showHidden`**. When **`showHidden=true`**, hidden (cleared) completed tasks **can still appear** in API results—so a workflow that lists with “show hidden” on may look like “clear did nothing.”\n- **`showCompleted`** controls whether completed tasks are included; combine with **`showHidden`** when debugging or auditing cleared items.\n- To **permanently remove** a single task from Google’s store, use **`tasks.delete`** (this plugin’s **`delete-task`** tool), not `tasks.clear`.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID (same list you pass to `list-tasks`). | `\"MDQ2...\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"clearedTaskList\": \"MDQ2...\",\n  \"googleTasksApiNote\": \"Per Google Tasks API: tasks.clear marks completed tasks as hidden...\"\n}\n```\n\nThe plugin returns **HTTP 204** success from `tasks.clear` as `success: true`, plus `googleTasksApiNote` summarizing the API semantics above.\n"
     }
   ]
 }
