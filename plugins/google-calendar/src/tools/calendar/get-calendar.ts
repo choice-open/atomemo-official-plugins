@@ -3,11 +3,13 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam, calendarIdParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import getCalendarSkill from "./get-calendar-skill.md" with { type: "text" }
 
 export const getCalendarTool: ToolDefinition = {
   name: "get-calendar",
   display_name: t("GET_CALENDAR_DISPLAY_NAME"),
   description: t("GET_CALENDAR_DESCRIPTION"),
+  skill: getCalendarSkill,
   icon: "📅",
   parameters: [calendarCredentialParam, calendarIdParam],
   async invoke({ args }) {

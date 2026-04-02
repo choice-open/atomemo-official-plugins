@@ -11,10 +11,7 @@
   "icon": "📅",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-calendar",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.8",
@@ -1255,10 +1252,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "startTime",
-            "updated"
-          ]
+          "enum": ["startTime", "updated"]
         },
         {
           "name": "event_types",
@@ -1777,11 +1771,7 @@
           },
           "type": "string",
           "default": "none",
-          "enum": [
-            "none",
-            "all",
-            "externalOnly"
-          ]
+          "enum": ["none", "all", "externalOnly"]
         },
         {
           "name": "include_details",
@@ -1944,12 +1934,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "public",
-            "private",
-            "confidential"
-          ]
+          "enum": ["default", "public", "private", "confidential"]
         },
         {
           "name": "transparency",
@@ -1997,10 +1982,7 @@
           },
           "type": "string",
           "default": "opaque",
-          "enum": [
-            "opaque",
-            "transparent"
-          ]
+          "enum": ["opaque", "transparent"]
         },
         {
           "name": "status",
@@ -2048,10 +2030,7 @@
           },
           "type": "string",
           "default": "confirmed",
-          "enum": [
-            "confirmed",
-            "tentative"
-          ]
+          "enum": ["confirmed", "tentative"]
         },
         {
           "name": "color_id",
@@ -2082,19 +2061,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11"
-          ]
+          "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         },
         {
           "name": "recurrence",
@@ -2759,11 +2726,7 @@
           },
           "type": "string",
           "default": "none",
-          "enum": [
-            "none",
-            "all",
-            "externalOnly"
-          ]
+          "enum": ["none", "all", "externalOnly"]
         },
         {
           "name": "include_details",
@@ -2926,12 +2889,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "public",
-            "private",
-            "confidential"
-          ]
+          "enum": ["default", "public", "private", "confidential"]
         },
         {
           "name": "transparency",
@@ -2979,10 +2937,7 @@
           },
           "type": "string",
           "default": "opaque",
-          "enum": [
-            "opaque",
-            "transparent"
-          ]
+          "enum": ["opaque", "transparent"]
         },
         {
           "name": "status",
@@ -3030,10 +2985,7 @@
           },
           "type": "string",
           "default": "confirmed",
-          "enum": [
-            "confirmed",
-            "tentative"
-          ]
+          "enum": ["confirmed", "tentative"]
         },
         {
           "name": "color_id",
@@ -3064,19 +3016,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11"
-          ]
+          "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         },
         {
           "name": "recurrence",
@@ -3400,11 +3340,7 @@
           },
           "type": "string",
           "default": "none",
-          "enum": [
-            "none",
-            "all",
-            "externalOnly"
-          ]
+          "enum": ["none", "all", "externalOnly"]
         }
       ]
     },
@@ -3748,11 +3684,7 @@
           },
           "type": "string",
           "default": "none",
-          "enum": [
-            "none",
-            "all",
-            "externalOnly"
-          ]
+          "enum": ["none", "all", "externalOnly"]
         }
       ]
     },
@@ -3885,11 +3817,7 @@
           },
           "type": "string",
           "default": "none",
-          "enum": [
-            "none",
-            "all",
-            "externalOnly"
-          ]
+          "enum": ["none", "all", "externalOnly"]
         }
       ]
     },

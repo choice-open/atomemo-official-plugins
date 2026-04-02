@@ -3,11 +3,13 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import listSettingsSkill from "./list-settings-skill.md" with { type: "text" }
 
 export const listSettingsTool: ToolDefinition = {
   name: "list-settings",
   display_name: t("SETTINGS_LIST_DISPLAY_NAME"),
   description: t("SETTINGS_LIST_DESCRIPTION"),
+  skill: listSettingsSkill,
   icon: "📋",
   parameters: [calendarCredentialParam],
   async invoke({ args }) {

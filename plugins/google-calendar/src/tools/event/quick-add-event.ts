@@ -7,11 +7,15 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import quickAddEventSkill from "./quick-add-event-skill.md" with {
+  type: "text",
+}
 
 export const quickAddEventTool: ToolDefinition = {
   name: "quick-add-event",
   display_name: t("QUICK_ADD_EVENT_DISPLAY_NAME"),
   description: t("QUICK_ADD_EVENT_DESCRIPTION"),
+  skill: quickAddEventSkill,
   icon: "⚡",
   parameters: [
     calendarCredentialParam,

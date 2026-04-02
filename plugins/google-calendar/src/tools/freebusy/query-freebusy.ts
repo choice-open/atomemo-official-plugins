@@ -8,6 +8,7 @@ import {
   optionalIanaTimezoneSchema,
   parseRequiredTimeRange,
 } from "../../lib/validators"
+import queryFreebusySkill from "./query-freebusy-skill.md" with { type: "text" }
 
 function parseOptionalBoundedInt(
   value: unknown,
@@ -23,6 +24,7 @@ export const queryFreebusyTool: ToolDefinition = {
   name: "query-freebusy",
   display_name: t("FREEBUSY_QUERY_DISPLAY_NAME"),
   description: t("FREEBUSY_QUERY_DESCRIPTION"),
+  skill: queryFreebusySkill,
   icon: "📊",
   parameters: [
     calendarCredentialParam,

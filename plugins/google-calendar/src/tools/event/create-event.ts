@@ -12,11 +12,13 @@ import {
   optionalIanaTimezoneSchema,
   rfc3339Schema,
 } from "../../lib/validators"
+import createEventSkill from "./create-event-skill.md" with { type: "text" }
 
 export const createEventTool: ToolDefinition = {
   name: "create-event",
   display_name: t("CREATE_EVENT_DISPLAY_NAME"),
   description: t("CREATE_EVENT_DESCRIPTION"),
+  skill: createEventSkill,
   icon: "➕",
   parameters: [calendarCredentialParam, calendarIdParam, ...updateEventParams],
   async invoke({ args }) {
