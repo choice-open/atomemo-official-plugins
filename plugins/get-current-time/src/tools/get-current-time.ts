@@ -1,5 +1,6 @@
 import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
+import getCurrentTimeSkill from "./get-current-time-skill.md" with { type: "text" }
 
 function str(v: unknown): string | undefined {
   if (typeof v === "string" && v.trim()) return v.trim()
@@ -45,6 +46,7 @@ export const getCurrentTimeTool = {
   name: "get-current-time",
   display_name: t("GET_CURRENT_TIME_DISPLAY_NAME"),
   description: t("GET_CURRENT_TIME_DESCRIPTION"),
+  skill: getCurrentTimeSkill,
   icon: "🕐",
   parameters: [
     {
@@ -75,6 +77,7 @@ export const getCurrentTimeTool = {
         ],
         hint: t("FORMAT_HINT"),
         width: "full",
+        support_expression: true,
       },
     },
     {
