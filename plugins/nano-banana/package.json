@@ -1,7 +1,7 @@
 {
   "name": "nano-banana",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generate and edit images with Google's Gemini image models, including Nano Banana and Nano Banana Pro.",
   "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",
