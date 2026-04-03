@@ -7,7 +7,6 @@ import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
 import { batchUpdateDocumentTool } from "./tools/docs/batch-update-document"
 import { createDocumentTool } from "./tools/docs/create-document"
 import { getDocumentTool } from "./tools/docs/get-document"
-import { demoTool } from "./tools/demo"
 
 await loadAllLocalesAsync()
 
@@ -23,7 +22,6 @@ const plugin = await createPlugin({
   transporterOptions: {},
 })
 
-plugin.addTool(demoTool)
 plugin.addCredential(googleDocsOAuth2Credential)
 
 plugin.addTool(createDocumentTool)
