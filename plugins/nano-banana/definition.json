@@ -1,0 +1,972 @@
+{
+  "name": "nano-banana",
+  "display_name": {
+    "en_US": "Nano Banana Image Studio",
+    "zh_Hans": "Nano Banana 图像工作室"
+  },
+  "description": {
+    "en_US": "Generate and edit images with Google's Gemini image models, including Nano Banana and Nano Banana Pro.",
+    "zh_Hans": "使用 Google Gemini 图像模型生成和编辑图像，包括 Nano Banana 和 Nano Banana Pro。"
+  },
+  "icon": "symbol:icon-gemini",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/nano-banana",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "gemini-api-key",
+      "display_name": {
+        "en_US": "Gemini API Key",
+        "zh_Hans": "Gemini API 密钥"
+      },
+      "description": {
+        "en_US": "API key used to authenticate Google Gemini API requests.",
+        "zh_Hans": "用于鉴权 Google Gemini API 请求的 API 密钥。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "Gemini API Key",
+            "zh_Hans": "Gemini API 密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Paste your Gemini API key from Google AI Studio.",
+              "zh_Hans": "粘贴来自 Google AI Studio 的 Gemini API 密钥。"
+            },
+            "placeholder": {
+              "en_US": "AIza...",
+              "zh_Hans": "AIza..."
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "base_url",
+          "display_name": {
+            "en_US": "Base URL",
+            "zh_Hans": "Base URL"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional custom Gemini-compatible endpoint. If not provided, the official Google endpoint will be used.",
+              "zh_Hans": "可选的 Gemini 兼容端点。如果不提供，将使用 Google 官方端点。"
+            },
+            "placeholder": {
+              "en_US": "https://your-proxy.example.com",
+              "zh_Hans": "https://your-proxy.example.com"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "generate-image",
+      "display_name": {
+        "en_US": "Generate Image",
+        "zh_Hans": "生成图像"
+      },
+      "description": {
+        "en_US": "Generate an image from a text prompt using Nano Banana.",
+        "zh_Hans": "使用 Nano Banana 从文本提示生成图像。"
+      },
+      "icon": "🎨",
+      "parameters": [
+        {
+          "name": "credentialId",
+          "display_name": {
+            "en_US": "Gemini Credential",
+            "zh_Hans": "Gemini 凭据"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Credential ID string referencing a configured `gemini-api-key` credential. Write the selected credential ID value.",
+              "zh_Hans": "凭据 ID 字符串，引用已配置的 `gemini-api-key` 凭据。填写所选凭据的 ID 值。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gemini-api-key"
+        },
+        {
+          "name": "prompt",
+          "display_name": {
+            "en_US": "Prompt",
+            "zh_Hans": "提示词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Write the full image generation instruction, including scene, subjects, composition, style, lighting, text to render, and important constraints. Value type: free-form string.",
+              "zh_Hans": "填写完整的图像生成提示词，描述场景、主体、构图、风格、光照、需要渲染的文字以及重要约束。值类型：自由文本字符串。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Describe the image you want to generate. Be specific about style, lighting, composition, and details.",
+              "zh_Hans": "描述您想要生成的图像。具体说明风格、光照、构图和细节。"
+            },
+            "placeholder": {
+              "en_US": "A photorealistic close-up of a ceramic coffee mug on a polished concrete surface...",
+              "zh_Hans": "一张写实风格的陶瓷咖啡杯特写，放在抛光混凝土台面上..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "model",
+          "display_name": {
+            "en_US": "Model",
+            "zh_Hans": "模型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "`gemini-3.1-flash-image-preview` supports the broadest parameter set in this tool, including thinking, Google Search grounding, `512` resolution, and extra aspect ratios `1:4`, `4:1`, `1:8`, `8:1`. `gemini-3-pro-image-preview` does not use thinking and does not support `512` or the extra aspect ratios. `gemini-2.5-flash-image` ignores `resolution`, `thinking_level`, `include_thoughts`, and `enable_search_grounding` in this implementation. Allowed values: `gemini-3.1-flash-image-preview`, `gemini-3-pro-image-preview`, `gemini-2.5-flash-image`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持这个工具里最完整的参数集合，包括 thinking、Google 搜索增强、`512` 分辨率以及额外宽高比 `1:4`、`4:1`、`1:8`、`8:1`。`gemini-3-pro-image-preview` 不使用 thinking，也不支持 `512` 和这些额外宽高比。`gemini-2.5-flash-image` 在当前实现中会忽略 `resolution`、`thinking_level`、`include_thoughts`、`enable_search_grounding`。可写值：`gemini-3.1-flash-image-preview`、`gemini-3-pro-image-preview`、`gemini-2.5-flash-image`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Select the Nano Banana model to use.",
+              "zh_Hans": "选择要使用的 Nano Banana 模型。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Nano Banana 2 (3.1 Flash Image)",
+                  "zh_Hans": "Nano Banana 2（3.1 Flash Image）"
+                },
+                "value": "gemini-3.1-flash-image-preview"
+              },
+              {
+                "label": {
+                  "en_US": "Nano Banana Pro (3 Pro Image)",
+                  "zh_Hans": "Nano Banana Pro（3 Pro Image）"
+                },
+                "value": "gemini-3-pro-image-preview"
+              },
+              {
+                "label": {
+                  "en_US": "Nano Banana (2.5 Flash Image)",
+                  "zh_Hans": "Nano Banana（2.5 Flash Image）"
+                },
+                "value": "gemini-2.5-flash-image"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "gemini-3.1-flash-image-preview"
+        },
+        {
+          "name": "aspect_ratio",
+          "display_name": {
+            "en_US": "Aspect Ratio",
+            "zh_Hans": "宽高比"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Base aspect ratios `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9` are supported broadly. Extra ratios `1:4`, `4:1`, `1:8`, `8:1` are only applied with `gemini-3.1-flash-image-preview`. Allowed values: `1:1`, `16:9`, `9:16`, `4:3`, `3:4`, `3:2`, `2:3`, `5:4`, `4:5`, `21:9`, `4:1`, `1:4`, `8:1`, `1:8`.",
+              "zh_Hans": "基础宽高比 `1:1`、`2:3`、`3:2`、`3:4`、`4:3`、`4:5`、`5:4`、`9:16`、`16:9`、`21:9` 会被广泛支持。额外宽高比 `1:4`、`4:1`、`1:8`、`8:1` 仅会在 `gemini-3.1-flash-image-preview` 上生效。可写值：`1:1`、`16:9`、`9:16`、`4:3`、`3:4`、`3:2`、`2:3`、`5:4`、`4:5`、`21:9`、`4:1`、`1:4`、`8:1`、`1:8`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Aspect ratio of the generated image.",
+              "zh_Hans": "生成图像的宽高比。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "1:1 (Square)",
+                  "zh_Hans": "1:1（方形）"
+                },
+                "value": "1:1"
+              },
+              {
+                "label": {
+                  "en_US": "16:9 (Landscape)",
+                  "zh_Hans": "16:9（横向）"
+                },
+                "value": "16:9"
+              },
+              {
+                "label": {
+                  "en_US": "9:16 (Portrait)",
+                  "zh_Hans": "9:16（纵向）"
+                },
+                "value": "9:16"
+              },
+              {
+                "label": {
+                  "en_US": "4:3 (Standard)",
+                  "zh_Hans": "4:3（标准）"
+                },
+                "value": "4:3"
+              },
+              {
+                "label": {
+                  "en_US": "3:4 (Portrait)",
+                  "zh_Hans": "3:4（纵向）"
+                },
+                "value": "3:4"
+              },
+              {
+                "label": {
+                  "en_US": "3:2 (Photo)",
+                  "zh_Hans": "3:2（照片）"
+                },
+                "value": "3:2"
+              },
+              {
+                "label": {
+                  "en_US": "2:3 (Portrait Photo)",
+                  "zh_Hans": "2:3（纵向照片）"
+                },
+                "value": "2:3"
+              },
+              {
+                "label": {
+                  "en_US": "5:4 (Large Format)",
+                  "zh_Hans": "5:4（大画幅）"
+                },
+                "value": "5:4"
+              },
+              {
+                "label": {
+                  "en_US": "4:5 (Portrait Large)",
+                  "zh_Hans": "4:5（纵向大画幅）"
+                },
+                "value": "4:5"
+              },
+              {
+                "label": {
+                  "en_US": "21:9 (Ultra-wide)",
+                  "zh_Hans": "21:9（超宽）"
+                },
+                "value": "21:9"
+              },
+              {
+                "label": {
+                  "en_US": "4:1 (Banner - NB2 only)",
+                  "zh_Hans": "4:1（横幅，仅 NB2）"
+                },
+                "value": "4:1"
+              },
+              {
+                "label": {
+                  "en_US": "1:4 (Tall Banner - NB2 only)",
+                  "zh_Hans": "1:4（竖幅横幅，仅 NB2）"
+                },
+                "value": "1:4"
+              },
+              {
+                "label": {
+                  "en_US": "8:1 (Ultra Banner - NB2 only)",
+                  "zh_Hans": "8:1（超宽横幅，仅 NB2）"
+                },
+                "value": "8:1"
+              },
+              {
+                "label": {
+                  "en_US": "1:8 (Ultra Tall - NB2 only)",
+                  "zh_Hans": "1:8（超高竖幅，仅 NB2）"
+                },
+                "value": "1:8"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "1:1"
+        },
+        {
+          "name": "resolution",
+          "display_name": {
+            "en_US": "Resolution",
+            "zh_Hans": "分辨率"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Output resolution of the generated image.",
+              "zh_Hans": "生成图像的输出分辨率。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "512 (0.5K - NB2 only)",
+                  "zh_Hans": "512（0.5K，仅 NB2）"
+                },
+                "value": "512"
+              },
+              {
+                "label": {
+                  "en_US": "1K (Default)",
+                  "zh_Hans": "1K（默认）"
+                },
+                "value": "1K"
+              },
+              {
+                "label": {
+                  "en_US": "2K (High)",
+                  "zh_Hans": "2K（高清）"
+                },
+                "value": "2K"
+              },
+              {
+                "label": {
+                  "en_US": "4K (Ultra High)",
+                  "zh_Hans": "4K（超高清）"
+                },
+                "value": "4K"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "1K"
+        },
+        {
+          "name": "thinking_level",
+          "display_name": {
+            "en_US": "Thinking Level",
+            "zh_Hans": "思考级别"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": {
+                "$in": [
+                  "gemini-3-pro-image-preview",
+                  "gemini-2.5-flash-image"
+                ]
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "This parameter is applied only with `gemini-3.1-flash-image-preview`; other models ignore it. Allowed values: `minimal`, `high`.",
+              "zh_Hans": "该参数仅对 `gemini-3.1-flash-image-preview` 生效；其他模型会忽略它。可写值：`minimal`、`high`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Controls reasoning depth. 'high' improves quality for complex prompts but increases latency. Only affects Nano Banana 2.",
+              "zh_Hans": "控制推理深度。「高」可以提升复杂提示的生成质量，但会增加延迟。仅影响 Nano Banana 2。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Minimal (Faster)",
+                  "zh_Hans": "最低（更快）"
+                },
+                "value": "minimal"
+              },
+              {
+                "label": {
+                  "en_US": "High (Better Quality)",
+                  "zh_Hans": "高（更好质量）"
+                },
+                "value": "high"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal"
+        },
+        {
+          "name": "include_thoughts",
+          "display_name": {
+            "en_US": "Return Thoughts",
+            "zh_Hans": "返回思考内容"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": {
+                "$in": [
+                  "gemini-3-pro-image-preview",
+                  "gemini-2.5-flash-image"
+                ]
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` returns the model's thought summary when thinking is supported. `false` hides it. This parameter is applied only with `gemini-3.1-flash-image-preview`; other models ignore it. This controls visibility only and does not guarantee that thinking token usage or billing is disabled. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示在支持 thinking 时返回模型的思考摘要，`false` 表示隐藏思考摘要。该参数仅对 `gemini-3.1-flash-image-preview` 生效；其他模型会忽略它。这个开关只控制可见性，不保证关闭后就不会产生或计费 thinking token。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, the model's thought summary is returned in the tool response. Billing for thinking tokens still applies whether this is enabled or not.",
+              "zh_Hans": "启用后，会在工具响应中返回模型的思考摘要。无论是否启用，思考令牌的计费都仍然可能发生。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enable_search_grounding",
+          "display_name": {
+            "en_US": "Google Search Grounding",
+            "zh_Hans": "Google 搜索增强"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": "gemini-2.5-flash-image"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` enables Google Search grounding for prompts that depend on real-time or factual external information. `false` disables it. This parameter is applied only for `gemini-3.1-flash-image-preview` and `gemini-3-pro-image-preview`; `gemini-2.5-flash-image` ignores it. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示启用 Google 搜索增强，用于依赖实时信息或外部事实信息的提示；`false` 表示禁用。该参数仅对 `gemini-3.1-flash-image-preview` 和 `gemini-3-pro-image-preview` 生效；`gemini-2.5-flash-image` 会忽略它。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Enable Google Search to generate images based on real-time information.",
+              "zh_Hans": "启用 Google 搜索以基于实时信息生成图像。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "upload_to_storage",
+          "display_name": {
+            "en_US": "Upload to Storage",
+            "zh_Hans": "上传至存储"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` uploads the generated image to persistent storage. `false` returns an in-memory file reference only. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示将生成图像上传到持久化存储；`false` 表示仅以内存文件引用形式返回。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, uploads the generated image to persistent object storage. When disabled, returns the image in memory.",
+              "zh_Hans": "启用时，将生成的图像上传到持久化对象存储。禁用时，在内存中返回图像。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "skill": "# Generate Image Tool\n\n## Tool\n\n- **Name**: `generate-image`\n- **Purpose**: Generate an image from a text prompt using Google Gemini's native image generation (Nano Banana).\n\n## Parameters\n\n| Name                      | Type            | Required | UI Component        | Description                                                                                                                                               | Example                                    |\n| ------------------------- | --------------- | -------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |\n| `credentialId`            | `credential_id` | `true`   | `credential-select` | Gemini API key credential.                                                                                                                                | —                                          |\n| `model`                   | `string`        | `true`   | `select`            | Nano Banana model to use. Default: `gemini-3.1-flash-image-preview`.                                                                                      | `\"gemini-3.1-flash-image-preview\"`         |\n| `aspect_ratio`            | `string`        | `false`  | `select`            | Aspect ratio of the generated image. Default: `1:1`.                                                                                                      | `\"16:9\"`                                   |\n| `resolution`              | `string`        | `false`  | `select`            | Output resolution. Options: `512`, `1K`, `2K`, `4K`. Default: `1K`.                                                                                       | `\"2K\"`                                     |\n| `thinking_level`          | `string`        | `false`  | `select`            | Thinking level: `minimal` (faster) or `high` (better quality). Default: `minimal`.                                                                        | `\"high\"`                                   |\n| `include_thoughts`        | `boolean`       | `false`  | `switch`            | Return the model's thought summary in the response. This only affects visibility; thinking tokens may still be billed even when hidden. Default: `false`. | `true`                                     |\n| `enable_search_grounding` | `boolean`       | `false`  | `switch`            | Enable Google Search for real-time data in images. Default: `false`.                                                                                      | `true`                                     |\n| `upload_to_storage`       | `boolean`       | `false`  | `switch`            | Upload result to persistent storage. Default: `true`.                                                                                                     | `false`                                    |\n| `prompt`                  | `string`        | `true`   | `textarea`          | Text description of the image to generate.                                                                                                                | `\"A photorealistic sunset over the ocean\"` |\n\n## Supported Models\n\n| Model           | ID                               | Best For                                                           |\n| --------------- | -------------------------------- | ------------------------------------------------------------------ |\n| Nano Banana 2   | `gemini-3.1-flash-image-preview` | Fast, high-volume, supports 512 resolution and extra aspect ratios |\n| Nano Banana Pro | `gemini-3-pro-image-preview`     | Professional quality, complex compositions, advanced reasoning     |\n| Nano Banana     | `gemini-2.5-flash-image`         | Speed and efficiency, basic image generation                       |\n\n## Tool Input Example\n\n```json\n{\n  \"aspect_ratio\": \"1:1\",\n  \"credentialId\": \"019d512c-54ea-7579-a7c8-6ec05b8257ef\",\n  \"enable_search_grounding\": true,\n  \"include_thoughts\": true,\n  \"model\": \"gemini-2.5-flash-image\",\n  \"prompt\": \"On a rainy day, two tabby cats are playing under the eaves—a fresh, rustic scene.\",\n  \"resolution\": \"1K\",\n  \"thinking_level\": \"minimal\",\n  \"upload_to_storage\": true\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"text\": \"Okay, here's the image you requested.\",\n  \"thoughts\": null,\n  \"image\": {\n    \"__type__\": \"file_ref\",\n    \"source\": \"oss\",\n    \"filename\": \"nano-banana-1775184733116.png\",\n    \"extension\": \".png\",\n    \"mime_type\": \"image/png\",\n    \"size\": 1809919,\n    \"res_key\": \"plugin-uploads/nano-banana/a5c9409c-f149-4b32-8de8-66a6e2cb135c/.png\",\n    \"remote_url\": null,\n    \"content\": null\n  },\n  \"model\": \"gemini-2.5-flash-image\",\n  \"grounding_sources\": null\n}\n```\n\n## Limitations\n\n- Only generates one image per request.\n- No negative prompt support (that requires the Imagen API which is Vertex AI only).\n- No streaming — the full image is returned after generation completes.\n- Multi-turn iterative editing is not supported (use the `edit-image` tool instead for single-turn edits).\n- The `512` resolution and `1:4`, `4:1`, `1:8`, `8:1` aspect ratios only work with Nano Banana 2.\n- `include_thoughts` only controls whether thought summaries are returned. It does not disable thinking token usage or billing.\n\n## Prompting Tips\n\n- **Be descriptive**: Write narrative prompts, not keyword lists. Describe the scene, lighting, mood, and composition.\n- **Specify style**: Mention photography terms (lens type, camera angle) for photorealism, or art styles (watercolor, pixel art) for illustrations.\n- **Text in images**: Gemini excels at rendering text — explicitly describe the text content, font style, and placement.\n- **Google Search grounding**: Enable for images requiring real-time data (weather charts, news graphics, sports scores).\n"
+    },
+    {
+      "name": "edit-image",
+      "display_name": {
+        "en_US": "Edit Image",
+        "zh_Hans": "编辑图像"
+      },
+      "description": {
+        "en_US": "Edit an existing image using a text prompt with Nano Banana.",
+        "zh_Hans": "使用 Nano Banana 通过文本提示编辑现有图像。"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "credentialId",
+          "display_name": {
+            "en_US": "Gemini Credential",
+            "zh_Hans": "Gemini 凭据"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Credential ID string referencing a configured `gemini-api-key` credential. Write the selected credential ID value.",
+              "zh_Hans": "凭据 ID 字符串，引用已配置的 `gemini-api-key` 凭据。填写所选凭据的 ID 值。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gemini-api-key"
+        },
+        {
+          "name": "prompt",
+          "display_name": {
+            "en_US": "Prompt",
+            "zh_Hans": "提示词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Write the full edit instruction for the input image, including what to change, preserve, remove, add, or restyle. Value type: free-form string.",
+              "zh_Hans": "填写完整的图像编辑指令，说明要修改、保留、删除、添加或重塑风格的内容。值类型：自由文本字符串。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Describe the changes to make to the image. Be specific about what to add, remove, or modify.",
+              "zh_Hans": "描述要对图像进行的更改。具体说明要添加、删除或修改的内容。"
+            },
+            "placeholder": {
+              "en_US": "Add a small wizard hat on the cat's head...",
+              "zh_Hans": "在猫头上添加一顶小巫师帽..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "image",
+          "display_name": {
+            "en_US": "Input Image",
+            "zh_Hans": "输入图像"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Write a `file_ref` value pointing to the source image to edit. Supported source image formats include JPEG, PNG, GIF, and WebP. Value type: `file_ref`.",
+              "zh_Hans": "填写一个指向源图像的 `file_ref` 值。支持的源图像格式包括 JPEG、PNG、GIF、WebP。值类型：`file_ref`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The image to edit. Accepts a file_ref input and supports JPEG, PNG, GIF, and WebP formats.",
+              "zh_Hans": "要编辑的图像。接受 file_ref 输入，支持 JPEG、PNG、GIF 和 WebP 格式。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "file_ref"
+        },
+        {
+          "name": "model",
+          "display_name": {
+            "en_US": "Model",
+            "zh_Hans": "模型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "`gemini-3.1-flash-image-preview` supports the broadest parameter set in this tool, including thinking, Google Search grounding, `512` resolution, and extra aspect ratios `1:4`, `4:1`, `1:8`, `8:1`. `gemini-3-pro-image-preview` does not use thinking and does not support `512` or the extra aspect ratios. `gemini-2.5-flash-image` ignores `resolution`, `thinking_level`, `include_thoughts`, and `enable_search_grounding` in this implementation. Allowed values: `gemini-3.1-flash-image-preview`, `gemini-3-pro-image-preview`, `gemini-2.5-flash-image`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持这个工具里最完整的参数集合，包括 thinking、Google 搜索增强、`512` 分辨率以及额外宽高比 `1:4`、`4:1`、`1:8`、`8:1`。`gemini-3-pro-image-preview` 不使用 thinking，也不支持 `512` 和这些额外宽高比。`gemini-2.5-flash-image` 在当前实现中会忽略 `resolution`、`thinking_level`、`include_thoughts`、`enable_search_grounding`。可写值：`gemini-3.1-flash-image-preview`、`gemini-3-pro-image-preview`、`gemini-2.5-flash-image`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Select the Nano Banana model to use.",
+              "zh_Hans": "选择要使用的 Nano Banana 模型。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Nano Banana 2 (3.1 Flash Image)",
+                  "zh_Hans": "Nano Banana 2（3.1 Flash Image）"
+                },
+                "value": "gemini-3.1-flash-image-preview"
+              },
+              {
+                "label": {
+                  "en_US": "Nano Banana Pro (3 Pro Image)",
+                  "zh_Hans": "Nano Banana Pro（3 Pro Image）"
+                },
+                "value": "gemini-3-pro-image-preview"
+              },
+              {
+                "label": {
+                  "en_US": "Nano Banana (2.5 Flash Image)",
+                  "zh_Hans": "Nano Banana（2.5 Flash Image）"
+                },
+                "value": "gemini-2.5-flash-image"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "gemini-3.1-flash-image-preview"
+        },
+        {
+          "name": "aspect_ratio",
+          "display_name": {
+            "en_US": "Aspect Ratio",
+            "zh_Hans": "宽高比"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Base aspect ratios `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9` are supported broadly. Extra ratios `1:4`, `4:1`, `1:8`, `8:1` are only applied with `gemini-3.1-flash-image-preview`. Allowed values: `1:1`, `16:9`, `9:16`, `4:3`, `3:4`, `3:2`, `2:3`, `5:4`, `4:5`, `21:9`, `4:1`, `1:4`, `8:1`, `1:8`.",
+              "zh_Hans": "基础宽高比 `1:1`、`2:3`、`3:2`、`3:4`、`4:3`、`4:5`、`5:4`、`9:16`、`16:9`、`21:9` 会被广泛支持。额外宽高比 `1:4`、`4:1`、`1:8`、`8:1` 仅会在 `gemini-3.1-flash-image-preview` 上生效。可写值：`1:1`、`16:9`、`9:16`、`4:3`、`3:4`、`3:2`、`2:3`、`5:4`、`4:5`、`21:9`、`4:1`、`1:4`、`8:1`、`1:8`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Aspect ratio of the generated image.",
+              "zh_Hans": "生成图像的宽高比。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "1:1 (Square)",
+                  "zh_Hans": "1:1（方形）"
+                },
+                "value": "1:1"
+              },
+              {
+                "label": {
+                  "en_US": "16:9 (Landscape)",
+                  "zh_Hans": "16:9（横向）"
+                },
+                "value": "16:9"
+              },
+              {
+                "label": {
+                  "en_US": "9:16 (Portrait)",
+                  "zh_Hans": "9:16（纵向）"
+                },
+                "value": "9:16"
+              },
+              {
+                "label": {
+                  "en_US": "4:3 (Standard)",
+                  "zh_Hans": "4:3（标准）"
+                },
+                "value": "4:3"
+              },
+              {
+                "label": {
+                  "en_US": "3:4 (Portrait)",
+                  "zh_Hans": "3:4（纵向）"
+                },
+                "value": "3:4"
+              },
+              {
+                "label": {
+                  "en_US": "3:2 (Photo)",
+                  "zh_Hans": "3:2（照片）"
+                },
+                "value": "3:2"
+              },
+              {
+                "label": {
+                  "en_US": "2:3 (Portrait Photo)",
+                  "zh_Hans": "2:3（纵向照片）"
+                },
+                "value": "2:3"
+              },
+              {
+                "label": {
+                  "en_US": "5:4 (Large Format)",
+                  "zh_Hans": "5:4（大画幅）"
+                },
+                "value": "5:4"
+              },
+              {
+                "label": {
+                  "en_US": "4:5 (Portrait Large)",
+                  "zh_Hans": "4:5（纵向大画幅）"
+                },
+                "value": "4:5"
+              },
+              {
+                "label": {
+                  "en_US": "21:9 (Ultra-wide)",
+                  "zh_Hans": "21:9（超宽）"
+                },
+                "value": "21:9"
+              },
+              {
+                "label": {
+                  "en_US": "4:1 (Banner - NB2 only)",
+                  "zh_Hans": "4:1（横幅，仅 NB2）"
+                },
+                "value": "4:1"
+              },
+              {
+                "label": {
+                  "en_US": "1:4 (Tall Banner - NB2 only)",
+                  "zh_Hans": "1:4（竖幅横幅，仅 NB2）"
+                },
+                "value": "1:4"
+              },
+              {
+                "label": {
+                  "en_US": "8:1 (Ultra Banner - NB2 only)",
+                  "zh_Hans": "8:1（超宽横幅，仅 NB2）"
+                },
+                "value": "8:1"
+              },
+              {
+                "label": {
+                  "en_US": "1:8 (Ultra Tall - NB2 only)",
+                  "zh_Hans": "1:8（超高竖幅，仅 NB2）"
+                },
+                "value": "1:8"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "1:1"
+        },
+        {
+          "name": "resolution",
+          "display_name": {
+            "en_US": "Resolution",
+            "zh_Hans": "分辨率"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Output resolution of the generated image.",
+              "zh_Hans": "生成图像的输出分辨率。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "512 (0.5K - NB2 only)",
+                  "zh_Hans": "512（0.5K，仅 NB2）"
+                },
+                "value": "512"
+              },
+              {
+                "label": {
+                  "en_US": "1K (Default)",
+                  "zh_Hans": "1K（默认）"
+                },
+                "value": "1K"
+              },
+              {
+                "label": {
+                  "en_US": "2K (High)",
+                  "zh_Hans": "2K（高清）"
+                },
+                "value": "2K"
+              },
+              {
+                "label": {
+                  "en_US": "4K (Ultra High)",
+                  "zh_Hans": "4K（超高清）"
+                },
+                "value": "4K"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "1K"
+        },
+        {
+          "name": "thinking_level",
+          "display_name": {
+            "en_US": "Thinking Level",
+            "zh_Hans": "思考级别"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": {
+                "$in": [
+                  "gemini-3-pro-image-preview",
+                  "gemini-2.5-flash-image"
+                ]
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "This parameter is applied only with `gemini-3.1-flash-image-preview`; other models ignore it. Allowed values: `minimal`, `high`.",
+              "zh_Hans": "该参数仅对 `gemini-3.1-flash-image-preview` 生效；其他模型会忽略它。可写值：`minimal`、`high`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Controls reasoning depth. 'high' improves quality for complex prompts but increases latency. Only affects Nano Banana 2.",
+              "zh_Hans": "控制推理深度。「高」可以提升复杂提示的生成质量，但会增加延迟。仅影响 Nano Banana 2。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Minimal (Faster)",
+                  "zh_Hans": "最低（更快）"
+                },
+                "value": "minimal"
+              },
+              {
+                "label": {
+                  "en_US": "High (Better Quality)",
+                  "zh_Hans": "高（更好质量）"
+                },
+                "value": "high"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "minimal"
+        },
+        {
+          "name": "include_thoughts",
+          "display_name": {
+            "en_US": "Return Thoughts",
+            "zh_Hans": "返回思考内容"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": {
+                "$in": [
+                  "gemini-3-pro-image-preview",
+                  "gemini-2.5-flash-image"
+                ]
+              }
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` returns the model's thought summary when thinking is supported. `false` hides it. This parameter is applied only with `gemini-3.1-flash-image-preview`; other models ignore it. This controls visibility only and does not guarantee that thinking token usage or billing is disabled. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示在支持 thinking 时返回模型的思考摘要，`false` 表示隐藏思考摘要。该参数仅对 `gemini-3.1-flash-image-preview` 生效；其他模型会忽略它。这个开关只控制可见性，不保证关闭后就不会产生或计费 thinking token。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, the model's thought summary is returned in the tool response. Billing for thinking tokens still applies whether this is enabled or not.",
+              "zh_Hans": "启用后，会在工具响应中返回模型的思考摘要。无论是否启用，思考令牌的计费都仍然可能发生。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enable_search_grounding",
+          "display_name": {
+            "en_US": "Google Search Grounding",
+            "zh_Hans": "Google 搜索增强"
+          },
+          "required": false,
+          "display": {
+            "hide": {
+              "model": "gemini-2.5-flash-image"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` enables Google Search grounding for prompts that depend on real-time or factual external information. `false` disables it. This parameter is applied only for `gemini-3.1-flash-image-preview` and `gemini-3-pro-image-preview`; `gemini-2.5-flash-image` ignores it. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示启用 Google 搜索增强，用于依赖实时信息或外部事实信息的提示；`false` 表示禁用。该参数仅对 `gemini-3.1-flash-image-preview` 和 `gemini-3-pro-image-preview` 生效；`gemini-2.5-flash-image` 会忽略它。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Enable Google Search to generate images based on real-time information.",
+              "zh_Hans": "启用 Google 搜索以基于实时信息生成图像。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "upload_to_storage",
+          "display_name": {
+            "en_US": "Upload to Storage",
+            "zh_Hans": "上传至存储"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "`true` uploads the generated image to persistent storage. `false` returns an in-memory file reference only. Allowed values: `true`, `false`.",
+              "zh_Hans": "`true` 表示将生成图像上传到持久化存储；`false` 表示仅以内存文件引用形式返回。可写值：`true`、`false`。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, uploads the generated image to persistent object storage. When disabled, returns the image in memory.",
+              "zh_Hans": "启用时，将生成的图像上传到持久化对象存储。禁用时，在内存中返回图像。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "skill": "# Edit Image Tool\n\n## Tool\n\n- **Name**: `edit-image`\n- **Purpose**: Edit an existing image using a text prompt with Google Gemini's native image generation (Nano Banana).\n\n## Parameters\n\n| Name                      | Type            | Required | UI Component        | Description                                                                                                                                               | Example                            |\n| ------------------------- | --------------- | -------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |\n| `credentialId`            | `credential_id` | `true`   | `credential-select` | Gemini API key credential.                                                                                                                                | —                                  |\n| `model`                   | `string`        | `true`   | `select`            | Nano Banana model to use. Default: `gemini-3.1-flash-image-preview`.                                                                                      | `\"gemini-3.1-flash-image-preview\"` |\n| `aspect_ratio`            | `string`        | `false`  | `select`            | Aspect ratio of the output image. Default: `1:1`.                                                                                                         | `\"16:9\"`                           |\n| `resolution`              | `string`        | `false`  | `select`            | Output resolution. Options: `512`, `1K`, `2K`, `4K`. Default: `1K`.                                                                                       | `\"2K\"`                             |\n| `thinking_level`          | `string`        | `false`  | `select`            | Thinking level: `minimal` (faster) or `high` (better quality). Default: `minimal`.                                                                        | `\"high\"`                           |\n| `include_thoughts`        | `boolean`       | `false`  | `switch`            | Return the model's thought summary in the response. This only affects visibility; thinking tokens may still be billed even when hidden. Default: `false`. | `true`                             |\n| `enable_search_grounding` | `boolean`       | `false`  | `switch`            | Enable Google Search for real-time data. Default: `false`.                                                                                                | `true`                             |\n| `upload_to_storage`       | `boolean`       | `false`  | `switch`            | Upload result to persistent storage. Default: `true`.                                                                                                     | `false`                            |\n| `prompt`                  | `string`        | `true`   | `textarea`          | Text description of the edits to make to the image.                                                                                                       | `\"Add a wizard hat on the cat\"`    |\n| `image`                   | `file_ref`      | `true`   | `input`             | The source image to edit. Supports JPEG, PNG, GIF, WebP.                                                                                                  | —                                  |\n\n## Tool Input Example\n\n```json\n{\n  \"aspect_ratio\": \"1:1\",\n  \"credentialId\": \"019d512c-54ea-7579-a7c8-6ec05b8257ef\",\n  \"enable_search_grounding\": false,\n  \"image\": {\n    \"size\": 1809919,\n    \"filename\": \"nano-banana-1775184733116.png\",\n    \"extension\": \".png\",\n    \"source\": \"oss\",\n    \"content\": null,\n    \"__type__\": \"file_ref\",\n    \"res_key\": \"plugin-uploads/nano-banana__debug__dev/a5c9409c-f149-4b32-8de8-66a6e2cb135c/.png\",\n    \"remote_url\": null,\n    \"mime_type\": \"image/png\"\n  },\n  \"include_thoughts\": false,\n  \"model\": \"gemini-2.5-flash-image\",\n  \"prompt\": \"add a dog beside the cats\",\n  \"resolution\": \"1K\",\n  \"thinking_level\": \"minimal\",\n  \"upload_to_storage\": true\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"text\": \"Sure, here's the updated image: \",\n  \"thoughts\": null,\n  \"image\": {\n    \"__type__\": \"file_ref\",\n    \"source\": \"oss\",\n    \"filename\": \"nano-banana-edit-1775184757030.png\",\n    \"extension\": \".png\",\n    \"mime_type\": \"image/png\",\n    \"size\": 2699224,\n    \"res_key\": \"plugin-uploads/nano-banana/7900dc9e-f073-4561-bfc6-c8d6d8766774/.png\",\n    \"remote_url\": null,\n    \"content\": null\n  },\n  \"model\": \"gemini-2.5-flash-image\",\n  \"grounding_sources\": null\n}\n```\n\n## Editing Capabilities\n\n- **Add elements**: \"Add a small wizard hat on the cat's head\"\n- **Remove elements**: \"Remove the person in the background\"\n- **Modify elements**: \"Change the blue sofa to brown leather\"\n- **Style transfer**: \"Make this photo look like a watercolor painting\"\n- **Color grading**: \"Apply warm, golden hour lighting to this scene\"\n- **Inpainting (semantic)**: \"Change only the sky to a dramatic sunset\"\n\n## Limitations\n\n- Only one input image per request (multi-image composition requires Vertex AI).\n- No mask-based inpainting — the model uses semantic understanding to determine edit regions.\n- No image upscaling (requires Vertex AI `upscaleImage()` API).\n- Each edit is a single turn — no multi-turn iterative refinement.\n- The model may alter other parts of the image slightly to maintain consistency.\n- `include_thoughts` only controls whether thought summaries are returned. It does not disable thinking token usage or billing.\n"
+    }
+  ]
+}
