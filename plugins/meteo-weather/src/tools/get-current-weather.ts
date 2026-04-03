@@ -4,6 +4,7 @@ import { geocode } from "../api/geocode"
 import { TEMP_LABELS, WEATHER_CODE_MAP, WIND_SPEED_LABELS } from "../constants"
 import { locationToEnglish } from "../utils/chinese-location"
 import { t } from "../i18n/i18n-node"
+import getCurrentWeatherSkill from "./get-current-weather-skill.md" with { type: "text" }
 
 function weatherCodeToText(code: number): string {
   return WEATHER_CODE_MAP[code] ?? `Unknown (${code})`
@@ -139,6 +140,7 @@ export const getCurrentWeatherTool: ToolDefinition = {
   name: "meteo-weather-get-current",
   display_name: t("GET_CURRENT_WEATHER_TOOL_DISPLAY_NAME"),
   description: t("GET_CURRENT_WEATHER_TOOL_DESCRIPTION"),
+  skill: getCurrentWeatherSkill,
   icon: "🌤️",
   parameters,
 
