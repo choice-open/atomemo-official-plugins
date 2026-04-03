@@ -3,7 +3,7 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { requireDocsClient } from "../../lib/docs-client"
+import { GoogleDocsCredentialParameter, requireDocsClient } from "../../lib/docs-client"
 import createDocumentSkill from "./create-document-skill.md" with { type: "text" }
 
 export const createDocumentTool: ToolDefinition = {
@@ -13,13 +13,7 @@ export const createDocumentTool: ToolDefinition = {
   skill: createDocumentSkill,
   icon: "📝",
   parameters: [
-    {
-      name: "google_credential",
-      type: "credential_id",
-      required: true,
-      display_name: t("GOOGLE_DOCS_CREDENTIAL_PARAM_DISPLAY_NAME"),
-      credential_name: "google-docs-oauth2",
-    },
+    GoogleDocsCredentialParameter,
     {
       name: "title",
       type: "string",

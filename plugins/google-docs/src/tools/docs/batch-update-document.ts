@@ -3,7 +3,7 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { requireDocsClient } from "../../lib/docs-client"
+import { GoogleDocsCredentialParameter, requireDocsClient } from "../../lib/docs-client"
 import batchUpdateDocumentSkill from "./batch-update-document-skill.md" with { type: "text" }
 
 export const batchUpdateDocumentTool: ToolDefinition = {
@@ -13,13 +13,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
   skill: batchUpdateDocumentSkill,
   icon: "🛠️",
   parameters: [
-    {
-      name: "google_credential",
-      type: "credential_id",
-      required: true,
-      display_name: t("GOOGLE_DOCS_CREDENTIAL_PARAM_DISPLAY_NAME"),
-      credential_name: "google-docs-oauth2",
-    },
+    GoogleDocsCredentialParameter,
     {
       name: "document_id",
       type: "string",
@@ -57,6 +51,13 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         placeholder: t("REQUESTS_JSON_PLACEHOLDER"),
         support_expression: true,
       },
+      display: {
+        hide: {
+          operation: {
+            $in: ["insert_text", "replace_all_text", "update_text_style"],
+          },
+        },
+      },
     },
     {
       name: "insert_text",
@@ -68,6 +69,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         width: "full",
         hint: t("INSERT_TEXT_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { operation: { $eq: "insert_text" } },
       },
     },
     {
@@ -81,6 +85,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         hint: t("INSERT_INDEX_HINT"),
         support_expression: true,
       },
+      display: {
+        show: { operation: { $eq: "insert_text" } },
+      },
     },
     {
       name: "replace_contains_text",
@@ -91,6 +98,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         component: "input",
         hint: t("REPLACE_CONTAINS_TEXT_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { operation: { $eq: "replace_all_text" } },
       },
     },
     {
@@ -104,6 +114,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         hint: t("REPLACE_TEXT_HINT"),
         support_expression: true,
       },
+      display: {
+        show: { operation: { $eq: "replace_all_text" } },
+      },
     },
     {
       name: "style_start_index",
@@ -114,6 +127,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         component: "number-input",
         hint: t("STYLE_START_INDEX_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { operation: { $eq: "update_text_style" } },
       },
     },
     {
@@ -126,6 +142,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         hint: t("STYLE_END_INDEX_HINT"),
         support_expression: true,
       },
+      display: {
+        show: { operation: { $eq: "update_text_style" } },
+      },
     },
     {
       name: "style_bold",
@@ -137,6 +156,9 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         component: "switch",
         hint: t("STYLE_BOLD_HINT"),
         support_expression: true,
+      },
+      display: {
+        show: { operation: { $eq: "update_text_style" } },
       },
     },
     {

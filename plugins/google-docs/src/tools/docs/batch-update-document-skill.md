@@ -5,6 +5,16 @@
 - **Name**: `batch-update-document`
 - **Purpose**: Applies one or more Google Docs update requests atomically.
 
+## UI visibility
+
+Optional fields use Atomemo `display` conditions on sibling `operation`:
+
+- **raw_json** (default): shows `requests_json` only; structured fields stay hidden.
+- **insert_text**: shows `insert_text`, `insert_index`.
+- **replace_all_text**: shows `replace_contains_text`, `replace_text`.
+- **update_text_style**: shows `style_start_index`, `style_end_index`, `style_bold`.
+- **write_control_json** is always visible (applies to any mode).
+
 ## Parameters
 
 | Name | Type | Required | UI Component | Description | Example |
