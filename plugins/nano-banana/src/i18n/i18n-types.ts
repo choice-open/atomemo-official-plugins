@@ -160,11 +160,11 @@ type RootTranslation = {
    */
   PARAM_RESOLUTION_DISPLAY_NAME: string
   /**
-   * O​u​t​p​u​t​ ​r​e​s​o​l​u​t​i​o​n​ ​o​f​ ​t​h​e​ ​g​e​n​e​r​a​t​e​d​ ​i​m​a​g​e​.
+   * O​u​t​p​u​t​ ​r​e​s​o​l​u​t​i​o​n​ ​o​f​ ​t​h​e​ ​g​e​n​e​r​a​t​e​d​ ​i​m​a​g​e​.​ ​A​p​p​l​i​e​s​ ​t​o​ ​N​a​n​o​ ​B​a​n​a​n​a​ ​2​ ​a​n​d​ ​N​a​n​o​ ​B​a​n​a​n​a​ ​P​r​o​ ​o​n​l​y​.
    */
   PARAM_RESOLUTION_HINT: string
   /**
-   * `​g​e​m​i​n​i​-​3​.​1​-​f​l​a​s​h​-​i​m​a​g​e​-​p​r​e​v​i​e​w​`​ ​s​u​p​p​o​r​t​s​ ​`​5​1​2​`​,​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​.​ ​`​g​e​m​i​n​i​-​3​-​p​r​o​-​i​m​a​g​e​-​p​r​e​v​i​e​w​`​ ​s​u​p​p​o​r​t​s​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​ ​o​n​l​y​.​ ​`​g​e​m​i​n​i​-​2​.​5​-​f​l​a​s​h​-​i​m​a​g​e​`​ ​i​g​n​o​r​e​s​ ​t​h​i​s​ ​p​a​r​a​m​e​t​e​r​.​ ​A​l​l​o​w​e​d​ ​v​a​l​u​e​s​:​ ​`​5​1​2​`​,​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​.
+   * `​g​e​m​i​n​i​-​3​.​1​-​f​l​a​s​h​-​i​m​a​g​e​-​p​r​e​v​i​e​w​`​ ​s​u​p​p​o​r​t​s​ ​`​5​1​2​`​,​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​.​ ​`​g​e​m​i​n​i​-​3​-​p​r​o​-​i​m​a​g​e​-​p​r​e​v​i​e​w​`​ ​s​u​p​p​o​r​t​s​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​ ​o​n​l​y​.​ ​`​g​e​m​i​n​i​-​2​.​5​-​f​l​a​s​h​-​i​m​a​g​e​`​ ​d​o​e​s​ ​n​o​t​ ​s​u​p​p​o​r​t​ ​s​e​l​e​c​t​a​b​l​e​ ​r​e​s​o​l​u​t​i​o​n​ ​i​n​ ​t​h​e​ ​G​e​m​i​n​i​ ​d​o​c​s​;​ ​i​t​ ​u​s​e​s​ ​f​i​x​e​d​ ​o​u​t​p​u​t​ ​s​i​z​e​s​ ​b​a​s​e​d​ ​o​n​ ​a​s​p​e​c​t​ ​r​a​t​i​o​ ​i​n​s​t​e​a​d​,​ ​s​u​c​h​ ​a​s​ ​`​1​:​1​`​ ​-​>​ ​`​1​0​2​4​x​1​0​2​4​`​,​ ​`​1​6​:​9​`​ ​-​>​ ​`​1​3​4​4​x​7​6​8​`​,​ ​a​n​d​ ​`​9​:​1​6​`​ ​-​>​ ​`​7​6​8​x​1​3​4​4​`​.​ ​I​n​ ​t​h​i​s​ ​i​m​p​l​e​m​e​n​t​a​t​i​o​n​,​ ​`​g​e​m​i​n​i​-​2​.​5​-​f​l​a​s​h​-​i​m​a​g​e​`​ ​i​g​n​o​r​e​s​ ​t​h​i​s​ ​p​a​r​a​m​e​t​e​r​.​ ​A​l​l​o​w​e​d​ ​v​a​l​u​e​s​:​ ​`​5​1​2​`​,​ ​`​1​K​`​,​ ​`​2​K​`​,​ ​`​4​K​`​.
    */
   PARAM_RESOLUTION_AI_DESCRIPTION: string
   /**
@@ -447,11 +447,11 @@ export type TranslationFunctions = {
    */
   PARAM_RESOLUTION_DISPLAY_NAME: () => LocalizedString
   /**
-   * Output resolution of the generated image.
+   * Output resolution of the generated image. Applies to Nano Banana 2 and Nano Banana Pro only.
    */
   PARAM_RESOLUTION_HINT: () => LocalizedString
   /**
-   * `gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.
+   * `gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` does not support selectable resolution in the Gemini docs; it uses fixed output sizes based on aspect ratio instead, such as `1:1` -> `1024x1024`, `16:9` -> `1344x768`, and `9:16` -> `768x1344`. In this implementation, `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.
    */
   PARAM_RESOLUTION_AI_DESCRIPTION: () => LocalizedString
   /**

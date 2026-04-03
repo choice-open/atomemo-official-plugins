@@ -127,6 +127,11 @@ const resolutionParam = {
   required: false,
   default: "1K",
   display_name: t("PARAM_RESOLUTION_DISPLAY_NAME"),
+  display: {
+    hide: {
+      model: GEMINI_2_5_FLASH_IMAGE,
+    },
+  },
   ai: {
     llm_description: t("PARAM_RESOLUTION_AI_DESCRIPTION"),
   },

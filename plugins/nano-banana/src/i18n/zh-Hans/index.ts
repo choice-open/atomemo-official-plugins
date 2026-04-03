@@ -47,9 +47,10 @@ const zh_Hans = {
   PARAM_ASPECT_RATIO_OPTION_8_1: "8:1（超宽横幅，仅 NB2）",
   PARAM_ASPECT_RATIO_OPTION_1_8: "1:8（超高竖幅，仅 NB2）",
   PARAM_RESOLUTION_DISPLAY_NAME: "分辨率",
-  PARAM_RESOLUTION_HINT: "生成图像的输出分辨率。",
+  PARAM_RESOLUTION_HINT:
+    "生成图像的输出分辨率。仅对 Nano Banana 2 和 Nano Banana Pro 生效。",
   PARAM_RESOLUTION_AI_DESCRIPTION:
-    "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。",
+    "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。根据 Gemini 文档，`gemini-2.5-flash-image` 不支持可选分辨率，而是按宽高比使用固定输出尺寸，例如 `1:1` -> `1024x1024`、`16:9` -> `1344x768`、`9:16` -> `768x1344`。在当前实现中，`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。",
   PARAM_RESOLUTION_OPTION_512: "512（0.5K，仅 NB2）",
   PARAM_RESOLUTION_OPTION_1K: "1K（默认）",
   PARAM_RESOLUTION_OPTION_2K: "2K（高清）",

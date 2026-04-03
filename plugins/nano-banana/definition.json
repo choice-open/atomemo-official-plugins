@@ -320,16 +320,21 @@
             "zh_Hans": "分辨率"
           },
           "required": false,
+          "display": {
+            "hide": {
+              "model": "gemini-2.5-flash-image"
+            }
+          },
           "ai": {
             "llm_description": {
-              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
-              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
+              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` does not support selectable resolution in the Gemini docs; it uses fixed output sizes based on aspect ratio instead, such as `1:1` -> `1024x1024`, `16:9` -> `1344x768`, and `9:16` -> `768x1344`. In this implementation, `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。根据 Gemini 文档，`gemini-2.5-flash-image` 不支持可选分辨率，而是按宽高比使用固定输出尺寸，例如 `1:1` -> `1024x1024`、`16:9` -> `1344x768`、`9:16` -> `768x1344`。在当前实现中，`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Output resolution of the generated image.",
-              "zh_Hans": "生成图像的输出分辨率。"
+              "en_US": "Output resolution of the generated image. Applies to Nano Banana 2 and Nano Banana Pro only.",
+              "zh_Hans": "生成图像的输出分辨率。仅对 Nano Banana 2 和 Nano Banana Pro 生效。"
             },
             "support_expression": true,
             "width": "medium",
@@ -776,16 +781,21 @@
             "zh_Hans": "分辨率"
           },
           "required": false,
+          "display": {
+            "hide": {
+              "model": "gemini-2.5-flash-image"
+            }
+          },
           "ai": {
             "llm_description": {
-              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
-              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
+              "en_US": "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` does not support selectable resolution in the Gemini docs; it uses fixed output sizes based on aspect ratio instead, such as `1:1` -> `1024x1024`, `16:9` -> `1344x768`, and `9:16` -> `768x1344`. In this implementation, `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
+              "zh_Hans": "`gemini-3.1-flash-image-preview` 支持 `512`、`1K`、`2K`、`4K`。`gemini-3-pro-image-preview` 仅支持 `1K`、`2K`、`4K`。根据 Gemini 文档，`gemini-2.5-flash-image` 不支持可选分辨率，而是按宽高比使用固定输出尺寸，例如 `1:1` -> `1024x1024`、`16:9` -> `1344x768`、`9:16` -> `768x1344`。在当前实现中，`gemini-2.5-flash-image` 会忽略这个参数。可写值：`512`、`1K`、`2K`、`4K`。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Output resolution of the generated image.",
-              "zh_Hans": "生成图像的输出分辨率。"
+              "en_US": "Output resolution of the generated image. Applies to Nano Banana 2 and Nano Banana Pro only.",
+              "zh_Hans": "生成图像的输出分辨率。仅对 Nano Banana 2 和 Nano Banana Pro 生效。"
             },
             "support_expression": true,
             "width": "medium",

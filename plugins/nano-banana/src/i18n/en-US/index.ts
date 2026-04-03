@@ -48,9 +48,10 @@ const en_US = {
   PARAM_ASPECT_RATIO_OPTION_8_1: "8:1 (Ultra Banner - NB2 only)",
   PARAM_ASPECT_RATIO_OPTION_1_8: "1:8 (Ultra Tall - NB2 only)",
   PARAM_RESOLUTION_DISPLAY_NAME: "Resolution",
-  PARAM_RESOLUTION_HINT: "Output resolution of the generated image.",
+  PARAM_RESOLUTION_HINT:
+    "Output resolution of the generated image. Applies to Nano Banana 2 and Nano Banana Pro only.",
   PARAM_RESOLUTION_AI_DESCRIPTION:
-    "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
+    "`gemini-3.1-flash-image-preview` supports `512`, `1K`, `2K`, `4K`. `gemini-3-pro-image-preview` supports `1K`, `2K`, `4K` only. `gemini-2.5-flash-image` does not support selectable resolution in the Gemini docs; it uses fixed output sizes based on aspect ratio instead, such as `1:1` -> `1024x1024`, `16:9` -> `1344x768`, and `9:16` -> `768x1344`. In this implementation, `gemini-2.5-flash-image` ignores this parameter. Allowed values: `512`, `1K`, `2K`, `4K`.",
   PARAM_RESOLUTION_OPTION_512: "512 (0.5K - NB2 only)",
   PARAM_RESOLUTION_OPTION_1K: "1K (Default)",
   PARAM_RESOLUTION_OPTION_2K: "2K (High)",
