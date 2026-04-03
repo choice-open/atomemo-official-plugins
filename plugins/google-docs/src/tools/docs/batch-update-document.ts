@@ -42,6 +42,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "select",
         hint: t("BATCH_OPERATION_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -66,6 +67,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         component: "textarea",
         width: "full",
         hint: t("INSERT_TEXT_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -77,6 +79,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "number-input",
         hint: t("INSERT_INDEX_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -87,6 +90,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "input",
         hint: t("REPLACE_CONTAINS_TEXT_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -98,6 +102,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
         component: "textarea",
         width: "full",
         hint: t("REPLACE_TEXT_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -108,6 +113,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "number-input",
         hint: t("STYLE_START_INDEX_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -118,6 +124,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "number-input",
         hint: t("STYLE_END_INDEX_HINT"),
+        support_expression: true,
       },
     },
     {
@@ -129,6 +136,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       ui: {
         component: "switch",
         hint: t("STYLE_BOLD_HINT"),
+        support_expression: true,
       },
     },
     {

@@ -41,6 +41,7 @@ export const getDocumentTool: ToolDefinition = {
       ui: {
         component: "switch",
         hint: t("INCLUDE_TABS_CONTENT_HINT"),
+        support_expression: true,
       },
     },
   ],
