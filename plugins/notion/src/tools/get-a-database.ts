@@ -13,6 +13,7 @@ import {
 import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import getADatabaseSkill from "./get-a-database-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Exclude<keyof GetDatabaseParameters, ExcludedNames>
@@ -45,6 +46,7 @@ export const getADatabaseTool: ToolDefinition = {
   display_name: t("GET_DATABASE_TOOL_DISPLAY_NAME"),
   description: t("GET_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: getADatabaseSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)

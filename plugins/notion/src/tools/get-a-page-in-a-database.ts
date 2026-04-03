@@ -14,6 +14,9 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageIdProperty } from "./_shared-parameters/page-id"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import getAPageSkill from "./get-a-page-in-a-database-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<keyof GetPageParameters, ExcludedNames>
@@ -30,6 +33,7 @@ const parameters: Array<Property<ParametersNames>> = [
     items: {
       type: "string",
       name: "property_id_or_name",
+      display_name: t("PROPERTY_ID_OR_NAME_DISPLAY_NAME"),
       ui: { component: "input", support_expression: true },
     },
     default: [],
@@ -50,6 +54,7 @@ export const getAPageInADatabaseTool: ToolDefinition = {
   display_name: t("GET_PAGE_TOOL_DISPLAY_NAME"),
   description: t("GET_PAGE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: getAPageSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
@@ -70,10 +75,10 @@ export const getAPageInADatabaseTool: ToolDefinition = {
       const data = await client.pages.retrieve({
         filter_properties:
           Array.isArray(rawParameters.filter_properties) &&
-          rawParameters.filter_properties.length > 0
+            rawParameters.filter_properties.length > 0
             ? rawParameters.filter_properties.filter(
-                (item): item is string => typeof item === "string",
-              )
+              (item): item is string => typeof item === "string",
+            )
             : undefined,
         page_id: pageId,
       } satisfies GetPageParameters)

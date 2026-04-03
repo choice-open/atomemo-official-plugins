@@ -1,0 +1,2570 @@
+{
+  "name": "gmail",
+  "display_name": {
+    "en_US": "Gmail",
+    "zh_Hans": "Gmail"
+  },
+  "description": {
+    "en_US": "Google Gmail API plugin - read, send, and manage emails",
+    "zh_Hans": "Google Gmail API 插件 - 读取、发送和管理邮件"
+  },
+  "icon": "📧",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/gmail",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.6",
+  "credentials": [
+    {
+      "name": "gmail-oauth",
+      "display_name": {
+        "en_US": "Gmail OAuth",
+        "zh_Hans": "Gmail OAuth"
+      },
+      "description": {
+        "en_US": "OAuth 2.0 credentials for Gmail API access",
+        "zh_Hans": "Gmail API 访问的 OAuth 2.0 凭证"
+      },
+      "icon": "📧",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth client ID",
+              "zh_Hans": "OAuth 客户端 ID"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth client secret",
+              "zh_Hans": "OAuth 客户端密钥"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "display_name": {
+            "en_US": "Access Token",
+            "zh_Hans": "访问令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "OAuth 2.0 access token (get from Google OAuth flow)",
+              "zh_Hans": "OAuth 2.0 访问令牌（从 Google OAuth 流程获取）"
+            },
+            "placeholder": {
+              "en_US": "ya29.",
+              "zh_Hans": "ya29."
+            },
+            "sensitive": true,
+            "width": "full",
+            "display_none": true,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "display_name": {
+            "en_US": "Refresh Token",
+            "zh_Hans": "刷新令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional: for automatic token refresh",
+              "zh_Hans": "可选：用于自动刷新令牌"
+            },
+            "sensitive": true,
+            "width": "full",
+            "display_none": true,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "display_name": {
+            "en_US": "Expires At (Unix seconds)",
+            "zh_Hans": "过期时间（Unix 秒）"
+          },
+          "required": false,
+          "ui": {
+            "display_none": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "gmail-get-profile",
+      "display_name": {
+        "en_US": "Get Profile",
+        "zh_Hans": "获取个人资料"
+      },
+      "description": {
+        "en_US": "Get current user's Gmail profile",
+        "zh_Hans": "获取当前用户的 Gmail 个人资料"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ],
+      "skill": "# Get Profile Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-profile`\n- **Purpose**: Returns the authenticated user's Gmail profile (email address, messages total, threads total, history id).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"profile\": {\n    \"emailAddress\": \"user@example.com\",\n    \"messagesTotal\": 1234,\n    \"threadsTotal\": 567,\n    \"historyId\": \"12345678\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-messages",
+      "display_name": {
+        "en_US": "List Messages",
+        "zh_Hans": "列出邮件"
+      },
+      "description": {
+        "en_US": "List messages in user's mailbox",
+        "zh_Hans": "列出邮箱中的邮件"
+      },
+      "icon": "📬",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail search syntax: is:unread/starred, from:/to:/subject:, after:/before:, has:attachment, label:, OR/- to exclude",
+              "zh_Hans": "Gmail 搜索语法：is:unread/starred、from:/to:/subject:、after:/before:、has:attachment、label:、OR/- 排除"
+            },
+            "placeholder": {
+              "en_US": "is:unread from:example@gmail.com",
+              "zh_Hans": "is:unread from:example@gmail.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List Messages Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-messages`\n- **Purpose**: Lists message ids matching optional query and label filters, with pagination.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `q` | `string` | `false` | `input` | Gmail search query. | `\"from:alice is:unread\"` |\n| `label_ids` | `string` | `false` | `input` | Restrict to labels (format as supported by the host). | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `50` |\n| `page_token` | `string` | `false` | `input` | Token from a previous response for the next page. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"q\": \"is:unread\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"messages\": [{ \"id\": \"msgid\", \"threadId\": \"threadid\" }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 5\n}\n```\n"
+    },
+    {
+      "name": "gmail-get-message",
+      "display_name": {
+        "en_US": "Get Message",
+        "zh_Hans": "获取邮件"
+      },
+      "description": {
+        "en_US": "Get a single message by ID",
+        "zh_Hans": "按 ID 获取单封邮件"
+      },
+      "icon": "✉️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-message`\n- **Purpose**: Fetches a full message resource (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"threadId\": \"threadid\",\n    \"labelIds\": [\"INBOX\"],\n    \"snippet\": \"Hello…\",\n    \"payload\": {}\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-send-message",
+      "display_name": {
+        "en_US": "Send Message",
+        "zh_Hans": "发送邮件"
+      },
+      "description": {
+        "en_US": "Send an email message",
+        "zh_Hans": "发送一封邮件"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Send Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-send-message`\n- **Purpose**: Sends a new email (HTML body; raw message base64url per Gmail `messages.send`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject. | `\"Hello\"` |\n| `body` | `string` | `true` | `textarea` | HTML body; `\\n` → `<br>`. | `\"Hi Alice\"` |\n| `cc` | `string` | `false` | `input` | Cc. | |\n| `bcc` | `string` | `false` | `input` | Bcc. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Hello\",\n    \"body\": \"Hi there\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": { \"id\": \"msgid\", \"threadId\": \"threadid\", \"labelIds\": [\"SENT\"] },\n  \"id\": \"msgid\"\n}\n```\n"
+    },
+    {
+      "name": "gmail-trash-message",
+      "display_name": {
+        "en_US": "Trash Message",
+        "zh_Hans": "将邮件移至垃圾箱"
+      },
+      "description": {
+        "en_US": "Move message to trash",
+        "zh_Hans": "将邮件移至垃圾箱"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Trash Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-trash-message`\n- **Purpose**: Moves a message to Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"TRASH\"]\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-untrash-message",
+      "display_name": {
+        "en_US": "Untrash Message",
+        "zh_Hans": "从垃圾箱恢复邮件"
+      },
+      "description": {
+        "en_US": "Remove message from trash",
+        "zh_Hans": "从垃圾箱恢复邮件"
+      },
+      "icon": "📥",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Untrash Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-untrash-message`\n- **Purpose**: Restores a message from Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"INBOX\"]\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-modify-message",
+      "display_name": {
+        "en_US": "Modify Message",
+        "zh_Hans": "修改邮件"
+      },
+      "description": {
+        "en_US": "Modify message labels",
+        "zh_Hans": "修改邮件标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
+              "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
+              "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Modify Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-modify-message`\n- **Purpose**: Adds and/or removes labels on a single message. At least one of `add_label_ids` or `remove_label_ids` must be non-empty.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n| `add_label_ids` | `string` | `false` | `input` | Label ids to add (parsed to array by the tool). | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Label ids to remove. | `\"UNREAD\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\",\n    \"add_label_ids\": \"STARRED\",\n    \"remove_label_ids\": \"UNREAD\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"INBOX\", \"STARRED\"]\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-batch-modify-messages",
+      "display_name": {
+        "en_US": "Batch Modify Messages",
+        "zh_Hans": "批量修改邮件"
+      },
+      "description": {
+        "en_US": "Modify labels on multiple messages",
+        "zh_Hans": "批量修改多封邮件的标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_ids",
+          "display_name": {
+            "en_US": "Message IDs",
+            "zh_Hans": "邮件 ID 列表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "List of message IDs",
+              "zh_Hans": "邮件 ID 列表"
+            },
+            "placeholder": {
+              "en_US": "id1, id2, id3",
+              "zh_Hans": "id1, id2, id3"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
+              "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
+              "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Batch Modify Messages Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-batch-modify-messages`\n- **Purpose**: Applies label changes to multiple messages in one call. `message_ids` must be non-empty; at least one of `add_label_ids` or `remove_label_ids` must be non-empty.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_ids` | `string` | `true` | `input` | One or more message ids (parsed to array). | `\"id1,id2\"` |\n| `add_label_ids` | `string` | `false` | `input` | Labels to add. | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Labels to remove. | `\"UNREAD\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_ids\": \"id1,id2\",\n    \"remove_label_ids\": \"UNREAD\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
+    },
+    {
+      "name": "gmail-download-attachment",
+      "display_name": {
+        "en_US": "Download Attachment",
+        "zh_Hans": "下载附件"
+      },
+      "description": {
+        "en_US": "Download attachment to workspace files, return file reference. Attachment ID from payload.parts in Get Message.",
+        "zh_Hans": "下载邮件附件到工作区文件，返回文件引用。附件 ID 来自「获取邮件」的 payload.parts"
+      },
+      "icon": "📎",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "message_id",
+          "display_name": {
+            "en_US": "Message ID",
+            "zh_Hans": "邮件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail message ID",
+              "zh_Hans": "Gmail 邮件 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "attachment_id",
+          "display_name": {
+            "en_US": "Attachment ID",
+            "zh_Hans": "附件 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "From payload.parts in Get Message response",
+              "zh_Hans": "来自「获取邮件」返回的 payload.parts"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filename",
+          "display_name": {
+            "en_US": "Save as Filename",
+            "zh_Hans": "另存文件名"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional; defaults to attachment-; extension from file content",
+              "zh_Hans": "可选；未填则 attachment-；扩展从文件内容解析"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Download Attachment Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-download-attachment`\n- **Purpose**: Downloads an attachment and **uploads** it via `context.files.upload`, returning a file reference for use in the host.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Parent message id. | `\"18c5f2a3b4d5e6f7\"` |\n| `attachment_id` | `string` | `true` | `input` | Attachment id. | `\"ANGjdJ_abc\"` |\n| `filename` | `string` | `false` | `input` | Suggested filename; default `attachment-{attachmentId}`. | `\"report.pdf\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\",\n    \"attachment_id\": \"ANGjdJ_abc\",\n    \"filename\": \"report.pdf\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"file\": {\n    \"__type__\": \"file_ref\",\n    \"filename\": \"report.pdf\",\n    \"mime_type\": \"application/pdf\",\n    \"size\": 1024\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-drafts",
+      "display_name": {
+        "en_US": "List Drafts",
+        "zh_Hans": "列出草稿"
+      },
+      "description": {
+        "en_US": "List drafts in mailbox",
+        "zh_Hans": "列出邮箱中的草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List Drafts Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-drafts`\n- **Purpose**: Lists drafts with pagination.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"drafts\": [{ \"id\": \"r-abc\", \"message\": { \"id\": \"msgid\" } }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 1\n}\n```\n"
+    },
+    {
+      "name": "gmail-get-draft",
+      "display_name": {
+        "en_US": "Get Draft",
+        "zh_Hans": "获取草稿"
+      },
+      "description": {
+        "en_US": "Get a draft by ID",
+        "zh_Hans": "按 ID 获取草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-draft`\n- **Purpose**: Retrieves a single draft (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": {\n    \"id\": \"r-1234567890abcdef\",\n    \"message\": { \"raw\": \"...\" }\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-create-draft",
+      "display_name": {
+        "en_US": "Create Draft",
+        "zh_Hans": "创建草稿"
+      },
+      "description": {
+        "en_US": "Create a new email draft",
+        "zh_Hans": "创建新邮件草稿"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Create Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-create-draft`\n- **Purpose**: Creates a draft from To/Subject/Body (HTML body; newlines become `<br>`). Raw message uses standard base64url encoding for the Gmail API.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject (RFC 2047 encoded when needed). | `\"Draft subject\"` |\n| `body` | `string` | `true` | `textarea` | HTML body source; `\\n` → `<br>`. | `\"Hello\\nWorld\"` |\n| `cc` | `string` | `false` | `input` | Cc addresses. | `\"bob@example.com\"` |\n| `bcc` | `string` | `false` | `input` | Bcc addresses. | | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Hello\",\n    \"body\": \"Line one\\nLine two\",\n    \"cc\": \"bob@example.com\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": { \"id\": \"r-newdraft\", \"message\": { \"id\": \"msgid\" } },\n  \"id\": \"r-newdraft\"\n}\n```\n"
+    },
+    {
+      "name": "gmail-send-draft",
+      "display_name": {
+        "en_US": "Send Draft",
+        "zh_Hans": "发送草稿"
+      },
+      "description": {
+        "en_US": "Send an existing draft",
+        "zh_Hans": "发送已有草稿"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Send Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-send-draft`\n- **Purpose**: Sends an existing draft (loads the draft then calls `drafts.send`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id to send. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"sentmsgid\",\n    \"threadId\": \"threadid\",\n    \"labelIds\": [\"SENT\"]\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-delete-draft",
+      "display_name": {
+        "en_US": "Delete Draft",
+        "zh_Hans": "删除草稿"
+      },
+      "description": {
+        "en_US": "Permanently delete a draft",
+        "zh_Hans": "永久删除草稿"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Delete Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-delete-draft`\n- **Purpose**: Deletes a draft by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
+    },
+    {
+      "name": "gmail-update-draft",
+      "display_name": {
+        "en_US": "Update Draft",
+        "zh_Hans": "更新草稿"
+      },
+      "description": {
+        "en_US": "Replace a draft's content",
+        "zh_Hans": "替换草稿内容"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "draft_id",
+          "display_name": {
+            "en_US": "Draft ID",
+            "zh_Hans": "草稿 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail draft ID",
+              "zh_Hans": "Gmail 草稿 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "display_name": {
+            "en_US": "To",
+            "zh_Hans": "收件人"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Recipient email address(es)",
+              "zh_Hans": "收件人邮箱地址"
+            },
+            "placeholder": {
+              "en_US": "recipient@example.com",
+              "zh_Hans": "recipient@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email subject line",
+              "zh_Hans": "邮件主题"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "placeholder": {
+              "en_US": "Email content (HTML supported)",
+              "zh_Hans": "邮件内容（支持 HTML）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cc",
+          "display_name": {
+            "en_US": "Cc",
+            "zh_Hans": "抄送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Carbon copy recipients (comma-separated)",
+              "zh_Hans": "抄送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "bcc",
+          "display_name": {
+            "en_US": "Bcc",
+            "zh_Hans": "密送"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Blind carbon copy recipients (comma-separated)",
+              "zh_Hans": "密送收件人（逗号分隔）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Update Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-update-draft`\n- **Purpose**: Overwrites an existing draft with new To/Subject/Body (HTML body; base64url raw message).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id to update. | `\"r-1234567890abcdef\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject. | `\"Re: Hello\"` |\n| `body` | `string` | `true` | `textarea` | HTML body source. | `\"Updated body\"` |\n| `cc` | `string` | `false` | `input` | Cc. | |\n| `bcc` | `string` | `false` | `input` | Bcc. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Re: Hello\",\n    \"body\": \"Updated\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": { \"id\": \"r-1234567890abcdef\", \"message\": {} },\n  \"id\": \"r-1234567890abcdef\"\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-labels",
+      "display_name": {
+        "en_US": "List Labels",
+        "zh_Hans": "列出标签"
+      },
+      "description": {
+        "en_US": "List all labels in mailbox",
+        "zh_Hans": "列出邮箱中的所有标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ],
+      "skill": "# List Labels Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-labels`\n- **Purpose**: Lists all labels in the user's mailbox.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"labels\": [\n    { \"id\": \"INBOX\", \"name\": \"INBOX\", \"type\": \"system\" }\n  ]\n}\n```\n"
+    },
+    {
+      "name": "gmail-get-label",
+      "display_name": {
+        "en_US": "Get Label",
+        "zh_Hans": "获取标签"
+      },
+      "description": {
+        "en_US": "Get a label by ID",
+        "zh_Hans": "按 ID 获取标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-label`\n- **Purpose**: Retrieves a single label by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id (e.g. `INBOX`, `Label_123`). | `\"INBOX\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"INBOX\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"INBOX\",\n    \"name\": \"INBOX\",\n    \"type\": \"system\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-create-label",
+      "display_name": {
+        "en_US": "Create Label",
+        "zh_Hans": "创建标签"
+      },
+      "description": {
+        "en_US": "Create a new label",
+        "zh_Hans": "创建新标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Label Name",
+            "zh_Hans": "标签名称"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Create Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-create-label`\n- **Purpose**: Creates a new user label with default visibility (`labelShow` / `show`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `name` | `string` | `true` | `input` | Display name for the new label. | `\"Projects\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"name\": \"Projects\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"Label_abc123\",\n    \"name\": \"Projects\",\n    \"type\": \"user\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-update-label",
+      "display_name": {
+        "en_US": "Update Label",
+        "zh_Hans": "更新标签"
+      },
+      "description": {
+        "en_US": "Update a label",
+        "zh_Hans": "更新标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Label Name",
+            "zh_Hans": "标签名称"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Update Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-update-label`\n- **Purpose**: Updates an existing label (currently supports renaming via `name`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id to update. | `\"Label_abc123\"` |\n| `name` | `string` | `false` | `input` | New label name. | `\"Projects / Q1\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"Label_abc123\",\n    \"name\": \"Projects / Q1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"Label_abc123\",\n    \"name\": \"Projects / Q1\",\n    \"type\": \"user\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-delete-label",
+      "display_name": {
+        "en_US": "Delete Label",
+        "zh_Hans": "删除标签"
+      },
+      "description": {
+        "en_US": "Permanently delete a label",
+        "zh_Hans": "永久删除标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "label_id",
+          "display_name": {
+            "en_US": "Label ID",
+            "zh_Hans": "标签 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail label ID (e.g. INBOX, SENT)",
+              "zh_Hans": "Gmail 标签 ID（如 INBOX、SENT）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Delete Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-delete-label`\n- **Purpose**: Permanently deletes a user-created label by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id to delete. | `\"Label_abc123\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"Label_abc123\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-threads",
+      "display_name": {
+        "en_US": "List Threads",
+        "zh_Hans": "列出会话"
+      },
+      "description": {
+        "en_US": "List threads in mailbox",
+        "zh_Hans": "列出邮箱中的会话"
+      },
+      "icon": "🧵",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail search syntax: is:unread/starred, from:/to:/subject:, after:/before:, has:attachment, label:, OR/- to exclude",
+              "zh_Hans": "Gmail 搜索语法：is:unread/starred、from:/to:/subject:、after:/before:、has:attachment、label:、OR/- 排除"
+            },
+            "placeholder": {
+              "en_US": "is:unread from:example@gmail.com",
+              "zh_Hans": "is:unread from:example@gmail.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List Threads Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-threads`\n- **Purpose**: Lists conversation threads matching optional query and label filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `q` | `string` | `false` | `input` | Gmail search query. | `\"subject:invoice\"` |\n| `label_ids` | `string` | `false` | `input` | Label filter. | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `50` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"q\": \"in:inbox\",\n    \"max_results\": 10\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"threads\": [{ \"id\": \"threadid\", \"historyId\": \"1\" }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 3\n}\n```\n"
+    },
+    {
+      "name": "gmail-get-thread",
+      "display_name": {
+        "en_US": "Get Thread",
+        "zh_Hans": "获取会话"
+      },
+      "description": {
+        "en_US": "Get a thread by ID",
+        "zh_Hans": "按 ID 获取会话"
+      },
+      "icon": "🧵",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-thread`\n- **Purpose**: Fetches a thread with all messages (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"historyId\": \"999\",\n    \"messages\": []\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-modify-thread",
+      "display_name": {
+        "en_US": "Modify Thread",
+        "zh_Hans": "修改会话"
+      },
+      "description": {
+        "en_US": "Modify thread labels",
+        "zh_Hans": "修改会话标签"
+      },
+      "icon": "🏷️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "add_label_ids",
+          "display_name": {
+            "en_US": "Add Label IDs",
+            "zh_Hans": "添加的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to add (e.g. INBOX, STARRED)",
+              "zh_Hans": "要添加的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "remove_label_ids",
+          "display_name": {
+            "en_US": "Remove Label IDs",
+            "zh_Hans": "移除的标签 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Label IDs to remove (e.g. INBOX, STARRED)",
+              "zh_Hans": "要移除的标签 ID（如 INBOX、STARRED）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, STARRED",
+              "zh_Hans": "INBOX, STARRED"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Modify Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-modify-thread`\n- **Purpose**: Adds and/or removes labels on every message in a thread.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n| `add_label_ids` | `string` | `false` | `input` | Label ids to add. | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Label ids to remove. | `\"INBOX\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\",\n    \"add_label_ids\": \"Label_abc\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-trash-thread",
+      "display_name": {
+        "en_US": "Trash Thread",
+        "zh_Hans": "将会话移至垃圾箱"
+      },
+      "description": {
+        "en_US": "Move thread to trash",
+        "zh_Hans": "将会话移至垃圾箱"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Trash Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-trash-thread`\n- **Purpose**: Moves an entire thread to Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-untrash-thread",
+      "display_name": {
+        "en_US": "Untrash Thread",
+        "zh_Hans": "从垃圾箱恢复会话"
+      },
+      "description": {
+        "en_US": "Remove thread from trash",
+        "zh_Hans": "从垃圾箱恢复会话"
+      },
+      "icon": "📥",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "thread_id",
+          "display_name": {
+            "en_US": "Thread ID",
+            "zh_Hans": "会话 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Gmail thread ID",
+              "zh_Hans": "Gmail 会话 ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Untrash Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-untrash-thread`\n- **Purpose**: Restores a thread from Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-history",
+      "display_name": {
+        "en_US": "List History",
+        "zh_Hans": "列出历史"
+      },
+      "description": {
+        "en_US": "List mailbox change history",
+        "zh_Hans": "列出邮箱变更历史"
+      },
+      "icon": "📜",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        },
+        {
+          "name": "start_history_id",
+          "display_name": {
+            "en_US": "Start History ID",
+            "zh_Hans": "起始历史 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Return history records after this ID",
+              "zh_Hans": "返回此 ID 之后的历史记录"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "label_ids",
+          "display_name": {
+            "en_US": "Label IDs",
+            "zh_Hans": "标签 ID 列表"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter by label IDs (e.g. INBOX, SENT)",
+              "zh_Hans": "按标签筛选（如 INBOX、SENT）"
+            },
+            "placeholder": {
+              "en_US": "INBOX, SENT",
+              "zh_Hans": "INBOX, SENT"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Max number of results (1–500)",
+              "zh_Hans": "最大返回数量（1–500）"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页令牌"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for next page from previous list response",
+              "zh_Hans": "上一页列表返回的下一页令牌"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List History Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-history`\n- **Purpose**: Lists mailbox change history since `start_history_id` (for sync / incremental updates).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `start_history_id` | `string` | `true` | `input` | Starting history id from a prior profile or history response. | `\"12345678\"` |\n| `label_ids` | `string` | `false` | `input` | Optional label filter (passed through to the API as supported). | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `100` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"start_history_id\": \"12345678\",\n    \"max_results\": 100\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"history\": [],\n  \"historyId\": \"12345700\",\n  \"nextPageToken\": null\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-filters",
+      "display_name": {
+        "en_US": "List Filters",
+        "zh_Hans": "列出过滤器"
+      },
+      "description": {
+        "en_US": "List message filters",
+        "zh_Hans": "列出邮件过滤器"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ],
+      "skill": "# List Filters Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-filters`\n- **Purpose**: Lists all Gmail filters (server rules). Response is JSON-cloned for schema compatibility.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"filters\": [\n    {\n      \"id\": \"filterid\",\n      \"criteria\": { \"from\": \"newsletter@example.com\" },\n      \"action\": { \"addLabelIds\": [\"Label_1\"] }\n    }\n  ]\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-send-as",
+      "display_name": {
+        "en_US": "List Send-As Aliases",
+        "zh_Hans": "列出代发别名"
+      },
+      "description": {
+        "en_US": "List send-as email aliases",
+        "zh_Hans": "列出代发邮箱别名"
+      },
+      "icon": "📧",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ],
+      "skill": "# List Send-As Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-send-as`\n- **Purpose**: Lists \"Send mail as\" aliases and their settings for the account.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"sendAs\": [\n    {\n      \"sendAsEmail\": \"user@example.com\",\n      \"displayName\": \"User\",\n      \"isPrimary\": true\n    }\n  ]\n}\n```\n"
+    },
+    {
+      "name": "gmail-list-forwarding-addresses",
+      "display_name": {
+        "en_US": "List Forwarding Addresses",
+        "zh_Hans": "列出转发地址"
+      },
+      "description": {
+        "en_US": "List forwarding addresses",
+        "zh_Hans": "列出转发地址"
+      },
+      "icon": "↪️",
+      "parameters": [
+        {
+          "name": "gmail_credential",
+          "display_name": {
+            "en_US": "Gmail Credential",
+            "zh_Hans": "Gmail 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "gmail-oauth"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Use 'me' for authenticated user",
+              "zh_Hans": "使用 'me' 表示当前认证用户"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "me"
+        }
+      ],
+      "skill": "# List Forwarding Addresses Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-forwarding-addresses`\n- **Purpose**: Lists forwarding addresses configured for the user.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"forwardingAddresses\": [\n    {\n      \"forwardingEmail\": \"archive@example.com\",\n      \"verificationStatus\": \"accepted\"\n    }\n  ]\n}\n```\n"
+    }
+  ]
+}

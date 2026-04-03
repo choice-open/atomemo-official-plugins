@@ -17,12 +17,15 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import queryDatabaseSkill from "./get-many-pages-in-a-database-skill.md" with {
+  type: "text",
+}
 
 type ParametersNames =
   | Exclude<
-      keyof QueryDataSourceParameters,
-      ExcludedNames | "archived" | "in_trash" | "result_type"
-    >
+    keyof QueryDataSourceParameters,
+    ExcludedNames | "archived" | "in_trash" | "result_type"
+  >
   | "api_key"
   | "return_all"
   | "simplify_output"
@@ -54,6 +57,7 @@ const parameters: Array<Property<ParametersNames>> = [
     items: {
       type: "string",
       name: "property_id_or_name",
+      display_name: t("PROPERTY_ID_OR_NAME_DISPLAY_NAME"),
       ui: { component: "input", support_expression: true },
     },
     display_name: t("QUERY_DATABASE_FILTER_PROPERTIES_DISPLAY_NAME"),
@@ -161,6 +165,7 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
   display_name: t("QUERY_DATABASE_TOOL_DISPLAY_NAME"),
   description: t("QUERY_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: queryDatabaseSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
@@ -196,10 +201,10 @@ export const getManyPagesInADatabaseTool: ToolDefinition = {
 
         const filter_properties =
           Array.isArray(rawParameters.filter_properties) &&
-          rawParameters.filter_properties.length > 0
+            rawParameters.filter_properties.length > 0
             ? rawParameters.filter_properties.filter(
-                (item): item is string => typeof item === "string",
-              )
+              (item): item is string => typeof item === "string",
+            )
             : undefined
         const params = {
           data_source_id: dataSourceId,

@@ -1,0 +1,56 @@
+{
+  "name": "json_reader",
+  "display_name": {
+    "en_US": "JSON Reader",
+    "zh_Hans": "JSON 读取器"
+  },
+  "description": {
+    "en_US": "Read a file and parse it as a JSON object, with BOM header support",
+    "zh_Hans": "读取文件并解析为 JSON 对象，支持 BOM 头"
+  },
+  "icon": "https://server-media-public.atomemo.ai/icons/json-reader.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/json_reader",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "smartepsh",
+  "email": "smartepsh@gmail.com",
+  "version": "0.1.1",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "read-json",
+      "display_name": {
+        "en_US": "Read JSON",
+        "zh_Hans": "读取 JSON"
+      },
+      "description": {
+        "en_US": "Parse a file_ref as JSON object. Automatically handles BOM headers and encoding detection.",
+        "zh_Hans": "将文件解析为 JSON 对象，自动处理 BOM 头和编码检测。"
+      },
+      "icon": "https://server-media-public.atomemo.ai/icons/json-reader.svg",
+      "parameters": [
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The file to parse as JSON",
+              "zh_Hans": "要解析为 JSON 的文件"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
+        }
+      ],
+      "skill": "# json_reader / read-json\n\nParse an uploaded file as a JSON object. Automatically detects and strips BOM headers (UTF-8, UTF-16 LE/BE, UTF-32 LE/BE) before parsing.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `file` | `file_ref` | yes | — | The file to parse as JSON. Must contain valid JSON content. |\n\n### Example Input\n```json\n{\n  \"file\": \"<file_ref:uploaded-data.json>\"\n}\n```\n\n## Credential\n\nNo credential required.\n\n## Success Output\n\nReturns the parsed JSON value directly — the shape depends on the file content.\n\n```json\n{\n  \"hello\": \"world\",\n  \"num\": 42\n}\n```\n"
+    }
+  ]
+}

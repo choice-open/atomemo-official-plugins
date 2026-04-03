@@ -1,0 +1,1238 @@
+{
+  "name": "google-tasks",
+  "display_name": {
+    "en_US": "Google Tasks",
+    "zh_Hans": "Google Tasks"
+  },
+  "description": {
+    "en_US": "Manage Google Tasks - create, read, update, and delete tasks and task lists",
+    "zh_Hans": "管理 Google Tasks — 创建、查询、更新和删除任务及任务列表"
+  },
+  "icon": "https://fonts.gstatic.com/s/i/productlogos/tasks/v10/192px.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-tasks",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.8",
+  "credentials": [
+    {
+      "name": "google-tasks-oauth2",
+      "display_name": {
+        "en_US": "Google Tasks OAuth2",
+        "zh_Hans": "Google Tasks OAuth2"
+      },
+      "description": {
+        "en_US": "OAuth2 credential for accessing Google Tasks API",
+        "zh_Hans": "用于访问 Google Tasks API 的 OAuth2 凭证"
+      },
+      "icon": "🔑",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "Client ID"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter your Google OAuth2 Client ID",
+              "zh_Hans": "输入 Google OAuth2 Client ID"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "Client Secret"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter your Google OAuth2 Client Secret",
+              "zh_Hans": "输入 Google OAuth2 Client Secret"
+            },
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "list-task-lists",
+      "display_name": {
+        "en_US": "List Task Lists",
+        "zh_Hans": "列出任务列表"
+      },
+      "description": {
+        "en_US": "Returns all task lists for the authenticated user",
+        "zh_Hans": "获取当前用户的所有任务列表"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大返回数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum 100 results per page (default: 20)",
+              "zh_Hans": "每页最多返回100条（默认20）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页 Token"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for fetching the next page of results",
+              "zh_Hans": "用于获取下一页结果的 Token"
+            },
+            "placeholder": {
+              "en_US": "Enter page token",
+              "zh_Hans": "输入分页 Token"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List Task Lists Tool Documentation\n\n## Tool\n\n- **Name**: `list-task-lists`\n- **Purpose**: Lists available Google task lists.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of task lists to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from previous response. | `\"next_page_token\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#taskLists\",\n  \"items\": [\n    {\n      \"id\": \"task_list_id_xxx\",\n      \"title\": \"Work Tasks\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
+    },
+    {
+      "name": "get-task-list",
+      "display_name": {
+        "en_US": "Get Task List",
+        "zh_Hans": "获取任务列表"
+      },
+      "description": {
+        "en_US": "Returns the specified task list",
+        "zh_Hans": "获取指定任务列表详情"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Task List Tool Documentation\n\n## Tool\n\n- **Name**: `get-task-list`\n- **Purpose**: Gets a single task list by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID to retrieve. | `\"task_list_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks\"\n}\n```\n"
+    },
+    {
+      "name": "create-task-list",
+      "display_name": {
+        "en_US": "Create Task List",
+        "zh_Hans": "创建任务列表"
+      },
+      "description": {
+        "en_US": "Creates a new task list",
+        "zh_Hans": "创建一个新的任务列表"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Create Task List Tool Documentation\n\n## Tool\n\n- **Name**: `create-task-list`\n- **Purpose**: Creates a new Google Tasks list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `title` | `string` | `true` | `input` | Task list title. | `\"Work Tasks\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"title\": \"Work Tasks\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks\"\n}\n```\n"
+    },
+    {
+      "name": "update-task-list",
+      "display_name": {
+        "en_US": "Update Task List",
+        "zh_Hans": "更新任务列表"
+      },
+      "description": {
+        "en_US": "Updates the title of the specified task list",
+        "zh_Hans": "更新指定任务列表的标题"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Update Task List Tool Documentation\n\n## Tool\n\n- **Name**: `update-task-list`\n- **Purpose**: Partially updates an existing task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Target task list ID. | `\"task_list_id_xxx\"` |\n| `title` | `string` | `true` | `input` | New task list title. | `\"Work Tasks (Updated)\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\",\n    \"title\": \"Work Tasks (Updated)\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_list_id_xxx\",\n  \"title\": \"Work Tasks (Updated)\"\n}\n```\n"
+    },
+    {
+      "name": "delete-task-list",
+      "display_name": {
+        "en_US": "Delete Task List",
+        "zh_Hans": "删除任务列表"
+      },
+      "description": {
+        "en_US": "Deletes the specified task list",
+        "zh_Hans": "删除指定的任务列表"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Delete Task List Tool Documentation\n\n## Tool\n\n- **Name**: `delete-task-list`\n- **Purpose**: Deletes a task list by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID to delete. | `\"task_list_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"task_list_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"deletedTaskList\": \"task_list_id_xxx\"\n}\n```\n"
+    },
+    {
+      "name": "list-tasks",
+      "display_name": {
+        "en_US": "List Tasks",
+        "zh_Hans": "列出任务"
+      },
+      "description": {
+        "en_US": "Returns all tasks in the specified task list",
+        "zh_Hans": "获取指定任务列表中的所有任务"
+      },
+      "icon": "📄",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max Results",
+            "zh_Hans": "最大返回数"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum 100 results per page (default: 20)",
+              "zh_Hans": "每页最多返回100条（默认20）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页 Token"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Token for fetching the next page of results",
+              "zh_Hans": "用于获取下一页结果的 Token"
+            },
+            "placeholder": {
+              "en_US": "Enter page token",
+              "zh_Hans": "输入分页 Token"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "show_completed",
+          "display_name": {
+            "en_US": "Show Completed",
+            "zh_Hans": "显示已完成"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Include completed tasks. Requires showHidden to also be true to show tasks completed in first-party clients (web UI, mobile apps).",
+              "zh_Hans": "包含已完成的任务。需要同时开启「显示已隐藏」才能显示第一方客户端（网页、移动端）完成的任务。"
+            },
+            "width": "medium",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "show_deleted",
+          "display_name": {
+            "en_US": "Show Deleted",
+            "zh_Hans": "显示已删除"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Whether to include deleted tasks",
+              "zh_Hans": "是否包含已删除的任务"
+            },
+            "width": "medium",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "show_hidden",
+          "display_name": {
+            "en_US": "Show Hidden",
+            "zh_Hans": "显示已隐藏"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Include hidden tasks (tasks marked completed when the list was last cleared)",
+              "zh_Hans": "包含已隐藏的任务（任务列表上次清除时标记完成的任务）"
+            },
+            "width": "medium",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "due_min",
+          "display_name": {
+            "en_US": "Due Date Min",
+            "zh_Hans": "预定日期最小值"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter: lower bound for due date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：预定日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "due_max",
+          "display_name": {
+            "en_US": "Due Date Max",
+            "zh_Hans": "预定日期最大值"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter: upper bound for due date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
+              "zh_Hans": "过滤：预定日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "updated_min",
+          "display_name": {
+            "en_US": "Updated After",
+            "zh_Hans": "更新时间不早于"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter: lower bound for last modification time (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：最早修改时间（RFC 3339，例如 2025-01-01T00:00:00Z）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "completed_min",
+          "display_name": {
+            "en_US": "Completed Min",
+            "zh_Hans": "完成时间最小值"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter: lower bound for completion date (RFC 3339, e.g. 2025-01-01T00:00:00Z)",
+              "zh_Hans": "过滤：最早完成时间（RFC 3339，例如 2025-01-01T00:00:00Z）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "completed_max",
+          "display_name": {
+            "en_US": "Completed Max",
+            "zh_Hans": "完成时间最大值"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Filter: upper bound for completion date (RFC 3339, e.g. 2025-12-31T23:59:59Z)",
+              "zh_Hans": "过滤：最晚完成时间（RFC 3339，例如 2025-12-31T23:59:59Z）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `list-tasks`\n- **Purpose**: Lists tasks in a specified task list with optional filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `max_results` | `number` | `false` | `number-input` | Max number of tasks to return. | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token from a previous response. | `\"next_page_token\"` |\n| `show_completed` | `boolean` | `false` | `switch` | Include completed tasks. | `true` |\n| `show_deleted` | `boolean` | `false` | `switch` | Include deleted tasks. | `false` |\n| `show_hidden` | `boolean` | `false` | `switch` | Include hidden tasks. | `true` |\n| `due_min` | `string` | `false` | `input` | Due date lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `due_max` | `string` | `false` | `input` | Due date upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `updated_min` | `string` | `false` | `input` | Updated time lower bound (RFC 3339). | `\"2026-03-20T00:00:00Z\"` |\n| `completed_min` | `string` | `false` | `input` | Completion time lower bound (RFC 3339). | `\"2026-03-01T00:00:00Z\"` |\n| `completed_max` | `string` | `false` | `input` | Completion time upper bound (RFC 3339). | `\"2026-03-31T23:59:59Z\"` |\n| `show_assigned` | `boolean` | `false` | `switch` | Include assigned tasks. | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"max_results\": 20,\n    \"show_completed\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"tasks#tasks\",\n  \"items\": [\n    {\n      \"id\": \"task_id_xxx\",\n      \"title\": \"Buy milk\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
+    },
+    {
+      "name": "get-task",
+      "display_name": {
+        "en_US": "Get Task",
+        "zh_Hans": "获取任务"
+      },
+      "description": {
+        "en_US": "Returns the specified task",
+        "zh_Hans": "获取指定的任务详情"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "task_id",
+          "display_name": {
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task. Use 'List Tasks' to find available IDs.",
+              "zh_Hans": "任务的 ID。可使用「列出任务」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. dGFza19pZA...",
+              "zh_Hans": "例如 dGFza19pZA..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Get Task Tool Documentation\n\n## Tool\n\n- **Name**: `get-task`\n- **Purpose**: Gets a single task by task list ID and task ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to retrieve. | `\"task_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"title\": \"Buy milk\",\n  \"status\": \"needsAction\"\n}\n```\n"
+    },
+    {
+      "name": "create-task",
+      "display_name": {
+        "en_US": "Create Task",
+        "zh_Hans": "创建任务"
+      },
+      "description": {
+        "en_US": "Creates a new task in the specified task list",
+        "zh_Hans": "在指定任务列表中创建新任务"
+      },
+      "icon": "➕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "notes",
+          "display_name": {
+            "en_US": "Notes",
+            "zh_Hans": "备注"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.",
+              "zh_Hans": "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "due",
+          "display_name": {
+            "en_US": "Due Date",
+            "zh_Hans": "预定日期"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.",
+              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。"
+            },
+            "placeholder": {
+              "en_US": "2025-12-31T00:00:00Z",
+              "zh_Hans": "2025-12-31T00:00:00Z"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "display_name": {
+            "en_US": "Status",
+            "zh_Hans": "状态"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Needs Action"
+                },
+                "value": "needsAction"
+              },
+              {
+                "label": {
+                  "en_US": "Completed"
+                },
+                "value": "completed"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "default": "needsAction"
+        },
+        {
+          "name": "parent",
+          "display_name": {
+            "en_US": "Parent Task ID",
+            "zh_Hans": "父任务 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.",
+              "zh_Hans": "父任务 ID。不能在已分配或重复任务下创建子任务。留空则在顶层创建。"
+            },
+            "placeholder": {
+              "en_US": "Enter parent task ID (optional)",
+              "zh_Hans": "输入父任务 ID（可选）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "previous",
+          "display_name": {
+            "en_US": "Previous Task ID",
+            "zh_Hans": "前一个任务 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ID of previous sibling task. Omit to move to first position among siblings.",
+              "zh_Hans": "前一个兄弟任务 ID。留空则移动到第一个位置。"
+            },
+            "placeholder": {
+              "en_US": "Enter previous task ID (optional)",
+              "zh_Hans": "输入前一个任务 ID（可选）"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Create Task Tool Documentation\n\n## Tool\n\n- **Name**: `create-task`\n- **Purpose**: Creates a new task in a specified Google Tasks list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Target task list ID. | `\"MDQ2...\"` |\n| `title` | `string` | `true` | `input` | Task title. | `\"Buy milk\"` |\n| `notes` | `string` | `false` | `textarea` | Task notes/description. | `\"2 liters\"` |\n| `due` | `string` | `false` | `input` | Due date in RFC 3339 format. | `\"2026-03-31T09:00:00Z\"` |\n| `status` | `string` | `false` | `select` | Task status: `needsAction` or `completed`. | `\"needsAction\"` |\n| `parent` | `string` | `false` | `input` | Parent task ID for subtasks. | `\"parent_task_id\"` |\n| `previous` | `string` | `false` | `input` | Previous sibling task ID for ordering. | `\"previous_task_id\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"title\": \"Buy milk\",\n    \"notes\": \"2 liters\",\n    \"due\": \"2026-03-31T09:00:00Z\",\n    \"status\": \"needsAction\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"title\": \"Buy milk\",\n  \"status\": \"needsAction\"\n}\n```\n"
+    },
+    {
+      "name": "update-task",
+      "display_name": {
+        "en_US": "Update Task",
+        "zh_Hans": "更新任务"
+      },
+      "description": {
+        "en_US": "Updates the specified task (title, notes, status, due date)",
+        "zh_Hans": "更新指定任务（标题、备注、状态、预定日期）"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "task_id",
+          "display_name": {
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task. Use 'List Tasks' to find available IDs.",
+              "zh_Hans": "任务的 ID。可使用「列出任务」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. dGFza19pZA...",
+              "zh_Hans": "例如 dGFza19pZA..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter title (max 1024 characters)",
+              "zh_Hans": "输入标题（最长1024个字符）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "notes",
+          "display_name": {
+            "en_US": "Notes",
+            "zh_Hans": "备注"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "Enter notes (optional, max 8192 chars). Docs-assigned tasks cannot have notes.",
+              "zh_Hans": "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "display_name": {
+            "en_US": "Status",
+            "zh_Hans": "状态"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "medium",
+            "options": [
+              {
+                "label": {
+                  "en_US": "Needs Action"
+                },
+                "value": "needsAction"
+              },
+              {
+                "label": {
+                  "en_US": "Completed"
+                },
+                "value": "completed"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "due",
+          "display_name": {
+            "en_US": "Due Date",
+            "zh_Hans": "预定日期"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "RFC 3339 format (e.g. 2025-12-31T00:00:00Z). Only date portion is used; time is discarded.",
+              "zh_Hans": "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。"
+            },
+            "placeholder": {
+              "en_US": "2025-12-31T00:00:00Z",
+              "zh_Hans": "2025-12-31T00:00:00Z"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Update Task Tool Documentation\n\n## Tool\n\n- **Name**: `update-task`\n- **Purpose**: Partially updates fields of an existing task.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID containing the task. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Target task ID. | `\"task_id_xxx\"` |\n| `title` | `string` | `false` | `input` | New task title. | `\"Buy milk and eggs\"` |\n| `notes` | `string` | `false` | `textarea` | New task notes. | `\"2 liters + 12 eggs\"` |\n| `status` | `string` | `false` | `select` | Task status: `needsAction` or `completed`. | `\"completed\"` |\n| `due` | `string` | `false` | `input` | Due date in RFC 3339 format. | `\"2026-03-31T09:00:00Z\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\",\n    \"status\": \"completed\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"status\": \"completed\"\n}\n```\n"
+    },
+    {
+      "name": "delete-task",
+      "display_name": {
+        "en_US": "Delete Task",
+        "zh_Hans": "删除任务"
+      },
+      "description": {
+        "en_US": "Deletes the specified task from the task list",
+        "zh_Hans": "从任务列表中删除指定任务"
+      },
+      "icon": "🗑️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "task_id",
+          "display_name": {
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task. Use 'List Tasks' to find available IDs.",
+              "zh_Hans": "任务的 ID。可使用「列出任务」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. dGFza19pZA...",
+              "zh_Hans": "例如 dGFza19pZA..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Delete Task Tool Documentation\n\n## Tool\n\n- **Name**: `delete-task`\n- **Purpose**: Deletes a task from a task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to delete. | `\"task_id_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"deletedTask\": \"task_id_xxx\",\n  \"fromTaskList\": \"MDQ2...\"\n}\n```\n"
+    },
+    {
+      "name": "move-task",
+      "display_name": {
+        "en_US": "Move Task",
+        "zh_Hans": "移动任务"
+      },
+      "description": {
+        "en_US": "Moves a task to another position or task list",
+        "zh_Hans": "将任务移动到其他位置或任务列表"
+      },
+      "icon": "↕️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task list. Use 'List Task Lists' to find available IDs.",
+              "zh_Hans": "任务列表的 ID。可使用「列出任务列表」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "task_id",
+          "display_name": {
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the task. Use 'List Tasks' to find available IDs.",
+              "zh_Hans": "任务的 ID。可使用「列出任务」获取。"
+            },
+            "placeholder": {
+              "en_US": "e.g. dGFza19pZA...",
+              "zh_Hans": "例如 dGFza19pZA..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "parent",
+          "display_name": {
+            "en_US": "Parent Task ID",
+            "zh_Hans": "父任务 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ID of parent task. Cannot be an assigned or repeating task. Omit to create at top level.",
+              "zh_Hans": "父任务 ID。不能在已分配或重复任务下创建子任务。留空则在顶层创建。"
+            },
+            "placeholder": {
+              "en_US": "Enter parent task ID (optional)",
+              "zh_Hans": "输入父任务 ID（可选）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "previous",
+          "display_name": {
+            "en_US": "Previous Task ID",
+            "zh_Hans": "前一个任务 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ID of previous sibling task. Omit to move to first position among siblings.",
+              "zh_Hans": "前一个兄弟任务 ID。留空则移动到第一个位置。"
+            },
+            "placeholder": {
+              "en_US": "Enter previous task ID (optional)",
+              "zh_Hans": "输入前一个任务 ID（可选）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "destination_tasklist",
+          "display_name": {
+            "en_US": "Destination Task List ID",
+            "zh_Hans": "目标任务列表 ID"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ID of destination task list. Omit to move within current list. Repeating tasks cannot be moved between lists.",
+              "zh_Hans": "目标任务列表 ID。留空则在当前列表内移动。重复任务不能跨列表移动。"
+            },
+            "placeholder": {
+              "en_US": "Enter destination task list ID (optional)",
+              "zh_Hans": "输入目标任务列表 ID（可选）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Move Task Tool Documentation\n\n## Tool\n\n- **Name**: `move-task`\n- **Purpose**: Moves a task to a new position or another task list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Source task list ID. | `\"MDQ2...\"` |\n| `task_id` | `string` | `true` | `input` | Task ID to move. | `\"task_id_xxx\"` |\n| `parent` | `string` | `false` | `input` | New parent task ID. | `\"parent_task_id\"` |\n| `previous` | `string` | `false` | `input` | Previous sibling task ID in target position. | `\"previous_task_id\"` |\n| `destination_tasklist` | `string` | `false` | `input` | Destination task list ID. | `\"dest_list_id\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\",\n    \"task_id\": \"task_id_xxx\",\n    \"destination_tasklist\": \"dest_list_id\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"task_id_xxx\",\n  \"selfLink\": \"https://www.googleapis.com/tasks/v1/lists/...\"\n}\n```\n"
+    },
+    {
+      "name": "clear-completed-tasks",
+      "display_name": {
+        "en_US": "Clear Completed Tasks",
+        "zh_Hans": "清除已完成任务"
+      },
+      "description": {
+        "en_US": "Google tasks.clear: marks completed tasks as hidden (not deleted). Default tasks.list omits them; set showHidden=true to still retrieve. Use delete-task to remove a task permanently.",
+        "zh_Hans": "对应 Google Tasks 的 tasks.clear：将当时已完成的任务标为隐藏（hidden），并非从服务端删除。默认「列出任务」不返回隐藏项；仅当 showHidden=true 时仍会列出。若要彻底删除单条任务请使用「删除任务」（tasks.delete）。"
+      },
+      "icon": "🧹",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "type": "credential_id",
+          "credential_name": "google-tasks-oauth2"
+        },
+        {
+          "name": "task_list_id",
+          "display_name": {
+            "en_US": "Task List ID",
+            "zh_Hans": "任务列表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Task list ID—use the same list ID as in list-tasks. After clear, list-tasks still returns hidden completed tasks when showHidden=true.",
+              "zh_Hans": "任务列表 ID，请与「列出任务」使用的是同一列表。清除后若列出任务时开启「显示已隐藏」，仍可能看到已被标为隐藏的已完成任务。"
+            },
+            "placeholder": {
+              "en_US": "e.g. MTUzNTQ0...",
+              "zh_Hans": "例如 MTUzNTQ0..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Clear Completed Tasks Tool Documentation\n\n## Tool\n\n- **Name**: `clear-completed-tasks`\n- **Purpose**: Calls Google Tasks **`tasks.clear`** for a task list.\n\n## Google Tasks API behavior (important)\n\nOfficial reference: [tasks.clear](https://developers.google.com/workspace/tasks/reference/rest/v1/tasks/clear)\n\n- **`tasks.clear` does not delete task records.** It clears completed tasks from the list by marking affected tasks as **`hidden: true`** (the `hidden` field on the [Task resource](https://developers.google.com/workspace/tasks/reference/rest/v1/tasks) is **read-only**).\n- Google states: affected tasks **are no longer returned by default** when listing tasks.\n- **`tasks.list`** has query parameter **`showHidden`**. When **`showHidden=true`**, hidden (cleared) completed tasks **can still appear** in API results—so a workflow that lists with “show hidden” on may look like “clear did nothing.”\n- **`showCompleted`** controls whether completed tasks are included; combine with **`showHidden`** when debugging or auditing cleared items.\n- To **permanently remove** a single task from Google’s store, use **`tasks.delete`** (this plugin’s **`delete-task`** tool), not `tasks.clear`.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-selector` | Credential ID for `google-tasks-oauth2`. | `\"cred_xxx\"` |\n| `task_list_id` | `string` | `true` | `input` | Task list ID (same list you pass to `list-tasks`). | `\"MDQ2...\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"task_list_id\": \"MDQ2...\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"clearedTaskList\": \"MDQ2...\",\n  \"googleTasksApiNote\": \"Per Google Tasks API: tasks.clear marks completed tasks as hidden...\"\n}\n```\n\nThe plugin returns **HTTP 204** success from `tasks.clear` as `success: true`, plus `googleTasksApiNote` summarizing the API semantics above.\n"
+    }
+  ]
+}

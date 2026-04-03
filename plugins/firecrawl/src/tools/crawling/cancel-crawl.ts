@@ -11,12 +11,14 @@ import {
   crawlIdParameter,
   firecrawlCredentialParameter,
 } from "../_shared-parameters"
+import cancelCrawlSkill from "./cancel-crawl-skill.md" with { type: "text" }
 
 export const CancelCrawlTool: ToolDefinition = {
   name: "firecrawl-cancel-crawl",
   display_name: t("TOOL_CANCEL_CRAWL_DISPLAY_NAME"),
   description: t("TOOL_CANCEL_CRAWL_DESCRIPTION"),
   icon: "🛑",
+  skill: cancelCrawlSkill,
   parameters: [firecrawlCredentialParameter, crawlIdParameter],
   invoke: async ({ args }) => {
     try {

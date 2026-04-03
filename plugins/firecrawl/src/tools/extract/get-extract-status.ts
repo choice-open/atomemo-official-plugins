@@ -8,12 +8,16 @@ import {
   getFirecrawlApiKey,
 } from "../_shared/firecrawl-client"
 import { firecrawlCredentialParameter } from "../_shared-parameters"
+import getExtractStatusSkill from "./get-extract-status-skill.md" with {
+  type: "text",
+}
 
 export const GetExtractStatusTool: ToolDefinition = {
   name: "firecrawl-get-extract-status",
   display_name: t("TOOL_GET_EXTRACT_STATUS_DISPLAY_NAME"),
   description: t("TOOL_GET_EXTRACT_STATUS_DESCRIPTION"),
   icon: "📊",
+  skill: getExtractStatusSkill,
   parameters: [
     firecrawlCredentialParameter,
     {

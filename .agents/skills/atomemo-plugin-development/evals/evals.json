@@ -1,0 +1,289 @@
+{
+  "skill_name": "atomemo-plugin-development",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我开发完了一个 Atomemo 插件，叫 `weather-tool`，功能是查询天气。我怎么把它发布到官方插件市场？请帮我走一遍完整流程。",
+      "expected_output": "完整的首次发布流程：发布前检查清单 → bun run release → Fork 官方仓库 → 添加插件代码 → 提交 PR（标题格式 feat(plugin): add weather-tool）→ 等待 CI 和团队审核",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 bun run release 命令",
+          "description": "输出中包含 `bun run release` 命令"
+        },
+        {
+          "name": "提及 Fork 官方仓库",
+          "description": "输出中提到需要 Fork atomemo-official-plugins 仓库"
+        },
+        {
+          "name": "提及 PR 标题格式",
+          "description": "输出中包含 PR 标题格式 feat(plugin): add <name>"
+        },
+        {
+          "name": "提及发布前检查清单",
+          "description": "输出中包含至少 3 项发布前检查项（metadata/security/README/version）"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我的 `weather-tool` 插件之前已经发布了 v1.0.0，现在加了一个新功能想发布 v1.1.0，更新流程是什么？",
+      "expected_output": "更新已发布插件的流程：在 package.json 中更新版本号 → 完成代码更改 → 运行 bun run release → 提交包含更新插件的新 PR",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及更新 package.json 版本号",
+          "description": "输出中提到需要在 package.json 中更新版本号"
+        },
+        {
+          "name": "提及 bun run release 命令",
+          "description": "输出中包含 `bun run release` 命令"
+        },
+        {
+          "name": "提及提交新 PR",
+          "description": "输出中提到需要提交新的 PR（而不是更新旧 PR）"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我的插件代码写完了，准备发布，但我担心有遗漏。能帮我做一个发布前的完整检查清单并逐项确认吗？",
+      "expected_output": "完整的发布前检查清单，包含：1) package.json 元数据（name/version/description/author）2) 代码质量（无调试日志/无 lint 错误）3) 安全（无硬编码 API key，使用 Credentials 系统）4) README 清晰说明 5) 版本号已更新",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 package.json 元数据检查",
+          "description": "输出中包含 name, version, description, author 等元数据检查"
+        },
+        {
+          "name": "提及安全检查（无硬编码 secrets）",
+          "description": "输出中提到不得有硬编码的 API key 或 secret，应使用 Credentials 系统"
+        },
+        {
+          "name": "提及 README 检查",
+          "description": "输出中提到需要有清晰的 README 说明插件功能和配置"
+        },
+        {
+          "name": "提及代码质量检查",
+          "description": "输出中提到无调试日志、无 linting 错误等代码质量要求"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我想给 Atomemo 做一个插件，可以查询当地天气，然后在工作流里用，从哪里开始？",
+      "expected_output": "新项目完整起步流程：安装 atomemo-plugin-cli → atomemo auth login（需用户手动完成 OAuth）→ atomemo plugin init → atomemo plugin refresh-key → bun install → bun run dev → 在 src/tools/ 中创建 Tool 定义文件并实现 ToolDefinition 接口 → 在 src/index.ts 注册",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及安装 CLI",
+          "description": "输出中包含安装 @choiceopen/atomemo-plugin-cli 的步骤"
+        },
+        {
+          "name": "提及 atomemo auth login",
+          "description": "输出中提到 atomemo auth login 且说明需要用户手动完成"
+        },
+        {
+          "name": "提及 atomemo plugin init",
+          "description": "输出中包含 atomemo plugin init 命令"
+        },
+        {
+          "name": "明确推荐 Tool 类型",
+          "description": "输出中说明天气查询应做成 Tool 插件，并提及 src/tools/ 目录"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "atomemo plugin init 之后下一步是什么？需要手动改哪些文件？",
+      "expected_output": "init 后的步骤：atomemo plugin refresh-key 生成 .env（含 debug API key）→ bun install 安装依赖 → bun run dev 启动开发模式，成功连接显示 status: ok → 项目结构介绍（src/tools, src/models, src/credentials, src/index.ts）→ 在对应目录创建实现文件并在 index.ts 注册",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 atomemo plugin refresh-key",
+          "description": "输出中包含 atomemo plugin refresh-key 命令"
+        },
+        {
+          "name": "提及 bun install 和 bun run dev",
+          "description": "输出中包含 bun install 和 bun run dev 两个命令"
+        },
+        {
+          "name": "提及成功连接的标志",
+          "description": "输出中提到成功连接 Hub 后显示 status: ok 或 success: true"
+        },
+        {
+          "name": "说明需在 src/index.ts 注册",
+          "description": "输出中提到每个 tool/model/credential 都需要在 index.ts 中注册"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "我想把 DeepSeek-R1 接入 Atomemo，作为一个可选的模型，应该怎么定义？",
+      "expected_output": "在 src/models/ 创建 model 定义文件，实现 ModelDefinition 接口，关键字段包括 name（格式为 provider/model_name，如 deepseek/deepseek-r1）、display_name、description、capabilities、pricing 等，最后在 src/index.ts 中调用 plugin.addModel() 注册",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 src/models/ 目录",
+          "description": "输出中提到在 src/models/ 目录下创建文件"
+        },
+        {
+          "name": "提及 ModelDefinition 接口",
+          "description": "输出中提到 ModelDefinition 类型或接口"
+        },
+        {
+          "name": "提及 model name 格式",
+          "description": "输出中提到 model 命名需遵循 provider/model_name 格式"
+        },
+        {
+          "name": "提及 plugin.addModel() 注册",
+          "description": "输出中包含 plugin.addModel() 调用"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "我的 Atomemo 插件需要让用户填写 API Key，怎么做才安全？有专门的凭据系统吗？",
+      "expected_output": "使用 Credential 系统：在 src/credentials/ 创建 CredentialDefinition 文件声明凭据字段（如 api_key）→ 在 Tool 的 parameters 中添加 type: 'credential_id' 参数引用凭据 → 在 invoke 函数中通过 args.credentials[name] 访问 → 在 index.ts 注册。明确说明不得硬编码 API key",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 CredentialDefinition",
+          "description": "输出中提到 CredentialDefinition 接口或类型"
+        },
+        {
+          "name": "明确禁止硬编码 API key",
+          "description": "输出中明确说明不得将 API key 硬编码在代码中"
+        },
+        {
+          "name": "提及 credential_id 参数类型",
+          "description": "输出中提到在 parameters 中使用 type: 'credential_id' 来引用凭据"
+        },
+        {
+          "name": "提及 src/credentials/ 目录",
+          "description": "输出中提到在 src/credentials/ 目录下定义凭据"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "bun run dev 跑起来之后一直显示 status not ok，我的 plugin hub 连接有问题，怎么排查？",
+      "expected_output": "最常见原因是 debug API key 过期（24h 有效期）。排查步骤：1) 检查 .env 文件中的 key 是否存在 2) 运行 atomemo plugin refresh-key 刷新 key 3) 重新 bun run dev，成功连接显示 status: ok, response: { success: true }。其他可能：网络问题、Hub 服务状态。",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 debug API key 有效期",
+          "description": "输出中提到 debug API key 在 24 小时后过期"
+        },
+        {
+          "name": "提及 atomemo plugin refresh-key",
+          "description": "输出中包含 atomemo plugin refresh-key 命令"
+        },
+        {
+          "name": "提及检查 .env 文件",
+          "description": "输出中提到检查 .env 文件中的 key 配置"
+        },
+        {
+          "name": "提及成功连接的标志",
+          "description": "输出中提到成功连接后显示 status: ok 或 success: true"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "我想在 Atomemo 里加一个能发钉钉消息的功能，不知道是做 tool 还是 model，有什么区别？",
+      "expected_output": "发钉钉消息应做成 Tool（src/tools/）而非 Model。Tool 用于调用外部 API 或执行业务逻辑（如发消息、查数据、触发操作）；Model 专门用于描述 LLM（大语言模型）的集成，包括其能力、定价、参数等。发钉钉消息是典型的 Tool 使用场景。",
+      "files": [],
+      "assertions": [
+        {
+          "name": "明确推荐 Tool 类型",
+          "description": "输出中明确说明发钉钉消息应做成 Tool，而非 Model"
+        },
+        {
+          "name": "说明 Tool 的用途",
+          "description": "输出中解释 Tool 用于调用外部 API 或执行业务逻辑"
+        },
+        {
+          "name": "说明 Model 的用途",
+          "description": "输出中解释 Model 专用于描述 LLM 集成"
+        },
+        {
+          "name": "提及 src/tools/ 目录",
+          "description": "输出中提到 Tool 实现放在 src/tools/ 目录"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "参数配置那里我想做个下拉框让用户选 region，有哪些参数类型可以用？",
+      "expected_output": "下拉框使用 type: 'string' + enum 字段列出选项 + ui.component: 'select'。同时介绍其他参数类型：string（input/textarea）、number（number-input）、boolean（switch/checkbox）、credential_id（凭据选择器）等，并说明 ui 字段控制渲染方式。",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 enum 字段",
+          "description": "输出中提到使用 enum 字段列出下拉选项"
+        },
+        {
+          "name": "提及 ui.component: select",
+          "description": "输出中提到 ui: { component: 'select' } 配置"
+        },
+        {
+          "name": "提及 type: string",
+          "description": "输出中提到下拉框参数的 type 为 string"
+        },
+        {
+          "name": "介绍其他可用参数类型",
+          "description": "输出中列举了至少 2 种其他参数类型（number、boolean、credential_id 等）"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "I need to build a custom tool for Atomemo that wraps our internal REST API. What's the recommended project structure?",
+      "expected_output": "Recommended structure: use atomemo plugin init to scaffold the project, implement the tool in src/tools/<tool-name>.ts using the ToolDefinition interface, register in src/index.ts. If the API requires auth, define credentials in src/credentials/. Use TypeScript for best SDK support. Key fields: name, display_name, description, parameters, invoke function.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "Mentions src/tools/ directory",
+          "description": "Output references src/tools/ as the location for Tool implementations"
+        },
+        {
+          "name": "Mentions ToolDefinition interface",
+          "description": "Output mentions implementing the ToolDefinition interface"
+        },
+        {
+          "name": "Mentions registration in index.ts",
+          "description": "Output includes plugin.addTool() registration step in src/index.ts"
+        },
+        {
+          "name": "Mentions invoke function",
+          "description": "Output describes the invoke async function that contains the business logic"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "插件写完了，现在要发布到官方市场，PR 提交到哪个仓库？标题有格式要求吗？",
+      "expected_output": "PR 提交到 atomemo-official-plugins 仓库（需先 Fork）。PR 标题格式：feat(plugin): add <your-plugin-name>，例如 feat(plugin): add weather-lookup。还需要将插件代码放到 plugins/<your-plugin-name>/ 目录下。",
+      "files": [],
+      "assertions": [
+        {
+          "name": "提及 atomemo-official-plugins 仓库",
+          "description": "输出中提到目标仓库是 atomemo-official-plugins"
+        },
+        {
+          "name": "提及 Fork 仓库步骤",
+          "description": "输出中提到需要先 Fork 再提 PR"
+        },
+        {
+          "name": "提及 PR 标题格式",
+          "description": "输出中包含 feat(plugin): add <name> 格式的 PR 标题"
+        },
+        {
+          "name": "提及 plugins/ 目录结构",
+          "description": "输出中提到插件代码放在 plugins/<name>/ 目录下"
+        }
+      ]
+    }
+  ]
+}

@@ -10,8 +10,8 @@ import {
   getARecordTool,
   getBaseSchemaTool,
   getManyBasesTool,
-  upsertRecordTool,
   searchRecordsTool,
+  updateRecordTool,
 } from "./tools"
 
 await loadAllLocalesAsync()
@@ -37,6 +37,6 @@ plugin.addTool(getARecordTool)
 plugin.addTool(searchRecordsTool)
 plugin.addTool(deleteRecordTool)
 plugin.addTool(createRecordTool)
-plugin.addTool(upsertRecordTool)
+plugin.addTool(updateRecordTool)
 
 plugin.run()

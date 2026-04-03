@@ -17,6 +17,7 @@ import type { ExcludedNames } from "./_shared-parameters/excluded-names"
 import { pageSizeRelatedParameters } from "./_shared-parameters/page-size-related"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
 import { sortRelatedParameters } from "./_shared-parameters/sort"
+import searchPagesSkill from "./search-pages-skill.md" with { type: "text" }
 
 type ParametersNames =
   | Exclude<keyof SearchParameters, ExcludedNames>
@@ -32,6 +33,7 @@ const parameters: Array<Property<ParametersNames>> = [
     // Constant filter to only return pages
     name: "filter",
     type: "object",
+    display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
     required: false,
     ai: {
       llm_description: t("SEARCH_PAGES_FILTER_LLM_DESCRIPTION"),
@@ -41,6 +43,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "property",
         type: "string",
         constant: "object",
+        display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -51,6 +54,7 @@ const parameters: Array<Property<ParametersNames>> = [
         name: "value",
         type: "string",
         constant: "page",
+        display_name: t("SEARCH_PAGES_FILTERS_DISPLAY_NAME"),
         ui: {
           component: "input",
           display_none: true,
@@ -92,6 +96,7 @@ export const searchPagesTool: ToolDefinition = {
   display_name: t("SEARCH_PAGES_TOOL_DISPLAY_NAME"),
   description: t("SEARCH_PAGES_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: searchPagesSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
@@ -115,7 +120,7 @@ export const searchPagesTool: ToolDefinition = {
         : undefined
     const query =
       typeof rawParameters.query === "string" &&
-      rawParameters.query.trim() !== ""
+        rawParameters.query.trim() !== ""
         ? rawParameters.query
         : undefined
 

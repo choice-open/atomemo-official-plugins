@@ -19,16 +19,21 @@ import { notionCredentialParameter } from "./_shared-parameters/credential"
 import { iconProperty } from "./_shared-parameters/icon"
 import { pagePropertiesProperty } from "./_shared-parameters/page-properties/page-properties"
 import { simplifyOutputProperty } from "./_shared-parameters/simplify-output"
+import createAPageInADatabaseSkill from "./create-a-page-in-a-database-skill.md" with {
+  type: "text",
+}
 
 const parentProperty: PropertyObject<"parent"> = {
   name: "parent",
   type: "object",
+  display_name: t("CREATE_PAGE_IN_DATABASE_PARENT_DISPLAY_NAME"),
   properties: [
     {
       name: "type",
       type: "string",
       required: false,
       constant: "data_source_id",
+      display_name: t("CREATE_PAGE_IN_DATABASE_PARENT_DISPLAY_NAME"),
       ui: {
         component: "input",
         display_none: true,
@@ -53,9 +58,9 @@ const parentProperty: PropertyObject<"parent"> = {
 
 type ParametersNames =
   | Extract<
-      keyof CreatePageParameters,
-      "parent" | "children" | "icon" | "properties"
-    >
+    keyof CreatePageParameters,
+    "parent" | "children" | "icon" | "properties"
+  >
   | "api_key"
   | "simplify_output"
 
@@ -73,6 +78,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
   display_name: t("CREATE_PAGE_IN_DATABASE_TOOL_DISPLAY_NAME"),
   description: t("CREATE_PAGE_IN_DATABASE_TOOL_DESCRIPTION"),
   icon: "🎛️",
+  skill: createAPageInADatabaseSkill,
   parameters,
   invoke: async ({ args }) => {
     const client = getNotionClient(args)
@@ -94,7 +100,7 @@ export const createAPageInADatabaseTool: ToolDefinition = {
       const data = await client.pages.create({
         children: mapBlocks(rawParameters.children),
         icon: mapIcon(rawParameters.icon),
-        parent: { data_source_id: dataSourceId, type:'data_source_id' },
+        parent: { data_source_id: dataSourceId, type: "data_source_id" },
         properties: mapPageProperties(rawParameters.properties),
       } satisfies CreatePageParameters)
       return transformNotionOutput(data, simplifyOutput)

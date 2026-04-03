@@ -60,6 +60,22 @@ type RootTranslation = {
    */
   PARAM_BASE_ID_PLACEHOLDER: string
   /**
+   * C​h​o​o​s​e​ ​f​r​o​m​ ​a​c​c​e​s​s​i​b​l​e​ ​b​a​s​e​s
+   */
+  PARAM_BASE_ID_MODE_LIST_LABEL: string
+  /**
+   * S​e​a​r​c​h​ ​b​y​ ​b​a​s​e​ ​n​a​m​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​b​a​s​e
+   */
+  PARAM_BASE_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_BASE_ID_MODE_URL_PLACEHOLDER: string
+  /**
+   * E​n​t​e​r​ ​b​a​s​e​ ​I​D
+   */
+  PARAM_BASE_ID_MODE_ID_LABEL: string
+  /**
    * T​a​b​l​e
    */
   PARAM_TABLE_LABEL: string
@@ -71,6 +87,22 @@ type RootTranslation = {
    * t​b​l​X​X​X​X​X​X​X​X​X​X​X​X​X​X​ ​o​r​ ​T​a​b​l​e​ ​N​a​m​e
    */
   PARAM_TABLE_PLACEHOLDER: string
+  /**
+   * C​h​o​o​s​e​ ​f​r​o​m​ ​b​a​s​e​ ​t​a​b​l​e​s
+   */
+  PARAM_TABLE_MODE_LIST_LABEL: string
+  /**
+   * S​e​a​r​c​h​ ​b​y​ ​t​a​b​l​e​ ​n​a​m​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​t​a​b​l​e
+   */
+  PARAM_TABLE_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​t​b​l​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_TABLE_MODE_URL_PLACEHOLDER: string
+  /**
+   * E​n​t​e​r​ ​t​a​b​l​e​ ​n​a​m​e​ ​o​r​ ​I​D
+   */
+  PARAM_TABLE_MODE_ID_LABEL: string
   /**
    * R​e​c​o​r​d​ ​I​D
    */
@@ -84,6 +116,14 @@ type RootTranslation = {
    */
   PARAM_RECORD_ID_PLACEHOLDER: string
   /**
+   * S​e​a​r​c​h​ ​b​y​ ​p​r​i​m​a​r​y​ ​f​i​e​l​d​ ​v​a​l​u​e​ ​o​r​ ​s​e​l​e​c​t​ ​a​ ​r​e​c​o​r​d
+   */
+  PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​a​i​r​t​a​b​l​e​.​c​o​m​/​a​p​p​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​t​b​l​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​v​i​w​X​X​X​X​X​X​X​X​X​X​X​X​X​X​/​r​e​c​X​X​X​X​X​X​X​X​X​X​X​X​X​X
+   */
+  PARAM_RECORD_ID_MODE_URL_PLACEHOLDER: string
+  /**
    * F​i​e​l​d​s
    */
   PARAM_FIELDS_LABEL: string
@@ -91,6 +131,14 @@ type RootTranslation = {
    * R​e​q​u​i​r​e​d​.​ ​J​S​O​N​ ​o​b​j​e​c​t​:​ ​k​e​y​s​ ​=​ ​f​i​e​l​d​ ​n​a​m​e​s​ ​(​u​s​e​ ​n​a​m​e​s​,​ ​n​o​t​ ​f​i​e​l​d​ ​I​D​s​)​.​ ​V​a​l​u​e​s​:​ ​t​e​x​t​,​ ​n​u​m​b​e​r​,​ ​s​i​n​g​l​e​ ​s​e​l​e​c​t​ ​(​s​t​r​i​n​g​)​,​ ​c​h​e​c​k​b​o​x​ ​(​b​o​o​l​e​a​n​)​,​ ​d​a​t​e​ ​(​I​S​O​ ​8​6​0​1​)​.​ ​L​i​n​k​e​d​ ​r​e​c​o​r​d​s​:​ ​a​r​r​a​y​ ​o​f​ ​r​e​c​o​r​d​ ​I​D​s​,​ ​e​.​g​.​ ​"​P​r​o​j​e​c​t​"​:​ ​[​"​r​e​c​X​X​X​"​]​.​ ​C​o​l​l​a​b​o​r​a​t​o​r​:​ ​u​s​e​r​ ​I​D​ ​o​r​ ​e​m​a​i​l​ ​p​e​r​ ​A​i​r​t​a​b​l​e​ ​d​o​c​s​.​ ​W​i​t​h​ ​T​y​p​e​c​a​s​t​ ​o​n​,​ ​s​t​r​i​n​g​s​ ​a​r​e​ ​c​o​n​v​e​r​t​e​d​ ​t​o​ ​f​i​e​l​d​ ​t​y​p​e​s​ ​a​n​d​ ​l​i​n​k​e​d​ ​r​e​c​o​r​d​s​ ​c​a​n​ ​u​s​e​ ​p​r​i​m​a​r​y​ ​f​i​e​l​d​ ​v​a​l​u​e​.
    */
   PARAM_FIELDS_HINT: string
+  /**
+   * S​e​l​e​c​t​ ​a​ ​b​a​s​e​ ​f​i​r​s​t​ ​t​o​ ​l​o​a​d​ ​t​h​e​ ​a​v​a​i​l​a​b​l​e​ ​A​i​r​t​a​b​l​e​ ​f​i​e​l​d​s​.
+   */
+  PARAM_FIELDS_EMPTY_BASE_NOTICE: string
+  /**
+   * S​e​l​e​c​t​ ​a​ ​t​a​b​l​e​ ​f​i​r​s​t​ ​t​o​ ​l​o​a​d​ ​t​h​e​ ​a​v​a​i​l​a​b​l​e​ ​A​i​r​t​a​b​l​e​ ​f​i​e​l​d​s​.
+   */
+  PARAM_FIELDS_EMPTY_TABLE_NOTICE: string
   /**
    * T​y​p​e​c​a​s​t
    */
@@ -103,6 +151,10 @@ type RootTranslation = {
    * R​e​t​u​r​n​ ​A​l​l
    */
   PARAM_RETURN_ALL_LABEL: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​o​ ​f​e​t​c​h​ ​a​l​l​ ​a​v​a​i​l​a​b​l​e​ ​r​e​s​u​l​t​s​.​ ​E​n​a​b​l​e​d​ ​u​s​e​s​ ​A​P​I​ ​p​a​g​i​n​a​t​i​o​n​ ​t​o​ ​r​e​t​r​i​e​v​e​ ​e​v​e​r​y​ ​p​a​g​e​;​ ​d​i​s​a​b​l​e​d​ ​r​e​t​u​r​n​s​ ​u​p​ ​t​o​ ​L​i​m​i​t​ ​i​t​e​m​s​.
+   */
+  PARAM_RETURN_ALL_HINT: string
   /**
    * L​i​m​i​t
    */
@@ -200,6 +252,10 @@ type RootTranslation = {
    * D​i​r​e​c​t​i​o​n
    */
   SEARCH_SORT_DIRECTION_LABEL: string
+  /**
+   * S​o​r​t​ ​d​i​r​e​c​t​i​o​n​ ​f​o​r​ ​t​h​i​s​ ​r​u​l​e​.​ ​U​s​e​ ​'​a​s​c​'​ ​f​o​r​ ​a​s​c​e​n​d​i​n​g​ ​o​r​ ​'​d​e​s​c​'​ ​f​o​r​ ​d​e​s​c​e​n​d​i​n​g​.
+   */
+  SEARCH_SORT_DIRECTION_HINT: string
   /**
    * U​p​d​a​t​e​ ​R​e​c​o​r​d
    */
@@ -336,6 +392,22 @@ export type TranslationFunctions = {
    */
   PARAM_BASE_ID_PLACEHOLDER: () => LocalizedString
   /**
+   * Choose from accessible bases
+   */
+  PARAM_BASE_ID_MODE_LIST_LABEL: () => LocalizedString
+  /**
+   * Search by base name or select a base
+   */
+  PARAM_BASE_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX
+   */
+  PARAM_BASE_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
+   * Enter base ID
+   */
+  PARAM_BASE_ID_MODE_ID_LABEL: () => LocalizedString
+  /**
    * Table
    */
   PARAM_TABLE_LABEL: () => LocalizedString
@@ -347,6 +419,22 @@ export type TranslationFunctions = {
    * tblXXXXXXXXXXXXXX or Table Name
    */
   PARAM_TABLE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Choose from base tables
+   */
+  PARAM_TABLE_MODE_LIST_LABEL: () => LocalizedString
+  /**
+   * Search by table name or select a table
+   */
+  PARAM_TABLE_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX
+   */
+  PARAM_TABLE_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
+   * Enter table name or ID
+   */
+  PARAM_TABLE_MODE_ID_LABEL: () => LocalizedString
   /**
    * Record ID
    */
@@ -360,6 +448,14 @@ export type TranslationFunctions = {
    */
   PARAM_RECORD_ID_PLACEHOLDER: () => LocalizedString
   /**
+   * Search by primary field value or select a record
+   */
+  PARAM_RECORD_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX/viwXXXXXXXXXXXXXX/recXXXXXXXXXXXXXX
+   */
+  PARAM_RECORD_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
    * Fields
    */
   PARAM_FIELDS_LABEL: () => LocalizedString
@@ -367,6 +463,14 @@ export type TranslationFunctions = {
    * Required. JSON object: keys = field names (use names, not field IDs). Values: text, number, single select (string), checkbox (boolean), date (ISO 8601). Linked records: array of record IDs, e.g. "Project": ["recXXX"]. Collaborator: user ID or email per Airtable docs. With Typecast on, strings are converted to field types and linked records can use primary field value.
    */
   PARAM_FIELDS_HINT: () => LocalizedString
+  /**
+   * Select a base first to load the available Airtable fields.
+   */
+  PARAM_FIELDS_EMPTY_BASE_NOTICE: () => LocalizedString
+  /**
+   * Select a table first to load the available Airtable fields.
+   */
+  PARAM_FIELDS_EMPTY_TABLE_NOTICE: () => LocalizedString
   /**
    * Typecast
    */
@@ -379,6 +483,10 @@ export type TranslationFunctions = {
    * Return All
    */
   PARAM_RETURN_ALL_LABEL: () => LocalizedString
+  /**
+   * Whether to fetch all available results. Enabled uses API pagination to retrieve every page; disabled returns up to Limit items.
+   */
+  PARAM_RETURN_ALL_HINT: () => LocalizedString
   /**
    * Limit
    */
@@ -476,6 +584,10 @@ export type TranslationFunctions = {
    * Direction
    */
   SEARCH_SORT_DIRECTION_LABEL: () => LocalizedString
+  /**
+   * Sort direction for this rule. Use 'asc' for ascending or 'desc' for descending.
+   */
+  SEARCH_SORT_DIRECTION_HINT: () => LocalizedString
   /**
    * Update Record
    */

@@ -1,23 +1,34 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { searchRecords } from "../../api/client"
 import { t } from "../../i18n/i18n-node"
+import { searchBasesMethod, searchTablesMethod } from "../_shared/methods"
+import {
+  baseTableScopeParams,
+  listLimitParam,
+  RETURN_ALL_PARAM_NAME,
+  returnAllParam,
+} from "../_shared/parameters"
+import { resolveBaseId, resolveTable } from "../_shared/resolve"
 import { getAirtableToken } from "../_shared/utils"
-import { baseIdParam, credentialParam, tableParam } from "../_shared/parameters"
+import searchRecordsSkill from "./search-records-skill.md" with { type: "text" }
 
 export const searchRecordsTool = {
   name: "airtable-search-records",
   display_name: t("SEARCH_RECORDS_DISPLAY_NAME"),
   description: t("SEARCH_RECORDS_DESCRIPTION"),
   icon: "🔎",
+  skill: searchRecordsSkill,
+
   parameters: [
-    credentialParam,
-    baseIdParam,
-    tableParam,
+    ...baseTableScopeParams,
     {
       name: "filter_by_formula",
       type: "string",
       required: false,
       display_name: t("SEARCH_FILTER_FORMULA_LABEL"),
+      ai: {
+        llm_description: t("SEARCH_FILTER_FORMULA_HINT"),
+      },
       ui: {
         component: "textarea",
         hint: t("SEARCH_FILTER_FORMULA_HINT"),
@@ -26,34 +37,16 @@ export const searchRecordsTool = {
         width: "full",
       },
     },
-    {
-      name: "return_all",
-      type: "boolean",
-      required: false,
-      default: true,
-      display_name: t("PARAM_RETURN_ALL_LABEL"),
-      ui: { component: "switch" },
-    },
-    {
-      name: "limit",
-      type: "integer",
-      required: false,
-      default: 100,
-      minimum: 1,
-      maximum: 100,
-      display_name: t("PARAM_LIMIT_LABEL"),
-      display: { show: { return_all: [false] } },
-      ui: {
-        component: "number-input",
-        hint: t("PARAM_LIMIT_HINT"),
-        support_expression: true,
-      },
-    },
+    returnAllParam,
+    listLimitParam,
     {
       name: "view",
       type: "string",
       required: false,
       display_name: t("SEARCH_VIEW_LABEL"),
+      ai: {
+        llm_description: t("SEARCH_VIEW_HINT"),
+      },
       ui: {
         component: "input",
         hint: t("SEARCH_VIEW_HINT"),
@@ -66,9 +59,13 @@ export const searchRecordsTool = {
       type: "array",
       required: false,
       display_name: t("SEARCH_OUTPUT_FIELDS_LABEL"),
+      ai: {
+        llm_description: t("SEARCH_OUTPUT_FIELDS_HINT"),
+      },
       ui: {
         component: "tag-input",
         hint: t("SEARCH_OUTPUT_FIELDS_HINT"),
+        support_expression: true,
       },
       items: { name: "field_name", type: "string" },
     },
@@ -87,6 +84,9 @@ export const searchRecordsTool = {
             type: "string",
             required: true,
             display_name: t("SEARCH_SORT_FIELD_LABEL"),
+            ai: {
+              llm_description: t("SEARCH_SORT_FIELD_HINT"),
+            },
             ui: {
               component: "input",
               hint: t("SEARCH_SORT_FIELD_HINT"),
@@ -100,18 +100,23 @@ export const searchRecordsTool = {
             default: "asc",
             enum: ["asc", "desc"],
             display_name: t("SEARCH_SORT_DIRECTION_LABEL"),
+            ai: {
+              llm_description: t("SEARCH_SORT_DIRECTION_HINT"),
+            },
             ui: {
               component: "select",
               options: [
                 { label: t("SEARCH_SORT_ASC"), value: "asc" },
                 { label: t("SEARCH_SORT_DESC"), value: "desc" },
               ],
+              support_expression: true,
             },
           },
         ],
       },
     },
   ],
+  locator_list: { ...searchBasesMethod, ...searchTablesMethod },
   async invoke({ args }) {
     const token = getAirtableToken(args)
     if (!token) {
@@ -121,14 +126,15 @@ export const searchRecordsTool = {
     }
 
     const p = (args as { parameters: Record<string, unknown> }).parameters
-    const baseId = String(p["base_id"] ?? "").trim()
-    const table = String(p["table"] ?? "").trim()
+    const baseId = resolveBaseId(p)
+    const table = resolveTable(p)
 
     if (!baseId) throw new Error("base_id is required.")
     if (!table) throw new Error("table is required.")
 
-    const filterByFormula = String(p["filter_by_formula"] ?? "").trim() || undefined
-    const returnAll = p["return_all"] !== false
+    const filterByFormula =
+      String(p["filter_by_formula"] ?? "").trim() || undefined
+    const returnAll = p[RETURN_ALL_PARAM_NAME] !== false
     const limitRaw = p["limit"]
     const limitNum =
       typeof limitRaw === "number"
@@ -143,7 +149,8 @@ export const searchRecordsTool = {
     const view = String(p["view"] ?? "").trim() || undefined
 
     const fields =
-      Array.isArray(p["output_fields"]) && (p["output_fields"] as string[]).length > 0
+      Array.isArray(p["output_fields"]) &&
+      (p["output_fields"] as string[]).length > 0
         ? (p["output_fields"] as string[]).filter(Boolean)
         : undefined
 
@@ -156,7 +163,9 @@ export const searchRecordsTool = {
           )
           .map((s) => ({
             field: s.field,
-            direction: (s.direction === "desc" ? "desc" : "asc") as "asc" | "desc",
+            direction: (s.direction === "desc" ? "desc" : "asc") as
+              | "asc"
+              | "desc",
           }))
       : undefined
 

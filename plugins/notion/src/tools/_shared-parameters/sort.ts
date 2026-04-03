@@ -17,6 +17,7 @@ const sortParameter: PropertyObject<"sort"> = {
       name: "timestamp",
       type: "string",
       enum: ["last_edited_time"],
+      display_name: t("SORT_TIMESTAMP_DISPLAY_NAME"),
       default: "last_edited_time",
       ui: {
         component: "select",

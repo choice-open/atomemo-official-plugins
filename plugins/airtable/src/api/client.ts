@@ -1,31 +1,33 @@
-const AIRTABLE_BASE_URL = "https://api.airtable.com/v0";
+import type { JsonValue } from "@choiceopen/atomemo-plugin-sdk-js/types"
 
-export interface AirtableRecord {
-  id: string;
-  fields: Record<string, unknown>;
-  createdTime?: string;
+const AIRTABLE_BASE_URL = "https://api.airtable.com/v0"
+
+export type AirtableRecord = Record<string, JsonValue> & {
+  id: string
+  fields: Record<string, JsonValue>
+  createdTime?: string
 }
 
 export interface AirtableBase {
-  id: string;
-  name: string;
-  permissionLevel: string;
+  id: string
+  name: string
+  permissionLevel: string
 }
 
 export interface AirtableField {
-  id: string;
-  name: string;
-  type: string;
-  description?: string;
-  options?: unknown;
+  id: string
+  name: string
+  type: string
+  description?: string
+  options?: unknown
 }
 
 export interface AirtableTable {
-  id: string;
-  name: string;
-  primaryFieldId: string;
-  fields: AirtableField[];
-  views?: unknown[];
+  id: string
+  name: string
+  primaryFieldId: string
+  fields: AirtableField[]
+  views?: unknown[]
 }
 
 async function request<T>(
@@ -33,21 +35,21 @@ async function request<T>(
   method: string,
   path: string,
   options: {
-    body?: unknown;
-    query?: Record<string, unknown>;
+    body?: unknown
+    query?: Record<string, unknown>
   } = {},
 ): Promise<T> {
-  const url = new URL(`${AIRTABLE_BASE_URL}/${path}`);
+  const url = new URL(`${AIRTABLE_BASE_URL}/${path}`)
 
   if (options.query) {
     for (const [key, value] of Object.entries(options.query)) {
-      if (value === undefined || value === null || value === "") continue;
+      if (value === undefined || value === null || value === "") continue
       if (Array.isArray(value)) {
         for (const item of value) {
-          url.searchParams.append(key, String(item));
+          url.searchParams.append(key, String(item))
         }
       } else {
-        url.searchParams.set(key, String(value));
+        url.searchParams.set(key, String(value))
       }
     }
   }
@@ -55,33 +57,33 @@ async function request<T>(
   const headers: Record<string, string> = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
-  };
-
-  const fetchOptions: RequestInit = { method, headers };
-  if (options.body !== undefined) {
-    fetchOptions.body = JSON.stringify(options.body);
   }
 
-  const response = await fetch(url.toString(), fetchOptions);
+  const fetchOptions: RequestInit = { method, headers }
+  if (options.body !== undefined) {
+    fetchOptions.body = JSON.stringify(options.body)
+  }
+
+  const response = await fetch(url.toString(), fetchOptions)
 
   if (!response.ok) {
-    let errorType: string | undefined;
-    let errorMessage = `Airtable API error: ${response.status} ${response.statusText}`;
+    let errorType: string | undefined
+    let errorMessage = `Airtable API error: ${response.status} ${response.statusText}`
     try {
       const errorBody = (await response.json()) as {
-        error?: { type?: string; message?: string };
-      };
-      errorMessage = errorBody.error?.message ?? errorMessage;
-      errorType = errorBody.error?.type;
+        error?: { type?: string; message?: string }
+      }
+      errorMessage = errorBody.error?.message ?? errorMessage
+      errorType = errorBody.error?.type
     } catch {
       // ignore JSON parse errors
     }
     throw new Error(
       errorType ? `${errorMessage} (type: ${errorType})` : errorMessage,
-    );
+    )
   }
 
-  return response.json() as Promise<T>;
+  return response.json() as Promise<T>
 }
 
 // ── Bases ──────────────────────────────────────────────────────────────────
@@ -89,44 +91,43 @@ async function request<T>(
 export async function listBases(
   token: string,
   options: {
-    returnAll?: boolean;
-    limit?: number;
-    permissionLevel?: string[];
+    returnAll?: boolean
+    limit?: number
+    permissionLevel?: string[]
   } = {},
 ): Promise<AirtableBase[]> {
-  const bases: AirtableBase[] = [];
-  let offset: string | undefined;
+  const bases: AirtableBase[] = []
+  let offset: string | undefined
 
   do {
-    const query: Record<string, unknown> = {};
-    if (offset) query.offset = offset;
+    const query: Record<string, unknown> = {}
+    if (offset) query.offset = offset
 
     const data = await request<{ bases: AirtableBase[]; offset?: string }>(
       token,
       "GET",
       "meta/bases",
       { query },
-    );
+    )
 
-    bases.push(...(data.bases ?? []));
-    offset = data.offset;
+    bases.push(...(data.bases ?? []))
+    offset = data.offset
 
-    if (!options.returnAll) break;
-  } while (offset);
+    if (!options.returnAll) break
+  } while (offset)
 
-  let result = bases;
+  let result = bases
 
   if (options.permissionLevel && options.permissionLevel.length > 0) {
-    result = result.filter((b) =>
-      options.permissionLevel!.includes(b.permissionLevel),
-    );
+    const permissionLevels = options.permissionLevel
+    result = result.filter((b) => permissionLevels.includes(b.permissionLevel))
   }
 
   if (!options.returnAll && options.limit) {
-    result = result.slice(0, options.limit);
+    result = result.slice(0, options.limit)
   }
 
-  return result;
+  return result
 }
 
 export async function getBaseSchema(
@@ -137,8 +138,8 @@ export async function getBaseSchema(
     token,
     "GET",
     `meta/bases/${baseId}/tables`,
-  );
-  return data.tables ?? [];
+  )
+  return data.tables ?? []
 }
 
 // ── Records ────────────────────────────────────────────────────────────────
@@ -152,7 +153,7 @@ export async function createRecord(
 ): Promise<AirtableRecord> {
   return request<AirtableRecord>(token, "POST", `${baseId}/${table}`, {
     body: { fields, typecast },
-  });
+  })
 }
 
 export async function getRecord(
@@ -161,20 +162,16 @@ export async function getRecord(
   table: string,
   recordId: string,
 ): Promise<AirtableRecord> {
-  return request<AirtableRecord>(
-    token,
-    "GET",
-    `${baseId}/${table}/${recordId}`,
-  );
+  return request<AirtableRecord>(token, "GET", `${baseId}/${table}/${recordId}`)
 }
 
 export interface SearchOptions {
-  filterByFormula?: string;
-  returnAll?: boolean;
-  limit?: number;
-  sort?: Array<{ field: string; direction?: "asc" | "desc" }>;
-  view?: string;
-  fields?: string[];
+  filterByFormula?: string
+  returnAll?: boolean
+  limit?: number
+  sort?: Array<{ field: string; direction?: "asc" | "desc" }>
+  view?: string
+  fields?: string[]
 }
 
 export async function searchRecords(
@@ -183,45 +180,44 @@ export async function searchRecords(
   table: string,
   options: SearchOptions = {},
 ): Promise<AirtableRecord[]> {
-  const records: AirtableRecord[] = [];
-  let offset: string | undefined;
+  const records: AirtableRecord[] = []
+  let offset: string | undefined
 
   do {
-    const query: Record<string, unknown> = {};
+    const query: Record<string, unknown> = {}
 
-    if (offset) query.offset = offset;
-    if (options.filterByFormula)
-      query.filterByFormula = options.filterByFormula;
-    if (options.view) query.view = options.view;
+    if (offset) query.offset = offset
+    if (options.filterByFormula) query.filterByFormula = options.filterByFormula
+    if (options.view) query.view = options.view
     if (options.fields && options.fields.length > 0) {
-      query["fields[]"] = options.fields;
+      query["fields[]"] = options.fields
     }
 
     if (options.sort && options.sort.length > 0) {
       options.sort.forEach((s, i) => {
-        query[`sort[${i}][field]`] = s.field;
-        query[`sort[${i}][direction]`] = s.direction ?? "asc";
-      });
+        query[`sort[${i}][field]`] = s.field
+        query[`sort[${i}][direction]`] = s.direction ?? "asc"
+      })
     }
 
     if (options.returnAll) {
-      query.pageSize = 100;
+      query.pageSize = 100
     } else {
-      query.maxRecords = options.limit ?? 100;
+      query.maxRecords = options.limit ?? 100
     }
 
     const data = await request<{
-      records: AirtableRecord[];
-      offset?: string;
-    }>(token, "GET", `${baseId}/${table}`, { query });
+      records: AirtableRecord[]
+      offset?: string
+    }>(token, "GET", `${baseId}/${table}`, { query })
 
-    records.push(...(data.records ?? []));
-    offset = data.offset;
+    records.push(...(data.records ?? []))
+    offset = data.offset
 
-    if (!options.returnAll) break;
-  } while (offset);
+    if (!options.returnAll) break
+  } while (offset)
 
-  return records;
+  return records
 }
 
 export async function updateRecord(
@@ -237,19 +233,19 @@ export async function updateRecord(
     "PATCH",
     `${baseId}/${table}/${recordId}`,
     { body: { fields, typecast } },
-  );
+  )
 }
 
 export interface UpsertOptions {
-  fieldsToMergeOn: string[];
-  typecast?: boolean;
-  updateAllMatches?: boolean;
+  fieldsToMergeOn: string[]
+  typecast?: boolean
+  updateAllMatches?: boolean
 }
 
 export interface UpsertResult {
-  records: AirtableRecord[];
-  createdRecords: string[];
-  updatedRecords: string[];
+  records: AirtableRecord[]
+  createdRecords: string[]
+  updatedRecords: string[]
 }
 
 export async function upsertRecord(
@@ -259,23 +255,23 @@ export async function upsertRecord(
   fields: Record<string, unknown>,
   options: UpsertOptions,
 ): Promise<UpsertResult> {
-  const endpoint = `${baseId}/${table}`;
+  const endpoint = `${baseId}/${table}`
   const performUpsert: Record<string, unknown> = {
     fieldsToMergeOn: options.fieldsToMergeOn,
-  };
+  }
   if (options.updateAllMatches) {
-    performUpsert.updateAllMatches = true;
+    performUpsert.updateAllMatches = true
   }
   const body: Record<string, unknown> = {
     typecast: options.typecast ?? false,
     performUpsert,
     records: [{ fields }],
-  };
+  }
 
   const data = await request<UpsertResult>(token, "PATCH", endpoint, {
     body,
-  });
-  return data;
+  })
+  return data
 }
 
 export async function deleteRecord(
@@ -288,5 +284,5 @@ export async function deleteRecord(
     token,
     "DELETE",
     `${baseId}/${table}/${recordId}`,
-  );
+  )
 }

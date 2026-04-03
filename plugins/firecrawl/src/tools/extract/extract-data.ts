@@ -20,6 +20,7 @@ import {
   firecrawlCredentialParameter,
   scrapeOptionsParameter,
 } from "../_shared-parameters"
+import extractDataSkill from "./extract-data-skill.md" with { type: "text" }
 
 const options: PropertyObject = {
   name: "options",
@@ -168,6 +169,7 @@ export const ExtractStructuredDataTool: ToolDefinition = {
   display_name: t("TOOL_EXTRACT_STRUCTURED_DATA_DISPLAY_NAME"),
   description: t("TOOL_EXTRACT_STRUCTURED_DATA_DESCRIPTION"),
   icon: "📦",
+  skill: extractDataSkill,
   parameters: [firecrawlCredentialParameter, urlsParameters, options],
   invoke: async ({ args }) => {
     try {
