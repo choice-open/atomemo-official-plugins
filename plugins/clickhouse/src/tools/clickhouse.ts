@@ -1,5 +1,9 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { createClient } from "@clickhouse/client"
+import clickhouseExecSkill from "./clickhouse-exec-skill.md" with { type: "text" }
+import clickhouseInsertRowsSkill from "./clickhouse-insert-rows-skill.md" with { type: "text" }
+import clickhousePingSkill from "./clickhouse-ping-skill.md" with { type: "text" }
+import clickhouseQueryJsonSkill from "./clickhouse-query-json-skill.md" with { type: "text" }
 
 type ClickHouseCredential = {
   url: string
@@ -90,6 +94,7 @@ export const clickhousePingTool = {
     en_US: "Check the health of a ClickHouse instance using the JS client.",
     zh_Hans: "使用 clickhouse-js 检查 ClickHouse 实例的连通性和健康状态。",
   },
+  skill: clickhousePingSkill,
   icon: "🩺",
   parameters: [
     credentialParam,
@@ -104,6 +109,7 @@ export const clickhousePingTool = {
       },
       ui: {
         component: "switch",
+        support_expression: true,
       },
     },
   ],
@@ -177,6 +183,7 @@ export const clickhouseQueryJsonTool = {
     en_US: "Run a SELECT query against ClickHouse and return JSONEachRow data.",
     zh_Hans: "对 ClickHouse 执行 SELECT 查询，并以 JSONEachRow 形式返回结果。",
   },
+  skill: clickhouseQueryJsonSkill,
   icon: "🔍",
   parameters: [
     credentialParam,
@@ -253,6 +260,7 @@ export const clickhouseQueryJsonTool = {
       },
       ui: {
         component: "number-input",
+        support_expression: true,
       },
     },
     {
@@ -263,7 +271,11 @@ export const clickhouseQueryJsonTool = {
         en_US: "Session ID",
         zh_Hans: "会话 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
     {
       name: "query_id",
@@ -273,7 +285,11 @@ export const clickhouseQueryJsonTool = {
         en_US: "Query ID",
         zh_Hans: "查询 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
   ],
   async invoke({ args }) {
@@ -383,6 +399,7 @@ export const clickhouseExecTool = {
     en_US: "Execute DDL or other non-SELECT statements against ClickHouse.",
     zh_Hans: "在 ClickHouse 上执行 DDL 或其它非 SELECT 语句。",
   },
+  skill: clickhouseExecSkill,
   icon: "⚙️",
   parameters: [
     credentialParam,
@@ -434,7 +451,11 @@ export const clickhouseExecTool = {
         en_US: "Session ID",
         zh_Hans: "会话 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
     {
       name: "query_id",
@@ -444,7 +465,11 @@ export const clickhouseExecTool = {
         en_US: "Query ID",
         zh_Hans: "查询 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
   ],
   async invoke({ args }) {
@@ -529,6 +554,7 @@ export const clickhouseInsertTool = {
     en_US: "Insert JSONEachRow style rows into a ClickHouse table.",
     zh_Hans: "向 ClickHouse 表中插入 JSONEachRow 风格的多行数据。",
   },
+  skill: clickhouseInsertRowsSkill,
   icon: "📥",
   parameters: [
     credentialParam,
@@ -606,7 +632,11 @@ export const clickhouseInsertTool = {
         en_US: "Session ID",
         zh_Hans: "会话 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
     {
       name: "query_id",
@@ -616,7 +646,11 @@ export const clickhouseInsertTool = {
         en_US: "Query ID",
         zh_Hans: "查询 ID",
       },
-      ui: { component: "input", width: "full" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
     },
   ],
   async invoke({ args }) {
@@ -670,7 +704,7 @@ export const clickhouseInsertTool = {
       const query_id = args.parameters.query_id as string | undefined
       const columns =
         columnsParsed.value === undefined ||
-        (Array.isArray(columnsParsed.value) && columnsParsed.value.length === 0)
+          (Array.isArray(columnsParsed.value) && columnsParsed.value.length === 0)
           ? undefined
           : columnsParsed.value
       await client.insert({

@@ -1,5 +1,21 @@
 import "dotenv/config"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
+
+vi.mock("../src/tools/clickhouse-ping-skill.md", () => ({
+  default: "ClickHouse ping skill",
+}))
+
+vi.mock("../src/tools/clickhouse-query-json-skill.md", () => ({
+  default: "ClickHouse query json skill",
+}))
+
+vi.mock("../src/tools/clickhouse-exec-skill.md", () => ({
+  default: "ClickHouse exec skill",
+}))
+
+vi.mock("../src/tools/clickhouse-insert-rows-skill.md", () => ({
+  default: "ClickHouse insert rows skill",
+}))
 
 import {
   clickhouseExecTool,

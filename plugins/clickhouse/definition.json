@@ -129,12 +129,14 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "component": "switch"
           },
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# ClickHouse Ping Tool Documentation\n\n## Tool\n\n- **Name**: `clickhouse-ping`\n- **Purpose**: Checks connectivity and health of a ClickHouse server using the official JS client (`ping`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `connection` | `credential_id` | `true` | credential picker | ClickHouse connection credential (`clickhouse-connection`). | `\"my_connection\"` |\n| `use_select_mode` | `boolean` | `false` | `switch` | When `true`, uses a SELECT-based ping (often better behind HTTP gateways). | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"connection\": \"my_connection\",\n    \"use_select_mode\": false\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"message\": \"Ping ClickHouse successfully.\",\n  \"error\": null,\n  \"data\": {\n    \"success\": true,\n    \"error\": null\n  }\n}\n```\n"
     },
     {
       "name": "clickhouse-query-json",
@@ -228,6 +230,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "component": "number-input"
           },
           "type": "number",
@@ -241,6 +244,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
@@ -254,12 +258,14 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# ClickHouse Query (JSON) Tool Documentation\n\n## Tool\n\n- **Name**: `clickhouse-query-json`\n- **Purpose**: Runs a **SELECT** (read) query and returns rows as **JSONEachRow** objects, with a hard cap on returned rows for safety.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `connection` | `credential_id` | `true` | credential picker | ClickHouse connection credential (`clickhouse-connection`). | `\"my_connection\"` |\n| `query` | `string` | `true` | `textarea` | SQL **SELECT** statement. Prefer `{name:Type}` placeholders with `query_params` to avoid SQL injection. | `\"SELECT * FROM events WHERE id = {id:UInt64} LIMIT 10\"` |\n| `query_params` | `string` | `false` | `textarea` | JSON object mapping placeholder names to values. | `\"{\\\"id\\\": 42}\"` |\n| `clickhouse_settings` | `string` | `false` | `textarea` | JSON object of query-level ClickHouse settings (merged with enforced `max_result_rows`). | `\"{\\\"max_execution_time\\\": 30}\"` |\n| `max_rows` | `number` | `false` | `number-input` | Maximum rows to return (clamped server-side, upper bound 100000; default 1000). | `500` |\n| `session_id` | `string` | `false` | `input` | Optional session id for the query. | `\"sess-1\"` |\n| `query_id` | `string` | `false` | `input` | Optional query id for tracing. | `\"q-abc\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"connection\": \"my_connection\",\n    \"query\": \"SELECT id, name FROM my_db.events WHERE id = {id:UInt64} LIMIT 5\",\n    \"query_params\": \"{\\\"id\\\": 1}\",\n    \"clickhouse_settings\": \"{\\\"max_execution_time\\\": 30}\",\n    \"max_rows\": 100\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"message\": \"Query ClickHouse successfully.\",\n  \"error\": null,\n  \"data\": {\n    \"row_count\": 2,\n    \"rows\": [\n      { \"id\": 1, \"name\": \"foo\" },\n      { \"id\": 2, \"name\": \"bar\" }\n    ]\n  }\n}\n```\n"
     },
     {
       "name": "clickhouse-exec",
@@ -331,6 +337,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
@@ -344,12 +351,14 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# ClickHouse Exec (DDL / Command) Tool Documentation\n\n## Tool\n\n- **Name**: `clickhouse-exec`\n- **Purpose**: Executes **non-SELECT** statements (DDL, mutations, etc.) via `command`. Intended for workflow-controlled SQL only—do not pass untrusted end-user input directly.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `connection` | `credential_id` | `true` | credential picker | ClickHouse connection credential (`clickhouse-connection`). | `\"my_connection\"` |\n| `statement` | `string` | `true` | `textarea` | SQL statement to execute (DDL or command). | `\"CREATE TABLE IF NOT EXISTS my_db.t (id UInt64) ENGINE = MergeTree ORDER BY id\"` |\n| `clickhouse_settings` | `string` | `false` | `textarea` | JSON object of statement-level ClickHouse settings. | `\"{\\\"wait_end_of_query\\\": 1}\"` |\n| `session_id` | `string` | `false` | `input` | Optional session id. | `\"sess-1\"` |\n| `query_id` | `string` | `false` | `input` | Optional query id. | `\"q-ddl-1\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"connection\": \"my_connection\",\n    \"statement\": \"OPTIMIZE TABLE my_db.events FINAL\",\n    \"clickhouse_settings\": \"{\\\"wait_end_of_query\\\": 1}\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"message\": \"Statement executed successfully.\",\n  \"error\": null,\n  \"data\": null\n}\n```\n"
     },
     {
       "name": "clickhouse-insert-rows",
@@ -447,6 +456,7 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
@@ -460,12 +470,14 @@
           },
           "required": false,
           "ui": {
+            "support_expression": true,
             "width": "full",
             "component": "input"
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# ClickHouse Insert Rows Tool Documentation\n\n## Tool\n\n- **Name**: `clickhouse-insert-rows`\n- **Purpose**: Inserts multiple rows into a table using **JSONEachRow** encoding (each array element is one row object).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `connection` | `credential_id` | `true` | credential picker | ClickHouse connection credential (`clickhouse-connection`). | `\"my_connection\"` |\n| `table` | `string` | `true` | `input` | Target table: bare name or `database.table`. | `\"my_db.events\"` |\n| `rows` | `string` | `true` | `textarea` | JSON **array** of row objects. | `\"[{\\\"id\\\":1,\\\"name\\\":\\\"a\\\"},{\\\"id\\\":2,\\\"name\\\":\\\"b\\\"}]\"` |\n| `columns` | `string` | `false` | `textarea` | Optional JSON array of column names to insert (subset / order). | `\"[\\\"id\\\", \\\"name\\\"]\"` |\n| `session_id` | `string` | `false` | `input` | Optional session id. | `\"sess-1\"` |\n| `query_id` | `string` | `false` | `input` | Optional query id. | `\"q-ins-1\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"connection\": \"my_connection\",\n    \"table\": \"my_db.events\",\n    \"rows\": \"[{\\\"id\\\": 10, \\\"name\\\": \\\"alpha\\\"}, {\\\"id\\\": 11, \\\"name\\\": \\\"beta\\\"}]\",\n    \"columns\": \"[\\\"id\\\", \\\"name\\\"]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"message\": \"Rows inserted successfully.\",\n  \"error\": null,\n  \"data\": {\n    \"inserted_count\": 2\n  }\n}\n```\n"
     }
   ]
 }
