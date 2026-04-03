@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 import { requireGmailClient } from "../lib/require-gmail"
 import { gmailCredentialParam, userIdParam } from "./_shared/parameters"
+import listForwardingAddressesSkill from "./list-forwarding-addresses-skill.md" with { type: "text" }
 
 export const listForwardingAddressesTool: ToolDefinition = {
   name: "gmail-list-forwarding-addresses",
   display_name: t("GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_LIST_FORWARDING_ADDRESSES_DESCRIPTION"),
+  skill: listForwardingAddressesSkill,
   icon: "↪️",
   parameters: [gmailCredentialParam, userIdParam],
   async invoke({ args }) {

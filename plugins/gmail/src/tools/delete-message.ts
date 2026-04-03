@@ -6,11 +6,13 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
+import deleteMessageSkill from "./delete-message-skill.md" with { type: "text" }
 
 export const deleteMessageTool: ToolDefinition = {
   name: "gmail-delete-message",
   display_name: t("GMAIL_TOOL_DELETE_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_DELETE_MESSAGE_DESCRIPTION"),
+  skill: deleteMessageSkill,
   icon: "🗑️",
   parameters: [gmailCredentialParam, userIdParam, messageIdParam],
   async invoke({ args }) {

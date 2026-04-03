@@ -1,39 +1,37 @@
-# Quick Start: New Plugin Project
+# Quick Start with Plugin Development
 
 ## Prerequisites
 
-- Node.js v20+
+- Familiarity with TypeScript/JavaScript basics
+- Node.js v20+ (Bun recommended for local plugin development)
 - Git v2+
-- A registered Atomemo account (at https://atomemo.ai)
-- Familiarity with TypeScript/JavaScript
+- A registered Atomemo account
 
-## Installation
+## Step 1: Install the Command Line Tool
 
 ```bash
 npm install @choiceopen/atomemo-plugin-cli --global
-atomemo --version   # verify installation
+atomemo --version
 ```
 
-## Create a New Plugin Project
+## Step 2: Initialize Your Project
 
-### Step 1: Authenticate (requires user action)
+### 1. Login to Your Account
 
 ```bash
 atomemo auth login
 ```
 
-This uses a **device authorization flow** — it cannot be automated. The command
-prints a verification URL and a code. The user must open the URL in their browser
-and enter the code to complete login.
+This uses a browser-based device authorization flow.
 
-### Step 2: Initialize project
+### 2. Create Your Project
 
-**Interactive mode** (prompts for each field):
 ```bash
 atomemo plugin init
 ```
 
-**Non-interactive mode** (all flags provided — can be run automatically):
+For non-interactive automation:
+
 ```bash
 atomemo plugin init --no-interactive \
   -n <plugin-name> \
@@ -44,17 +42,50 @@ atomemo plugin init --no-interactive \
 When a valid `--name` flag is present, the CLI automatically switches to
 non-interactive mode even without `--no-interactive`.
 
-### Step 3: Install dependencies and set up dev key
+### 3. Project Structure Overview
+
+```text
+<plugin-name>/
+├── src/
+│   ├── index.ts
+│   ├── tools/
+│   ├── models/
+│   ├── credentials/
+│   └── i18n/
+├── package.json
+├── tsconfig.json
+├── .env
+└── README.md
+```
+
+## Step 3: Connect and Debug
+
+### 1. Get Debug Credentials
 
 ```bash
 cd <plugin-name>
-atomemo plugin refresh-key   # generates .env with debug API key (expires 24h)
-bun install
-bun run build
-bun run ./dist               # connects to Plugin Hub
+atomemo plugin refresh-key
 ```
 
-All of these commands are non-interactive and can be run automatically.
+This updates `.env` with the current debug credentials, including `HUB_DEBUG_API_KEY`
+and the correct `HUB_WS_URL`.
+
+### 2. Start the Development Workflow
+
+```bash
+bun install
+bun run dev
+```
+
+`bun run dev` rebuilds the plugin continuously, but it does not connect to Plugin Hub.
+
+### 3. Connect to Plugin Hub
+
+```bash
+bun run ./dist
+```
+
+When the connection succeeds, you'll see an `ok` response in the terminal.
 
 ## Naming Rules
 
@@ -70,50 +101,20 @@ Plugin names must match: `/^[a-z][a-z0-9_-]{2,62}[a-z0-9]$/`
 Valid: `my-plugin`, `weather-lookup`, `openai-models`
 Invalid: `My-Plugin` (uppercase), `my--plugin` (consecutive hyphens), `plugin-` (ends with `-`)
 
-## Generated Project Structure
-
-```
-<plugin-name>/
-├── src/
-│   ├── index.ts          ← main entry point
-│   ├── tools/            ← tool definitions go here
-│   ├── models/           ← model definitions go here
-│   ├── credentials/      ← credential definitions go here
-│   └── i18n/             ← translation files (SDK-managed)
-├── package.json
-├── tsconfig.json
-└── .env                  ← auto-generated, contains debug API key
-```
-
-## Running Locally
-
-```bash
-bun run build     # build the plugin
-bun run ./dist    # connect to Plugin Hub
-```
-
-`bun run dev` is watch/rebuild mode only — it does **not** connect to the Hub.
-
-To iterate quickly:
-```bash
-bun run build && bun run ./dist
-```
-
-A successful connection to the Plugin Hub shows:
-```
-status: ok, response: { success: true }
-```
-
 ## Dev Key Expiry
 
-The debug API key in `.env` expires after **24 hours**. If you see auth errors, refresh it:
+The debug credentials expire after **24 hours**. If you see auth errors, refresh them:
+
 ```bash
 atomemo plugin refresh-key
 ```
 
 ## Next Steps
 
-After the project is set up:
+After the project is set up, continue with:
+
 - Add a Tool → see `tool-plugin.md`
 - Add a Model → see `model-plugin.md`
 - Add Credentials → see `credential.md`
+- Understand lifecycle and architecture → see `core-concepts.md`
+- Learn the parameter system → see `declarative-parameters.md`

@@ -9,11 +9,13 @@ import {
   qParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import listThreadsSkill from "./list-threads-skill.md" with { type: "text" }
 
 export const listThreadsTool: ToolDefinition = {
   name: "gmail-list-threads",
   display_name: t("GMAIL_TOOL_LIST_THREADS_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_LIST_THREADS_DESCRIPTION"),
+  skill: listThreadsSkill,
   icon: "🧵",
   parameters: [
     gmailCredentialParam,

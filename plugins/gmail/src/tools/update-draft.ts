@@ -3,6 +3,7 @@ import { t } from "../i18n/i18n-node"
 import { requireGmailClient } from "../lib/require-gmail"
 import { encodeSubject } from "../lib/rfc2047"
 import { draftIdParam, gmailCredentialParam, userIdParam } from "./_shared/parameters"
+import updateDraftSkill from "./update-draft-skill.md" with { type: "text" }
 
 function createRawEmail(
   to: string,
@@ -26,6 +27,7 @@ export const updateDraftTool: ToolDefinition = {
   name: "gmail-update-draft",
   display_name: t("GMAIL_TOOL_UPDATE_DRAFT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_UPDATE_DRAFT_DESCRIPTION"),
+  skill: updateDraftSkill,
   icon: "📝",
   parameters: [
     gmailCredentialParam,

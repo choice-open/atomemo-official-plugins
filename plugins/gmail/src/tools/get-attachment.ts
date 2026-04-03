@@ -7,11 +7,13 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
+import getAttachmentSkill from "./get-attachment-skill.md" with { type: "text" }
 
 export const getAttachmentTool: ToolDefinition = {
   name: "gmail-get-attachment",
   display_name: t("GMAIL_TOOL_GET_ATTACHMENT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_ATTACHMENT_DESCRIPTION"),
+  skill: getAttachmentSkill,
   icon: "📎",
   parameters: [
     gmailCredentialParam,

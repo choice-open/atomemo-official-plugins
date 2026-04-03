@@ -8,11 +8,13 @@ import {
   messageIdParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import modifyMessageSkill from "./modify-message-skill.md" with { type: "text" }
 
 export const modifyMessageTool: ToolDefinition = {
   name: "gmail-modify-message",
   display_name: t("GMAIL_TOOL_MODIFY_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_MODIFY_MESSAGE_DESCRIPTION"),
+  skill: modifyMessageSkill,
   icon: "🏷️",
   parameters: [
     gmailCredentialParam,

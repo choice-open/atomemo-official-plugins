@@ -5,11 +5,13 @@ import {
   gmailCredentialParam,
   userIdParam,
 } from "./_shared/parameters"
+import getProfileSkill from "./get-profile-skill.md" with { type: "text" }
 
 export const getProfileTool: ToolDefinition = {
   name: "gmail-get-profile",
   display_name: t("GMAIL_TOOL_GET_PROFILE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_PROFILE_DESCRIPTION"),
+  skill: getProfileSkill,
   icon: "👤",
   parameters: [gmailCredentialParam, userIdParam],
   async invoke({ args }) {
