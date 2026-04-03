@@ -44,14 +44,38 @@ export const getDocumentTool: ToolDefinition = {
         support_expression: true,
       },
     },
+    {
+      name: "suggestions_view_mode",
+      type: "string",
+      required: false,
+      display_name: t("SUGGESTIONS_VIEW_MODE_DISPLAY_NAME"),
+      enum: [
+        "DEFAULT_FOR_CURRENT_ACCESS",
+        "SUGGESTIONS_INLINE",
+        "PREVIEW_SUGGESTIONS_ACCEPTED",
+        "PREVIEW_WITHOUT_SUGGESTIONS",
+      ],
+      ui: {
+        component: "select",
+        hint: t("SUGGESTIONS_VIEW_MODE_HINT"),
+        support_expression: true,
+      },
+    },
   ],
   async invoke({ args }) {
-    const docsClient = requireDocsClient(args.credentials, "google_credential")
+    const docsClient = requireDocsClient(args.credentials, args.parameters.google_credential)
+
+    const suggestionsViewMode = args.parameters.suggestions_view_mode as
+      | string
+      | undefined
 
     const response = await docsClient.documents.get({
       documentId: args.parameters.document_id as string,
       includeTabsContent:
         (args.parameters.include_tabs_content as boolean | undefined) ?? false,
+      ...(suggestionsViewMode
+        ? { suggestionsViewMode }
+        : {}),
     })
 
     return JSON.parse(

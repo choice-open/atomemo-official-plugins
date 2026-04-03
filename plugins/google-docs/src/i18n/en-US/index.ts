@@ -33,6 +33,9 @@ const en_US = {
   INCLUDE_TABS_CONTENT_DISPLAY_NAME: "Include Tabs Content",
   INCLUDE_TABS_CONTENT_HINT:
     "When enabled, return content in tabs field for multi-tab docs",
+  SUGGESTIONS_VIEW_MODE_DISPLAY_NAME: "Suggestions View Mode",
+  SUGGESTIONS_VIEW_MODE_HINT:
+    "Optional; maps to documents.get suggestionsViewMode query parameter",
   REQUESTS_JSON_DISPLAY_NAME: "Requests JSON",
   REQUESTS_JSON_HINT:
     "JSON array of Google Docs Request objects used in batchUpdate",

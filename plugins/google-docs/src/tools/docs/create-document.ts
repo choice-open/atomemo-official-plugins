@@ -34,7 +34,7 @@ export const createDocumentTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const docsClient = requireDocsClient(args.credentials, "google_credential")
+    const docsClient = requireDocsClient(args.credentials, args.parameters.google_credential)
 
     const response = await docsClient.documents.create({
       requestBody: {

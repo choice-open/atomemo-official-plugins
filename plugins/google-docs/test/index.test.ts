@@ -151,7 +151,6 @@ describe("google docs plugin", () => {
               },
             },
           ],
-          writeControl: undefined,
         },
       }),
     )

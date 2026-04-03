@@ -31,6 +31,9 @@ const zh_Hans = {
   DOCUMENT_ID_HINT: "可从 docs.google.com 文档 URL 中获取",
   INCLUDE_TABS_CONTENT_DISPLAY_NAME: "包含标签页内容",
   INCLUDE_TABS_CONTENT_HINT: "开启后，将在 tabs 字段返回多标签页文档的内容",
+  SUGGESTIONS_VIEW_MODE_DISPLAY_NAME: "建议视图模式",
+  SUGGESTIONS_VIEW_MODE_HINT:
+    "可选；对应 documents.get 查询参数 suggestionsViewMode",
   REQUESTS_JSON_DISPLAY_NAME: "Requests JSON",
   REQUESTS_JSON_HINT: "batchUpdate 使用的 Google Docs Request JSON 数组",
   REQUESTS_JSON_PLACEHOLDER: "用于 batchUpdate 的 JSON 数组",

@@ -132,6 +132,14 @@ type RootTranslation = {
    */
   INCLUDE_TABS_CONTENT_HINT: string
   /**
+   * S​u​g​g​e​s​t​i​o​n​s​ ​V​i​e​w​ ​M​o​d​e
+   */
+  SUGGESTIONS_VIEW_MODE_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​;​ ​m​a​p​s​ ​t​o​ ​d​o​c​u​m​e​n​t​s​.​g​e​t​ ​s​u​g​g​e​s​t​i​o​n​s​V​i​e​w​M​o​d​e​ ​q​u​e​r​y​ ​p​a​r​a​m​e​t​e​r
+   */
+  SUGGESTIONS_VIEW_MODE_HINT: string
+  /**
    * R​e​q​u​e​s​t​s​ ​J​S​O​N
    */
   REQUESTS_JSON_DISPLAY_NAME: string
@@ -338,6 +346,14 @@ export type TranslationFunctions = {
    * When enabled, return content in tabs field for multi-tab docs
    */
   INCLUDE_TABS_CONTENT_HINT: () => LocalizedString
+  /**
+   * Suggestions View Mode
+   */
+  SUGGESTIONS_VIEW_MODE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional; maps to documents.get suggestionsViewMode query parameter
+   */
+  SUGGESTIONS_VIEW_MODE_HINT: () => LocalizedString
   /**
    * Requests JSON
    */

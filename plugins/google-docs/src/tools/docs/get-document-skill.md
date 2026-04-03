@@ -12,6 +12,7 @@
 | `google_credential` | `credential_id` | `true` | credential picker | Google OAuth2 credential bound to `google-docs-oauth2`. | `"google_credential"` |
 | `document_id` | `string` | `true` | `input` | Google Docs document ID from URL. | `"1AbCdEfGhIjKlMnOp"` |
 | `include_tabs_content` | `boolean` | `false` | `switch` | Whether to return content in `tabs` field for multi-tab docs. | `true` |
+| `suggestions_view_mode` | `string` | `false` | `select` | Optional; same as REST `suggestionsViewMode`. | `"SUGGESTIONS_INLINE"` |
 
 ## Tool Input Example
 
@@ -20,7 +21,8 @@
   "parameters": {
     "google_credential": "google_credential",
     "document_id": "1AbCdEfGhIjKlMnOp",
-    "include_tabs_content": true
+    "include_tabs_content": true,
+    "suggestions_view_mode": "DEFAULT_FOR_CURRENT_ACCESS"
   }
 }
 ```

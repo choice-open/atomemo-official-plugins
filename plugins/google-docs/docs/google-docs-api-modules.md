@@ -133,3 +133,15 @@ Google Docs API（`docs.googleapis.com`）当前 REST 参考的核心资源为 `
 - `documents.request`（所有 Request 类型）：[https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/request](https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/request)
 - 概览：[https://developers.google.com/workspace/docs/api/how-tos/overview](https://developers.google.com/workspace/docs/api/how-tos/overview)
 
+---
+
+## 6) 本插件实现与 API 对照（检修结论）
+
+| 工具 | 对应 API | 参数与行为 | 状态 |
+| --- | --- | --- | --- |
+| `create-document` | `documents.create` | `title` → `requestBody.title`； OAuth scope 含 `documents` + `drive.file`，覆盖 create 所需范围。 | 已对齐；凭证查找键须为参数名 `google_credential`（与 SDK `args.credentials` 一致）。 |
+| `get-document` | `documents.get` | `document_id` → 路径参数；`include_tabs_content` → `includeTabsContent`；`suggestions_view_mode`（可选）→ `suggestionsViewMode`，枚举与 REST 一致。 | 已对齐 |
+| `batch-update-document` | `documents.batchUpdate` | `document_id` + `requests[]`；`write_control_json` 解析后仅在存在时加入 `writeControl`（与可选字段一致）。结构化 `insert_text` / `replace_all_text` / `update_text_style` 对应同名 Request 结构。 | 已对齐 |
+
+**流程建议（与 API 设计一致）：** 先 `create-document` 取得 `documentId` → `batch-update-document` 写入 → `get-document` 校验；编辑并发场景可使用 `writeControl`（`requiredRevisionId` / `targetRevisionId`）。
+

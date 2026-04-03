@@ -154,7 +154,7 @@ export const batchUpdateDocumentTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const docsClient = requireDocsClient(args.credentials, "google_credential")
+    const docsClient = requireDocsClient(args.credentials, args.parameters.google_credential)
     const operation = (args.parameters.operation as string | undefined) ?? "raw_json"
     const rawRequests = args.parameters.requests_json as string | undefined
     const rawWriteControl = args.parameters.write_control_json as
@@ -225,12 +225,19 @@ export const batchUpdateDocumentTool: ToolDefinition = {
       }
     }
 
+    const requestBody: {
+      requests: Record<string, unknown>[]
+      writeControl?: Record<string, unknown>
+    } = {
+      requests: requests as Record<string, unknown>[],
+    }
+    if (writeControl !== undefined) {
+      requestBody.writeControl = writeControl as Record<string, unknown>
+    }
+
     const response = await docsClient.documents.batchUpdate({
       documentId: args.parameters.document_id as string,
-      requestBody: {
-        requests: requests as Record<string, unknown>[],
-        writeControl: writeControl as Record<string, unknown> | undefined,
-      },
+      requestBody,
     })
 
     return JSON.parse(
