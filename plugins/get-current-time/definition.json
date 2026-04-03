@@ -67,6 +67,7 @@
               "en_US": "Output format for the primary current_time field.",
               "zh_Hans": "主字段 current_time 的输出格式。"
             },
+            "support_expression": true,
             "width": "full",
             "options": [
               {
@@ -124,7 +125,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Current Time Tool Documentation\n\n## Tool\n\n- **Name**: `get-current-time`\n- **Purpose**: Returns the current date and time, optionally in a specified IANA timezone and output format.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `timezone` | `string` | `false` | `input` | IANA timezone; empty uses the system default. | `\"Asia/Shanghai\"` |\n| `format` | `string` | `false` | `select` | Primary `current_time` shape: `iso`, `locale`, `unix`, or `custom`. Default `iso`. | `\"iso\"` |\n| `format_pattern` | `string` | `false` | `input` | When `format` is `custom`, pattern with `yyyy`, `yy`, `MM`, `dd`, `HH`, `mm`, `ss`, `SSS`. | `\"yyyy-MM-dd HH:mm:ss\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"timezone\": \"America/New_York\",\n    \"format\": \"custom\",\n    \"format_pattern\": \"yyyy-MM-dd HH:mm:ss\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"current_time\": \"2026-04-03 14:30:00.123\",\n  \"format\": \"custom\",\n  \"format_pattern\": \"yyyy-MM-dd HH:mm:ss\",\n  \"iso\": \"2026-04-03T18:30:00.123Z\",\n  \"locale\": \"4/3/2026, 2:30:00 PM\",\n  \"unix\": 1743700200,\n  \"timezone\": \"America/New_York\"\n}\n```\n\nWhen `format` is not `custom`, `format_pattern` is omitted from the output. On failure, the tool may return `{ \"error\": \"...\" }`.\n"
     }
   ]
 }
