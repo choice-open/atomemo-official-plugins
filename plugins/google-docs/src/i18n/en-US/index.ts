@@ -1,8 +1,9 @@
 import type { BaseTranslation } from "../i18n-types"
 
 const en_US = {
-  PLUGIN_DISPLAY_NAME: "Testing Plugin",
-  PLUGIN_DESCRIPTION: "A plugin for testing the plugin",
+  PLUGIN_DISPLAY_NAME: "Google Docs",
+  PLUGIN_DESCRIPTION:
+    "Create, read, and batch-update Google Docs through the official API with OAuth2.",
   DEMO_TOOL_DISPLAY_NAME: "Demo Tool",
   DEMO_TOOL_DESCRIPTION: "A tool for testing the plugin",
   LOCATION_DISPLAY_NAME: "Location",

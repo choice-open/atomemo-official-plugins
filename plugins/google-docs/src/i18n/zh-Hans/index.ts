@@ -1,8 +1,9 @@
 import type { Translation } from "../i18n-types"
 
 const zh_Hans = {
-  PLUGIN_DISPLAY_NAME: "测试插件",
-  PLUGIN_DESCRIPTION: "一个用于测试插件的插件",
+  PLUGIN_DISPLAY_NAME: "Google 文档",
+  PLUGIN_DESCRIPTION:
+    "通过 Google Docs 官方 API 与 OAuth2，创建、读取并批量更新文档。",
   DEMO_TOOL_DISPLAY_NAME: "演示工具",
   DEMO_TOOL_DESCRIPTION: "一个用于测试插件的工具",
   LOCATION_DISPLAY_NAME: "位置",

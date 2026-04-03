@@ -1,4 +1,6 @@
-# Atomemo Plugin - google-docs
+# Atomemo Plugin — Google Docs
+
+通过 Google Docs 官方 API 与 OAuth2，在 Atomemo 中创建、读取并批量更新文档。
 
 ## Docs
 

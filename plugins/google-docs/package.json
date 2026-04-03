@@ -2,7 +2,7 @@
   "name": "google-docs",
   "type": "module",
   "version": "0.1.0",
-  "description": "A brief description of the plugin's functionality",
+  "description": "Atomemo plugin: create, read, and batch-update Google Docs via the official API with OAuth2.",
   "author": "yong yu <leoyyong@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-docs#readme",

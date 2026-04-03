@@ -16,11 +16,11 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * G​o​o​g​l​e​ ​D​o​c​s
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * C​r​e​a​t​e​,​ ​r​e​a​d​,​ ​a​n​d​ ​b​a​t​c​h​-​u​p​d​a​t​e​ ​G​o​o​g​l​e​ ​D​o​c​s​ ​t​h​r​o​u​g​h​ ​t​h​e​ ​o​f​f​i​c​i​a​l​ ​A​P​I​ ​w​i​t​h​ ​O​A​u​t​h​2​.
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -231,11 +231,11 @@ type RootTranslation = {
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Google Docs
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Create, read, and batch-update Google Docs through the official API with OAuth2.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**

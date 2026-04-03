@@ -14,7 +14,7 @@ const plugin = await createPlugin({
   name: packageJSON.name,
   display_name: t("PLUGIN_DISPLAY_NAME"),
   description: t("PLUGIN_DESCRIPTION"),
-  icon: "🎛️",
+  icon: "https://fonts.gstatic.com/s/i/productlogos/docs_2020q4/v1/192px.svg",
   lang: "typescript",
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/google-docs",
