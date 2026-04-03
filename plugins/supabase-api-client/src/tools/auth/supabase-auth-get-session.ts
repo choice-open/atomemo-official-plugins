@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthGetSessionSkill from "./supabase-auth-get-session-skill.md" with { type: "text" }
 
 export const supabaseAuthGetSessionTool: ToolDefinition = {
   name: "supabase-auth-get-session",
   display_name: t("AUTH_GET_SESSION_DISPLAY_NAME"),
   description: t("AUTH_GET_SESSION_DESCRIPTION"),
+  skill: supabaseAuthGetSessionSkill,
   icon: "📋",
   parameters: [
     {

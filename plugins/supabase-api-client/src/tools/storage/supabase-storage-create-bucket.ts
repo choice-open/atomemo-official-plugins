@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageCreateBucketSkill from "./supabase-storage-create-bucket-skill.md" with { type: "text" }
 
 export const supabaseStorageCreateBucketTool = {
   name: "supabase-storage-create-bucket",
   display_name: t("STORAGE_CREATE_BUCKET_DISPLAY_NAME"),
   description: t("STORAGE_CREATE_BUCKET_DESCRIPTION"),
+  skill: supabaseStorageCreateBucketSkill,
   icon: "📦",
   parameters: [
     {

@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignInAnonymouslySkill from "./supabase-auth-sign-in-anonymously-skill.md" with { type: "text" }
 
 export const supabaseAuthSignInAnonymouslyTool: ToolDefinition = {
   name: "supabase-auth-sign-in-anonymously",
   display_name: t("AUTH_SIGN_IN_ANONYMOUSLY_DISPLAY_NAME"),
   description: t("AUTH_SIGN_IN_ANONYMOUSLY_DESCRIPTION"),
+  skill: supabaseAuthSignInAnonymouslySkill,
   icon: "🎭",
   parameters: [
     {

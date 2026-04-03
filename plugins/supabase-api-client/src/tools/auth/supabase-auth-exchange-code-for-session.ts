@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthExchangeCodeForSessionSkill from "./supabase-auth-exchange-code-for-session-skill.md" with { type: "text" }
 
 export const supabaseAuthExchangeCodeForSessionTool: ToolDefinition = {
   name: "supabase-auth-exchange-code-for-session",
   display_name: t("AUTH_EXCHANGE_CODE_DISPLAY_NAME"),
   description: t("AUTH_EXCHANGE_CODE_DESCRIPTION"),
+  skill: supabaseAuthExchangeCodeForSessionSkill,
   icon: "🔄",
   parameters: [
     {

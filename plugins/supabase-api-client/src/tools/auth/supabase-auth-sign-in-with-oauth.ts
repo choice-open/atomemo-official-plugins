@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { parseJson } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignInWithOauthSkill from "./supabase-auth-sign-in-with-oauth-skill.md" with { type: "text" }
 
 const OAUTH_PROVIDERS = [
   "google",
@@ -31,6 +32,7 @@ export const supabaseAuthSignInWithOAuthTool: ToolDefinition = {
   name: "supabase-auth-sign-in-with-oauth",
   display_name: t("AUTH_SIGN_IN_WITH_OAUTH_DISPLAY_NAME"),
   description: t("AUTH_SIGN_IN_WITH_OAUTH_DESCRIPTION"),
+  skill: supabaseAuthSignInWithOauthSkill,
   icon: "🔗",
   parameters: [
     {

@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignOutSkill from "./supabase-auth-sign-out-skill.md" with { type: "text" }
 
 export const supabaseAuthSignOutTool: ToolDefinition = {
   name: "supabase-auth-sign-out",
   display_name: t("AUTH_SIGN_OUT_DISPLAY_NAME"),
   description: t("AUTH_SIGN_OUT_DESCRIPTION"),
+  skill: supabaseAuthSignOutSkill,
   icon: "🚪",
   parameters: [
     {

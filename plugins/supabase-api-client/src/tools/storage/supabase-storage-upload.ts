@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageUploadSkill from "./supabase-storage-upload-skill.md" with { type: "text" }
 
 export const supabaseStorageUploadTool = {
   name: "supabase-storage-upload",
   display_name: t("STORAGE_UPLOAD_DISPLAY_NAME"),
   description: t("STORAGE_UPLOAD_DESCRIPTION"),
+  skill: supabaseStorageUploadSkill,
   icon: "📤",
   parameters: [
     {

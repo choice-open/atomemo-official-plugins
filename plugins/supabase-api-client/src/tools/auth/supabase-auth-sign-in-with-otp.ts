@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult, parseJson } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignInWithOtpSkill from "./supabase-auth-sign-in-with-otp-skill.md" with { type: "text" }
 
 export const supabaseAuthSignInWithOtpTool: ToolDefinition = {
   name: "supabase-auth-sign-in-with-otp",
   display_name: t("AUTH_SIGN_IN_WITH_OTP_DISPLAY_NAME"),
   description: t("AUTH_SIGN_IN_WITH_OTP_DESCRIPTION"),
+  skill: supabaseAuthSignInWithOtpSkill,
   icon: "📧",
   parameters: [
     {

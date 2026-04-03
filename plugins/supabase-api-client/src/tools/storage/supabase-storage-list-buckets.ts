@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageListBucketsSkill from "./supabase-storage-list-buckets-skill.md" with { type: "text" }
 
 export const supabaseStorageListBucketsTool = {
   name: "supabase-storage-list-buckets",
   display_name: t("STORAGE_LIST_BUCKETS_DISPLAY_NAME"),
   description: t("STORAGE_LIST_BUCKETS_DESCRIPTION"),
+  skill: supabaseStorageListBucketsSkill,
   icon: "📦",
   parameters: [
     {

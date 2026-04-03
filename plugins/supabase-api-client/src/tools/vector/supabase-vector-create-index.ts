@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorCreateIndexSkill from "./supabase-vector-create-index-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -15,6 +16,7 @@ export const supabaseVectorCreateIndexTool = {
   name: "supabase-vector-create-index",
   display_name: t("VECTOR_CREATE_INDEX_DISPLAY_NAME"),
   description: t("VECTOR_CREATE_INDEX_DESCRIPTION"),
+  skill: supabaseVectorCreateIndexSkill,
   icon: "📐",
   parameters: [
     {

@@ -357,7 +357,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# Supabase Query Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-query`\n- **Purpose**: Runs a PostgREST `select` on a table with optional filters, ordering, pagination, CSV output, or EXPLAIN.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `table` | `string` | `true` | input | Table name. | \"posts\" |\n| `columns` | `string` | `false` | input | Column list or `*` (default `*`). | \"id,title\" |\n| `schema` | `string` | `false` | input | Postgres schema (default `public`). | \"public\" |\n| `filters` | `string` | `false` | input | JSON filters (see plugin filter DSL). | \"{\\\"id\\\": 1}\" |\n| `order_by` | `string` | `false` | input | Order as `column` or `column.desc`. | \"created_at.desc\" |\n| `limit` | `integer` | `false` | number-input | Page size (default 100, max 1000). | 50 |\n| `offset` | `integer` | `false` | number-input | Row offset (default 0). | 0 |\n| `return_mode` | `string` | `false` | select | `multiple` | `single` | `maybeSingle`. | \"multiple\" |\n| `return_format` | `string` | `false` | select | `json` or `csv`. | \"json\" |\n| `explain` | `boolean` | `false` | switch | Return query plan instead of rows. | false |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"table\": \"posts\",\n    \"columns\": \"id,title\",\n    \"schema\": \"public\",\n    \"filters\": \"{\\\"status\\\": \\\"published\\\"}\",\n    \"order_by\": \"created_at.desc\",\n    \"limit\": 10,\n    \"offset\": 0,\n    \"return_mode\": \"multiple\",\n    \"return_format\": \"json\",\n    \"explain\": false\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": [{ \"id\": 1 }],\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-insert",
@@ -465,7 +466,8 @@
             "representation"
           ]
         }
-      ]
+      ],
+      "skill": "# Supabase Insert Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-insert`\n- **Purpose**: Inserts one or more rows into a table.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `table` | `string` | `true` | input | Table name. | \"posts\" |\n| `rows` | `string` | `true` | textarea | JSON array of objects or single object. | \"[{\\\"title\\\": \\\"Hi\\\"}]\" |\n| `schema` | `string` | `false` | input | Schema (default `public`). | \"public\" |\n| `returning` | `string` | `false` | select | `minimal` or `representation`. | \"minimal\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"table\": \"posts\",\n    \"rows\": \"[{\\\"title\\\": \\\"Hello\\\"}]\",\n    \"schema\": \"public\",\n    \"returning\": \"representation\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": [{ \"id\": 1, \"title\": \"Hello\" }],\n  \"count\": 1,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-update",
@@ -595,7 +597,8 @@
             "representation"
           ]
         }
-      ]
+      ],
+      "skill": "# Supabase Update Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-update`\n- **Purpose**: Updates rows matched by filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `table` | `string` | `true` | input | Table name. | \"posts\" |\n| `values` | `string` | `true` | textarea | JSON object of column updates. | \"{\\\"title\\\": \\\"Updated\\\"}\" |\n| `filters` | `string` | `true` | input | JSON filters to target rows. | \"{\\\"id\\\": 1}\" |\n| `schema` | `string` | `false` | input | Schema (default `public`). | \"public\" |\n| `returning` | `string` | `false` | select | `minimal` or `representation`. | \"minimal\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"table\": \"posts\",\n    \"values\": \"{\\\"title\\\": \\\"New title\\\"}\",\n    \"filters\": \"{\\\"id\\\": 1}\",\n    \"schema\": \"public\",\n    \"returning\": \"minimal\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-upsert",
@@ -724,7 +727,8 @@
             "representation"
           ]
         }
-      ]
+      ],
+      "skill": "# Supabase Upsert Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-upsert`\n- **Purpose**: Upserts rows (insert or update on conflict).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `table` | `string` | `true` | input | Table name. | \"posts\" |\n| `rows` | `string` | `true` | textarea | JSON array/object of rows. | \"[{\\\"id\\\": 1, \\\"title\\\": \\\"A\\\"}]\" |\n| `schema` | `string` | `false` | input | Schema (default `public`). | \"public\" |\n| `on_conflict` | `string` | `false` | input | Conflict columns for upsert. | \"id\" |\n| `returning` | `string` | `false` | select | `minimal` or `representation`. | \"minimal\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"table\": \"posts\",\n    \"rows\": \"[{\\\"slug\\\": \\\"a\\\", \\\"title\\\": \\\"A\\\"}]\",\n    \"on_conflict\": \"slug\",\n    \"returning\": \"representation\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-delete",
@@ -832,7 +836,8 @@
             "representation"
           ]
         }
-      ]
+      ],
+      "skill": "# Supabase Delete Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-delete`\n- **Purpose**: Deletes rows matched by filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `table` | `string` | `true` | input | Table name. | \"posts\" |\n| `filters` | `string` | `true` | input | JSON filters to target rows. | \"{\\\"id\\\": 1}\" |\n| `schema` | `string` | `false` | input | Schema (default `public`). | \"public\" |\n| `returning` | `string` | `false` | select | `minimal` or `representation`. | \"minimal\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"table\": \"posts\",\n    \"filters\": \"{\\\"id\\\": 99}\",\n    \"schema\": \"public\",\n    \"returning\": \"minimal\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-rpc",
@@ -922,7 +927,8 @@
           "type": "string",
           "default": "public"
         }
-      ]
+      ],
+      "skill": "# Supabase RPC Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-rpc`\n- **Purpose**: Calls a Postgres function exposed via PostgREST `rpc`.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `function_name` | `string` | `true` | input | Database function name. | \"get_profile\" |\n| `args` | `string` | `false` | textarea | JSON object of named arguments. | \"{\\\"user_id\\\": \\\"uuid\\\"}\" |\n| `schema` | `string` | `false` | input | Schema (default `public`). | \"public\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"function_name\": \"add_numbers\",\n    \"args\": \"{\\\"a\\\": 1, \\\"b\\\": 2}\",\n    \"schema\": \"public\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": 3,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-invoke-edge-function",
@@ -1085,7 +1091,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Invoke Edge Function Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-invoke-edge-function`\n- **Purpose**: Invokes a Supabase Edge Function via `functions.invoke`.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `use_service_role_key` | `boolean` | `false` | switch | Use service role key for the client (default true). | true |\n| `function_name` | `string` | `true` | input | Edge function name. | \"hello-world\" |\n| `body` | `string` | `false` | textarea | JSON request body. | \"{\\\"name\\\": \\\"Ada\\\"}\" |\n| `method` | `string` | `false` | select | HTTP method (default POST). | \"POST\" |\n| `headers` | `string` | `false` | textarea | JSON object of request headers. | \"{\\\"x-custom\\\": \\\"1\\\"}\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"use_service_role_key\": true,\n    \"function_name\": \"hello-world\",\n    \"body\": \"{\\\"q\\\": \\\"test\\\"}\",\n    \"method\": \"POST\",\n    \"headers\": \"{}\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"message\": \"ok\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-list-buckets",
@@ -1140,7 +1147,8 @@
           "default": 0,
           "minimum": 0
         }
-      ]
+      ],
+      "skill": "# Supabase Storage List Buckets Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-list-buckets`\n- **Purpose**: Lists storage buckets for the project.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `limit` | `integer` | `false` | number-input | Max buckets (default 100). | 100 |\n| `offset` | `integer` | `false` | number-input | Pagination offset. | 0 |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"limit\": 100,\n    \"offset\": 0\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": [{ \"name\": \"avatars\", \"public\": false }],\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-create-bucket",
@@ -1245,7 +1253,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Create Bucket Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-create-bucket`\n- **Purpose**: Creates a new storage bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | New bucket id. | \"uploads\" |\n| `public` | `boolean` | `false` | switch | Public bucket flag. | false |\n| `file_size_limit` | `string` | `false` | input | Optional size limit string for API. | \"5242880\" |\n| `allowed_mime_types` | `string` | `false` | input | JSON array of allowed MIME types. | \"[\\\"image/*\\\"]\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"uploads\",\n    \"public\": false,\n    \"allowed_mime_types\": \"[\\\"image/png\\\", \\\"image/jpeg\\\"]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-list-files",
@@ -1344,7 +1353,8 @@
           "default": 0,
           "minimum": 0
         }
-      ]
+      ],
+      "skill": "# Supabase Storage List Files Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-list-files`\n- **Purpose**: Lists objects under a prefix in a bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"avatars\" |\n| `path` | `string` | `false` | input | Folder prefix. | \"user_1/\" |\n| `limit` | `integer` | `false` | number-input | Max entries (default 100). | 100 |\n| `offset` | `integer` | `false` | number-input | Pagination offset. | 0 |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"avatars\",\n    \"path\": \"\",\n    \"limit\": 50,\n    \"offset\": 0\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": [{ \"name\": \"a.png\" }],\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-upload",
@@ -1488,7 +1498,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Upload Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-upload`\n- **Purpose**: Uploads a file to a storage bucket (via `file_ref` or inline content).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"avatars\" |\n| `path` | `string` | `true` | input | Object path (directory when using file_ref; include filename when using file_content). | \"folder/photo.png\" |\n| `file` | `file_ref` | `false` | file picker | Workflow file reference (mutually exclusive with file_content). | null |\n| `file_content` | `string` | `false` | textarea | Plain or base64 file bytes. | \"SGVsbG8=\" |\n| `content_type` | `string` | `false` | input | MIME type when using file_content. | \"image/png\" |\n| `upsert` | `boolean` | `false` | switch | Overwrite if exists. | false |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"public-assets\",\n    \"path\": \"docs/readme.txt\",\n    \"file_content\": \"SGVsbG8=\",\n    \"content_type\": \"text/plain\",\n    \"upsert\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"path\": \"docs/readme.txt\", \"id\": \"…\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-download",
@@ -1556,7 +1567,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Download Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-download`\n- **Purpose**: Downloads an object and returns a workflow `file_ref`.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"avatars\" |\n| `path` | `string` | `true` | input | Object path. | \"user/1.png\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"avatars\",\n    \"path\": \"user/1.png\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"__type__\": \"file_ref\", \"filename\": \"1.png\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-remove",
@@ -1624,7 +1636,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Remove Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-remove`\n- **Purpose**: Deletes objects by path from a bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"avatars\" |\n| `paths` | `string` | `true` | textarea | JSON array of object paths. | [\"a.png\",\"b.png\"] |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"avatars\",\n    \"paths\": \"[\\\"old/1.png\\\", \\\"old/2.png\\\"]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": [],\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-create-signed-url",
@@ -1712,7 +1725,8 @@
           "maximum": 86400,
           "minimum": 1
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Create Signed URL Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-create-signed-url`\n- **Purpose**: Creates a time-limited signed URL for a private object.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"private\" |\n| `path` | `string` | `true` | input | Object path. | \"report.pdf\" |\n| `expires_in` | `integer` | `false` | number-input | TTL seconds (default 3600, max 86400). | 600 |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"private\",\n    \"path\": \"report.pdf\",\n    \"expires_in\": 600\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"signedUrl\": \"https://…\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-storage-get-public-url",
@@ -1780,7 +1794,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Storage Get Public URL Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-storage-get-public-url`\n- **Purpose**: Builds the public URL for an object (bucket must be public).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `bucket` | `string` | `true` | input | Bucket id. | \"public\" |\n| `path` | `string` | `true` | input | Object path. | \"logo.png\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"bucket\": \"public\",\n    \"path\": \"logo.png\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"publicUrl\": \"https://…\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-list-buckets",
@@ -1854,7 +1869,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector List Buckets Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-list-buckets`\n- **Purpose**: Lists vector buckets in the project.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `prefix` | `string` | `false` | input | Name prefix filter. | \"\" |\n| `max_results` | `integer` | `false` | number-input | Max results (default 100). | 50 |\n| `next_token` | `string` | `false` | input | Continuation token. | \"\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"max_results\": 50\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-create-bucket",
@@ -1900,7 +1916,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Create Bucket Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-create-bucket`\n- **Purpose**: Creates a vector bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": { \"vectorBucketName\": \"vb1\" },\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-get-bucket",
@@ -1946,7 +1963,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Get Bucket Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-get-bucket`\n- **Purpose**: Gets metadata for a vector bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-delete-bucket",
@@ -1992,7 +2010,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Delete Bucket Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-delete-bucket`\n- **Purpose**: Deletes a vector bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": null,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-list-indexes",
@@ -2088,7 +2107,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector List Indexes Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-list-indexes`\n- **Purpose**: Lists indexes in a vector bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `prefix` | `string` | `false` | input | Name prefix filter. | \"emb\" |\n| `max_results` | `integer` | `false` | number-input | Max results (default 100). | 50 |\n| `next_token` | `string` | `false` | input | Continuation token. | \"\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"prefix\": \"\",\n    \"max_results\": 50\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-create-index",
@@ -2252,7 +2272,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Create Index Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-create-index`\n- **Purpose**: Creates a vector index in a bucket.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `data_type` | `string` | `true` | select | Vector element type (currently float32). | \"float32\" |\n| `dimension` | `integer` | `true` | number-input | Embedding dimension. | 1536 |\n| `distance_metric` | `string` | `true` | select | `cosine` | `euclidean` | `dotproduct`. | \"cosine\" |\n| `metadata_configuration` | `string` | `false` | input | Optional JSON metadata index config. | \"\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"data_type\": \"float32\",\n    \"dimension\": 1536,\n    \"distance_metric\": \"cosine\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-get-index",
@@ -2320,7 +2341,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Get Index Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-get-index`\n- **Purpose**: Gets metadata for a vector index.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-delete-index",
@@ -2388,7 +2410,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Delete Index Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-delete-index`\n- **Purpose**: Deletes a vector index.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": null,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-put",
@@ -2477,7 +2500,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Put Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-put`\n- **Purpose**: Upserts vectors (batch) into an index.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `vectors` | `string` | `true` | input | JSON array of `{ key, data: { float32 }, metadata? }` (max 500). | \"[{\\\"key\\\":\\\"a\\\",\\\"data\\\":{\\\"float32\\\":[0.1]}}]\" |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"vectors\": \"[{\\\"key\\\":\\\"doc-1\\\",\\\"data\\\":{\\\"float32\\\":[0.1,0.2]}}]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": null,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-get",
@@ -2594,7 +2618,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Get Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-get`\n- **Purpose**: Fetches vectors by key from an index.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `keys` | `string` | `true` | input | JSON array of keys. | [\"k1\",\"k2\"] |\n| `return_data` | `boolean` | `false` | switch | Include vector data (default true). | true |\n| `return_metadata` | `boolean` | `false` | switch | Include metadata. | false |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"keys\": \"[\\\"doc-1\\\"]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-list",
@@ -2748,7 +2773,8 @@
           "type": "integer",
           "minimum": 0
         }
-      ]
+      ],
+      "skill": "# Supabase Vector List Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-list`\n- **Purpose**: Lists vectors in an index with pagination.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `max_results` | `integer` | `false` | number-input | Page size (default 500). | 100 |\n| `next_token` | `string` | `false` | input | Continuation token. | \"\" |\n| `return_data` | `boolean` | `false` | switch | Include vector data. | false |\n| `return_metadata` | `boolean` | `false` | switch | Include metadata. | false |\n| `segment_count` | `integer` | `false` | number-input | Optional segment count (1–16). | 4 |\n| `segment_index` | `integer` | `false` | number-input | Optional segment index. | 0 |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"max_results\": 100\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-query",
@@ -2902,7 +2928,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Query Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-query`\n- **Purpose**: Similarity search in a vector index.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `query_vector` | `string` | `true` | input | JSON like `{\"float32\":[...]}`. | \"{\\\"float32\\\":[0.1,0.2]}\" |\n| `top_k` | `integer` | `false` | number-input | Neighbors to return (default 10). | 5 |\n| `filter` | `string` | `false` | input | Optional metadata filter string. | \"\" |\n| `return_distance` | `boolean` | `false` | switch | Include distances. | true |\n| `return_metadata` | `boolean` | `false` | switch | Include metadata. | false |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"query_vector\": \"{\\\"float32\\\": [0.01, 0.02]}\",\n    \"top_k\": 5\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": {},\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     },
     {
       "name": "supabase-vector-delete",
@@ -2991,7 +3018,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Supabase Vector Delete Tool Documentation\n\n## Tool\n\n- **Name**: `supabase-vector-delete`\n- **Purpose**: Deletes vectors by key (batch, max 500).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `supabase_credential` | `credential_id` | `true` | credential picker | Supabase connection credential bound to `supabase-connection`. | \"my_supabase_cred\" |\n| `vector_bucket_name` | `string` | `true` | input | Vector bucket name. | \"my-vector-bucket\" |\n| `index_name` | `string` | `true` | input | Index name. | \"embeddings-1536\" |\n| `keys` | `string` | `true` | input | JSON array of keys. | [\"a\",\"b\"] |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"supabase_credential\": \"my_supabase_cred\",\n    \"vector_bucket_name\": \"vb1\",\n    \"index_name\": \"idx1\",\n    \"keys\": \"[\\\"stale-1\\\"]\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"data\": null,\n  \"error\": null,\n  \"code\": null\n}\n```\n"
     }
   ]
 }

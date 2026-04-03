@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthResendOtpSkill from "./supabase-auth-resend-otp-skill.md" with { type: "text" }
 
 const RESEND_TYPES = ["signup", "email_change", "sms", "phone_change"] as const
 
@@ -9,6 +10,7 @@ export const supabaseAuthResendOtpTool: ToolDefinition = {
   name: "supabase-auth-resend-otp",
   display_name: t("AUTH_RESEND_OTP_DISPLAY_NAME"),
   description: t("AUTH_RESEND_OTP_DESCRIPTION"),
+  skill: supabaseAuthResendOtpSkill,
   icon: "🔄",
   parameters: [
     {

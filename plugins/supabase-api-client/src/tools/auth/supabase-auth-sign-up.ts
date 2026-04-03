@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult, parseJson } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignUpSkill from "./supabase-auth-sign-up-skill.md" with { type: "text" }
 
 export const supabaseAuthSignUpTool: ToolDefinition = {
   name: "supabase-auth-sign-up",
   display_name: t("AUTH_SIGN_UP_DISPLAY_NAME"),
   description: t("AUTH_SIGN_UP_DESCRIPTION"),
+  skill: supabaseAuthSignUpSkill,
   icon: "📝",
   parameters: [
     {

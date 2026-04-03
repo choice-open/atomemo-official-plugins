@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignInSkill from "./supabase-auth-sign-in-skill.md" with { type: "text" }
 
 export const supabaseAuthSignInTool: ToolDefinition = {
   name: "supabase-auth-sign-in",
   display_name: t("AUTH_SIGN_IN_DISPLAY_NAME"),
   description: t("AUTH_SIGN_IN_DESCRIPTION"),
+  skill: supabaseAuthSignInSkill,
   icon: "🔐",
   parameters: [
     {
