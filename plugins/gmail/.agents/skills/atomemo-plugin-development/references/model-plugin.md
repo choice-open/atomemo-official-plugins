@@ -1,8 +1,8 @@
 # Model Plugin Development Guide
 
-Model plugins describe LLMs to the Atomemo platform — their capabilities, supported
-modalities, pricing, and parameter constraints. They don't implement the LLM itself;
-they tell Atomemo how to interact with an existing LLM API.
+Model plugins describe LLMs to the Atomemo platform: capabilities, supported input and
+output modalities, pricing, and parameter constraints. They do not implement the LLM
+itself. Instead, they tell Atomemo how to present and route a model.
 
 ## File Location
 
@@ -17,11 +17,11 @@ import type { ModelDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 
 export const openaiGpt4o = {
-  name: "openai/gpt-4o",            // format: "provider/model_name"
+  name: "openai/gpt-4o",
   display_name: t("GPT4O_DISPLAY_NAME"),
   description: t("GPT4O_DESCRIPTION"),
-  icon: "🔷",                        // emoji or image URL
-  model_type: "llm",                 // currently always "llm"
+  icon: "🔷",
+  model_type: "llm",
   input_modalities: ["text", "image"],
   output_modalities: ["text"],
   override_parameters: {
@@ -33,10 +33,10 @@ export const openaiGpt4o = {
   },
   pricing: {
     currency: "USD",
-    input: 0.0025,    // per 1K tokens
-    output: 0.01,     // per 1K tokens
+    input: 0.0025,
+    output: 0.01,
   },
-  unsupported_parameters: ["seed"],
+  unsupported_parameters: ["seed", "verbosity"],
 } satisfies ModelDefinition
 ```
 
@@ -59,7 +59,7 @@ Customize default values and allowed ranges for standard LLM parameters:
 ```typescript
 override_parameters: {
   temperature: { default: 0.7, minimum: 0.0, maximum: 1.0 },
-  max_tokens: { default: 2048, minimum: 1, maximum: 8192 },
+  max_tokens: { default: 2048, maximum: 8192 },
 }
 ```
 
@@ -76,7 +76,14 @@ pricing: {
 ### `unsupported_parameters`
 List parameters that don't apply to this model — they'll be hidden in the UI:
 ```typescript
-unsupported_parameters: ["seed", "verbosity", "top_k"]
+unsupported_parameters: [
+  "endpoint",
+  "seed",
+  "stream",
+  "structured_outputs",
+  "parallel_tool_calls",
+  "verbosity",
+]
 ```
 
 ## Model Name Format
