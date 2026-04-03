@@ -6,11 +6,13 @@ import {
   userIdParam,
   labelIdParam,
 } from "./_shared/parameters"
+import updateLabelSkill from "./update-label-skill.md" with { type: "text" }
 
 export const updateLabelTool: ToolDefinition = {
   name: "gmail-update-label",
   display_name: t("GMAIL_TOOL_UPDATE_LABEL_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_UPDATE_LABEL_DESCRIPTION"),
+  skill: updateLabelSkill,
   icon: "🏷️",
   parameters: [
     gmailCredentialParam,

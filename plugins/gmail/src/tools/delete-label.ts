@@ -6,11 +6,13 @@ import {
   userIdParam,
   labelIdParam,
 } from "./_shared/parameters"
+import deleteLabelSkill from "./delete-label-skill.md" with { type: "text" }
 
 export const deleteLabelTool: ToolDefinition = {
   name: "gmail-delete-label",
   display_name: t("GMAIL_TOOL_DELETE_LABEL_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_DELETE_LABEL_DESCRIPTION"),
+  skill: deleteLabelSkill,
   icon: "🏷️",
   parameters: [gmailCredentialParam, userIdParam, labelIdParam],
   async invoke({ args }) {

@@ -6,6 +6,7 @@ import {
   gmailCredentialParam,
   userIdParam,
 } from "./_shared/parameters"
+import sendMessageSkill from "./send-message-skill.md" with { type: "text" }
 
 function createRawEmail(to: string, subject: string, body: string, cc?: string, bcc?: string): string {
   const lines: string[] = []
@@ -23,6 +24,7 @@ export const sendMessageTool: ToolDefinition = {
   name: "gmail-send-message",
   display_name: t("GMAIL_TOOL_SEND_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_SEND_MESSAGE_DESCRIPTION"),
+  skill: sendMessageSkill,
   icon: "📤",
   parameters: [
     gmailCredentialParam,

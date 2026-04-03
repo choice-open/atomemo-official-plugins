@@ -171,7 +171,8 @@
           "type": "string",
           "default": "me"
         }
-      ]
+      ],
+      "skill": "# Get Profile Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-profile`\n- **Purpose**: Returns the authenticated user's Gmail profile (email address, messages total, threads total, history id).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"profile\": {\n    \"emailAddress\": \"user@example.com\",\n    \"messagesTotal\": 1234,\n    \"threadsTotal\": 567,\n    \"historyId\": \"12345678\"\n  }\n}\n```\n"
     },
     {
       "name": "gmail-list-messages",
@@ -298,7 +299,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List Messages Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-messages`\n- **Purpose**: Lists message ids matching optional query and label filters, with pagination.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `q` | `string` | `false` | `input` | Gmail search query. | `\"from:alice is:unread\"` |\n| `label_ids` | `string` | `false` | `input` | Restrict to labels (format as supported by the host). | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `50` |\n| `page_token` | `string` | `false` | `input` | Token from a previous response for the next page. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"q\": \"is:unread\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"messages\": [{ \"id\": \"msgid\", \"threadId\": \"threadid\" }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 5\n}\n```\n"
     },
     {
       "name": "gmail-get-message",
@@ -362,7 +364,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-message`\n- **Purpose**: Fetches a full message resource (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"threadId\": \"threadid\",\n    \"labelIds\": [\"INBOX\"],\n    \"snippet\": \"Hello…\",\n    \"payload\": {}\n  }\n}\n```\n"
     },
     {
       "name": "gmail-send-message",
@@ -506,7 +509,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Send Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-send-message`\n- **Purpose**: Sends a new email (HTML body; raw message base64url per Gmail `messages.send`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject. | `\"Hello\"` |\n| `body` | `string` | `true` | `textarea` | HTML body; `\\n` → `<br>`. | `\"Hi Alice\"` |\n| `cc` | `string` | `false` | `input` | Cc. | |\n| `bcc` | `string` | `false` | `input` | Bcc. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Hello\",\n    \"body\": \"Hi there\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": { \"id\": \"msgid\", \"threadId\": \"threadid\", \"labelIds\": [\"SENT\"] },\n  \"id\": \"msgid\"\n}\n```\n"
     },
     {
       "name": "gmail-trash-message",
@@ -570,7 +574,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Trash Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-trash-message`\n- **Purpose**: Moves a message to Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"TRASH\"]\n  }\n}\n```\n"
     },
     {
       "name": "gmail-untrash-message",
@@ -634,7 +639,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Untrash Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-untrash-message`\n- **Purpose**: Restores a message from Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"INBOX\"]\n  }\n}\n```\n"
     },
     {
       "name": "gmail-modify-message",
@@ -742,7 +748,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Modify Message Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-modify-message`\n- **Purpose**: Adds and/or removes labels on a single message. At least one of `add_label_ids` or `remove_label_ids` must be non-empty.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Message id. | `\"18c5f2a3b4d5e6f7\"` |\n| `add_label_ids` | `string` | `false` | `input` | Label ids to add (parsed to array by the tool). | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Label ids to remove. | `\"UNREAD\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\",\n    \"add_label_ids\": \"STARRED\",\n    \"remove_label_ids\": \"UNREAD\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"labelIds\": [\"INBOX\", \"STARRED\"]\n  }\n}\n```\n"
     },
     {
       "name": "gmail-batch-modify-messages",
@@ -854,7 +861,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Batch Modify Messages Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-batch-modify-messages`\n- **Purpose**: Applies label changes to multiple messages in one call. `message_ids` must be non-empty; at least one of `add_label_ids` or `remove_label_ids` must be non-empty.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_ids` | `string` | `true` | `input` | One or more message ids (parsed to array). | `\"id1,id2\"` |\n| `add_label_ids` | `string` | `false` | `input` | Labels to add. | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Labels to remove. | `\"UNREAD\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_ids\": \"id1,id2\",\n    \"remove_label_ids\": \"UNREAD\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
     },
     {
       "name": "gmail-download-attachment",
@@ -954,7 +962,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Download Attachment Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-download-attachment`\n- **Purpose**: Downloads an attachment and **uploads** it via `context.files.upload`, returning a file reference for use in the host.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `message_id` | `string` | `true` | `input` | Parent message id. | `\"18c5f2a3b4d5e6f7\"` |\n| `attachment_id` | `string` | `true` | `input` | Attachment id. | `\"ANGjdJ_abc\"` |\n| `filename` | `string` | `false` | `input` | Suggested filename; default `attachment-{attachmentId}`. | `\"report.pdf\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"message_id\": \"18c5f2a3b4d5e6f7\",\n    \"attachment_id\": \"ANGjdJ_abc\",\n    \"filename\": \"report.pdf\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"file\": {\n    \"__type__\": \"file_ref\",\n    \"filename\": \"report.pdf\",\n    \"mime_type\": \"application/pdf\",\n    \"size\": 1024\n  }\n}\n```\n"
     },
     {
       "name": "gmail-list-drafts",
@@ -1037,7 +1046,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List Drafts Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-drafts`\n- **Purpose**: Lists drafts with pagination.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `20` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"max_results\": 20\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"drafts\": [{ \"id\": \"r-abc\", \"message\": { \"id\": \"msgid\" } }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 1\n}\n```\n"
     },
     {
       "name": "gmail-get-draft",
@@ -1101,7 +1111,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-draft`\n- **Purpose**: Retrieves a single draft (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": {\n    \"id\": \"r-1234567890abcdef\",\n    \"message\": { \"raw\": \"...\" }\n  }\n}\n```\n"
     },
     {
       "name": "gmail-create-draft",
@@ -1245,7 +1256,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Create Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-create-draft`\n- **Purpose**: Creates a draft from To/Subject/Body (HTML body; newlines become `<br>`). Raw message uses standard base64url encoding for the Gmail API.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject (RFC 2047 encoded when needed). | `\"Draft subject\"` |\n| `body` | `string` | `true` | `textarea` | HTML body source; `\\n` → `<br>`. | `\"Hello\\nWorld\"` |\n| `cc` | `string` | `false` | `input` | Cc addresses. | `\"bob@example.com\"` |\n| `bcc` | `string` | `false` | `input` | Bcc addresses. | | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Hello\",\n    \"body\": \"Line one\\nLine two\",\n    \"cc\": \"bob@example.com\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": { \"id\": \"r-newdraft\", \"message\": { \"id\": \"msgid\" } },\n  \"id\": \"r-newdraft\"\n}\n```\n"
     },
     {
       "name": "gmail-send-draft",
@@ -1309,7 +1321,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Send Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-send-draft`\n- **Purpose**: Sends an existing draft (loads the draft then calls `drafts.send`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id to send. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": {\n    \"id\": \"sentmsgid\",\n    \"threadId\": \"threadid\",\n    \"labelIds\": [\"SENT\"]\n  }\n}\n```\n"
     },
     {
       "name": "gmail-delete-draft",
@@ -1373,7 +1386,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Delete Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-delete-draft`\n- **Purpose**: Deletes a draft by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id. | `\"r-1234567890abcdef\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
     },
     {
       "name": "gmail-update-draft",
@@ -1535,7 +1549,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Update Draft Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-update-draft`\n- **Purpose**: Overwrites an existing draft with new To/Subject/Body (HTML body; base64url raw message).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `draft_id` | `string` | `true` | `input` | Draft id to update. | `\"r-1234567890abcdef\"` |\n| `to` | `string` | `true` | `input` | Primary recipients. | `\"alice@example.com\"` |\n| `subject` | `string` | `true` | `input` | Subject. | `\"Re: Hello\"` |\n| `body` | `string` | `true` | `textarea` | HTML body source. | `\"Updated body\"` |\n| `cc` | `string` | `false` | `input` | Cc. | |\n| `bcc` | `string` | `false` | `input` | Bcc. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"draft_id\": \"r-1234567890abcdef\",\n    \"to\": \"alice@example.com\",\n    \"subject\": \"Re: Hello\",\n    \"body\": \"Updated\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"draft\": { \"id\": \"r-1234567890abcdef\", \"message\": {} },\n  \"id\": \"r-1234567890abcdef\"\n}\n```\n"
     },
     {
       "name": "gmail-list-labels",
@@ -1581,7 +1596,8 @@
           "type": "string",
           "default": "me"
         }
-      ]
+      ],
+      "skill": "# List Labels Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-labels`\n- **Purpose**: Lists all labels in the user's mailbox.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"labels\": [\n    { \"id\": \"INBOX\", \"name\": \"INBOX\", \"type\": \"system\" }\n  ]\n}\n```\n"
     },
     {
       "name": "gmail-get-label",
@@ -1645,7 +1661,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-label`\n- **Purpose**: Retrieves a single label by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id (e.g. `INBOX`, `Label_123`). | `\"INBOX\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"INBOX\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"INBOX\",\n    \"name\": \"INBOX\",\n    \"type\": \"system\"\n  }\n}\n```\n"
     },
     {
       "name": "gmail-create-label",
@@ -1705,7 +1722,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Create Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-create-label`\n- **Purpose**: Creates a new user label with default visibility (`labelShow` / `show`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `name` | `string` | `true` | `input` | Display name for the new label. | `\"Projects\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"name\": \"Projects\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"Label_abc123\",\n    \"name\": \"Projects\",\n    \"type\": \"user\"\n  }\n}\n```\n"
     },
     {
       "name": "gmail-update-label",
@@ -1783,7 +1801,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Update Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-update-label`\n- **Purpose**: Updates an existing label (currently supports renaming via `name`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id to update. | `\"Label_abc123\"` |\n| `name` | `string` | `false` | `input` | New label name. | `\"Projects / Q1\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"Label_abc123\",\n    \"name\": \"Projects / Q1\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"label\": {\n    \"id\": \"Label_abc123\",\n    \"name\": \"Projects / Q1\",\n    \"type\": \"user\"\n  }\n}\n```\n"
     },
     {
       "name": "gmail-delete-label",
@@ -1847,7 +1866,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Delete Label Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-delete-label`\n- **Purpose**: Permanently deletes a user-created label by id.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `label_id` | `string` | `true` | `input` | Label id to delete. | `\"Label_abc123\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"label_id\": \"Label_abc123\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true\n}\n```\n"
     },
     {
       "name": "gmail-list-threads",
@@ -1974,7 +1994,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List Threads Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-threads`\n- **Purpose**: Lists conversation threads matching optional query and label filters.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `q` | `string` | `false` | `input` | Gmail search query. | `\"subject:invoice\"` |\n| `label_ids` | `string` | `false` | `input` | Label filter. | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `50` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"q\": \"in:inbox\",\n    \"max_results\": 10\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"threads\": [{ \"id\": \"threadid\", \"historyId\": \"1\" }],\n  \"nextPageToken\": null,\n  \"resultSizeEstimate\": 3\n}\n```\n"
     },
     {
       "name": "gmail-get-thread",
@@ -2038,7 +2059,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-get-thread`\n- **Purpose**: Fetches a thread with all messages (`format: full`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"historyId\": \"999\",\n    \"messages\": []\n  }\n}\n```\n"
     },
     {
       "name": "gmail-modify-thread",
@@ -2146,7 +2168,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Modify Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-modify-thread`\n- **Purpose**: Adds and/or removes labels on every message in a thread.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n| `add_label_ids` | `string` | `false` | `input` | Label ids to add. | `\"STARRED\"` |\n| `remove_label_ids` | `string` | `false` | `input` | Label ids to remove. | `\"INBOX\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\",\n    \"add_label_ids\": \"Label_abc\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
     },
     {
       "name": "gmail-trash-thread",
@@ -2210,7 +2233,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Trash Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-trash-thread`\n- **Purpose**: Moves an entire thread to Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
     },
     {
       "name": "gmail-untrash-thread",
@@ -2274,7 +2298,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Untrash Thread Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-untrash-thread`\n- **Purpose**: Restores a thread from Trash.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `thread_id` | `string` | `true` | `input` | Thread id. | `\"18c5f2a3b4d5e6f7\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"thread_id\": \"18c5f2a3b4d5e6f7\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"thread\": {\n    \"id\": \"18c5f2a3b4d5e6f7\",\n    \"messages\": []\n  }\n}\n```\n"
     },
     {
       "name": "gmail-list-history",
@@ -2397,7 +2422,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List History Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-history`\n- **Purpose**: Lists mailbox change history since `start_history_id` (for sync / incremental updates).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n| `start_history_id` | `string` | `true` | `input` | Starting history id from a prior profile or history response. | `\"12345678\"` |\n| `label_ids` | `string` | `false` | `input` | Optional label filter (passed through to the API as supported). | `\"INBOX\"` |\n| `max_results` | `integer` | `false` | `number-input` | Page size (1–500, default 50). | `100` |\n| `page_token` | `string` | `false` | `input` | Pagination token. | |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\",\n    \"start_history_id\": \"12345678\",\n    \"max_results\": 100\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"history\": [],\n  \"historyId\": \"12345700\",\n  \"nextPageToken\": null\n}\n```\n"
     },
     {
       "name": "gmail-list-filters",
@@ -2443,7 +2469,8 @@
           "type": "string",
           "default": "me"
         }
-      ]
+      ],
+      "skill": "# List Filters Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-filters`\n- **Purpose**: Lists all Gmail filters (server rules). Response is JSON-cloned for schema compatibility.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"filters\": [\n    {\n      \"id\": \"filterid\",\n      \"criteria\": { \"from\": \"newsletter@example.com\" },\n      \"action\": { \"addLabelIds\": [\"Label_1\"] }\n    }\n  ]\n}\n```\n"
     },
     {
       "name": "gmail-list-send-as",
@@ -2489,7 +2516,8 @@
           "type": "string",
           "default": "me"
         }
-      ]
+      ],
+      "skill": "# List Send-As Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-send-as`\n- **Purpose**: Lists \"Send mail as\" aliases and their settings for the account.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"sendAs\": [\n    {\n      \"sendAsEmail\": \"user@example.com\",\n      \"displayName\": \"User\",\n      \"isPrimary\": true\n    }\n  ]\n}\n```\n"
     },
     {
       "name": "gmail-list-forwarding-addresses",
@@ -2535,7 +2563,8 @@
           "type": "string",
           "default": "me"
         }
-      ]
+      ],
+      "skill": "# List Forwarding Addresses Tool Documentation\n\n## Tool\n\n- **Name**: `gmail-list-forwarding-addresses`\n- **Purpose**: Lists forwarding addresses configured for the user.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `gmail_credential` | `credential_id` | `true` | credential-select | OAuth credential bound to `gmail-oauth`. | |\n| `user_id` | `string` | `false` | `input` | Gmail user id; defaults to `me`. | `\"me\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"gmail_credential\": \"<credential_id>\",\n    \"user_id\": \"me\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"forwardingAddresses\": [\n    {\n      \"forwardingEmail\": \"archive@example.com\",\n      \"verificationStatus\": \"accepted\"\n    }\n  ]\n}\n```\n"
     }
   ]
 }

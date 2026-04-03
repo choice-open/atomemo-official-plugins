@@ -6,11 +6,13 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
+import untrashMessageSkill from "./untrash-message-skill.md" with { type: "text" }
 
 export const untrashMessageTool: ToolDefinition = {
   name: "gmail-untrash-message",
   display_name: t("GMAIL_TOOL_UNTRASH_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_UNTRASH_MESSAGE_DESCRIPTION"),
+  skill: untrashMessageSkill,
   icon: "📥",
   parameters: [gmailCredentialParam, userIdParam, messageIdParam],
   async invoke({ args }) {

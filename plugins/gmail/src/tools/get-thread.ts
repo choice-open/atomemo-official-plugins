@@ -6,11 +6,13 @@ import {
   userIdParam,
   threadIdParam,
 } from "./_shared/parameters"
+import getThreadSkill from "./get-thread-skill.md" with { type: "text" }
 
 export const getThreadTool: ToolDefinition = {
   name: "gmail-get-thread",
   display_name: t("GMAIL_TOOL_GET_THREAD_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_THREAD_DESCRIPTION"),
+  skill: getThreadSkill,
   icon: "🧵",
   parameters: [gmailCredentialParam, userIdParam, threadIdParam],
   async invoke({ args }) {

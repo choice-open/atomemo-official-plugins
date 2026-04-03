@@ -6,11 +6,13 @@ import {
   userIdParam,
   threadIdParam,
 } from "./_shared/parameters"
+import deleteThreadSkill from "./delete-thread-skill.md" with { type: "text" }
 
 export const deleteThreadTool: ToolDefinition = {
   name: "gmail-delete-thread",
   display_name: t("GMAIL_TOOL_DELETE_THREAD_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_DELETE_THREAD_DESCRIPTION"),
+  skill: deleteThreadSkill,
   icon: "🗑️",
   parameters: [gmailCredentialParam, userIdParam, threadIdParam],
   async invoke({ args }) {

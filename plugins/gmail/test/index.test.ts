@@ -98,7 +98,7 @@ import { listLabelsTool } from "../src/tools/list-labels"
 import { sendMessageTool } from "../src/tools/send-message"
 import { updateDraftTool } from "../src/tools/update-draft"
 
-const GMAIL_TOOL_COUNT = 32
+const GMAIL_TOOL_COUNT = 29
 
 describe("gmail plugin", () => {
   describe("plugin initialization", () => {

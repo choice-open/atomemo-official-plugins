@@ -6,11 +6,13 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
+import getMessageSkill from "./get-message-skill.md" with { type: "text" }
 
 export const getMessageTool: ToolDefinition = {
   name: "gmail-get-message",
   display_name: t("GMAIL_TOOL_GET_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_MESSAGE_DESCRIPTION"),
+  skill: getMessageSkill,
   icon: "✉️",
   parameters: [gmailCredentialParam, userIdParam, messageIdParam],
   async invoke({ args }) {

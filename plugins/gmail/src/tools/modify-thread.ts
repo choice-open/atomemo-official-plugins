@@ -8,11 +8,13 @@ import {
   labelIdsParam,
 } from "./_shared/parameters"
 import { toStringArray } from "../lib/to-string-array"
+import modifyThreadSkill from "./modify-thread-skill.md" with { type: "text" }
 
 export const modifyThreadTool: ToolDefinition = {
   name: "gmail-modify-thread",
   display_name: t("GMAIL_TOOL_MODIFY_THREAD_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_MODIFY_THREAD_DESCRIPTION"),
+  skill: modifyThreadSkill,
   icon: "🏷️",
   parameters: [
     gmailCredentialParam,

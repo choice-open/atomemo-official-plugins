@@ -6,11 +6,13 @@ import {
   userIdParam,
   labelIdParam,
 } from "./_shared/parameters"
+import getLabelSkill from "./get-label-skill.md" with { type: "text" }
 
 export const getLabelTool: ToolDefinition = {
   name: "gmail-get-label",
   display_name: t("GMAIL_TOOL_GET_LABEL_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_LABEL_DESCRIPTION"),
+  skill: getLabelSkill,
   icon: "🏷️",
   parameters: [gmailCredentialParam, userIdParam, labelIdParam],
   async invoke({ args }) {

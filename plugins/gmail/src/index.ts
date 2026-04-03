@@ -41,7 +41,7 @@ import { listHistoryTool } from "./tools/list-history"
 import { listFiltersTool } from "./tools/list-filters"
 import { listSendAsTool } from "./tools/list-send-as"
 import { listForwardingAddressesTool } from "./tools/list-forwarding-addresses"
-import { getAttachmentTool } from "./tools/get-attachment"
+// import { getAttachmentTool } from "./tools/get-attachment"
 
 await loadAllLocalesAsync()
 

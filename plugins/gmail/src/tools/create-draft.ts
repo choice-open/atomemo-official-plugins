@@ -6,6 +6,7 @@ import {
   gmailCredentialParam,
   userIdParam,
 } from "./_shared/parameters"
+import createDraftSkill from "./create-draft-skill.md" with { type: "text" }
 
 function createRawEmail(to: string, subject: string, body: string, cc?: string, bcc?: string): string {
   const lines: string[] = []
@@ -23,6 +24,7 @@ export const createDraftTool: ToolDefinition = {
   name: "gmail-create-draft",
   display_name: t("GMAIL_TOOL_CREATE_DRAFT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_CREATE_DRAFT_DESCRIPTION"),
+  skill: createDraftSkill,
   icon: "📝",
   parameters: [
     gmailCredentialParam,
