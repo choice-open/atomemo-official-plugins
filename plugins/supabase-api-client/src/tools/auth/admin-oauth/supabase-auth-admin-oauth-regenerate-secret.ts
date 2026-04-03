@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../../lib/get-supabase-client"
+import supabaseAuthAdminOauthRegenerateSecretSkill from "./supabase-auth-admin-oauth-regenerate-secret-skill.md" with { type: "text" }
 
 export const supabaseAuthAdminOAuthRegenerateSecretTool: ToolDefinition = {
   name: "supabase-auth-admin-oauth-regenerate-secret",
   display_name: t("AUTH_ADMIN_OAUTH_REGENERATE_SECRET_DISPLAY_NAME"),
   description: t("AUTH_ADMIN_OAUTH_REGENERATE_SECRET_DESCRIPTION"),
+  skill: supabaseAuthAdminOauthRegenerateSecretSkill,
   icon: "🔄",
   parameters: [
     {

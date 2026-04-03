@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageGetPublicUrlSkill from "./supabase-storage-get-public-url-skill.md" with { type: "text" }
 
 export const supabaseStorageGetPublicUrlTool = {
   name: "supabase-storage-get-public-url",
   display_name: t("STORAGE_GET_PUBLIC_URL_DISPLAY_NAME"),
   description: t("STORAGE_GET_PUBLIC_URL_DESCRIPTION"),
+  skill: supabaseStorageGetPublicUrlSkill,
   icon: "🌐",
   parameters: [
     {

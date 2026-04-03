@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorDeleteIndexSkill from "./supabase-vector-delete-index-skill.md" with { type: "text" }
 
 export const supabaseVectorDeleteIndexTool = {
   name: "supabase-vector-delete-index",
   display_name: t("VECTOR_DELETE_INDEX_DISPLAY_NAME"),
   description: t("VECTOR_DELETE_INDEX_DESCRIPTION"),
+  skill: supabaseVectorDeleteIndexSkill,
   icon: "📐",
   parameters: [
     {

@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorGetBucketSkill from "./supabase-vector-get-bucket-skill.md" with { type: "text" }
 
 export const supabaseVectorGetBucketTool = {
   name: "supabase-vector-get-bucket",
   display_name: t("VECTOR_GET_BUCKET_DISPLAY_NAME"),
   description: t("VECTOR_GET_BUCKET_DESCRIPTION"),
+  skill: supabaseVectorGetBucketSkill,
   icon: "📐",
   parameters: [
     {

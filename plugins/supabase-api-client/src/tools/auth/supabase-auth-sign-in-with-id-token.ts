@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult, parseJson } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthSignInWithIdTokenSkill from "./supabase-auth-sign-in-with-id-token-skill.md" with { type: "text" }
 
 const PROVIDERS = ["google", "apple", "azure", "facebook", "kakao"] as const
 
@@ -9,6 +10,7 @@ export const supabaseAuthSignInWithIdTokenTool: ToolDefinition = {
   name: "supabase-auth-sign-in-with-id-token",
   display_name: t("AUTH_SIGN_IN_WITH_ID_TOKEN_DISPLAY_NAME"),
   description: t("AUTH_SIGN_IN_WITH_ID_TOKEN_DESCRIPTION"),
+  skill: supabaseAuthSignInWithIdTokenSkill,
   icon: "🎫",
   parameters: [
     {

@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageDownloadSkill from "./supabase-storage-download-skill.md" with { type: "text" }
 
 async function blobToBase64(blob: Blob): Promise<string> {
   const buffer = await blob.arrayBuffer()
@@ -19,6 +20,7 @@ export const supabaseStorageDownloadTool = {
   name: "supabase-storage-download",
   display_name: t("STORAGE_DOWNLOAD_DISPLAY_NAME"),
   description: t("STORAGE_DOWNLOAD_DESCRIPTION"),
+  skill: supabaseStorageDownloadSkill,
   icon: "📥",
   parameters: [
     {

@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageRemoveSkill from "./supabase-storage-remove-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -15,6 +16,7 @@ export const supabaseStorageRemoveTool = {
   name: "supabase-storage-remove",
   display_name: t("STORAGE_REMOVE_DISPLAY_NAME"),
   description: t("STORAGE_REMOVE_DESCRIPTION"),
+  skill: supabaseStorageRemoveSkill,
   icon: "🗑️",
   parameters: [
     {

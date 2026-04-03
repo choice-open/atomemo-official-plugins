@@ -5,6 +5,7 @@ import {
   applyFiltersAdvanced,
   type FiltersInput,
 } from "../../lib/supabase-filters"
+import supabaseQuerySkill from "./supabase-query-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -19,6 +20,7 @@ export const supabaseQueryTool = {
   name: "supabase-query",
   display_name: t("SUPABASE_QUERY_DISPLAY_NAME"),
   description: t("SUPABASE_QUERY_DESCRIPTION"),
+  skill: supabaseQuerySkill,
   icon: "🔍",
   parameters: [
     {

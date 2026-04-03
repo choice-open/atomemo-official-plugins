@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorPutSkill from "./supabase-vector-put-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -21,6 +22,7 @@ export const supabaseVectorPutTool = {
   name: "supabase-vector-put",
   display_name: t("VECTOR_PUT_DISPLAY_NAME"),
   description: t("VECTOR_PUT_DESCRIPTION"),
+  skill: supabaseVectorPutSkill,
   icon: "📐",
   parameters: [
     {

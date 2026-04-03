@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthVerifyOtpSkill from "./supabase-auth-verify-otp-skill.md" with { type: "text" }
 
 const OTP_TYPES = [
   "email",
@@ -16,6 +17,7 @@ export const supabaseAuthVerifyOtpTool: ToolDefinition = {
   name: "supabase-auth-verify-otp",
   display_name: t("AUTH_VERIFY_OTP_DISPLAY_NAME"),
   description: t("AUTH_VERIFY_OTP_DESCRIPTION"),
+  skill: supabaseAuthVerifyOtpSkill,
   icon: "✉️",
   parameters: [
     {

@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorDeleteBucketSkill from "./supabase-vector-delete-bucket-skill.md" with { type: "text" }
 
 export const supabaseVectorDeleteBucketTool = {
   name: "supabase-vector-delete-bucket",
   display_name: t("VECTOR_DELETE_BUCKET_DISPLAY_NAME"),
   description: t("VECTOR_DELETE_BUCKET_DESCRIPTION"),
+  skill: supabaseVectorDeleteBucketSkill,
   icon: "📐",
   parameters: [
     {

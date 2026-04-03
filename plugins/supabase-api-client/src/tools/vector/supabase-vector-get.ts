@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorGetSkill from "./supabase-vector-get-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || String(input).trim() === "") return fallback
@@ -15,6 +16,7 @@ export const supabaseVectorGetTool = {
   name: "supabase-vector-get",
   display_name: t("VECTOR_GET_DISPLAY_NAME"),
   description: t("VECTOR_GET_DESCRIPTION"),
+  skill: supabaseVectorGetSkill,
   icon: "📐",
   parameters: [
     {

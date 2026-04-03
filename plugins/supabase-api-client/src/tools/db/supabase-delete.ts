@@ -5,6 +5,8 @@ import {
   applyFiltersAdvanced,
   type FiltersInput,
 } from "../../lib/supabase-filters"
+import supabaseDeleteSkill from "./supabase-delete-skill.md" with { type: "text" }
+
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -25,6 +27,7 @@ export const supabaseDeleteTool = {
   name: "supabase-delete",
   display_name: t("SUPABASE_DELETE_DISPLAY_NAME"),
   description: t("SUPABASE_DELETE_DESCRIPTION"),
+  skill: supabaseDeleteSkill,
   icon: "🗑️",
   parameters: [
     {
@@ -112,8 +115,8 @@ export const supabaseDeleteTool = {
       const { data, error } =
         returning === "representation"
           ? await (
-              filtered as unknown as { select: () => Promise<Result> }
-            ).select()
+            filtered as unknown as { select: () => Promise<Result> }
+          ).select()
           : await (filtered as unknown as Promise<Result>)
 
       if (error) {
