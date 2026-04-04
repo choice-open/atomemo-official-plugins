@@ -6,11 +6,13 @@ import {
   userIdParam,
 } from "./_shared/parameters"
 import { toStringArray } from "../lib/to-string-array"
+import watchSkill from "./watch-skill.md" with { type: "text" }
 
 export const watchTool: ToolDefinition = {
   name: "gmail-watch",
   display_name: t("GMAIL_TOOL_WATCH_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_WATCH_DESCRIPTION"),
+  skill: watchSkill,
   icon: "👁️",
   parameters: [
     gmailCredentialParam,

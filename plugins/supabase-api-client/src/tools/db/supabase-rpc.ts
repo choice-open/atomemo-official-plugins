@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseRpcSkill from "./supabase-rpc-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -15,6 +16,7 @@ export const supabaseRpcTool = {
   name: "supabase-rpc",
   display_name: t("SUPABASE_RPC_DISPLAY_NAME"),
   description: t("SUPABASE_RPC_DESCRIPTION"),
+  skill: supabaseRpcSkill,
   icon: "⚙️",
   parameters: [
     {

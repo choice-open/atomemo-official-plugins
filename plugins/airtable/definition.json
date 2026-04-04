@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "credentials": [
     {
       "name": "airtable",

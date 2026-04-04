@@ -1,6 +1,7 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseInvokeEdgeFunctionSkill from "./supabase-invoke-edge-function-skill.md" with { type: "text" }
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -15,6 +16,7 @@ export const supabaseInvokeEdgeFunctionTool: ToolDefinition = {
   name: "supabase-invoke-edge-function",
   display_name: t("SUPABASE_INVOKE_EDGE_FUNCTION_DISPLAY_NAME"),
   description: t("SUPABASE_INVOKE_EDGE_FUNCTION_DESCRIPTION"),
+  skill: supabaseInvokeEdgeFunctionSkill,
   icon: "⚡",
   parameters: [
     {

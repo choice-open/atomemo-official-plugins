@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseStorageCreateSignedUrlSkill from "./supabase-storage-create-signed-url-skill.md" with { type: "text" }
 
 export const supabaseStorageCreateSignedUrlTool = {
   name: "supabase-storage-create-signed-url",
   display_name: t("STORAGE_CREATE_SIGNED_URL_DISPLAY_NAME"),
   description: t("STORAGE_CREATE_SIGNED_URL_DESCRIPTION"),
+  skill: supabaseStorageCreateSignedUrlSkill,
   icon: "🔗",
   parameters: [
     {

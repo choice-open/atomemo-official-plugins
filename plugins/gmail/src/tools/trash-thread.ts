@@ -6,11 +6,13 @@ import {
   userIdParam,
   threadIdParam,
 } from "./_shared/parameters"
+import trashThreadSkill from "./trash-thread-skill.md" with { type: "text" }
 
 export const trashThreadTool: ToolDefinition = {
   name: "gmail-trash-thread",
   display_name: t("GMAIL_TOOL_TRASH_THREAD_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_TRASH_THREAD_DESCRIPTION"),
+  skill: trashThreadSkill,
   icon: "🗑️",
   parameters: [gmailCredentialParam, userIdParam, threadIdParam],
   async invoke({ args }) {

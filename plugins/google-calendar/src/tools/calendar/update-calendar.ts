@@ -6,11 +6,15 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import updateCalendarSkill from "./update-calendar-skill.md" with {
+  type: "text",
+}
 
 export const updateCalendarTool: ToolDefinition = {
   name: "update-calendar",
   display_name: t("UPDATE_CALENDAR_DISPLAY_NAME"),
   description: t("UPDATE_CALENDAR_DESCRIPTION"),
+  skill: updateCalendarSkill,
   icon: "✏️",
   parameters: [
     calendarCredentialParam,

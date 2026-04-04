@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseVectorListIndexesSkill from "./supabase-vector-list-indexes-skill.md" with { type: "text" }
 
 export const supabaseVectorListIndexesTool = {
   name: "supabase-vector-list-indexes",
   display_name: t("VECTOR_LIST_INDEXES_DISPLAY_NAME"),
   description: t("VECTOR_LIST_INDEXES_DESCRIPTION"),
+  skill: supabaseVectorListIndexesSkill,
   icon: "📐",
   parameters: [
     {

@@ -7,11 +7,13 @@ import {
   sendUpdatesParam,
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
+import deleteEventSkill from "./delete-event-skill.md" with { type: "text" }
 
 export const deleteEventTool = {
   name: "delete-event",
   display_name: t("DELETE_EVENT_DISPLAY_NAME"),
   description: t("DELETE_EVENT_DESCRIPTION"),
+  skill: deleteEventSkill,
   icon: "🗑️",
   parameters: [
     calendarCredentialParam,

@@ -3,11 +3,13 @@ import { t } from "../../i18n/i18n-node"
 import { calendarCredentialParam } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import getColorsSkill from "./get-colors-skill.md" with { type: "text" }
 
 export const getColorsTool: ToolDefinition = {
   name: "get-colors",
   display_name: t("COLORS_GET_DISPLAY_NAME"),
   description: t("COLORS_GET_DESCRIPTION"),
+  skill: getColorsSkill,
   icon: "🎨",
   parameters: [calendarCredentialParam],
   async invoke({ args }) {

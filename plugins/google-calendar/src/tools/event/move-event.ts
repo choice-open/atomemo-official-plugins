@@ -8,11 +8,13 @@ import {
 } from "../../lib/parameters"
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
+import moveEventSkill from "./move-event-skill.md" with { type: "text" }
 
 export const moveEventTool: ToolDefinition = {
   name: "move-event",
   display_name: t("MOVE_EVENT_DISPLAY_NAME"),
   description: t("MOVE_EVENT_DESCRIPTION"),
+  skill: moveEventSkill,
   icon: "➡️",
   parameters: [
     calendarCredentialParam,

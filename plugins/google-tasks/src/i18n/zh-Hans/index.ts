@@ -28,7 +28,7 @@ const zh_Hans = {
   NOTES_PLACEHOLDER:
     "输入备注（可选，最长8192字符）。来源于文档的任务不能包含备注。",
   STATUS_DISPLAY_NAME: "状态",
-  DUE_DATE_DISPLAY_NAME: "截止日期",
+  DUE_DATE_DISPLAY_NAME: "预定日期",
   DUE_DATE_HINT:
     "RFC 3339 格式（例如 2025-12-31T00:00:00Z），仅日期部分有效，时间部分将被丢弃。",
   DUE_DATE_PLACEHOLDER: "2025-12-31T00:00:00Z",
@@ -55,10 +55,10 @@ const zh_Hans = {
   DESTINATION_TASK_LIST_ID_HINT:
     "目标任务列表 ID。留空则在当前列表内移动。重复任务不能跨列表移动。",
   DESTINATION_TASK_LIST_ID_PLACEHOLDER: "输入目标任务列表 ID（可选）",
-  DUE_MIN_DISPLAY_NAME: "截止日期最小值",
-  DUE_MIN_HINT: "过滤：截止日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）",
-  DUE_MAX_DISPLAY_NAME: "截止日期最大值",
-  DUE_MAX_HINT: "过滤：截止日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）",
+  DUE_MIN_DISPLAY_NAME: "预定日期最小值",
+  DUE_MIN_HINT: "过滤：预定日期下限（RFC 3339，例如 2025-01-01T00:00:00Z）",
+  DUE_MAX_DISPLAY_NAME: "预定日期最大值",
+  DUE_MAX_HINT: "过滤：预定日期上限（RFC 3339，例如 2025-12-31T23:59:59Z）",
   UPDATED_MIN_DISPLAY_NAME: "更新时间不早于",
   UPDATED_MIN_HINT: "过滤：最早修改时间（RFC 3339，例如 2025-01-01T00:00:00Z）",
   COMPLETED_MIN_DISPLAY_NAME: "完成时间最小值",
@@ -95,13 +95,18 @@ const zh_Hans = {
   REPLACE_TASK_DISPLAY_NAME: "替换任务",
   REPLACE_TASK_DESCRIPTION: "通过 tasks.update 对指定任务进行全量替换",
   UPDATE_TASK_DISPLAY_NAME: "更新任务",
-  UPDATE_TASK_DESCRIPTION: "更新指定任务（标题、备注、状态、截止日期）",
+  UPDATE_TASK_DESCRIPTION: "更新指定任务（标题、备注、状态、预定日期）",
   DELETE_TASK_DISPLAY_NAME: "删除任务",
   DELETE_TASK_DESCRIPTION: "从任务列表中删除指定任务",
   MOVE_TASK_DISPLAY_NAME: "移动任务",
   MOVE_TASK_DESCRIPTION: "将任务移动到其他位置或任务列表",
   CLEAR_COMPLETED_DISPLAY_NAME: "清除已完成任务",
-  CLEAR_COMPLETED_DESCRIPTION: "清除指定任务列表中所有已完成的任务",
+  CLEAR_COMPLETED_DESCRIPTION:
+    "对应 Google Tasks 的 tasks.clear：将当时已完成的任务标为隐藏（hidden），并非从服务端删除。默认「列出任务」不返回隐藏项；仅当 showHidden=true 时仍会列出。若要彻底删除单条任务请使用「删除任务」（tasks.delete）。",
+  CLEAR_COMPLETED_TASK_LIST_ID_HINT:
+    "任务列表 ID，请与「列出任务」使用的是同一列表。清除后若列出任务时开启「显示已隐藏」，仍可能看到已被标为隐藏的已完成任务。",
+  CLEAR_COMPLETED_SUCCESS_API_NOTE:
+    "Google Tasks API：tasks.clear 会把「清除时已完成」的任务标为 hidden（只读）。tasks.list 默认不包含 hidden；showHidden=true 时才会返回。彻底删除任务需使用 tasks.delete（删除任务）。",
 } satisfies Translation
 
 export default zh_Hans

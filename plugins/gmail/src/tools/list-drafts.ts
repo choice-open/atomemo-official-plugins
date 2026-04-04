@@ -7,11 +7,13 @@ import {
   maxResultsParam,
   pageTokenParam,
 } from "./_shared/parameters"
+import listDraftsSkill from "./list-drafts-skill.md" with { type: "text" }
 
 export const listDraftsTool: ToolDefinition = {
   name: "gmail-list-drafts",
   display_name: t("GMAIL_TOOL_LIST_DRAFTS_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_LIST_DRAFTS_DESCRIPTION"),
+  skill: listDraftsSkill,
   icon: "📝",
   parameters: [
     gmailCredentialParam,

@@ -7,11 +7,13 @@ import {
   userIdParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import batchModifyMessagesSkill from "./batch-modify-messages-skill.md" with { type: "text" }
 
 export const batchModifyMessagesTool: ToolDefinition = {
   name: "gmail-batch-modify-messages",
   display_name: t("GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_BATCH_MODIFY_MESSAGES_DESCRIPTION"),
+  skill: batchModifyMessagesSkill,
   icon: "🏷️",
   parameters: [
     gmailCredentialParam,

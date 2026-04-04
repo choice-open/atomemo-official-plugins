@@ -30,6 +30,7 @@ describe("get-current-time tool", () => {
         expect.objectContaining({
           name: "get-current-time",
           icon: "🕐",
+          skill: expect.stringContaining("# Get Current Time Tool Documentation"),
           parameters: expect.arrayContaining([
             expect.objectContaining({
               name: "timezone",

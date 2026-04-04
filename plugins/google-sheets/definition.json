@@ -1,0 +1,896 @@
+{
+  "name": "google-sheets",
+  "display_name": {
+    "en_US": "Google Sheets",
+    "zh_Hans": "Google Sheets"
+  },
+  "description": {
+    "en_US": "Read, write, and manage Google Sheets spreadsheets.",
+    "zh_Hans": "读取、写入和管理 Google Sheets 电子表格。"
+  },
+  "icon": "https://fonts.gstatic.com/s/i/productlogos/sheets_2020q4/v9/192px.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/google-sheets",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.3",
+  "credentials": [
+    {
+      "name": "Google_Sheets_OAuth2",
+      "display_name": {
+        "en_US": "Google Sheets OAuth 2.0",
+        "zh_Hans": "Google Sheets OAuth 2.0"
+      },
+      "description": {
+        "en_US": "OAuth 2.0 credential for Google Sheets API access.",
+        "zh_Hans": "用于访问 Google Sheets API 的 OAuth 2.0 凭证。"
+      },
+      "icon": "🔑",
+      "oauth2": true,
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Google Cloud Console → APIs & Services → Credentials → Create credentials → OAuth client ID. Use a Desktop or Web client; enable the Google Sheets API for the project; add the redirect URI your Atomemo / plugin flow shows. The Client ID looks like digits followed by .apps.googleusercontent.com.",
+              "zh_Hans": "打开 Google Cloud 控制台 → API 和服务 → 凭据 → 创建凭据 → OAuth 客户端 ID。选择「桌面应用」或「网页应用」；在项目中启用 Google Sheets API；把 Atomemo/插件授权流程里提供的重定向 URI 填进客户端。客户端 ID 通常形如：数字-xxx.apps.googleusercontent.com。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 123456789-abc.apps.googleusercontent.com",
+              "zh_Hans": "例如 123456789-abc.apps.googleusercontent.com"
+            },
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Issued together with the Client ID for the same OAuth client. Treat it like a password — never commit it to public repos. If rotated, update this field and re-authorize if prompted.",
+              "zh_Hans": "与上述客户端 ID 同时生成，请当作密码保管，勿提交到公开仓库。若在云端轮换过密钥，请在此更新并视情况重新授权。"
+            },
+            "placeholder": {
+              "en_US": "e.g. GOCSPX-xxxxxxxxxxxx",
+              "zh_Hans": "例如 GOCSPX-xxxxxxxxxxxx"
+            },
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "google-sheets-read-rows",
+      "display_name": {
+        "en_US": "Read Rows",
+        "zh_Hans": "读取行"
+      },
+      "description": {
+        "en_US": "Read values from a specified range in a Google Sheets spreadsheet.",
+        "zh_Hans": "从 Google Sheets 电子表格的指定范围读取值。"
+      },
+      "icon": "📖",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "range",
+          "display_name": {
+            "en_US": "Range",
+            "zh_Hans": "范围"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "A1 notation: optional sheet name, then !, then cells. Examples: Sheet1!A1:D10 (rectangle), Sheet1!A2:A (one column from row 2), Sheet1 (entire first sheet). Sheet names with spaces or special chars: 'Q1 Sales'!B2:E20.",
+              "zh_Hans": "A1 表示法：可选工作表名 + ! + 单元格区域。示例：Sheet1!A1:D10（矩形区域）、Sheet1!A2:A（从第 2 行起整列）、Sheet1（整张表，按默认规则）。表名含空格或特殊字符时需加单引号：'一季度销售'!B2:E20。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Sheet1!A1:D10 or 'My Sheet'!A:C",
+              "zh_Hans": "例如 Sheet1!A1:D10 或 '我的工作表'!A:C"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "major_dimension",
+          "display_name": {
+            "en_US": "Major Dimension",
+            "zh_Hans": "主维度"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ROWS: each inner array is one row (usual for tables). COLUMNS: each inner array is one column. Controls how the API returns nested arrays for reads.",
+              "zh_Hans": "ROWS：内层数组表示一行（表格常用）。COLUMNS：内层数组表示一列。影响读取接口返回的二维数组如何组织。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "ROWS",
+          "enum": [
+            "ROWS",
+            "COLUMNS"
+          ]
+        },
+        {
+          "name": "value_render_option",
+          "display_name": {
+            "en_US": "Value Render Option",
+            "zh_Hans": "值渲染选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "FORMATTED_VALUE: display text as in the UI (default). UNFORMATTED_VALUE: raw numbers/dates without display formatting. FORMULA: return formula strings like =SUM(A1:A10) when the cell has a formula.",
+              "zh_Hans": "FORMATTED_VALUE：与界面显示一致（默认）。UNFORMATTED_VALUE：原始数字/日期，不含显示格式。FORMULA：若单元格为公式则返回如 =SUM(A1:A10) 的公式文本。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "FORMATTED_VALUE",
+          "enum": [
+            "FORMATTED_VALUE",
+            "UNFORMATTED_VALUE",
+            "FORMULA"
+          ]
+        }
+      ],
+      "skill": "# Read Rows Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-read-rows`\n- **Purpose**: Reads values from a specified range in a Google Sheets spreadsheet.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID. | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `range` | `string` | `true` | `input` | A1 notation range. | `\"Sheet1!A1:D10\"` |\n| `major_dimension` | `string` | `false` | `select` | `ROWS` (default) or `COLUMNS`. | `\"ROWS\"` |\n| `value_render_option` | `string` | `false` | `select` | `FORMATTED_VALUE` (default), `UNFORMATTED_VALUE`, or `FORMULA`. | `\"FORMATTED_VALUE\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"range\": \"Sheet1!A1:D10\",\n    \"major_dimension\": \"ROWS\",\n    \"value_render_option\": \"FORMATTED_VALUE\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"range\": \"Sheet1!A1:D3\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\"Name\", \"Age\", \"City\", \"Active\"],\n    [\"Alice\", \"30\", \"NYC\", \"TRUE\"],\n    [\"Bob\", \"25\", \"SF\", \"FALSE\"]\n  ]\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-update-rows",
+      "display_name": {
+        "en_US": "Update Rows",
+        "zh_Hans": "更新行"
+      },
+      "description": {
+        "en_US": "Write values to a specified range in a Google Sheets spreadsheet.",
+        "zh_Hans": "向 Google Sheets 电子表格的指定范围写入值。"
+      },
+      "icon": "✏️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "range",
+          "display_name": {
+            "en_US": "Range",
+            "zh_Hans": "范围"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "A1 notation: optional sheet name, then !, then cells. Examples: Sheet1!A1:D10 (rectangle), Sheet1!A2:A (one column from row 2), Sheet1 (entire first sheet). Sheet names with spaces or special chars: 'Q1 Sales'!B2:E20.",
+              "zh_Hans": "A1 表示法：可选工作表名 + ! + 单元格区域。示例：Sheet1!A1:D10（矩形区域）、Sheet1!A2:A（从第 2 行起整列）、Sheet1（整张表，按默认规则）。表名含空格或特殊字符时需加单引号：'一季度销售'!B2:E20。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Sheet1!A1:D10 or 'My Sheet'!A:C",
+              "zh_Hans": "例如 Sheet1!A1:D10 或 '我的工作表'!A:C"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "value_input_option",
+          "display_name": {
+            "en_US": "Value Input Option",
+            "zh_Hans": "值输入选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "RAW: store values exactly as strings (e.g. \"1-2\" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).",
+              "zh_Hans": "RAW：按字符串原样写入（例如 \"1-2\" 保持为文本）。USER_ENTERED：像在表格里手工输入一样解析——数字、日期、以 = 开头的字符串会按公式处理（默认）。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "USER_ENTERED",
+          "enum": [
+            "RAW",
+            "USER_ENTERED"
+          ]
+        },
+        {
+          "name": "values",
+          "display_name": {
+            "en_US": "Values",
+            "zh_Hans": "值"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "JSON 2D array: outer = rows, inner = cells. For Update, dimensions should match the range. Examples: [[\"Name\",\"Score\"],[\"Ada\",95]]; mixed types [[\"SKU\",12,true]].",
+              "zh_Hans": "JSON 二维数组：外层为行，内层为单元格。更新（Update）时行列数应与范围一致。示例：[[\"姓名\",\"分数\"],[\"小艾\",95]]；混合类型 [[\"SKU\",12,true]]。"
+            },
+            "placeholder": {
+              "en_US": "e.g. [[\"Name\",\"Age\"],[\"Alice\",30],[\"Bob\",25]]",
+              "zh_Hans": "例如 [[\"姓名\",\"年龄\"],[\"Alice\",30],[\"Bob\",25]]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Update Rows Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-update-rows`\n- **Purpose**: Writes values to a specified range in a Google Sheets spreadsheet (overwrites existing cells in that range).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID. | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `range` | `string` | `true` | `input` | A1 range to write; dimensions should match `values`. | `\"Sheet1!A1:C3\"` |\n| `values` | `string` | `true` | `code-editor` | JSON 2D array (rows × cells). | `\"[[\\\"Name\\\",\\\"Age\\\",\\\"City\\\"],[\\\"Alice\\\",30,\\\"NYC\\\"]]\"` |\n| `value_input_option` | `string` | `false` | `select` | `RAW` or `USER_ENTERED` (default). | `\"USER_ENTERED\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"range\": \"Sheet1!A1:C3\",\n    \"values\": \"[[\\\"Name\\\",\\\"Age\\\",\\\"City\\\"],[\\\"Alice\\\",30,\\\"NYC\\\"],[\\\"Bob\\\",25,\\\"SF\\\"]]\",\n    \"value_input_option\": \"USER_ENTERED\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n  \"updatedRange\": \"Sheet1!A1:C3\",\n  \"updatedRows\": 3,\n  \"updatedColumns\": 3,\n  \"updatedCells\": 9\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-append-rows",
+      "display_name": {
+        "en_US": "Append Rows",
+        "zh_Hans": "追加行"
+      },
+      "description": {
+        "en_US": "Append rows of data after the last row of a table in a Google Sheets spreadsheet.",
+        "zh_Hans": "在 Google Sheets 电子表格的表格最后一行之后追加数据行。"
+      },
+      "icon": "➕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "range",
+          "display_name": {
+            "en_US": "Range",
+            "zh_Hans": "范围"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Sheets finds the last row with data inside this range, then appends after it. Cover all table columns (same width as each values row), e.g. Sheet1!A:F or Data!B:E. Too narrow a range can mis-detect the table end.",
+              "zh_Hans": "API 会在该范围内查找最后一行有数据的行，并在其后追加。应覆盖表格全部列（与每行 values 的列数一致），例如 Sheet1!A:F、数据!B:E。范围过窄可能误判表格末尾。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Sheet1!A:D or Orders!B:G",
+              "zh_Hans": "例如 Sheet1!A:D 或 订单!B:G"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "value_input_option",
+          "display_name": {
+            "en_US": "Value Input Option",
+            "zh_Hans": "值输入选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "RAW: store values exactly as strings (e.g. \"1-2\" stays text, leading apostrophes preserved). USER_ENTERED: parsed as if typed in Sheets — numbers, dates, and strings starting with = become formulas (default).",
+              "zh_Hans": "RAW：按字符串原样写入（例如 \"1-2\" 保持为文本）。USER_ENTERED：像在表格里手工输入一样解析——数字、日期、以 = 开头的字符串会按公式处理（默认）。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "USER_ENTERED",
+          "enum": [
+            "RAW",
+            "USER_ENTERED"
+          ]
+        },
+        {
+          "name": "insert_data_option",
+          "display_name": {
+            "en_US": "Insert Data Option",
+            "zh_Hans": "插入数据选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "INSERT_ROWS: insert new rows and shift existing rows down (safer when data may exist below). OVERWRITE: write into the next rows without inserting — can overwrite cells if the write range overlaps existing data.",
+              "zh_Hans": "INSERT_ROWS：插入新行并下移已有行（下方有数据时更安全）。OVERWRITE：不插入行，直接往后写——若与已有区域重叠可能覆盖单元格。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "INSERT_ROWS",
+          "enum": [
+            "OVERWRITE",
+            "INSERT_ROWS"
+          ]
+        },
+        {
+          "name": "values",
+          "display_name": {
+            "en_US": "Values",
+            "zh_Hans": "值"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "One inner array per new row; column count should match the table. Examples: [[\"Eve\",\"eve@ex.com\",1],[\"Dan\",\"dan@ex.com\",2]]; single row [[\"2025-03-26\",42.5]].",
+              "zh_Hans": "每个内层数组为一行新数据，列数应与表头/表格列一致。示例：[[\"Eve\",\"eve@ex.com\",1],[\"Dan\",\"dan@ex.com\",2]]；单行 [[\"2025-03-26\",42.5]]。"
+            },
+            "placeholder": {
+              "en_US": "e.g. [[\"Name\",\"Age\"],[\"Alice\",30],[\"Bob\",25]]",
+              "zh_Hans": "例如 [[\"姓名\",\"年龄\"],[\"Alice\",30],[\"Bob\",25]]"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Append Rows Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-append-rows`\n- **Purpose**: Appends rows of data after the last row of a table in a Google Sheets spreadsheet.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID (segment between `/d/` and `/edit` in the URL). | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `range` | `string` | `true` | `input` | A1 range covering the table columns; Sheets finds the last data row and appends after it. | `\"Sheet1!A:D\"` |\n| `values` | `string` | `true` | `code-editor` | JSON 2D array: one inner array per new row; column count should match the table. | `\"[[\\\"Eve\\\",\\\"eve@ex.com\\\",1],[\\\"Dan\\\",\\\"dan@ex.com\\\",2]]\"` |\n| `value_input_option` | `string` | `false` | `select` | `RAW` or `USER_ENTERED` (default). | `\"USER_ENTERED\"` |\n| `insert_data_option` | `string` | `false` | `select` | `INSERT_ROWS` (default) or `OVERWRITE`. | `\"INSERT_ROWS\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"range\": \"Sheet1!A:D\",\n    \"values\": \"[[\\\"Eve\\\",\\\"eve@ex.com\\\",1],[\\\"Dan\\\",\\\"dan@ex.com\\\",2]]\",\n    \"value_input_option\": \"USER_ENTERED\",\n    \"insert_data_option\": \"INSERT_ROWS\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n  \"updates\": {\n    \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"updatedRange\": \"Sheet1!A5:C6\",\n    \"updatedRows\": 2,\n    \"updatedColumns\": 3,\n    \"updatedCells\": 6\n  }\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-clear-values",
+      "display_name": {
+        "en_US": "Clear Values",
+        "zh_Hans": "清除值"
+      },
+      "description": {
+        "en_US": "Clear all values from a specified range in a Google Sheets spreadsheet.",
+        "zh_Hans": "清除 Google Sheets 电子表格中指定范围的所有值。"
+      },
+      "icon": "🧹",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "range",
+          "display_name": {
+            "en_US": "Range",
+            "zh_Hans": "范围"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Clears cell values only — formatting, notes, and validation remain. Same A1 rules as Read. Examples: Sheet1!C2:C500 (part of a column), Data!A1:Z200 (block).",
+              "zh_Hans": "仅清除单元格的值，保留格式、批注与数据验证。A1 规则与「读取行」相同。示例：Sheet1!C2:C500（列的一段）、数据!A1:Z200（矩形块）。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Sheet1!A1:D10 or 'My Sheet'!A:C",
+              "zh_Hans": "例如 Sheet1!A1:D10 或 '我的工作表'!A:C"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Clear Values Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-clear-values`\n- **Purpose**: Clears all values from a specified range in a Google Sheets spreadsheet (formatting and notes remain).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID. | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `range` | `string` | `true` | `input` | A1 range to clear. | `\"Sheet1!C2:C500\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"range\": \"Sheet1!A1:Z200\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n  \"clearedRange\": \"Sheet1!A1:Z200\"\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-create-spreadsheet",
+      "display_name": {
+        "en_US": "Create Spreadsheet",
+        "zh_Hans": "创建电子表格"
+      },
+      "description": {
+        "en_US": "Create a new Google Sheets spreadsheet.",
+        "zh_Hans": "创建一个新的 Google Sheets 电子表格。"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "标题"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Shown in Drive and as the spreadsheet title bar. Examples: FY2025 Budget, Team Roster — Q1.",
+              "zh_Hans": "会显示在云端硬盘和表格标题栏。示例：FY2025 预算表、团队花名册-一季度。"
+            },
+            "placeholder": {
+              "en_US": "e.g. FY2025 Budget Tracker",
+              "zh_Hans": "例如 FY2025 预算跟踪表"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "sheet_titles",
+          "display_name": {
+            "en_US": "Sheet Names (optional)",
+            "zh_Hans": "工作表名称（可选）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated tab names, created left-to-right in this order. Leave empty for one default sheet. Example: Summary,Raw Data,Archive. Avoid commas inside a name here (rename in Sheets after creation if needed).",
+              "zh_Hans": "逗号分隔的工作表标签名，按从左到右顺序创建。留空则只有一个默认工作表。示例：汇总,原始数据,归档。名称本身勿含逗号（若需要可在创建后到 Sheets 里重命名）。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Summary, Raw Data, Archive",
+              "zh_Hans": "例如 汇总, 原始数据, 归档"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Create Spreadsheet Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-create-spreadsheet`\n- **Purpose**: Creates a new Google Sheets spreadsheet.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `title` | `string` | `true` | `input` | Spreadsheet title (shown in Drive and the title bar). | `\"FY2025 Budget Tracker\"` |\n| `sheet_titles` | `string` | `false` | `input` | Optional comma-separated tab names, left to right. | `\"Summary, Raw Data, Archive\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"title\": \"FY2025 Budget Tracker\",\n    \"sheet_titles\": \"Summary, Raw Data, Archive\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1NewSpreadsheetIdFromApiXXXXXXXXXXXX\",\n  \"properties\": {\n    \"title\": \"FY2025 Budget Tracker\",\n    \"locale\": \"en_US\",\n    \"timeZone\": \"America/Los_Angeles\"\n  },\n  \"sheets\": [\n    {\n      \"properties\": {\n        \"sheetId\": 0,\n        \"title\": \"Summary\",\n        \"index\": 0,\n        \"sheetType\": \"GRID\"\n      }\n    },\n    {\n      \"properties\": {\n        \"sheetId\": 1,\n        \"title\": \"Raw Data\",\n        \"index\": 1,\n        \"sheetType\": \"GRID\"\n      }\n    }\n  ]\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-get-spreadsheet-info",
+      "display_name": {
+        "en_US": "Get Spreadsheet Info",
+        "zh_Hans": "获取电子表格信息"
+      },
+      "description": {
+        "en_US": "Get metadata and properties of a Google Sheets spreadsheet.",
+        "zh_Hans": "获取 Google Sheets 电子表格的元数据和属性。"
+      },
+      "icon": "ℹ️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "include_grid_data",
+          "display_name": {
+            "en_US": "Include Grid Data",
+            "zh_Hans": "包含网格数据"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, responses include cell values and can be very large on big spreadsheets. Leave off (default) for titles, sheetIds, grid size, and other metadata only — faster and lighter.",
+              "zh_Hans": "开启后响应会包含单元格内容，大表可能非常庞大。关闭（默认）仅返回标题、sheetId、行列规模等元数据，更轻、更快。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "skill": "# Get Spreadsheet Info Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-get-spreadsheet-info`\n- **Purpose**: Returns metadata and properties of a Google Sheets spreadsheet (optionally including grid cell data).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID. | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `include_grid_data` | `boolean` | `false` | `switch` | When `true`, includes cell values (can be large). Default `false`. | `false` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"include_grid_data\": false\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n  \"properties\": {\n    \"title\": \"Team Roster\",\n    \"locale\": \"en_US\",\n    \"timeZone\": \"America/New_York\"\n  },\n  \"sheets\": [\n    {\n      \"properties\": {\n        \"sheetId\": 0,\n        \"title\": \"Sheet1\",\n        \"index\": 0,\n        \"sheetType\": \"GRID\",\n        \"gridProperties\": {\n          \"rowCount\": 1000,\n          \"columnCount\": 26\n        }\n      }\n    }\n  ]\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-copy-sheet",
+      "display_name": {
+        "en_US": "Copy Sheet",
+        "zh_Hans": "复制工作表"
+      },
+      "description": {
+        "en_US": "Copy a single sheet from one spreadsheet to another.",
+        "zh_Hans": "将一个工作表从一个电子表格复制到另一个电子表格。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The spreadsheet that currently contains the sheet to copy — same ID as \"Spreadsheet ID\" (between /d/ and /edit in the URL). Example: https://docs.google.com/spreadsheets/d/SOURCE_ID/edit",
+              "zh_Hans": "含有待复制工作表的源表格，与「电子表格 ID」相同：URL 中 /d/ 与 /edit 之间的字符串。示例：https://docs.google.com/spreadsheets/d/源表格ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "sheet_id",
+          "display_name": {
+            "en_US": "Sheet ID",
+            "zh_Hans": "工作表 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Numeric sheetId used by the API. From the browser: open the tab and read gid= in the URL (e.g. ...#gid=1234567890 → use 1234567890). The first sheet is often 0; confirm via Get Spreadsheet Info if unsure.",
+              "zh_Hans": "API 使用的数字 sheetId。在浏览器中打开对应标签页，地址栏 #gid= 后的数字通常即为该工作表 ID（例如 ...#gid=1234567890 则填 1234567890）。第一个工作表常为 0；不确定可用「获取电子表格信息」核对。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 0 or gid from URL (e.g. 1234567890)",
+              "zh_Hans": "例如 0 或 URL 中的 gid（如 1234567890）"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "destination_spreadsheet_id",
+          "display_name": {
+            "en_US": "Destination Spreadsheet ID",
+            "zh_Hans": "目标电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "An existing spreadsheet where a new tab will be added as a copy. Your account needs edit access. The new sheet name may get a suffix if a duplicate name exists.",
+              "zh_Hans": "已有表格，复制结果会作为新标签页加入其中。你的账号需要编辑权限。若工作表重名，新标签名可能会自动加后缀。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Copy Sheet Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-copy-sheet`\n- **Purpose**: Copies a single sheet from one spreadsheet to another (adds a new tab on the destination).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Source spreadsheet ID (the sheet to copy lives here). | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `sheet_id` | `number` | `true` | `number-input` | Numeric sheet ID (e.g. `gid` from the tab URL). | `1234567890` |\n| `destination_spreadsheet_id` | `string` | `true` | `input` | Existing spreadsheet where the copy will be added. | `\"1abc...xyz\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"sheet_id\": 0,\n    \"destination_spreadsheet_id\": \"1abcDEFghiJKLmnoPQRstuVWXyz\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"sheetId\": 9876543210,\n  \"title\": \"Sheet1\",\n  \"index\": 1,\n  \"sheetType\": \"GRID\",\n  \"gridProperties\": {\n    \"rowCount\": 1000,\n    \"columnCount\": 26\n  }\n}\n```\n"
+    },
+    {
+      "name": "google-sheets-batch-get-values",
+      "display_name": {
+        "en_US": "Batch Get Values",
+        "zh_Hans": "批量获取值"
+      },
+      "description": {
+        "en_US": "Read values from multiple ranges in a Google Sheets spreadsheet at once.",
+        "zh_Hans": "一次从 Google Sheets 电子表格的多个范围读取值。"
+      },
+      "icon": "📚",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "Google_Sheets_OAuth2"
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": {
+            "en_US": "Spreadsheet ID",
+            "zh_Hans": "电子表格 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Open the spreadsheet in the browser. Copy the long segment between /d/ and /edit (or /edit#gid=…) in the URL — that is the spreadsheet ID. Example: https://docs.google.com/spreadsheets/d/THIS_PART_IS_THE_ID/edit",
+              "zh_Hans": "在浏览器中打开表格，从地址栏复制 /d/ 与 /edit（或 /edit#gid=…）之间的长字符串即为电子表格 ID。示例：https://docs.google.com/spreadsheets/d/此处为ID/edit"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+              "zh_Hans": "例如 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "ranges",
+          "display_name": {
+            "en_US": "Ranges",
+            "zh_Hans": "范围列表"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Several ranges in one request, separated by commas. Each uses A1 notation; spaces after commas are fine. Examples: Sheet1!A1:C10,Sheet2!A1:C10; 'Jan'!B:B,'Feb'!B:B for whole columns on quoted sheet names.",
+              "zh_Hans": "一次请求多个区域，用英文逗号分隔；逗号后空格可有可无。每个区域均为 A1 表示法。示例：Sheet1!A1:C10,Sheet2!A1:C10；整列示例：'一月'!B:B,'二月'!B:B（带空格的工作表名加单引号）。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Sheet1!A1:B10, Sheet2!A1:C5, 'Sales Q1'!D2:F99",
+              "zh_Hans": "例如 Sheet1!A1:B10, Sheet2!A1:C5, '销售Q1'!D2:F99"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "major_dimension",
+          "display_name": {
+            "en_US": "Major Dimension",
+            "zh_Hans": "主维度"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "ROWS: each inner array is one row (usual for tables). COLUMNS: each inner array is one column. Controls how the API returns nested arrays for reads.",
+              "zh_Hans": "ROWS：内层数组表示一行（表格常用）。COLUMNS：内层数组表示一列。影响读取接口返回的二维数组如何组织。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "ROWS",
+          "enum": [
+            "ROWS",
+            "COLUMNS"
+          ]
+        },
+        {
+          "name": "value_render_option",
+          "display_name": {
+            "en_US": "Value Render Option",
+            "zh_Hans": "值渲染选项"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "FORMATTED_VALUE: display text as in the UI (default). UNFORMATTED_VALUE: raw numbers/dates without display formatting. FORMULA: return formula strings like =SUM(A1:A10) when the cell has a formula.",
+              "zh_Hans": "FORMATTED_VALUE：与界面显示一致（默认）。UNFORMATTED_VALUE：原始数字/日期，不含显示格式。FORMULA：若单元格为公式则返回如 =SUM(A1:A10) 的公式文本。"
+            },
+            "support_expression": true,
+            "width": "medium",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "FORMATTED_VALUE",
+          "enum": [
+            "FORMATTED_VALUE",
+            "UNFORMATTED_VALUE",
+            "FORMULA"
+          ]
+        }
+      ],
+      "skill": "# Batch Get Values Tool Documentation\n\n## Tool\n\n- **Name**: `google-sheets-batch-get-values`\n- **Purpose**: Reads values from multiple ranges in a Google Sheets spreadsheet at once.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `Google_Sheets_OAuth2`. | `\"cred_xxx\"` |\n| `spreadsheet_id` | `string` | `true` | `input` | Spreadsheet ID. | `\"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\"` |\n| `ranges` | `string` | `true` | `input` | Comma-separated A1 ranges. | `\"Sheet1!A1:B10, Sheet2!A1:C5\"` |\n| `major_dimension` | `string` | `false` | `select` | `ROWS` (default) or `COLUMNS`. | `\"ROWS\"` |\n| `value_render_option` | `string` | `false` | `select` | `FORMATTED_VALUE` (default), `UNFORMATTED_VALUE`, or `FORMULA`. | `\"FORMATTED_VALUE\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"spreadsheet_id\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n    \"ranges\": \"Sheet1!A1:B10, Sheet2!A1:C5\",\n    \"major_dimension\": \"ROWS\",\n    \"value_render_option\": \"FORMATTED_VALUE\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"spreadsheetId\": \"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms\",\n  \"valueRanges\": [\n    {\n      \"range\": \"Sheet1!A1:B10\",\n      \"majorDimension\": \"ROWS\",\n      \"values\": [[\"Name\", \"Score\"], [\"Ada\", \"95\"]]\n    },\n    {\n      \"range\": \"Sheet2!A1:C5\",\n      \"majorDimension\": \"ROWS\",\n      \"values\": [[\"A\", \"B\", \"C\"]]\n    }\n  ]\n}\n```\n"
+    }
+  ]
+}

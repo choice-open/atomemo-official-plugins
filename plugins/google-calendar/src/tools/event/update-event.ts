@@ -13,11 +13,13 @@ import {
   optionalIanaTimezoneSchema,
   rfc3339Schema,
 } from "../../lib/validators"
+import updateEventSkill from "./update-event-skill.md" with { type: "text" }
 
 export const updateEventTool: ToolDefinition = {
   name: "update-event",
   display_name: t("UPDATE_EVENT_DISPLAY_NAME"),
   description: t("UPDATE_EVENT_DESCRIPTION"),
+  skill: updateEventSkill,
   icon: "✏️",
   parameters: [
     calendarCredentialParam,

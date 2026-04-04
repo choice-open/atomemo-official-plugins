@@ -39,6 +39,22 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
   loadAllLocalesAsync: vi.fn().mockResolvedValue({ en_US: {} }),
 }))
 
+vi.mock("../src/tools/clickhouse-ping-skill.md", () => ({
+  default: "ClickHouse ping skill",
+}))
+
+vi.mock("../src/tools/clickhouse-query-json-skill.md", () => ({
+  default: "ClickHouse query json skill",
+}))
+
+vi.mock("../src/tools/clickhouse-exec-skill.md", () => ({
+  default: "ClickHouse exec skill",
+}))
+
+vi.mock("../src/tools/clickhouse-insert-rows-skill.md", () => ({
+  default: "ClickHouse insert rows skill",
+}))
+
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import {
   clickhouseExecTool,

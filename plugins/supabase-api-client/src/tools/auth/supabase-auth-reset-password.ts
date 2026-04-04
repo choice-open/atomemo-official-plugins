@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthResetPasswordSkill from "./supabase-auth-reset-password-skill.md" with { type: "text" }
 
 export const supabaseAuthResetPasswordTool: ToolDefinition = {
   name: "supabase-auth-reset-password",
   display_name: t("AUTH_RESET_PASSWORD_DISPLAY_NAME"),
   description: t("AUTH_RESET_PASSWORD_DESCRIPTION"),
+  skill: supabaseAuthResetPasswordSkill,
   icon: "🔑",
   parameters: [
     {

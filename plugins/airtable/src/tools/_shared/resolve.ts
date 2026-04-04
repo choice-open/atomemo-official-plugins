@@ -114,11 +114,16 @@ function normalizeRecordLinkItem(value: unknown): unknown {
   return value
 }
 
-function normalizeRecordLinkValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(normalizeRecordLinkItem)
+function normalizeMultiValue<T>(
+  value: unknown,
+  normalizeItem: (item: unknown) => T,
+): T[] {
+  if (Array.isArray(value)) return value.map(normalizeItem)
+  return [normalizeItem(value)]
+}
 
-  const normalized = normalizeRecordLinkItem(value)
-  return normalized === value ? value : [normalized]
+function normalizeRecordLinkValue(value: unknown): unknown {
+  return normalizeMultiValue(value, normalizeRecordLinkItem)
 }
 
 function normalizeCollaboratorItem(value: unknown): unknown {
@@ -145,10 +150,7 @@ function normalizeSingleCollaboratorValue(value: unknown): unknown {
 }
 
 function normalizeMultipleCollaboratorsValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(normalizeCollaboratorItem)
-
-  const normalized = normalizeCollaboratorItem(value)
-  return normalized === value ? value : [normalized]
+  return normalizeMultiValue(value, normalizeCollaboratorItem)
 }
 
 function normalizeAttachmentItem(value: unknown): unknown {
@@ -164,10 +166,7 @@ function normalizeAttachmentItem(value: unknown): unknown {
 }
 
 function normalizeMultipleAttachments(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(normalizeAttachmentItem)
-
-  const normalized = normalizeAttachmentItem(value)
-  return normalized === value ? value : [normalized]
+  return normalizeMultiValue(value, normalizeAttachmentItem)
 }
 
 function normalizeBarcodeValue(value: unknown): unknown {
@@ -278,8 +277,7 @@ function normalizeMultipleSelectValue(value: unknown): unknown {
     return value.filter((item) => !isEmptyString(item)).map(normalizeSelectItem)
   }
 
-  const normalized = normalizeSelectItem(value)
-  return normalized === value ? value : [normalized]
+  return normalizeMultiValue(value, normalizeSelectItem)
 }
 
 function normalizeDateValue(value: unknown): unknown {
@@ -386,13 +384,21 @@ function buildFieldMap(fields: AirtableField[]): Map<string, AirtableField> {
   return map
 }
 
+function removeNullValuedKeys(
+  fields: Record<string, unknown>,
+): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(fields).filter(([, value]) => value !== null),
+  )
+}
+
 export async function resolveFields(
   parameters: Record<string, unknown>,
   token: string,
   baseId: string,
   table: string,
 ): Promise<Record<string, unknown>> {
-  const resolvedFields = resolveRawFields(parameters)
+  const resolvedFields = removeNullValuedKeys(resolveRawFields(parameters))
   if (Object.keys(resolvedFields).length === 0) return resolvedFields
 
   try {
@@ -414,7 +420,7 @@ export async function resolveFields(
       },
     )
 
-    return Object.fromEntries(normalizedEntries)
+    return removeNullValuedKeys(Object.fromEntries(normalizedEntries))
   } catch {
     return resolvedFields
   }

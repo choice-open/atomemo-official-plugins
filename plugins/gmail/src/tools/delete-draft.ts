@@ -6,11 +6,13 @@ import {
   userIdParam,
   draftIdParam,
 } from "./_shared/parameters"
+import deleteDraftSkill from "./delete-draft-skill.md" with { type: "text" }
 
 export const deleteDraftTool: ToolDefinition = {
   name: "gmail-delete-draft",
   display_name: t("GMAIL_TOOL_DELETE_DRAFT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_DELETE_DRAFT_DESCRIPTION"),
+  skill: deleteDraftSkill,
   icon: "🗑️",
   parameters: [gmailCredentialParam, userIdParam, draftIdParam],
   async invoke({ args }) {

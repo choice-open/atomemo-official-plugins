@@ -6,11 +6,13 @@ import {
   userIdParam,
 } from "./_shared/parameters"
 import { toStringArray } from "../lib/to-string-array"
+import batchDeleteMessagesSkill from "./batch-delete-messages-skill.md" with { type: "text" }
 
 export const batchDeleteMessagesTool: ToolDefinition = {
   name: "gmail-batch-delete-messages",
   display_name: t("GMAIL_TOOL_BATCH_DELETE_MESSAGES_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_BATCH_DELETE_MESSAGES_DESCRIPTION"),
+  skill: batchDeleteMessagesSkill,
   icon: "🗑️",
   parameters: [
     gmailCredentialParam,

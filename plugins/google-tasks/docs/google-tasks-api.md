@@ -110,8 +110,8 @@
 |------|------|------|
 | `completedMin` | string | 过滤：完成日期不早于此值（RFC 3339） |
 | `completedMax` | string | 过滤：完成日期不晚于此值（RFC 3339） |
-| `dueMin` | string | 过滤：截止日期不早于此值（RFC 3339） |
-| `dueMax` | string | 过滤：截止日期不晚于此值（RFC 3339） |
+| `dueMin` | string | 过滤：预定日期不早于此值（RFC 3339） |
+| `dueMax` | string | 过滤：预定日期不晚于此值（RFC 3339） |
 | `updatedMin` | string | 过滤：修改时间不早于此值（RFC 3339） |
 | `showCompleted` | boolean | 是否包含已完成的任务，默认 `true` |
 | `showDeleted` | boolean | 是否包含已删除的任务，默认 `false` |

@@ -9,11 +9,13 @@ import {
   qParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import listMessagesSkill from "./list-messages-skill.md" with { type: "text" }
 
 export const listMessagesTool: ToolDefinition = {
   name: "gmail-list-messages",
   display_name: t("GMAIL_TOOL_LIST_MESSAGES_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_LIST_MESSAGES_DESCRIPTION"),
+  skill: listMessagesSkill,
   icon: "📬",
   parameters: [
     gmailCredentialParam,

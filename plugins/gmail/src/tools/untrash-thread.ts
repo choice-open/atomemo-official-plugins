@@ -6,11 +6,13 @@ import {
   userIdParam,
   threadIdParam,
 } from "./_shared/parameters"
+import untrashThreadSkill from "./untrash-thread-skill.md" with { type: "text" }
 
 export const untrashThreadTool: ToolDefinition = {
   name: "gmail-untrash-thread",
   display_name: t("GMAIL_TOOL_UNTRASH_THREAD_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_UNTRASH_THREAD_DESCRIPTION"),
+  skill: untrashThreadSkill,
   icon: "📥",
   parameters: [gmailCredentialParam, userIdParam, threadIdParam],
   async invoke({ args }) {

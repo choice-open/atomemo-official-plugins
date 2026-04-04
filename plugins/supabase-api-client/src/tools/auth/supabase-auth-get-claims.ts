@@ -1,10 +1,12 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthGetClaimsSkill from "./supabase-auth-get-claims-skill.md" with { type: "text" }
 export const supabaseAuthGetClaimsTool: ToolDefinition = {
   name: "supabase-auth-get-claims",
   display_name: t("AUTH_GET_CLAIMS_DISPLAY_NAME"),
   description: t("AUTH_GET_CLAIMS_DESCRIPTION"),
+  skill: supabaseAuthGetClaimsSkill,
   icon: "🎫",
   parameters: [
     {

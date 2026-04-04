@@ -6,11 +6,13 @@ import {
   userIdParam,
   draftIdParam,
 } from "./_shared/parameters"
+import getDraftSkill from "./get-draft-skill.md" with { type: "text" }
 
 export const getDraftTool: ToolDefinition = {
   name: "gmail-get-draft",
   display_name: t("GMAIL_TOOL_GET_DRAFT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_GET_DRAFT_DESCRIPTION"),
+  skill: getDraftSkill,
   icon: "📝",
   parameters: [gmailCredentialParam, userIdParam, draftIdParam],
   async invoke({ args }) {

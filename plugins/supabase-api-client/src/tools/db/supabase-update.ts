@@ -5,6 +5,8 @@ import {
   applyFiltersAdvanced,
   type FiltersInput,
 } from "../../lib/supabase-filters"
+import supabaseUpdateSkill from "./supabase-update-skill.md" with { type: "text" }
+
 
 function parseJson<T>(input: string | undefined, fallback: T): T {
   if (input == null || input === "") return fallback
@@ -25,6 +27,7 @@ export const supabaseUpdateTool = {
   name: "supabase-update",
   display_name: t("SUPABASE_UPDATE_DISPLAY_NAME"),
   description: t("SUPABASE_UPDATE_DESCRIPTION"),
+  skill: supabaseUpdateSkill,
   icon: "✏️",
   parameters: [
     {
@@ -132,8 +135,8 @@ export const supabaseUpdateTool = {
       const { data, error } =
         returning === "representation"
           ? await (
-              filtered as unknown as { select: () => Promise<Result> }
-            ).select()
+            filtered as unknown as { select: () => Promise<Result> }
+          ).select()
           : await (filtered as unknown as Promise<Result>)
 
       if (error) {

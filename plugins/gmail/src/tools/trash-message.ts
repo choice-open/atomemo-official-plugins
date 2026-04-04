@@ -6,11 +6,13 @@ import {
   userIdParam,
   messageIdParam,
 } from "./_shared/parameters"
+import trashMessageSkill from "./trash-message-skill.md" with { type: "text" }
 
 export const trashMessageTool: ToolDefinition = {
   name: "gmail-trash-message",
   display_name: t("GMAIL_TOOL_TRASH_MESSAGE_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_TRASH_MESSAGE_DESCRIPTION"),
+  skill: trashMessageSkill,
   icon: "🗑️",
   parameters: [gmailCredentialParam, userIdParam, messageIdParam],
   async invoke({ args }) {

@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
 import { authResult, parseJson } from "../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../lib/get-supabase-client"
+import supabaseAuthUpdateUserSkill from "./supabase-auth-update-user-skill.md" with { type: "text" }
 
 export const supabaseAuthUpdateUserTool: ToolDefinition = {
   name: "supabase-auth-update-user",
   display_name: t("AUTH_UPDATE_USER_DISPLAY_NAME"),
   description: t("AUTH_UPDATE_USER_DESCRIPTION"),
+  skill: supabaseAuthUpdateUserSkill,
   icon: "✏️",
   parameters: [
     {

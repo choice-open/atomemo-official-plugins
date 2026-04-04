@@ -17,7 +17,7 @@
   ],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "credentials": [
     {
       "name": "google-calendar-oauth2",
@@ -139,7 +139,8 @@
           "type": "string",
           "default": "primary"
         }
-      ]
+      ],
+      "skill": "# Get Calendar Tool Documentation\n\n## Tool\n\n- **Name**: `get-calendar`\n- **Purpose**: Get calendar metadata by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID (`primary` or email-style id). | `\"primary\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"user@gmail.com\",\n  \"summary\": \"user@gmail.com\",\n  \"timeZone\": \"Asia/Shanghai\"\n}\n```\n"
     },
     {
       "name": "create-calendar",
@@ -271,7 +272,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Create Calendar Tool Documentation\n\n## Tool\n\n- **Name**: `create-calendar`\n- **Purpose**: Create a new calendar.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `summary` | `string` | `true` | `input` | Calendar title. | `\"Project Alpha\"` |\n| `description` | `string` | `false` | `input` | Calendar description. | `\"Shared team calendar\"` |\n| `location` | `string` | `false` | `input` | Geographic location. | `\"Shanghai\"` |\n| `timeZone` | `string` | `false` | `input` | Default IANA timezone. | `\"Asia/Shanghai\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"summary\": \"Project Alpha\",\n    \"timeZone\": \"Asia/Shanghai\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"abc123@group.calendar.google.com\",\n  \"summary\": \"Project Alpha\",\n  \"timeZone\": \"Asia/Shanghai\"\n}\n```\n"
     },
     {
       "name": "update-calendar",
@@ -427,7 +429,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Update Calendar Tool Documentation\n\n## Tool\n\n- **Name**: `update-calendar`\n- **Purpose**: Update metadata for a secondary calendar (not `primary`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Secondary calendar email-style ID (not `primary`). | `\"abc@group.calendar.google.com\"` |\n| `summary` | `string` | `false` | `input` | New title; omit or empty to skip. | `\"Renamed calendar\"` |\n| `description` | `string` | `false` | `input` | New description. | `\"Notes\"` |\n| `location` | `string` | `false` | `input` | New location. | `\"Berlin\"` |\n| `timeZone` | `string` | `false` | `input` | New IANA timezone. | `\"Europe/Berlin\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"abc@group.calendar.google.com\",\n    \"summary\": \"Team Calendar 2026\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"abc@group.calendar.google.com\",\n  \"summary\": \"Team Calendar 2026\"\n}\n```\n"
     },
     {
       "name": "delete-calendar",
@@ -483,7 +486,8 @@
           "type": "string",
           "min_length": 1
         }
-      ]
+      ],
+      "skill": "# Delete Calendar Tool Documentation\n\n## Tool\n\n- **Name**: `delete-calendar`\n- **Purpose**: Delete a calendar (cannot delete `primary`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID to delete (not `primary`). | `\"abc@group.calendar.google.com\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"abc@group.calendar.google.com\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{}\n```\n"
     },
     {
       "name": "clear-calendar",
@@ -537,7 +541,8 @@
           "constant": "primary",
           "default": "primary"
         }
-      ]
+      ],
+      "skill": "# Clear Calendar Tool Documentation\n\n## Tool\n\n- **Name**: `clear-calendar`\n- **Purpose**: Permanently delete all events from the primary calendar only (irreversible).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Must be `primary` (readonly in UI). | `\"primary\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{}\n```\n"
     },
     {
       "name": "list-calendars",
@@ -564,7 +569,8 @@
           "type": "credential_id",
           "credential_name": "google-calendar-oauth2"
         }
-      ]
+      ],
+      "skill": "# List Calendars Tool Documentation\n\n## Tool\n\n- **Name**: `list-calendars`\n- **Purpose**: List calendars in the authenticated user’s calendar list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"calendar#calendarList\",\n  \"items\": [\n    {\n      \"id\": \"user@gmail.com\",\n      \"summary\": \"user@gmail.com\",\n      \"primary\": true\n    }\n  ]\n}\n```\n"
     },
     {
       "name": "get-calendar-list",
@@ -620,7 +626,8 @@
           "type": "string",
           "default": "primary"
         }
-      ]
+      ],
+      "skill": "# Get Calendar List Entry Tool Documentation\n\n## Tool\n\n- **Name**: `get-calendar-list`\n- **Purpose**: Get a single entry from the user’s calendar list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID. | `\"primary\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"user@gmail.com\",\n  \"summary\": \"user@gmail.com\",\n  \"selected\": true,\n  \"primary\": true\n}\n```\n"
     },
     {
       "name": "insert-calendar-list",
@@ -742,7 +749,8 @@
             "24"
           ]
         }
-      ]
+      ],
+      "skill": "# Insert Calendar List Tool Documentation\n\n## Tool\n\n- **Name**: `insert-calendar-list`\n- **Purpose**: Add an existing calendar to the user’s calendar list.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID to subscribe to (not `primary` as placeholder). | `\"shared@group.calendar.google.com\"` |\n| `selected` | `boolean` | `false` | `switch` | Show in UI. | `true` |\n| `colorId` | `string` | `false` | `select` | Calendar list color `1`–`24`. | `\"9\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"shared@group.calendar.google.com\",\n    \"selected\": true,\n    \"colorId\": \"5\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"shared@group.calendar.google.com\",\n  \"summary\": \"Shared\",\n  \"selected\": true,\n  \"colorId\": \"5\"\n}\n```\n"
     },
     {
       "name": "update-calendar-list",
@@ -882,7 +890,8 @@
           },
           "type": "boolean"
         }
-      ]
+      ],
+      "skill": "# Update Calendar List Tool Documentation\n\n## Tool\n\n- **Name**: `update-calendar-list`\n- **Purpose**: Update user-specific calendar list properties (not `primary`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Secondary calendar ID (not `primary`). | `\"abc@group.calendar.google.com\"` |\n| `summaryOverride` | `string` | `false` | `input` | Custom title shown in list. | `\"Work\"` |\n| `colorId` | `string` | `false` | `select` | Color `1`–`24` (see Get Colors). | `\"3\"` |\n| `selected` | `boolean` | `false` | `switch` | Whether calendar is selected in UI. | `true` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"abc@group.calendar.google.com\",\n    \"summaryOverride\": \"Design reviews\",\n    \"selected\": true\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"abc@group.calendar.google.com\",\n  \"summaryOverride\": \"Design reviews\",\n  \"selected\": true\n}\n```\n"
     },
     {
       "name": "delete-calendar-list",
@@ -938,7 +947,8 @@
           "type": "string",
           "min_length": 1
         }
-      ]
+      ],
+      "skill": "# Delete Calendar List Tool Documentation\n\n## Tool\n\n- **Name**: `delete-calendar-list`\n- **Purpose**: Remove a calendar from the user’s calendar list (does not delete the calendar resource).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar to remove from list (not `primary`). | `\"abc@group.calendar.google.com\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"abc@group.calendar.google.com\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{}\n```\n"
     },
     {
       "name": "list-events",
@@ -1467,7 +1477,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# List Events Tool Documentation\n\n## Tool\n\n- **Name**: `list-events`\n- **Purpose**: List events via Calendar API v3 `events.list` (supports filters, pagination, incremental sync).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID. | `\"primary\"` |\n| `max_results` | `number` | `false` | `number-input` | Max events per page (default 250, max 2500). | `250` |\n| `page_token` | `string` | `false` | `input` | `pageToken` from a previous `nextPageToken`. | `\"token_xxx\"` |\n| `sync_token` | `string` | `false` | `input` | Incremental sync; cannot mix with time/search/order filters. | `\"sync_xxx\"` |\n| `time_min` | `string` | `false` | `input` | RFC3339 lower bound (exclusive) on event end time. | `\"2026-04-01T00:00:00Z\"` |\n| `time_max` | `string` | `false` | `input` | RFC3339 upper bound (exclusive) on event start time. | `\"2026-04-30T23:59:59Z\"` |\n| `time_zone` | `string` | `false` | `input` | IANA timezone for response times. | `\"Asia/Shanghai\"` |\n| `q` | `string` | `false` | `input` | Free-text search. | `\"standup\"` |\n| `i_cal_uid` | `string` | `false` | `input` | Filter by iCalUID. | `\"uid@google.com\"` |\n| `single_events` | `boolean` | `false` | `switch` | Expand recurring events into instances. Default false. | `true` |\n| `order_by` | `string` | `false` | `select` | `startTime` (needs `single_events`) or `updated`. | `\"startTime\"` |\n| `event_types` | `string` | `false` | `input` | Comma-separated: `birthday`, `default`, `focusTime`, etc. | `\"default\"` |\n| `private_extended_properties` | `string` | `false` | `input` | Comma-separated `name=value` (private). | `\"k=v\"` |\n| `shared_extended_properties` | `string` | `false` | `input` | Comma-separated `name=value` (shared). | `\"k=v\"` |\n| `show_deleted` | `boolean` | `false` | `switch` | Include cancelled events. Default false. | `false` |\n| `show_hidden_invitations` | `boolean` | `false` | `switch` | Include hidden invitations. Default false. | `false` |\n| `updated_min` | `string` | `false` | `input` | RFC3339 lower bound on last modification time. | `\"2026-04-01T00:00:00Z\"` |\n| `max_attendees` | `number` | `false` | `number-input` | Max attendees per event in the response. | `10` |\n| `fields` | `string` | `false` | `input` | Partial response field mask (Google `fields`). | `\"items(id,summary)\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"max_results\": 50,\n    \"time_min\": \"2026-04-01T00:00:00Z\",\n    \"time_max\": \"2026-04-07T23:59:59Z\",\n    \"single_events\": true,\n    \"order_by\": \"startTime\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"calendar#events\",\n  \"items\": [\n    {\n      \"id\": \"event_id_xxx\",\n      \"summary\": \"Meeting\"\n    }\n  ],\n  \"nextPageToken\": \"next_page_token\"\n}\n```\n"
     },
     {
       "name": "create-event",
@@ -2290,7 +2301,8 @@
           "type": "integer",
           "minimum": 1
         }
-      ]
+      ],
+      "skill": "# Create Event Tool Documentation\n\n## Tool\n\n- **Name**: `create-event`\n- **Purpose**: Create a new event on Google Calendar.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID; use `primary` for the main calendar. | `\"primary\"` |\n| `summary` | `string` | `true` | `input` | Event title. | `\"Team standup\"` |\n| `is_all_day_event` | `boolean` | `false` | `switch` | If true, use `start_date` / `end_date` instead of datetimes. Default false. | `false` |\n| `start_datetime` | `string` | conditional | `input` | RFC3339 start (required when not all-day). | `\"2026-04-02T09:00:00+08:00\"` |\n| `end_datetime` | `string` | conditional | `input` | RFC3339 end, exclusive of start (required when not all-day). | `\"2026-04-02T10:00:00+08:00\"` |\n| `start_date` | `string` | conditional | `input` | All-day start `yyyy-mm-dd` (required when all-day). | `\"2026-04-02\"` |\n| `end_date` | `string` | conditional | `input` | All-day end date, exclusive (required when all-day). | `\"2026-04-03\"` |\n| `timezone` | `string` | `false` | `input` | IANA timezone for timed events (e.g. `Asia/Shanghai`). | `\"Asia/Shanghai\"` |\n| `send_updates` | `string` | `false` | `select` | Notifications: `none`, `all`, `externalOnly`. Default `none`. | `\"none\"` |\n| `include_details` | `boolean` | `false` | `switch` | Enable description and location fields. Default false. | `true` |\n| `description` | `string` | `false` | `textarea` | Event description (when include details). | `\"Agenda in doc\"` |\n| `location` | `string` | `false` | `input` | Location (when include details). | `\"Room A\"` |\n| `use_advanced_options` | `boolean` | `false` | `switch` | Show visibility, recurrence, attendees, etc. Default false. | `true` |\n| `visibility` | `string` | `false` | `select` | `default`, `public`, `private`, `confidential`. | `\"default\"` |\n| `transparency` | `string` | `false` | `select` | `opaque` (busy) or `transparent` (free). | `\"opaque\"` |\n| `status` | `string` | `false` | `select` | `confirmed` or `tentative`. | `\"confirmed\"` |\n| `color_id` | `string` | `false` | `select` | Event color `1`–`11` (see Get Colors). | `\"1\"` |\n| `recurrence` | `string` | `false` | `input` | RFC5545 rules, newline-separated. | `\"RRULE:FREQ=WEEKLY;BYDAY=MO\"` |\n| `attendees` | `string` | `false` | `input` | Comma-separated attendee emails. | `\"a@x.com,b@y.com\"` |\n| `guests_can_invite_others` | `boolean` | `false` | `switch` | Allow guests to invite others. Default true. | `true` |\n| `guests_can_modify` | `boolean` | `false` | `switch` | Allow guests to modify. Default false. | `false` |\n| `guests_can_see_other_guests` | `boolean` | `false` | `switch` | Guests see other guests. Default true. | `true` |\n| `max_attendees` | `number` | `false` | `number-input` | Cap attendees returned in the API response (advanced). | `10` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"summary\": \"Team standup\",\n    \"is_all_day_event\": false,\n    \"start_datetime\": \"2026-04-02T09:00:00Z\",\n    \"end_datetime\": \"2026-04-02T09:30:00Z\",\n    \"send_updates\": \"none\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"event_id_xxx\",\n  \"summary\": \"Team standup\",\n  \"status\": \"confirmed\"\n}\n```\n"
     },
     {
       "name": "get-event",
@@ -2423,7 +2435,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Event Tool Documentation\n\n## Tool\n\n- **Name**: `get-event`\n- **Purpose**: Get a single event by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID. | `\"primary\"` |\n| `event_id` | `string` | `true` | `input` | Event ID. | `\"abc123...\"` |\n| `max_attendees` | `number` | `false` | `number-input` | Cap attendees in the response. | `50` |\n| `time_zone` | `string` | `false` | `input` | IANA timezone for times in the response. | `\"Asia/Shanghai\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"event_id\": \"event_id_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"event_id_xxx\",\n  \"summary\": \"Meeting\",\n  \"start\": { \"dateTime\": \"2026-04-02T09:00:00+08:00\", \"timeZone\": \"Asia/Shanghai\" },\n  \"end\": { \"dateTime\": \"2026-04-02T10:00:00+08:00\", \"timeZone\": \"Asia/Shanghai\" }\n}\n```\n"
     },
     {
       "name": "update-event",
@@ -3272,7 +3285,8 @@
           "type": "integer",
           "minimum": 1
         }
-      ]
+      ],
+      "skill": "# Update Event Tool Documentation\n\n## Tool\n\n- **Name**: `update-event`\n- **Purpose**: Update an existing event (partial patch).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar containing the event. | `\"primary\"` |\n| `event_id` | `string` | `true` | `input` | Event ID (opaque, from list/get). | `\"abc123...\"` |\n| `summary` | `string` | `true` | `input` | Event title. | `\"Team standup\"` |\n| `is_all_day_event` | `boolean` | `false` | `switch` | If true, use `start_date` / `end_date`. Default false. | `false` |\n| `start_datetime` | `string` | conditional | `input` | RFC3339 start when not all-day. | `\"2026-04-02T09:00:00Z\"` |\n| `end_datetime` | `string` | conditional | `input` | RFC3339 end when not all-day. | `\"2026-04-02T10:00:00Z\"` |\n| `start_date` | `string` | conditional | `input` | All-day start when all-day. | `\"2026-04-02\"` |\n| `end_date` | `string` | conditional | `input` | All-day end (exclusive) when all-day. | `\"2026-04-03\"` |\n| `timezone` | `string` | `false` | `input` | IANA timezone for timed events. | `\"Asia/Shanghai\"` |\n| `send_updates` | `string` | `false` | `select` | `none`, `all`, `externalOnly`. Default `none`. | `\"none\"` |\n| `include_details` | `boolean` | `false` | `switch` | Enable description and location. | `true` |\n| `description` | `string` | `false` | `textarea` | Description when include details. | `\"Updated notes\"` |\n| `location` | `string` | `false` | `input` | Location when include details. | `\"Room B\"` |\n| `use_advanced_options` | `boolean` | `false` | `switch` | Advanced fields. | `true` |\n| `visibility` | `string` | `false` | `select` | `default`, `public`, `private`, `confidential`. | `\"private\"` |\n| `transparency` | `string` | `false` | `select` | `opaque` or `transparent`. | `\"opaque\"` |\n| `status` | `string` | `false` | `select` | `confirmed` or `tentative`. | `\"confirmed\"` |\n| `color_id` | `string` | `false` | `select` | Event color `1`–`11`. | `\"2\"` |\n| `recurrence` | `string` | `false` | `input` | RFC5545 rules, newline-separated. | `\"RRULE:FREQ=DAILY;COUNT=3\"` |\n| `attendees` | `string` | `false` | `input` | Comma-separated emails. | `\"a@x.com\"` |\n| `guests_can_invite_others` | `boolean` | `false` | `switch` | Guests can invite others. | `true` |\n| `guests_can_modify` | `boolean` | `false` | `switch` | Guests can modify. | `false` |\n| `guests_can_see_other_guests` | `boolean` | `false` | `switch` | Guests see other guests. | `true` |\n| `max_attendees` | `number` | `false` | `number-input` | Max attendees in response (advanced). | `10` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"event_id\": \"event_id_xxx\",\n    \"summary\": \"Team standup\",\n    \"is_all_day_event\": false,\n    \"start_datetime\": \"2026-04-02T10:00:00Z\",\n    \"end_datetime\": \"2026-04-02T10:30:00Z\",\n    \"send_updates\": \"all\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"event_id_xxx\",\n  \"summary\": \"Team standup\",\n  \"updated\": \"2026-04-02T08:00:00.000Z\"\n}\n```\n"
     },
     {
       "name": "delete-event",
@@ -3406,7 +3420,8 @@
             "externalOnly"
           ]
         }
-      ]
+      ],
+      "skill": "# Delete Event Tool Documentation\n\n## Tool\n\n- **Name**: `delete-event`\n- **Purpose**: Delete an event from Google Calendar.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID. | `\"primary\"` |\n| `event_id` | `string` | `true` | `input` | Event ID to delete. | `\"abc123...\"` |\n| `send_updates` | `string` | `false` | `select` | Notifications: `none`, `all`, `externalOnly`. Default `none`. | `\"all\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"event_id\": \"event_id_xxx\",\n    \"send_updates\": \"all\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"success\": true,\n  \"deleted_event_id\": \"event_id_xxx\"\n}\n```\n"
     },
     {
       "name": "list-event-instances",
@@ -3592,7 +3607,8 @@
           "maximum": 2500,
           "minimum": 1
         }
-      ]
+      ],
+      "skill": "# List Event Instances Tool Documentation\n\n## Tool\n\n- **Name**: `list-event-instances`\n- **Purpose**: List instances of a recurring event (`events.instances`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Calendar ID. | `\"primary\"` |\n| `event_id` | `string` | `true` | `input` | Recurring event ID. | `\"series_id_xxx\"` |\n| `use_time_range` | `boolean` | `false` | `switch` | When true, UI shows `time_min` / `time_max`. Default false. | `true` |\n| `time_min` | `string` | `false` | `input` | RFC3339 timeMin (event end lower bound, exclusive). | `\"2026-04-01T00:00:00Z\"` |\n| `time_max` | `string` | `false` | `input` | RFC3339 timeMax (event start upper bound, exclusive). | `\"2026-04-30T23:59:59Z\"` |\n| `max_results` | `number` | `false` | `number-input` | Per-page max (default 250, max 2500). | `250` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"event_id\": \"series_event_id\",\n    \"time_min\": \"2026-04-01T00:00:00Z\",\n    \"time_max\": \"2026-04-07T23:59:59Z\",\n    \"max_results\": 100\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"calendar#events\",\n  \"items\": [\n    {\n      \"id\": \"instance_id_xxx\",\n      \"recurringEventId\": \"series_event_id\",\n      \"start\": { \"dateTime\": \"2026-04-01T09:00:00+08:00\" }\n    }\n  ]\n}\n```\n"
     },
     {
       "name": "move-event",
@@ -3754,7 +3770,8 @@
             "externalOnly"
           ]
         }
-      ]
+      ],
+      "skill": "# Move Event Tool Documentation\n\n## Tool\n\n- **Name**: `move-event`\n- **Purpose**: Move an event to another calendar.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Source calendar ID. | `\"primary\"` |\n| `event_id` | `string` | `true` | `input` | Event ID to move. | `\"abc123...\"` |\n| `destination_calendar_id` | `string` | `true` | `input` | Target calendar (`primary` or calendar email). | `\"other@group.calendar.google.com\"` |\n| `send_updates` | `string` | `false` | `select` | `none`, `all`, `externalOnly`. Default `none`. | `\"all\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"event_id\": \"event_id_xxx\",\n    \"destination_calendar_id\": \"work@group.calendar.google.com\",\n    \"send_updates\": \"all\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"event_id_xxx\",\n  \"organizer\": { \"email\": \"user@example.com\" },\n  \"summary\": \"Moved meeting\"\n}\n```\n"
     },
     {
       "name": "quick-add-event",
@@ -3891,7 +3908,8 @@
             "externalOnly"
           ]
         }
-      ]
+      ],
+      "skill": "# Quick Add Event Tool Documentation\n\n## Tool\n\n- **Name**: `quick-add-event`\n- **Purpose**: Create an event from natural language text (Google quick add).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `calendar_id` | `string` | `true` | `input` | Target calendar ID. | `\"primary\"` |\n| `text` | `string` | `true` | `input` | Natural language describing the event. | `\"Dinner tomorrow 7pm\"` |\n| `send_updates` | `string` | `false` | `select` | `none`, `all`, `externalOnly`. Default `none`. | `\"none\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"calendar_id\": \"primary\",\n    \"text\": \"Team sync Friday 2pm-3pm\",\n    \"send_updates\": \"none\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"event_id_xxx\",\n  \"summary\": \"Team sync\",\n  \"start\": { \"dateTime\": \"2026-04-04T14:00:00+08:00\" }\n}\n```\n"
     },
     {
       "name": "get-setting",
@@ -3946,7 +3964,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# Get Setting Tool Documentation\n\n## Tool\n\n- **Name**: `get-setting`\n- **Purpose**: Get a single user setting by ID.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `setting_id` | `string` | `true` | `input` | Setting key (e.g. `timezone`, `locale`, `weekStart`). | `\"timezone\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"setting_id\": \"timezone\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"timezone\",\n  \"value\": \"Asia/Shanghai\"\n}\n```\n"
     },
     {
       "name": "list-settings",
@@ -3973,7 +3992,8 @@
           "type": "credential_id",
           "credential_name": "google-calendar-oauth2"
         }
-      ]
+      ],
+      "skill": "# List Settings Tool Documentation\n\n## Tool\n\n- **Name**: `list-settings`\n- **Purpose**: List all user settings for the calendar account.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"calendar#settings\",\n  \"items\": [\n    { \"id\": \"timezone\", \"value\": \"Asia/Shanghai\" },\n    { \"id\": \"locale\", \"value\": \"en\" }\n  ]\n}\n```\n"
     },
     {
       "name": "get-colors",
@@ -4000,7 +4020,8 @@
           "type": "credential_id",
           "credential_name": "google-calendar-oauth2"
         }
-      ]
+      ],
+      "skill": "# Get Colors Tool Documentation\n\n## Tool\n\n- **Name**: `get-colors`\n- **Purpose**: Get calendar and event color definitions (IDs for UI and API).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"calendar\": {\n    \"1\": { \"background\": \"#ac725e\", \"foreground\": \"#1d1d1d\" }\n  },\n  \"event\": {\n    \"1\": { \"background\": \"#a4bdfc\", \"foreground\": \"#1d1d1d\" }\n  }\n}\n```\n"
     },
     {
       "name": "query-freebusy",
@@ -4181,7 +4202,8 @@
           "maximum": 50,
           "minimum": 1
         }
-      ]
+      ],
+      "skill": "# Query Free/Busy Tool Documentation\n\n## Tool\n\n- **Name**: `query-freebusy`\n- **Purpose**: Query free/busy intervals for one or more calendars or groups (`freeBusy.query`).\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | `true` | `credential-select` | Credential ID for `google-calendar-oauth2`. | `\"cred_xxx\"` |\n| `time_min` | `string` | `true` | `input` | Interval start (RFC3339 with offset). | `\"2026-04-02T00:00:00Z\"` |\n| `time_max` | `string` | `true` | `input` | Interval end (RFC3339), after `time_min`. | `\"2026-04-02T23:59:59Z\"` |\n| `items` | `string` | `true` | `input` | Comma-separated calendar or group IDs (`primary`, emails, etc.). | `\"primary,user@example.com\"` |\n| `time_zone` | `string` | `false` | `input` | IANA timezone for the response (optional). | `\"Asia/Shanghai\"` |\n| `group_expansion_max` | `number` | `false` | `number-input` | Max IDs expanded per group (1–100). | `50` |\n| `calendar_expansion_max` | `number` | `false` | `number-input` | Max calendars in response (1–50). | `20` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"cred_xxx\",\n    \"time_min\": \"2026-04-02T09:00:00Z\",\n    \"time_max\": \"2026-04-02T18:00:00Z\",\n    \"items\": \"primary\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"kind\": \"calendar#freeBusy\",\n  \"calendars\": {\n    \"primary\": {\n      \"busy\": [{ \"start\": \"2026-04-02T10:00:00Z\", \"end\": \"2026-04-02T11:00:00Z\" }]\n    }\n  }\n}\n```\n"
     }
   ]
 }

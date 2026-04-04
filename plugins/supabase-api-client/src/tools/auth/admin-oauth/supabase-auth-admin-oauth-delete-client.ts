@@ -1,11 +1,13 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
 import { getSupabaseClientFromArgs } from "../../../lib/get-supabase-client"
+import supabaseAuthAdminOauthDeleteClientSkill from "./supabase-auth-admin-oauth-delete-client-skill.md" with { type: "text" }
 
 export const supabaseAuthAdminOAuthDeleteClientTool: ToolDefinition = {
   name: "supabase-auth-admin-oauth-delete-client",
   display_name: t("AUTH_ADMIN_OAUTH_DELETE_CLIENT_DISPLAY_NAME"),
   description: t("AUTH_ADMIN_OAUTH_DELETE_CLIENT_DESCRIPTION"),
+  skill: supabaseAuthAdminOauthDeleteClientSkill,
   icon: "🗑️",
   parameters: [
     {

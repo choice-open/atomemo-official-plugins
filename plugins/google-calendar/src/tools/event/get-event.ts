@@ -8,11 +8,13 @@ import {
 import { requireCalendarClient } from "../../lib/require-calendar"
 import { sanitizeObject } from "../../lib/sanitize-object"
 import { optionalIanaTimezoneSchema } from "../../lib/validators"
+import getEventSkill from "./get-event-skill.md" with { type: "text" }
 
 export const getEventTool: ToolDefinition = {
   name: "get-event",
   display_name: t("GET_EVENT_DISPLAY_NAME"),
   description: t("GET_EVENT_DESCRIPTION"),
+  skill: getEventSkill,
   icon: "🔍",
   parameters: [
     calendarCredentialParam,

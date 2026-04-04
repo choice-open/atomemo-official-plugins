@@ -8,11 +8,13 @@ import {
   pageTokenParam,
   labelIdsParam,
 } from "./_shared/parameters"
+import listHistorySkill from "./list-history-skill.md" with { type: "text" }
 
 export const listHistoryTool: ToolDefinition = {
   name: "gmail-list-history",
   display_name: t("GMAIL_TOOL_LIST_HISTORY_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_LIST_HISTORY_DESCRIPTION"),
+  skill: listHistorySkill,
   icon: "📜",
   parameters: [
     gmailCredentialParam,

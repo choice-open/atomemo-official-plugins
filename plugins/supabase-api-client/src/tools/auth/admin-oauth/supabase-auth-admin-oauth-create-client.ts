@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
 import { parseJson } from "../../../lib/auth-result"
 import { getSupabaseClientFromArgs } from "../../../lib/get-supabase-client"
+import supabaseAuthAdminOauthCreateClientSkill from "./supabase-auth-admin-oauth-create-client-skill.md" with { type: "text" }
 
 export const supabaseAuthAdminOAuthCreateClientTool: ToolDefinition = {
   name: "supabase-auth-admin-oauth-create-client",
   display_name: t("AUTH_ADMIN_OAUTH_CREATE_CLIENT_DISPLAY_NAME"),
   description: t("AUTH_ADMIN_OAUTH_CREATE_CLIENT_DESCRIPTION"),
+  skill: supabaseAuthAdminOauthCreateClientSkill,
   icon: "➕",
   parameters: [
     {

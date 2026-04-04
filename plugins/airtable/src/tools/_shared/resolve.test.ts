@@ -20,7 +20,9 @@ describe("resolveFields", () => {
     getBaseSchemaMock.mockReset()
   })
 
-  it("skips schema lookups and leaves values untouched when typecast is false", async () => {
+  it("leaves values untouched when schema normalization cannot run", async () => {
+    getBaseSchemaMock.mockRejectedValue(new Error("schema unavailable"))
+
     const fields = await resolveFields(
       {
         fields: {
@@ -34,7 +36,7 @@ describe("resolveFields", () => {
       false,
     )
 
-    expect(getBaseSchemaMock).not.toHaveBeenCalled()
+    expect(getBaseSchemaMock).toHaveBeenCalledWith("token", "appBase")
     expect(fields).toEqual({
       Amount: "123",
       Assignee: '{"id":"usr123"}',
@@ -79,6 +81,52 @@ describe("resolveFields", () => {
       Assignee: { id: "usr123" },
       Links: ["rec123", "rec456"],
       Barcode: { text: "123456789012", type: "code128" },
+    })
+  })
+
+  it("always returns arrays for Airtable multi-value fields after normalization", async () => {
+    getBaseSchemaMock.mockResolvedValue([
+      {
+        id: "tblTasks",
+        name: "Tasks",
+        primaryFieldId: "fldPrimary",
+        fields: [
+          { id: "fldLinks", name: "Links", type: "multipleRecordLinks" },
+          {
+            id: "fldAttachments",
+            name: "Attachments",
+            type: "multipleAttachments",
+          },
+          { id: "fldTags", name: "Tags", type: "multipleSelects" },
+          {
+            id: "fldCollaborators",
+            name: "Collaborators",
+            type: "multipleCollaborators",
+          },
+        ],
+      },
+    ])
+
+    const fields = await resolveFields(
+      {
+        fields: {
+          Links: "rec123",
+          Attachments: "https://example.com/file.png",
+          Tags: "Urgent",
+          Collaborators: "name@example.com",
+        },
+      },
+      "token",
+      "appBase",
+      "Tasks",
+      true,
+    )
+
+    expect(fields).toEqual({
+      Links: ["rec123"],
+      Attachments: [{ url: "https://example.com/file.png" }],
+      Tags: ["Urgent"],
+      Collaborators: [{ email: "name@example.com" }],
     })
   })
 

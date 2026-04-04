@@ -8,11 +8,13 @@ import {
   messageIdParam,
 } from "./_shared/parameters"
 import { getMimeFromBase64 } from "../lib/mime-type"
+import downloadAttachmentSkill from "./download-attachment-skill.md" with { type: "text" }
 
 export const downloadAttachmentTool: ToolDefinition = {
   name: "gmail-download-attachment",
   display_name: t("GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_DOWNLOAD_ATTACHMENT_DESCRIPTION"),
+  skill: downloadAttachmentSkill,
   icon: "📎",
   parameters: [
     gmailCredentialParam,

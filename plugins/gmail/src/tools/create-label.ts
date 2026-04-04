@@ -2,11 +2,13 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 import { requireGmailClient } from "../lib/require-gmail"
 import { gmailCredentialParam, userIdParam } from "./_shared/parameters"
+import createLabelSkill from "./create-label-skill.md" with { type: "text" }
 
 export const createLabelTool: ToolDefinition = {
   name: "gmail-create-label",
   display_name: t("GMAIL_TOOL_CREATE_LABEL_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_CREATE_LABEL_DESCRIPTION"),
+  skill: createLabelSkill,
   icon: "🏷️",
   parameters: [
     gmailCredentialParam,

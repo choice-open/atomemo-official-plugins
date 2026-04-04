@@ -6,11 +6,13 @@ import {
   userIdParam,
   draftIdParam,
 } from "./_shared/parameters"
+import sendDraftSkill from "./send-draft-skill.md" with { type: "text" }
 
 export const sendDraftTool: ToolDefinition = {
   name: "gmail-send-draft",
   display_name: t("GMAIL_TOOL_SEND_DRAFT_DISPLAY_NAME"),
   description: t("GMAIL_TOOL_SEND_DRAFT_DESCRIPTION"),
+  skill: sendDraftSkill,
   icon: "📤",
   parameters: [gmailCredentialParam, userIdParam, draftIdParam],
   async invoke({ args }) {

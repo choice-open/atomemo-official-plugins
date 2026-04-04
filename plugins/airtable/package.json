@@ -1,7 +1,7 @@
 {
   "name": "airtable",
   "type": "module",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "description": "Work with Airtable bases and records",
   "author": "",
   "license": "MIT",
