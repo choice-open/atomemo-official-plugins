@@ -1,20 +1,17 @@
 {
   "name": "microsoft-365",
   "display_name": {
-    "en_US": "Testing Plugin",
-    "zh_Hans": "测试插件"
+    "en_US": "Microsoft 365",
+    "zh_Hans": "Microsoft 365"
   },
   "description": {
-    "en_US": "A plugin for testing the plugin",
-    "zh_Hans": "一个用于测试插件的插件"
+    "en_US": "Connect to Microsoft Graph API",
+    "zh_Hans": "接入 Microsoft Graph API"
   },
-  "icon": "🎛️",
+  "icon": "https://cdn.brandfetch.io/idsWBrtc_i/theme/dark/idtAoLsWe7.svg?c=1bxid64Mup7aczewSAYMX&t=1759146036018",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/microsoft-365",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "余凡",
   "email": "dev.yufan@gmail.com",
   "version": "0.1.0",
@@ -101,39 +98,17 @@
   "models": [],
   "tools": [
     {
-      "name": "demo-tool",
+      "name": "create-calendar-event",
       "display_name": {
-        "en_US": "Demo Tool",
-        "zh_Hans": "演示工具"
+        "en_US": "Create calendar event",
+        "zh_Hans": "创建日历事件"
       },
       "description": {
-        "en_US": "A tool for testing the plugin",
-        "zh_Hans": "一个用于测试插件的工具"
+        "en_US": "Creates an event on your default Microsoft 365 calendar. Optionally add a Microsoft Teams link and invite attendees.",
+        "zh_Hans": "在默认 Microsoft 365 日历上创建事件。可选生成 Microsoft Teams 加入链接并邀请参会人。"
       },
-      "icon": "🧰",
+      "icon": "📅",
       "parameters": [
-        {
-          "name": "location",
-          "display_name": {
-            "en_US": "Location",
-            "zh_Hans": "位置"
-          },
-          "required": true,
-          "ui": {
-            "hint": {
-              "en_US": "The location to test",
-              "zh_Hans": "要测试的位置"
-            },
-            "placeholder": {
-              "en_US": "Enter the location to test",
-              "zh_Hans": "输入要测试的位置"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
         {
           "name": "credential_id",
           "display_name": {
@@ -143,17 +118,192 @@
           "required": true,
           "ui": {
             "hint": {
-              "en_US": "Select a configured Microsoft 365 OAuth2 credential.",
-              "zh_Hans": "选择已配置的 Microsoft 365 OAuth2 凭据。"
+              "en_US": "Select a Microsoft 365 OAuth2 credential with a valid access token.",
+              "zh_Hans": "选择已登录且 access token 有效的 Microsoft 365 OAuth2 凭据。"
             },
             "width": "full",
             "component": "credential-select"
           },
           "type": "credential_id",
           "credential_name": "microsoft-365-oauth2"
+        },
+        {
+          "name": "subject",
+          "display_name": {
+            "en_US": "Subject",
+            "zh_Hans": "主题"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "Event title",
+              "zh_Hans": "事件标题"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_datetime",
+          "display_name": {
+            "en_US": "Start",
+            "zh_Hans": "开始时间"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Local start time for the chosen time zone (e.g. 2025-04-02T10:00:00).",
+              "zh_Hans": "在所选时区下的本地开始时间（如 2025-04-02T10:00:00）。"
+            },
+            "placeholder": {
+              "en_US": "2025-04-02T10:00:00",
+              "zh_Hans": "2025-04-02T10:00:00"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_datetime",
+          "display_name": {
+            "en_US": "End",
+            "zh_Hans": "结束时间"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Local end time for the chosen time zone.",
+              "zh_Hans": "在所选时区下的本地结束时间。"
+            },
+            "placeholder": {
+              "en_US": "2025-04-02T11:00:00",
+              "zh_Hans": "2025-04-02T11:00:00"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "time_zone",
+          "display_name": {
+            "en_US": "Time zone",
+            "zh_Hans": "时区"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "IANA (e.g. Europe/Berlin) or Windows name; empty means UTC.",
+              "zh_Hans": "IANA（如 Europe/Berlin）或 Windows 时区名；留空则使用 UTC。"
+            },
+            "placeholder": {
+              "en_US": "UTC",
+              "zh_Hans": "UTC"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "display_name": {
+            "en_US": "Location",
+            "zh_Hans": "地点"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional physical or online location label.",
+              "zh_Hans": "可选的线下或线上地点标签。"
+            },
+            "placeholder": {
+              "en_US": "Room / address",
+              "zh_Hans": "会议室 / 地址"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "teams_online_meeting",
+          "display_name": {
+            "en_US": "Teams online meeting",
+            "zh_Hans": "Teams 联机会议"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "When enabled, creates a Microsoft Teams join link (teamsForBusiness) on the event.",
+              "zh_Hans": "开启后为该事件生成 Microsoft Teams 加入链接（teamsForBusiness）。"
+            },
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "attendees",
+          "display_name": {
+            "en_US": "Attendees",
+            "zh_Hans": "参会人"
+          },
+          "required": false,
+          "display": {
+            "show": {
+              "teams_online_meeting": {
+                "$eq": true
+              }
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional invitees: comma, semicolon, or whitespace-separated email addresses.",
+              "zh_Hans": "可选。多个邮箱用逗号、分号或空白分隔。"
+            },
+            "placeholder": {
+              "en_US": "ada@contoso.com, bob@contoso.com",
+              "zh_Hans": "ada@contoso.com, bob@contoso.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "正文"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional plain-text description.",
+              "zh_Hans": "可选纯文本说明。"
+            },
+            "placeholder": {
+              "en_US": "Notes…",
+              "zh_Hans": "备注…"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
         }
       ],
-      "skill": "# Demo Tool Documentation\n\n## Tool\n\n- **Name**: `demo-tool`\n- **Purpose**: Returns a test message using the provided location value.\n\n## Parameters\n\n| Name | Type | Required | UI Component | Description | Example |\n| --- | --- | --- | --- | --- | --- |\n| `location` | `string` | `true` | `input` | Location text provided by the user. Supports expressions. | `\"Singapore\"` |\n\n## Tool Input Example\n\n```json\n{\n \"parameters\": {\n   \"location\": \"Singapore\"\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"message\": \"Testing the plugin with location: Singapore\"\n}\n```\n"
+      "skill": "# Create calendar event\n\n## Tool\n\n- **Name**: `create-calendar-event`\n- **Purpose**:\n  - Schedule a **one-off** (non-recurring) item on the signed-in user’s **default** Outlook calendar using Microsoft Graph **`POST /me/events`**.\n  - Optionally add a **Microsoft Teams** join link by setting `teams_online_meeting` (maps to `isOnlineMeeting` and `onlineMeetingProvider: teamsForBusiness` on the event).\n  - Optionally **invite people** with `attendees` (email list); they are added as required attendees and Exchange sends invitations per your tenant policy.\n  - Use `body` and `location` for agenda notes and a human-readable location label; combine Teams + attendees when you need a booked slot, a Teams bridge, and invited participants in one step.\n\n## Parameters\n\n| Name | Type | Required | Description |\n| --- | --- | --- | --- |\n| `credential_id` | credential_id | yes | Microsoft 365 OAuth2 credential with a valid `access_token`. |\n| `subject` | string | yes | Event title. |\n| `start_datetime` | string | yes | Start local time for `time_zone`, e.g. `2025-04-02T10:00:00` (no `Z` suffix when using a named zone). |\n| `end_datetime` | string | yes | End local time, same format as `start_datetime`. |\n| `time_zone` | string | no | IANA or Windows time zone name; defaults to `UTC` if empty. |\n| `location` | string | no | Location display name. |\n| `teams_online_meeting` | boolean | no | When `true`, sets `isOnlineMeeting` and `onlineMeetingProvider: teamsForBusiness`. Default `false`. |\n| `attendees` | string | no | Invitees as comma-, semicolon-, or whitespace-separated email addresses. **UI:** only shown when `teams_online_meeting` is `true`. |\n| `body` | string | no | Plain-text body. |\n\n## Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<credential id>\",\n    \"subject\": \"Team sync\",\n    \"start_datetime\": \"2025-04-03T14:00:00\",\n    \"end_datetime\": \"2025-04-03T15:00:00\",\n    \"time_zone\": \"UTC\",\n    \"location\": \"Building A\",\n    \"teams_online_meeting\": true,\n    \"attendees\": \"ada@contoso.com, bob@contoso.com\",\n    \"body\": \"Agenda: …\"\n  }\n}\n```\n\n## Output\n\nReturns Graph `event` fields including `id`, `webLink`, `start`, `end`, `onlineMeetingUrl`, and `onlineMeeting` (e.g. `joinUrl`) when applicable.\n"
     }
   ]
 }

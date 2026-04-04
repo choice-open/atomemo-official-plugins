@@ -7,7 +7,7 @@ vi.mock("../../src/i18n/i18n-node", () => ({
 import { microsoft365OAuth2Credential } from "../../src/credentials/microsoft-365-oauth2"
 
 const MS_SCOPE =
-  "https://graph.microsoft.com/Calendars.ReadWrite+User.Read+openid+profile+offline_access"
+  "email offline_access openid profile https://graph.microsoft.com/Calendars.ReadWrite.Shared User.Read"
 
 describe("microsoft365OAuth2Credential", () => {
   describe("metadata", () => {
@@ -68,6 +68,7 @@ describe("microsoft365OAuth2Credential", () => {
       expect(url.searchParams.get("response_type")).toBe("code")
       expect(url.searchParams.get("scope")).toBe(MS_SCOPE)
       expect(url.searchParams.get("response_mode")).toBe("query")
+      expect(url.searchParams.get("prompt")).toBe("consent")
     })
 
     it("should trim tenant_id", async () => {

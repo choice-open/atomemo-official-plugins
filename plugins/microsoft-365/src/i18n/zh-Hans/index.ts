@@ -1,8 +1,8 @@
 import type { Translation } from "../i18n-types"
 
 const zh_Hans = {
-  PLUGIN_DISPLAY_NAME: "测试插件",
-  PLUGIN_DESCRIPTION: "一个用于测试插件的插件",
+  PLUGIN_DISPLAY_NAME: "Microsoft 365",
+  PLUGIN_DESCRIPTION: "接入 Microsoft Graph API",
   M365_CREDENTIAL_DISPLAY_NAME: "Microsoft 365 OAuth2",
   M365_CREDENTIAL_DESCRIPTION: "用于访问 Microsoft Graph API 的 OAuth2 凭据。",
   M365_CLIENT_ID_DISPLAY_NAME: "Client ID",
@@ -13,13 +13,37 @@ const zh_Hans = {
   M365_TENANT_HINT: "选择 common、organizations、consumers 或 custom。",
   M365_CUSTOM_TENANT_ID_DISPLAY_NAME: "自定义 Tenant ID",
   M365_CUSTOM_TENANT_ID_PLACEHOLDER: "输入自定义租户 ID（GUID 或域名）",
-  DEMO_TOOL_DISPLAY_NAME: "演示工具",
-  DEMO_TOOL_DESCRIPTION: "一个用于测试插件的工具",
-  DEMO_CREDENTIAL_DISPLAY_NAME: "凭据",
-  DEMO_CREDENTIAL_HINT: "选择已配置的 Microsoft 365 OAuth2 凭据。",
-  LOCATION_DISPLAY_NAME: "位置",
-  LOCATION_HINT: "要测试的位置",
-  LOCATION_PLACEHOLDER: "输入要测试的位置",
+  M365_CREATE_EVENT_TOOL_DISPLAY_NAME: "创建日历事件",
+  M365_CREATE_EVENT_TOOL_DESCRIPTION:
+    "在默认 Microsoft 365 日历上创建事件。可选生成 Microsoft Teams 加入链接并邀请参会人。",
+  M365_CREATE_EVENT_CREDENTIAL_DISPLAY_NAME: "凭据",
+  M365_CREATE_EVENT_CREDENTIAL_HINT:
+    "选择已登录且 access token 有效的 Microsoft 365 OAuth2 凭据。",
+  M365_CREATE_EVENT_SUBJECT_DISPLAY_NAME: "主题",
+  M365_CREATE_EVENT_SUBJECT_PLACEHOLDER: "事件标题",
+  M365_CREATE_EVENT_START_DISPLAY_NAME: "开始时间",
+  M365_CREATE_EVENT_START_HINT:
+    "在所选时区下的本地开始时间（如 2025-04-02T10:00:00）。",
+  M365_CREATE_EVENT_START_PLACEHOLDER: "2025-04-02T10:00:00",
+  M365_CREATE_EVENT_END_DISPLAY_NAME: "结束时间",
+  M365_CREATE_EVENT_END_HINT: "在所选时区下的本地结束时间。",
+  M365_CREATE_EVENT_END_PLACEHOLDER: "2025-04-02T11:00:00",
+  M365_CREATE_EVENT_TIME_ZONE_DISPLAY_NAME: "时区",
+  M365_CREATE_EVENT_TIME_ZONE_HINT:
+    "IANA（如 Europe/Berlin）或 Windows 时区名；留空则使用 UTC。",
+  M365_CREATE_EVENT_TIME_ZONE_PLACEHOLDER: "UTC",
+  M365_CREATE_EVENT_BODY_DISPLAY_NAME: "正文",
+  M365_CREATE_EVENT_BODY_HINT: "可选纯文本说明。",
+  M365_CREATE_EVENT_BODY_PLACEHOLDER: "备注…",
+  M365_CREATE_EVENT_LOCATION_DISPLAY_NAME: "地点",
+  M365_CREATE_EVENT_LOCATION_HINT: "可选的线下或线上地点标签。",
+  M365_CREATE_EVENT_LOCATION_PLACEHOLDER: "会议室 / 地址",
+  M365_CREATE_EVENT_TEAMS_MEETING_DISPLAY_NAME: "Teams 联机会议",
+  M365_CREATE_EVENT_TEAMS_MEETING_HINT:
+    "开启后为该事件生成 Microsoft Teams 加入链接（teamsForBusiness）。",
+  M365_CREATE_EVENT_ATTENDEES_DISPLAY_NAME: "参会人",
+  M365_CREATE_EVENT_ATTENDEES_HINT: "可选。多个邮箱用逗号、分号或空白分隔。",
+  M365_CREATE_EVENT_ATTENDEES_PLACEHOLDER: "ada@contoso.com, bob@contoso.com",
 } satisfies Translation
 
 export default zh_Hans

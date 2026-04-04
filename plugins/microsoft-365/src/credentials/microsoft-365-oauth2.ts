@@ -1,7 +1,8 @@
 import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../i18n/i18n-node"
 
-const MS_SCOPE = "https://graph.microsoft.com/Calendars.ReadWrite+User.Read+openid+profile+offline_access"
+const MS_SCOPE =
+  "email offline_access openid profile https://graph.microsoft.com/Calendars.ReadWrite.Shared User.Read"
 
 function resolveTenantSegment(credential: Record<string, unknown>): string {
   if (!credential.tenant_id) {
@@ -64,7 +65,9 @@ export const microsoft365OAuth2Credential = {
     { name: "expires_at", type: "integer" },
   ],
   async oauth2_build_authorize_url({ args }) {
-    const segment = resolveTenantSegment(args.credential as Record<string, unknown>)
+    const segment = resolveTenantSegment(
+      args.credential as Record<string, unknown>,
+    )
     const clientId = String(args.credential.client_id ?? "")
     const { redirect_uri, state } = args
 
@@ -74,13 +77,16 @@ export const microsoft365OAuth2Credential = {
       redirect_uri,
       scope: MS_SCOPE,
       response_mode: "query",
+      prompt: "consent",
       state,
     })
 
     return { url: `${authorizationEndpoint(segment)}?${params.toString()}` }
   },
   async oauth2_get_token({ args }) {
-    const segment = resolveTenantSegment(args.credential as Record<string, unknown>)
+    const segment = resolveTenantSegment(
+      args.credential as Record<string, unknown>,
+    )
     const clientId = String(args.credential.client_id ?? "")
     const clientSecret = String(args.credential.client_secret ?? "")
     const { code, redirect_uri } = args
@@ -95,10 +101,10 @@ export const microsoft365OAuth2Credential = {
         redirect_uri,
         grant_type: "authorization_code",
         scope: MS_SCOPE,
-      }),
+      }).toString(),
     })
 
-    const data = (await response.json()) as Record<string, any>
+    const data = (await response.json()) as Record<string, string>
 
     if (!response.ok) {
       throw new Error(
@@ -110,12 +116,14 @@ export const microsoft365OAuth2Credential = {
       parameters_patch: {
         access_token: data.access_token,
         refresh_token: data.refresh_token,
-        expires_at: Math.floor(Date.now() / 1000) + data.expires_in,
+        expires_at: Math.floor(Date.now() / 1000) + Number(data.expires_in),
       },
     }
   },
   async oauth2_refresh_token({ args }) {
-    const segment = resolveTenantSegment(args.credential as Record<string, unknown>)
+    const segment = resolveTenantSegment(
+      args.credential as Record<string, unknown>,
+    )
     const clientId = String(args.credential.client_id ?? "")
     const clientSecret = String(args.credential.client_secret ?? "")
     const refreshToken = String(args.credential.refresh_token ?? "")
@@ -129,10 +137,10 @@ export const microsoft365OAuth2Credential = {
         refresh_token: refreshToken,
         grant_type: "refresh_token",
         scope: MS_SCOPE,
-      }),
+      }).toString(),
     })
 
-    const data = (await response.json()) as Record<string, any>
+    const data = (await response.json()) as Record<string, string>
 
     if (!response.ok) {
       throw new Error(
@@ -144,7 +152,7 @@ export const microsoft365OAuth2Credential = {
       parameters_patch: {
         access_token: data.access_token,
         refresh_token: data.refresh_token ?? refreshToken,
-        expires_at: Math.floor(Date.now() / 1000) + data.expires_in,
+        expires_at: Math.floor(Date.now() / 1000) + Number(data.expires_in),
       },
     }
   },

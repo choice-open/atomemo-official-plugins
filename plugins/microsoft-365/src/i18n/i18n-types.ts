@@ -16,11 +16,11 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * M​i​c​r​o​s​o​f​t​ ​3​6​5
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * C​o​n​n​e​c​t​ ​t​o​ ​M​i​c​r​o​s​o​f​t​ ​G​r​a​p​h​ ​A​P​I
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -64,42 +64,118 @@ type RootTranslation = {
    */
   M365_CUSTOM_TENANT_ID_PLACEHOLDER: string
   /**
-   * D​e​m​o​ ​T​o​o​l
+   * C​r​e​a​t​e​ ​c​a​l​e​n​d​a​r​ ​e​v​e​n​t
    */
-  DEMO_TOOL_DISPLAY_NAME: string
+  M365_CREATE_EVENT_TOOL_DISPLAY_NAME: string
   /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * C​r​e​a​t​e​s​ ​a​n​ ​e​v​e​n​t​ ​o​n​ ​y​o​u​r​ ​d​e​f​a​u​l​t​ ​M​i​c​r​o​s​o​f​t​ ​3​6​5​ ​c​a​l​e​n​d​a​r​.​ ​O​p​t​i​o​n​a​l​l​y​ ​a​d​d​ ​a​ ​M​i​c​r​o​s​o​f​t​ ​T​e​a​m​s​ ​l​i​n​k​ ​a​n​d​ ​i​n​v​i​t​e​ ​a​t​t​e​n​d​e​e​s​.
    */
-  DEMO_TOOL_DESCRIPTION: string
+  M365_CREATE_EVENT_TOOL_DESCRIPTION: string
   /**
    * C​r​e​d​e​n​t​i​a​l
    */
-  DEMO_CREDENTIAL_DISPLAY_NAME: string
+  M365_CREATE_EVENT_CREDENTIAL_DISPLAY_NAME: string
   /**
-   * S​e​l​e​c​t​ ​a​ ​c​o​n​f​i​g​u​r​e​d​ ​M​i​c​r​o​s​o​f​t​ ​3​6​5​ ​O​A​u​t​h​2​ ​c​r​e​d​e​n​t​i​a​l​.
+   * S​e​l​e​c​t​ ​a​ ​M​i​c​r​o​s​o​f​t​ ​3​6​5​ ​O​A​u​t​h​2​ ​c​r​e​d​e​n​t​i​a​l​ ​w​i​t​h​ ​a​ ​v​a​l​i​d​ ​a​c​c​e​s​s​ ​t​o​k​e​n​.
    */
-  DEMO_CREDENTIAL_HINT: string
+  M365_CREATE_EVENT_CREDENTIAL_HINT: string
+  /**
+   * S​u​b​j​e​c​t
+   */
+  M365_CREATE_EVENT_SUBJECT_DISPLAY_NAME: string
+  /**
+   * E​v​e​n​t​ ​t​i​t​l​e
+   */
+  M365_CREATE_EVENT_SUBJECT_PLACEHOLDER: string
+  /**
+   * S​t​a​r​t
+   */
+  M365_CREATE_EVENT_START_DISPLAY_NAME: string
+  /**
+   * L​o​c​a​l​ ​s​t​a​r​t​ ​t​i​m​e​ ​f​o​r​ ​t​h​e​ ​c​h​o​s​e​n​ ​t​i​m​e​ ​z​o​n​e​ ​(​e​.​g​.​ ​2​0​2​5​-​0​4​-​0​2​T​1​0​:​0​0​:​0​0​)​.
+   */
+  M365_CREATE_EVENT_START_HINT: string
+  /**
+   * 2​0​2​5​-​0​4​-​0​2​T​1​0​:​0​0​:​0​0
+   */
+  M365_CREATE_EVENT_START_PLACEHOLDER: string
+  /**
+   * E​n​d
+   */
+  M365_CREATE_EVENT_END_DISPLAY_NAME: string
+  /**
+   * L​o​c​a​l​ ​e​n​d​ ​t​i​m​e​ ​f​o​r​ ​t​h​e​ ​c​h​o​s​e​n​ ​t​i​m​e​ ​z​o​n​e​.
+   */
+  M365_CREATE_EVENT_END_HINT: string
+  /**
+   * 2​0​2​5​-​0​4​-​0​2​T​1​1​:​0​0​:​0​0
+   */
+  M365_CREATE_EVENT_END_PLACEHOLDER: string
+  /**
+   * T​i​m​e​ ​z​o​n​e
+   */
+  M365_CREATE_EVENT_TIME_ZONE_DISPLAY_NAME: string
+  /**
+   * I​A​N​A​ ​(​e​.​g​.​ ​E​u​r​o​p​e​/​B​e​r​l​i​n​)​ ​o​r​ ​W​i​n​d​o​w​s​ ​n​a​m​e​;​ ​e​m​p​t​y​ ​m​e​a​n​s​ ​U​T​C​.
+   */
+  M365_CREATE_EVENT_TIME_ZONE_HINT: string
+  /**
+   * U​T​C
+   */
+  M365_CREATE_EVENT_TIME_ZONE_PLACEHOLDER: string
+  /**
+   * B​o​d​y
+   */
+  M365_CREATE_EVENT_BODY_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​p​l​a​i​n​-​t​e​x​t​ ​d​e​s​c​r​i​p​t​i​o​n​.
+   */
+  M365_CREATE_EVENT_BODY_HINT: string
+  /**
+   * N​o​t​e​s​…
+   */
+  M365_CREATE_EVENT_BODY_PLACEHOLDER: string
   /**
    * L​o​c​a​t​i​o​n
    */
-  LOCATION_DISPLAY_NAME: string
+  M365_CREATE_EVENT_LOCATION_DISPLAY_NAME: string
   /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * O​p​t​i​o​n​a​l​ ​p​h​y​s​i​c​a​l​ ​o​r​ ​o​n​l​i​n​e​ ​l​o​c​a​t​i​o​n​ ​l​a​b​e​l​.
    */
-  LOCATION_HINT: string
+  M365_CREATE_EVENT_LOCATION_HINT: string
   /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * R​o​o​m​ ​/​ ​a​d​d​r​e​s​s
    */
-  LOCATION_PLACEHOLDER: string
+  M365_CREATE_EVENT_LOCATION_PLACEHOLDER: string
+  /**
+   * T​e​a​m​s​ ​o​n​l​i​n​e​ ​m​e​e​t​i​n​g
+   */
+  M365_CREATE_EVENT_TEAMS_MEETING_DISPLAY_NAME: string
+  /**
+   * W​h​e​n​ ​e​n​a​b​l​e​d​,​ ​c​r​e​a​t​e​s​ ​a​ ​M​i​c​r​o​s​o​f​t​ ​T​e​a​m​s​ ​j​o​i​n​ ​l​i​n​k​ ​(​t​e​a​m​s​F​o​r​B​u​s​i​n​e​s​s​)​ ​o​n​ ​t​h​e​ ​e​v​e​n​t​.
+   */
+  M365_CREATE_EVENT_TEAMS_MEETING_HINT: string
+  /**
+   * A​t​t​e​n​d​e​e​s
+   */
+  M365_CREATE_EVENT_ATTENDEES_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​i​n​v​i​t​e​e​s​:​ ​c​o​m​m​a​,​ ​s​e​m​i​c​o​l​o​n​,​ ​o​r​ ​w​h​i​t​e​s​p​a​c​e​-​s​e​p​a​r​a​t​e​d​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​e​s​.
+   */
+  M365_CREATE_EVENT_ATTENDEES_HINT: string
+  /**
+   * a​d​a​@​c​o​n​t​o​s​o​.​c​o​m​,​ ​b​o​b​@​c​o​n​t​o​s​o​.​c​o​m
+   */
+  M365_CREATE_EVENT_ATTENDEES_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Microsoft 365
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Connect to Microsoft Graph API
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
@@ -143,33 +219,109 @@ export type TranslationFunctions = {
    */
   M365_CUSTOM_TENANT_ID_PLACEHOLDER: () => LocalizedString
   /**
-   * Demo Tool
+   * Create calendar event
    */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
+  M365_CREATE_EVENT_TOOL_DISPLAY_NAME: () => LocalizedString
   /**
-   * A tool for testing the plugin
+   * Creates an event on your default Microsoft 365 calendar. Optionally add a Microsoft Teams link and invite attendees.
    */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
+  M365_CREATE_EVENT_TOOL_DESCRIPTION: () => LocalizedString
   /**
    * Credential
    */
-  DEMO_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
+  M365_CREATE_EVENT_CREDENTIAL_DISPLAY_NAME: () => LocalizedString
   /**
-   * Select a configured Microsoft 365 OAuth2 credential.
+   * Select a Microsoft 365 OAuth2 credential with a valid access token.
    */
-  DEMO_CREDENTIAL_HINT: () => LocalizedString
+  M365_CREATE_EVENT_CREDENTIAL_HINT: () => LocalizedString
+  /**
+   * Subject
+   */
+  M365_CREATE_EVENT_SUBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Event title
+   */
+  M365_CREATE_EVENT_SUBJECT_PLACEHOLDER: () => LocalizedString
+  /**
+   * Start
+   */
+  M365_CREATE_EVENT_START_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Local start time for the chosen time zone (e.g. 2025-04-02T10:00:00).
+   */
+  M365_CREATE_EVENT_START_HINT: () => LocalizedString
+  /**
+   * 2025-04-02T10:00:00
+   */
+  M365_CREATE_EVENT_START_PLACEHOLDER: () => LocalizedString
+  /**
+   * End
+   */
+  M365_CREATE_EVENT_END_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Local end time for the chosen time zone.
+   */
+  M365_CREATE_EVENT_END_HINT: () => LocalizedString
+  /**
+   * 2025-04-02T11:00:00
+   */
+  M365_CREATE_EVENT_END_PLACEHOLDER: () => LocalizedString
+  /**
+   * Time zone
+   */
+  M365_CREATE_EVENT_TIME_ZONE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * IANA (e.g. Europe/Berlin) or Windows name; empty means UTC.
+   */
+  M365_CREATE_EVENT_TIME_ZONE_HINT: () => LocalizedString
+  /**
+   * UTC
+   */
+  M365_CREATE_EVENT_TIME_ZONE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Body
+   */
+  M365_CREATE_EVENT_BODY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional plain-text description.
+   */
+  M365_CREATE_EVENT_BODY_HINT: () => LocalizedString
+  /**
+   * Notes…
+   */
+  M365_CREATE_EVENT_BODY_PLACEHOLDER: () => LocalizedString
   /**
    * Location
    */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
+  M365_CREATE_EVENT_LOCATION_DISPLAY_NAME: () => LocalizedString
   /**
-   * The location to test
+   * Optional physical or online location label.
    */
-  LOCATION_HINT: () => LocalizedString
+  M365_CREATE_EVENT_LOCATION_HINT: () => LocalizedString
   /**
-   * Enter the location to test
+   * Room / address
    */
-  LOCATION_PLACEHOLDER: () => LocalizedString
+  M365_CREATE_EVENT_LOCATION_PLACEHOLDER: () => LocalizedString
+  /**
+   * Teams online meeting
+   */
+  M365_CREATE_EVENT_TEAMS_MEETING_DISPLAY_NAME: () => LocalizedString
+  /**
+   * When enabled, creates a Microsoft Teams join link (teamsForBusiness) on the event.
+   */
+  M365_CREATE_EVENT_TEAMS_MEETING_HINT: () => LocalizedString
+  /**
+   * Attendees
+   */
+  M365_CREATE_EVENT_ATTENDEES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional invitees: comma, semicolon, or whitespace-separated email addresses.
+   */
+  M365_CREATE_EVENT_ATTENDEES_HINT: () => LocalizedString
+  /**
+   * ada@contoso.com, bob@contoso.com
+   */
+  M365_CREATE_EVENT_ATTENDEES_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}
