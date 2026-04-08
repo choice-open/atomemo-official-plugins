@@ -267,7 +267,7 @@
             "en_US": "Operation",
             "zh_Hans": "操作模式"
           },
-          "required": false,
+          "required": true,
           "ui": {
             "hint": {
               "en_US": "Choose structured mode or raw JSON mode",

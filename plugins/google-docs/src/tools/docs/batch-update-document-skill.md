@@ -17,13 +17,13 @@ Optional fields use Atomemo `display` conditions on sibling `operation`:
 
 ## Parameters
 
-| Name | Type | Required | UI Component | Description | Example |
-| --- | --- | --- | --- | --- | --- |
-| `google_credential` | `credential_id` | `true` | credential picker | Google OAuth2 credential bound to `google-docs-oauth2`. | `"google_credential"` |
-| `document_id` | `string` | `true` | `input` | Target document ID. | `"1AbCdEfGhIjKlMnOp"` |
-| `operation` | `string` | `false` | `select` | Request build mode: `raw_json`, `insert_text`, `replace_all_text`, `update_text_style`. | `"insert_text"` |
-| `requests_json` | `string` | `false` | `textarea` | Raw JSON array of Docs requests when `operation=raw_json`. | `"[{\"insertText\":{\"location\":{\"index\":1},\"text\":\"Hello\"}}]"` |
-| `write_control_json` | `string` | `false` | `textarea` | Optional write control JSON object (`requiredRevisionId` / `targetRevisionId`). | `"{\"requiredRevisionId\":\"AAABBB\"}"` |
+| Name                 | Type            | Required | UI Component      | Description                                                                             | Example                                                                |
+| -------------------- | --------------- | -------- | ----------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `google_credential`  | `credential_id` | `true`   | credential picker | Google OAuth2 credential bound to `google-docs-oauth2`.                                 | `"google_credential"`                                                  |
+| `document_id`        | `string`        | `true`   | `input`           | Target document ID.                                                                     | `"1AbCdEfGhIjKlMnOp"`                                                  |
+| `operation`          | `string`        | `true`   | `select`          | Request build mode: `raw_json`, `insert_text`, `replace_all_text`, `update_text_style`. | `"insert_text"`                                                        |
+| `requests_json`      | `string`        | `false`  | `textarea`        | Raw JSON array of Docs requests when `operation=raw_json`.                              | `"[{\"insertText\":{\"location\":{\"index\":1},\"text\":\"Hello\"}}]"` |
+| `write_control_json` | `string`        | `false`  | `textarea`        | Optional write control JSON object (`requiredRevisionId` / `targetRevisionId`).         | `"{\"requiredRevisionId\":\"AAABBB\"}"`                                |
 
 ## Structured mode notes
 
@@ -163,7 +163,7 @@ Insert and delete (moving is **two steps**: insert at target, then delete source
 ]
 ```
 
-**Move pattern (conceptual):** (1) Read substring indices from `get-document`. (2) `insertText` the same text at the new index. (3) `deleteContentRange` on the old range—if the delete is *before* the insert position in the document, indices shift: prefer computing final ranges from a single plan or a second `get-document` pass.
+**Move pattern (conceptual):** (1) Read substring indices from `get-document`. (2) `insertText` the same text at the new index. (3) `deleteContentRange` on the old range—if the delete is _before_ the insert position in the document, indices shift: prefer computing final ranges from a single plan or a second `get-document` pass.
 
 ### Merge table cells
 
@@ -363,9 +363,7 @@ Or by **name** (all matching names; discontinuous ranges have API-specific behav
 Delete by id or name:
 
 ```json
-[
-  { "deleteNamedRange": { "namedRangeId": "NAMED_RANGE_ID" } }
-]
+[{ "deleteNamedRange": { "namedRangeId": "NAMED_RANGE_ID" } }]
 ```
 
 ---
