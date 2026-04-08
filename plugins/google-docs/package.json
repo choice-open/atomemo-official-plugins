@@ -1,7 +1,7 @@
 {
   "name": "google-docs",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Atomemo plugin: create, read, and batch-update Google Docs via the official API with OAuth2.",
   "author": "yong yu <leoyyong@gmail.com>",
   "license": "MIT",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@choiceopen/atomemo-plugin-sdk-js": "latest",
     "@googleapis/docs": "^9.2.1",
-    "dotenv": "^17.4.0",
+    "dotenv": "^17.4.1",
     "google-auth-library": "^10.6.2",
     "zod": "^4.3.6"
   },
@@ -38,7 +38,7 @@
     "tsdown": "^0.20.3",
     "typesafe-i18n": "^5.27.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.3"
   },
   "publishConfig": {
     "exports": {

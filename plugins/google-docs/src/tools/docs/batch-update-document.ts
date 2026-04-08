@@ -1,10 +1,13 @@
 import type {
   JsonValue,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
-import { GoogleDocsCredentialParameter, requireDocsClient } from "../../lib/docs-client"
-import batchUpdateDocumentSkill from "./batch-update-document-skill.md" with { type: "text" }
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
+import {
+  GoogleDocsCredentialParameter,
+  requireDocsClient,
+} from "../../lib/docs-client";
+import batchUpdateDocumentSkill from "./batch-update-document-skill.md" with { type: "text" };
 
 export const batchUpdateDocumentTool: ToolDefinition = {
   name: "batch-update-document",
@@ -29,9 +32,14 @@ export const batchUpdateDocumentTool: ToolDefinition = {
     {
       name: "operation",
       type: "string",
-      required: false,
+      required: true,
       default: "raw_json",
-      enum: ["raw_json", "insert_text", "replace_all_text", "update_text_style"],
+      enum: [
+        "raw_json",
+        "insert_text",
+        "replace_all_text",
+        "update_text_style",
+      ],
       display_name: t("BATCH_OPERATION_DISPLAY_NAME"),
       ui: {
         component: "select",
@@ -176,25 +184,30 @@ export const batchUpdateDocumentTool: ToolDefinition = {
     },
   ],
   async invoke({ args }) {
-    const docsClient = requireDocsClient(args.credentials, args.parameters.google_credential)
-    const operation = (args.parameters.operation as string | undefined) ?? "raw_json"
-    const rawRequests = args.parameters.requests_json as string | undefined
+    const docsClient = requireDocsClient(
+      args.credentials,
+      args.parameters.google_credential,
+    );
+    const operation =
+      (args.parameters.operation as string | undefined) ?? "raw_json";
+    const rawRequests = args.parameters.requests_json as string | undefined;
     const rawWriteControl = args.parameters.write_control_json as
       | string
-      | undefined
+      | undefined;
 
-    let requests: unknown
+    let requests: unknown;
     if (operation === "insert_text") {
-      const text = (args.parameters.insert_text as string | undefined)?.trim()
-      const index = (args.parameters.insert_index as number | undefined) ?? 1
-      if (!text) throw new Error("insert_text 不能为空")
-      requests = [{ insertText: { location: { index }, text } }]
+      const text = (args.parameters.insert_text as string | undefined)?.trim();
+      const index = (args.parameters.insert_index as number | undefined) ?? 1;
+      if (!text) throw new Error("insert_text 不能为空");
+      requests = [{ insertText: { location: { index }, text } }];
     } else if (operation === "replace_all_text") {
       const containsText = (
         args.parameters.replace_contains_text as string | undefined
-      )?.trim()
-      const replaceText = (args.parameters.replace_text as string | undefined) ?? ""
-      if (!containsText) throw new Error("replace_contains_text 不能为空")
+      )?.trim();
+      const replaceText =
+        (args.parameters.replace_text as string | undefined) ?? "";
+      if (!containsText) throw new Error("replace_contains_text 不能为空");
       requests = [
         {
           replaceAllText: {
@@ -202,16 +215,18 @@ export const batchUpdateDocumentTool: ToolDefinition = {
             replaceText,
           },
         },
-      ]
+      ];
     } else if (operation === "update_text_style") {
-      const startIndex = args.parameters.style_start_index as number | undefined
-      const endIndex = args.parameters.style_end_index as number | undefined
-      const bold = (args.parameters.style_bold as boolean | undefined) ?? true
+      const startIndex = args.parameters.style_start_index as
+        | number
+        | undefined;
+      const endIndex = args.parameters.style_end_index as number | undefined;
+      const bold = (args.parameters.style_bold as boolean | undefined) ?? true;
       if (typeof startIndex !== "number" || typeof endIndex !== "number") {
-        throw new Error("style_start_index 与 style_end_index 必填")
+        throw new Error("style_start_index 与 style_end_index 必填");
       }
       if (startIndex >= endIndex) {
-        throw new Error("style_start_index 必须小于 style_end_index")
+        throw new Error("style_start_index 必须小于 style_end_index");
       }
       requests = [
         {
@@ -221,49 +236,49 @@ export const batchUpdateDocumentTool: ToolDefinition = {
             fields: "bold",
           },
         },
-      ]
+      ];
     } else {
       if (!rawRequests?.trim()) {
-        throw new Error("raw_json 模式下 requests_json 不能为空")
+        throw new Error("raw_json 模式下 requests_json 不能为空");
       }
       try {
-        requests = JSON.parse(rawRequests)
+        requests = JSON.parse(rawRequests);
       } catch (error) {
-        throw new Error(`requests_json 不是有效 JSON: ${(error as Error).message}`)
+        throw new Error(
+          `requests_json 不是有效 JSON: ${(error as Error).message}`,
+        );
       }
       if (!Array.isArray(requests)) {
-        throw new Error("requests_json 必须是数组，且元素为 Docs Request 对象")
+        throw new Error("requests_json 必须是数组，且元素为 Docs Request 对象");
       }
     }
 
-    let writeControl: unknown
+    let writeControl: unknown;
     if (rawWriteControl?.trim()) {
       try {
-        writeControl = JSON.parse(rawWriteControl)
+        writeControl = JSON.parse(rawWriteControl);
       } catch (error) {
         throw new Error(
           `write_control_json 不是有效 JSON: ${(error as Error).message}`,
-        )
+        );
       }
     }
 
     const requestBody: {
-      requests: Record<string, unknown>[]
-      writeControl?: Record<string, unknown>
+      requests: Record<string, unknown>[];
+      writeControl?: Record<string, unknown>;
     } = {
       requests: requests as Record<string, unknown>[],
-    }
+    };
     if (writeControl !== undefined) {
-      requestBody.writeControl = writeControl as Record<string, unknown>
+      requestBody.writeControl = writeControl as Record<string, unknown>;
     }
 
     const response = await docsClient.documents.batchUpdate({
       documentId: args.parameters.document_id as string,
       requestBody,
-    })
+    });
 
-    return JSON.parse(
-      JSON.stringify(response.data ?? {}),
-    ) as JsonValue
+    return JSON.parse(JSON.stringify(response.data ?? {})) as JsonValue;
   },
-}
+};
