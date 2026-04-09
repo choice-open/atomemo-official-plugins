@@ -20,6 +20,7 @@ const credentialParameter: PropertyCredentialId<"credentialId"> = {
 
 export const demoTool = {
   name: "send_feishu_webhook_message",
+  skill: "send.feishu.webhook.message",
   display_name: t("DEMO_TOOL_DISPLAY_NAME"),
   description: t("DEMO_TOOL_DESCRIPTION"),
   icon: "📨",
@@ -63,11 +64,15 @@ export const demoTool = {
   ],
   async invoke({ args }) {
     const parameters =
-      args.parameters && typeof args.parameters === "object" && !Array.isArray(args.parameters)
+      args.parameters &&
+      typeof args.parameters === "object" &&
+      !Array.isArray(args.parameters)
         ? (args.parameters as Record<string, unknown>)
         : {}
     const credentials =
-      args.credentials && typeof args.credentials === "object" && !Array.isArray(args.credentials)
+      args.credentials &&
+      typeof args.credentials === "object" &&
+      !Array.isArray(args.credentials)
         ? (args.credentials as Record<string, unknown>)
         : {}
 
@@ -87,14 +92,18 @@ export const demoTool = {
 
     const credentialValue = credentials[credentialId]
     const credential =
-      credentialValue && typeof credentialValue === "object" && !Array.isArray(credentialValue)
+      credentialValue &&
+      typeof credentialValue === "object" &&
+      !Array.isArray(credentialValue)
         ? (credentialValue as Record<string, unknown>)
         : {}
     const appId = String(credential.app_id ?? "").trim()
     const appSecret = String(credential.app_secret ?? "").trim()
 
     if (!appId || !appSecret) {
-      throw new Error("Selected credential is invalid: missing app_id or app_secret")
+      throw new Error(
+        "Selected credential is invalid: missing app_id or app_secret",
+      )
     }
 
     const response = await fetch(webhookUrl, {
@@ -131,7 +140,7 @@ export const demoTool = {
         msg_type: "text",
         content: { text },
       },
-      response: payload,
+      response_raw: JSON.stringify(payload),
     }
   },
 } satisfies ToolDefinition

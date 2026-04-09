@@ -1,13 +1,13 @@
-import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import packageJSON from "../package.json"
-import { feishuAppCredential } from "./credentials/feishu-app-credential"
-import { t } from "./i18n/i18n-node"
-import { locales } from "./i18n/i18n-util"
-import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
-import { demoTool } from "./tools/demo"
-import { sendFeishuAppMessageTool } from "./tools/send-app-message"
+import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js";
+import packageJSON from "../package.json";
+import { feishuAppCredential } from "./credentials/feishu-app-credential";
+import { t } from "./i18n/i18n-node";
+import { locales } from "./i18n/i18n-util";
+import { loadAllLocalesAsync } from "./i18n/i18n-util.async";
+import { demoTool } from "./tools/demo";
+import { priorityFeishuTools } from "./tools/feishu-priority-tools";
 
-await loadAllLocalesAsync()
+await loadAllLocalesAsync();
 
 const plugin = await createPlugin({
   name: packageJSON.name,
@@ -19,10 +19,13 @@ const plugin = await createPlugin({
   repo: "",
   locales,
   transporterOptions: {},
-})
+});
 
-plugin.addTool(demoTool)
-plugin.addTool(sendFeishuAppMessageTool)
-plugin.addCredential(feishuAppCredential)
+plugin.addTool(demoTool);
+for (const tool of priorityFeishuTools) {
+  plugin.addTool(tool);
+}
 
-plugin.run()
+plugin.addCredential(feishuAppCredential);
+
+plugin.run();

@@ -1,4 +1,4 @@
-import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types";
+import type { CredentialDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 
 export const feishuAppCredential = {
   name: "feishu-app-credential",
@@ -26,7 +26,10 @@ export const feishuAppCredential = {
           en_US: "Feishu app_id from Open Platform",
           zh_Hans: "飞书开放平台中的 app_id",
         },
-        placeholder: "cli_xxx",
+        placeholder: {
+          en_US: "cli_xxx",
+          zh_Hans: "cli_xxx",
+        },
         width: "full",
       },
     },
@@ -44,9 +47,12 @@ export const feishuAppCredential = {
           en_US: "Feishu app_secret from Open Platform",
           zh_Hans: "飞书开放平台中的 app_secret",
         },
-        placeholder: "xxxxxxxx",
+        placeholder: {
+          en_US: "xxxxxxxx",
+          zh_Hans: "xxxxxxxx",
+        },
         width: "full",
       },
     },
   ],
-} satisfies CredentialDefinition;
+} satisfies CredentialDefinition
