@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
-import { createFeishuSdkTool } from "../src/tools/feishu-priority-tools"
+import { createFeishuSdkTool } from "../src/tools/feishu-base"
 
 describe("priority feishu sdk tools", () => {
   it("invokes fixed sdk method with parsed payload", async () => {
@@ -176,7 +176,7 @@ describe("priority feishu sdk tools", () => {
       args: {
         parameters: {
           credentialId: "cred-1",
-          emails_json: "[\"u1@example.com\",\"u2@example.com\"]",
+          emails_json: '["u1@example.com","u2@example.com"]',
         },
         credentials: {
           "cred-1": {
@@ -325,7 +325,7 @@ describe("priority feishu sdk tools", () => {
         args: {
           parameters: {
             credentialId: "cred-1",
-            data_json: "{\"receive_id\":\"ou_xxx\"}",
+            data_json: '{"receive_id":"ou_xxx"}',
           },
           credentials: {
             "cred-1": {
@@ -336,7 +336,9 @@ describe("priority feishu sdk tools", () => {
         },
         context: {} as never,
       }),
-    ).rejects.toThrow("VALIDATION_ERROR: Missing required field: params.receive_id_type")
+    ).rejects.toThrow(
+      "VALIDATION_ERROR: Missing required field: params.receive_id_type",
+    )
     expect(create).not.toHaveBeenCalled()
   })
 
@@ -387,7 +389,9 @@ describe("priority feishu sdk tools", () => {
         },
         context: {} as never,
       }),
-    ).rejects.toThrow("VALIDATION_ERROR: Missing required field: data.emails or mobiles")
+    ).rejects.toThrow(
+      "VALIDATION_ERROR: Missing required field: data.emails or mobiles",
+    )
     expect(batchGetId).not.toHaveBeenCalled()
   })
 })

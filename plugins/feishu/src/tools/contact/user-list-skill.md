@@ -11,9 +11,9 @@
 
 | Name | Type | Required | UI Component | Description | Example |
 | --- | --- | --- | --- | --- | --- |
-| `department_id` | `string` | `false` | `input` | 部门 ID（params）。 | "0" |
+| `department_id` | `string` | `false` | `input` | 部门 ID（params）。根部门为 "0"。 | "0" |
+| `department_id_type` | `string` | `false` | `input` | 部门 ID 类型（params）。支持 open_department_id/department_id。 | "open_department_id" |
 | `page_size` | `number` | `false` | `input` | 分页大小（params，数字）。 | "50" |
-| `fetch_child` | `boolean` | `false` | `input` | 是否递归子部门（params）。 | "true" |
 | `credentialId` | `credential_id` | `true` | `credential-select` | 飞书应用凭证，绑定 `feishu-app-credential`。 | — |
 | `payload_json` | `string` | `false` | `textarea` | 完整 SDK payload（填写则覆盖 params/path/data JSON）。 | "{\"params\":{},\"path\":{},\"data\":{}}" |
 | `params_json` | `string` | `false` | `textarea` | 合并到 SDK 请求 `params`。 | "{\"user_id_type\":\"open_id\"}" |
@@ -28,7 +28,8 @@
 {
   "parameters": {
     "credentialId": "your_credential_id",
-    "department_id": "0"
+    "department_id": "0",
+    "department_id_type": "open_department_id"
   }
 }
 ```

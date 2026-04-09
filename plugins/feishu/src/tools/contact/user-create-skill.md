@@ -12,7 +12,9 @@
 | Name | Type | Required | UI Component | Description | Example |
 | --- | --- | --- | --- | --- | --- |
 | `name` | `string` | `true` | `input` | 员工姓名。 | "张三" |
-| `mobile` | `string` | `false` | `input` | 手机号。 | "13800000000" |
+| `mobile` | `string` | `false` | `input` | 手机号（中国大陆手机号）。 | "13800000000" |
+| `email` | `string` | `false` | `input` | 邮箱地址。 | "user@example.com" |
+| `department_ids` | `string` | `false` | `input` | 部门 ID 数组 JSON。 | "[\"od-xxx\"]" |
 | `credentialId` | `credential_id` | `true` | `credential-select` | 飞书应用凭证，绑定 `feishu-app-credential`。 | — |
 | `payload_json` | `string` | `false` | `textarea` | 完整 SDK payload（填写则覆盖 params/path/data JSON）。 | "{\"params\":{},\"path\":{},\"data\":{}}" |
 | `params_json` | `string` | `false` | `textarea` | 合并到 SDK 请求 `params`。 | "{\"user_id_type\":\"open_id\"}" |
@@ -41,7 +43,7 @@
     "credentialId": "your_credential_id",
     "name": "李四",
     "mobile": "13900000000",
-    "data_json": "{\"department_id_list\":[\"od-xxx\"]}"
+    "department_ids": "[\"od-xxx\"]"
   }
 }
 ```
@@ -53,18 +55,21 @@
   "parameters": {
     "credentialId": "your_credential_id",
     "name": "王五",
-    "data_json": "{\"email\":\"wangwu@example.com\"}"
+    "email": "wangwu@example.com"
   }
 }
 ```
 
-### Example 4: Using payload_json directly
+### Example 4: Create user with all fields
 
 ```json
 {
   "parameters": {
     "credentialId": "your_credential_id",
-    "payload_json": "{\"data\":{\"name\":\"赵六\",\"mobile\":\"13700000000\",\"email\":\"zhaoliu@example.com\"}}"
+    "name": "赵六",
+    "mobile": "13700000000",
+    "email": "zhaoliu@example.com",
+    "department_ids": "[\"od-xxx\",\"od-yyy\"]"
   }
 }
 ```
