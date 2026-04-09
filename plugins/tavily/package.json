@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "description": "Search the Internet with Tavily",
-  "author": "haley.song <haley.song@choiceform.com>",
+  "author": "minhao.zhou <minhao.zhou@choiceform.com>",
   "license": "MIT",
   "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/tavily#readme",
   "repository": "https://github.com/choice-open/atomemo-official-plugins/plugins/tavily",
