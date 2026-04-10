@@ -7,15 +7,20 @@ import { emptyBodyStrictSchema } from "./calendar-shared.zod"
 
 export const calendarListEventsQuerySchema = z
   .object({
-    page_size: z.number().int().optional(),
+    page_size: z.number().int().min(50).max(1000).optional(),
     anchor_time: z.string().optional(),
     page_token: z.string().optional(),
+    sync_token: z.string().optional(),
+    start_time: z.string().optional(),
+    end_time: z.string().optional(),
   })
   .strict()
 
 export const calendarListEventsBodySchema = emptyBodyStrictSchema
 
-export type CalendarListEventsQuery = z.infer<typeof calendarListEventsQuerySchema>
+export type CalendarListEventsQuery = z.infer<
+  typeof calendarListEventsQuerySchema
+>
 
 export function parseCalendarListEventsQuery(
   raw: Record<string, unknown>,

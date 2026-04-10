@@ -1,6 +1,27 @@
 import { z } from "zod"
 import { feishuUserIdTypeSchema, emptyBodyStrictSchema } from "./im-shared.zod"
 
+const batchMsgContentSchema = z
+  .object({
+    text: z.string().optional(),
+    image: z.string().optional(),
+    post: z.record(z.string(), z.unknown()).optional(),
+    share_chat: z.string().optional(),
+  })
+  .strict()
+
+export const imBatchMessageBodySchema = z
+  .object({
+    open_ids: z.array(z.string()).optional(),
+    user_ids: z.array(z.string()).optional(),
+    union_ids: z.array(z.string()).optional(),
+    department_ids: z.array(z.string()).optional(),
+    msg_type: z.enum(["text", "image", "post", "share_chat", "interactive"]),
+    content: batchMsgContentSchema.optional(),
+    card: z.record(z.string(), z.unknown()).optional(),
+  })
+  .strict()
+
 const objectBodySchema = z.record(z.string(), z.unknown())
 
 export const imActionQuerySchema = z
@@ -11,7 +32,10 @@ export const imActionQuerySchema = z
   })
   .passthrough()
 
-export const imActionBodySchema = objectBodySchema
+export const imActionBodySchema = z.union([
+  imBatchMessageBodySchema,
+  objectBodySchema,
+])
 export const imEmptyBodySchema = emptyBodyStrictSchema
 
 export function parseImActionQuery(raw: Record<string, unknown>) {

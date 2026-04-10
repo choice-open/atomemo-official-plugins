@@ -21,6 +21,21 @@ export const imPatchChatQuerySchema = z
   })
   .strict()
 
+const restrictedModeSettingSchema = z
+  .object({
+    status: z.boolean().optional(),
+    screenshot_has_permission_setting: z
+      .enum(["all_members", "not_anyone"])
+      .optional(),
+    download_has_permission_setting: z
+      .enum(["all_members", "not_anyone"])
+      .optional(),
+    message_has_permission_setting: z
+      .enum(["all_members", "not_anyone"])
+      .optional(),
+  })
+  .strict()
+
 /** 请求体 */
 export const imPatchChatBodySchema = z
   .object({
@@ -29,6 +44,15 @@ export const imPatchChatBodySchema = z
     description: z.string().optional(),
     i18n_names: i18nNameSchema.optional(),
     owner_id: z.string().optional(),
+    chat_type: z.enum(["private", "public"]).optional(),
+    group_message_type: z.enum(["chat", "thread"]).optional(),
+    external: z.boolean().optional(),
+    join_message_visibility: z
+      .enum(["only_owner", "all_members", "not_anyone"])
+      .optional(),
+    leave_message_visibility: z
+      .enum(["only_owner", "all_members", "not_anyone"])
+      .optional(),
     add_member_permission: z
       .enum(["all_members", "only_owner", "moderator_list", "no_one"])
       .optional(),
@@ -46,6 +70,9 @@ export const imPatchChatBodySchema = z
       .enum(["all_members", "only_owner", "moderator_list"])
       .optional(),
     hide_member_count_setting: z.enum(["all_members", "only_owner"]).optional(),
+    restricted_mode_setting: restrictedModeSettingSchema.optional(),
+    urgent_setting: z.enum(["only_owner", "all_members"]).optional(),
+    video_conference_setting: z.enum(["only_owner", "all_members"]).optional(),
   })
   .strict()
 

@@ -24,8 +24,54 @@ const taskStartSchema = z
 
 const taskReminderSchema = z
   .object({
-    time_before_task_due_in_minutes: z.number().int().optional(),
-    create_before_task_start_in_minutes: z.number().int().optional(),
+    relative_fire_minute: z.number().int(),
+  })
+  .strict()
+
+const taskMemberSchema = z
+  .object({
+    id: z.string(),
+    type: z.enum(["user", "app"]).optional(),
+    role: z.enum(["assignee", "follower"]).optional(),
+    name: z.string().optional(),
+  })
+  .strict()
+
+const taskCustomFieldSchema = z
+  .object({
+    guid: z.string(),
+    value: z.string().optional(),
+    number_value: z.string().optional(),
+    datetime_value: z.string().optional(),
+    member_value: z.array(taskMemberSchema).optional(),
+    single_select_value: z.string().optional(),
+    multi_select_value: z.array(z.string()).optional(),
+  })
+  .strict()
+
+const taskCustomCompleteSchema = z
+  .object({
+    enable: z.boolean().optional(),
+    pc: z
+      .object({
+        type: z.string().optional(),
+        content: z.string().optional(),
+      })
+      .strict()
+      .optional(),
+    mobile: z
+      .object({
+        type: z.string().optional(),
+        content: z.string().optional(),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict()
+
+const taskRichContentSchema = z
+  .object({
+    content: z.string().optional(),
   })
   .strict()
 
@@ -55,22 +101,23 @@ export const taskCreateBodySchema = z
   .object({
     tasklist_guid: z.string().optional(),
     tasklist_id: z.string().optional(),
-    summary: z.string().optional(),
-    description: z.string().optional(),
-    rich_summary: z.string().optional(),
-    rich_description: z.string().optional(),
+    summary: z.string().min(1).max(3000),
+    description: z.string().max(3000).optional(),
+    rich_summary: taskRichContentSchema.optional(),
+    rich_description: taskRichContentSchema.optional(),
     extra: z.string().optional(),
     due: taskDueSchema.optional(),
     start: taskStartSchema.optional(),
     reminders: z.array(taskReminderSchema).optional(),
     origin: taskOriginSchema.optional(),
     can_edit: z.boolean().optional(),
-    custom_fields: z.string().optional(),
-    members: z.array(z.string()).optional(),
+    members: z.array(taskMemberSchema).optional(),
     tasklists: z.array(z.string()).optional(),
-    client_token: z.string().optional(),
-    mode: z.enum(["task", "checklist"]).optional(),
+    client_token: z.string().min(10).max(100).optional(),
+    mode: z.number().int().min(1).max(3).optional(),
     is_milestone: z.boolean().optional(),
+    custom_fields: z.array(taskCustomFieldSchema).optional(),
+    custom_complete: taskCustomCompleteSchema.optional(),
   })
   .strict()
 

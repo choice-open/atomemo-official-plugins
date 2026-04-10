@@ -13,7 +13,8 @@ export const taskListQuerySchema = z
     page_size: z.number().int().min(1).max(100).optional(),
     page_token: z.string().optional(),
     task_completed: z.boolean().optional(),
-    type: z.enum(["my_tasks"]).optional(),
+    type: z.enum(["my_tasks", "involved_tasks"]).optional(),
+    source: z.string().optional(),
     user_id_type: feishuUserIdTypeSchema.optional(),
   })
   .strict()

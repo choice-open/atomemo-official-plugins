@@ -10,7 +10,7 @@ export const imListChatsQuerySchema = z
     user_id_type: feishuUserIdTypeSchema.optional(),
     sort_type: z.enum(["ByCreateTimeAsc", "ByActiveTimeDesc"]).optional(),
     page_token: z.string().optional(),
-    page_size: z.number().int().max(100).optional(),
+    page_size: z.number().int().min(1).max(100).default(20).optional(),
   })
   .strict()
 
@@ -18,7 +18,9 @@ export const imListChatsBodySchema = emptyBodyStrictSchema
 
 export type ImListChatsQuery = z.infer<typeof imListChatsQuerySchema>
 
-export function parseImListChatsQuery(raw: Record<string, unknown>): ImListChatsQuery {
+export function parseImListChatsQuery(
+  raw: Record<string, unknown>,
+): ImListChatsQuery {
   return imListChatsQuerySchema.parse(raw)
 }
 
