@@ -1,9 +1,10 @@
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import packageJSON from "../package.json"
+import { feishuAppCredential } from "./credentials/feishu-app-credential"
 import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
-import { demoTool } from "./tools/demo"
+import { allFeishuTools } from "./tools/feishu-tools"
 
 await loadAllLocalesAsync()
 
@@ -19,6 +20,9 @@ const plugin = await createPlugin({
   transporterOptions: {},
 })
 
-plugin.addTool(demoTool)
+plugin.addCredential(feishuAppCredential)
+for (const tool of allFeishuTools) {
+  plugin.addTool(tool)
+}
 
 plugin.run()

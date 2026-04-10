@@ -3,6 +3,7 @@ import { describe, expect, it, type Mock, vi } from "vitest"
 // Mock the SDK before importing anything that uses it
 vi.mock("@choiceopen/atomemo-plugin-sdk-js", () => ({
   createPlugin: vi.fn().mockResolvedValue({
+    addCredential: vi.fn(),
     addTool: vi.fn(),
     run: vi.fn(),
   }),
@@ -22,79 +23,68 @@ vi.mock("../src/i18n/i18n-util.async", () => ({
 }))
 
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
-import { demoTool } from "../src/tools/demo"
+import { feishuAppCredential } from "../src/credentials/feishu-app-credential"
+import { allFeishuTools } from "../src/tools/feishu-tools"
 
-describe("demo plugin", () => {
+describe("feishu plugin", () => {
   describe("plugin initialization", () => {
     it("should create a plugin instance with correct properties", async () => {
       const plugin = await createPlugin({
-        name: "demo-plugin",
-        display_name: { en_US: "Demo Plugin" },
-        description: { en_US: "A demo plugin" },
+        name: "feishu",
+        display_name: { en_US: "Feishu" },
+        description: { en_US: "Feishu plugin" },
         icon: "🎛️",
         lang: "typescript",
-        version: "0.5.0",
-        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/demo-plugin",
+        version: "0.1.0",
+        repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu",
         locales: ["en-US"],
         transporterOptions: {},
       })
 
       expect(plugin).toBeDefined()
+      expect(plugin.addCredential).toBeDefined()
       expect(plugin.addTool).toBeDefined()
-      expect(typeof plugin.addTool).toBe("function")
       expect(plugin.run).toBeDefined()
-      expect(typeof plugin.run).toBe("function")
     })
 
-    it("should call all initialization methods when imported", async () => {
-      // Create mock plugin methods
+    it("should register credential and all tools when imported", async () => {
+      const addCredential = vi.fn()
       const addTool = vi.fn()
       const run = vi.fn()
 
-      // Replace the mock implementation
       const createPluginMock = createPlugin as Mock
       createPluginMock.mockResolvedValueOnce({
+        addCredential,
         addTool,
         run,
       })
 
-      // Dynamically import the plugin to trigger initialization
       await import("../src/index")
 
-      // Verify all methods were called
       expect(createPluginMock).toHaveBeenCalled()
-      expect(addTool).toHaveBeenCalledWith(demoTool)
+      expect(addCredential).toHaveBeenCalledWith(feishuAppCredential)
+      expect(addTool).toHaveBeenCalledTimes(allFeishuTools.length)
+      for (const tool of allFeishuTools) {
+        expect(addTool).toHaveBeenCalledWith(tool)
+      }
       expect(run).toHaveBeenCalled()
     })
   })
 
-  describe("demo tool", () => {
-    it("should have correct properties", () => {
-      expect(demoTool).toEqual(
+  describe("feishu api tools", () => {
+    it("should expose expected entry metadata", () => {
+      expect(allFeishuTools[0]).toEqual(
         expect.objectContaining({
-          name: "demo-tool",
-          icon: "🧰",
+          name: "feishu-contact_create_user",
           parameters: expect.arrayContaining([
             expect.objectContaining({
-              name: "location",
-              type: "string",
+              name: "credential_id",
+              type: "credential_id",
               required: true,
             }),
           ]),
         }),
       )
     })
-
-    it("should return correct message when invoked", async () => {
-      const location = "Beijing"
-      const result = await demoTool.invoke({
-        args: { parameters: { location } },
-      })
-
-      expect(result).toEqual(
-        expect.objectContaining({
-          message: `Testing the plugin with location: ${location}`,
-        }),
-      )
-    })
   })
+})
