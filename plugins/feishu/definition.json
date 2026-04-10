@@ -1,14 +1,14 @@
 {
   "name": "feishu",
   "display_name": {
-    "en_US": "Testing Plugin",
-    "zh_Hans": "测试插件"
+    "en_US": "Feishu Plugin",
+    "zh_Hans": "飞书插件"
   },
   "description": {
-    "en_US": "A plugin for testing the plugin",
-    "zh_Hans": "一个用于测试插件的插件"
+    "en_US": "Connect Feishu OpenAPI for contacts, chats, calendars, tasks, and approvals.",
+    "zh_Hans": "接入飞书 OpenAPI，覆盖通讯录、会话、日历、任务与审批能力。"
   },
-  "icon": "🎛️",
+  "icon": "🕊️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu",
   "locales": [
