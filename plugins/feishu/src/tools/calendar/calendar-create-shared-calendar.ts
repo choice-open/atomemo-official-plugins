@@ -1,13 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import {
+  parseCalendarActionBody,
+  parseCalendarActionQuery,
+} from "./zod/calendar-actions.zod";
 
 const fn: FeishuApiFunction = {
   id: "calendar_create_shared_calendar",
@@ -16,7 +20,7 @@ const fn: FeishuApiFunction = {
   name: "创建共享日历",
   method: "POST",
   path: "/open-apis/calendar/v4/calendars",
-}
+};
 
 export const feishuCalendarCreateSharedCalendarTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -47,6 +51,7 @@ export const feishuCalendarCreateSharedCalendarTool: ToolDefinition = {
         zh_Hans: "查询参数",
       },
       ui: {
+        support_expression: true,
         component: "input",
         hint: {
           en_US: "HTTP query object as JSON string (optional)",
@@ -68,6 +73,7 @@ export const feishuCalendarCreateSharedCalendarTool: ToolDefinition = {
         zh_Hans: "请求体",
       },
       ui: {
+        support_expression: true,
         component: "input",
         hint: {
           en_US: "HTTP body object as JSON string (optional)",
@@ -82,18 +88,22 @@ export const feishuCalendarCreateSharedCalendarTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
+    const pathParams = {};
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    );
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json");
+    const query = parseCalendarActionQuery(queryRaw);
+    const body = parseCalendarActionBody(bodyRaw);
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
-    })
+      queryParams: query,
+      body,
+    });
   },
-}
+};

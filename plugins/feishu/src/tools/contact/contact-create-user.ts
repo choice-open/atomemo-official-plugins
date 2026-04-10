@@ -1,17 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
 import {
   parseContactCreateUserBody,
   parseContactCreateUserQuery,
-} from "./contact-create-user.zod"
+} from "./contact-create-user.zod";
 
 const fn: FeishuApiFunction = {
   id: "contact_create_user",
@@ -20,7 +20,7 @@ const fn: FeishuApiFunction = {
   name: "创建员工",
   method: "POST",
   path: "/open-apis/contact/v3/users",
-}
+};
 
 export const feishuContactCreateUserTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -61,6 +61,7 @@ export const feishuContactCreateUserTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -86,32 +87,33 @@ export const feishuContactCreateUserTool: ToolDefinition = {
             '{"name":"张三","mobile":"13011111111","department_ids":["od-xxx"],"employee_type":1}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
+    const pathParams = {};
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    )
+    );
     const bodyRaw = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",
-    )
+    );
     const queryParams = parseContactCreateUserQuery(queryRaw) as Record<
       string,
       unknown
-    >
-    const body = parseContactCreateUserBody(bodyRaw) as Record<string, unknown>
+    >;
+    const body = parseContactCreateUserBody(bodyRaw) as Record<string, unknown>;
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams,
       body,
-    })
+    });
   },
-}
+};

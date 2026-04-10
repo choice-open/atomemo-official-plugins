@@ -1,16 +1,18 @@
 import { z } from "zod"
-import { emptyBodyStrictSchema } from "@/shared/zod"
+import { emptyBodyStrictSchema } from "./calendar-shared.zod"
 
 /**
  * Schema for query parameters for getting an event
  * Based on: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/calendar-v4/event/get
  */
 export const calendarGetEventQueryParamsSchema = z.object({
+  need_notification: z.boolean().optional(),
+  max_attendee_num: z.number().int().max(100).optional(),
   // According to the Feishu API documentation, this endpoint supports:
-  // user_id_type: The type of user ID. Optional. Valid values: user_id, open_id, union_id, email
+  // user_id_type: The type of user ID. Optional. Valid values: user_id, open_id, union_id
   // For example: {"user_id_type": "open_id"}
-  user_id_type: z.enum(["user_id", "open_id", "union_id", "email"]).optional(),
-})
+  user_id_type: z.enum(["user_id", "open_id", "union_id"]).optional(),
+}).strict()
 
 /**
  * Schema for request body for getting an event

@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseTaskListCommentsBody,
+  parseTaskListCommentsQuery,
+} from "./zod/task-list-comments.zod"
 
 const fn: FeishuApiFunction = {
   id: "task_list_comments",
@@ -15,7 +19,7 @@ const fn: FeishuApiFunction = {
   module: "task",
   name: "获取任务评论",
   method: "GET",
-  path: "/open-apis/task/v2/tasks/:task_guid/comments",
+  path: "/open-apis/task/v2/comments",
 }
 
 export const feishuTaskListCommentsTool: ToolDefinition = {
@@ -39,24 +43,9 @@ export const feishuTaskListCommentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "task_guid",
-      type: "string",
-      required: true,
-      display_name: { en_US: "task_guid", zh_Hans: "task_guid" },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "URL path parameter: task_guid",
-          zh_Hans: "URL 路径参数：task_guid",
-        },
-        support_expression: true,
-        width: "full",
-      },
-    } satisfies Property<"task_guid">,
-    {
       name: "query_params_json",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
         en_US: "Query Params",
         zh_Hans: "查询参数",
@@ -72,45 +61,23 @@ export const feishuTaskListCommentsTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {
-      task_guid: readRequiredStringParam(p, "task_guid"),
-    }
+    const pathParams = {}
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const query = parseTaskListCommentsQuery(queryRaw)
+    const body = parseTaskListCommentsBody({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

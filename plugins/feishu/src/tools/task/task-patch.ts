@@ -8,6 +8,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseTaskPatchBody, parseTaskPatchQuery } from "./zod/task-actions.zod"
 
 const fn: FeishuApiFunction = {
   id: "task_patch",
@@ -72,6 +73,7 @@ export const feishuTaskPatchTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,6 +95,7 @@ export const feishuTaskPatchTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -102,15 +105,16 @@ export const feishuTaskPatchTool: ToolDefinition = {
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseTaskPatchQuery(queryRaw)
+    const body = parseTaskPatchBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

@@ -8,6 +8,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
 
 const fn: FeishuApiFunction = {
   id: "contact_patch_department",
@@ -72,6 +73,7 @@ export const feishuContactPatchDepartmentTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,6 +95,7 @@ export const feishuContactPatchDepartmentTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -102,15 +105,16 @@ export const feishuContactPatchDepartmentTool: ToolDefinition = {
     const pathParams = {
       department_id: readRequiredStringParam(p, "department_id"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseContactActionQuery(queryRaw)
+    const body = parseContactActionBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

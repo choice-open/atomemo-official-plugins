@@ -14,14 +14,20 @@ export const calendarPermissionsSchema = z.enum([
 export const calendarVisibilitySchema = z.enum(["default", "public", "private"])
 
 export const attendeeAbilitySchema = z.enum([
+  "none",
   "can_see_others",
-  "can_invite",
-  "canModify",
+  "can_invite_others",
+  "can_modify_event",
 ])
 
 export const freeBusyStatusSchema = z.enum(["busy", "free", "tentative"])
 
-export const vcTypeSchema = z.enum(["none", "feishu", "third_party"])
+export const vcTypeSchema = z.enum([
+  "vc",
+  "third_party",
+  "no_meeting",
+  "lark_live",
+])
 
 export const eventTimestampSchema = z
   .object({

@@ -1,13 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { invokeFeishuOpenApi, readRequiredStringParam } from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import {
+  invokeFeishuOpenApi,
+  parseOptionalJsonObject,
+  readRequiredStringParam,
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
 import {
   parseCalendarGetPrimaryQueryParams,
   parseCalendarGetPrimaryBody,
-} from "./zod/calendar-get-primary.zod"
+} from "./zod/calendar-get-primary.zod";
 
 const fn: FeishuApiFunction = {
   id: "calendar_get_primary",
@@ -16,7 +20,7 @@ const fn: FeishuApiFunction = {
   name: "查询主日历信息",
   method: "GET",
   path: "/open-apis/calendar/v4/calendars/primary",
-}
+};
 
 export const feishuCalendarGetPrimaryTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -57,43 +61,24 @@ export const feishuCalendarGetPrimaryTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
+    const pathParams = {};
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    );
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseCalendarGetPrimaryQueryParams(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseCalendarGetPrimaryBody(p.body_json, "body_json"),
-    })
+      queryParams: parseCalendarGetPrimaryQueryParams(queryRaw),
+      body: parseCalendarGetPrimaryBody({}),
+    });
   },
-}
+};

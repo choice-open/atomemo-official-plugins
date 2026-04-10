@@ -76,6 +76,7 @@ export const feishuContactDeleteUserTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -97,6 +98,7 @@ export const feishuContactDeleteUserTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],

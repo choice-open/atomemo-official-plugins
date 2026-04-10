@@ -8,14 +8,18 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseContactSearchUsersBody,
+  parseContactSearchUsersQuery,
+} from "./contact-search-users.zod"
 
 const fn: FeishuApiFunction = {
   id: "contact_search_users",
   legacy_id: "f006",
   module: "contact",
   name: "搜索员工信息",
-  method: "POST",
-  path: "/open-apis/contact/v3/users/search",
+  method: "GET",
+  path: "/open-apis/search/v1/user",
 }
 
 export const feishuContactSearchUsersTool: ToolDefinition = {
@@ -41,7 +45,7 @@ export const feishuContactSearchUsersTool: ToolDefinition = {
     {
       name: "query_params_json",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
         en_US: "Query Params",
         zh_Hans: "查询参数",
@@ -52,48 +56,29 @@ export const feishuContactSearchUsersTool: ToolDefinition = {
           en_US: "HTTP query object as JSON string (optional)",
           zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
         },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        placeholder: { en_US: '{"query":"张三","page_size":20}', zh_Hans: '{"query":"张三","page_size":20}' },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: parseContactSearchUsersQuery(queryRaw) as Record<
+        string,
+        unknown
+      >,
+      body: parseContactSearchUsersBody({}) as Record<string, unknown>,
     })
   },
 }

@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseTaskRemoveMemberBody,
+  parseTaskRemoveMemberQuery,
+} from "./zod/task-actions.zod"
 
 const fn: FeishuApiFunction = {
   id: "task_remove_member",
@@ -87,6 +91,7 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -108,6 +113,7 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -118,15 +124,15 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       task_guid: readRequiredStringParam(p, "task_guid"),
       member_id: readRequiredStringParam(p, "member_id"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const query = parseTaskRemoveMemberQuery(queryRaw)
+    const body = parseTaskRemoveMemberBody({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

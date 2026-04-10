@@ -8,6 +8,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseTaskDeleteBody, parseTaskDeleteQuery } from "./zod/task-actions.zod"
 
 const fn: FeishuApiFunction = {
   id: "task_delete",
@@ -72,6 +73,7 @@ export const feishuTaskDeleteTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,6 +95,7 @@ export const feishuTaskDeleteTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -102,15 +105,15 @@ export const feishuTaskDeleteTool: ToolDefinition = {
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const query = parseTaskDeleteQuery(queryRaw)
+    const body = parseTaskDeleteBody({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

@@ -1,13 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import {
+  parseCalendarActionQuery,
+  parseCalendarEmptyBody,
+} from "./zod/calendar-actions.zod";
 
 const fn: FeishuApiFunction = {
   id: "calendar_delete_timeoff",
@@ -16,7 +20,7 @@ const fn: FeishuApiFunction = {
   name: "删除请假日程",
   method: "DELETE",
   path: "/open-apis/calendar/v4/timeoff_events/:timeoff_event_id",
-}
+};
 
 export const feishuCalendarDeleteTimeoffTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -72,6 +76,7 @@ export const feishuCalendarDeleteTimeoffTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,24 +98,28 @@ export const feishuCalendarDeleteTimeoffTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const pathParams = {
       timeoff_event_id: readRequiredStringParam(p, "timeoff_event_id"),
-    }
+    };
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    );
+    const query = parseCalendarActionQuery(queryRaw);
+    const body = parseCalendarEmptyBody({});
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
-    })
+      queryParams: query,
+      body,
+    });
   },
-}
+};

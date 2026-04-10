@@ -8,6 +8,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseImActionQuery, parseImEmptyBody } from "./zod/im-actions.zod"
 
 const fn: FeishuApiFunction = {
   id: "im_delete_chat",
@@ -72,6 +73,7 @@ export const feishuImDeleteChatTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,6 +95,7 @@ export const feishuImDeleteChatTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -102,15 +105,15 @@ export const feishuImDeleteChatTool: ToolDefinition = {
     const pathParams = {
       chat_id: readRequiredStringParam(p, "chat_id"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const query = parseImActionQuery(queryRaw)
+    const body = parseImEmptyBody({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

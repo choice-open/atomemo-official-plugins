@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseContactGetScopeBody,
+  parseContactGetScopeQuery,
+} from "./contact-get-scope.zod"
 
 const fn: FeishuApiFunction = {
   id: "contact_get_scope",
@@ -15,7 +19,7 @@ const fn: FeishuApiFunction = {
   module: "contact",
   name: "获取通讯录授权范围",
   method: "GET",
-  path: "/open-apis/contact/v1/scope/get",
+  path: "/open-apis/contact/v3/scopes",
 }
 
 export const feishuContactGetScopeTool: ToolDefinition = {
@@ -57,43 +61,27 @@ export const feishuContactGetScopeTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: parseContactGetScopeQuery(queryRaw) as Record<
+        string,
+        unknown
+      >,
+      body: parseContactGetScopeBody({}) as Record<string, unknown>,
     })
   },
 }

@@ -1,17 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
 import {
   parseApprovalGetInstanceBody,
   parseApprovalGetInstanceQuery,
-} from "./approval-get-instance.zod"
+} from "./approval-get-instance.zod";
 
 const fn: FeishuApiFunction = {
   id: "approval_get_instance",
@@ -20,7 +20,7 @@ const fn: FeishuApiFunction = {
   name: "获取审批实例详情",
   method: "GET",
   path: "/open-apis/approval/v4/instances/:instance_id",
-}
+};
 
 export const feishuApprovalGetInstanceTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -76,55 +76,31 @@ export const feishuApprovalGetInstanceTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const pathParams = {
       instance_id: readRequiredStringParam(p, "instance_id"),
-    }
+    };
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    );
     const queryParams = parseApprovalGetInstanceQuery(queryRaw) as Record<
       string,
       unknown
-    >
-    const body = parseApprovalGetInstanceBody(bodyRaw) as Record<
-      string,
-      unknown
-    >
+    >;
+    const body = parseApprovalGetInstanceBody({}) as Record<string, unknown>;
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams,
       body,
-    })
+    });
   },
-}
+};

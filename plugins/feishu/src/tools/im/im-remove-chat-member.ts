@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseImRemoveChatMemberBody,
+  parseImRemoveChatMemberQuery,
+} from "./zod/im-remove-chat-member.zod"
 
 const fn: FeishuApiFunction = {
   id: "im_remove_chat_member",
@@ -87,6 +91,7 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -108,6 +113,7 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -118,15 +124,16 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
       chat_id: readRequiredStringParam(p, "chat_id"),
       member_id: readRequiredStringParam(p, "member_id"),
     }
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseImRemoveChatMemberQuery(queryRaw)
+    const body = parseImRemoveChatMemberBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }

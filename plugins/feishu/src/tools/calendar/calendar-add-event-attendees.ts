@@ -1,13 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import {
+  parseCalendarAddEventAttendeesBody,
+  parseCalendarAddEventAttendeesQuery,
+} from "./zod/calendar-add-event-attendees.zod";
 
 const fn: FeishuApiFunction = {
   id: "calendar_add_event_attendees",
@@ -15,8 +19,8 @@ const fn: FeishuApiFunction = {
   module: "calendar",
   name: "邀请日程参与者",
   method: "POST",
-  path: "/open-apis/calendar/v4/events/:event_id/attendees",
-}
+  path: "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees",
+};
 
 export const feishuCalendarAddEventAttendeesTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -38,6 +42,21 @@ export const feishuCalendarAddEventAttendeesTool: ToolDefinition = {
       display_name: { en_US: "Credential", zh_Hans: "凭证" },
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
+    {
+      name: "calendar_id",
+      type: "string",
+      required: true,
+      display_name: { en_US: "calendar_id", zh_Hans: "calendar_id" },
+      ui: {
+        component: "input",
+        hint: {
+          en_US: "URL path parameter: calendar_id",
+          zh_Hans: "URL 路径参数：calendar_id",
+        },
+        support_expression: true,
+        width: "full",
+      },
+    } satisfies Property<"calendar_id">,
     {
       name: "event_id",
       type: "string",
@@ -72,6 +91,7 @@ export const feishuCalendarAddEventAttendeesTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -93,24 +113,34 @@ export const feishuCalendarAddEventAttendeesTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const pathParams = {
+      calendar_id: readRequiredStringParam(p, "calendar_id"),
       event_id: readRequiredStringParam(p, "event_id"),
-    }
+    };
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    );
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json");
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
-    })
+      queryParams: parseCalendarAddEventAttendeesQuery(queryRaw) as Record<
+        string,
+        unknown
+      >,
+      body: parseCalendarAddEventAttendeesBody(bodyRaw) as Record<
+        string,
+        unknown
+      >,
+    });
   },
-}
+};

@@ -73,29 +73,9 @@ export const feishuImGetChatTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
-      ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-      },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
@@ -107,9 +87,8 @@ export const feishuImGetChatTool: ToolDefinition = {
       p.query_params_json,
       "query_params_json",
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const queryParams = parseImGetChatQuery(queryRaw) as Record<string, unknown>
-    const body = parseImGetChatBody(bodyRaw) as Record<string, unknown>
+    const body = parseImGetChatBody({}) as Record<string, unknown>
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

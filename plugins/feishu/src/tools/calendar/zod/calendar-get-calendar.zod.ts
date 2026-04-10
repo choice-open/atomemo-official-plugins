@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { emptyBodyStrictSchema } from "@/shared/zod"
+import { emptyBodyStrictSchema } from "./calendar-shared.zod"
 
 /**
  * Schema for query parameters for getting a calendar
@@ -8,7 +8,7 @@ import { emptyBodyStrictSchema } from "@/shared/zod"
 export const calendarGetCalendarQueryParamsSchema = z.object({
   // According to the Feishu API documentation, this endpoint doesn't have any query parameters
   // However, we keep the schema open for future extensions or undocumented parameters
-})
+}).strict()
 
 /**
  * Schema for request body for getting a calendar

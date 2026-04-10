@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseImSendMessageBody,
+  parseImSendMessageQuery,
+} from "./zod/im-send-message.zod"
 
 const fn: FeishuApiFunction = {
   id: "im_send_message",
@@ -57,6 +61,7 @@ export const feishuImSendMessageTool: ToolDefinition = {
           zh_Hans: '{"page_size":20}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"query_params_json">,
     {
@@ -78,6 +83,7 @@ export const feishuImSendMessageTool: ToolDefinition = {
           zh_Hans: '{"key":"value"}',
         },
         width: "full",
+        support_expression: true,
       },
     } satisfies Property<"body_json">,
   ],
@@ -85,15 +91,16 @@ export const feishuImSendMessageTool: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
+    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseImSendMessageQuery(queryRaw)
+    const body = parseImSendMessageBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams: query,
+      body,
     })
   },
 }
