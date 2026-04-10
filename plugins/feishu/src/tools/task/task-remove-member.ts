@@ -13,6 +13,8 @@ import {
   parseTaskRemoveMemberQuery,
 } from "./zod/task-actions.zod"
 
+import task_remove_memberSkill from "./task-remove-member-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_remove_member",
   legacy_id: "f068",
@@ -32,6 +34,7 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_remove_memberSkill,
   icon: "🪶",
   parameters: [
     {

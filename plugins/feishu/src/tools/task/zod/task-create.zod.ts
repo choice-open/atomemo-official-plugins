@@ -1,16 +1,31 @@
 /**
- * 飞书「创建任务」POST /open-apis/task/v1/tasks
+ * 飞书「创建任务」POST /open-apis/task/v2/tasks
  * 查询参数、请求体字段与官方文档一致，使用 .strict()。
- * @see https://open.feishu.cn/document/server-docs/task-v1/task/create
+ * @see https://open.feishu.cn/document/server-docs/task-v2/task/create
  */
 import { z } from "zod"
 import { feishuUserIdTypeSchema } from "./task-shared.zod"
 
 const taskDueSchema = z
   .object({
-    time: z.string().optional(),
+    timestamp: z.string().optional(),
     timezone: z.string().optional(),
     is_all_day: z.boolean().optional(),
+  })
+  .strict()
+
+const taskStartSchema = z
+  .object({
+    timestamp: z.string().optional(),
+    timezone: z.string().optional(),
+    is_all_day: z.boolean().optional(),
+  })
+  .strict()
+
+const taskReminderSchema = z
+  .object({
+    time_before_task_due_in_minutes: z.number().int().optional(),
+    create_before_task_start_in_minutes: z.number().int().optional(),
   })
   .strict()
 
@@ -23,7 +38,7 @@ const taskOriginHrefSchema = z
 
 const taskOriginSchema = z
   .object({
-    platform_i18n_name: z.string(),
+    platform_i18n_name: z.string().optional(),
     href: taskOriginHrefSchema.optional(),
   })
   .strict()
@@ -38,6 +53,7 @@ export const taskCreateQuerySchema = z
 /** 请求体 */
 export const taskCreateBodySchema = z
   .object({
+    tasklist_guid: z.string().optional(),
     tasklist_id: z.string().optional(),
     summary: z.string().optional(),
     description: z.string().optional(),
@@ -45,12 +61,16 @@ export const taskCreateBodySchema = z
     rich_description: z.string().optional(),
     extra: z.string().optional(),
     due: taskDueSchema.optional(),
-    origin: taskOriginSchema,
+    start: taskStartSchema.optional(),
+    reminders: z.array(taskReminderSchema).optional(),
+    origin: taskOriginSchema.optional(),
     can_edit: z.boolean().optional(),
-    custom: z.string().optional(),
-    collaborator_ids: z.array(z.string()).optional(),
-    follower_ids: z.array(z.string()).optional(),
-    repeat_rule: z.string().optional(),
+    custom_fields: z.string().optional(),
+    members: z.array(z.string()).optional(),
+    tasklists: z.array(z.string()).optional(),
+    client_token: z.string().optional(),
+    mode: z.enum(["task", "checklist"]).optional(),
+    is_milestone: z.boolean().optional(),
   })
   .strict()
 

@@ -13,6 +13,8 @@ import {
   parseTaskListSubtasksQuery,
 } from "./zod/task-list-subtasks.zod"
 
+import task_list_subtasksSkill from "./task-list-subtasks-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_list_subtasks",
   legacy_id: "f070",
@@ -32,6 +34,7 @@ export const feishuTaskListSubtasksTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_list_subtasksSkill,
   icon: "🪶",
   parameters: [
     {

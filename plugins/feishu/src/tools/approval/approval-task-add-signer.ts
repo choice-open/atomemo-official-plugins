@@ -1,17 +1,21 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseApprovalTaskAddSignerBody,
   parseApprovalTaskAddSignerQuery,
-} from "./zod/approval-actions.zod";
+} from "./zod/approval-actions.zod"
+
+import approval_task_add_signerSkill from "./approval-task-add-signer-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "approval_task_add_signer",
@@ -19,8 +23,8 @@ const fn: FeishuApiFunction = {
   module: "approval",
   name: "审批任务加签",
   method: "POST",
-  path: "/open-apis/approval/v4/tasks/add_signer",
-};
+  path: "/open-apis/approval/v4/tasks/add_sign",
+}
 
 export const feishuApprovalTaskAddSignerTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -32,6 +36,7 @@ export const feishuApprovalTaskAddSignerTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_task_add_signerSkill,
   icon: "🪶",
   parameters: [
     {
@@ -88,22 +93,22 @@ export const feishuApprovalTaskAddSignerTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
-    const pathParams = {};
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
+    const pathParams = {}
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json");
-    const query = parseApprovalTaskAddSignerQuery(queryRaw);
-    const body = parseApprovalTaskAddSignerBody(bodyRaw);
+    )
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseApprovalTaskAddSignerQuery(queryRaw)
+    const body = parseApprovalTaskAddSignerBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams: query,
       body,
-    });
+    })
   },
-};
+}

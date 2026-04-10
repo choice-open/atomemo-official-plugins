@@ -18,7 +18,7 @@ const i18nNameSchema = z
 export const imCreateChatQuerySchema = z
   .object({
     user_id_type: feishuUserIdTypeSchema.optional(),
-    set_bot_manager: z.boolean().optional(),
+    set_bot_manager: z.string().optional(),
     uuid: z.string().optional(),
   })
   .strict()

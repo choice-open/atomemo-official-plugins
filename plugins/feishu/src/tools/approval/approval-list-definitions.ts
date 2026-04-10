@@ -13,6 +13,8 @@ import {
   parseApprovalListDefinitionsQuery,
 } from "./zod/approval-list-definitions.zod";
 
+import approval_list_definitionsSkill from "./approval-list-definitions-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "approval_list_definitions",
   legacy_id: "f083",
@@ -32,6 +34,7 @@ export const feishuApprovalListDefinitionsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_list_definitionsSkill,
   icon: "🪶",
   parameters: [
     {

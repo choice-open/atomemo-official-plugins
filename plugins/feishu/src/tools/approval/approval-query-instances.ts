@@ -13,6 +13,8 @@ import {
   parseApprovalQueryInstancesQuery,
 } from "./zod/approval-actions.zod";
 
+import approval_query_instancesSkill from "./approval-query-instances-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "approval_query_instances",
   legacy_id: "f077",
@@ -32,6 +34,7 @@ export const feishuApprovalQueryInstancesTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_query_instancesSkill,
   icon: "🪶",
   parameters: [
     {

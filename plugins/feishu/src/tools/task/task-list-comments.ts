@@ -13,6 +13,8 @@ import {
   parseTaskListCommentsQuery,
 } from "./zod/task-list-comments.zod"
 
+import task_list_commentsSkill from "./task-list-comments-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_list_comments",
   legacy_id: "f073",
@@ -32,6 +34,7 @@ export const feishuTaskListCommentsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_list_commentsSkill,
   icon: "🪶",
   parameters: [
     {

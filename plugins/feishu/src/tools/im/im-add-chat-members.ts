@@ -13,6 +13,8 @@ import {
   parseImAddChatMembersQuery,
 } from "./zod/im-add-chat-members.zod"
 
+import im_add_chat_membersSkill from "./im-add-chat-members-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_add_chat_members",
   legacy_id: "f035",
@@ -32,6 +34,7 @@ export const feishuImAddChatMembersTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_add_chat_membersSkill,
   icon: "🪶",
   parameters: [
     {

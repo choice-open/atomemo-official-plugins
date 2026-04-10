@@ -13,6 +13,8 @@ import {
   parseCalendarCreateEventQuery,
 } from "./zod/calendar-create-event.zod";
 
+import calendar_create_eventSkill from "./calendar-create-event-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_create_event",
   legacy_id: "f046",
@@ -32,6 +34,7 @@ export const feishuCalendarCreateEventTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_create_eventSkill,
   icon: "🪶",
   parameters: [
     {

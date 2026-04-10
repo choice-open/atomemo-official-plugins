@@ -13,13 +13,17 @@ import {
   parseImRemoveChatMemberQuery,
 } from "./zod/im-remove-chat-member.zod"
 
+import im_remove_chat_memberSkill from "./im-remove-chat-member-skill.md" with {
+  type: "text",
+}
+
 const fn: FeishuApiFunction = {
   id: "im_remove_chat_member",
   legacy_id: "f036",
   module: "im",
   name: "移出群成员",
   method: "DELETE",
-  path: "/open-apis/im/v1/chats/:chat_id/members/:member_id",
+  path: "/open-apis/im/v1/chats/:chat_id/members",
 }
 
 export const feishuImRemoveChatMemberTool: ToolDefinition = {
@@ -32,6 +36,7 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_remove_chat_memberSkill,
   icon: "🪶",
   parameters: [
     {
@@ -58,20 +63,28 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
       },
     } satisfies Property<"chat_id">,
     {
-      name: "member_id",
+      name: "member_id_type",
       type: "string",
-      required: true,
-      display_name: { en_US: "member_id", zh_Hans: "member_id" },
+      required: false,
+      display_name: {
+        en_US: "member_id_type",
+        zh_Hans: "member_id_type",
+      },
       ui: {
         component: "input",
         hint: {
-          en_US: "URL path parameter: member_id",
-          zh_Hans: "URL 路径参数：member_id",
+          en_US:
+            "Query parameter: member ID type (open_id/user_id/union_id/app_id)",
+          zh_Hans: "查询参数：成员ID类型 (open_id/user_id/union_id/app_id)",
+        },
+        placeholder: {
+          en_US: "open_id",
+          zh_Hans: "open_id",
         },
         support_expression: true,
         width: "full",
       },
-    } satisfies Property<"member_id">,
+    } satisfies Property<"member_id_type">,
     {
       name: "query_params_json",
       type: "string",
@@ -122,9 +135,11 @@ export const feishuImRemoveChatMemberTool: ToolDefinition = {
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {
       chat_id: readRequiredStringParam(p, "chat_id"),
-      member_id: readRequiredStringParam(p, "member_id"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseImRemoveChatMemberQuery(queryRaw)
     const body = parseImRemoveChatMemberBody(bodyRaw)

@@ -13,6 +13,8 @@ import {
   parseContactSearchUsersQuery,
 } from "./contact-search-users.zod"
 
+import contact_search_usersSkill from "./contact-search-users-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_search_users",
   legacy_id: "f006",
@@ -32,6 +34,7 @@ export const feishuContactSearchUsersTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_search_usersSkill,
   icon: "🪶",
   parameters: [
     {

@@ -13,6 +13,8 @@ import {
   parseContactGetDepartmentParentQuery,
 } from "./contact-get-department-parent.zod"
 
+import contact_get_department_parentSkill from "./contact-get-department-parent-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_get_department_parent",
   legacy_id: "f020",
@@ -32,6 +34,7 @@ export const feishuContactGetDepartmentParentTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_get_department_parentSkill,
   icon: "🪶",
   parameters: [
     {

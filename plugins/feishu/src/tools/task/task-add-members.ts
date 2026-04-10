@@ -13,6 +13,8 @@ import {
   parseTaskAddMembersQuery,
 } from "./zod/task-actions.zod"
 
+import task_add_membersSkill from "./task-add-members-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_add_members",
   legacy_id: "f067",
@@ -32,6 +34,7 @@ export const feishuTaskAddMembersTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_add_membersSkill,
   icon: "🪶",
   parameters: [
     {

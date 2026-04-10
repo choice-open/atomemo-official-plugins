@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseTaskPatchBody, parseTaskPatchQuery } from "./zod/task-actions.zod"
 
+import task_patchSkill from "./task-patch-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_patch",
   legacy_id: "f063",
@@ -29,6 +31,7 @@ export const feishuTaskPatchTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_patchSkill,
   icon: "🪶",
   parameters: [
     {

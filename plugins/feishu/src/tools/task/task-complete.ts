@@ -13,6 +13,8 @@ import {
   parseTaskCompleteQuery,
 } from "./zod/task-actions.zod"
 
+import task_completeSkill from "./task-complete-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_complete",
   legacy_id: "f065",
@@ -32,6 +34,7 @@ export const feishuTaskCompleteTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_completeSkill,
   icon: "🪶",
   parameters: [
     {

@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseTaskCreateBody, parseTaskCreateQuery } from "./zod/task-create.zod"
 
+import task_createSkill from "./task-create-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_create",
   legacy_id: "f061",
@@ -29,6 +31,7 @@ export const feishuTaskCreateTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_createSkill,
   icon: "🪶",
   parameters: [
     {

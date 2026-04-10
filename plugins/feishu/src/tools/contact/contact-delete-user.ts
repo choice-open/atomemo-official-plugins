@@ -13,6 +13,8 @@ import {
   parseContactDeleteUserQuery,
 } from "./contact-delete-user.zod"
 
+import contact_delete_userSkill from "./contact-delete-user-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_delete_user",
   legacy_id: "f003",
@@ -32,6 +34,7 @@ export const feishuContactDeleteUserTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_delete_userSkill,
   icon: "🪶",
   parameters: [
     {

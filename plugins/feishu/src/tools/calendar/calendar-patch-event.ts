@@ -13,6 +13,8 @@ import {
   parseCalendarActionQuery,
 } from "./zod/calendar-actions.zod";
 
+import calendar_patch_eventSkill from "./calendar-patch-event-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_patch_event",
   legacy_id: "f048",
@@ -32,6 +34,7 @@ export const feishuCalendarPatchEventTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_patch_eventSkill,
   icon: "🪶",
   parameters: [
     {

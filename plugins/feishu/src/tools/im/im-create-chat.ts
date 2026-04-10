@@ -13,6 +13,8 @@ import {
   parseImCreateChatQuery,
 } from "./zod/im-create-chat.zod"
 
+import im_create_chatSkill from "./im-create-chat-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_create_chat",
   legacy_id: "f030",
@@ -32,6 +34,7 @@ export const feishuImCreateChatTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_create_chatSkill,
   icon: "🪶",
   parameters: [
     {

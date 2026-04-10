@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseImGetChatBody, parseImGetChatQuery } from "./zod/im-get-chat.zod"
 
+import im_get_chatSkill from "./im-get-chat-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_get_chat",
   legacy_id: "f033",
@@ -29,6 +31,7 @@ export const feishuImGetChatTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_get_chatSkill,
   icon: "🪶",
   parameters: [
     {

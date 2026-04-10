@@ -13,6 +13,8 @@ import {
   parseCalendarEmptyBody,
 } from "./zod/calendar-actions.zod";
 
+import calendar_delete_timeoffSkill from "./calendar-delete-timeoff-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_delete_timeoff",
   legacy_id: "f058",
@@ -32,6 +34,7 @@ export const feishuCalendarDeleteTimeoffTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_delete_timeoffSkill,
   icon: "🪶",
   parameters: [
     {

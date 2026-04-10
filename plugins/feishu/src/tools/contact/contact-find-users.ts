@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
 
+import contact_find_usersSkill from "./contact-find-users-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_find_users",
   legacy_id: "f005",
@@ -29,6 +31,7 @@ export const feishuContactFindUsersTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_find_usersSkill,
   icon: "🪶",
   parameters: [
     {

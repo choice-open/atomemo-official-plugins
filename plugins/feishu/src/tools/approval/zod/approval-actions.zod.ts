@@ -1,5 +1,8 @@
 import { z } from "zod"
-import { emptyBodyStrictSchema, feishuUserIdTypeSchema } from "./approval-shared.zod"
+import {
+  emptyBodyStrictSchema,
+  feishuUserIdTypeSchema,
+} from "./approval-shared.zod"
 
 const objectBodySchema = z.record(z.string(), z.unknown())
 
@@ -10,16 +13,38 @@ export const approvalCommonQuerySchema = z
   .strict()
 
 export const approvalTaskApproveQuerySchema = approvalCommonQuerySchema
-export const approvalTaskApproveBodySchema = objectBodySchema
+export const approvalTaskApproveBodySchema = z
+  .object({
+    task_id: z.string(),
+    comment: z.string().optional(),
+  })
+  .strict()
 
 export const approvalTaskTransferQuerySchema = approvalCommonQuerySchema
-export const approvalTaskTransferBodySchema = objectBodySchema
+export const approvalTaskTransferBodySchema = z
+  .object({
+    task_id: z.string(),
+    assignee_id: z.string(),
+  })
+  .strict()
 
 export const approvalTaskRejectQuerySchema = approvalCommonQuerySchema
-export const approvalTaskRejectBodySchema = objectBodySchema
+export const approvalTaskRejectBodySchema = z
+  .object({
+    task_id: z.string(),
+    reason: z.string().optional(),
+  })
+  .strict()
 
 export const approvalTaskAddSignerQuerySchema = approvalCommonQuerySchema
-export const approvalTaskAddSignerBodySchema = objectBodySchema
+export const approvalTaskAddSignerBodySchema = z
+  .object({
+    task_id: z.string(),
+    approver_id: z.string(),
+    sign_type: z.enum(["before", "after"]).optional(),
+    approval_method: z.enum(["or", "and"]).optional(),
+  })
+  .strict()
 
 export const approvalQueryInstancesQuerySchema = approvalCommonQuerySchema
 export const approvalQueryInstancesBodySchema = objectBodySchema

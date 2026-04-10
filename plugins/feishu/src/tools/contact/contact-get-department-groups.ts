@@ -13,6 +13,8 @@ import {
   parseContactGetDepartmentGroupsQuery,
 } from "./contact-get-department-groups.zod"
 
+import contact_get_department_groupsSkill from "./contact-get-department-groups-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_get_department_groups",
   legacy_id: "f022",
@@ -32,6 +34,7 @@ export const feishuContactGetDepartmentGroupsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_get_department_groupsSkill,
   icon: "🪶",
   parameters: [
     {

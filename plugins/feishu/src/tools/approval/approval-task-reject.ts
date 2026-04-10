@@ -13,6 +13,8 @@ import {
   parseApprovalTaskRejectQuery,
 } from "./zod/approval-actions.zod";
 
+import approval_task_rejectSkill from "./approval-task-reject-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "approval_task_reject",
   legacy_id: "f080",
@@ -32,6 +34,7 @@ export const feishuApprovalTaskRejectTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_task_rejectSkill,
   icon: "🪶",
   parameters: [
     {

@@ -13,6 +13,8 @@ import {
   parseContactListDepartmentsQuery,
 } from "./contact-list-departments.zod"
 
+import contact_list_departmentsSkill from "./contact-list-departments-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_list_departments",
   legacy_id: "f011",
@@ -32,6 +34,7 @@ export const feishuContactListDepartmentsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_list_departmentsSkill,
   icon: "🪶",
   parameters: [
     {

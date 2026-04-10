@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
 
+import contact_recover_userSkill from "./contact-recover-user-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_recover_user",
   legacy_id: "f016",
@@ -29,6 +31,7 @@ export const feishuContactRecoverUserTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_recover_userSkill,
   icon: "🪶",
   parameters: [
     {

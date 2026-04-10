@@ -13,6 +13,8 @@ import {
   parseCalendarListEventAttendeesQuery,
 } from "./zod/calendar-list-event-attendees.zod";
 
+import calendar_list_event_attendeesSkill from "./calendar-list-event-attendees-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_list_event_attendees",
   legacy_id: "f054",
@@ -32,6 +34,7 @@ export const feishuCalendarListEventAttendeesTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_list_event_attendeesSkill,
   icon: "🪶",
   parameters: [
     {

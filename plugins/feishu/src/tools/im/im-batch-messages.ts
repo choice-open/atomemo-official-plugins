@@ -10,13 +10,17 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseImActionBody, parseImActionQuery } from "./zod/im-actions.zod"
 
+import im_batch_messagesSkill from "./im-batch-messages-skill.md" with {
+  type: "text",
+}
+
 const fn: FeishuApiFunction = {
   id: "im_batch_messages",
   legacy_id: "f025",
   module: "im",
   name: "批量发送消息",
   method: "POST",
-  path: "/open-apis/im/v1/batch_messages",
+  path: "/open-apis/message/v4/batch_send/",
 }
 
 export const feishuImBatchMessagesTool: ToolDefinition = {
@@ -29,6 +33,7 @@ export const feishuImBatchMessagesTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_batch_messagesSkill,
   icon: "🪶",
   parameters: [
     {
@@ -88,7 +93,10 @@ export const feishuImBatchMessagesTool: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseImActionQuery(queryRaw)
     const body = parseImActionBody(bodyRaw)

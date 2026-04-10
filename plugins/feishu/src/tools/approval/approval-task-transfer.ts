@@ -13,6 +13,8 @@ import {
   parseApprovalTaskTransferQuery,
 } from "./zod/approval-actions.zod";
 
+import approval_task_transferSkill from "./approval-task-transfer-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "approval_task_transfer",
   legacy_id: "f081",
@@ -32,6 +34,7 @@ export const feishuApprovalTaskTransferTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_task_transferSkill,
   icon: "🪶",
   parameters: [
     {

@@ -13,6 +13,8 @@ import {
   parseApprovalCreateInstanceQuery,
 } from "./zod/approval-create-instance.zod";
 
+import approval_create_instanceSkill from "./approval-create-instance-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "approval_create_instance",
   legacy_id: "f075",
@@ -32,6 +34,7 @@ export const feishuApprovalCreateInstanceTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: approval_create_instanceSkill,
   icon: "🪶",
   parameters: [
     {

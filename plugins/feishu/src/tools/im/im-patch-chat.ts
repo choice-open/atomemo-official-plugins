@@ -13,12 +13,14 @@ import {
   parseImPatchChatQuery,
 } from "./zod/im-patch-chat.zod"
 
+import im_patch_chatSkill from "./im-patch-chat-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_patch_chat",
   legacy_id: "f034",
   module: "im",
   name: "更新群信息",
-  method: "PATCH",
+  method: "PUT",
   path: "/open-apis/im/v1/chats/:chat_id",
 }
 
@@ -32,6 +34,7 @@ export const feishuImPatchChatTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_patch_chatSkill,
   icon: "🪶",
   parameters: [
     {
@@ -108,7 +111,10 @@ export const feishuImPatchChatTool: ToolDefinition = {
     const pathParams = {
       chat_id: readRequiredStringParam(p, "chat_id"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseImPatchChatQuery(queryRaw)
     const body = parseImPatchChatBody(bodyRaw)

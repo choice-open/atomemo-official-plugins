@@ -13,6 +13,8 @@ import {
   parseImDownloadImageQuery,
 } from "./zod/im-download-image.zod"
 
+import im_download_imageSkill from "./im-download-image-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_download_image",
   legacy_id: "f027",
@@ -32,6 +34,7 @@ export const feishuImDownloadImageTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_download_imageSkill,
   icon: "🪶",
   parameters: [
     {

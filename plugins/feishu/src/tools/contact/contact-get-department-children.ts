@@ -13,6 +13,8 @@ import {
   parseContactGetDepartmentChildrenQuery,
 } from "./contact-get-department-children.zod"
 
+import contact_get_department_childrenSkill from "./contact-get-department-children-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_get_department_children",
   legacy_id: "f019",
@@ -32,6 +34,7 @@ export const feishuContactGetDepartmentChildrenTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_get_department_childrenSkill,
   icon: "🪶",
   parameters: [
     {

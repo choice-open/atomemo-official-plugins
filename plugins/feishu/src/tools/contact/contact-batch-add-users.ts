@@ -1,17 +1,21 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
-  parseContactActionBody,
   parseContactActionQuery,
-} from "./contact-actions.zod";
+  parseContactBatchAddUsersBody,
+} from "./contact-actions.zod"
+
+import contact_batch_add_usersSkill from "./contact-batch-add-users-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "contact_batch_add_users",
@@ -20,7 +24,7 @@ const fn: FeishuApiFunction = {
   name: "批量新增用户",
   method: "POST",
   path: "/open-apis/contact/v2/user/batch_add",
-};
+}
 
 export const feishuContactBatchAddUsersTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -32,6 +36,7 @@ export const feishuContactBatchAddUsersTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_batch_add_usersSkill,
   icon: "🪶",
   parameters: [
     {
@@ -88,22 +93,22 @@ export const feishuContactBatchAddUsersTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
-    const pathParams = {};
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
+    const pathParams = {}
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json");
-    const query = parseContactActionQuery(queryRaw);
-    const body = parseContactActionBody(bodyRaw);
+    )
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const query = parseContactActionQuery(queryRaw)
+    const body = parseContactBatchAddUsersBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams: query,
       body,
-    });
+    })
   },
-};
+}

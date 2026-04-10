@@ -13,6 +13,8 @@ import {
   parseCalendarActionQuery,
 } from "./zod/calendar-actions.zod";
 
+import calendar_create_timeoffSkill from "./calendar-create-timeoff-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_create_timeoff",
   legacy_id: "f057",
@@ -32,6 +34,7 @@ export const feishuCalendarCreateTimeoffTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_create_timeoffSkill,
   icon: "🪶",
   parameters: [
     {

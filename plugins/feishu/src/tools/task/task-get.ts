@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseTaskGetBody, parseTaskGetQuery } from "./task-get.zod"
 
+import task_getSkill from "./task-get-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_get",
   legacy_id: "f062",
@@ -29,6 +31,7 @@ export const feishuTaskGetTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_getSkill,
   icon: "🪶",
   parameters: [
     {

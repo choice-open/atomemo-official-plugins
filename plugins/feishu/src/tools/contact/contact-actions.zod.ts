@@ -16,6 +16,110 @@ export const contactActionQuerySchema = z
   })
   .passthrough()
 
+export const contactCreateDepartmentBodySchema = z
+  .object({
+    name: z.string(),
+    parent_id: z.string().optional(),
+    department_id: z.string().optional(),
+    manager_user_id: z.string().optional(),
+    leader_user_id: z.string().optional(),
+    order: z.number().int().optional(),
+    description: z.string().optional(),
+    avatar: z
+      .object({
+        avatar_origin: z.string().optional(),
+      })
+      .optional(),
+    chat_access_permission: z
+      .enum(["private", "public", "my_department"])
+      .optional(),
+    chat_id: z.string().optional(),
+    hidden: z.boolean().optional(),
+    permutations: z
+      .array(
+        z.object({
+          user_id: z.string(),
+          role: z.enum(["manager", "leader", "assistant_manager"]),
+        }),
+      )
+      .optional(),
+  })
+  .strict()
+
+export const contactPatchDepartmentBodySchema = z
+  .object({
+    name: z.string().optional(),
+    manager_user_id: z.string().optional(),
+    leader_user_id: z.string().optional(),
+    order: z.number().int().optional(),
+    description: z.string().optional(),
+    avatar: z
+      .object({
+        avatar_origin: z.string().optional(),
+      })
+      .optional(),
+    chat_access_permission: z
+      .enum(["private", "public", "my_department"])
+      .optional(),
+    chat_id: z.string().optional(),
+    hidden: z.boolean().optional(),
+    permutations: z
+      .array(
+        z.object({
+          user_id: z.string(),
+          role: z.enum(["manager", "leader", "assistant_manager"]),
+        }),
+      )
+      .optional(),
+  })
+  .strict()
+
+export const contactPutDepartmentBodySchema = z
+  .object({
+    name: z.string(),
+    parent_id: z.string().optional(),
+    manager_user_id: z.string().optional(),
+    leader_user_id: z.string().optional(),
+    order: z.number().int().optional(),
+    description: z.string().optional(),
+    avatar: z
+      .object({
+        avatar_origin: z.string().optional(),
+      })
+      .optional(),
+    chat_access_permission: z
+      .enum(["private", "public", "my_department"])
+      .optional(),
+    chat_id: z.string().optional(),
+    hidden: z.boolean().optional(),
+    permutations: z
+      .array(
+        z.object({
+          user_id: z.string(),
+          role: z.enum(["manager", "leader", "assistant_manager"]),
+        }),
+      )
+      .optional(),
+  })
+  .strict()
+
+export const contactBatchAddUsersBodySchema = z
+  .object({
+    users: z.array(
+      z.object({
+        user_id: z.string().optional(),
+        open_id: z.string().optional(),
+        union_id: z.string().optional(),
+        email: z.string().optional(),
+        mobile: z.string().optional(),
+      }),
+    ),
+    department_id: z.string(),
+    department_id_type: feishuDepartmentIdTypeSchema.optional(),
+    user_id_type: feishuUserIdTypeSchema.optional(),
+  })
+  .strict()
+
 export const contactActionBodySchema = objectBodySchema
 export const contactEmptyBodySchema = emptyBodyStrictSchema
 
@@ -29,4 +133,20 @@ export function parseContactActionBody(raw: Record<string, unknown>) {
 
 export function parseContactEmptyBody(raw: Record<string, unknown>) {
   return contactEmptyBodySchema.parse(raw) as Record<string, never>
+}
+
+export function parseContactCreateDepartmentBody(raw: Record<string, unknown>) {
+  return contactCreateDepartmentBodySchema.parse(raw)
+}
+
+export function parseContactPatchDepartmentBody(raw: Record<string, unknown>) {
+  return contactPatchDepartmentBodySchema.parse(raw)
+}
+
+export function parseContactPutDepartmentBody(raw: Record<string, unknown>) {
+  return contactPutDepartmentBodySchema.parse(raw)
+}
+
+export function parseContactBatchAddUsersBody(raw: Record<string, unknown>) {
+  return contactBatchAddUsersBodySchema.parse(raw)
 }

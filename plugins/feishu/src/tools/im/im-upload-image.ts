@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseImActionBody, parseImActionQuery } from "./zod/im-actions.zod"
 
+import im_upload_imageSkill from "./im-upload-image-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_upload_image",
   legacy_id: "f026",
@@ -29,6 +31,7 @@ export const feishuImUploadImageTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_upload_imageSkill,
   icon: "🪶",
   parameters: [
     {

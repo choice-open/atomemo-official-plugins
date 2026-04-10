@@ -13,6 +13,8 @@ import {
   parseCalendarGetCalendarBody,
 } from "./zod/calendar-get-calendar.zod";
 
+import calendar_get_calendarSkill from "./calendar-get-calendar-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_get_calendar",
   legacy_id: "f041",
@@ -32,6 +34,7 @@ export const feishuCalendarGetCalendarTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_get_calendarSkill,
   icon: "🪶",
   parameters: [
     {

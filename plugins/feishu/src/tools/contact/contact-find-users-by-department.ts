@@ -13,6 +13,8 @@ import {
   parseContactFindUsersByDepartmentQuery,
 } from "./contact-find-users-by-department.zod"
 
+import contact_find_users_by_departmentSkill from "./contact-find-users-by-department-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_find_users_by_department",
   legacy_id: "f014",
@@ -32,6 +34,7 @@ export const feishuContactFindUsersByDepartmentTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_find_users_by_departmentSkill,
   icon: "🪶",
   parameters: [
     {

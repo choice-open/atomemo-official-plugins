@@ -13,6 +13,8 @@ import {
   parseCalendarActionQuery,
 } from "./zod/calendar-actions.zod";
 
+import calendar_search_calendarsSkill from "./calendar-search-calendars-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "calendar_search_calendars",
   legacy_id: "f045",
@@ -32,6 +34,7 @@ export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: calendar_search_calendarsSkill,
   icon: "🪶",
   parameters: [
     {

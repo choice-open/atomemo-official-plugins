@@ -13,6 +13,8 @@ import {
   parseContactCreateUserQuery,
 } from "./contact-create-user.zod";
 
+import contact_create_userSkill from "./contact-create-user-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_create_user",
   legacy_id: "f001",
@@ -32,6 +34,7 @@ export const feishuContactCreateUserTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_create_userSkill,
   icon: "🪶",
   parameters: [
     {

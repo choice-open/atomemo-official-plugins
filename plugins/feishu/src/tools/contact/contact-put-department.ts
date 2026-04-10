@@ -8,7 +8,14 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
+import {
+  parseContactActionQuery,
+  parseContactPutDepartmentBody,
+} from "./contact-actions.zod"
+
+import contact_put_departmentSkill from "./contact-put-department-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "contact_put_department",
@@ -29,6 +36,7 @@ export const feishuContactPutDepartmentTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_put_departmentSkill,
   icon: "🪶",
   parameters: [
     {
@@ -105,10 +113,13 @@ export const feishuContactPutDepartmentTool: ToolDefinition = {
     const pathParams = {
       department_id: readRequiredStringParam(p, "department_id"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseContactActionQuery(queryRaw)
-    const body = parseContactActionBody(bodyRaw)
+    const body = parseContactPutDepartmentBody(bodyRaw)
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

@@ -13,6 +13,8 @@ import {
   parseTaskCreateTasklistQuery,
 } from "./zod/task-actions.zod"
 
+import task_create_tasklistSkill from "./task-create-tasklist-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "task_create_tasklist",
   legacy_id: "f071",
@@ -32,6 +34,7 @@ export const feishuTaskCreateTasklistTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: task_create_tasklistSkill,
   icon: "🪶",
   parameters: [
     {

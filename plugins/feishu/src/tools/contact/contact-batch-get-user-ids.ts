@@ -13,6 +13,8 @@ import {
   parseContactActionQuery,
 } from "./contact-actions.zod";
 
+import contact_batch_get_user_idsSkill from "./contact-batch-get-user-ids-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_batch_get_user_ids",
   legacy_id: "f015",
@@ -32,6 +34,7 @@ export const feishuContactBatchGetUserIdsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_batch_get_user_idsSkill,
   icon: "🪶",
   parameters: [
     {

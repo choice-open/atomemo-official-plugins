@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
 
+import contact_search_departmentsSkill from "./contact-search-departments-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_search_departments",
   legacy_id: "f012",
@@ -29,6 +31,7 @@ export const feishuContactSearchDepartmentsTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_search_departmentsSkill,
   icon: "🪶",
   parameters: [
     {

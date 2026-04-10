@@ -13,6 +13,8 @@ import {
   parseContactPatchUserQuery,
 } from "./contact-patch-user.zod"
 
+import contact_patch_userSkill from "./contact-patch-user-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "contact_patch_user",
   legacy_id: "f002",
@@ -32,6 +34,7 @@ export const feishuContactPatchUserTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: contact_patch_userSkill,
   icon: "🪶",
   parameters: [
     {

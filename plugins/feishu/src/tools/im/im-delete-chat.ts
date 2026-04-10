@@ -10,6 +10,8 @@ import {
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import { parseImActionQuery, parseImEmptyBody } from "./zod/im-actions.zod"
 
+import im_delete_chatSkill from "./im-delete-chat-skill.md" with { type: "text" }
+
 const fn: FeishuApiFunction = {
   id: "im_delete_chat",
   legacy_id: "f031",
@@ -29,6 +31,7 @@ export const feishuImDeleteChatTool: ToolDefinition = {
     en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
     zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
   },
+  skill: im_delete_chatSkill,
   icon: "🪶",
   parameters: [
     {
