@@ -1,19 +1,22 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseApprovalGetInstanceBody,
   parseApprovalGetInstanceQuery,
-} from "./approval-get-instance.zod";
+} from "./approval-get-instance.zod"
 
-import approval_get_instanceSkill from "./approval-get-instance-skill.md" with { type: "text" }
+import approval_get_instanceSkill from "./approval-get-instance-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "approval_get_instance",
@@ -22,7 +25,7 @@ const fn: FeishuApiFunction = {
   name: "获取审批实例详情",
   method: "GET",
   path: "/open-apis/approval/v4/instances/:instance_id",
-};
+}
 
 export const feishuApprovalGetInstanceTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -42,20 +45,17 @@ export const feishuApprovalGetInstanceTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "instance_id",
       type: "string",
       required: true,
-      display_name: { en_US: "instance_id", zh_Hans: "instance_id" },
+      display_name: t("INSTANCE_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: instance_id",
-          zh_Hans: "URL 路径参数：instance_id",
-        },
+        hint: t("INSTANCE_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,10 +64,7 @@ export const feishuApprovalGetInstanceTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
         hint: {
@@ -84,26 +81,26 @@ export const feishuApprovalGetInstanceTool: ToolDefinition = {
     } satisfies Property<"query_params_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {
       instance_id: readRequiredStringParam(p, "instance_id"),
-    };
+    }
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
+    )
     const queryParams = parseApprovalGetInstanceQuery(queryRaw) as Record<
       string,
       unknown
-    >;
-    const body = parseApprovalGetInstanceBody({}) as Record<string, unknown>;
+    >
+    const body = parseApprovalGetInstanceBody({}) as Record<string, unknown>
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams,
       body,
-    });
+    })
   },
-};
+}

@@ -43,6 +43,58 @@ type RootTranslation = {
    * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
    */
   LOCATION_PLACEHOLDER: string
+  /**
+   * C​r​e​d​e​n​t​i​a​l
+   */
+  CREDENTIAL: string
+  /**
+   * Q​u​e​r​y​ ​P​a​r​a​m​s
+   */
+  QUERY_PARAMS: string
+  /**
+   * B​o​d​y
+   */
+  BODY: string
+  /**
+   * H​T​T​P​ ​q​u​e​r​y​ ​o​b​j​e​c​t​ ​a​s​ ​J​S​O​N​ ​s​t​r​i​n​g​ ​(​o​p​t​i​o​n​a​l​)
+   */
+  QUERY_PARAMS_HINT: string
+  /**
+   * H​T​T​P​ ​b​o​d​y​ ​o​b​j​e​c​t​ ​a​s​ ​J​S​O​N​ ​s​t​r​i​n​g​ ​(​o​p​t​i​o​n​a​l​)
+   */
+  BODY_HINT: string
+  /**
+   * d​e​p​a​r​t​m​e​n​t​_​i​d
+   */
+  DEPARTMENT_ID: string
+  /**
+   * URL path parameter: timeoff_event_id
+   */
+  TIMEOFF_EVENT_ID_HINT: () => LocalizedString
+  /**
+   * task_guid
+   */
+  TASK_GUID: () => LocalizedString
+  /**
+   * URL path parameter: task_guid
+   */
+  TASK_GUID_HINT: () => LocalizedString
+  /**
+   * member_id
+   */
+  MEMBER_ID: () => LocalizedString
+  /**
+   * URL path parameter: member_id
+   */
+  MEMBER_ID_HINT: () => LocalizedString
+  /**
+   * instance_id
+   */
+  INSTANCE_ID: () => LocalizedString
+  /**
+   * URL path parameter: instance_id
+   */
+  INSTANCE_ID_HINT: () => LocalizedString
 }
 
 export type TranslationFunctions = {
@@ -74,6 +126,66 @@ export type TranslationFunctions = {
    * Enter the location to test
    */
   LOCATION_PLACEHOLDER: () => LocalizedString
+  /**
+   * Credential
+   */
+  CREDENTIAL: () => LocalizedString
+  /**
+   * Query Params
+   */
+  QUERY_PARAMS: () => LocalizedString
+  /**
+   * Body
+   */
+  BODY: () => LocalizedString
+  /**
+   * HTTP query object as JSON string (optional)
+   */
+  QUERY_PARAMS_HINT: () => LocalizedString
+  /**
+   * HTTP body object as JSON string (optional)
+   */
+  BODY_HINT: () => LocalizedString
+  /**
+   * department_id
+   */
+  DEPARTMENT_ID: () => LocalizedString
+  /**
+   * URL path parameter: department_id
+   */
+  DEPARTMENT_ID_HINT: () => LocalizedString
+  /**
+   * user_id
+   */
+  USER_ID: () => LocalizedString
+  /**
+   * URL path parameter: user_id
+   */
+  USER_ID_HINT: () => LocalizedString
+  /**
+   * chat_id
+   */
+  CHAT_ID: () => LocalizedString
+  /**
+   * URL path parameter: chat_id
+   */
+  CHAT_ID_HINT: () => LocalizedString
+  /**
+   * image_key
+   */
+  IMAGE_KEY: () => LocalizedString
+  /**
+   * URL path parameter: image_key
+   */
+  IMAGE_KEY_HINT: () => LocalizedString
+  /**
+   * file_key
+   */
+  FILE_KEY: () => LocalizedString
+  /**
+   * URL path parameter: file_key
+   */
+  FILE_KEY_HINT: () => LocalizedString
 }
 
 export type Formatters = {}

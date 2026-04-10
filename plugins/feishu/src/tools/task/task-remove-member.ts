@@ -7,13 +7,16 @@ import {
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
+import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseTaskRemoveMemberBody,
   parseTaskRemoveMemberQuery,
 } from "./zod/task-actions.zod"
 
-import task_remove_memberSkill from "./task-remove-member-skill.md" with { type: "text" }
+import task_remove_memberSkill from "./task-remove-member-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "task_remove_member",
@@ -42,20 +45,17 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "task_guid",
       type: "string",
       required: true,
-      display_name: { en_US: "task_guid", zh_Hans: "task_guid" },
+      display_name: t("TASK_GUID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: task_guid",
-          zh_Hans: "URL 路径参数：task_guid",
-        },
+        hint: t("TASK_GUID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,13 +64,10 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       name: "member_id",
       type: "string",
       required: true,
-      display_name: { en_US: "member_id", zh_Hans: "member_id" },
+      display_name: t("MEMBER_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: member_id",
-          zh_Hans: "URL 路径参数：member_id",
-        },
+        hint: t("MEMBER_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -79,16 +76,10 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
+        hint: t("QUERY_PARAMS_HINT"),
         placeholder: {
           en_US: '{"page_size":20}',
           zh_Hans: '{"page_size":20}',
@@ -101,16 +92,10 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       name: "body_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
+      display_name: t("BODY"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
+        hint: t("BODY_HINT"),
         placeholder: {
           en_US: '{"key":"value"}',
           zh_Hans: '{"key":"value"}',
@@ -127,7 +112,10 @@ export const feishuTaskRemoveMemberTool: ToolDefinition = {
       task_guid: readRequiredStringParam(p, "task_guid"),
       member_id: readRequiredStringParam(p, "member_id"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const query = parseTaskRemoveMemberQuery(queryRaw)
     const body = parseTaskRemoveMemberBody({})
     return invokeFeishuOpenApi(fn, {

@@ -7,13 +7,16 @@ import {
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
+import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseTaskListSubtasksBody,
   parseTaskListSubtasksQuery,
 } from "./zod/task-list-subtasks.zod"
 
-import task_list_subtasksSkill from "./task-list-subtasks-skill.md" with { type: "text" }
+import task_list_subtasksSkill from "./task-list-subtasks-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "task_list_subtasks",
@@ -42,20 +45,17 @@ export const feishuTaskListSubtasksTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "task_guid",
       type: "string",
       required: true,
-      display_name: { en_US: "task_guid", zh_Hans: "task_guid" },
+      display_name: t("TASK_GUID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: task_guid",
-          zh_Hans: "URL 路径参数：task_guid",
-        },
+        hint: t("TASK_GUID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,16 +64,10 @@ export const feishuTaskListSubtasksTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
+        hint: t("QUERY_PARAMS_HINT"),
         placeholder: {
           en_US: '{"page_size":20}',
           zh_Hans: '{"page_size":20}',
@@ -89,7 +83,10 @@ export const feishuTaskListSubtasksTool: ToolDefinition = {
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const query = parseTaskListSubtasksQuery(queryRaw)
     const body = parseTaskListSubtasksBody({})
     return invokeFeishuOpenApi(fn, {

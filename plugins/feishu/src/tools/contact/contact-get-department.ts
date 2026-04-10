@@ -2,6 +2,7 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
@@ -13,7 +14,9 @@ import {
   parseContactGetDepartmentQuery,
 } from "./contact-get-department.zod"
 
-import contact_get_departmentSkill from "./contact-get-department-skill.md" with { type: "text" }
+import contact_get_departmentSkill from "./contact-get-department-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "contact_get_department",
@@ -42,20 +45,17 @@ export const feishuContactGetDepartmentTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "department_id",
       type: "string",
       required: true,
-      display_name: { en_US: "department_id", zh_Hans: "department_id" },
+      display_name: t("DEPARTMENT_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: department_id",
-          zh_Hans: "URL 路径参数：department_id",
-        },
+        hint: t("DEPARTMENT_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,20 +64,11 @@ export const feishuContactGetDepartmentTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        hint: t("QUERY_PARAMS_HINT"),
+        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
         support_expression: true,
       },
@@ -97,10 +88,7 @@ export const feishuContactGetDepartmentTool: ToolDefinition = {
       string,
       unknown
     >
-    const body = parseContactGetDepartmentBody({}) as Record<
-      string,
-      unknown
-    >
+    const body = parseContactGetDepartmentBody({}) as Record<string, unknown>
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

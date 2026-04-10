@@ -2,6 +2,7 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
@@ -13,7 +14,9 @@ import {
   parseImSendMessageQuery,
 } from "./zod/im-send-message.zod"
 
-import im_send_messageSkill from "./im-send-message-skill.md" with { type: "text" }
+import im_send_messageSkill from "./im-send-message-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "im_send_message",
@@ -42,27 +45,18 @@ export const feishuImSendMessageTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        hint: t("QUERY_PARAMS_HINT"),
+        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
         support_expression: true,
       },
@@ -71,20 +65,11 @@ export const feishuImSendMessageTool: ToolDefinition = {
       name: "body_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
+      display_name: t("BODY"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
+        hint: t("BODY_HINT"),
+        placeholder: { en_US: '{"key":"value"}', zh_Hans: '{"key":"value"}' },
         width: "full",
         support_expression: true,
       },
@@ -94,7 +79,10 @@ export const feishuImSendMessageTool: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseImSendMessageQuery(queryRaw)
     const body = parseImSendMessageBody(bodyRaw)

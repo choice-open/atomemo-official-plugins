@@ -2,6 +2,7 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
@@ -13,7 +14,9 @@ import {
   parseContactGetUserQuery,
 } from "./contact-get-user.zod"
 
-import contact_get_userSkill from "./contact-get-user-skill.md" with { type: "text" }
+import contact_get_userSkill from "./contact-get-user-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "contact_get_user",
@@ -42,20 +45,17 @@ export const feishuContactGetUserTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "user_id",
       type: "string",
       required: true,
-      display_name: { en_US: "user_id", zh_Hans: "user_id" },
+      display_name: t("USER_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: user_id",
-          zh_Hans: "URL 路径参数：user_id",
-        },
+        hint: t("USER_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,20 +64,11 @@ export const feishuContactGetUserTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        hint: t("QUERY_PARAMS_HINT"),
+        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
         support_expression: true,
       },

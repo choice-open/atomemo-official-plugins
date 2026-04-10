@@ -1,19 +1,22 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseCalendarActionQuery,
   parseCalendarEmptyBody,
-} from "./zod/calendar-actions.zod";
+} from "./zod/calendar-actions.zod"
 
-import calendar_remove_event_attendeeSkill from "./calendar-remove-event-attendee-skill.md" with { type: "text" }
+import calendar_remove_event_attendeeSkill from "./calendar-remove-event-attendee-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "calendar_remove_event_attendee",
@@ -22,7 +25,7 @@ const fn: FeishuApiFunction = {
   name: "移除日程参与者",
   method: "DELETE",
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id",
-};
+}
 
 export const feishuCalendarRemoveEventAttendeeTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -42,20 +45,17 @@ export const feishuCalendarRemoveEventAttendeeTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "calendar_id",
       type: "string",
       required: true,
-      display_name: { en_US: "calendar_id", zh_Hans: "calendar_id" },
+      display_name: t("CALENDAR_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: calendar_id",
-          zh_Hans: "URL 路径参数：calendar_id",
-        },
+        hint: t("CALENDAR_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -64,13 +64,10 @@ export const feishuCalendarRemoveEventAttendeeTool: ToolDefinition = {
       name: "event_id",
       type: "string",
       required: true,
-      display_name: { en_US: "event_id", zh_Hans: "event_id" },
+      display_name: t("EVENT_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: event_id",
-          zh_Hans: "URL 路径参数：event_id",
-        },
+        hint: t("EVENT_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -79,13 +76,10 @@ export const feishuCalendarRemoveEventAttendeeTool: ToolDefinition = {
       name: "attendee_id",
       type: "string",
       required: true,
-      display_name: { en_US: "attendee_id", zh_Hans: "attendee_id" },
+      display_name: t("ATTENDEE_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: attendee_id",
-          zh_Hans: "URL 路径参数：attendee_id",
-        },
+        hint: t("ATTENDEE_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -136,25 +130,25 @@ export const feishuCalendarRemoveEventAttendeeTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {
       calendar_id: readRequiredStringParam(p, "calendar_id"),
       event_id: readRequiredStringParam(p, "event_id"),
       attendee_id: readRequiredStringParam(p, "attendee_id"),
-    };
+    }
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
-    const query = parseCalendarActionQuery(queryRaw);
-    const body = parseCalendarEmptyBody({});
+    )
+    const query = parseCalendarActionQuery(queryRaw)
+    const body = parseCalendarEmptyBody({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams: query,
       body,
-    });
+    })
   },
-};
+}

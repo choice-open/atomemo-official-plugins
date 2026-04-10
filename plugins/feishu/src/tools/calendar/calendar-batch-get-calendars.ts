@@ -1,19 +1,22 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseCalendarBatchGetCalendarsQueryParams,
   parseCalendarBatchGetCalendarsBody,
-} from "./zod/calendar-batch-get-calendars.zod";
+} from "./zod/calendar-batch-get-calendars.zod"
 
-import calendar_batch_get_calendarsSkill from "./calendar-batch-get-calendars-skill.md" with { type: "text" }
+import calendar_batch_get_calendarsSkill from "./calendar-batch-get-calendars-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "calendar_batch_get_calendars",
@@ -22,7 +25,7 @@ const fn: FeishuApiFunction = {
   name: "批量查询日历信息",
   method: "POST",
   path: "/open-apis/calendar/v4/calendars/mget",
-};
+}
 
 export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -42,7 +45,7 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
@@ -91,20 +94,20 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
-    const pathParams = {};
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
+    const pathParams = {}
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json");
+    )
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams: parseCalendarBatchGetCalendarsQueryParams(queryRaw),
       body: parseCalendarBatchGetCalendarsBody(bodyRaw),
-    });
+    })
   },
-};
+}

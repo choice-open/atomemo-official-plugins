@@ -7,13 +7,16 @@ import {
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
+import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseTaskListTasklistsBody,
   parseTaskListTasklistsQuery,
 } from "./zod/task-list-tasklists.zod"
 
-import task_list_tasklistsSkill from "./task-list-tasklists-skill.md" with { type: "text" }
+import task_list_tasklistsSkill from "./task-list-tasklists-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "task_list_tasklists",
@@ -42,23 +45,17 @@ export const feishuTaskListTasklistsTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
+        hint: t("QUERY_PARAMS_HINT"),
         placeholder: {
           en_US: '{"page_size":20}',
           zh_Hans: '{"page_size":20}',
@@ -72,7 +69,10 @@ export const feishuTaskListTasklistsTool: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const query = parseTaskListTasklistsQuery(queryRaw)
     const body = parseTaskListTasklistsBody({})
     return invokeFeishuOpenApi(fn, {

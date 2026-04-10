@@ -2,15 +2,21 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseContactActionBody, parseContactActionQuery } from "./contact-actions.zod"
+import {
+  parseContactActionBody,
+  parseContactActionQuery,
+} from "./contact-actions.zod"
 
-import contact_recover_userSkill from "./contact-recover-user-skill.md" with { type: "text" }
+import contact_recover_userSkill from "./contact-recover-user-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "contact_recover_user",
@@ -39,20 +45,17 @@ export const feishuContactRecoverUserTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "user_id",
       type: "string",
       required: true,
-      display_name: { en_US: "user_id", zh_Hans: "user_id" },
+      display_name: t("USER_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: user_id",
-          zh_Hans: "URL 路径参数：user_id",
-        },
+        hint: t("USER_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -61,20 +64,11 @@ export const feishuContactRecoverUserTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        hint: t("QUERY_PARAMS_HINT"),
+        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
         support_expression: true,
       },
@@ -83,20 +77,11 @@ export const feishuContactRecoverUserTool: ToolDefinition = {
       name: "body_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
+      display_name: t("BODY"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
+        hint: t("BODY_HINT"),
+        placeholder: { en_US: '{"key":"value"}', zh_Hans: '{"key":"value"}' },
         width: "full",
         support_expression: true,
       },
@@ -108,7 +93,10 @@ export const feishuContactRecoverUserTool: ToolDefinition = {
     const pathParams = {
       user_id: readRequiredStringParam(p, "user_id"),
     }
-    const queryRaw = parseOptionalJsonObject(p.query_params_json, "query_params_json")
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
     const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
     const query = parseContactActionQuery(queryRaw)
     const body = parseContactActionBody(bodyRaw)

@@ -1,19 +1,22 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types";
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request";
-import type { FeishuApiFunction } from "../feishu-api-functions";
+} from "../feishu/request"
+import type { FeishuApiFunction } from "../feishu-api-functions"
 import {
   parseCalendarGetCalendarQueryParams,
   parseCalendarGetCalendarBody,
-} from "./zod/calendar-get-calendar.zod";
+} from "./zod/calendar-get-calendar.zod"
 
-import calendar_get_calendarSkill from "./calendar-get-calendar-skill.md" with { type: "text" }
+import calendar_get_calendarSkill from "./calendar-get-calendar-skill.md" with {
+  type: "text",
+}
 
 const fn: FeishuApiFunction = {
   id: "calendar_get_calendar",
@@ -22,7 +25,7 @@ const fn: FeishuApiFunction = {
   name: "查询日历信息",
   method: "GET",
   path: "/open-apis/calendar/v4/calendars/{calendar_id}",
-};
+}
 
 export const feishuCalendarGetCalendarTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -42,20 +45,17 @@ export const feishuCalendarGetCalendarTool: ToolDefinition = {
       type: "credential_id",
       required: true,
       credential_name: "feishu-app-credential",
-      display_name: { en_US: "Credential", zh_Hans: "凭证" },
+      display_name: t("CREDENTIAL"),
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
       name: "calendar_id",
       type: "string",
       required: true,
-      display_name: { en_US: "calendar_id", zh_Hans: "calendar_id" },
+      display_name: t("CALENDAR_ID"),
       ui: {
         component: "input",
-        hint: {
-          en_US: "URL path parameter: calendar_id",
-          zh_Hans: "URL 路径参数：calendar_id",
-        },
+        hint: t("CALENDAR_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -84,21 +84,21 @@ export const feishuCalendarGetCalendarTool: ToolDefinition = {
     } satisfies Property<"query_params_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>;
-    const credentialId = readRequiredStringParam(p, "credential_id");
+    const p = (args.parameters ?? {}) as Record<string, unknown>
+    const credentialId = readRequiredStringParam(p, "credential_id")
     const pathParams = {
       calendar_id: readRequiredStringParam(p, "calendar_id"),
-    };
+    }
     const queryRaw = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
-    );
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams: parseCalendarGetCalendarQueryParams(queryRaw),
       body: parseCalendarGetCalendarBody({}),
-    });
+    })
   },
-};
+}
