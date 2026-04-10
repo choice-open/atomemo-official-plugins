@@ -1,0 +1,1053 @@
+{
+  "name": "tavily",
+  "display_name": {
+    "en_US": "Tavily",
+    "zh_Hans": "Tavily"
+  },
+  "description": {
+    "en_US": "Search and extract web content using Tavily",
+    "zh_Hans": "使用 Tavily 搜索与提取网页内容"
+  },
+  "icon": "🎛️",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tavily",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "haley.song",
+  "email": "haley.song@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "tavily",
+      "display_name": {
+        "en_US": "Tavily API Key",
+        "zh_Hans": "Tavily API 密钥"
+      },
+      "description": {
+        "en_US": "Store your Tavily API key securely",
+        "zh_Hans": "安全存储你的 Tavily API 密钥"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "API Key",
+            "zh_Hans": "API 密钥"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "tvly-YOUR_API_KEY",
+              "zh_Hans": "tvly-YOUR_API_KEY"
+            },
+            "support_expression": false,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "tavily-search",
+      "display_name": {
+        "en_US": "Tavily Search",
+        "zh_Hans": "Tavily 搜索"
+      },
+      "description": {
+        "en_US": "Search the web using Tavily",
+        "zh_Hans": "使用 Tavily 搜索互联网"
+      },
+      "icon": "🔎",
+      "parameters": [
+        {
+          "name": "tavily_credential",
+          "display_name": {
+            "en_US": "Tavily Credential",
+            "zh_Hans": "Tavily 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tavily"
+        },
+        {
+          "name": "query",
+          "display_name": {
+            "en_US": "Query",
+            "zh_Hans": "查询"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "who is Leo Messi?",
+              "zh_Hans": "梅西是谁？"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "search_depth",
+          "display_name": {
+            "en_US": "Search depth",
+            "zh_Hans": "搜索深度"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "advanced",
+            "basic",
+            "fast",
+            "ultra-fast"
+          ]
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Max results",
+            "zh_Hans": "最大结果数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "topic",
+          "display_name": {
+            "en_US": "Topic",
+            "zh_Hans": "主题"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "general",
+            "news",
+            "finance"
+          ]
+        },
+        {
+          "name": "include_answer",
+          "display_name": {
+            "en_US": "Include answer",
+            "zh_Hans": "包含答案"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "basic",
+            "advanced"
+          ]
+        },
+        {
+          "name": "include_raw_content",
+          "display_name": {
+            "en_US": "Include raw content",
+            "zh_Hans": "包含原始内容"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "markdown",
+            "text"
+          ]
+        },
+        {
+          "name": "include_images",
+          "display_name": {
+            "en_US": "Include images",
+            "zh_Hans": "包含图片"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_image_descriptions",
+          "display_name": {
+            "en_US": "Image descriptions",
+            "zh_Hans": "图片描述"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_favicon",
+          "display_name": {
+            "en_US": "Include favicon",
+            "zh_Hans": "包含站点图标"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_domains",
+          "display_name": {
+            "en_US": "Include domains (CSV)",
+            "zh_Hans": "包含域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exclude_domains",
+          "display_name": {
+            "en_US": "Exclude domains (CSV)",
+            "zh_Hans": "排除域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exact_match",
+          "display_name": {
+            "en_US": "Exact match",
+            "zh_Hans": "精确匹配"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "safe_search",
+          "display_name": {
+            "en_US": "Safe search",
+            "zh_Hans": "安全搜索"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "auto_parameters",
+          "display_name": {
+            "en_US": "Auto parameters",
+            "zh_Hans": "自动参数"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_usage",
+          "display_name": {
+            "en_US": "Include usage",
+            "zh_Hans": "包含用量"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "advanced_options_json",
+          "display_name": {
+            "en_US": "Advanced options JSON",
+            "zh_Hans": "高级选项 JSON"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Tavily Search Tool\n\n## Tool\n\n- **Name**: `tavily-search`\n- **Purpose**: Executes a web search using Tavily and returns the JSON response.\n\n## Parameters\n\n- **Tavily Credential**: select the stored `tavily` API key credential.\n- **`query`**: the search query string.\n- **`search_depth`**: `basic` | `fast` | `ultra-fast` | `advanced`.\n- **`max_results`**: maximum results to return (0-20).\n- **`topic`**: `general` | `news` | `finance`.\n- **`include_answer`**: `basic` | `advanced` (adds an LLM-generated answer).\n- **`include_raw_content`**: `markdown` | `text` (adds parsed result content).\n- **`include_images`**: whether to include images.\n- **`include_usage`**: whether to include credit usage info.\n\nAn optional `advanced_options_json` lets you pass extra Tavily `/search` fields as a JSON object.\n\n"
+    },
+    {
+      "name": "tavily-extract",
+      "display_name": {
+        "en_US": "Tavily Extract",
+        "zh_Hans": "Tavily 抓取"
+      },
+      "description": {
+        "en_US": "Extract raw web content from URLs using Tavily",
+        "zh_Hans": "使用 Tavily 从 URL 提取网页内容"
+      },
+      "icon": "📄",
+      "parameters": [
+        {
+          "name": "tavily_credential",
+          "display_name": {
+            "en_US": "Tavily Credential",
+            "zh_Hans": "Tavily 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tavily"
+        },
+        {
+          "name": "urls",
+          "display_name": {
+            "en_US": "URLs",
+            "zh_Hans": "URL 列表"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "query",
+          "display_name": {
+            "en_US": "Query (rerank)",
+            "zh_Hans": "查询（重排）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "chunks_per_source",
+          "display_name": {
+            "en_US": "Chunks per source",
+            "zh_Hans": "每源块数"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "extract_depth",
+          "display_name": {
+            "en_US": "Extract depth",
+            "zh_Hans": "抓取深度"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "basic",
+            "advanced"
+          ]
+        },
+        {
+          "name": "format",
+          "display_name": {
+            "en_US": "Format",
+            "zh_Hans": "格式"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "markdown",
+            "text"
+          ]
+        },
+        {
+          "name": "include_images",
+          "display_name": {
+            "en_US": "Include images",
+            "zh_Hans": "包含图片"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_favicon",
+          "display_name": {
+            "en_US": "Include favicon",
+            "zh_Hans": "包含站点图标"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "timeout",
+          "display_name": {
+            "en_US": "Timeout (seconds)",
+            "zh_Hans": "超时（秒）"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "include_usage",
+          "display_name": {
+            "en_US": "Include usage",
+            "zh_Hans": "包含用量"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "advanced_options_json",
+          "display_name": {
+            "en_US": "Advanced options JSON",
+            "zh_Hans": "高级选项 JSON"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Tavily Extract Tool\n\n## Tool\n\n- **Name**: `tavily-extract`\n- **Purpose**: Extract raw web page content from one or more URLs using Tavily Extract (`POST /extract`).\n\n## Parameters\n\n- **Tavily Credential**: select the stored `tavily` API key credential.\n- **`urls`**: one URL per line (or comma-separated).\n- **`query`**: optional user intent to rerank extracted chunks.\n- **`chunks_per_source`**: 1-5 (default: 3).\n- **`extract_depth`**: `basic` | `advanced`.\n- **`format`**: `markdown` | `text`.\n- **`include_images`**: include extracted image URLs.\n- **`include_favicon`**: include favicon URL per result.\n- **`include_usage`**: include credit usage info.\n\nAn optional `advanced_options_json` lets you pass extra Tavily `/extract` fields as a JSON object.\n\n"
+    },
+    {
+      "name": "tavily-crawl",
+      "display_name": {
+        "en_US": "Tavily Crawl",
+        "zh_Hans": "Tavily 爬取"
+      },
+      "description": {
+        "en_US": "Crawl websites using Tavily",
+        "zh_Hans": "使用 Tavily 爬取网站"
+      },
+      "icon": "🕸️",
+      "parameters": [
+        {
+          "name": "tavily_credential",
+          "display_name": {
+            "en_US": "Tavily Credential",
+            "zh_Hans": "Tavily 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tavily"
+        },
+        {
+          "name": "url",
+          "display_name": {
+            "en_US": "Root URL",
+            "zh_Hans": "起始 URL"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "https://example.com",
+              "zh_Hans": "https://example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "instructions",
+          "display_name": {
+            "en_US": "Instructions",
+            "zh_Hans": "指令"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_depth",
+          "display_name": {
+            "en_US": "Max depth",
+            "zh_Hans": "最大深度"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "max_breadth",
+          "display_name": {
+            "en_US": "Max breadth",
+            "zh_Hans": "最大宽度"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "select_paths",
+          "display_name": {
+            "en_US": "Select paths (CSV)",
+            "zh_Hans": "选择路径（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "select_domains",
+          "display_name": {
+            "en_US": "Select domains (CSV)",
+            "zh_Hans": "选择域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exclude_paths",
+          "display_name": {
+            "en_US": "Exclude paths (CSV)",
+            "zh_Hans": "排除路径（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exclude_domains",
+          "display_name": {
+            "en_US": "Exclude domains (CSV)",
+            "zh_Hans": "排除域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "allow_external",
+          "display_name": {
+            "en_US": "Allow external",
+            "zh_Hans": "允许外部域名"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_images",
+          "display_name": {
+            "en_US": "Include images",
+            "zh_Hans": "包含图片"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "extract_depth",
+          "display_name": {
+            "en_US": "Extract depth",
+            "zh_Hans": "抓取深度"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "basic",
+            "advanced"
+          ]
+        },
+        {
+          "name": "format",
+          "display_name": {
+            "en_US": "Format",
+            "zh_Hans": "格式"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "markdown",
+            "text"
+          ]
+        },
+        {
+          "name": "include_favicon",
+          "display_name": {
+            "en_US": "Include favicon",
+            "zh_Hans": "包含站点图标"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "timeout",
+          "display_name": {
+            "en_US": "Timeout (seconds)",
+            "zh_Hans": "超时（秒）"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "include_usage",
+          "display_name": {
+            "en_US": "Include usage",
+            "zh_Hans": "包含用量"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "advanced_options_json",
+          "display_name": {
+            "en_US": "Advanced options JSON",
+            "zh_Hans": "高级选项 JSON"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Tavily Crawl Tool\n\n## Tool\n\n- **Name**: `tavily-crawl`\n- **Purpose**: Graph-based website crawling using Tavily (`POST /crawl`).\n\n## Parameters\n\n- **Tavily Credential**: select the stored `tavily` API key credential.\n- **`url`**: root URL to begin the crawl.\n- **`instructions`**: optional natural-language instructions for the crawler.\n- **`max_depth`**: max depth (1-5).\n- **`max_breadth`**: max links per level (1-500).\n- **`limit`**: total links to process before stopping.\n- **`select_paths` / `exclude_paths`**: optional regex patterns (CSV/newlines).\n- **`allow_external`**: include external domains in final results.\n- **`extract_depth`**: `basic` | `advanced`.\n- **`format`**: `markdown` | `text`.\n- **`include_images`**: include images in crawl results.\n- **`include_favicon`**: include favicon URL for each result.\n- **`include_usage`**: include credit usage info.\n\nAn optional `advanced_options_json` lets you pass extra Tavily `/crawl` fields as a JSON object.\n\n"
+    },
+    {
+      "name": "tavily-map",
+      "display_name": {
+        "en_US": "Tavily Map",
+        "zh_Hans": "Tavily 地图"
+      },
+      "description": {
+        "en_US": "Map websites using Tavily",
+        "zh_Hans": "使用 Tavily 生成网站地图"
+      },
+      "icon": "🗺️",
+      "parameters": [
+        {
+          "name": "tavily_credential",
+          "display_name": {
+            "en_US": "Tavily Credential",
+            "zh_Hans": "Tavily 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tavily"
+        },
+        {
+          "name": "url",
+          "display_name": {
+            "en_US": "Root URL",
+            "zh_Hans": "起始 URL"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "https://example.com",
+              "zh_Hans": "https://example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "instructions",
+          "display_name": {
+            "en_US": "Instructions",
+            "zh_Hans": "指令"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_depth",
+          "display_name": {
+            "en_US": "Max depth",
+            "zh_Hans": "最大深度"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "max_breadth",
+          "display_name": {
+            "en_US": "Max breadth",
+            "zh_Hans": "最大宽度"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "select_paths",
+          "display_name": {
+            "en_US": "Select paths (CSV)",
+            "zh_Hans": "选择路径（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "select_domains",
+          "display_name": {
+            "en_US": "Select domains (CSV)",
+            "zh_Hans": "选择域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exclude_paths",
+          "display_name": {
+            "en_US": "Exclude paths (CSV)",
+            "zh_Hans": "排除路径（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "exclude_domains",
+          "display_name": {
+            "en_US": "Exclude domains (CSV)",
+            "zh_Hans": "排除域名（CSV）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "allow_external",
+          "display_name": {
+            "en_US": "Allow external",
+            "zh_Hans": "允许外部域名"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "timeout",
+          "display_name": {
+            "en_US": "Timeout (seconds)",
+            "zh_Hans": "超时（秒）"
+          },
+          "required": false,
+          "ui": {
+            "component": "number-input"
+          },
+          "type": "number"
+        },
+        {
+          "name": "include_usage",
+          "display_name": {
+            "en_US": "Include usage",
+            "zh_Hans": "包含用量"
+          },
+          "required": false,
+          "ui": {
+            "component": "checkbox"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "advanced_options_json",
+          "display_name": {
+            "en_US": "Advanced options JSON",
+            "zh_Hans": "高级选项 JSON"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Tavily Map Tool\n\n## Tool\n\n- **Name**: `tavily-map`\n- **Purpose**: Graph-based website mapping using Tavily (`POST /map`).\n\n## Parameters\n\n- **Tavily Credential**: select the stored `tavily` API key credential.\n- **`url`**: root URL to begin the mapping.\n- **`instructions`**: optional natural-language instructions for the crawler.\n- **`max_depth`**: max depth (1-5).\n- **`max_breadth`**: max links per level (1-500).\n- **`limit`**: total links to process before stopping.\n- **`select_paths` / `exclude_paths`**: optional regex patterns (CSV/newlines).\n- **`allow_external`**: include external domain links in final results.\n- **`timeout`**: mapping timeout (seconds).\n- **`include_usage`**: include credit usage info.\n\nAn optional `advanced_options_json` lets you pass extra Tavily `/map` fields as a JSON object.\n\n"
+    },
+    {
+      "name": "tavily-research",
+      "display_name": {
+        "en_US": "Tavily Research",
+        "zh_Hans": "Tavily 调研"
+      },
+      "description": {
+        "en_US": "Research a topic using Tavily",
+        "zh_Hans": "使用 Tavily 对主题进行调研"
+      },
+      "icon": "🧠",
+      "parameters": [
+        {
+          "name": "tavily_credential",
+          "display_name": {
+            "en_US": "Tavily Credential",
+            "zh_Hans": "Tavily 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tavily"
+        },
+        {
+          "name": "input",
+          "display_name": {
+            "en_US": "Research input",
+            "zh_Hans": "调研内容"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "model",
+          "display_name": {
+            "en_US": "Model",
+            "zh_Hans": "模型"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "mini",
+            "pro",
+            "auto"
+          ]
+        },
+        {
+          "name": "stream",
+          "display_name": {
+            "en_US": "Stream",
+            "zh_Hans": "流式输出"
+          },
+          "required": false,
+          "ui": {
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "citation_format",
+          "display_name": {
+            "en_US": "Citation format",
+            "zh_Hans": "引用格式"
+          },
+          "required": false,
+          "ui": {
+            "component": "input"
+          },
+          "type": "string",
+          "enum": [
+            "numbered",
+            "mla",
+            "apa",
+            "chicago"
+          ]
+        },
+        {
+          "name": "output_schema_json",
+          "display_name": {
+            "en_US": "Output schema (JSON)",
+            "zh_Hans": "输出模式（JSON）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        },
+        {
+          "name": "advanced_options_json",
+          "display_name": {
+            "en_US": "Advanced options JSON",
+            "zh_Hans": "高级选项 JSON"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor",
+            "language": "json"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Tavily Research Tool\n\n## Tool\n\n- **Name**: `tavily-research`\n- **Purpose**: Run Tavily Research (`POST /research`) to generate a comprehensive research report.\n\n## Parameters\n\n- **Tavily Credential**: select the stored `tavily` API key credential.\n- **`input`**: the research question/topic.\n- **`model`**: `mini` | `pro` | `auto`.\n- **`citation_format`**: `numbered` | `mla` | `apa` | `chicago`.\n- **`output_schema_json`**: optional JSON Schema (as a JSON string) to shape the output.\n\nAn optional `advanced_options_json` lets you pass extra Tavily `/research` fields as a JSON object.\n\n"
+    }
+  ]
+}
