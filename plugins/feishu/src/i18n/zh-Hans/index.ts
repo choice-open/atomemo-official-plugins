@@ -1,13 +1,13 @@
 import type { Translation } from "../i18n-types"
 
 const zh_Hans = {
-  PLUGIN_DISPLAY_NAME: "飞书插件",
-  PLUGIN_DESCRIPTION: "在 Atomemo 中接入飞书能力",
-  DEMO_TOOL_DISPLAY_NAME: "发送飞书 Webhook 消息",
-  DEMO_TOOL_DESCRIPTION: "通过飞书群机器人 Webhook 发送文本消息",
-  LOCATION_DISPLAY_NAME: "Webhook 地址",
-  LOCATION_HINT: "飞书群机器人的 webhook 地址",
-  LOCATION_PLACEHOLDER: "https://open.feishu.cn/open-apis/bot/v2/hook/...",
+  PLUGIN_DISPLAY_NAME: "测试插件",
+  PLUGIN_DESCRIPTION: "一个用于测试插件的插件",
+  DEMO_TOOL_DISPLAY_NAME: "演示工具",
+  DEMO_TOOL_DESCRIPTION: "一个用于测试插件的工具",
+  LOCATION_DISPLAY_NAME: "位置",
+  LOCATION_HINT: "要测试的位置",
+  LOCATION_PLACEHOLDER: "输入要测试的位置",
 } satisfies Translation
 
 export default zh_Hans
