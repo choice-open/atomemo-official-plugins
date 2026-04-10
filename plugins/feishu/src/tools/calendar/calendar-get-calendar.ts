@@ -2,12 +2,12 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import {
-  invokeFeishuOpenApi,
-  parseOptionalJsonObject,
-  readRequiredStringParam,
-} from "../feishu/request"
+import { invokeFeishuOpenApi, readRequiredStringParam } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseCalendarGetCalendarQueryParams,
+  parseCalendarGetCalendarBody,
+} from "./zod/calendar-get-calendar.zod"
 
 const fn: FeishuApiFunction = {
   id: "calendar_get_calendar",
@@ -106,11 +106,11 @@ export const feishuCalendarGetCalendarTool: ToolDefinition = {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
+      queryParams: parseCalendarGetCalendarQueryParams(
         p.query_params_json,
         "query_params_json",
       ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      body: parseCalendarGetCalendarBody(p.body_json, "body_json"),
     })
   },
 }

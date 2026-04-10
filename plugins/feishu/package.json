@@ -8,10 +8,7 @@
   "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu#readme",
   "repository": "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
-    },
+    ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.ts",

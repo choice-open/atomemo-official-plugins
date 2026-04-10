@@ -8,6 +8,10 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import {
+  parseApprovalGetInstanceBody,
+  parseApprovalGetInstanceQuery,
+} from "./approval-get-instance.zod"
 
 const fn: FeishuApiFunction = {
   id: "approval_get_instance",
@@ -102,15 +106,25 @@ export const feishuApprovalGetInstanceTool: ToolDefinition = {
     const pathParams = {
       instance_id: readRequiredStringParam(p, "instance_id"),
     }
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const queryParams = parseApprovalGetInstanceQuery(queryRaw) as Record<
+      string,
+      unknown
+    >
+    const body = parseApprovalGetInstanceBody(bodyRaw) as Record<
+      string,
+      unknown
+    >
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams,
+      body,
     })
   },
 }

@@ -19,6 +19,14 @@ export const contactCreateUserQuerySchema = z
     client_token: z.string().optional(),
   })
   .strict()
+  .describe("查询参数")
+
+const notificationOptionSchema = z
+  .object({
+    channels: z.array(z.enum(["sms", "email"])).optional(),
+    language: z.string().optional(),
+  })
+  .strict()
 
 const customAttrGenericUserSchema = z
   .object({
@@ -93,6 +101,7 @@ export const contactCreateUserBodySchema = z
     job_family_id: z.string().optional(),
     subscription_ids: z.array(z.string()).optional(),
     dotted_line_leader_user_ids: z.array(z.string()).optional(),
+    notification_option: notificationOptionSchema.optional(),
   })
   .strict()
 

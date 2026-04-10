@@ -8,6 +8,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseTaskGetBody, parseTaskGetQuery } from "./task-get.zod"
 
 const fn: FeishuApiFunction = {
   id: "task_get",
@@ -102,15 +103,19 @@ export const feishuTaskGetTool: ToolDefinition = {
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),
     }
+    const queryRaw = parseOptionalJsonObject(
+      p.query_params_json,
+      "query_params_json",
+    )
+    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const queryParams = parseTaskGetQuery(queryRaw) as Record<string, unknown>
+    const body = parseTaskGetBody(bodyRaw) as Record<string, unknown>
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: parseOptionalJsonObject(
-        p.query_params_json,
-        "query_params_json",
-      ),
-      body: parseOptionalJsonObject(p.body_json, "body_json"),
+      queryParams,
+      body,
     })
   },
 }
