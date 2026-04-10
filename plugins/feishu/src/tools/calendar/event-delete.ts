@@ -32,5 +32,10 @@ export const eventDeleteTool = createFeishuSdkTool({
     expectNestedString(payload, "path", "calendar_id")
     expectNestedString(payload, "path", "event_id")
   },
-  invokeSdk: (client, payload) => client.calendar.event.delete(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendarEvent.delete(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendarEvent.delete
+      >[0],
+    ),
 })

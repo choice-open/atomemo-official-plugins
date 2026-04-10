@@ -22,5 +22,6 @@ export const calendarGetTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "calendar_id")
   },
-  invokeSdk: (client, payload) => client.calendar.calendar.get(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendar.get(payload as { path: { calendar_id: string } }),
 })

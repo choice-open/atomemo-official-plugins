@@ -14,5 +14,8 @@ export const imageUploadTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectAtLeastOneNestedField(payload, "data", ["image", "image_key"])
   },
-  invokeSdk: (client, payload) => client.im.image.create(payload),
+  invokeSdk: (client, payload) =>
+    client.im.image.create(
+      payload as unknown as Parameters<typeof client.im.image.create>[0],
+    ),
 })

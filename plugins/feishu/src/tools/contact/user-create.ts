@@ -1,5 +1,5 @@
-import { createFeishuSdkTool, expectNestedString } from "../feishu-base";
-import userCreateSkill from "./user-create-skill.md" with { type: "text" };
+import { createFeishuSdkTool, expectNestedString } from "../feishu-base"
+import userCreateSkill from "./user-create-skill.md" with { type: "text" }
 
 export const userCreateTool = createFeishuSdkTool({
   name: "feishu_contact_user_create",
@@ -45,7 +45,10 @@ export const userCreateTool = createFeishuSdkTool({
     },
   ],
   validatePayload: (payload) => {
-    expectNestedString(payload, "data", "name");
+    expectNestedString(payload, "data", "name")
   },
-  invokeSdk: (client, payload) => client.contact.user.create(payload),
-});
+  invokeSdk: (client, payload) =>
+    client.contact.user.create(
+      payload as unknown as Parameters<typeof client.contact.user.create>[0],
+    ),
+})

@@ -22,5 +22,6 @@ export const imageDownloadTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "image_key")
   },
-  invokeSdk: (client, payload) => client.im.image.get(payload),
+  invokeSdk: (client, payload) =>
+    client.im.image.get(payload as { path: { image_key: string } }),
 })

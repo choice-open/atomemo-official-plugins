@@ -22,5 +22,8 @@ export const calendarSharedDeleteTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "calendar_id")
   },
-  invokeSdk: (client, payload) => client.calendar.calendar.delete(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendar.delete(
+      payload as { path: { calendar_id: string } },
+    ),
 })

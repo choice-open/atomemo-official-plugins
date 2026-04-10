@@ -22,5 +22,6 @@ export const userUpdateTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "user_id")
   },
-  invokeSdk: (client, payload) => client.contact.user.patch(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.user.patch(payload as { path: { user_id: string } }),
 })

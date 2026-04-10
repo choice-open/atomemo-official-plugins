@@ -30,5 +30,8 @@ export const calendarBatchGetTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedArray(payload, "data", "calendar_ids")
   },
-  invokeSdk: (client, payload) => client.calendar.calendar.mget(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendar.mget(
+      payload as unknown as Parameters<typeof client.calendar.calendar.mget>[0],
+    ),
 })

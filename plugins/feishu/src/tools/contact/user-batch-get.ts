@@ -21,5 +21,6 @@ export const userBatchGetTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedArray(payload, "data", "user_ids")
   },
-  invokeSdk: (client, payload) => client.contact.user.batch(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.user.batch(payload as { params: { user_ids: string[] } }),
 })

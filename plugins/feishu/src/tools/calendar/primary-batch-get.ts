@@ -23,5 +23,10 @@ export const calendarPrimaryBatchGetTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedArray(payload, "data", "user_ids")
   },
-  invokeSdk: (client, payload) => client.calendar.calendar.primarys(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendar.primarys(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendar.primarys
+      >[0],
+    ),
 })

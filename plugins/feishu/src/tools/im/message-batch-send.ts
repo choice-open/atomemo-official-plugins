@@ -41,5 +41,8 @@ export const messageBatchSendTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "message_id")
   },
-  invokeSdk: (client, payload) => client.im.message.forward(payload),
+  invokeSdk: (client, payload) =>
+    client.im.message.forward(
+      payload as unknown as Parameters<typeof client.im.message.forward>[0],
+    ),
 })

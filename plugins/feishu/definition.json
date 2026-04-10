@@ -11,10 +11,7 @@
   "icon": "🎛️",
   "lang": "typescript",
   "repo": "",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.0",

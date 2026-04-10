@@ -32,5 +32,10 @@ export const departmentCreateTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "data", "name")
   },
-  invokeSdk: (client, payload) => client.contact.department.create(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.department.create(
+      payload as unknown as Parameters<
+        typeof client.contact.department.create
+      >[0],
+    ),
 })

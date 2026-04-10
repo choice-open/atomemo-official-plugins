@@ -32,5 +32,10 @@ export const eventUpdateTool = createFeishuSdkTool({
     expectNestedString(payload, "path", "calendar_id")
     expectNestedString(payload, "path", "event_id")
   },
-  invokeSdk: (client, payload) => client.calendar.event.patch(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendarEvent.patch(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendarEvent.patch
+      >[0],
+    ),
 })

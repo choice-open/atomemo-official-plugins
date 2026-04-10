@@ -18,5 +18,8 @@ export const fileUploadTool = createFeishuSdkTool({
       "file_type",
     ])
   },
-  invokeSdk: (client, payload) => client.im.file.create(payload),
+  invokeSdk: (client, payload) =>
+    client.im.file.create(
+      payload as unknown as Parameters<typeof client.im.file.create>[0],
+    ),
 })

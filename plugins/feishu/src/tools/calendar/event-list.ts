@@ -22,5 +22,10 @@ export const eventListTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "calendar_id")
   },
-  invokeSdk: (client, payload) => client.calendar.event.list(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendarEvent.list(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendarEvent.list
+      >[0],
+    ),
 })

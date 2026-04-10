@@ -23,5 +23,6 @@ export const departmentSearchTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "data", "query")
   },
-  invokeSdk: (client, payload) => client.contact.department.search(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.department.search(payload as { data: { query: string } }),
 })

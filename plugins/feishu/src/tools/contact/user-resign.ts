@@ -22,5 +22,6 @@ export const userResignTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "path", "user_id")
   },
-  invokeSdk: (client, payload) => client.contact.user.delete(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.user.delete(payload as { path: { user_id: string } }),
 })

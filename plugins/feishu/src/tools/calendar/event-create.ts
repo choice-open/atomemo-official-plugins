@@ -32,5 +32,10 @@ export const eventCreateTool = createFeishuSdkTool({
     expectNestedString(payload, "path", "calendar_id")
     expectNestedString(payload, "data", "summary")
   },
-  invokeSdk: (client, payload) => client.calendar.event.create(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendarEvent.create(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendarEvent.create
+      >[0],
+    ),
 })

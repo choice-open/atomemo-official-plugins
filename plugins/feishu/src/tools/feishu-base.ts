@@ -2,26 +2,20 @@ import type {
   PropertyCredentialId,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import * as lark from "@larksuiteoapi/node-sdk"
+import { AppType, Client, Domain } from "@larksuiteoapi/node-sdk"
 
-export type LarkClientLike = {
-  contact: {
-    user: Record<string, (payload?: unknown) => Promise<unknown>>
-    department: Record<string, (payload?: unknown) => Promise<unknown>>
-  }
-  im: {
-    message: Record<string, (payload?: unknown) => Promise<unknown>>
-    image: Record<string, (payload?: unknown) => Promise<unknown>>
-    file: Record<string, (payload?: unknown) => Promise<unknown>>
-  }
-  calendar: {
-    calendar: Record<string, (payload?: unknown) => Promise<unknown>>
-    event: Record<string, (payload?: unknown) => Promise<unknown>>
-  }
-}
+export type LarkClientLike = Client
 
-export type ToolFactoryOptions = {
-  clientFactory?: (appId: string, appSecret: string) => LarkClientLike
+export function createFeishuClient(
+  appId: string,
+  appSecret: string,
+): LarkClientLike {
+  return new Client({
+    appId,
+    appSecret,
+    appType: AppType.SelfBuild,
+    domain: Domain.Feishu,
+  }) as unknown as LarkClientLike
 }
 
 export const credentialParameter: PropertyCredentialId<"credentialId"> = {
@@ -164,18 +158,6 @@ export function expectAtLeastOneNestedField(
   )
 }
 
-export function createFeishuClient(
-  appId: string,
-  appSecret: string,
-): LarkClientLike {
-  return new lark.Client({
-    appId,
-    appSecret,
-    appType: lark.AppType.SelfBuild,
-    domain: lark.Domain.Feishu,
-  }) as unknown as LarkClientLike
-}
-
 export type UiField = {
   name: string
   displayNameEn: string
@@ -200,6 +182,10 @@ export type CreateSdkToolInput = {
     client: LarkClientLike,
     payload: Record<string, unknown>,
   ) => Promise<unknown>
+}
+
+export type ToolFactoryOptions = {
+  clientFactory?: (appId: string, appSecret: string) => LarkClientLike
 }
 
 export function createFeishuSdkTool(

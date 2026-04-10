@@ -22,5 +22,6 @@ export const calendarSearchTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedString(payload, "data", "query")
   },
-  invokeSdk: (client, payload) => client.calendar.calendar.search(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendar.search(payload as { data: { query: string } }),
 })

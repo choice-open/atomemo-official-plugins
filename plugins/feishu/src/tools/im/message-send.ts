@@ -52,5 +52,8 @@ export const messageSendTool = createFeishuSdkTool({
     expectNestedString(payload, "data", "msg_type")
     expectNestedString(payload, "data", "content")
   },
-  invokeSdk: (client, payload) => client.im.message.create(payload),
+  invokeSdk: (client, payload) =>
+    client.im.message.create(
+      payload as unknown as Parameters<typeof client.im.message.create>[0],
+    ),
 })

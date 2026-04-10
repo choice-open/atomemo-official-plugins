@@ -23,5 +23,8 @@ export const departmentBatchGetTool = createFeishuSdkTool({
   validatePayload: (payload) => {
     expectNestedArray(payload, "data", "department_ids")
   },
-  invokeSdk: (client, payload) => client.contact.department.batch(payload),
+  invokeSdk: (client, payload) =>
+    client.contact.department.batch(
+      payload as { params: { department_ids: string[] } },
+    ),
 })

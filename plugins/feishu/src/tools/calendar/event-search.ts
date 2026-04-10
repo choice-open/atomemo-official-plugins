@@ -32,5 +32,10 @@ export const eventSearchTool = createFeishuSdkTool({
     expectNestedString(payload, "path", "calendar_id")
     expectNestedString(payload, "data", "query")
   },
-  invokeSdk: (client, payload) => client.calendar.event.search(payload),
+  invokeSdk: (client, payload) =>
+    client.calendar.calendarEvent.search(
+      payload as unknown as Parameters<
+        typeof client.calendar.calendarEvent.search
+      >[0],
+    ),
 })
