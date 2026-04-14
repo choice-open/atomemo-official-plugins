@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"department_id_type\":\"open_department_id\"}",
-    "body_json": "{\"query\":\"产品\",\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
+    "body_json": "{\"query\":\"产品\",\"required_fields\":[\"name\",\"parent_department_id\"],\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
   }
 }
 ```

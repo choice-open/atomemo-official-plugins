@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"employee_id_type\":\"employee_id\"}",
-    "body_json": "{\"filter\":{\"conditions\":[{\"field\":\"employment_status\",\"operator\":\"eq\",\"value\":\"\\\"active\\\"\"}]},\"required_fields\":[\"employee.base_info.employee_id\",\"employee.base_info.name\"],\"page_request\":{\"page_size\":20}}"
+    "body_json": "{\"filter\":{\"conditions\":[{\"field\":\"work_info.staff_status\",\"operator\":\"eq\",\"value\":\"1\"}]},\"required_fields\":[\"base_info.name.name\",\"base_info.mobile\"],\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
   }
 }
 ```

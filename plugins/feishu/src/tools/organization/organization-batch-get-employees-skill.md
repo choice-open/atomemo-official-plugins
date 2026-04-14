@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"employee_id_type\":\"employee_id\"}",
-    "body_json": "{\"employee_ids\":[\"u273y71\",\"u9ab8c7\"],\"required_fields\":[\"employee.base_info.employee_id\",\"employee.base_info.name\",\"employee.base_info.mobile\"]}"
+    "body_json": "{\"employee_ids\":[\"u273y71\",\"u9ab8c7\"],\"required_fields\":[\"base_info.name.name\",\"base_info.mobile\",\"work_info.job_number\"]}"
   }
 }
 ```

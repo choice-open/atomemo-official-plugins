@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"department_id_type\":\"open_department_id\"}",
-    "body_json": "{\"filter\":{\"parent_department_ids\":[\"0\"]},\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
+    "body_json": "{\"filter\":{\"conditions\":[{\"field\":\"parent_department_id\",\"operator\":\"eq\",\"value\":\"\\\"0\\\"\"}]},\"required_fields\":[\"name\",\"parent_department_id\"],\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
   }
 }
 ```

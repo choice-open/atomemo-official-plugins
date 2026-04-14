@@ -14,7 +14,7 @@
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `employee_id`：路径参数（必填），示例值 `u273y71`。
 - `query_params_json`：查询参数 JSON 字符串（可选）。
-- 本接口无请求体参数（无需 `body_json`）。
+- 飞书官方接口支持可选请求体 `options`（用于资源接收者配置），但当前 Tool 未暴露 `body_json` 参数，因此本 Tool 调用时不支持传请求体。
 
 ## Tool Input 示例
 

@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"employee_id_type\":\"employee_id\"}",
-    "body_json": "{\"query\":\"张三\",\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
+    "body_json": "{\"query\":\"张三\",\"required_fields\":[\"base_info.name.name\",\"base_info.mobile\"],\"page_request\":{\"page_size\":20,\"page_token\":\"\"}}"
   }
 }
 ```

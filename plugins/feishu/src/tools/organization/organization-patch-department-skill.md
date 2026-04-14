@@ -26,7 +26,7 @@
     "credential_id": "<your-feishu-credential-id>",
     "department_id": "od-1a2b3c4d5e",
     "query_params_json": "{\"department_id_type\":\"open_department_id\"}",
-    "body_json": "{\"department\":{\"name\":\"产品研发中心\",\"parent_department_id\":\"0\"}}"
+    "body_json": "{\"department\":{\"name\":{\"default_value\":\"产品研发中心\"},\"parent_department_id\":\"0\"}}"
   }
 }
 ```

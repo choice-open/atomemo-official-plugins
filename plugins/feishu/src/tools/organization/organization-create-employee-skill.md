@@ -24,7 +24,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "query_params_json": "{\"employee_id_type\":\"employee_id\"}",
-    "body_json": "{\"employee\":{\"name\":{\"name\":{\"default_value\":\"张三\"}},\"mobile\":\"+8613011111111\",\"email\":\"zhangsan@example.com\",\"department_ids\":[\"od-1a2b3c4d5e\"]}}"
+    "body_json": "{\"employee\":{\"name\":{\"name\":{\"default_value\":\"张三\"}},\"mobile\":\"+8613011111111\",\"email\":\"zhangsan@example.com\",\"employee_order_in_departments\":[{\"department_id\":\"od-1a2b3c4d5e\",\"is_main_department\":true}]}}"
   }
 }
 ```
