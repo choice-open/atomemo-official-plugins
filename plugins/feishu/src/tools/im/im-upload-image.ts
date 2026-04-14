@@ -2,22 +2,19 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseImActionBody, parseImActionQuery } from "./zod/im-actions.zod"
-
 import im_upload_imageSkill from "./im-upload-image-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "im_upload_image",
-  legacy_id: "f026",
   module: "im",
   name: "上传图片",
   method: "POST",
@@ -27,12 +24,12 @@ const fn: FeishuApiFunction = {
 export const feishuImUploadImageTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Upload image",
+    zh_Hans: "上传图片",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to upload an image to the Feishu Open Platform.",
+    zh_Hans: "本接口用于将图片上传至飞书开放平台。",
   },
   skill: im_upload_imageSkill,
   icon: "🪶",
@@ -51,7 +48,7 @@ export const feishuImUploadImageTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
         placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
@@ -61,10 +58,10 @@ export const feishuImUploadImageTool: ToolDefinition = {
     {
       name: "body_json",
       type: "string",
-      required: false,
+      required: true,
       display_name: t("BODY"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("BODY_HINT"),
         placeholder: { en_US: '{"key":"value"}', zh_Hans: '{"key":"value"}' },
         width: "full",
@@ -75,19 +72,19 @@ export const feishuImUploadImageTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
+    const queryParams = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
-    const query = parseImActionQuery(queryRaw)
-    const body = parseImActionBody(bodyRaw)
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
-      pathParams,
-      queryParams: query,
+      pathParams: {},
+      queryParams,
       body,
     })
   },

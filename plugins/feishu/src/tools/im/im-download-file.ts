@@ -2,25 +2,19 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseImDownloadFileBody,
-  parseImDownloadFileQuery,
-} from "./zod/im-download-file.zod"
-
 import im_download_fileSkill from "./im-download-file-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "im_download_file",
-  legacy_id: "f029",
   module: "im",
   name: "下载文件",
   method: "GET",
@@ -30,12 +24,12 @@ const fn: FeishuApiFunction = {
 export const feishuImDownloadFileTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Download file",
+    zh_Hans: "下载文件",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to download a file by file key.",
+    zh_Hans: "本接口用于通过文件的 Key 下载文件。",
   },
   skill: im_download_fileSkill,
   icon: "🪶",
@@ -66,7 +60,7 @@ export const feishuImDownloadFileTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
         placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
@@ -80,17 +74,16 @@ export const feishuImDownloadFileTool: ToolDefinition = {
     const pathParams = {
       file_key: readRequiredStringParam(p, "file_key"),
     }
-    const queryRaw = parseOptionalJsonObject(
+    const queryParams = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
     )
-    const query = parseImDownloadFileQuery(queryRaw)
-    const body = parseImDownloadFileBody({})
+    const body = {}
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },

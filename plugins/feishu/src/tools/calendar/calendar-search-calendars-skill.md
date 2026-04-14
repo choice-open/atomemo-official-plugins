@@ -6,77 +6,46 @@
 - **Module**: `calendar`
 - **Method**: `POST`
 - **Path**: `/open-apis/calendar/v4/calendars/search`
-- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/calendar/v4/calendars/search`.
+- **Purpose**: 按条件搜索日历。
+- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/search
 
-## Query Parameters
+## 参数说明
 
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| `user_id_type` | `object` | `false` | `feishuUserIdTypeSchema.optional()` |
-| `page_size` | `number` | `false` | `z.number().int().min(1).max(100).optional()` |
-| `page_token` | `string` | `false` | `z.string().optional()` |
-
-### Query Schema（完整定义，来自 `calendar/zod/calendar-actions.zod.ts`）
-
-```ts
-export const calendarActionQuerySchema = z
-  .object({
-    user_id_type: feishuUserIdTypeSchema.optional(),
-    page_size: z.number().int().min(1).max(100).optional(),
-    page_token: z.string().optional(),
-  }
-```
-
-## Request Body
-
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
+- `credential_id`：飞书应用凭据 ID（必填）。
+- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。
 
 ## Tool Input 示例
 
-### 示例1（成功，最小可用）
+### 示例1（成功，可直接调试）
 
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"user_id_type\":\"sample\",\"page_size\":20}",
-    "body_json": "{\"key\":\"value\"}"
+    "query_params_json": "{\"user_id_type\":\"open_id\"}",
+    "body_json": "{\"query\":\"关键词\"}"
   }
 }
 ```
 
-### 示例2（错误，参数类型/格式非法）
+### 示例2（错误示例）
 
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json",
-    "body_json": "{\"key\":\"value\"}"
+    "query_params_json": "{bad-json"
   }
 }
 ```
 
 ## Tool Output 示例
 
-### 成功
-
 ```json
 {
   "code": 0,
   "msg": "success",
-  "data": {}
-}
-```
-
-### 失败（参数错误示意）
-
-```json
-{
-  "code": 400,
-  "msg": "invalid parameter",
   "data": {}
 }
 ```

@@ -2,25 +2,19 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseImDownloadImageBody,
-  parseImDownloadImageQuery,
-} from "./zod/im-download-image.zod"
-
 import im_download_imageSkill from "./im-download-image-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "im_download_image",
-  legacy_id: "f027",
   module: "im",
   name: "下载图片",
   method: "GET",
@@ -30,12 +24,12 @@ const fn: FeishuApiFunction = {
 export const feishuImDownloadImageTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Download image",
+    zh_Hans: "下载图片",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to download an image by image key.",
+    zh_Hans: "本接口用于通过图片的 Key 值下载图片。",
   },
   skill: im_download_imageSkill,
   icon: "🪶",
@@ -66,7 +60,7 @@ export const feishuImDownloadImageTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
         placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
@@ -80,17 +74,16 @@ export const feishuImDownloadImageTool: ToolDefinition = {
     const pathParams = {
       image_key: readRequiredStringParam(p, "image_key"),
     }
-    const queryRaw = parseOptionalJsonObject(
+    const queryParams = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
     )
-    const query = parseImDownloadImageQuery(queryRaw)
-    const body = parseImDownloadImageBody({})
+    const body = {}
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },

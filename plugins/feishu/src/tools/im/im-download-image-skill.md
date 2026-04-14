@@ -6,64 +6,32 @@
 - **Module**: `im`
 - **Method**: `GET`
 - **Path**: `/open-apis/im/v1/images/{image_key}`
-- **Purpose**: Calls Feishu Open API endpoint `GET /open-apis/im/v1/images/{image_key}`.
+- **Purpose**: 本接口用于通过图片的 Key 值下载图片。
+- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/get
 
-## Query Parameters
+## 参数说明
 
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
-
-## Request Body
-
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
+- `credential_id`：飞书应用凭据 ID（必填）。
+- `image_key`：图片 Key（必填）。
+- `query_params_json`：查询参数 JSON 字符串（可选）。
 
 ## Tool Input 示例
 
-### 示例1（成功，最小可用）
-
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "image_key": "<image_key>",
-    "query_params_json": "{\"page_size\":20}"
-  }
-}
-```
-
-### 示例2（错误，参数类型/格式非法）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "image_key": "<image_key>",
-    "query_params_json": "{bad-json"
+    "image_key": "img_v2_xxx"
   }
 }
 ```
 
 ## Tool Output 示例
 
-### 成功
-
 ```json
 {
   "code": 0,
   "msg": "success",
-  "data": {}
-}
-```
-
-### 失败（参数错误示意）
-
-```json
-{
-  "code": 400,
-  "msg": "invalid parameter",
   "data": {}
 }
 ```

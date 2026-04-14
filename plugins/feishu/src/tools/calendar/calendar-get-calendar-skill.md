@@ -5,42 +5,37 @@
 - **Name**: `feishu-calendar_get_calendar`
 - **Module**: `calendar`
 - **Method**: `GET`
-- **Path**: `/open-apis/calendar/v4/calendars/{calendar_id}`
-- **Purpose**: Calls Feishu Open API endpoint `GET /open-apis/calendar/v4/calendars/{calendar_id}`.
+- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id`
+- **Purpose**: 获取指定日历详情。
+- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get
 
-## Query Parameters
+## 参数说明
 
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
-
-## Request Body
-
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
+- `credential_id`：飞书应用凭据 ID（必填）。
+- `calendar_id`：路径参数（必填），日历 ID。
+- `query_params_json`：查询参数 JSON 字符串（可选）。
+- 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例
 
-### 示例1（成功，最小可用）
+### 示例1（成功，可直接调试）
 
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "calendar_id": "<calendar_id>",
-    "query_params_json": "{\"page_size\":20}"
+    "calendar_id": "feishu.cn_xxx@group.calendar.feishu.cn",
+    "query_params_json": "{\"user_id_type\":\"open_id\"}"
   }
 }
 ```
 
-### 示例2（错误，参数类型/格式非法）
+### 示例2（错误示例）
 
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "calendar_id": "<calendar_id>",
     "query_params_json": "{bad-json"
   }
 }
@@ -48,22 +43,10 @@
 
 ## Tool Output 示例
 
-### 成功
-
 ```json
 {
   "code": 0,
   "msg": "success",
-  "data": {}
-}
-```
-
-### 失败（参数错误示意）
-
-```json
-{
-  "code": 400,
-  "msg": "invalid parameter",
   "data": {}
 }
 ```

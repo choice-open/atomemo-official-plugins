@@ -2,40 +2,35 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseCalendarActionBody,
-  parseCalendarActionQuery,
-} from "./zod/calendar-actions.zod"
-
+import { parseCalendarPatchCalendarQuery } from "./calendar.zod"
 import calendar_patch_calendarSkill from "./calendar-patch-calendar-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "calendar_patch_calendar",
-  legacy_id: "f044",
   module: "calendar",
   name: "更新日历信息",
   method: "PATCH",
-  path: "/open-apis/calendar/v4/calendars/{calendar_id}",
+  path: "/open-apis/calendar/v4/calendars/:calendar_id",
 }
 
 export const feishuCalendarPatchCalendarTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Patch calendar",
+    zh_Hans: "更新日历信息",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API updates properties of the specified calendar.",
+    zh_Hans: "更新指定日历属性。",
   },
   skill: calendar_patch_calendarSkill,
   icon: "🪶",
@@ -52,32 +47,17 @@ export const feishuCalendarPatchCalendarTool: ToolDefinition = {
       name: "calendar_id",
       type: "string",
       required: true,
-      display_name: t("CALENDAR_ID"),
-      ui: {
-        component: "input",
-        hint: t("CALENDAR_ID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
+      display_name: { en_US: "Calendar ID", zh_Hans: "日历 ID" },
+      ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"calendar_id">,
     {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        component: "code-editor",
+        hint: t("QUERY_PARAMS_HINT"),
         width: "full",
         support_expression: true,
       },
@@ -85,20 +65,13 @@ export const feishuCalendarPatchCalendarTool: ToolDefinition = {
     {
       name: "body_json",
       type: "string",
-      required: false,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
+      required: true,
+      display_name: t("BODY"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
+          en_US: "Calendar patch payload JSON (see Feishu update calendar API)",
+          zh_Hans: "更新日历请求体 JSON，字段见飞书「更新日历」文档",
         },
         width: "full",
         support_expression: true,
@@ -108,21 +81,18 @@ export const feishuCalendarPatchCalendarTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {
-      calendar_id: readRequiredStringParam(p, "calendar_id"),
-    }
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseCalendarPatchCalendarQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
-    const query = parseCalendarActionQuery(queryRaw)
-    const body = parseCalendarActionBody(bodyRaw)
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
-      pathParams,
-      queryParams: query,
+      pathParams: { calendar_id: readRequiredStringParam(p, "calendar_id") },
+      queryParams,
       body,
     })
   },

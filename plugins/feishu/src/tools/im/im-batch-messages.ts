@@ -2,22 +2,19 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseImActionBody, parseImActionQuery } from "./zod/im-actions.zod"
-
 import im_batch_messagesSkill from "./im-batch-messages-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "im_batch_messages",
-  legacy_id: "f025",
   module: "im",
   name: "批量发送消息",
   method: "POST",
@@ -27,12 +24,13 @@ const fn: FeishuApiFunction = {
 export const feishuImBatchMessagesTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Batch send messages",
+    zh_Hans: "批量发送消息",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US:
+      "This API is used to send messages to multiple users or members in multiple departments.",
+    zh_Hans: "本接口用于给多个用户或者多个部门中的成员发送消息。",
   },
   skill: im_batch_messagesSkill,
   icon: "🪶",
@@ -51,7 +49,7 @@ export const feishuImBatchMessagesTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
         placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
         width: "full",
@@ -61,10 +59,10 @@ export const feishuImBatchMessagesTool: ToolDefinition = {
     {
       name: "body_json",
       type: "string",
-      required: false,
+      required: true,
       display_name: t("BODY"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("BODY_HINT"),
         placeholder: { en_US: '{"key":"value"}', zh_Hans: '{"key":"value"}' },
         width: "full",
@@ -75,19 +73,19 @@ export const feishuImBatchMessagesTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
+    const queryParams = parseOptionalJsonObject(
       p.query_params_json,
       "query_params_json",
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
-    const query = parseImActionQuery(queryRaw)
-    const body = parseImActionBody(bodyRaw)
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
-      pathParams,
-      queryParams: query,
+      pathParams: {},
+      queryParams,
       body,
     })
   },

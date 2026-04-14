@@ -2,25 +2,20 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../i18n/i18n-node"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseCalendarBatchGetPrimaryQueryParams,
-  parseCalendarBatchGetPrimaryBody,
-} from "./zod/calendar-batch-get-primary.zod"
-
+import { parseCalendarBatchGetPrimaryQuery } from "./calendar.zod"
 import calendar_batch_get_primarySkill from "./calendar-batch-get-primary-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
   id: "calendar_batch_get_primary",
-  legacy_id: "f040",
   module: "calendar",
   name: "批量获取主日历信息",
   method: "POST",
@@ -30,12 +25,12 @@ const fn: FeishuApiFunction = {
 export const feishuCalendarBatchGetPrimaryTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Batch get primary calendars",
+    zh_Hans: "批量获取主日历信息",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API batch-gets primary calendar information.",
+    zh_Hans: "批量获取主日历；路径中 primarys 为接口原文。",
   },
   skill: calendar_batch_get_primarySkill,
   icon: "🪶",
@@ -52,20 +47,10 @@ export const feishuCalendarBatchGetPrimaryTool: ToolDefinition = {
       name: "query_params_json",
       type: "string",
       required: false,
-      display_name: {
-        en_US: "Query Params",
-        zh_Hans: "查询参数",
-      },
+      display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
-        hint: {
-          en_US: "HTTP query object as JSON string (optional)",
-          zh_Hans: "HTTP 查询参数，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
+        component: "code-editor",
+        hint: t("QUERY_PARAMS_HINT"),
         width: "full",
         support_expression: true,
       },
@@ -74,19 +59,13 @@ export const feishuCalendarBatchGetPrimaryTool: ToolDefinition = {
       name: "body_json",
       type: "string",
       required: true,
-      display_name: {
-        en_US: "Body",
-        zh_Hans: "请求体",
-      },
+      display_name: t("BODY"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: {
-          en_US: "HTTP body object as JSON string (optional)",
-          zh_Hans: "HTTP 请求体，JSON 对象字符串（可选）",
-        },
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
+          en_US:
+            "Batch primary payload JSON (see Feishu batch_get primary API)",
+          zh_Hans: "批量主日历请求体 JSON，字段见飞书「批量获取主日历」文档",
         },
         width: "full",
         support_expression: true,
@@ -96,18 +75,19 @@ export const feishuCalendarBatchGetPrimaryTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseCalendarBatchGetPrimaryQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
-      pathParams,
-      queryParams: parseCalendarBatchGetPrimaryQueryParams(queryRaw),
-      body: parseCalendarBatchGetPrimaryBody(bodyRaw),
+      pathParams: {},
+      queryParams,
+      body,
     })
   },
 }

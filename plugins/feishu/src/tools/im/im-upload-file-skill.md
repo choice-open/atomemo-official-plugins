@@ -6,77 +6,34 @@
 - **Module**: `im`
 - **Method**: `POST`
 - **Path**: `/open-apis/im/v1/files`
-- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/im/v1/files`.
+- **Purpose**: 本接口用于将本地文件上传至飞书开放平台。
+- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/create
 
-## Query Parameters
+## 参数说明
 
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| `user_id_type` | `object` | `false` | `feishuUserIdTypeSchema.optional()` |
-| `page_size` | `number` | `false` | `z.number().int().min(1).max(100).optional()` |
-| `page_token` | `string` | `false` | `z.string().optional()` |
-
-### Query Schema（完整定义，来自 `im/zod/im-actions.zod.ts`）
-
-```ts
-export const imActionQuerySchema = z
-  .object({
-    user_id_type: feishuUserIdTypeSchema.optional(),
-    page_size: z.number().int().min(1).max(100).optional(),
-    page_token: z.string().optional(),
-  }
-```
-
-## Request Body
-
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
+- `credential_id`：飞书应用凭据 ID（必填）。
+- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `body_json`：请求体 JSON 字符串（必填）。
 
 ## Tool Input 示例
 
-### 示例1（成功，最小可用）
-
 ```json
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"user_id_type\":\"sample\",\"page_size\":20}",
-    "body_json": "{\"key\":\"value\"}"
-  }
-}
-```
-
-### 示例2（错误，参数类型/格式非法）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json",
-    "body_json": "{\"key\":\"value\"}"
+    "body_json": "{\"file_type\":\"stream\",\"file_name\":\"example.txt\",\"file\":\"<binary-or-file-ref>\"}"
   }
 }
 ```
 
 ## Tool Output 示例
 
-### 成功
-
 ```json
 {
   "code": 0,
   "msg": "success",
-  "data": {}
-}
-```
-
-### 失败（参数错误示意）
-
-```json
-{
-  "code": 400,
-  "msg": "invalid parameter",
-  "data": {}
+  "data": {
+    "file_key": "file_v2_xxx"
+  }
 }
 ```
