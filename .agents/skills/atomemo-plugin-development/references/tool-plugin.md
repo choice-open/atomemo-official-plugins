@@ -33,9 +33,12 @@ export const weatherTool = {
         component: "input",
         hint: t("LOCATION_HINT"),
         placeholder: t("LOCATION_PLACEHOLDER"),
-        support_expression: true,
+        support_expression: true, // If true, add ai.llm_description as well.
         width: "full"
-      }
+      },
+      ai: {
+        llm_description: t("LOCATION_LLM_DESCRIPTION"),
+      },
     }
   ],
   async invoke({ args, context }) {
@@ -53,14 +56,14 @@ export const weatherTool = {
 
 ## Required Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | string | Unique identifier within the plugin |
-| `display_name` | I18nText | User-facing name |
-| `description` | I18nText | Short description of what the tool does |
-| `icon` | string | Emoji or image URL |
-| `parameters` | Property[] | Input parameter definitions |
-| `invoke` | async function | Business logic; receives `{ args, context }`, returns result |
+| Field          | Type           | Description                                                  |
+| -------------- | -------------- | ------------------------------------------------------------ |
+| `name`         | string         | Unique identifier within the plugin                          |
+| `display_name` | I18nText       | User-facing name                                             |
+| `description`  | I18nText       | Short description of what the tool does                      |
+| `icon`         | string         | Emoji or image URL                                           |
+| `parameters`   | Property[]     | Input parameter definitions                                  |
+| `invoke`       | async function | Business logic; receives `{ args, context }`, returns result |
 
 ## The `invoke` Function
 
