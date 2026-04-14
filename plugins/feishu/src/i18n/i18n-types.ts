@@ -16,11 +16,11 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * F​e​i​s​h​u​ ​P​l​u​g​i​n
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * C​o​n​n​e​c​t​ ​F​e​i​s​h​u​ ​O​p​e​n​A​P​I​ ​f​o​r​ ​c​o​n​t​a​c​t​s​,​ ​c​h​a​t​s​,​ ​c​a​l​e​n​d​a​r​s​,​ ​t​a​s​k​s​,​ ​a​n​d​ ​a​p​p​r​o​v​a​l​s​.
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -68,42 +68,118 @@ type RootTranslation = {
    */
   DEPARTMENT_ID: string
   /**
-   * URL path parameter: timeoff_event_id
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​d​e​p​a​r​t​m​e​n​t​_​i​d
    */
-  TIMEOFF_EVENT_ID_HINT: () => LocalizedString
+  DEPARTMENT_ID_HINT: string
   /**
-   * task_guid
+   * u​s​e​r​_​i​d
    */
-  TASK_GUID: () => LocalizedString
+  USER_ID: string
   /**
-   * URL path parameter: task_guid
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​u​s​e​r​_​i​d
    */
-  TASK_GUID_HINT: () => LocalizedString
+  USER_ID_HINT: string
   /**
-   * member_id
+   * c​h​a​t​_​i​d
    */
-  MEMBER_ID: () => LocalizedString
+  CHAT_ID: string
   /**
-   * URL path parameter: member_id
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​c​h​a​t​_​i​d
    */
-  MEMBER_ID_HINT: () => LocalizedString
+  CHAT_ID_HINT: string
   /**
-   * instance_id
+   * i​m​a​g​e​_​k​e​y
    */
-  INSTANCE_ID: () => LocalizedString
+  IMAGE_KEY: string
   /**
-   * URL path parameter: instance_id
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​i​m​a​g​e​_​k​e​y
    */
-  INSTANCE_ID_HINT: () => LocalizedString
+  IMAGE_KEY_HINT: string
+  /**
+   * f​i​l​e​_​k​e​y
+   */
+  FILE_KEY: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​f​i​l​e​_​k​e​y
+   */
+  FILE_KEY_HINT: string
+  /**
+   * c​a​l​e​n​d​a​r​_​i​d
+   */
+  CALENDAR_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​c​a​l​e​n​d​a​r​_​i​d
+   */
+  CALENDAR_ID_HINT: string
+  /**
+   * e​v​e​n​t​_​i​d
+   */
+  EVENT_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​e​v​e​n​t​_​i​d
+   */
+  EVENT_ID_HINT: string
+  /**
+   * a​t​t​e​n​d​e​e​_​i​d
+   */
+  ATTENDEE_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​a​t​t​e​n​d​e​e​_​i​d
+   */
+  ATTENDEE_ID_HINT: string
+  /**
+   * t​i​m​e​o​f​f​_​e​v​e​n​t​_​i​d
+   */
+  TIMEOFF_EVENT_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​t​i​m​e​o​f​f​_​e​v​e​n​t​_​i​d
+   */
+  TIMEOFF_EVENT_ID_HINT: string
+  /**
+   * t​a​s​k​_​g​u​i​d
+   */
+  TASK_GUID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​t​a​s​k​_​g​u​i​d
+   */
+  TASK_GUID_HINT: string
+  /**
+   * m​e​m​b​e​r​_​i​d
+   */
+  MEMBER_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​m​e​m​b​e​r​_​i​d
+   */
+  MEMBER_ID_HINT: string
+  /**
+   * i​n​s​t​a​n​c​e​_​i​d
+   */
+  INSTANCE_ID: string
+  /**
+   * U​R​L​ ​p​a​t​h​ ​p​a​r​a​m​e​t​e​r​:​ ​i​n​s​t​a​n​c​e​_​i​d
+   */
+  INSTANCE_ID_HINT: string
+  /**
+   * P​a​g​e​ ​S​i​z​e
+   */
+  PAGE_SIZE: string
+  /**
+   * P​a​g​e​ ​T​o​k​e​n
+   */
+  PAGE_TOKEN: string
+  /**
+   * P​a​g​i​n​a​t​i​o​n​ ​t​o​k​e​n​ ​f​o​r​ ​n​e​x​t​ ​p​a​g​e
+   */
+  PAGE_TOKEN_HINT: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * Feishu Plugin
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Connect Feishu OpenAPI for contacts, chats, calendars, tasks, and approvals.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
@@ -186,6 +262,74 @@ export type TranslationFunctions = {
    * URL path parameter: file_key
    */
   FILE_KEY_HINT: () => LocalizedString
+  /**
+   * calendar_id
+   */
+  CALENDAR_ID: () => LocalizedString
+  /**
+   * URL path parameter: calendar_id
+   */
+  CALENDAR_ID_HINT: () => LocalizedString
+  /**
+   * event_id
+   */
+  EVENT_ID: () => LocalizedString
+  /**
+   * URL path parameter: event_id
+   */
+  EVENT_ID_HINT: () => LocalizedString
+  /**
+   * attendee_id
+   */
+  ATTENDEE_ID: () => LocalizedString
+  /**
+   * URL path parameter: attendee_id
+   */
+  ATTENDEE_ID_HINT: () => LocalizedString
+  /**
+   * timeoff_event_id
+   */
+  TIMEOFF_EVENT_ID: () => LocalizedString
+  /**
+   * URL path parameter: timeoff_event_id
+   */
+  TIMEOFF_EVENT_ID_HINT: () => LocalizedString
+  /**
+   * task_guid
+   */
+  TASK_GUID: () => LocalizedString
+  /**
+   * URL path parameter: task_guid
+   */
+  TASK_GUID_HINT: () => LocalizedString
+  /**
+   * member_id
+   */
+  MEMBER_ID: () => LocalizedString
+  /**
+   * URL path parameter: member_id
+   */
+  MEMBER_ID_HINT: () => LocalizedString
+  /**
+   * instance_id
+   */
+  INSTANCE_ID: () => LocalizedString
+  /**
+   * URL path parameter: instance_id
+   */
+  INSTANCE_ID_HINT: () => LocalizedString
+  /**
+   * Page Size
+   */
+  PAGE_SIZE: () => LocalizedString
+  /**
+   * Page Token
+   */
+  PAGE_TOKEN: () => LocalizedString
+  /**
+   * Pagination token for next page
+   */
+  PAGE_TOKEN_HINT: () => LocalizedString
 }
 
 export type Formatters = {}

@@ -38,6 +38,9 @@ const zh_Hans = {
   MEMBER_ID_HINT: "URL 路径参数：member_id",
   INSTANCE_ID: "instance_id",
   INSTANCE_ID_HINT: "URL 路径参数：instance_id",
+  PAGE_SIZE: "分页大小",
+  PAGE_TOKEN: "分页令牌",
+  PAGE_TOKEN_HINT: "下一页的分页令牌",
 } satisfies Translation
 
 export default zh_Hans

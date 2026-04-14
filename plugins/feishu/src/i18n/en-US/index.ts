@@ -38,6 +38,9 @@ const en_US = {
   MEMBER_ID_HINT: "URL path parameter: member_id",
   INSTANCE_ID: "instance_id",
   INSTANCE_ID_HINT: "URL path parameter: instance_id",
+  PAGE_SIZE: "Page Size",
+  PAGE_TOKEN: "Page Token",
+  PAGE_TOKEN_HINT: "Pagination token for next page",
 } satisfies BaseTranslation
 
 export default en_US
