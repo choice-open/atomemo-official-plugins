@@ -37,6 +37,9 @@ const zh_Hans = {
   DOWNLOAD_FILE_PARAM_FILE_ID_HINT: "Google Drive 文件 ID",
   DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER:
     "例如：1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR",
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: "搜索文件...",
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_URL_PLACEHOLDER:
+    "https://drive.google.com/file/d/1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR/edit",
   DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL: "临时链接",
 
   PARAM_CREDENTIAL_LABEL: "凭证",
@@ -50,6 +53,9 @@ const zh_Hans = {
   PARAM_FOLDER_ID_LABEL: "父级文件夹（可选）",
   PARAM_FOLDER_ID_HINT: "要将文件上传到的文件夹（优先级更高）。",
   PARAM_FOLDER_ID_PLACEHOLDER: "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  PARAM_FOLDER_ID_MODE_LIST_PLACEHOLDER: "搜索文件夹...",
+  PARAM_FOLDER_ID_MODE_URL_PLACEHOLDER:
+    "https://drive.google.com/drive/folders/1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 } satisfies Translation
 
 export default zh_Hans

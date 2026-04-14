@@ -126,7 +126,8 @@ export const googleDriveOAuth2Credential = {
     }
 
     if (!response.ok) {
-      const codeValue = typeof data.error === "string" ? data.error : "request_failed"
+      const codeValue =
+        typeof data.error === "string" ? data.error : "request_failed"
       const message =
         typeof data.error_description === "string"
           ? data.error_description
@@ -134,7 +135,10 @@ export const googleDriveOAuth2Credential = {
       throw new Error(`${codeValue}: ${message}`)
     }
 
-    if (typeof data.access_token !== "string" || data.access_token.length === 0) {
+    if (
+      typeof data.access_token !== "string" ||
+      data.access_token.length === 0
+    ) {
       throw new Error("access_token is missing in token response")
     }
 
@@ -148,12 +152,16 @@ export const googleDriveOAuth2Credential = {
       refresh_token: "",
     }
 
-    if (typeof data.refresh_token === "string" && data.refresh_token.length > 0) {
+    if (
+      typeof data.refresh_token === "string" &&
+      data.refresh_token.length > 0
+    ) {
       parametersPatch.refresh_token = data.refresh_token
     }
 
     if (typeof data.expires_in === "number") {
-      parametersPatch.expires_at = Math.floor(Date.now() / 1000) + data.expires_in
+      parametersPatch.expires_at =
+        Math.floor(Date.now() / 1000) + data.expires_in
     }
 
     return {
@@ -201,7 +209,8 @@ export const googleDriveOAuth2Credential = {
     }
 
     if (!response.ok) {
-      const codeValue = typeof data.error === "string" ? data.error : "request_failed"
+      const codeValue =
+        typeof data.error === "string" ? data.error : "request_failed"
       const message =
         typeof data.error_description === "string"
           ? data.error_description
@@ -209,7 +218,10 @@ export const googleDriveOAuth2Credential = {
       throw new Error(`${codeValue}: ${message}`)
     }
 
-    if (typeof data.access_token !== "string" || data.access_token.length === 0) {
+    if (
+      typeof data.access_token !== "string" ||
+      data.access_token.length === 0
+    ) {
       throw new Error("access_token is missing in refresh response")
     }
 
@@ -222,7 +234,8 @@ export const googleDriveOAuth2Credential = {
     }
 
     if (typeof data.expires_in === "number") {
-      parametersPatch.expires_at = Math.floor(Date.now() / 1000) + data.expires_in
+      parametersPatch.expires_at =
+        Math.floor(Date.now() / 1000) + data.expires_in
     }
 
     return {
@@ -230,4 +243,3 @@ export const googleDriveOAuth2Credential = {
     }
   },
 } satisfies CredentialDefinition
-

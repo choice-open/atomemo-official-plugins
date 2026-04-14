@@ -121,22 +121,48 @@
             "zh_Hans": "文件 ID"
           },
           "required": true,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "The Google Drive file ID",
               "zh_Hans": "Google Drive 文件 ID"
-            },
-            "placeholder": {
-              "en_US": "e.g. 1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR",
-              "zh_Hans": "例如：1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a file...",
+                "zh_Hans": "搜索文件..."
+              },
+              "search_list_method": "search_files",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "placeholder": {
+                "en_US": "https://drive.google.com/file/d/1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR/edit",
+                "zh_Hans": "https://drive.google.com/file/d/1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR/edit"
+              },
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://(?:drive|docs)\\.google\\.com/(?:file/d/|document/d/|spreadsheets/d/|presentation/d/|drawings/d/)([a-zA-Z0-9_-]+)|https://drive\\.google\\.com/open\\?id=([a-zA-Z0-9_-]+)"
+              }
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "e.g. 1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR",
+                "zh_Hans": "例如：1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR"
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "skill": "# Download File Tool Documentation\n\n## Tool\n\n- **Name**: `google-drive-download-file`\n- **Purpose**: Downloads a file from Google Drive and returns it as an Atomemo `file_ref`.\n\n## Parameters\n\n| Name            | Type               | Required | UI Component                           | Description                                                                             | Example                               |\n| --------------- | ------------------ | -------- | -------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------- |\n| `credential_id` | `credential_id`    | `true`   | `credential-select`                    | Credential ID for `Google_Drive_OAuth2`.                                                | `\"cred_xxx\"`                          |\n| `file_id`       | `resource_locator` | `true`   | resource locator (`list`, `url`, `id`) | Google Drive file ID. You can search, paste a Drive/Docs URL, or enter the raw file ID. | `\"1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR\"` |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"019d8b27-9e5a-7958-8487-14046504502b\",\n    \"file_id\": {\n      \"__type__\": \"resource_locator\",\n      \"cached_result_label\": \"new_file2.md.txt\",\n      \"cached_result_url\": \"https://drive.google.com/file/d/1f3Ee89D11alikVDGEOViUz8HbQcqJ36b/view?usp=drivesdk\",\n      \"mode_name\": \"list\",\n      \"value\": \"1f3Ee89D11alikVDGEOViUz8HbQcqJ36b\"\n    }\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"__type__\": \"file_ref\",\n  \"source\": \"mem\",\n  \"filename\": \"new_file2.md.txt\",\n  \"content\": \"YSxiCjEsMg==\",\n  \"mime_type\": \"text/plain\",\n  \"extension\": \"txt\",\n  \"size\": 7,\n  \"res_key\": null,\n  \"remote_url\": null\n}\n```\n"
     },
     {
       "name": "google-drive-upload-file",
@@ -201,20 +227,45 @@
             "zh_Hans": "父级云端硬盘（可选）"
           },
           "required": false,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "The drive where to upload the file.",
               "zh_Hans": "要将文件上传到的云端硬盘。"
-            },
-            "placeholder": {
-              "en_US": "0AxxxxxxxxxxxxxxxxxPVA",
-              "zh_Hans": "0AxxxxxxxxxxxxxxxxxPVA"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a shared drive...",
+                "zh_Hans": "搜索共享云端硬盘..."
+              },
+              "search_list_method": "search_drives",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "placeholder": {
+                "en_US": "https://drive.google.com/drive/folders/0AxxxxxxxxxxxxxxxxxPVA",
+                "zh_Hans": "https://drive.google.com/drive/folders/0AxxxxxxxxxxxxxxxxxPVA"
+              },
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://drive\\.google\\.com/drive/(?:u/\\d+/)?folders/([a-zA-Z0-9_-]+)"
+              }
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "0AxxxxxxxxxxxxxxxxxPVA",
+                "zh_Hans": "0AxxxxxxxxxxxxxxxxxPVA"
+              }
+            }
+          ]
         },
         {
           "name": "folder_id",
@@ -223,22 +274,48 @@
             "zh_Hans": "父级文件夹（可选）"
           },
           "required": false,
-          "ui": {
-            "hint": {
+          "ai": {
+            "llm_description": {
               "en_US": "The folder where to upload the file (takes precedence).",
               "zh_Hans": "要将文件上传到的文件夹（优先级更高）。"
-            },
-            "placeholder": {
-              "en_US": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-              "zh_Hans": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            },
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            }
           },
-          "type": "string"
+          "ui": {
+            "support_expression": true
+          },
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a folder...",
+                "zh_Hans": "搜索文件夹..."
+              },
+              "search_list_method": "search_folders",
+              "searchable": true
+            },
+            {
+              "type": "url",
+              "placeholder": {
+                "en_US": "https://drive.google.com/drive/folders/1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "zh_Hans": "https://drive.google.com/drive/folders/1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              },
+              "extract_value": {
+                "type": "regex",
+                "regex": "https://drive\\.google\\.com/(drive/(?:u/\\d+/)?folders/([a-zA-Z0-9_-]+)|open\\?id=([a-zA-Z0-9_-]+))"
+              }
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "zh_Hans": "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "skill": "# Upload File Tool Documentation\n\n## Tool\n\n- **Name**: `google-drive-upload-file`\n- **Purpose**: Uploads an existing Atomemo file to Google Drive, optionally into a shared drive or folder.\n\n## Parameters\n\n| Name            | Type               | Required | UI Component                           | Description                                                                                                                                                | Example                                           |\n| --------------- | ------------------ | -------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |\n| `credential_id` | `credential_id`    | `true`   | `credential-select`                    | Credential ID for `Google_Drive_OAuth2`.                                                                                                                   | `\"cred_xxx\"`                                      |\n| `file`          | `file_ref`         | `true`   | file picker                            | Existing Atomemo file to upload to Google Drive.                                                                                                           | `{\"__type__\":\"file_ref\",\"filename\":\"report.pdf\"}` |\n| `file_name`     | `string`           | `false`  | `input`                                | Optional custom filename. If omitted, the original filename is used. If a new name omits the original extension, the extension is preserved automatically. | `\"Quarterly Report\"`                              |\n| `drive_id`      | `resource_locator` | `false`  | resource locator (`list`, `url`, `id`) | Optional shared drive ID that determines where the upload is created.                                                                                      | `\"0AxxxxxxxxxxxxxxxxxPVA\"`                        |\n| `folder_id`     | `resource_locator` | `false`  | resource locator (`list`, `url`, `id`) | Optional Google Drive folder ID. When provided, the file is uploaded into that folder.                                                                     | `\"1AbCdEfGhIjKlMnOp\"`                             |\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"example-credential-id\",\n    \"drive_id\": {\n      \"__type__\": \"resource_locator\",\n      \"cached_result_label\": null,\n      \"cached_result_url\": null,\n      \"mode_name\": \"list\",\n      \"value\": null\n    },\n    \"file\": {\n      \"size\": 7,\n      \"filename\": \"example.txt\",\n      \"extension\": \"txt\",\n      \"source\": \"oss\",\n      \"content\": null,\n      \"__type__\": \"file_ref\",\n      \"res_key\": \"example-res-key\",\n      \"remote_url\": null,\n      \"mime_type\": \"text/plain\"\n    },\n    \"file_name\": \"Example File\",\n    \"folder_id\": {\n      \"__type__\": \"resource_locator\",\n      \"cached_result_label\": \"Example Folder\",\n      \"cached_result_url\": \"https://drive.google.com/drive/folders/example-folder-id\",\n      \"mode_name\": \"list\",\n      \"value\": \"example-folder-id\"\n    }\n  }\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"id\": \"example-file-id\",\n  \"name\": \"Example File.txt\",\n  \"mimeType\": \"text/plain\",\n  \"parents\": [\"example-folder-id\"],\n  \"webContentLink\": \"https://drive.google.com/uc?id=example-file-id&export=download\",\n  \"webViewLink\": \"https://drive.google.com/file/d/example-file-id/view?usp=drivesdk\",\n  \"createdTime\": \"2026-01-01T00:00:00.000Z\",\n  \"modifiedTime\": \"2026-01-01T00:00:00.000Z\",\n  \"size\": \"7\"\n}\n```\n"
     }
   ]
 }
