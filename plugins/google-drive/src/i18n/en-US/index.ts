@@ -37,6 +37,9 @@ const en_US = {
   DOWNLOAD_FILE_PARAM_FILE_ID_HINT: "The Google Drive file ID",
   DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER:
     "e.g. 1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR",
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: "Search for a file...",
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_URL_PLACEHOLDER:
+    "https://drive.google.com/file/d/1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR/edit",
   DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL: "Temporary URL",
 
   PARAM_CREDENTIAL_LABEL: "Credential",
@@ -52,6 +55,9 @@ const en_US = {
   PARAM_FOLDER_ID_HINT:
     "The folder where to upload the file (takes precedence).",
   PARAM_FOLDER_ID_PLACEHOLDER: "1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  PARAM_FOLDER_ID_MODE_LIST_PLACEHOLDER: "Search for a folder...",
+  PARAM_FOLDER_ID_MODE_URL_PLACEHOLDER:
+    "https://drive.google.com/drive/folders/1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 } satisfies BaseTranslation
 
 export default en_US

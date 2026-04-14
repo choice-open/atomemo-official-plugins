@@ -7,6 +7,12 @@ import { GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME } from "../credentials/google-driv
 import { setParentFolder } from "../helpers/utils"
 import { t } from "../i18n/i18n-node"
 import { googleDriveRequest } from "../transport"
+import uploadAFileSkill from "./upload-a-file-skill.md" with { type: "text" }
+import {
+  searchDrivesMethod,
+  searchFoldersMethod,
+} from "./_shared/locator-list"
+import { resolveDriveId, resolveFolderId } from "./_shared/resolve"
 
 type GoogleDriveOAuthCredential = {
   access_token?: string
@@ -52,29 +58,70 @@ const parameters: Array<Property<ParametersNames>> = [
   },
   {
     name: "drive_id",
-    type: "string",
+    type: "resource_locator",
     required: false,
     display_name: t("PARAM_DRIVE_ID_LABEL"),
+    ai: { llm_description: t("PARAM_DRIVE_ID_HINT") },
+    modes: [
+      {
+        type: "list",
+        search_list_method: "search_drives",
+        searchable: true,
+        placeholder: {
+          en_US: "Search for a shared drive...",
+          zh_Hans: "搜索共享云端硬盘...",
+        },
+      },
+      {
+        type: "url",
+        placeholder: {
+          en_US: "https://drive.google.com/drive/folders/0AxxxxxxxxxxxxxxxxxPVA",
+          zh_Hans:
+            "https://drive.google.com/drive/folders/0AxxxxxxxxxxxxxxxxxPVA",
+        },
+        extract_value: {
+          type: "regex",
+          regex:
+            "https://drive\\.google\\.com/drive/(?:u/\\d+/)?folders/([a-zA-Z0-9_-]+)",
+        },
+      },
+      {
+        type: "id",
+        placeholder: t("PARAM_DRIVE_ID_PLACEHOLDER"),
+      },
+    ],
     ui: {
-      component: "input",
-      hint: t("PARAM_DRIVE_ID_HINT"),
-      placeholder: t("PARAM_DRIVE_ID_PLACEHOLDER"),
       support_expression: true,
-      width: "full",
     },
   },
   {
     name: "folder_id",
-    type: "string",
+    type: "resource_locator",
     required: false,
     display_name: t("PARAM_FOLDER_ID_LABEL"),
-    ui: {
-      component: "input",
-      hint: t("PARAM_FOLDER_ID_HINT"),
-      placeholder: t("PARAM_FOLDER_ID_PLACEHOLDER"),
-      support_expression: true,
-      width: "full",
-    },
+    ai: { llm_description: t("PARAM_FOLDER_ID_HINT") },
+    modes: [
+      {
+        type: "list",
+        search_list_method: "search_folders",
+        searchable: true,
+        placeholder: t("PARAM_FOLDER_ID_MODE_LIST_PLACEHOLDER"),
+      },
+      {
+        type: "url",
+        placeholder: t("PARAM_FOLDER_ID_MODE_URL_PLACEHOLDER"),
+        extract_value: {
+          type: "regex",
+          regex:
+            "https://drive\\.google\\.com/(drive/(?:u/\\d+/)?folders/([a-zA-Z0-9_-]+)|open\\?id=([a-zA-Z0-9_-]+))",
+        },
+      },
+      {
+        type: "id",
+        placeholder: t("PARAM_FOLDER_ID_PLACEHOLDER"),
+      },
+    ],
+    ui: { support_expression: true },
   },
 ]
 
@@ -126,8 +173,10 @@ export const uploadAFileTool: ToolDefinition = {
   name: "google-drive-upload-file",
   display_name: t("UPLOAD_FILE_TOOL_DISPLAY_NAME"),
   description: t("UPLOAD_FILE_TOOL_DESCRIPTION"),
+  skill: uploadAFileSkill,
   icon: "⬆️",
   parameters,
+  locator_list: { ...searchDrivesMethod, ...searchFoldersMethod },
   invoke: async ({ args, context }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId =
@@ -146,8 +195,8 @@ export const uploadAFileTool: ToolDefinition = {
       )
     }
 
-    const driveId = pickString(p.drive_id, { nonEmpty: true })
-    const folderId = pickString(p.folder_id, { nonEmpty: true })
+    const driveId = resolveDriveId(p)
+    const folderId = resolveFolderId(p)
     const fileNameParam = pickString(p.file_name, { nonEmpty: true })
 
     if (p.file === undefined) {

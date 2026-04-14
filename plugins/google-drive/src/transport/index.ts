@@ -18,7 +18,9 @@ export type GoogleDriveRequestOptions = {
 /**
  * Build query string from qs, skipping undefined values.
  */
-function buildQueryString(qs: Record<string, string | number | boolean | undefined>): string {
+function buildQueryString(
+  qs: Record<string, string | number | boolean | undefined>,
+): string {
   const params = new URLSearchParams()
   for (const [key, value] of Object.entries(qs)) {
     if (value !== undefined) params.set(key, String(value))
@@ -40,7 +42,9 @@ export async function googleDriveRequest(
   const { body, qs = {}, headers: customHeaders = {} } = options
 
   const url =
-    GOOGLE_APIS_BASE + resource + (Object.keys(qs).length ? buildQueryString(qs) : "")
+    GOOGLE_APIS_BASE +
+    resource +
+    (Object.keys(qs).length ? buildQueryString(qs) : "")
 
   const headers: Record<string, string> = {
     Authorization: `Bearer ${accessToken}`,
@@ -48,7 +52,11 @@ export async function googleDriveRequest(
   }
 
   // Default JSON content-type only when body is an object (and not binary)
-  if (body !== undefined && typeof body === "object" && !(body instanceof Uint8Array)) {
+  if (
+    body !== undefined &&
+    typeof body === "object" &&
+    !(body instanceof Uint8Array)
+  ) {
     if (!("Content-Type" in headers)) {
       headers["Content-Type"] = "application/json"
     }

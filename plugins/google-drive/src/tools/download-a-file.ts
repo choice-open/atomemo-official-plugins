@@ -1,7 +1,14 @@
-import type { FileRef, Property, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  FileRef,
+  Property,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { GOOGLE_DRIVE_O_AUTH2_CREDENTIAL_NAME } from "../credentials/google-drive-oauth2"
 import { t } from "../i18n/i18n-node"
 import { googleDriveRequest } from "../transport"
+import downloadAFileSkill from "./download-a-file-skill.md" with { type: "text" }
+import { searchFilesMethod } from "./_shared/locator-list"
+import { resolveFileId } from "./_shared/resolve"
 
 type GoogleDriveOAuthCredential = {
   access_token?: string
@@ -29,16 +36,32 @@ const parameters: Array<Property<ParameterNames>> = [
   },
   {
     name: "file_id",
-    type: "string",
+    type: "resource_locator",
     required: true,
     display_name: t("DOWNLOAD_FILE_PARAM_FILE_ID_LABEL"),
-    ui: {
-      component: "input",
-      hint: t("DOWNLOAD_FILE_PARAM_FILE_ID_HINT"),
-      placeholder: t("DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER"),
-      support_expression: true,
-      width: "full",
-    },
+    ai: { llm_description: t("DOWNLOAD_FILE_PARAM_FILE_ID_HINT") },
+    modes: [
+      {
+        type: "list",
+        search_list_method: "search_files",
+        searchable: true,
+        placeholder: t("DOWNLOAD_FILE_PARAM_FILE_ID_MODE_LIST_PLACEHOLDER"),
+      },
+      {
+        type: "url",
+        placeholder: t("DOWNLOAD_FILE_PARAM_FILE_ID_MODE_URL_PLACEHOLDER"),
+        extract_value: {
+          type: "regex",
+          regex:
+            "https://(?:drive|docs)\\.google\\.com/(?:file/d/|document/d/|spreadsheets/d/|presentation/d/|drawings/d/)([a-zA-Z0-9_-]+)|https://drive\\.google\\.com/open\\?id=([a-zA-Z0-9_-]+)",
+        },
+      },
+      {
+        type: "id",
+        placeholder: t("DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER"),
+      },
+    ],
+    ui: { support_expression: true },
   },
 ]
 
@@ -60,8 +83,10 @@ export const downloadAFileTool: ToolDefinition = {
   name: "google-drive-download-file",
   display_name: t("DOWNLOAD_FILE_TOOL_DISPLAY_NAME"),
   description: t("DOWNLOAD_FILE_TOOL_DESCRIPTION"),
+  skill: downloadAFileSkill,
   icon: "⬇️",
   parameters,
+  locator_list: searchFilesMethod,
   invoke: async ({ args, context }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId =
@@ -78,7 +103,7 @@ export const downloadAFileTool: ToolDefinition = {
       )
     }
 
-    const fileId = typeof p.file_id === "string" ? p.file_id.trim() : ""
+    const fileId = resolveFileId(p)
     if (!fileId) throw new Error("Missing file_id")
 
     const accessToken = getAccessToken(cred)
@@ -164,11 +189,11 @@ export const downloadAFileTool: ToolDefinition = {
       extension,
       size: bytes.length,
       res_key: null,
-      remote_url: null
+      remote_url: null,
     }
     console.log("fileRef", fileRef)
 
-    const uploadResult = await context.files.upload(fileRef, { })
+    const uploadResult = await context.files.upload(fileRef, {})
     return uploadResult
   },
 }

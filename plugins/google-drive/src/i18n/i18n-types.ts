@@ -116,6 +116,14 @@ type RootTranslation = {
    */
   DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER: string
   /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​f​i​l​e​.​.​.
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​d​r​i​v​e​.​g​o​o​g​l​e​.​c​o​m​/​f​i​l​e​/​d​/​1​y​f​P​K​l​0​o​0​f​9​o​V​U​B​c​-​r​-​g​5​v​P​a​o​m​9​q​S​5​Q​d​R​/​e​d​i​t
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_URL_PLACEHOLDER: string
+  /**
    * T​e​m​p​o​r​a​r​y​ ​U​R​L
    */
   DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL: string
@@ -163,6 +171,14 @@ type RootTranslation = {
    * 1​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x
    */
   PARAM_FOLDER_ID_PLACEHOLDER: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​f​o​l​d​e​r​.​.​.
+   */
+  PARAM_FOLDER_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * h​t​t​p​s​:​/​/​d​r​i​v​e​.​g​o​o​g​l​e​.​c​o​m​/​d​r​i​v​e​/​f​o​l​d​e​r​s​/​1​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x​x
+   */
+  PARAM_FOLDER_ID_MODE_URL_PLACEHOLDER: string
 }
 
 export type TranslationFunctions = {
@@ -267,6 +283,14 @@ export type TranslationFunctions = {
    */
   DOWNLOAD_FILE_PARAM_FILE_ID_PLACEHOLDER: () => LocalizedString
   /**
+   * Search for a file...
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://drive.google.com/file/d/1yfPKl0o0f9oVUBc-r-g5vPaom9qS5QdR/edit
+   */
+  DOWNLOAD_FILE_PARAM_FILE_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
+  /**
    * Temporary URL
    */
   DOWNLOAD_FILE_PARAM_TEMP_URL_LABEL: () => LocalizedString
@@ -314,6 +338,14 @@ export type TranslationFunctions = {
    * 1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    */
   PARAM_FOLDER_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Search for a folder...
+   */
+  PARAM_FOLDER_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * https://drive.google.com/drive/folders/1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   */
+  PARAM_FOLDER_ID_MODE_URL_PLACEHOLDER: () => LocalizedString
 }
 
 export type Formatters = {}
