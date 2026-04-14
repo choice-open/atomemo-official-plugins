@@ -1,4 +1,4 @@
-# 获取任务列表 Tool Documentation
+# 列取任务列表 Tool Documentation
 
 ## Tool
 
@@ -6,80 +6,21 @@
 - **Module**: `task`
 - **Method**: `GET`
 - **Path**: `/open-apis/task/v2/tasks`
-- **Purpose**: Calls Feishu Open API endpoint `GET /open-apis/task/v2/tasks`.
+- **Purpose**: 列取任务列表。
+- **API Doc**: https://open.feishu.cn/document/task-v2/task/list
 
-## Query Parameters
+## 参数说明
 
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| `page_size` | `number` | `false` | `z.number().int().min(1).max(100).optional()` |
-| `page_token` | `string` | `false` | `z.string().optional()` |
-| `completed` | `boolean` | `false` | `z.boolean().optional()` |
-| `type` | `enum` | `false` | `z.enum(["my_tasks"]).optional()` |
-| `user_id_type` | `object` | `false` | `feishuUserIdTypeSchema.optional()` |
-
-### Query Schema（完整定义，来自 `task/zod/task-list.zod.ts`）
-
-```ts
-export const taskListQuerySchema = z
-  .object({
-    page_size: z.number().int().min(1).max(100).optional(),
-    page_token: z.string().optional(),
-    completed: z.boolean().optional(),
-    type: z.enum(["my_tasks"]).optional(),
-    user_id_type: feishuUserIdTypeSchema.optional(),
-  })
-  .strict()
-```
-
-## Request Body
-
-| 字段 | 类型 | 必填 | 约束/定义 |
-| --- | --- | --- | --- |
-| (none) | - | - | 无 |
+- `credential_id`：飞书应用凭据 ID（必填）。
+- `query_params_json`：查询参数 JSON 字符串（可选）。
+- 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例
 
-### 示例1（成功，最小可用）
-
 ```json
 {
   "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"page_size\":20,\"page_token\":\"sample\"}"
+    "credential_id": "<your-feishu-credential-id>"
   }
-}
-```
-
-### 示例2（错误，参数类型/格式非法）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json"
-  }
-}
-```
-
-## Tool Output 示例
-
-### 成功
-
-```json
-{
-  "code": 0,
-  "msg": "success",
-  "data": {}
-}
-```
-
-### 失败（参数错误示意）
-
-```json
-{
-  "code": 400,
-  "msg": "invalid parameter",
-  "data": {}
 }
 ```

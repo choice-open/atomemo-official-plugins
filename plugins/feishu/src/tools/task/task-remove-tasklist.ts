@@ -9,28 +9,30 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTaskPatchQuery } from "./task.zod"
-import task_patchSkill from "./task-patch-skill.md" with { type: "text" }
-
-const fn: FeishuApiFunction = {
-  id: "task_patch",
-  module: "task",
-  name: "更新任务",
-  method: "PATCH",
-  path: "/open-apis/task/v2/tasks/:task_guid",
+import { parseTaskRemoveTasklistQuery } from "./task.zod"
+import task_remove_tasklistSkill from "./task-remove-tasklist-skill.md" with {
+  type: "text",
 }
 
-export const feishuTaskPatchTool: ToolDefinition = {
+const fn: FeishuApiFunction = {
+  id: "task_remove_tasklist",
+  module: "task",
+  name: "任务移出清单",
+  method: "POST",
+  path: "/open-apis/task/v2/tasks/:task_guid/remove_tasklist",
+}
+
+export const feishuTaskRemoveTasklistTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: "Update task",
-    zh_Hans: "更新任务",
+    en_US: "Remove task from tasklist",
+    zh_Hans: "任务移出清单",
   },
   description: {
-    en_US: "This API is used to update task information.",
-    zh_Hans: "本接口用于更新任务信息。",
+    en_US: "This API is used to remove a task from a tasklist.",
+    zh_Hans: "本接口用于将任务移出清单。",
   },
-  skill: task_patchSkill,
+  skill: task_remove_tasklistSkill,
   icon: "🪶",
   parameters: [
     {
@@ -71,7 +73,7 @@ export const feishuTaskPatchTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTaskPatchQuery(
+    const queryParams = parseTaskRemoveTasklistQuery(
       parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
     const body = parseOptionalJsonObject(

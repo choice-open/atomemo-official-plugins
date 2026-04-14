@@ -2,42 +2,37 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
-import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseTaskListSubtasksBody,
-  parseTaskListSubtasksQuery,
-} from "./zod/task-list-subtasks.zod"
-
-import task_list_subtasksSkill from "./task-list-subtasks-skill.md" with {
+import { parseTasklistPatchQuery } from "./task.zod"
+import tasklist_patchSkill from "./tasklist-patch-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
-  id: "task_list_subtasks",
-  legacy_id: "f070",
+  id: "tasklist_patch",
   module: "task",
-  name: "获取子任务列表",
-  method: "GET",
-  path: "/open-apis/task/v2/tasks/:task_guid/subtasks",
+  name: "更新清单",
+  method: "PATCH",
+  path: "/open-apis/task/v2/tasklists/:tasklist_guid",
 }
 
-export const feishuTaskListSubtasksTool: ToolDefinition = {
+export const feishuTasklistPatchTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Update tasklist",
+    zh_Hans: "更新清单",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to update tasklist information.",
+    zh_Hans: "本接口用于更新清单信息。",
   },
-  skill: task_list_subtasksSkill,
+  skill: tasklist_patchSkill,
   icon: "🪶",
   parameters: [
     {
@@ -49,51 +44,50 @@ export const feishuTaskListSubtasksTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "task_guid",
+      name: "tasklist_guid",
       type: "string",
       required: true,
-      display_name: t("TASK_GUID"),
-      ui: {
-        component: "input",
-        hint: t("TASK_GUID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
-    } satisfies Property<"task_guid">,
+      display_name: { en_US: "Tasklist GUID", zh_Hans: "清单 GUID" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"tasklist_guid">,
     {
       name: "query_params_json",
       type: "string",
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
         width: "full",
         support_expression: true,
       },
     } satisfies Property<"query_params_json">,
+    {
+      name: "body_json",
+      type: "string",
+      required: true,
+      display_name: t("BODY"),
+      ui: { component: "code-editor", width: "full", support_expression: true },
+    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {
-      task_guid: readRequiredStringParam(p, "task_guid"),
-    }
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseTasklistPatchQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const query = parseTaskListSubtasksQuery(queryRaw)
-    const body = parseTaskListSubtasksBody({})
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
+    const pathParams = {
+      tasklist_guid: readRequiredStringParam(p, "tasklist_guid"),
+    }
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },

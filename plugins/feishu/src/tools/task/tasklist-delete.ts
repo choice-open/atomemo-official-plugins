@@ -2,42 +2,37 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
-import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseTaskListCommentsBody,
-  parseTaskListCommentsQuery,
-} from "./zod/task-list-comments.zod"
-
-import task_list_commentsSkill from "./task-list-comments-skill.md" with {
+import { parseTasklistDeleteQuery } from "./task.zod"
+import tasklist_deleteSkill from "./tasklist-delete-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
-  id: "task_list_comments",
-  legacy_id: "f073",
+  id: "tasklist_delete",
   module: "task",
-  name: "获取任务评论",
-  method: "GET",
-  path: "/open-apis/task/v2/comments",
+  name: "删除清单",
+  method: "DELETE",
+  path: "/open-apis/task/v2/tasklists/:tasklist_guid",
 }
 
-export const feishuTaskListCommentsTool: ToolDefinition = {
+export const feishuTasklistDeleteTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Delete tasklist",
+    zh_Hans: "删除清单",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to delete a tasklist.",
+    zh_Hans: "本接口用于删除清单。",
   },
-  skill: task_list_commentsSkill,
+  skill: tasklist_deleteSkill,
   icon: "🪶",
   parameters: [
     {
@@ -49,17 +44,20 @@ export const feishuTaskListCommentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "tasklist_guid",
       type: "string",
       required: true,
+      display_name: { en_US: "Tasklist GUID", zh_Hans: "清单 GUID" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"tasklist_guid">,
+    {
+      name: "query_params_json",
+      type: "string",
+      required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
         width: "full",
         support_expression: true,
       },
@@ -68,18 +66,18 @@ export const feishuTaskListCommentsTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseTasklistDeleteQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const query = parseTaskListCommentsQuery(queryRaw)
-    const body = parseTaskListCommentsBody({})
+    const body = {}
+    const pathParams = {
+      tasklist_guid: readRequiredStringParam(p, "tasklist_guid"),
+    }
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },

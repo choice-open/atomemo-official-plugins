@@ -1,13 +1,13 @@
-# 更新任务 Tool Documentation
+# 更新清单 Tool Documentation
 
 ## Tool
 
-- **Name**: `feishu-task_patch`
+- **Name**: `feishu-tasklist_patch`
 - **Module**: `task`
 - **Method**: `PATCH`
-- **Path**: `/open-apis/task/v2/tasks/:task_guid`
-- **Purpose**: 更新任务。
-- **API Doc**: https://open.feishu.cn/document/task-v2/task/patch
+- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid`
+- **Purpose**: 更新清单。
+- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/patch
 
 ## 参数说明
 

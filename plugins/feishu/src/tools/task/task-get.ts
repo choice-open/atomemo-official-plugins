@@ -2,20 +2,18 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
-import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTaskGetBody, parseTaskGetQuery } from "./task-get.zod"
-
+import { parseTaskGetQuery } from "./task.zod"
 import task_getSkill from "./task-get-skill.md" with { type: "text" }
 
 const fn: FeishuApiFunction = {
   id: "task_get",
-  legacy_id: "f062",
   module: "task",
   name: "获取任务详情",
   method: "GET",
@@ -25,12 +23,12 @@ const fn: FeishuApiFunction = {
 export const feishuTaskGetTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Get task",
+    zh_Hans: "获取任务详情",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to get task details.",
+    zh_Hans: "本接口用于获取任务详情。",
   },
   skill: task_getSkill,
   icon: "🪶",
@@ -47,13 +45,8 @@ export const feishuTaskGetTool: ToolDefinition = {
       name: "task_guid",
       type: "string",
       required: true,
-      display_name: t("TASK_GUID"),
-      ui: {
-        component: "input",
-        hint: t("TASK_GUID_HINT"),
-        support_expression: true,
-        width: "full",
-      },
+      display_name: { en_US: "Task GUID", zh_Hans: "任务 GUID" },
+      ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"task_guid">,
     {
       name: "query_params_json",
@@ -61,12 +54,8 @@ export const feishuTaskGetTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
         width: "full",
         support_expression: true,
       },
@@ -75,15 +64,13 @@ export const feishuTaskGetTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const queryParams = parseTaskGetQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
+    )
+    const body = {}
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),
     }
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
-    )
-    const queryParams = parseTaskGetQuery(queryRaw) as Record<string, unknown>
-    const body = parseTaskGetBody({}) as Record<string, unknown>
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

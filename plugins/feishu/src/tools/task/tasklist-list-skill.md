@@ -1,13 +1,13 @@
-# 获取任务详情 Tool Documentation
+# 获取清单列表 Tool Documentation
 
 ## Tool
 
-- **Name**: `feishu-task_get`
+- **Name**: `feishu-tasklist_list`
 - **Module**: `task`
 - **Method**: `GET`
-- **Path**: `/open-apis/task/v2/tasks/:task_guid`
-- **Purpose**: 获取任务详情。
-- **API Doc**: https://open.feishu.cn/document/task-v2/task/get
+- **Path**: `/open-apis/task/v2/tasklists`
+- **Purpose**: 获取清单列表。
+- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/list
 
 ## 参数说明
 

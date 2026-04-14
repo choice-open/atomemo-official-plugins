@@ -1,13 +1,13 @@
-# 获取任务详情 Tool Documentation
+# 删除清单 Tool Documentation
 
 ## Tool
 
-- **Name**: `feishu-task_get`
+- **Name**: `feishu-tasklist_delete`
 - **Module**: `task`
-- **Method**: `GET`
-- **Path**: `/open-apis/task/v2/tasks/:task_guid`
-- **Purpose**: 获取任务详情。
-- **API Doc**: https://open.feishu.cn/document/task-v2/task/get
+- **Method**: `DELETE`
+- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid`
+- **Purpose**: 删除清单。
+- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/delete
 
 ## 参数说明
 

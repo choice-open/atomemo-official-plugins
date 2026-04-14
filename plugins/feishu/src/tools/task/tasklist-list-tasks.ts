@@ -9,28 +9,30 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTaskPatchQuery } from "./task.zod"
-import task_patchSkill from "./task-patch-skill.md" with { type: "text" }
-
-const fn: FeishuApiFunction = {
-  id: "task_patch",
-  module: "task",
-  name: "更新任务",
-  method: "PATCH",
-  path: "/open-apis/task/v2/tasks/:task_guid",
+import { parseTasklistListTasksQuery } from "./task.zod"
+import tasklist_list_tasksSkill from "./tasklist-list-tasks-skill.md" with {
+  type: "text",
 }
 
-export const feishuTaskPatchTool: ToolDefinition = {
+const fn: FeishuApiFunction = {
+  id: "tasklist_list_tasks",
+  module: "task",
+  name: "获取清单任务列表",
+  method: "GET",
+  path: "/open-apis/task/v2/tasklists/:tasklist_guid/tasks",
+}
+
+export const feishuTasklistListTasksTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: "Update task",
-    zh_Hans: "更新任务",
+    en_US: "List tasklist tasks",
+    zh_Hans: "获取清单任务列表",
   },
   description: {
-    en_US: "This API is used to update task information.",
-    zh_Hans: "本接口用于更新任务信息。",
+    en_US: "This API is used to list tasks in a tasklist.",
+    zh_Hans: "本接口用于获取清单任务列表。",
   },
-  skill: task_patchSkill,
+  skill: tasklist_list_tasksSkill,
   icon: "🪶",
   parameters: [
     {
@@ -42,12 +44,12 @@ export const feishuTaskPatchTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "task_guid",
+      name: "tasklist_guid",
       type: "string",
       required: true,
-      display_name: { en_US: "Task GUID", zh_Hans: "任务 GUID" },
+      display_name: { en_US: "Tasklist GUID", zh_Hans: "清单 GUID" },
       ui: { component: "input", width: "full", support_expression: true },
-    } satisfies Property<"task_guid">,
+    } satisfies Property<"tasklist_guid">,
     {
       name: "query_params_json",
       type: "string",
@@ -60,26 +62,16 @@ export const feishuTaskPatchTool: ToolDefinition = {
         support_expression: true,
       },
     } satisfies Property<"query_params_json">,
-    {
-      name: "body_json",
-      type: "string",
-      required: true,
-      display_name: t("BODY"),
-      ui: { component: "code-editor", width: "full", support_expression: true },
-    } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTaskPatchQuery(
+    const queryParams = parseTasklistListTasksQuery(
       parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const body = parseOptionalJsonObject(
-      readRequiredStringParam(p, "body_json"),
-      "body_json",
-    )
+    const body = {}
     const pathParams = {
-      task_guid: readRequiredStringParam(p, "task_guid"),
+      tasklist_guid: readRequiredStringParam(p, "tasklist_guid"),
     }
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,

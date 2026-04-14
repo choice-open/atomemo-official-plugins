@@ -2,42 +2,37 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
-import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import {
-  parseTaskCreateTasklistBody,
-  parseTaskCreateTasklistQuery,
-} from "./zod/task-actions.zod"
-
-import task_create_tasklistSkill from "./task-create-tasklist-skill.md" with {
+import { parseTaskAddRemindersQuery } from "./task.zod"
+import task_add_remindersSkill from "./task-add-reminders-skill.md" with {
   type: "text",
 }
 
 const fn: FeishuApiFunction = {
-  id: "task_create_tasklist",
-  legacy_id: "f071",
+  id: "task_add_reminders",
   module: "task",
-  name: "创建清单",
+  name: "添加任务提醒",
   method: "POST",
-  path: "/open-apis/task/v2/tasklists",
+  path: "/open-apis/task/v2/tasks/:task_guid/add_reminders",
 }
 
-export const feishuTaskCreateTasklistTool: ToolDefinition = {
+export const feishuTaskAddRemindersTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "Add task reminders",
+    zh_Hans: "添加任务提醒",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to add reminders to a task.",
+    zh_Hans: "本接口用于添加任务提醒。",
   },
-  skill: task_create_tasklistSkill,
+  skill: task_add_remindersSkill,
   icon: "🪶",
   parameters: [
     {
@@ -49,17 +44,20 @@ export const feishuTaskCreateTasklistTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
+      name: "task_guid",
+      type: "string",
+      required: true,
+      display_name: { en_US: "Task GUID", zh_Hans: "任务 GUID" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"task_guid">,
+    {
       name: "query_params_json",
       type: "string",
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
         width: "full",
         support_expression: true,
       },
@@ -67,36 +65,29 @@ export const feishuTaskCreateTasklistTool: ToolDefinition = {
     {
       name: "body_json",
       type: "string",
-      required: false,
+      required: true,
       display_name: t("BODY"),
-      ui: {
-        component: "input",
-        hint: t("BODY_HINT"),
-        placeholder: {
-          en_US: '{"key":"value"}',
-          zh_Hans: '{"key":"value"}',
-        },
-        width: "full",
-        support_expression: true,
-      },
+      ui: { component: "code-editor", width: "full", support_expression: true },
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseTaskAddRemindersQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const bodyRaw = parseOptionalJsonObject(p.body_json, "body_json")
-    const query = parseTaskCreateTasklistQuery(queryRaw)
-    const body = parseTaskCreateTasklistBody(bodyRaw)
+    const body = parseOptionalJsonObject(
+      readRequiredStringParam(p, "body_json"),
+      "body_json",
+    )
+    const pathParams = {
+      task_guid: readRequiredStringParam(p, "task_guid"),
+    }
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },

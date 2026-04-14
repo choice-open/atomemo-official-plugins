@@ -1,13 +1,13 @@
-# 更新任务 Tool Documentation
+# 添加任务提醒 Tool Documentation
 
 ## Tool
 
-- **Name**: `feishu-task_patch`
+- **Name**: `feishu-task_add_reminders`
 - **Module**: `task`
-- **Method**: `PATCH`
-- **Path**: `/open-apis/task/v2/tasks/:task_guid`
-- **Purpose**: 更新任务。
-- **API Doc**: https://open.feishu.cn/document/task-v2/task/patch
+- **Method**: `POST`
+- **Path**: `/open-apis/task/v2/tasks/:task_guid/add_reminders`
+- **Purpose**: 添加任务提醒。
+- **API Doc**: https://open.feishu.cn/document/task-v2/task/add_reminders
 
 ## 参数说明
 

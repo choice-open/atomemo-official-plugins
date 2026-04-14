@@ -2,22 +2,20 @@ import type {
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
-import { t } from "../i18n/i18n-node"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTaskListBody, parseTaskListQuery } from "./zod/task-list.zod"
-
+import { parseTaskListQuery } from "./task.zod"
 import task_listSkill from "./task-list-skill.md" with { type: "text" }
 
 const fn: FeishuApiFunction = {
   id: "task_list",
-  legacy_id: "f066",
   module: "task",
-  name: "获取任务列表",
+  name: "列取任务列表",
   method: "GET",
   path: "/open-apis/task/v2/tasks",
 }
@@ -25,12 +23,12 @@ const fn: FeishuApiFunction = {
 export const feishuTaskListTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
-    en_US: `[${fn.module}] ${fn.name}`,
-    zh_Hans: `[${fn.module}] ${fn.name}`,
+    en_US: "List tasks",
+    zh_Hans: "列取任务列表",
   },
   description: {
-    en_US: `${fn.method} ${fn.path} (${fn.id}, legacy: ${fn.legacy_id})`,
-    zh_Hans: `${fn.method} ${fn.path}（${fn.id}，兼容: ${fn.legacy_id}）`,
+    en_US: "This API is used to list tasks.",
+    zh_Hans: "本接口用于列取任务列表。",
   },
   skill: task_listSkill,
   icon: "🪶",
@@ -49,12 +47,8 @@ export const feishuTaskListTool: ToolDefinition = {
       required: false,
       display_name: t("QUERY_PARAMS"),
       ui: {
-        component: "input",
+        component: "code-editor",
         hint: t("QUERY_PARAMS_HINT"),
-        placeholder: {
-          en_US: '{"page_size":20}',
-          zh_Hans: '{"page_size":20}',
-        },
         width: "full",
         support_expression: true,
       },
@@ -63,18 +57,16 @@ export const feishuTaskListTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {}
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseTaskListQuery(
+      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
     )
-    const query = parseTaskListQuery(queryRaw)
-    const body = parseTaskListBody({})
+    const body = {}
+    const pathParams = {}
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
-      queryParams: query,
+      queryParams,
       body,
     })
   },
