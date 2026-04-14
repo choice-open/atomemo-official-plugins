@@ -61,3 +61,27 @@ export function parseCalendarSearchCalendarsQuery(
 ) {
   return calendarUserIdQuerySchema.parse(raw)
 }
+
+export function parseCalendarCreateEventQuery(raw: Record<string, unknown>) {
+  return calendarUserIdQuerySchema.parse(raw)
+}
+
+export function parseCalendarDeleteEventQuery(raw: Record<string, unknown>) {
+  return calendarUserIdQuerySchema.parse(raw)
+}
+
+export function parseCalendarPatchEventQuery(raw: Record<string, unknown>) {
+  return calendarUserIdQuerySchema.parse(raw)
+}
+
+export function parseCalendarGetEventQuery(raw: Record<string, unknown>) {
+  return calendarUserIdQuerySchema.parse(raw)
+}
+
+export function parseCalendarListEventsQuery(raw: Record<string, unknown>) {
+  return calendarListQuerySchema.parse(raw)
+}
+
+export function parseCalendarSearchEventsQuery(raw: Record<string, unknown>) {
+  return calendarUserIdQuerySchema.parse(raw)
+}
