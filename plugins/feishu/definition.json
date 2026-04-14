@@ -11,10 +11,7 @@
   "icon": "🕊️",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "yong yu",
   "email": "leoyyong@gmail.com",
   "version": "0.1.0",
@@ -74,12 +71,12 @@
     {
       "name": "feishu-organization_create_employee",
       "display_name": {
-        "en_US": "[organization] 创建员工",
-        "zh_Hans": "[organization] 创建员工"
+        "en_US": "Create employee",
+        "zh_Hans": "创建员工"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/employees (organization_create_employee)",
-        "zh_Hans": "POST /open-apis/directory/v1/employees（organization_create_employee）"
+        "en_US": "This API is used to create an employee in the enterprise.",
+        "zh_Hans": "本接口用于在企业下创建员工。"
       },
       "icon": "🪶",
       "parameters": [
@@ -141,17 +138,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 创建员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_employee`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/employees`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"name\\\":{\\\"name\\\":{\\\"default_value\\\":\\\"张三\\\"}},\\\"mobile\\\":\\\"+8613011111111\\\",\\\"email\\\":\\\"zhangsan@example.com\\\",\\\"department_ids\\\":[\\\"od-1a2b3c4d5e\\\"]}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 创建员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_employee`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees`\n- **Purpose**: 本接口用于在企业下创建员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"name\\\":{\\\"name\\\":{\\\"default_value\\\":\\\"张三\\\"}},\\\"mobile\\\":\\\"+8613011111111\\\",\\\"email\\\":\\\"zhangsan@example.com\\\",\\\"department_ids\\\":[\\\"od-1a2b3c4d5e\\\"]}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_patch_employee",
       "display_name": {
-        "en_US": "[organization] 更新员工信息",
-        "zh_Hans": "[organization] 更新员工信息"
+        "en_US": "Update employee",
+        "zh_Hans": "更新员工信息"
       },
       "description": {
-        "en_US": "PATCH /open-apis/directory/v1/employees/:employee_id (organization_patch_employee)",
-        "zh_Hans": "PATCH /open-apis/directory/v1/employees/:employee_id（organization_patch_employee）"
+        "en_US": "This API is used to update information of active/resigned employees, and freeze/restore employees.",
+        "zh_Hans": "本接口用于更新在职/离职员工的信息、冻结/恢复员工。"
       },
       "icon": "🪶",
       "parameters": [
@@ -215,17 +212,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 更新员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_employee`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: Calls Feishu Open API endpoint `PATCH /open-apis/directory/v1/employees/:employee_id`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"mobile\\\":\\\"+8613811112222\\\",\\\"email\\\":\\\"zhangsan.updated@example.com\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 更新员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_employee`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: 本接口用于更新在职/离职员工的信息、冻结/恢复员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"mobile\\\":\\\"+8613811112222\\\",\\\"email\\\":\\\"zhangsan.updated@example.com\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_delete_employee",
       "display_name": {
-        "en_US": "[organization] 离职员工",
-        "zh_Hans": "[organization] 离职员工"
+        "en_US": "Terminate employee",
+        "zh_Hans": "离职员工"
       },
       "description": {
-        "en_US": "DELETE /open-apis/directory/v1/employees/:employee_id (organization_delete_employee)",
-        "zh_Hans": "DELETE /open-apis/directory/v1/employees/:employee_id（organization_delete_employee）"
+        "en_US": "This API is used to terminate an employee.",
+        "zh_Hans": "本接口用于离职员工。"
       },
       "icon": "🪶",
       "parameters": [
@@ -275,17 +272,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 离职员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_employee`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: Calls Feishu Open API endpoint `DELETE /open-apis/directory/v1/employees/:employee_id`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 离职员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_employee`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: 本接口用于离职员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_batch_get_employees",
       "display_name": {
-        "en_US": "[organization] 批量获取员工信息",
-        "zh_Hans": "[organization] 批量获取员工信息"
+        "en_US": "Batch get employee information",
+        "zh_Hans": "批量获取员工信息"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/employees/mget (organization_batch_get_employees)",
-        "zh_Hans": "POST /open-apis/directory/v1/employees/mget（organization_batch_get_employees）"
+        "en_US": "This API is used to batch query employee details by employee IDs.",
+        "zh_Hans": "本接口用于批量根据员工的ID查询员工的详情。"
       },
       "icon": "🪶",
       "parameters": [
@@ -335,17 +332,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 批量获取员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/mget`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/employees/mget`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee_ids\\\":[\\\"u273y71\\\",\\\"u9ab8c7\\\"],\\\"required_fields\\\":[\\\"employee.base_info.employee_id\\\",\\\"employee.base_info.name\\\",\\\"employee.base_info.mobile\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 批量获取员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/mget`\n- **Purpose**: 本接口用于批量根据员工的ID查询员工的详情。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"employee_ids\\\":[\\\"u273y71\\\",\\\"u9ab8c7\\\"],\\\"required_fields\\\":[\\\"employee.base_info.employee_id\\\",\\\"employee.base_info.name\\\",\\\"employee.base_info.mobile\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_batch_get_employee_list",
       "display_name": {
-        "en_US": "[organization] 批量查询员工列表",
-        "zh_Hans": "[organization] 批量查询员工列表"
+        "en_US": "Batch query employee list",
+        "zh_Hans": "批量查询员工列表"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/employees/filter (organization_batch_get_employee_list)",
-        "zh_Hans": "POST /open-apis/directory/v1/employees/filter（organization_batch_get_employee_list）"
+        "en_US": "This API is used to batch query employee detail lists that match specified conditions.",
+        "zh_Hans": "本接口用于依据指定条件，批量获取符合条件的员工详情列表。"
       },
       "icon": "🪶",
       "parameters": [
@@ -403,17 +400,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 批量查询员工列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employee_list`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/filter`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/employees/filter`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），用于传入 `filter`、`page_request` 和 `required_fields`。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"conditions\\\":[{\\\"field\\\":\\\"employment_status\\\",\\\"operator\\\":\\\"eq\\\",\\\"value\\\":\\\"\\\\\\\"active\\\\\\\"\\\"}]},\\\"required_fields\\\":[\\\"employee.base_info.employee_id\\\",\\\"employee.base_info.name\\\"],\\\"page_request\\\":{\\\"page_size\\\":20}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 批量查询员工列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employee_list`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/filter`\n- **Purpose**: 本接口用于依据指定条件，批量获取符合条件的员工详情列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），用于传入 `filter`、`page_request` 和 `required_fields`。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"conditions\\\":[{\\\"field\\\":\\\"employment_status\\\",\\\"operator\\\":\\\"eq\\\",\\\"value\\\":\\\"\\\\\\\"active\\\\\\\"\\\"}]},\\\"required_fields\\\":[\\\"employee.base_info.employee_id\\\",\\\"employee.base_info.name\\\"],\\\"page_request\\\":{\\\"page_size\\\":20}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_search_employees",
       "display_name": {
-        "en_US": "[organization] 搜索员工信息",
-        "zh_Hans": "[organization] 搜索员工信息"
+        "en_US": "Search employee",
+        "zh_Hans": "搜索员工信息"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/employees/search (organization_search_employees)",
-        "zh_Hans": "POST /open-apis/directory/v1/employees/search（organization_search_employees）"
+        "en_US": "This API is used to search employee information.",
+        "zh_Hans": "本接口用于搜索员工信息。"
       },
       "icon": "🪶",
       "parameters": [
@@ -463,17 +460,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 搜索员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/search`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/employees/search`.\n- **API Doc**: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"query\\\":\\\"张三\\\",\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 搜索员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/search`\n- **Purpose**: 本接口用于搜索员工信息。\n- **API Doc**: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"employee_id_type\\\":\\\"employee_id\\\"}\",\n    \"body_json\": \"{\\\"query\\\":\\\"张三\\\",\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_create_department",
       "display_name": {
-        "en_US": "[organization] 创建部门",
-        "zh_Hans": "[organization] 创建部门"
+        "en_US": "Create department",
+        "zh_Hans": "创建部门"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/departments (organization_create_department)",
-        "zh_Hans": "POST /open-apis/directory/v1/departments（organization_create_department）"
+        "en_US": "This API is used to create a department in the enterprise.",
+        "zh_Hans": "本接口用于在企业下创建部门。"
       },
       "icon": "🪶",
       "parameters": [
@@ -523,17 +520,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 创建部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_department`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/departments`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":\\\"产品研发部\\\",\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 创建部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_department`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments`\n- **Purpose**: 本接口用于在企业下创建部门。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":\\\"产品研发部\\\",\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_patch_department",
       "display_name": {
-        "en_US": "[organization] 更新部门",
-        "zh_Hans": "[organization] 更新部门"
+        "en_US": "Update department",
+        "zh_Hans": "更新部门"
       },
       "description": {
-        "en_US": "PATCH /open-apis/directory/v1/departments/:department_id (organization_patch_department)",
-        "zh_Hans": "PATCH /open-apis/directory/v1/departments/:department_id（organization_patch_department）"
+        "en_US": "This API is used to update department information.",
+        "zh_Hans": "本接口用于更新部门信息。"
       },
       "icon": "🪶",
       "parameters": [
@@ -597,17 +594,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 更新部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_department`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: Calls Feishu Open API endpoint `PATCH /open-apis/directory/v1/departments/:department_id`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":\\\"产品研发中心\\\",\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 更新部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_department`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: 本接口用于更新部门信息。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":\\\"产品研发中心\\\",\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_delete_department",
       "display_name": {
-        "en_US": "[organization] 删除部门",
-        "zh_Hans": "[organization] 删除部门"
+        "en_US": "Delete department",
+        "zh_Hans": "删除部门"
       },
       "description": {
-        "en_US": "DELETE /open-apis/directory/v1/departments/:department_id (organization_delete_department)",
-        "zh_Hans": "DELETE /open-apis/directory/v1/departments/:department_id（organization_delete_department）"
+        "en_US": "This API is used to delete a department.",
+        "zh_Hans": "本接口用于删除部门。"
       },
       "icon": "🪶",
       "parameters": [
@@ -657,17 +654,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 删除部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_department`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: Calls Feishu Open API endpoint `DELETE /open-apis/directory/v1/departments/:department_id`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 删除部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_department`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: 本接口用于删除部门。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_batch_get_departments",
       "display_name": {
-        "en_US": "[organization] 批量获取部门信息",
-        "zh_Hans": "[organization] 批量获取部门信息"
+        "en_US": "Batch get department information",
+        "zh_Hans": "批量获取部门信息"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/departments/mget (organization_batch_get_departments)",
-        "zh_Hans": "POST /open-apis/directory/v1/departments/mget（organization_batch_get_departments）"
+        "en_US": "This API is used to batch query department details by department IDs.",
+        "zh_Hans": "本接口用于批量根据部门ID查询部门详情。"
       },
       "icon": "🪶",
       "parameters": [
@@ -717,17 +714,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 批量获取部门信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/mget`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/departments/mget`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department_ids\\\":[\\\"od-1a2b3c4d5e\\\",\\\"od-9f8e7d6c5b\\\"],\\\"required_fields\\\":[\\\"department.name\\\",\\\"department.parent_department_id\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 批量获取部门信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/mget`\n- **Purpose**: 本接口用于批量根据部门ID查询部门详情。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"department_ids\\\":[\\\"od-1a2b3c4d5e\\\",\\\"od-9f8e7d6c5b\\\"],\\\"required_fields\\\":[\\\"department.name\\\",\\\"department.parent_department_id\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_list_departments",
       "display_name": {
-        "en_US": "[organization] 获取部门列表",
-        "zh_Hans": "[organization] 获取部门列表"
+        "en_US": "List department",
+        "zh_Hans": "获取部门列表"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/departments/filter (organization_list_departments)",
-        "zh_Hans": "POST /open-apis/directory/v1/departments/filter（organization_list_departments）"
+        "en_US": "This API is used to batch query department detail lists that match specified conditions.",
+        "zh_Hans": "本接口用于依据指定条件，批量获取符合条件的部门详情列表。"
       },
       "icon": "🪶",
       "parameters": [
@@ -785,17 +782,17 @@
           "type": "string"
         }
       ],
-      "skill": "# 获取部门列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_list_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/filter`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/departments/filter`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"parent_department_ids\\\":[\\\"0\\\"]},\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 获取部门列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_list_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/filter`\n- **Purpose**: 本接口用于依据指定条件，批量获取符合条件的部门详情列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"parent_department_ids\\\":[\\\"0\\\"]},\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     },
     {
       "name": "feishu-organization_search_departments",
       "display_name": {
-        "en_US": "[organization] 搜索部门",
-        "zh_Hans": "[organization] 搜索部门"
+        "en_US": "Search department",
+        "zh_Hans": "搜索部门"
       },
       "description": {
-        "en_US": "POST /open-apis/directory/v1/departments/search (organization_search_departments)",
-        "zh_Hans": "POST /open-apis/directory/v1/departments/search（organization_search_departments）"
+        "en_US": "This API is used to search department information and return departments matching keywords such as department names.",
+        "zh_Hans": "本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。"
       },
       "icon": "🪶",
       "parameters": [
@@ -845,7 +842,7 @@
           "type": "string"
         }
       ],
-      "skill": "# 搜索部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/search`\n- **Purpose**: Calls Feishu Open API endpoint `POST /open-apis/directory/v1/departments/search`.\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"query\\\":\\\"产品\\\",\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 搜索部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/search`\n- **Purpose**: 本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"department_id_type\\\":\\\"open_department_id\\\"}\",\n    \"body_json\": \"{\\\"query\\\":\\\"产品\\\",\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
     }
   ]
 }
