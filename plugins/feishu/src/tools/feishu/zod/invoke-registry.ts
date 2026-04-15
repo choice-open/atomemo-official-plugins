@@ -18,7 +18,7 @@ const FEISHU_TOOL_METHODS: ReadonlyArray<{
   id: FeishuApiFunction["id"]
   method: FeishuApiMethod
 }> = [
-  { id: "approval_batch_get_instance_ids", method: "POST" },
+  { id: "approval_batch_get_instance_ids", method: "GET" },
   { id: "approval_create_instance", method: "POST" },
   { id: "approval_get_instance", method: "GET" },
   { id: "approval_list_definitions", method: "GET" },
