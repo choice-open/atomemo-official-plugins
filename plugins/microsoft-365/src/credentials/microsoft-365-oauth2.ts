@@ -52,7 +52,7 @@ export const microsoft365OAuth2Credential = {
     {
       name: "tenant_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: t("M365_CUSTOM_TENANT_ID_DISPLAY_NAME"),
       ui: {
         component: "input",
