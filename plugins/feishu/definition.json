@@ -1,0 +1,4409 @@
+{
+  "name": "feishu",
+  "display_name": {
+    "en_US": "Feishu Plugin",
+    "zh_Hans": "飞书插件"
+  },
+  "description": {
+    "en_US": "Connect Feishu OpenAPI for contacts, chats, calendars, tasks, and approvals.",
+    "zh_Hans": "接入飞书 OpenAPI，覆盖通讯录、会话、日历、任务与审批能力。"
+  },
+  "icon": "https://raw.githubusercontent.com/go-gitea/gitea/main/web_src/svg/gitea-feishu.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/feishu",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.2",
+  "credentials": [
+    {
+      "name": "feishu-app-credential",
+      "display_name": {
+        "en_US": "Feishu App Credential",
+        "zh_Hans": "飞书应用凭证"
+      },
+      "description": {
+        "en_US": "Feishu app_id and app_secret for OpenAPI access.",
+        "zh_Hans": "用于调用飞书 OpenAPI 的 app_id 与 app_secret。"
+      },
+      "icon": "🔐",
+      "parameters": [
+        {
+          "name": "app_id",
+          "display_name": {
+            "en_US": "App ID",
+            "zh_Hans": "App ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Your Feishu application app_id.",
+              "zh_Hans": "飞书应用的 app_id。"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "app_secret",
+          "display_name": {
+            "en_US": "App Secret",
+            "zh_Hans": "App Secret"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Your Feishu application app_secret.",
+              "zh_Hans": "飞书应用的 app_secret。"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "feishu-approval_create_instance",
+      "display_name": {
+        "en_US": "Create approval instance",
+        "zh_Hans": "创建审批实例"
+      },
+      "description": {
+        "en_US": "Create an approval instance by approval definition code.",
+        "zh_Hans": "使用审批定义 Code 创建原生审批实例。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建审批实例 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_create_instance`\n- **Module**: `approval`\n- **Method**: `POST`\n- **Path**: `/open-apis/approval/v4/instances`\n- **Purpose**: 使用审批定义 Code 创建原生审批实例。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填），字段遵循官方文档。\n  - 必填字段：`approval_code`、`form`\n  - 至少二选一：`user_id` / `open_id`\n  - 常见可选字段：`department_id`、`node_approver_user_id_list`、`node_approver_open_id_list`、`node_cc_user_id_list`、`node_cc_open_id_list`、`uuid`、`allow_resubmit`、`allow_submit_again`、`cancel_bot_notification`、`forbid_revoke`、`i18n_resources`、`title`、`title_display_method`、`node_auto_approval_list`\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"approval_code\\\":\\\"4202AD96-9EC1-4284-9C48-B923CDC4F30B\\\",\\\"user_id\\\":\\\"59a92c4a\\\",\\\"form\\\":\\\"[{\\\\\\\"id\\\\\\\":\\\\\\\"111\\\\\\\",\\\\\\\"type\\\\\\\":\\\\\\\"input\\\\\\\",\\\\\\\"value\\\\\\\":\\\\\\\"11111\\\\\\\"}]\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_get_instance",
+      "display_name": {
+        "en_US": "Get approval instance",
+        "zh_Hans": "获取单个审批实例详情"
+      },
+      "description": {
+        "en_US": "Get details of a single approval instance.",
+        "zh_Hans": "获取单个审批实例的详细信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "instance_id",
+          "display_name": {
+            "en_US": "Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "发起人用户 ID"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "user_id | open_id | union_id",
+              "zh_Hans": "user_id | open_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "locale",
+          "display_name": {
+            "en_US": "Locale",
+            "zh_Hans": "语言"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "zh-CN",
+              "zh_Hans": "zh-CN"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取单个审批实例详情 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_get_instance`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances/:instance_id`\n- **Purpose**: 获取单个审批实例的详细信息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `instance_id`：审批实例 ID（必填）。\n- `user_id`：发起审批的用户 ID（可选，ID 类型由 `user_id_type` 指定）。\n- `user_id_type`：用户 ID 类型（可选），可填 `user_id` / `open_id` / `union_id`。\n- `locale`：返回语言（可选），例如 `zh-CN`。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"instance_id\": \"81D31358-93AF-92D6-7425-01A5D67C4E71\",\n    \"user_id\": \"f7cb567e\",\n    \"user_id_type\": \"user_id\",\n    \"locale\": \"zh-CN\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_batch_get_instance_ids",
+      "display_name": {
+        "en_US": "Batch get approval instance IDs",
+        "zh_Hans": "批量获取审批实例 ID"
+      },
+      "description": {
+        "en_US": "Batch get approval instance IDs with filters.",
+        "zh_Hans": "按筛选条件批量获取审批实例 ID 列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "approval_code",
+          "display_name": {
+            "en_US": "Approval Code",
+            "zh_Hans": "审批定义 Code"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_time",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间（毫秒时间戳）"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_time",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间（毫秒时间戳）"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量获取审批实例 ID Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_batch_get_instance_ids`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances`\n- **Purpose**: 按筛选条件批量获取审批实例 ID 列表。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `approval_code`：审批定义 Code（必填）。\n- `start_time`：开始时间（必填，毫秒时间戳）。\n- `end_time`：结束时间（必填，毫秒时间戳）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"approval_code\": \"4202AD96-9EC1-4284-9C48-B923CDC4F30B\",\n    \"start_time\": \"1743091200000\",\n    \"end_time\": \"1743098400000\",\n    \"page_size\": \"20\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_approve_task",
+      "display_name": {
+        "en_US": "Approve task",
+        "zh_Hans": "同意审批任务"
+      },
+      "description": {
+        "en_US": "Approve a single approval task.",
+        "zh_Hans": "对单个审批任务执行同意操作。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 同意审批任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_approve_task`\n- **Module**: `approval`\n- **Method**: `POST`\n- **Path**: `/open-apis/approval/v4/tasks/approve`\n- **Purpose**: 对单个审批任务执行同意操作。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/task/approve\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）\n- `body_json`：请求体 JSON 字符串（必填）。\n  - 必填字段：`approval_code`、`instance_code`、`user_id`、`task_id`\n  - 可选字段：`comment`、`form`\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"approval_code\\\":\\\"7C468A54-8745-2245-9675-08B7C63E7A85\\\",\\\"instance_code\\\":\\\"81D31358-93AF-92D6-7425-01A5D67C4E71\\\",\\\"user_id\\\":\\\"f7cb567e\\\",\\\"task_id\\\":\\\"12345\\\",\\\"comment\\\":\\\"OK\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_reject_task",
+      "display_name": {
+        "en_US": "Reject task",
+        "zh_Hans": "拒绝审批任务"
+      },
+      "description": {
+        "en_US": "Reject a single approval task.",
+        "zh_Hans": "对单个审批任务执行拒绝操作。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 拒绝审批任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_reject_task`\n- **Module**: `approval`\n- **Method**: `POST`\n- **Path**: `/open-apis/approval/v4/tasks/reject`\n- **Purpose**: 对单个审批任务执行拒绝操作。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/task/reject\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）\n- `body_json`：请求体 JSON 字符串（必填）。\n  - 必填字段：`approval_code`、`instance_code`、`user_id`、`task_id`\n  - 可选字段：`comment`、`form`\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"approval_code\\\":\\\"7C468A54-8745-2245-9675-08B7C63E7A85\\\",\\\"instance_code\\\":\\\"81D31358-93AF-92D6-7425-01A5D67C4E71\\\",\\\"user_id\\\":\\\"f7cb567e\\\",\\\"task_id\\\":\\\"12345\\\",\\\"comment\\\":\\\"拒绝\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_transfer_task",
+      "display_name": {
+        "en_US": "Transfer task",
+        "zh_Hans": "转交审批任务"
+      },
+      "description": {
+        "en_US": "Transfer a single approval task.",
+        "zh_Hans": "对单个审批任务执行转交操作。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 转交审批任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_transfer_task`\n- **Module**: `approval`\n- **Method**: `POST`\n- **Path**: `/open-apis/approval/v4/tasks/transfer`\n- **Purpose**: 对单个审批任务执行转交操作。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/task/transfer\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）\n- `body_json`：请求体 JSON 字符串（必填）。\n  - 必填字段：`approval_code`、`instance_code`、`user_id`、`transfer_user_id`、`task_id`\n  - 可选字段：`comment`\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"approval_code\\\":\\\"7C468A54-8745-2245-9675-08B7C63E7A85\\\",\\\"instance_code\\\":\\\"81D31358-93AF-92D6-7425-01A5D67C4E71\\\",\\\"user_id\\\":\\\"f7cb567e\\\",\\\"transfer_user_id\\\":\\\"f4ip317q\\\",\\\"task_id\\\":\\\"12345\\\",\\\"comment\\\":\\\"请协助处理\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-approval_specified_rollback",
+      "display_name": {
+        "en_US": "Return task",
+        "zh_Hans": "退回审批任务"
+      },
+      "description": {
+        "en_US": "Roll back current task to passed node keys.",
+        "zh_Hans": "将当前审批任务退回到已通过的一个或多个节点。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 退回审批任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_specified_rollback`\n- **Module**: `approval`\n- **Method**: `POST`\n- **Path**: `/open-apis/approval/v4/instances/specified_rollback`\n- **Purpose**: 从当前审批任务退回到已审批的一个或多个任务节点。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/specified_rollback\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）\n- `body_json`：请求体 JSON 字符串（必填）。\n  - 必填字段：`user_id`、`task_id`、`task_def_key_list`（`string[]`，长度 1~100）\n  - 可选字段：`reason`、`extra`（灰度参数）\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"user_id\\\":\\\"893g4c45\\\",\\\"task_id\\\":\\\"7026591166355210260\\\",\\\"reason\\\":\\\"申请事项填写不具体，请重新填写\\\",\\\"task_def_key_list\\\":[\\\"START\\\",\\\"APPROVAL_27997_285502\\\"]}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_create_employee",
+      "display_name": {
+        "en_US": "Create employee",
+        "zh_Hans": "创建员工"
+      },
+      "description": {
+        "en_US": "This API is used to create an employee in the enterprise.",
+        "zh_Hans": "本接口用于在企业下创建员工。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Employee payload JSON",
+              "zh_Hans": "员工创建请求体 JSON"
+            },
+            "placeholder": {
+              "en_US": "{\"name\":\"张三\"}",
+              "zh_Hans": "{\"name\":\"张三\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_employee`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees`\n- **Purpose**: 本接口用于在企业下创建员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id_type\": \"employee_id\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"name\\\":{\\\"name\\\":{\\\"default_value\\\":\\\"张三\\\"}},\\\"mobile\\\":\\\"+8613011111111\\\",\\\"email\\\":\\\"zhangsan@example.com\\\",\\\"employee_order_in_departments\\\":[{\\\"department_id\\\":\\\"od-1a2b3c4d5e\\\",\\\"is_main_department\\\":true}]}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_patch_employee",
+      "display_name": {
+        "en_US": "Update employee",
+        "zh_Hans": "更新员工信息"
+      },
+      "description": {
+        "en_US": "This API is used to update information of active/resigned employees, and freeze/restore employees.",
+        "zh_Hans": "本接口用于更新在职/离职员工的信息、冻结/恢复员工。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id",
+          "display_name": {
+            "en_US": "Employee ID",
+            "zh_Hans": "员工ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_employee`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: 本接口用于更新在职/离职员工的信息、冻结/恢复员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"employee_id_type\": \"employee_id\",\n    \"body_json\": \"{\\\"employee\\\":{\\\"mobile\\\":\\\"+8613811112222\\\",\\\"email\\\":\\\"zhangsan.updated@example.com\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_delete_employee",
+      "display_name": {
+        "en_US": "Terminate employee",
+        "zh_Hans": "离职员工"
+      },
+      "description": {
+        "en_US": "This API is used to terminate an employee.",
+        "zh_Hans": "本接口用于离职员工。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id",
+          "display_name": {
+            "en_US": "Employee ID",
+            "zh_Hans": "员工ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 离职员工 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_employee`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/employees/:employee_id`\n- **Purpose**: 本接口用于离职员工。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id`：路径参数（必填），示例值 `u273y71`。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- 飞书官方接口支持可选请求体 `options`（用于资源接收者配置），但当前 Tool 未暴露 `body_json` 参数，因此本 Tool 调用时不支持传请求体。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"u273y71\",\n    \"employee_id_type\": \"employee_id\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id\": \"\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_batch_get_employees",
+      "display_name": {
+        "en_US": "Batch get employee information",
+        "zh_Hans": "批量获取员工信息"
+      },
+      "description": {
+        "en_US": "This API is used to batch query employee details by employee IDs.",
+        "zh_Hans": "本接口用于批量根据员工的ID查询员工的详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量获取员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/mget`\n- **Purpose**: 本接口用于批量根据员工的ID查询员工的详情。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id_type\": \"employee_id\",\n    \"body_json\": \"{\\\"employee_ids\\\":[\\\"u273y71\\\",\\\"u9ab8c7\\\"],\\\"required_fields\\\":[\\\"base_info.name.name\\\",\\\"base_info.mobile\\\",\\\"work_info.job_number\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_batch_get_employee_list",
+      "display_name": {
+        "en_US": "Batch query employee list",
+        "zh_Hans": "批量查询员工列表"
+      },
+      "description": {
+        "en_US": "This API is used to batch query employee detail lists that match specified conditions.",
+        "zh_Hans": "本接口用于依据指定条件，批量获取符合条件的员工详情列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Employee filter payload JSON",
+              "zh_Hans": "员工筛选请求体 JSON"
+            },
+            "placeholder": {
+              "en_US": "{\"filter\":{\"conditions\":[{\"field\":\"employment_status\",\"operator\":\"eq\",\"value\":\"active\"}]},\"page_request\":{\"page_size\":20}}",
+              "zh_Hans": "{\"filter\":{\"conditions\":[{\"field\":\"employment_status\",\"operator\":\"eq\",\"value\":\"active\"}]},\"page_request\":{\"page_size\":20}}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量查询员工列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_employee_list`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/filter`\n- **Purpose**: 本接口用于依据指定条件，批量获取符合条件的员工详情列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/employee/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），用于传入 `filter`、`page_request` 和 `required_fields`。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id_type\": \"employee_id\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"conditions\\\":[{\\\"field\\\":\\\"work_info.staff_status\\\",\\\"operator\\\":\\\"eq\\\",\\\"value\\\":\\\"1\\\"}]},\\\"required_fields\\\":[\\\"base_info.name.name\\\",\\\"base_info.mobile\\\"],\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_search_employees",
+      "display_name": {
+        "en_US": "Search employee",
+        "zh_Hans": "搜索员工信息"
+      },
+      "description": {
+        "en_US": "This API is used to search employee information.",
+        "zh_Hans": "本接口用于搜索员工信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 搜索员工信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_employees`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/employees/search`\n- **Purpose**: 本接口用于搜索员工信息。\n- **API Doc**: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"employee_id_type\": \"employee_id\",\n    \"body_json\": \"{\\\"query\\\":\\\"张三\\\",\\\"required_fields\\\":[\\\"base_info.name.name\\\",\\\"base_info.mobile\\\"],\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_create_department",
+      "display_name": {
+        "en_US": "Create department",
+        "zh_Hans": "创建部门"
+      },
+      "description": {
+        "en_US": "This API is used to create a department in the enterprise.",
+        "zh_Hans": "本接口用于在企业下创建部门。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_create_department`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments`\n- **Purpose**: 本接口用于在企业下创建部门。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id_type\": \"open_department_id\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":{\\\"default_value\\\":\\\"产品研发部\\\"},\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_patch_department",
+      "display_name": {
+        "en_US": "Update department",
+        "zh_Hans": "更新部门"
+      },
+      "description": {
+        "en_US": "This API is used to update department information.",
+        "zh_Hans": "本接口用于更新部门信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "department_id",
+          "display_name": {
+            "en_US": "Department ID",
+            "zh_Hans": "部门ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_patch_department`\n- **Module**: `organization`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: 本接口用于更新部门信息。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"department_id_type\": \"open_department_id\",\n    \"body_json\": \"{\\\"department\\\":{\\\"name\\\":{\\\"default_value\\\":\\\"产品研发中心\\\"},\\\"parent_department_id\\\":\\\"0\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_delete_department",
+      "display_name": {
+        "en_US": "Delete department",
+        "zh_Hans": "删除部门"
+      },
+      "description": {
+        "en_US": "This API is used to delete a department.",
+        "zh_Hans": "本接口用于删除部门。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "department_id",
+          "display_name": {
+            "en_US": "Department ID",
+            "zh_Hans": "部门ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 删除部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_delete_department`\n- **Module**: `organization`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/directory/v1/departments/:department_id`\n- **Purpose**: 本接口用于删除部门。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"od-1a2b3c4d5e\",\n    \"department_id_type\": \"open_department_id\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id\": \"\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_batch_get_departments",
+      "display_name": {
+        "en_US": "Batch get department information",
+        "zh_Hans": "批量获取部门信息"
+      },
+      "description": {
+        "en_US": "This API is used to batch query department details by department IDs.",
+        "zh_Hans": "本接口用于批量根据部门ID查询部门详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量获取部门信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_batch_get_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/mget`\n- **Purpose**: 本接口用于批量根据部门ID查询部门详情。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/mget\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id_type\": \"open_department_id\",\n    \"body_json\": \"{\\\"department_ids\\\":[\\\"od-1a2b3c4d5e\\\",\\\"od-9f8e7d6c5b\\\"],\\\"required_fields\\\":[\\\"name\\\",\\\"parent_department_id\\\"]}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_list_departments",
+      "display_name": {
+        "en_US": "List department",
+        "zh_Hans": "获取部门列表"
+      },
+      "description": {
+        "en_US": "This API is used to batch query department detail lists that match specified conditions.",
+        "zh_Hans": "本接口用于依据指定条件，批量获取符合条件的部门详情列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Department filter payload JSON",
+              "zh_Hans": "部门过滤请求体 JSON"
+            },
+            "placeholder": {
+              "en_US": "{\"filter\":{\"parent_department_ids\":[\"0\"]},\"page_request\":{\"page_size\":20}}",
+              "zh_Hans": "{\"filter\":{\"parent_department_ids\":[\"0\"]},\"page_request\":{\"page_size\":20}}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取部门列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_list_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/filter`\n- **Purpose**: 本接口用于依据指定条件，批量获取符合条件的部门详情列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/filter\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id_type\": \"open_department_id\",\n    \"body_json\": \"{\\\"filter\\\":{\\\"conditions\\\":[{\\\"field\\\":\\\"parent_department_id\\\",\\\"operator\\\":\\\"eq\\\",\\\"value\\\":\\\"\\\\\\\"0\\\\\\\"\\\"}]},\\\"required_fields\\\":[\\\"name\\\",\\\"parent_department_id\\\"],\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-organization_search_departments",
+      "display_name": {
+        "en_US": "Search department",
+        "zh_Hans": "搜索部门"
+      },
+      "description": {
+        "en_US": "This API is used to search department information and return departments matching keywords such as department names.",
+        "zh_Hans": "本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "employee_id_type",
+          "display_name": {
+            "en_US": "Employee ID Type",
+            "zh_Hans": "员工 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | employee_id | union_id",
+              "zh_Hans": "open_id | employee_id | union_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "department_id_type",
+          "display_name": {
+            "en_US": "Department ID Type",
+            "zh_Hans": "部门 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_department_id | department_id",
+              "zh_Hans": "open_department_id | department_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 搜索部门 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-organization_search_departments`\n- **Module**: `organization`\n- **Method**: `POST`\n- **Path**: `/open-apis/directory/v1/departments/search`\n- **Purpose**: 本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。\n- **API Doc**: https://open.feishu.cn/document/directory-v1/department/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"department_id_type\": \"open_department_id\",\n    \"body_json\": \"{\\\"query\\\":\\\"产品\\\",\\\"required_fields\\\":[\\\"name\\\",\\\"parent_department_id\\\"],\\\"page_request\\\":{\\\"page_size\\\":20,\\\"page_token\\\":\\\"\\\"}}\"\n  }\n}\n```\n\n### 示例2（错误示例）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{bad-json\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_send_message",
+      "display_name": {
+        "en_US": "Send message",
+        "zh_Hans": "发送消息"
+      },
+      "description": {
+        "en_US": "This API is used to send a message to a specified user or group chat.",
+        "zh_Hans": "本接口用于向指定用户或者群聊发送消息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "receive_id_type",
+          "display_name": {
+            "en_US": "Receive ID Type",
+            "zh_Hans": "消息接收方 ID 类型"
+          },
+          "required": true,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id | email | chat_id",
+              "zh_Hans": "open_id | union_id | user_id | email | chat_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "HTTP body object as JSON string (optional)",
+              "zh_Hans": "HTTP 请求体，JSON 对象字符串（可选）"
+            },
+            "placeholder": {
+              "en_US": "{\"key\":\"value\"}",
+              "zh_Hans": "{\"key\":\"value\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 发送消息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_send_message`\n- **Module**: `im`\n- **Method**: `POST`\n- **Path**: `/open-apis/im/v1/messages`\n- **Purpose**: 本接口用于向指定用户或者群聊发送消息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/message/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `receive_id_type`：消息接收方 ID 类型（必填），与官方查询参数 `receive_id_type` 一致，支持值：`open_id`、`union_id`、`user_id`、`email`、`chat_id`。\n- `body_json`：请求体 JSON 字符串（必填），包含以下字段：\n  - `receive_id`（必填）：消息接收方 ID，类型需与 `receive_id_type` 一致\n  - `msg_type`（必填）：消息类型，支持 `text`、`post`、`image`、`file`、`audio`、`media`、`sticker`、`interactive`、`share_chat`、`share_user`、`system`\n  - `content`（必填）：消息内容，JSON 字符串序列化后的内容，不同 msg_type 对应不同格式\n  - `uuid`（可选）：用于消息去重，最大50字符\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"receive_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"receive_id\\\":\\\"ou_xxx\\\",\\\"msg_type\\\":\\\"text\\\",\\\"content\\\":\\\"{\\\\\\\"text\\\\\\\":\\\\\\\"hello\\\\\\\"}\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_batch_messages",
+      "display_name": {
+        "en_US": "Batch send messages",
+        "zh_Hans": "批量发送消息"
+      },
+      "description": {
+        "en_US": "This API is used to send messages to multiple users or members in multiple departments.",
+        "zh_Hans": "本接口用于给多个用户或者多个部门中的成员发送消息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "HTTP body object as JSON string (optional)",
+              "zh_Hans": "HTTP 请求体，JSON 对象字符串（可选）"
+            },
+            "placeholder": {
+              "en_US": "{\"key\":\"value\"}",
+              "zh_Hans": "{\"key\":\"value\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量发送消息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_batch_messages`\n- **Module**: `im`\n- **Method**: `POST`\n- **Path**: `/open-apis/message/v4/batch_send/`\n- **Purpose**: 本接口用于给多个用户或者多个部门中的成员发送消息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/batch_message/send-messages-in-batches\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"open_ids\\\":[\\\"ou_xxx\\\"],\\\"msg_type\\\":\\\"text\\\",\\\"content\\\":{\\\"text\\\":\\\"hello\\\"}}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_upload_image",
+      "display_name": {
+        "en_US": "Upload image",
+        "zh_Hans": "上传图片"
+      },
+      "description": {
+        "en_US": "This API is used to upload an image to the Feishu Open Platform.",
+        "zh_Hans": "本接口用于将图片上传至飞书开放平台。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "image",
+          "display_name": {
+            "en_US": "Image file",
+            "zh_Hans": "图片文件"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "A workflow file_ref pointing to the image bytes to upload to Feishu.",
+              "zh_Hans": "指向待上传图片内容的 workflow file_ref。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Image to upload (JPEG, PNG, WEBP, GIF, TIFF, BMP, ICO). Use a file_ref from an upstream step or file picker.",
+              "zh_Hans": "要上传的图片（支持 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO）。请传入上游步骤的 file_ref 或通过文件选择器选择。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "file_ref"
+        },
+        {
+          "name": "image_type",
+          "display_name": {
+            "en_US": "image_type",
+            "zh_Hans": "image_type"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "message: for chat images (default). avatar: for profile avatars.",
+              "zh_Hans": "message：聊天消息图片（默认）；avatar：用户头像。"
+            },
+            "placeholder": {
+              "en_US": "message",
+              "zh_Hans": "message"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 上传图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_image`\n- **Module**: `im`\n- **Method**: `POST`（SDK：`im.image.create`，multipart）\n- **Path**: `/open-apis/im/v1/images`\n- **Purpose**: 本接口用于将图片上传至飞书开放平台。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `image`：`file_ref`（必填）。待上传图片，与 Atomemo `PropertyFileReference`（`type: \"file_ref\"`）一致；由上游步骤或本地上传提供。读取方式与 `google-drive-upload-file` 相同：`parseFileRef` 后统一 `download` 取得字节再上传至飞书。\n- `image_type`（可选）：`message` | `avatar`，默认 `message`。`message` 用于聊天消息图片；`avatar` 用于头像。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"image\": \"<file_ref from upstream or picker>\",\n    \"image_type\": \"message\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与飞书 SDK `im.image.create` 返回一致，通常包含 `image_key`：\n\n```json\n{\n  \"image_key\": \"img_v2_xxx\"\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_download_image",
+      "display_name": {
+        "en_US": "Download image",
+        "zh_Hans": "下载图片"
+      },
+      "description": {
+        "en_US": "Download an image by image key and return an Atomemo file_ref for downstream steps.",
+        "zh_Hans": "通过图片 Key 从飞书下载图片，并上传为可在工作流中复用的 file_ref。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "image_key",
+          "display_name": {
+            "en_US": "image_key",
+            "zh_Hans": "image_key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "URL path parameter: image_key",
+              "zh_Hans": "URL 路径参数：image_key"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 下载图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_image`\n- **Module**: `im`\n- **Method**: `GET`（SDK：`im.image.get`，二进制流）\n- **Path**: `/open-apis/im/v1/images/{image_key}`\n- **Purpose**: 通过 `image_key` 下载应用自身上传且类型为 `message` 的图片，并写入 Atomemo 文件系统，返回可在工作流中复用的 `file_ref`（`PropertyFileReference` / `type: \"file_ref\"`）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `image_key`：图片 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"image_key\": \"img_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与 `google-drive-download-file` 一致：直接返回 `context.files.upload` 的结果（`file_ref` 对象），供下游步骤引用。\n\n```json\n{\n  \"__type__\": \"file_ref\",\n  \"filename\": \"img_v2_xxx.png\",\n  \"mime_type\": \"image/png\",\n  \"content\": \"<base64 omitted>\"\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_upload_file",
+      "display_name": {
+        "en_US": "Upload file",
+        "zh_Hans": "上传文件"
+      },
+      "description": {
+        "en_US": "Upload a file to the Feishu Open Platform using a workflow file_ref (multipart).",
+        "zh_Hans": "通过 workflow file_ref 将文件以 multipart 方式上传至飞书开放平台。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "A workflow file_ref pointing to the file bytes to upload to Feishu IM.",
+              "zh_Hans": "指向待上传文件内容的 workflow file_ref。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "File to upload. Use a file_ref from an upstream step or file picker (same pattern as upload image).",
+              "zh_Hans": "待上传文件。请传入上游步骤的 file_ref 或通过文件选择器选择（与上传图片相同）。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "file_ref"
+        },
+        {
+          "name": "file_type",
+          "display_name": {
+            "en_US": "file_type",
+            "zh_Hans": "file_type"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Feishu file type: opus | mp4 | pdf | doc | xls | ppt | stream (default stream).",
+              "zh_Hans": "飞书文件类型：opus | mp4 | pdf | doc | xls | ppt | stream（默认 stream）。"
+            },
+            "placeholder": {
+              "en_US": "stream",
+              "zh_Hans": "stream"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file_name",
+          "display_name": {
+            "en_US": "file_name",
+            "zh_Hans": "file_name"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional display name in Feishu. Defaults to the file_ref filename when omitted.",
+              "zh_Hans": "可选：在飞书中显示的文件名；不填则使用 file_ref 自带的文件名。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 上传文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_file`\n- **Module**: `im`\n- **Method**: `POST`（SDK：`im.file.create`，multipart）\n- **Path**: `/open-apis/im/v1/files`\n- **Purpose**: 将本地/工作流文件上传至飞书开放平台（与 `feishu-im_upload_image` 相同：`file_ref` + `parseFileRef` + `download` 取字节）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `file`：`file_ref`（必填），待上传文件。\n- `file_type`（可选）：`opus` | `mp4` | `pdf` | `doc` | `xls` | `ppt` | `stream`，默认 `stream`。\n- `file_name`（可选）：飞书侧显示的文件名；不填则使用 `file_ref` 自带文件名。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"file\": \"<file_ref from upstream or picker>\",\n    \"file_type\": \"stream\",\n    \"file_name\": \"report.pdf\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与 SDK `im.file.create` 返回一致，通常包含 `file_key`：\n\n```json\n{\n  \"file_key\": \"file_v2_xxx\"\n}\n```\n"
+    },
+    {
+      "name": "feishu-im_download_file",
+      "display_name": {
+        "en_US": "Download file",
+        "zh_Hans": "下载文件"
+      },
+      "description": {
+        "en_US": "Download a file by file key and return an Atomemo file_ref for downstream steps.",
+        "zh_Hans": "通过文件 Key 从飞书下载文件，并上传为可在工作流中复用的 file_ref。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "file_key",
+          "display_name": {
+            "en_US": "file_key",
+            "zh_Hans": "file_key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "URL path parameter: file_key",
+              "zh_Hans": "URL 路径参数：file_key"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 下载文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_file`\n- **Module**: `im`\n- **Method**: `GET`（SDK：`im.file.get`，二进制流）\n- **Path**: `/open-apis/im/v1/files/{file_key}`\n- **Purpose**：通过 `file_key` 下载机器人自行上传的文件，写入 Atomemo 并返回 `file_ref`（与 `feishu-im_download_image` 一致：直接返回 `context.files.upload` 的结果）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `file_key`：文件 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"file_key\": \"file_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n直接返回 `file_ref` 对象（与下载图片 / Google Drive 下载一致）：\n\n```json\n{\n  \"__type__\": \"file_ref\",\n  \"filename\": \"file_v2_xxx.pdf\",\n  \"mime_type\": \"application/pdf\",\n  \"content\": \"<base64 omitted>\"\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_create_shared_calendar",
+      "display_name": {
+        "en_US": "Create shared calendar",
+        "zh_Hans": "创建共享日历"
+      },
+      "description": {
+        "en_US": "This API creates a calendar entity (including shared calendars).",
+        "zh_Hans": "创建日历实体（含共享日历）。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Calendar create payload JSON (see Feishu calendar create API)",
+              "zh_Hans": "创建日历请求体 JSON，字段见飞书「创建日历」文档"
+            },
+            "placeholder": {
+              "en_US": "{\"summary\":\"...\"}",
+              "zh_Hans": "{\"summary\":\"...\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建共享日历 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_create_shared_calendar`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars`\n- **Purpose**: 创建日历实体（含共享日历）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"summary\\\":\\\"团队日历\\\",\\\"description\\\":\\\"\\\",\\\"permissions\\\":\\\"private\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_delete_calendar",
+      "display_name": {
+        "en_US": "Delete shared calendar",
+        "zh_Hans": "删除共享日历"
+      },
+      "description": {
+        "en_US": "This API deletes the specified calendar.",
+        "zh_Hans": "删除指定日历。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 删除共享日历 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_delete_calendar`\n- **Module**: `calendar`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id`\n- **Purpose**: 删除指定日历。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- 本接口无查询参数。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_get_primary",
+      "display_name": {
+        "en_US": "Get primary calendar",
+        "zh_Hans": "查询主日历信息"
+      },
+      "description": {
+        "en_US": "This API returns primary calendar information for the current identity.",
+        "zh_Hans": "获取当前身份的主日历信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 查询主日历信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_get_primary`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/primary`\n- **Purpose**: 获取当前身份的主日历信息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-primary/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（可选）；不需要时可留空或填 `{}`。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_batch_get_primary",
+      "display_name": {
+        "en_US": "Batch get primary calendars",
+        "zh_Hans": "批量获取主日历信息"
+      },
+      "description": {
+        "en_US": "This API batch-gets primary calendar information.",
+        "zh_Hans": "批量获取主日历；路径中 primarys 为接口原文。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Batch primary payload JSON (see Feishu batch_get primary API)",
+              "zh_Hans": "批量主日历请求体 JSON，字段见飞书「批量获取主日历」文档"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量获取主日历信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_batch_get_primary`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/primarys`\n- **Purpose**: 批量获取主日历；路径中 `primarys` 为接口原文。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-primary/batch_get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"user_ids\\\":[\\\"ou_xxxxxxxxxxxxxxxxxxxxxxxxxx\\\"]}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_get_calendar",
+      "display_name": {
+        "en_US": "Get calendar",
+        "zh_Hans": "查询日历信息"
+      },
+      "description": {
+        "en_US": "This API returns details of the specified calendar.",
+        "zh_Hans": "获取指定日历详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 查询日历信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_get_calendar`\n- **Module**: `calendar`\n- **Method**: `GET`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id`\n- **Purpose**: 获取指定日历详情。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- 本接口无查询参数。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_batch_get_calendars",
+      "display_name": {
+        "en_US": "Batch get calendars",
+        "zh_Hans": "批量查询日历信息"
+      },
+      "description": {
+        "en_US": "This API batch-gets calendars by calendar ID list.",
+        "zh_Hans": "根据日历 ID 列表批量获取日历。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Typically {\"calendar_ids\":[\"...\"]}",
+              "zh_Hans": "一般为 {\"calendar_ids\":[\"...\"]}，详见官方文档"
+            },
+            "placeholder": {
+              "en_US": "{\"calendar_ids\":[\"feishu.cn_xxx@group.calendar.feishu.cn\"]}",
+              "zh_Hans": "{\"calendar_ids\":[\"feishu.cn_xxx@group.calendar.feishu.cn\"]}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 批量查询日历信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_batch_get_calendars`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/mget`\n- **Purpose**: 根据日历 ID 列表批量获取日历。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/batch_get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填），通常包含 `calendar_ids` 数组。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"calendar_ids\\\":[\\\"feishu.cn_xxx@group.calendar.feishu.cn\\\"]}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_list_calendars",
+      "display_name": {
+        "en_US": "List calendars",
+        "zh_Hans": "查询日历列表"
+      },
+      "description": {
+        "en_US": "This API returns the list of calendars visible to the current identity.",
+        "zh_Hans": "获取当前身份可见的日历列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "sync_token",
+          "display_name": {
+            "en_US": "Sync Token",
+            "zh_Hans": "增量同步 Token"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 查询日历列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_list_calendars`\n- **Module**: `calendar`\n- **Method**: `GET`\n- **Path**: `/open-apis/calendar/v4/calendars`\n- **Purpose**: 获取当前身份可见的日历列表。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `sync_token`：增量同步 token（可选）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"page_size\": \"50\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_patch_calendar",
+      "display_name": {
+        "en_US": "Patch calendar",
+        "zh_Hans": "更新日历信息"
+      },
+      "description": {
+        "en_US": "This API updates properties of the specified calendar.",
+        "zh_Hans": "更新指定日历属性。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Calendar patch payload JSON (see Feishu update calendar API)",
+              "zh_Hans": "更新日历请求体 JSON，字段见飞书「更新日历」文档"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新日历信息 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_patch_calendar`\n- **Module**: `calendar`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id`\n- **Purpose**: 更新指定日历属性。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"body_json\": \"{\\\"summary\\\":\\\"新标题\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_search_calendars",
+      "display_name": {
+        "en_US": "Search calendars",
+        "zh_Hans": "搜索日历"
+      },
+      "description": {
+        "en_US": "This API searches calendars by conditions.",
+        "zh_Hans": "按条件搜索日历。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Search payload JSON (see Feishu search calendar API)",
+              "zh_Hans": "搜索请求体 JSON，字段见飞书「搜索日历」文档"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 搜索日历 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_search_calendars`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/search`\n- **Purpose**: 按条件搜索日历。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"page_size\": \"20\",\n    \"body_json\": \"{\\\"query\\\":\\\"关键词\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_create_event",
+      "display_name": {
+        "en_US": "Create event",
+        "zh_Hans": "创建日程"
+      },
+      "description": {
+        "en_US": "Create an event in the specified calendar.",
+        "zh_Hans": "在指定日历下创建日程。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "idempotency_key",
+          "display_name": {
+            "en_US": "Idempotency Key",
+            "zh_Hans": "幂等 Key"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Event create payload JSON",
+              "zh_Hans": "创建日程请求体 JSON"
+            },
+            "placeholder": {
+              "en_US": "{\"summary\":\"会议\"}",
+              "zh_Hans": "{\"summary\":\"会议\"}"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建日程 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_create_event`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events`\n- **Purpose**: 在指定日历下创建日程。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `idempotency_key`：幂等键（可选），32-128 字符，用于避免重复创建。\n- `user_id_type`：用户 ID 类型（可选），支持 `open_id`、`union_id`、`user_id`。\n- `body_json`：请求体 JSON 字符串（必填），包含以下字段：\n  - `summary`（可选）：日程标题，最大1000字符\n  - `start_time`（**必填**）：开始时间，包含 `timestamp`（秒级时间戳）或 `date`（全天事件，RFC 3339格式）\n  - `end_time`（**必填**）：结束时间\n  - `description`（可选）：描述，最大40960字符，支持HTML标签\n  - `location`（可选）：地点，包含 `name` 和 `address`\n  - `visibility`（可选）：可见性，`default`、`public`、`private`，默认 `default`\n  - `free_busy_status`（可选）：忙碌状态，`busy`、`free`，默认 `busy`\n  - `reminders`（可选）：提醒列表\n\n## Tool Input 示例\n\n### 示例1（成功，可直接调试）\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"summary\\\":\\\"周会\\\",\\\"start_time\\\":{\\\"timestamp\\\":\\\"1704067200\\\",\\\"timezone\\\":\\\"Asia/Shanghai\\\"},\\\"end_time\\\":{\\\"timestamp\\\":\\\"1704070800\\\",\\\"timezone\\\":\\\"Asia/Shanghai\\\"}}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_delete_event",
+      "display_name": {
+        "en_US": "Delete event",
+        "zh_Hans": "删除日程"
+      },
+      "description": {
+        "en_US": "Delete the specified event.",
+        "zh_Hans": "删除指定日程。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "日程 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "need_notification",
+          "display_name": {
+            "en_US": "Need Notification",
+            "zh_Hans": "是否通知参与人"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "true | false",
+              "zh_Hans": "true | false"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 删除日程 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_delete_event`\n- **Module**: `calendar`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id`\n- **Purpose**: 删除指定日程。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `event_id`：路径参数（必填），日程 ID。\n- `need_notification`：是否通知参与人（可选，`true | false`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"event_id\": \"8s7k6j5h4g\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_patch_event",
+      "display_name": {
+        "en_US": "Patch event",
+        "zh_Hans": "更新日程"
+      },
+      "description": {
+        "en_US": "Update the specified event.",
+        "zh_Hans": "更新指定日程。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "日程 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Event patch payload JSON",
+              "zh_Hans": "更新日程请求体 JSON"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新日程 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_patch_event`\n- **Module**: `calendar`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id`\n- **Purpose**: 更新指定日程。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `event_id`：路径参数（必填），日程 ID。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"event_id\": \"8s7k6j5h4g\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"summary\\\":\\\"更新后的周会\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_get_event",
+      "display_name": {
+        "en_US": "Get event",
+        "zh_Hans": "获取日程"
+      },
+      "description": {
+        "en_US": "Get details for the specified event.",
+        "zh_Hans": "获取指定日程详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "event_id",
+          "display_name": {
+            "en_US": "Event ID",
+            "zh_Hans": "日程 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "need_meeting_settings",
+          "display_name": {
+            "en_US": "Need Meeting Settings",
+            "zh_Hans": "是否返回会前设置"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "need_attendee",
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "max_attendee_num",
+          "display_name": {
+            "en_US": "Max Attendee Number",
+            "zh_Hans": "返回最大参与人数"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取日程 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_get_event`\n- **Module**: `calendar`\n- **Method**: `GET`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id`\n- **Purpose**: 获取指定日程详情。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `event_id`：路径参数（必填），日程 ID。\n- `need_meeting_settings`：是否返回会前设置（可选，`true | false`）。\n- `need_attendee`：是否返回参与人信息（可选，`true | false`）。\n- `max_attendee_num`：返回最大参与人数（可选）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"event_id\": \"8s7k6j5h4g\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_list_events",
+      "display_name": {
+        "en_US": "List events",
+        "zh_Hans": "获取日程列表"
+      },
+      "description": {
+        "en_US": "List events under the specified calendar.",
+        "zh_Hans": "分页或增量获取某日历下的日程。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "anchor_time",
+          "display_name": {
+            "en_US": "Anchor Time",
+            "zh_Hans": "时间锚点"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "sync_token",
+          "display_name": {
+            "en_US": "Sync Token",
+            "zh_Hans": "增量同步 Token"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_time",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间（秒时间戳）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_time",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间（秒时间戳）"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取日程列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_list_events`\n- **Module**: `calendar`\n- **Method**: `GET`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events`\n- **Purpose**: 分页或增量获取某日历下的日程。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `page_size`：分页大小（可选）。\n- `anchor_time`：时间锚点（可选，秒时间戳）。\n- `page_token`：分页游标（可选）。\n- `sync_token`：增量同步 token（可选）。\n- `start_time`：开始时间（可选，秒时间戳）。\n- `end_time`：结束时间（可选，秒时间戳）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"page_size\": \"50\",\n    \"user_id_type\": \"open_id\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-calendar_search_events",
+      "display_name": {
+        "en_US": "Search events",
+        "zh_Hans": "搜索日程"
+      },
+      "description": {
+        "en_US": "Search events in the specified calendar.",
+        "zh_Hans": "在指定日历下按条件搜索日程。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "calendar_id",
+          "display_name": {
+            "en_US": "Calendar ID",
+            "zh_Hans": "日历 ID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Search events payload JSON",
+              "zh_Hans": "搜索日程请求体 JSON"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 搜索日程 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-calendar_search_events`\n- **Module**: `calendar`\n- **Method**: `POST`\n- **Path**: `/open-apis/calendar/v4/calendars/:calendar_id/events/search`\n- **Purpose**: 在指定日历下按条件搜索日程。\n- **API Doc**: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/search\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `calendar_id`：路径参数（必填），日历 ID。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"calendar_id\": \"feishu.cn_xxx@group.calendar.feishu.cn\",\n    \"page_size\": \"20\",\n    \"user_id_type\": \"open_id\",\n    \"body_json\": \"{\\\"query\\\":\\\"周会\\\"}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_create",
+      "display_name": {
+        "en_US": "Create task",
+        "zh_Hans": "创建任务"
+      },
+      "description": {
+        "en_US": "This API is used to create a task.",
+        "zh_Hans": "本接口用于创建任务。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_create`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks`\n- **Purpose**: 创建任务。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_patch",
+      "display_name": {
+        "en_US": "Update task",
+        "zh_Hans": "更新任务"
+      },
+      "description": {
+        "en_US": "This API is used to update task information.",
+        "zh_Hans": "本接口用于更新任务信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_patch`\n- **Module**: `task`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid`\n- **Purpose**: 更新任务。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_get",
+      "display_name": {
+        "en_US": "Get task",
+        "zh_Hans": "获取任务详情"
+      },
+      "description": {
+        "en_US": "This API is used to get task details.",
+        "zh_Hans": "本接口用于获取任务详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取任务详情 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_get`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid`\n- **Purpose**: 获取任务详情。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_delete",
+      "display_name": {
+        "en_US": "Delete task",
+        "zh_Hans": "删除任务"
+      },
+      "description": {
+        "en_US": "This API is used to delete a task.",
+        "zh_Hans": "本接口用于删除任务。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 删除任务 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_delete`\n- **Module**: `task`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid`\n- **Purpose**: 删除任务。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- 本接口无查询参数。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_add_members",
+      "display_name": {
+        "en_US": "Add task members",
+        "zh_Hans": "添加任务成员"
+      },
+      "description": {
+        "en_US": "This API is used to add members to a task.",
+        "zh_Hans": "本接口用于向任务添加成员。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 添加任务成员 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_add_members`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/add_members`\n- **Purpose**: 添加任务成员。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/add_members\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_remove_members",
+      "display_name": {
+        "en_US": "Remove task members",
+        "zh_Hans": "移除任务成员"
+      },
+      "description": {
+        "en_US": "This API is used to remove members from a task.",
+        "zh_Hans": "本接口用于从任务中移除成员。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 移除任务成员 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_remove_members`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/remove_members`\n- **Purpose**: 移除任务成员。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/remove_members\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_list",
+      "display_name": {
+        "en_US": "List tasks",
+        "zh_Hans": "列取任务列表"
+      },
+      "description": {
+        "en_US": "This API is used to list tasks.",
+        "zh_Hans": "本接口用于列取任务列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "completed",
+          "display_name": {
+            "en_US": "Completed",
+            "zh_Hans": "是否完成过滤"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "type",
+          "display_name": {
+            "en_US": "Type",
+            "zh_Hans": "列取类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "my_tasks",
+              "zh_Hans": "my_tasks"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 列取任务列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_list`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasks`\n- **Purpose**: 列取任务列表。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `completed`：是否已完成（可选，`true | false`）。\n- `type`：任务类型（可选）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_list_tasklists",
+      "display_name": {
+        "en_US": "List task tasklists",
+        "zh_Hans": "列取任务所在清单"
+      },
+      "description": {
+        "en_US": "This API is used to list tasklists of a task.",
+        "zh_Hans": "本接口用于列取任务所在清单。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 列取任务所在清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_list_tasklists`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/tasklists`\n- **Purpose**: 列取任务所在清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/list_tasklists\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_add_tasklist",
+      "display_name": {
+        "en_US": "Add task to tasklist",
+        "zh_Hans": "任务加入清单"
+      },
+      "description": {
+        "en_US": "This API is used to add a task to a tasklist.",
+        "zh_Hans": "本接口用于将任务加入清单。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 任务加入清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_add_tasklist`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/add_tasklist`\n- **Purpose**: 任务加入清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/add_tasklist\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_remove_tasklist",
+      "display_name": {
+        "en_US": "Remove task from tasklist",
+        "zh_Hans": "任务移出清单"
+      },
+      "description": {
+        "en_US": "This API is used to remove a task from a tasklist.",
+        "zh_Hans": "本接口用于将任务移出清单。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 任务移出清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_remove_tasklist`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/remove_tasklist`\n- **Purpose**: 任务移出清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/remove_tasklist\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_add_reminders",
+      "display_name": {
+        "en_US": "Add task reminders",
+        "zh_Hans": "添加任务提醒"
+      },
+      "description": {
+        "en_US": "This API is used to add reminders to a task.",
+        "zh_Hans": "本接口用于添加任务提醒。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 添加任务提醒 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_add_reminders`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/add_reminders`\n- **Purpose**: 添加任务提醒。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/add_reminders\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-task_remove_reminders",
+      "display_name": {
+        "en_US": "Remove task reminders",
+        "zh_Hans": "移除任务提醒"
+      },
+      "description": {
+        "en_US": "This API is used to remove reminders from a task.",
+        "zh_Hans": "本接口用于移除任务提醒。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "task_guid",
+          "display_name": {
+            "en_US": "Task GUID",
+            "zh_Hans": "任务 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 移除任务提醒 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-task_remove_reminders`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasks/:task_guid/remove_reminders`\n- **Purpose**: 移除任务提醒。\n- **API Doc**: https://open.feishu.cn/document/task-v2/task/remove_reminders\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_create",
+      "display_name": {
+        "en_US": "Create tasklist",
+        "zh_Hans": "创建清单"
+      },
+      "description": {
+        "en_US": "This API is used to create a tasklist.",
+        "zh_Hans": "本接口用于创建清单。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 创建清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_create`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasklists`\n- **Purpose**: 创建清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_get",
+      "display_name": {
+        "en_US": "Get tasklist",
+        "zh_Hans": "获取清单详情"
+      },
+      "description": {
+        "en_US": "This API is used to get tasklist details.",
+        "zh_Hans": "本接口用于获取清单详情。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取清单详情 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_get`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid`\n- **Purpose**: 获取清单详情。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_patch",
+      "display_name": {
+        "en_US": "Update tasklist",
+        "zh_Hans": "更新清单"
+      },
+      "description": {
+        "en_US": "This API is used to update tasklist information.",
+        "zh_Hans": "本接口用于更新清单信息。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 更新清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_patch`\n- **Module**: `task`\n- **Method**: `PATCH`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid`\n- **Purpose**: 更新清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/patch\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_delete",
+      "display_name": {
+        "en_US": "Delete tasklist",
+        "zh_Hans": "删除清单"
+      },
+      "description": {
+        "en_US": "This API is used to delete a tasklist.",
+        "zh_Hans": "本接口用于删除清单。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 删除清单 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_delete`\n- **Module**: `task`\n- **Method**: `DELETE`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid`\n- **Purpose**: 删除清单。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/delete\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- 本接口无查询参数。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_add_members",
+      "display_name": {
+        "en_US": "Add tasklist members",
+        "zh_Hans": "添加清单成员"
+      },
+      "description": {
+        "en_US": "This API is used to add members to a tasklist.",
+        "zh_Hans": "本接口用于向清单添加成员。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 添加清单成员 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_add_members`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid/add_members`\n- **Purpose**: 添加清单成员。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/add_members\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_remove_members",
+      "display_name": {
+        "en_US": "Remove tasklist members",
+        "zh_Hans": "移除清单成员"
+      },
+      "description": {
+        "en_US": "This API is used to remove members from a tasklist.",
+        "zh_Hans": "本接口用于从清单中移除成员。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "body_json",
+          "display_name": {
+            "en_US": "Body",
+            "zh_Hans": "请求体"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 移除清单成员 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_remove_members`\n- **Module**: `task`\n- **Method**: `POST`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid/remove_members`\n- **Purpose**: 移除清单成员。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/remove_members\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{}\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_list_tasks",
+      "display_name": {
+        "en_US": "List tasklist tasks",
+        "zh_Hans": "获取清单任务列表"
+      },
+      "description": {
+        "en_US": "This API is used to list tasks in a tasklist.",
+        "zh_Hans": "本接口用于获取清单任务列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "tasklist_guid",
+          "display_name": {
+            "en_US": "Tasklist GUID",
+            "zh_Hans": "清单 GUID"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "completed",
+          "display_name": {
+            "en_US": "Completed",
+            "zh_Hans": "是否完成过滤"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "created_from",
+          "display_name": {
+            "en_US": "Created From",
+            "zh_Hans": "创建时间起点(ms)"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "created_to",
+          "display_name": {
+            "en_US": "Created To",
+            "zh_Hans": "创建时间终点(ms)"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取清单任务列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_list_tasks`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasklists/:tasklist_guid/tasks`\n- **Purpose**: 获取清单任务列表。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/list_tasks\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `completed`：是否已完成（可选，`true | false`）。\n- `created_from`：按创建时间筛选起始值（可选）。\n- `created_to`：按创建时间筛选结束值（可选）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    },
+    {
+      "name": "feishu-tasklist_list",
+      "display_name": {
+        "en_US": "List tasklists",
+        "zh_Hans": "获取清单列表"
+      },
+      "description": {
+        "en_US": "This API is used to list tasklists.",
+        "zh_Hans": "本接口用于获取清单列表。"
+      },
+      "icon": "🪶",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "feishu-app-credential"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "open_id | union_id | user_id",
+              "zh_Hans": "open_id | union_id | user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# 获取清单列表 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-tasklist_list`\n- **Module**: `task`\n- **Method**: `GET`\n- **Path**: `/open-apis/task/v2/tasklists`\n- **Purpose**: 获取清单列表。\n- **API Doc**: https://open.feishu.cn/document/task-v2/tasklist/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。\n- 本接口无请求体参数（无需 `body_json`）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\"\n  }\n}\n```\n"
+    }
+  ]
+}

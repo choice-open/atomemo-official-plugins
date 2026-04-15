@@ -1,0 +1,62 @@
+import type { Translation } from "../i18n-types"
+
+const zh_Hans = {
+  PLUGIN_DISPLAY_NAME: "飞书插件",
+  PLUGIN_DESCRIPTION:
+    "接入飞书 OpenAPI，覆盖通讯录、会话、日历、任务与审批能力。",
+  DEMO_TOOL_DISPLAY_NAME: "演示工具",
+  DEMO_TOOL_DESCRIPTION: "一个用于测试插件的工具",
+  LOCATION_DISPLAY_NAME: "位置",
+  LOCATION_HINT: "要测试的位置",
+  LOCATION_PLACEHOLDER: "输入要测试的位置",
+  CREDENTIAL: "凭证",
+  QUERY_PARAMS: "查询参数",
+  BODY: "请求体",
+  QUERY_PARAMS_HINT: "HTTP 查询参数，JSON 对象字符串（可选）",
+  BODY_HINT: "HTTP 请求体，JSON 对象字符串（可选）",
+  DEPARTMENT_ID: "department_id",
+  DEPARTMENT_ID_HINT: "URL 路径参数：department_id",
+  USER_ID: "user_id",
+  USER_ID_HINT: "URL 路径参数：user_id",
+  CHAT_ID: "chat_id",
+  CHAT_ID_HINT: "URL 路径参数：chat_id",
+  IMAGE_KEY: "image_key",
+  IMAGE_KEY_HINT: "URL 路径参数：image_key",
+  FILE_KEY: "file_key",
+  FILE_KEY_HINT: "URL 路径参数：file_key",
+  CALENDAR_ID: "calendar_id",
+  CALENDAR_ID_HINT: "URL 路径参数：calendar_id",
+  EVENT_ID: "event_id",
+  EVENT_ID_HINT: "URL 路径参数：event_id",
+  ATTENDEE_ID: "attendee_id",
+  ATTENDEE_ID_HINT: "URL 路径参数：attendee_id",
+  TIMEOFF_EVENT_ID: "timeoff_event_id",
+  TIMEOFF_EVENT_ID_HINT: "URL 路径参数：timeoff_event_id",
+  TASK_GUID: "task_guid",
+  TASK_GUID_HINT: "URL 路径参数：task_guid",
+  MEMBER_ID: "member_id",
+  MEMBER_ID_HINT: "URL 路径参数：member_id",
+  INSTANCE_ID: "instance_id",
+  INSTANCE_ID_HINT: "URL 路径参数：instance_id",
+  PAGE_SIZE: "分页大小",
+  PAGE_TOKEN: "分页令牌",
+  PAGE_TOKEN_HINT: "下一页的分页令牌",
+  IM_IMAGE_FILE_DISPLAY_NAME: "图片文件",
+  IM_IMAGE_FILE_HINT:
+    "要上传的图片（支持 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO）。请传入上游步骤的 file_ref 或通过文件选择器选择。",
+  IM_IMAGE_FILE_AI_DESCRIPTION: "指向待上传图片内容的 workflow file_ref。",
+  IM_IMAGE_TYPE_DISPLAY_NAME: "image_type",
+  IM_IMAGE_TYPE_HINT: "message：聊天消息图片（默认）；avatar：用户头像。",
+  IM_FILE_REF_DISPLAY_NAME: "文件",
+  IM_FILE_REF_HINT:
+    "待上传文件。请传入上游步骤的 file_ref 或通过文件选择器选择（与上传图片相同）。",
+  IM_FILE_REF_AI_DESCRIPTION: "指向待上传文件内容的 workflow file_ref。",
+  IM_FILE_TYPE_PARAM_DISPLAY_NAME: "file_type",
+  IM_FILE_TYPE_PARAM_HINT:
+    "飞书文件类型：opus | mp4 | pdf | doc | xls | ppt | stream（默认 stream）。",
+  IM_FILE_NAME_PARAM_DISPLAY_NAME: "file_name",
+  IM_FILE_NAME_PARAM_HINT:
+    "可选：在飞书中显示的文件名；不填则使用 file_ref 自带的文件名。",
+} satisfies Translation
+
+export default zh_Hans
