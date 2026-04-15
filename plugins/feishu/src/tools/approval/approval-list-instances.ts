@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -44,24 +43,82 @@ export const feishuApprovalListInstancesTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "approval_code",
       type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
+      required: true,
+      display_name: { en_US: "Approval Code", zh_Hans: "审批定义 Code" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"approval_code">,
+    {
+      name: "start_time",
+      type: "string",
+      required: true,
+      display_name: { en_US: "Start Time", zh_Hans: "开始时间（毫秒时间戳）" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"start_time">,
+    {
+      name: "end_time",
+      type: "string",
+      required: true,
+      display_name: { en_US: "End Time", zh_Hans: "结束时间（毫秒时间戳）" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"end_time">,
+    {
+      name: "page_size",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"page_size">,
+    {
+      name: "page_token",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Token", zh_Hans: "分页游标" },
+      ui: {
+        component: "input",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"page_token">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseApprovalListInstancesQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const optionalString = (key: string): string | undefined => {
+      const raw = p[key]
+      if (typeof raw !== "string") return undefined
+      const trimmed = raw.trim()
+      return trimmed === "" ? undefined : trimmed
+    }
+    const approvalCode = readRequiredStringParam(p, "approval_code")
+    const startTime = readRequiredStringParam(p, "start_time")
+    const endTime = readRequiredStringParam(p, "end_time")
+    const pageSize = optionalString("page_size")
+    const pageToken = optionalString("page_token")
+    const queryParams = parseApprovalListInstancesQuery({
+      approval_code: approvalCode,
+      start_time: startTime,
+      end_time: endTime,
+      ...(pageSize ? { page_size: pageSize } : {}),
+      ...(pageToken ? { page_token: pageToken } : {}),
+    })
     const body = {}
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,

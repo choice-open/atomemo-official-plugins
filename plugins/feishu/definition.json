@@ -171,25 +171,57 @@
           "type": "string"
         },
         {
-          "name": "query_params_json",
+          "name": "user_id",
           "display_name": {
-            "en_US": "Query Params",
-            "zh_Hans": "查询参数"
+            "en_US": "User ID",
+            "zh_Hans": "发起人用户 ID"
           },
           "required": false,
           "ui": {
-            "hint": {
-              "en_US": "HTTP query object as JSON string (optional)",
-              "zh_Hans": "HTTP 查询参数，JSON 对象字符串（可选）"
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_id_type",
+          "display_name": {
+            "en_US": "User ID Type",
+            "zh_Hans": "用户 ID 类型"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "user_id | open_id | union_id",
+              "zh_Hans": "user_id | open_id | union_id"
             },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "locale",
+          "display_name": {
+            "en_US": "Locale",
+            "zh_Hans": "语言"
+          },
+          "required": false,
+          "ui": {
+            "placeholder": {
+              "en_US": "zh-CN",
+              "zh_Hans": "zh-CN"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
           },
           "type": "string"
         }
       ],
-      "skill": "# 获取单个审批实例详情 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_get_instance`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances/:instance_id`\n- **Purpose**: 获取单个审批实例的详细信息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `instance_id`：审批实例 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n  - 常见字段：`user_id_type`、`locale`\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"instance_id\": \"81D31358-93AF-92D6-7425-01A5D67C4E71\",\n    \"query_params_json\": \"{\\\"user_id_type\\\":\\\"user_id\\\"}\"\n  }\n}\n```\n"
+      "skill": "# 获取单个审批实例详情 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_get_instance`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances/:instance_id`\n- **Purpose**: 获取单个审批实例的详细信息。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `instance_id`：审批实例 ID（必填）。\n- `user_id`：发起审批的用户 ID（可选，ID 类型由 `user_id_type` 指定）。\n- `user_id_type`：用户 ID 类型（可选），可填 `user_id` / `open_id` / `union_id`。\n- `locale`：返回语言（可选），例如 `zh-CN`。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"instance_id\": \"81D31358-93AF-92D6-7425-01A5D67C4E71\",\n    \"user_id\": \"f7cb567e\",\n    \"user_id_type\": \"user_id\",\n    \"locale\": \"zh-CN\"\n  }\n}\n```\n"
     },
     {
       "name": "feishu-approval_batch_get_instance_ids",
@@ -217,25 +249,77 @@
           "credential_name": "feishu-app-credential"
         },
         {
-          "name": "query_params_json",
+          "name": "approval_code",
           "display_name": {
-            "en_US": "Query Params",
-            "zh_Hans": "查询参数"
+            "en_US": "Approval Code",
+            "zh_Hans": "审批定义 Code"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_time",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间（毫秒时间戳）"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_time",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间（毫秒时间戳）"
+          },
+          "required": true,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_size",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
           },
           "required": false,
           "ui": {
-            "hint": {
-              "en_US": "HTTP query object as JSON string (optional)",
-              "zh_Hans": "HTTP 查询参数，JSON 对象字符串（可选）"
-            },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page_token",
+          "display_name": {
+            "en_US": "Page Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
           },
           "type": "string"
         }
       ],
-      "skill": "# 批量获取审批实例 ID Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_batch_get_instance_ids`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances`\n- **Purpose**: 按筛选条件批量获取审批实例 ID 列表。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `query_params_json`：查询参数 JSON 字符串（可选）。\n  - 可传任意官方支持的查询字段，例如：`approval_code`、`user_id`、`start_time`、`end_time`、`page_size`、`page_token`。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"query_params_json\": \"{\\\"approval_code\\\":\\\"4202AD96-9EC1-4284-9C48-B923CDC4F30B\\\",\\\"page_size\\\":20}\"\n  }\n}\n```\n"
+      "skill": "# 批量获取审批实例 ID Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-approval_batch_get_instance_ids`\n- **Module**: `approval`\n- **Method**: `GET`\n- **Path**: `/open-apis/approval/v4/instances`\n- **Purpose**: 按筛选条件批量获取审批实例 ID 列表。\n- **API Doc**: https://open.feishu.cn/document/server-docs/approval-v4/instance/list\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `approval_code`：审批定义 Code（必填）。\n- `start_time`：开始时间（必填，毫秒时间戳）。\n- `end_time`：结束时间（必填，毫秒时间戳）。\n- `page_size`：分页大小（可选）。\n- `page_token`：分页游标（可选）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"approval_code\": \"4202AD96-9EC1-4284-9C48-B923CDC4F30B\",\n    \"start_time\": \"1743091200000\",\n    \"end_time\": \"1743098400000\",\n    \"page_size\": \"20\"\n  }\n}\n```\n"
     },
     {
       "name": "feishu-approval_approve_task",

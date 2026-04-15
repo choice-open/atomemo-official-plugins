@@ -13,8 +13,9 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `instance_id`：审批实例 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
-  - 常见字段：`user_id_type`、`locale`
+- `user_id`：发起审批的用户 ID（可选，ID 类型由 `user_id_type` 指定）。
+- `user_id_type`：用户 ID 类型（可选），可填 `user_id` / `open_id` / `union_id`。
+- `locale`：返回语言（可选），例如 `zh-CN`。
 
 ## Tool Input 示例
 
@@ -23,7 +24,9 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "instance_id": "81D31358-93AF-92D6-7425-01A5D67C4E71",
-    "query_params_json": "{\"user_id_type\":\"user_id\"}"
+    "user_id": "f7cb567e",
+    "user_id_type": "user_id",
+    "locale": "zh-CN"
   }
 }
 ```

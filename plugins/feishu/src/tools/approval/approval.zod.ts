@@ -12,12 +12,19 @@ const emptyQuerySchema = z.object({}).strict()
 const approvalInstanceQuerySchema = z
   .object({
     user_id_type: userIdTypeSchema.optional(),
+    user_id: z.string().optional(),
     locale: z.string().optional(),
   })
   .strict()
 const approvalListInstancesQuerySchema = z
-  .record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()]))
-  .default({})
+  .object({
+    approval_code: z.string(),
+    start_time: z.string(),
+    end_time: z.string(),
+    page_size: z.string().optional(),
+    page_token: z.string().optional(),
+  })
+  .strict()
 
 export function parseApprovalCreateInstanceQuery(raw: Record<string, unknown>) {
   return emptyQuerySchema.parse(raw)

@@ -12,8 +12,11 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
-  - 可传任意官方支持的查询字段，例如：`approval_code`、`user_id`、`start_time`、`end_time`、`page_size`、`page_token`。
+- `approval_code`：审批定义 Code（必填）。
+- `start_time`：开始时间（必填，毫秒时间戳）。
+- `end_time`：结束时间（必填，毫秒时间戳）。
+- `page_size`：分页大小（可选）。
+- `page_token`：分页游标（可选）。
 
 ## Tool Input 示例
 
@@ -21,7 +24,10 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"approval_code\":\"4202AD96-9EC1-4284-9C48-B923CDC4F30B\",\"page_size\":20}"
+    "approval_code": "4202AD96-9EC1-4284-9C48-B923CDC4F30B",
+    "start_time": "1743091200000",
+    "end_time": "1743098400000",
+    "page_size": "20"
   }
 }
 ```
