@@ -1,7 +1,7 @@
 {
   "name": "microsoft-365",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use Microsoft Graph API to access the data in Microsoft 365",
   "author": "余凡 <dev.yufan@gmail.com>",
   "license": "MIT",
