@@ -12,7 +12,6 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。
 - `body_json`：请求体 JSON 字符串（必填），通常包含 `calendar_ids` 数组。
 
 ## Tool Input 示例
@@ -23,7 +22,6 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "user_id_type": "open_id",
     "body_json": "{\"calendar_ids\":[\"feishu.cn_xxx@group.calendar.feishu.cn\"]}"
   }
 }

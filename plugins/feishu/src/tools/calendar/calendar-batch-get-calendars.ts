@@ -1,18 +1,16 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseCalendarBatchGetCalendarsQuery } from "./calendar.zod"
-import calendar_batch_get_calendarsSkill from "./calendar-batch-get-calendars-skill.md" with {
-  type: "text",
-}
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { parseCalendarBatchGetCalendarsQuery } from "./calendar.zod";
+import calendar_batch_get_calendarsSkill from "./calendar-batch-get-calendars-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "calendar_batch_get_calendars",
@@ -20,12 +18,12 @@ const fn: FeishuApiFunction = {
   name: "批量查询日历信息",
   method: "POST",
   path: "/open-apis/calendar/v4/calendars/mget",
-}
+};
 
 function optionalString(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined
-  const trimmed = value.trim()
-  return trimmed === "" ? undefined : trimmed
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed === "" ? undefined : trimmed;
 }
 
 export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
@@ -50,18 +48,6 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "user_id_type",
-      type: "string",
-      required: false,
-      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
-      ui: {
-        component: "input",
-        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"user_id_type">,
-    {
       name: "body_json",
       type: "string",
       required: true,
@@ -83,22 +69,17 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
-    const userIdType = optionalString(p.user_id_type)
-    const queryParams = parseCalendarBatchGetCalendarsQuery({
-      ...(userIdType ? { user_id_type: userIdType } : {}),
-    })
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",
-    )
+    );
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams: {},
-      queryParams,
       body,
-    })
+    });
   },
-}
+};

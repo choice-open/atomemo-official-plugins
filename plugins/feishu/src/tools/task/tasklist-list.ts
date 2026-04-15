@@ -1,15 +1,15 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTasklistListQuery } from "./task.zod"
-import tasklist_listSkill from "./tasklist-list-skill.md" with { type: "text" }
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { parseTasklistListQuery } from "./task.zod";
+import tasklist_listSkill from "./tasklist-list-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "tasklist_list",
@@ -17,7 +17,7 @@ const fn: FeishuApiFunction = {
   name: "获取清单列表",
   method: "GET",
   path: "/open-apis/task/v2/tasklists",
-}
+};
 
 export const feishuTasklistListTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -42,11 +42,11 @@ export const feishuTasklistListTool: ToolDefinition = {
     } satisfies Property<"credential_id">,
     {
       name: "page_size",
-      type: "string",
+      type: "integer",
       required: false,
       display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "input",
+        component: "number-input",
         width: "full",
         support_expression: true,
       },
@@ -65,41 +65,44 @@ export const feishuTasklistListTool: ToolDefinition = {
       display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
       ui: {
         component: "input",
-        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        placeholder: {
+          en_US: "open_id | union_id | user_id",
+          zh_Hans: "open_id | union_id | user_id",
+        },
         width: "full",
         support_expression: true,
       },
     } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const optionalString = (key: string): string | undefined => {
-      const raw = p[key]
-      if (typeof raw !== "string") return undefined
-      const trimmed = raw.trim()
-      return trimmed === "" ? undefined : trimmed
-    }
-    const pageSizeRaw = optionalString("page_size")
+      const raw = p[key];
+      if (typeof raw !== "string") return undefined;
+      const trimmed = raw.trim();
+      return trimmed === "" ? undefined : trimmed;
+    };
+    const pageSizeRaw = optionalString("page_size");
     const pageSize =
       pageSizeRaw && Number.isInteger(Number(pageSizeRaw))
         ? Number(pageSizeRaw)
-        : undefined
-    const pageToken = optionalString("page_token")
-    const userIdType = optionalString("user_id_type")
+        : undefined;
+    const pageToken = optionalString("page_token");
+    const userIdType = optionalString("user_id_type");
     const queryParams = parseTasklistListQuery({
       ...(pageSize !== undefined ? { page_size: pageSize } : {}),
       ...(pageToken ? { page_token: pageToken } : {}),
       ...(userIdType ? { user_id_type: userIdType } : {}),
-    })
-    const body = {}
-    const pathParams = {}
+    });
+    const body = {};
+    const pathParams = {};
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams,
       body,
-    })
+    });
   },
-}
+};

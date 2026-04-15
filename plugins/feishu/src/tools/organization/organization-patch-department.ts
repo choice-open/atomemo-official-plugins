@@ -1,19 +1,17 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { buildOrganizationQueryParams } from "./organization-query-build"
-import { parseOrganizationPatchDepartmentQuery } from "./organization.zod"
-import organization_patch_departmentSkill from "./organization-patch-department-skill.md" with {
-  type: "text",
-}
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { buildOrganizationQueryParams } from "./organization-query-build";
+import { parseOrganizationPatchDepartmentQuery } from "./organization.zod";
+import organization_patch_departmentSkill from "./organization-patch-department-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "organization_patch_department",
@@ -21,7 +19,7 @@ const fn: FeishuApiFunction = {
   name: "更新部门",
   method: "PATCH",
   path: "/open-apis/directory/v1/departments/:department_id",
-}
+};
 
 export const feishuOrganizationPatchDepartmentTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -90,15 +88,15 @@ export const feishuOrganizationPatchDepartmentTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const queryParams = parseOrganizationPatchDepartmentQuery(
       buildOrganizationQueryParams(p),
-    )
+    );
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",
-    )
+    );
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
@@ -107,6 +105,6 @@ export const feishuOrganizationPatchDepartmentTool: ToolDefinition = {
       },
       queryParams,
       body,
-    })
+    });
   },
-}
+};

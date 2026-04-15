@@ -1,18 +1,16 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   parseOptionalJsonObject,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseCalendarSearchCalendarsQuery } from "./calendar.zod"
-import calendar_search_calendarsSkill from "./calendar-search-calendars-skill.md" with {
-  type: "text",
-}
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { parseCalendarSearchCalendarsQuery } from "./calendar.zod";
+import calendar_search_calendarsSkill from "./calendar-search-calendars-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "calendar_search_calendars",
@@ -20,12 +18,12 @@ const fn: FeishuApiFunction = {
   name: "搜索日历",
   method: "POST",
   path: "/open-apis/calendar/v4/calendars/search",
-}
+};
 
 function optionalString(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined
-  const trimmed = value.trim()
-  return trimmed === "" ? undefined : trimmed
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed === "" ? undefined : trimmed;
 }
 
 export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
@@ -51,11 +49,11 @@ export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
     } satisfies Property<"credential_id">,
     {
       name: "page_size",
-      type: "string",
+      type: "integer",
       required: false,
       display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "input",
+        component: "number-input",
         width: "full",
         support_expression: true,
       },
@@ -84,24 +82,26 @@ export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
     } satisfies Property<"body_json">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const queryParams = parseCalendarSearchCalendarsQuery({
-      ...(optionalString(p.page_size) ? { page_size: optionalString(p.page_size) } : {}),
+      ...(optionalString(p.page_size)
+        ? { page_size: optionalString(p.page_size) }
+        : {}),
       ...(optionalString(p.page_token)
         ? { page_token: optionalString(p.page_token) }
         : {}),
-    })
+    });
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",
-    )
+    );
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams: {},
       queryParams,
       body,
-    })
+    });
   },
-}
+};

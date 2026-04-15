@@ -1,17 +1,15 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseCalendarGetEventQuery } from "./calendar.zod"
-import calendar_get_eventSkill from "./calendar-get-event-skill.md" with {
-  type: "text",
-}
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { parseCalendarGetEventQuery } from "./calendar.zod";
+import calendar_get_eventSkill from "./calendar-get-event-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "calendar_get_event",
@@ -19,12 +17,12 @@ const fn: FeishuApiFunction = {
   name: "获取日程",
   method: "GET",
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
-}
+};
 
 function optionalString(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined
-  const trimmed = value.trim()
-  return trimmed === "" ? undefined : trimmed
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed === "" ? undefined : trimmed;
 }
 
 export const feishuCalendarGetEventTool: ToolDefinition = {
@@ -62,14 +60,63 @@ export const feishuCalendarGetEventTool: ToolDefinition = {
       display_name: { en_US: "Event ID", zh_Hans: "日程 ID" },
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"event_id">,
-    { name: "need_meeting_settings", type: "string", required: false, display_name: { en_US: "Need Meeting Settings", zh_Hans: "是否返回会前设置" }, ui: { component: "input", placeholder: { en_US: "true | false", zh_Hans: "true | false" }, width: "full", support_expression: true } } satisfies Property<"need_meeting_settings">,
-    { name: "need_attendee", type: "string", required: false, display_name: { en_US: "Need Attendee", zh_Hans: "是否返回参与人信息" }, ui: { component: "input", placeholder: { en_US: "true | false", zh_Hans: "true | false" }, width: "full", support_expression: true } } satisfies Property<"need_attendee">,
-    { name: "max_attendee_num", type: "string", required: false, display_name: { en_US: "Max Attendee Number", zh_Hans: "返回最大参与人数" }, ui: { component: "input", width: "full", support_expression: true } } satisfies Property<"max_attendee_num">,
-    { name: "user_id_type", type: "string", required: false, display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" }, ui: { component: "input", placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" }, width: "full", support_expression: true } } satisfies Property<"user_id_type">,
+    {
+      name: "need_meeting_settings",
+      type: "boolean",
+      required: false,
+      display_name: {
+        en_US: "Need Meeting Settings",
+        zh_Hans: "是否返回会前设置",
+      },
+      ui: {
+        component: "switch",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"need_meeting_settings">,
+    {
+      name: "need_attendee",
+      type: "boolean",
+      required: false,
+      ui: {
+        component: "switch",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"need_attendee">,
+    {
+      name: "max_attendee_num",
+      type: "integer",
+      required: false,
+      display_name: {
+        en_US: "Max Attendee Number",
+        zh_Hans: "返回最大参与人数",
+      },
+      ui: {
+        component: "number-input",
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"max_attendee_num">,
+    {
+      name: "user_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: {
+          en_US: "open_id | union_id | user_id",
+          zh_Hans: "open_id | union_id | user_id",
+        },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const queryParams = parseCalendarGetEventQuery({
       ...(optionalString(p.need_meeting_settings)
         ? { need_meeting_settings: optionalString(p.need_meeting_settings) }
@@ -83,7 +130,7 @@ export const feishuCalendarGetEventTool: ToolDefinition = {
       ...(optionalString(p.user_id_type)
         ? { user_id_type: optionalString(p.user_id_type) }
         : {}),
-    })
+    });
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
@@ -93,6 +140,6 @@ export const feishuCalendarGetEventTool: ToolDefinition = {
       },
       queryParams,
       body: {},
-    })
+    });
   },
-}
+};

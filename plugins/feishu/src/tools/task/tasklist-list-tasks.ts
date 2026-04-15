@@ -1,17 +1,15 @@
 import type {
   Property,
   ToolDefinition,
-} from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { t } from "../../i18n/i18n-node"
+} from "@choiceopen/atomemo-plugin-sdk-js/types";
+import { t } from "../../i18n/i18n-node";
 import {
   invokeFeishuOpenApi,
   readRequiredStringParam,
-} from "../feishu/request"
-import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseTasklistListTasksQuery } from "./task.zod"
-import tasklist_list_tasksSkill from "./tasklist-list-tasks-skill.md" with {
-  type: "text",
-}
+} from "../feishu/request";
+import type { FeishuApiFunction } from "../feishu-api-functions";
+import { parseTasklistListTasksQuery } from "./task.zod";
+import tasklist_list_tasksSkill from "./tasklist-list-tasks-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
   id: "tasklist_list_tasks",
@@ -19,7 +17,7 @@ const fn: FeishuApiFunction = {
   name: "获取清单任务列表",
   method: "GET",
   path: "/open-apis/task/v2/tasklists/:tasklist_guid/tasks",
-}
+};
 
 export const feishuTasklistListTasksTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
@@ -51,11 +49,11 @@ export const feishuTasklistListTasksTool: ToolDefinition = {
     } satisfies Property<"tasklist_guid">,
     {
       name: "page_size",
-      type: "string",
+      type: "integer",
       required: false,
       display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "input",
+        component: "number-input",
         width: "full",
         support_expression: true,
       },
@@ -69,13 +67,11 @@ export const feishuTasklistListTasksTool: ToolDefinition = {
     } satisfies Property<"page_token">,
     {
       name: "completed",
-      type: "string",
+      type: "boolean",
       required: false,
       display_name: { en_US: "Completed", zh_Hans: "是否完成过滤" },
       ui: {
-        component: "input",
-        placeholder: { en_US: "true | false", zh_Hans: "true | false" },
-        width: "full",
+        component: "switch",
         support_expression: true,
       },
     } satisfies Property<"completed">,
@@ -100,34 +96,37 @@ export const feishuTasklistListTasksTool: ToolDefinition = {
       display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
       ui: {
         component: "input",
-        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        placeholder: {
+          en_US: "open_id | union_id | user_id",
+          zh_Hans: "open_id | union_id | user_id",
+        },
         width: "full",
         support_expression: true,
       },
     } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
-    const p = (args.parameters ?? {}) as Record<string, unknown>
-    const credentialId = readRequiredStringParam(p, "credential_id")
+    const p = (args.parameters ?? {}) as Record<string, unknown>;
+    const credentialId = readRequiredStringParam(p, "credential_id");
     const optionalString = (key: string): string | undefined => {
-      const raw = p[key]
-      if (typeof raw !== "string") return undefined
-      const trimmed = raw.trim()
-      return trimmed === "" ? undefined : trimmed
-    }
+      const raw = p[key];
+      if (typeof raw !== "string") return undefined;
+      const trimmed = raw.trim();
+      return trimmed === "" ? undefined : trimmed;
+    };
     const optionalInt = (key: string): number | undefined => {
-      const raw = optionalString(key)
-      if (!raw) return undefined
-      const n = Number(raw)
-      return Number.isInteger(n) ? n : undefined
-    }
+      const raw = optionalString(key);
+      if (!raw) return undefined;
+      const n = Number(raw);
+      return Number.isInteger(n) ? n : undefined;
+    };
     const optionalBoolean = (key: string): boolean | undefined => {
-      const raw = optionalString(key)
-      if (!raw) return undefined
-      if (raw === "true") return true
-      if (raw === "false") return false
-      return undefined
-    }
+      const raw = optionalString(key);
+      if (!raw) return undefined;
+      if (raw === "true") return true;
+      if (raw === "false") return false;
+      return undefined;
+    };
     const queryParams = parseTasklistListTasksQuery({
       ...(optionalInt("page_size") !== undefined
         ? { page_size: optionalInt("page_size") }
@@ -147,17 +146,17 @@ export const feishuTasklistListTasksTool: ToolDefinition = {
       ...(optionalString("user_id_type")
         ? { user_id_type: optionalString("user_id_type") }
         : {}),
-    })
-    const body = {}
+    });
+    const body = {};
     const pathParams = {
       tasklist_guid: readRequiredStringParam(p, "tasklist_guid"),
-    }
+    };
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,
       pathParams,
       queryParams,
       body,
-    })
+    });
   },
-}
+};
