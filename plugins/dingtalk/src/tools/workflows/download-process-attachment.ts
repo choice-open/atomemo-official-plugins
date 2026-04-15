@@ -47,6 +47,7 @@ export const downloadProcessAttachmentTool: ToolDefinition = {
         component: "input",
         support_expression: true,
         width: "full",
+        hint: t("WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT")
       },
     },
     {

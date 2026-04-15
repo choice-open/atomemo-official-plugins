@@ -18,8 +18,12 @@ const zh_Hans = {
   CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: "应用密钥",
   CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: "默认操作人 unionId",
   CREDENTIAL_USER_UNION_ID_HINT:
-    "可选。用于文档和审批等操作的默认操作人 unionId；工具里仍可覆盖。",
+    "可选。用于文档和审批等操作的默认操作人 unionId。当审批工具需要 userId 且未直接填写时，插件会用这个 unionId 自动解析。",
   CREDENTIAL_USER_UNION_ID_PLACEHOLDER: "unionId",
+  CREDENTIAL_AGENT_ID_DISPLAY_NAME: "默认 Agent ID",
+  CREDENTIAL_AGENT_ID_HINT:
+    "必填。填写钉钉企业内部应用的 AgentId。可参考钉钉开放平台《基础概念》文档，并在该应用的开发者后台中查看。",
+  CREDENTIAL_AGENT_ID_PLACEHOLDER: "agentId",
 
   PARAM_CREDENTIAL_LABEL: "凭证",
   PARAM_OPERATOR_ID_LABEL: "操作人 unionId",
@@ -28,10 +32,13 @@ const zh_Hans = {
   PARAM_OPERATOR_ID_LLM_DESCRIPTION:
     "本次钉钉请求的操作人 unionId。可选；留空时使用凭证里的默认 user_union_id。",
   PARAM_USER_ID_LABEL: "用户 ID",
+  PARAM_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。",
   PARAM_USER_ID_PLACEHOLDER: "user123",
   PARAM_MOBILE_LABEL: "手机号",
   PARAM_MOBILE_PLACEHOLDER: "13000000000",
   PARAM_QUERY_WORD_LABEL: "搜索词",
+  PARAM_QUERY_WORD_HINT: "用户名称、名称拼音或英文名称。",
   PARAM_OFFSET_LABEL: "偏移量",
   PARAM_SIZE_LABEL: "数量",
   PARAM_FULL_MATCH_FIELD_LABEL: "精确匹配",
@@ -49,18 +56,32 @@ const zh_Hans = {
   PARAM_OPEN_DING_ID_LABEL: "Open DING ID",
   PARAM_DOWNLOAD_CODE_LABEL: "下载码",
   PARAM_PROCESS_INSTANCE_ID_LABEL: "审批实例 ID",
+  PARAM_TASK_ID_LABEL: "任务 ID",
+  PARAM_ACTIONER_USER_ID_LABEL: "处理人 userId",
+  PARAM_ACTIONER_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 actionerUserId。",
+  PARAM_ACTION_RESULT_LABEL: "处理结果",
+  PARAM_ACTION_RESULT_HINT:
+    "agree 表示同意，refuse 表示拒绝。钉钉要求按审批节点顺序处理任务。",
   PARAM_TEXT_LABEL: "文本",
   PARAM_COMMENT_USER_ID_LABEL: "评论人 userId",
+  PARAM_COMMENT_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 commentUserId。",
   PARAM_FILE_JSON_LABEL: "文件 JSON",
-  PARAM_FILE_JSON_HINT:
-    "可选。填写包含 photos 和/或 attachments 的 JSON 对象。附件项应包含 spaceId、fileSize、fileId、fileName、fileType 等字段。",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT:
+    "请填写审批表单组件中上传的 fileId。评论附件中的 fileId 暂不支持获取下载链接。",
   PARAM_FILE_ID_LABEL: "文件 ID",
   PARAM_WITH_COMMENT_ATTACHMENT_LABEL: "包含评论附件",
   PARAM_PROCESS_CODE_LABEL: "审批流编码",
   PARAM_START_TIME_LABEL: "开始时间",
-  PARAM_START_TIME_PLACEHOLDER: "Unix 毫秒时间戳或 ISO 日期时间",
+  PARAM_START_TIME_HINT:
+    "必填。支持 Unix 毫秒时间戳，以及多种绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按当天开始时间处理。",
+  PARAM_START_TIME_PLACEHOLDER: "例如 2026-04-15 14:30 或 2026年4月15日 14:30",
   PARAM_END_TIME_LABEL: "结束时间",
-  PARAM_END_TIME_PLACEHOLDER: "Unix 毫秒时间戳或 ISO 日期时间",
+  PARAM_END_TIME_HINT:
+    "可选。支持与开始时间相同的绝对日期时间格式。仅填写日期时会按当天结束时间处理。",
+  PARAM_END_TIME_PLACEHOLDER:
+    "例如 2026-04-15、2026/04/15 14:30:00 或 April 15, 2026 2:30 PM",
   PARAM_STARTER_USER_IDS_LABEL: "发起人 userId 列表",
   PARAM_STATUSES_LABEL: "状态",
   PARAM_MAX_RESULTS_LABEL: "分页大小",
@@ -93,6 +114,8 @@ const zh_Hans = {
   OPTION_STATUS_TERMINATED: "已撤销",
   OPTION_STATUS_COMPLETED: "审批完成",
   OPTION_STATUS_COMPLETED_WITH_BLANKS: "审批完成（有空值）",
+  OPTION_ACTION_RESULT_AGREE: "同意",
+  OPTION_ACTION_RESULT_REFUSE: "拒绝",
   OPTION_VISIBILITY_VISIBLE: "可见",
   OPTION_VISIBILITY_HIDDEN: "隐藏",
 
@@ -120,6 +143,9 @@ const zh_Hans = {
   WORKFLOW_GET_INSTANCE_TOOL_DESCRIPTION: "获取单个审批实例详情。",
   WORKFLOW_ADD_COMMENT_TOOL_DISPLAY_NAME: "添加审批评论",
   WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: "为审批实例添加评论。",
+  WORKFLOW_EXECUTE_TASK_TOOL_DISPLAY_NAME: "处理审批任务",
+  WORKFLOW_EXECUTE_TASK_TOOL_DESCRIPTION:
+    "对单个审批任务执行同意或拒绝。钉钉文档说明该能力面向内部应用，且任务需按审批节点顺序处理。",
   WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: "获取审批附件下载信息",
   WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DESCRIPTION: "获取审批附件下载授权信息。",
   WORKFLOW_LIST_INSTANCE_IDS_TOOL_DISPLAY_NAME: "获取审批实例 ID 列表",
@@ -175,27 +201,48 @@ const zh_Hans = {
     "要添加评论的流程审批实例 ID。",
   WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: "审批评论的文本内容，可选。",
   WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION:
-    "评论人在钉钉中的 userId，可选。",
+    "评论人在钉钉中的 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_ADD_COMMENT_FILE_LLM_DESCRIPTION:
+    "审批评论里附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。",
+  WORKFLOW_ADD_COMMENT_FILE_HINT: "可选。选择要附在审批评论里的图片文件。",
   WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION:
     "描述审批评论图片和/或附件的 JSON 对象，可选。",
+  WORKFLOW_EXECUTE_TASK_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "要处理的审批任务所属流程审批实例 ID。",
+  WORKFLOW_EXECUTE_TASK_TASK_ID_LLM_DESCRIPTION:
+    "要同意或拒绝的审批任务节点 ID。",
+  WORKFLOW_EXECUTE_TASK_ACTIONER_USER_ID_LLM_DESCRIPTION:
+    "执行审批任务的钉钉用户 userId，对应接口中的 actionerUserId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_EXECUTE_TASK_RESULT_LLM_DESCRIPTION:
+    "审批任务的处理结果：agree 表示同意，refuse 表示拒绝。",
+  WORKFLOW_EXECUTE_TASK_REMARK_LLM_DESCRIPTION:
+    "审批同意或拒绝时附带的备注文本，可选。",
+  WORKFLOW_EXECUTE_TASK_FILE_LLM_DESCRIPTION:
+    "处理审批任务时附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。",
+  WORKFLOW_EXECUTE_TASK_FILE_HINT:
+    "可选。选择要随审批任务处理一并发送的图片文件。",
+  WORKFLOW_EXECUTE_TASK_FILE_JSON_LLM_DESCRIPTION:
+    "审批任务处理时附带图片和/或附件的 JSON 对象，可选。",
+  WORKFLOW_EXECUTE_TASK_REMARK_HINT:
+    "可选。可填写审批意见或拒绝原因。钉钉文档说明该任务处理接口面向内部应用。",
   WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
     "包含该附件的流程审批实例 ID。",
   WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION:
-    "要下载的审批附件文件 ID。",
+    "审批组件中上传的 fileId。评论中上传的附件 fileId 暂不支持获取下载链接。",
   WORKFLOW_DOWNLOAD_ATTACHMENT_WITH_COMMENT_ATTACHMENT_LLM_DESCRIPTION:
     "file_id 是否指向评论附件而不是表单附件。",
   WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION:
     "要列出实例 ID 的审批流编码。",
   WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION:
-    "筛选审批实例的开始时间。可填写 Unix 毫秒时间戳或 ISO 日期时间。",
+    "筛选审批实例的开始时间，必填。支持 Unix 毫秒时间戳，以及多种中英文绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按运行时本地时区的当天开始时间解析。",
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION:
-    "筛选审批实例的结束时间，可选。可填写 Unix 毫秒时间戳或 ISO 日期时间。",
+    "筛选审批实例的结束时间，可选。支持与 start_time 相同的中英文绝对日期时间格式。仅填写日期时会按运行时本地时区的当天结束时间解析；像 04/05/2026 这类有歧义的纯数字日期会被拒绝。",
   WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION:
     "每页返回的审批实例 ID 数量上限。",
   WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION:
     "获取下一页审批实例 ID 时使用的分页游标。",
   WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION:
-    "用于查询审批附件空间信息的钉钉用户 userId。",
+    "用于查询审批附件空间信息的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
   WORKFLOW_GET_SPACE_INFO_AGENT_ID_LLM_DESCRIPTION:
     "需要查询审批空间信息的钉钉应用 Agent ID，可选。",
   WORKFLOW_UPDATE_INSTANCE_OP_USER_ID_LLM_DESCRIPTION:
@@ -209,7 +256,7 @@ const zh_Hans = {
   WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION:
     "随流程更新一并保存的备注文本，可选。",
   WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION:
-    "要列出其可见审批模板的钉钉用户 userId。",
+    "要列出其可见审批模板的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
   WORKFLOW_LIST_VISIBLE_TEMPLATES_MAX_RESULTS_LLM_DESCRIPTION:
     "每页返回的模板数量上限。",
   WORKFLOW_LIST_VISIBLE_TEMPLATES_NEXT_TOKEN_LLM_DESCRIPTION:

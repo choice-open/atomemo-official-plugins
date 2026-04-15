@@ -1,16 +1,18 @@
 import { describe, expect, it } from "vitest"
+import { z } from "zod"
 import {
   coercedBool,
   coercedNumber,
   nonEmptyString,
+  optionalDateTimeRangeEndMs,
   optionalStringArray,
   optionalTrimmedString,
   parseParams,
+  requiredDateTimeRangeStartMs,
   requiredTimestampMs,
   stringArray,
   timestampMs,
 } from "../../src/lib/schemas"
-import { z } from "zod"
 
 describe("nonEmptyString", () => {
   it("passes and trims a valid string", () => {
@@ -187,5 +189,91 @@ describe("parseParams", () => {
 
   it("throws a readable error for invalid input", () => {
     expect(() => parseParams(schema, { name: "" })).toThrow()
+  })
+})
+
+describe("requiredDateTimeRangeStartMs", () => {
+  it("requires a value", () => {
+    expect(() => requiredDateTimeRangeStartMs.parse(undefined)).toThrow(
+      /Invalid date\/time/,
+    )
+  })
+
+  it("passes a numeric timestamp through", () => {
+    expect(requiredDateTimeRangeStartMs.parse(1_700_000_000_000)).toBe(
+      1_700_000_000_000,
+    )
+  })
+
+  it("parses a numeric string", () => {
+    expect(requiredDateTimeRangeStartMs.parse("1700000000000")).toBe(
+      1_700_000_000_000,
+    )
+  })
+
+  it("parses ISO datetimes with timezone", () => {
+    expect(
+      requiredDateTimeRangeStartMs.parse("2026-04-15T14:30:00+08:00"),
+    ).toBe(new Date("2026-04-15T14:30:00+08:00").getTime())
+  })
+
+  it("parses date-only inputs at start of day", () => {
+    expect(requiredDateTimeRangeStartMs.parse("2026-04-15")).toBe(
+      new Date(2026, 3, 15, 0, 0, 0, 0).getTime(),
+    )
+  })
+
+  it("parses English month-name datetimes", () => {
+    expect(requiredDateTimeRangeStartMs.parse("April 15, 2026 2:30 PM")).toBe(
+      new Date(2026, 3, 15, 14, 30, 0, 0).getTime(),
+    )
+  })
+
+  it("parses Chinese datetimes with colon separators", () => {
+    expect(requiredDateTimeRangeStartMs.parse("2026年4月15日 14:30")).toBe(
+      new Date(2026, 3, 15, 14, 30, 0, 0).getTime(),
+    )
+  })
+
+  it("parses Chinese datetimes with Chinese time units", () => {
+    expect(
+      requiredDateTimeRangeStartMs.parse("2026年4月15日 14时30分20秒"),
+    ).toBe(new Date(2026, 3, 15, 14, 30, 20, 0).getTime())
+  })
+
+  it("rejects ambiguous numeric dates", () => {
+    expect(() => requiredDateTimeRangeStartMs.parse("04/05/2026")).toThrow(
+      /Invalid date\/time/,
+    )
+  })
+
+  it("rejects partial dates", () => {
+    expect(() => requiredDateTimeRangeStartMs.parse("2026-04")).toThrow(
+      /Invalid date\/time/,
+    )
+    expect(() => requiredDateTimeRangeStartMs.parse("2026年4月")).toThrow(
+      /Invalid date\/time/,
+    )
+  })
+
+  it("rejects relative phrases", () => {
+    expect(() => requiredDateTimeRangeStartMs.parse("today")).toThrow(
+      /Invalid date\/time/,
+    )
+    expect(() => requiredDateTimeRangeStartMs.parse("最近7天")).toThrow(
+      /Invalid date\/time/,
+    )
+  })
+})
+
+describe("optionalDateTimeRangeEndMs", () => {
+  it("returns undefined for missing input", () => {
+    expect(optionalDateTimeRangeEndMs.parse(undefined)).toBeUndefined()
+  })
+
+  it("parses date-only inputs at end of day", () => {
+    expect(optionalDateTimeRangeEndMs.parse("2026-04-15")).toBe(
+      new Date(2026, 3, 15, 23, 59, 59, 999).getTime(),
+    )
   })
 })

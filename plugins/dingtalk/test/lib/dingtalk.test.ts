@@ -1,8 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import {
   dingtalkRequest,
+  getUserIdByUnionId,
   getAccessToken,
   resetTokenCacheForTests,
+  resolveOperatorUserId,
 } from "../../src/lib/dingtalk"
 
 function jsonResponse(body: unknown, status = 200) {
@@ -111,4 +113,75 @@ describe("dingtalk transport", () => {
     )
   })
 
+  it("looks up a userId by unionId through the legacy API", async () => {
+    fetchMock
+      .mockResolvedValueOnce(jsonResponse({ accessToken: "token-1", expireIn: 7200 }))
+      .mockResolvedValueOnce(
+        jsonResponse({
+          errcode: 0,
+          result: { userid: "user-123" },
+        }),
+      )
+
+    await expect(
+      getUserIdByUnionId(
+        { client_id: "client-1", client_secret: "secret-1" },
+        "union-123",
+      ),
+    ).resolves.toBe("user-123")
+
+    const url = String(fetchMock.mock.calls[1]?.[0])
+    const request = fetchMock.mock.calls[1]?.[1] as RequestInit
+
+    expect(url).toBe(
+      "https://oapi.dingtalk.com/topapi/user/getbyunionid?access_token=token-1",
+    )
+    expect(request.body).toBe(JSON.stringify({ unionid: "union-123" }))
+  })
+
+  it("caches userId lookups per credential and unionId", async () => {
+    fetchMock
+      .mockResolvedValueOnce(jsonResponse({ accessToken: "token-1", expireIn: 7200 }))
+      .mockResolvedValueOnce(
+        jsonResponse({
+          errcode: 0,
+          result: { userid: "user-123" },
+        }),
+      )
+
+    const credential = { client_id: "client-1", client_secret: "secret-1" }
+
+    await expect(getUserIdByUnionId(credential, "union-123")).resolves.toBe(
+      "user-123",
+    )
+    await expect(getUserIdByUnionId(credential, "union-123")).resolves.toBe(
+      "user-123",
+    )
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it("resolves operator userId from the credential default unionId", async () => {
+    fetchMock
+      .mockResolvedValueOnce(jsonResponse({ accessToken: "token-1", expireIn: 7200 }))
+      .mockResolvedValueOnce(
+        jsonResponse({
+          errcode: 0,
+          result: { userid: "user-123" },
+        }),
+      )
+
+    await expect(
+      resolveOperatorUserId(
+        {
+          client_id: "client-1",
+          client_secret: "secret-1",
+          user_union_id: "union-default",
+        },
+      ),
+    ).resolves.toBe("user-123")
+
+    const request = fetchMock.mock.calls[1]?.[1] as RequestInit
+    expect(request.body).toBe(JSON.stringify({ unionid: "union-default" }))
+  })
 })

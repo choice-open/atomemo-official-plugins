@@ -57,5 +57,17 @@ export const dingtalkAppCredential = {
         width: "full",
       },
     },
+    {
+      name: "agent_id",
+      type: "string",
+      required: true,
+      display_name: t("CREDENTIAL_AGENT_ID_DISPLAY_NAME"),
+      ui: {
+        component: "input",
+        hint: t("CREDENTIAL_AGENT_ID_HINT"),
+        placeholder: t("CREDENTIAL_AGENT_ID_PLACEHOLDER"),
+        width: "full",
+      },
+    },
   ],
 } satisfies CredentialDefinition

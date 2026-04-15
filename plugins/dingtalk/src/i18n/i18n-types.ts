@@ -72,13 +72,25 @@ type RootTranslation = {
    */
   CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: string
   /**
-   * O​p​t​i​o​n​a​l​ ​d​e​f​a​u​l​t​ ​o​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d​ ​f​o​r​ ​d​o​c​u​m​e​n​t​ ​a​n​d​ ​w​o​r​k​f​l​o​w​ ​o​p​e​r​a​t​i​o​n​s​.​ ​T​o​o​l​s​ ​c​a​n​ ​s​t​i​l​l​ ​o​v​e​r​r​i​d​e​ ​i​t​.
+   * O​p​t​i​o​n​a​l​ ​d​e​f​a​u​l​t​ ​o​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d​ ​f​o​r​ ​d​o​c​u​m​e​n​t​ ​a​n​d​ ​w​o​r​k​f​l​o​w​ ​o​p​e​r​a​t​i​o​n​s​.​ ​W​h​e​n​ ​a​ ​w​o​r​k​f​l​o​w​ ​t​o​o​l​ ​n​e​e​d​s​ ​a​ ​u​s​e​r​I​d​ ​a​n​d​ ​n​o​n​e​ ​i​s​ ​p​r​o​v​i​d​e​d​,​ ​t​h​e​ ​p​l​u​g​i​n​ ​r​e​s​o​l​v​e​s​ ​i​t​ ​f​r​o​m​ ​t​h​i​s​ ​u​n​i​o​n​I​d​.
    */
   CREDENTIAL_USER_UNION_ID_HINT: string
   /**
    * u​n​i​o​n​I​d
    */
   CREDENTIAL_USER_UNION_ID_PLACEHOLDER: string
+  /**
+   * D​e​f​a​u​l​t​ ​A​g​e​n​t​ ​I​D
+   */
+  CREDENTIAL_AGENT_ID_DISPLAY_NAME: string
+  /**
+   * R​e​q​u​i​r​e​d​.​ ​U​s​e​ ​t​h​e​ ​A​g​e​n​t​I​d​ ​o​f​ ​y​o​u​r​ ​i​n​t​e​r​n​a​l​ ​D​i​n​g​T​a​l​k​ ​a​p​p​.​ ​S​e​e​ ​D​i​n​g​T​a​l​k​ ​B​a​s​i​c​ ​C​o​n​c​e​p​t​s​ ​a​n​d​ ​f​i​n​d​ ​i​t​ ​i​n​ ​t​h​e​ ​d​e​v​e​l​o​p​e​r​ ​c​o​n​s​o​l​e​ ​f​o​r​ ​t​h​e​ ​a​p​p​.
+   */
+  CREDENTIAL_AGENT_ID_HINT: string
+  /**
+   * a​g​e​n​t​I​d
+   */
+  CREDENTIAL_AGENT_ID_PLACEHOLDER: string
   /**
    * C​r​e​d​e​n​t​i​a​l
    */
@@ -104,6 +116,10 @@ type RootTranslation = {
    */
   PARAM_USER_ID_LABEL: string
   /**
+   * O​p​t​i​o​n​a​l​.​ ​L​e​a​v​e​ ​b​l​a​n​k​ ​t​o​ ​r​e​s​o​l​v​e​ ​u​s​e​r​I​d​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
+   */
+  PARAM_USER_ID_HINT: string
+  /**
    * u​s​e​r​1​2​3
    */
   PARAM_USER_ID_PLACEHOLDER: string
@@ -119,6 +135,10 @@ type RootTranslation = {
    * Q​u​e​r​y​ ​W​o​r​d
    */
   PARAM_QUERY_WORD_LABEL: string
+  /**
+   * U​s​e​r​ ​n​a​m​e​,​ ​n​a​m​e​ ​p​i​n​y​i​n​,​ ​o​r​ ​E​n​g​l​i​s​h​ ​n​a​m​e​.
+   */
+  PARAM_QUERY_WORD_HINT: string
   /**
    * O​f​f​s​e​t
    */
@@ -184,6 +204,26 @@ type RootTranslation = {
    */
   PARAM_PROCESS_INSTANCE_ID_LABEL: string
   /**
+   * T​a​s​k​ ​I​D
+   */
+  PARAM_TASK_ID_LABEL: string
+  /**
+   * A​c​t​i​o​n​e​r​ ​U​s​e​r​ ​I​D
+   */
+  PARAM_ACTIONER_USER_ID_LABEL: string
+  /**
+   * O​p​t​i​o​n​a​l​.​ ​L​e​a​v​e​ ​b​l​a​n​k​ ​t​o​ ​r​e​s​o​l​v​e​ ​a​c​t​i​o​n​e​r​U​s​e​r​I​d​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
+   */
+  PARAM_ACTIONER_USER_ID_HINT: string
+  /**
+   * R​e​s​u​l​t
+   */
+  PARAM_ACTION_RESULT_LABEL: string
+  /**
+   * U​s​e​ ​a​g​r​e​e​ ​t​o​ ​a​p​p​r​o​v​e​ ​t​h​e​ ​c​u​r​r​e​n​t​ ​t​a​s​k​ ​o​r​ ​r​e​f​u​s​e​ ​t​o​ ​r​e​j​e​c​t​ ​i​t​.​ ​D​i​n​g​T​a​l​k​ ​r​e​q​u​i​r​e​s​ ​t​a​s​k​s​ ​t​o​ ​b​e​ ​e​x​e​c​u​t​e​d​ ​i​n​ ​a​p​p​r​o​v​a​l​-​n​o​d​e​ ​o​r​d​e​r​.
+   */
+  PARAM_ACTION_RESULT_HINT: string
+  /**
    * T​e​x​t
    */
   PARAM_TEXT_LABEL: string
@@ -192,13 +232,17 @@ type RootTranslation = {
    */
   PARAM_COMMENT_USER_ID_LABEL: string
   /**
+   * O​p​t​i​o​n​a​l​.​ ​L​e​a​v​e​ ​b​l​a​n​k​ ​t​o​ ​r​e​s​o​l​v​e​ ​c​o​m​m​e​n​t​U​s​e​r​I​d​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
+   */
+  PARAM_COMMENT_USER_ID_HINT: string
+  /**
    * F​i​l​e​ ​J​S​O​N
    */
   PARAM_FILE_JSON_LABEL: string
   /**
-   * O​p​t​i​o​n​a​l​.​ ​P​r​o​v​i​d​e​ ​a​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​w​i​t​h​ ​p​h​o​t​o​s​ ​a​n​d​/​o​r​ ​a​t​t​a​c​h​m​e​n​t​s​.​ ​A​t​t​a​c​h​m​e​n​t​ ​i​t​e​m​s​ ​s​h​o​u​l​d​ ​i​n​c​l​u​d​e​ ​f​i​e​l​d​s​ ​l​i​k​e​ ​s​p​a​c​e​I​d​,​ ​f​i​l​e​S​i​z​e​,​ ​f​i​l​e​I​d​,​ ​f​i​l​e​N​a​m​e​,​ ​a​n​d​ ​f​i​l​e​T​y​p​e​.
+   * U​s​e​ ​t​h​e​ ​f​i​l​e​I​d​ ​f​r​o​m​ ​a​ ​w​o​r​k​f​l​o​w​ ​f​o​r​m​ ​c​o​m​p​o​n​e​n​t​.​ ​C​o​m​m​e​n​t​ ​a​t​t​a​c​h​m​e​n​t​ ​f​i​l​e​I​d​s​ ​a​r​e​ ​n​o​t​ ​s​u​p​p​o​r​t​e​d​ ​f​o​r​ ​d​o​w​n​l​o​a​d​ ​l​i​n​k​s​ ​y​e​t​.
    */
-  PARAM_FILE_JSON_HINT: string
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT: string
   /**
    * F​i​l​e​ ​I​D
    */
@@ -216,7 +260,11 @@ type RootTranslation = {
    */
   PARAM_START_TIME_LABEL: string
   /**
-   * U​n​i​x​ ​m​s​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e
+   * R​e​q​u​i​r​e​d​.​ ​S​u​p​p​o​r​t​s​ ​U​n​i​x​ ​m​s​ ​t​i​m​e​s​t​a​m​p​s​ ​a​n​d​ ​a​b​s​o​l​u​t​e​ ​d​a​t​e​/​t​i​m​e​ ​f​o​r​m​a​t​s​ ​s​u​c​h​ ​a​s​ ​2​0​2​6​-​0​4​-​1​5​,​ ​2​0​2​6​-​0​4​-​1​5​ ​1​4​:​3​0​,​ ​2​0​2​6​/​0​4​/​1​5​ ​1​4​:​3​0​:​0​0​,​ ​2​0​2​6​-​0​4​-​1​5​T​1​4​:​3​0​:​0​0​+​0​8​:​0​0​,​ ​A​p​r​i​l​ ​1​5​,​ ​2​0​2​6​ ​2​:​3​0​ ​P​M​,​ ​a​n​d​ ​2​0​2​6​年​4​月​1​5​日​ ​1​4​:​3​0​.​ ​D​a​t​e​-​o​n​l​y​ ​v​a​l​u​e​s​ ​u​s​e​ ​t​h​e​ ​s​t​a​r​t​ ​o​f​ ​t​h​a​t​ ​d​a​y​.
+   */
+  PARAM_START_TIME_HINT: string
+  /**
+   * e​.​g​.​ ​2​0​2​6​-​0​4​-​1​5​ ​1​4​:​3​0​ ​o​r​ ​A​p​r​i​l​ ​1​5​,​ ​2​0​2​6​ ​2​:​3​0​ ​P​M
    */
   PARAM_START_TIME_PLACEHOLDER: string
   /**
@@ -224,7 +272,11 @@ type RootTranslation = {
    */
   PARAM_END_TIME_LABEL: string
   /**
-   * U​n​i​x​ ​m​s​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e
+   * O​p​t​i​o​n​a​l​.​ ​S​u​p​p​o​r​t​s​ ​t​h​e​ ​s​a​m​e​ ​a​b​s​o​l​u​t​e​ ​f​o​r​m​a​t​s​ ​a​s​ ​S​t​a​r​t​ ​T​i​m​e​.​ ​D​a​t​e​-​o​n​l​y​ ​v​a​l​u​e​s​ ​u​s​e​ ​t​h​e​ ​e​n​d​ ​o​f​ ​t​h​a​t​ ​d​a​y​.
+   */
+  PARAM_END_TIME_HINT: string
+  /**
+   * e​.​g​.​ ​2​0​2​6​-​0​4​-​1​5​,​ ​2​0​2​6​/​0​4​/​1​5​ ​1​4​:​3​0​:​0​0​,​ ​o​r​ ​2​0​2​6​年​4​月​1​5​日​ ​1​4​:​3​0
    */
   PARAM_END_TIME_PLACEHOLDER: string
   /**
@@ -348,6 +400,14 @@ type RootTranslation = {
    */
   OPTION_STATUS_COMPLETED_WITH_BLANKS: string
   /**
+   * A​p​p​r​o​v​e
+   */
+  OPTION_ACTION_RESULT_AGREE: string
+  /**
+   * R​e​j​e​c​t
+   */
+  OPTION_ACTION_RESULT_REFUSE: string
+  /**
    * V​i​s​i​b​l​e
    */
   OPTION_VISIBILITY_VISIBLE: string
@@ -435,6 +495,14 @@ type RootTranslation = {
    * A​d​d​ ​a​ ​c​o​m​m​e​n​t​ ​t​o​ ​a​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​.
    */
   WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: string
+  /**
+   * E​x​e​c​u​t​e​ ​P​r​o​c​e​s​s​ ​T​a​s​k
+   */
+  WORKFLOW_EXECUTE_TASK_TOOL_DISPLAY_NAME: string
+  /**
+   * A​p​p​r​o​v​e​ ​o​r​ ​r​e​j​e​c​t​ ​a​ ​s​i​n​g​l​e​ ​w​o​r​k​f​l​o​w​ ​t​a​s​k​.​ ​D​i​n​g​T​a​l​k​ ​d​o​c​u​m​e​n​t​s​ ​t​h​i​s​ ​c​a​p​a​b​i​l​i​t​y​ ​f​o​r​ ​i​n​t​e​r​n​a​l​ ​a​p​p​s​ ​a​n​d​ ​r​e​q​u​i​r​e​s​ ​t​a​s​k​ ​e​x​e​c​u​t​i​o​n​ ​i​n​ ​a​p​p​r​o​v​a​l​-​n​o​d​e​ ​o​r​d​e​r​.
+   */
+  WORKFLOW_EXECUTE_TASK_TOOL_DESCRIPTION: string
   /**
    * D​o​w​n​l​o​a​d​ ​P​r​o​c​e​s​s​ ​A​t​t​a​c​h​m​e​n​t
    */
@@ -572,19 +640,63 @@ type RootTranslation = {
    */
   WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: string
   /**
-   * O​p​t​i​o​n​a​l​ ​u​s​e​r​ ​I​D​ ​o​f​ ​t​h​e​ ​c​o​m​m​e​n​t​e​r​ ​i​n​ ​D​i​n​g​T​a​l​k​.
+   * O​p​t​i​o​n​a​l​ ​c​o​m​m​e​n​t​e​r​ ​u​s​e​r​I​d​ ​i​n​ ​D​i​n​g​T​a​l​k​.​ ​I​f​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​p​l​u​g​i​n​ ​r​e​s​o​l​v​e​s​ ​i​t​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
    */
   WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​i​m​a​g​e​ ​f​i​l​e​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​c​o​m​m​e​n​t​.​ ​P​r​o​v​i​d​e​ ​a​ ​f​i​l​e​_​r​e​f​;​ ​t​h​e​ ​p​l​u​g​i​n​ ​w​i​l​l​ ​s​e​n​d​ ​i​t​ ​a​s​ ​f​i​l​e​.​p​h​o​t​o​s​ ​a​f​t​e​r​ ​r​e​s​o​l​v​i​n​g​ ​a​ ​r​e​m​o​t​e​ ​U​R​L​.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​.​ ​S​e​l​e​c​t​ ​a​n​ ​i​m​a​g​e​ ​f​i​l​e​ ​t​o​ ​a​t​t​a​c​h​ ​t​o​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​c​o​m​m​e​n​t​.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_HINT: string
   /**
    * O​p​t​i​o​n​a​l​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​d​e​s​c​r​i​b​i​n​g​ ​w​o​r​k​f​l​o​w​ ​c​o​m​m​e​n​t​ ​p​h​o​t​o​s​ ​a​n​d​/​o​r​ ​a​t​t​a​c​h​m​e​n​t​s​.
    */
   WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION: string
   /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​h​a​t​ ​o​w​n​s​ ​t​h​e​ ​t​a​s​k​ ​t​o​ ​e​x​e​c​u​t​e​.
+   */
+  WORKFLOW_EXECUTE_TASK_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
+  /**
+   * T​a​s​k​ ​n​o​d​e​ ​I​D​ ​o​f​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​a​s​k​ ​t​o​ ​a​p​p​r​o​v​e​ ​o​r​ ​r​e​j​e​c​t​.
+   */
+  WORKFLOW_EXECUTE_TASK_TASK_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​o​f​ ​t​h​e​ ​a​c​t​o​r​ ​e​x​e​c​u​t​i​n​g​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​a​s​k​.​ ​T​h​i​s​ ​m​a​p​s​ ​t​o​ ​a​c​t​i​o​n​e​r​U​s​e​r​I​d​ ​i​n​ ​t​h​e​ ​A​P​I​.​ ​I​f​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​p​l​u​g​i​n​ ​r​e​s​o​l​v​e​s​ ​i​t​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
+   */
+  WORKFLOW_EXECUTE_TASK_ACTIONER_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * E​x​e​c​u​t​i​o​n​ ​r​e​s​u​l​t​ ​f​o​r​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​a​s​k​:​ ​u​s​e​ ​a​g​r​e​e​ ​t​o​ ​a​p​p​r​o​v​e​ ​o​r​ ​r​e​f​u​s​e​ ​t​o​ ​r​e​j​e​c​t​.
+   */
+  WORKFLOW_EXECUTE_TASK_RESULT_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​r​e​m​a​r​k​ ​t​o​ ​i​n​c​l​u​d​e​ ​w​i​t​h​ ​t​h​e​ ​a​p​p​r​o​v​a​l​ ​o​r​ ​r​e​j​e​c​t​i​o​n​.
+   */
+  WORKFLOW_EXECUTE_TASK_REMARK_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​i​m​a​g​e​ ​f​i​l​e​ ​t​o​ ​i​n​c​l​u​d​e​ ​w​h​i​l​e​ ​e​x​e​c​u​t​i​n​g​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​a​s​k​.​ ​P​r​o​v​i​d​e​ ​a​ ​f​i​l​e​_​r​e​f​;​ ​t​h​e​ ​p​l​u​g​i​n​ ​w​i​l​l​ ​s​e​n​d​ ​i​t​ ​a​s​ ​f​i​l​e​.​p​h​o​t​o​s​ ​a​f​t​e​r​ ​r​e​s​o​l​v​i​n​g​ ​a​ ​r​e​m​o​t​e​ ​U​R​L​.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​.​ ​S​e​l​e​c​t​ ​a​n​ ​i​m​a​g​e​ ​f​i​l​e​ ​t​o​ ​s​e​n​d​ ​w​i​t​h​ ​t​h​e​ ​t​a​s​k​ ​e​x​e​c​u​t​i​o​n​.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_HINT: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​d​e​s​c​r​i​b​i​n​g​ ​p​h​o​t​o​s​ ​a​n​d​/​o​r​ ​a​t​t​a​c​h​m​e​n​t​s​ ​t​o​ ​s​e​n​d​ ​w​i​t​h​ ​t​h​e​ ​t​a​s​k​ ​e​x​e​c​u​t​i​o​n​.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_JSON_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​.​ ​U​s​e​f​u​l​ ​f​o​r​ ​a​p​p​r​o​v​a​l​ ​c​o​m​m​e​n​t​s​ ​o​r​ ​r​e​j​e​c​t​i​o​n​ ​r​e​a​s​o​n​s​.​ ​D​i​n​g​T​a​l​k​ ​d​o​c​u​m​e​n​t​s​ ​t​h​i​s​ ​t​a​s​k​-​e​x​e​c​u​t​i​o​n​ ​A​P​I​ ​f​o​r​ ​i​n​t​e​r​n​a​l​ ​a​p​p​s​.
+   */
+  WORKFLOW_EXECUTE_TASK_REMARK_HINT: string
+  /**
    * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​h​a​t​ ​o​w​n​s​ ​t​h​e​ ​a​t​t​a​c​h​m​e​n​t​.
    */
   WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
   /**
-   * W​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​ ​f​i​l​e​ ​I​D​ ​t​o​ ​d​o​w​n​l​o​a​d​.
+   * T​h​e​ ​f​i​l​e​I​d​ ​u​p​l​o​a​d​e​d​ ​i​n​ ​a​ ​w​o​r​k​f​l​o​w​ ​f​o​r​m​ ​c​o​m​p​o​n​e​n​t​.​ ​C​o​m​m​e​n​t​ ​a​t​t​a​c​h​m​e​n​t​ ​f​i​l​e​I​d​s​ ​a​r​e​ ​n​o​t​ ​s​u​p​p​o​r​t​e​d​ ​f​o​r​ ​d​o​w​n​l​o​a​d​ ​l​i​n​k​s​ ​y​e​t​.
    */
   WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION: string
   /**
@@ -596,11 +708,11 @@ type RootTranslation = {
    */
   WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION: string
   /**
-   * S​t​a​r​t​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​P​r​o​v​i​d​e​ ​a​ ​U​n​i​x​ ​m​i​l​l​i​s​e​c​o​n​d​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e​.
+   * R​e​q​u​i​r​e​d​ ​s​t​a​r​t​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​S​u​p​p​o​r​t​s​ ​U​n​i​x​ ​m​i​l​l​i​s​e​c​o​n​d​ ​t​i​m​e​s​t​a​m​p​s​ ​a​n​d​ ​a​b​s​o​l​u​t​e​ ​E​N​/​Z​H​ ​d​a​t​e​-​t​i​m​e​ ​f​o​r​m​a​t​s​ ​s​u​c​h​ ​a​s​ ​2​0​2​6​-​0​4​-​1​5​,​ ​2​0​2​6​-​0​4​-​1​5​ ​1​4​:​3​0​,​ ​2​0​2​6​/​0​4​/​1​5​ ​1​4​:​3​0​:​0​0​,​ ​2​0​2​6​-​0​4​-​1​5​T​1​4​:​3​0​:​0​0​+​0​8​:​0​0​,​ ​A​p​r​i​l​ ​1​5​,​ ​2​0​2​6​ ​2​:​3​0​ ​P​M​,​ ​a​n​d​ ​2​0​2​6​年​4​月​1​5​日​ ​1​4​:​3​0​.​ ​D​a​t​e​-​o​n​l​y​ ​v​a​l​u​e​s​ ​r​e​s​o​l​v​e​ ​t​o​ ​t​h​e​ ​s​t​a​r​t​ ​o​f​ ​t​h​a​t​ ​d​a​y​ ​i​n​ ​t​h​e​ ​r​u​n​t​i​m​e​ ​l​o​c​a​l​ ​t​i​m​e​z​o​n​e​.
    */
   WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION: string
   /**
-   * O​p​t​i​o​n​a​l​ ​e​n​d​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​P​r​o​v​i​d​e​ ​a​ ​U​n​i​x​ ​m​i​l​l​i​s​e​c​o​n​d​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e​.
+   * O​p​t​i​o​n​a​l​ ​e​n​d​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​S​u​p​p​o​r​t​s​ ​t​h​e​ ​s​a​m​e​ ​a​b​s​o​l​u​t​e​ ​E​N​/​Z​H​ ​d​a​t​e​-​t​i​m​e​ ​f​o​r​m​a​t​s​ ​a​s​ ​s​t​a​r​t​_​t​i​m​e​.​ ​D​a​t​e​-​o​n​l​y​ ​v​a​l​u​e​s​ ​r​e​s​o​l​v​e​ ​t​o​ ​t​h​e​ ​e​n​d​ ​o​f​ ​t​h​a​t​ ​d​a​y​ ​i​n​ ​t​h​e​ ​r​u​n​t​i​m​e​ ​l​o​c​a​l​ ​t​i​m​e​z​o​n​e​.​ ​R​e​j​e​c​t​ ​a​m​b​i​g​u​o​u​s​ ​n​u​m​e​r​i​c​ ​d​a​t​e​s​ ​l​i​k​e​ ​0​4​/​0​5​/​2​0​2​6​.
    */
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: string
   /**
@@ -612,7 +724,7 @@ type RootTranslation = {
    */
   WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION: string
   /**
-   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​u​s​e​d​ ​t​o​ ​q​u​e​r​y​ ​w​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​ ​s​p​a​c​e​ ​i​n​f​o​.
+   * O​p​t​i​o​n​a​l​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​u​s​e​d​ ​t​o​ ​q​u​e​r​y​ ​w​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​ ​s​p​a​c​e​ ​i​n​f​o​.​ ​I​f​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​p​l​u​g​i​n​ ​r​e​s​o​l​v​e​s​ ​i​t​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
    */
   WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION: string
   /**
@@ -640,7 +752,7 @@ type RootTranslation = {
    */
   WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION: string
   /**
-   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​w​h​o​s​e​ ​v​i​s​i​b​l​e​ ​w​o​r​k​f​l​o​w​ ​t​e​m​p​l​a​t​e​s​ ​s​h​o​u​l​d​ ​b​e​ ​l​i​s​t​e​d​.
+   * O​p​t​i​o​n​a​l​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​w​h​o​s​e​ ​v​i​s​i​b​l​e​ ​w​o​r​k​f​l​o​w​ ​t​e​m​p​l​a​t​e​s​ ​s​h​o​u​l​d​ ​b​e​ ​l​i​s​t​e​d​.​ ​I​f​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​p​l​u​g​i​n​ ​r​e​s​o​l​v​e​s​ ​i​t​ ​f​r​o​m​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​.
    */
   WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION: string
   /**
@@ -711,13 +823,25 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * Optional default operator unionId for document and workflow operations. Tools can still override it.
+   * Optional default operator unionId for document and workflow operations. When a workflow tool needs a userId and none is provided, the plugin resolves it from this unionId.
    */
   CREDENTIAL_USER_UNION_ID_HINT: () => LocalizedString
   /**
    * unionId
    */
   CREDENTIAL_USER_UNION_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Default Agent ID
+   */
+  CREDENTIAL_AGENT_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Required. Use the AgentId of your internal DingTalk app. See DingTalk Basic Concepts and find it in the developer console for the app.
+   */
+  CREDENTIAL_AGENT_ID_HINT: () => LocalizedString
+  /**
+   * agentId
+   */
+  CREDENTIAL_AGENT_ID_PLACEHOLDER: () => LocalizedString
   /**
    * Credential
    */
@@ -743,6 +867,10 @@ export type TranslationFunctions = {
    */
   PARAM_USER_ID_LABEL: () => LocalizedString
   /**
+   * Optional. Leave blank to resolve userId from the credential's default user_union_id.
+   */
+  PARAM_USER_ID_HINT: () => LocalizedString
+  /**
    * user123
    */
   PARAM_USER_ID_PLACEHOLDER: () => LocalizedString
@@ -758,6 +886,10 @@ export type TranslationFunctions = {
    * Query Word
    */
   PARAM_QUERY_WORD_LABEL: () => LocalizedString
+  /**
+   * User name, name pinyin, or English name.
+   */
+  PARAM_QUERY_WORD_HINT: () => LocalizedString
   /**
    * Offset
    */
@@ -823,6 +955,26 @@ export type TranslationFunctions = {
    */
   PARAM_PROCESS_INSTANCE_ID_LABEL: () => LocalizedString
   /**
+   * Task ID
+   */
+  PARAM_TASK_ID_LABEL: () => LocalizedString
+  /**
+   * Actioner User ID
+   */
+  PARAM_ACTIONER_USER_ID_LABEL: () => LocalizedString
+  /**
+   * Optional. Leave blank to resolve actionerUserId from the credential's default user_union_id.
+   */
+  PARAM_ACTIONER_USER_ID_HINT: () => LocalizedString
+  /**
+   * Result
+   */
+  PARAM_ACTION_RESULT_LABEL: () => LocalizedString
+  /**
+   * Use agree to approve the current task or refuse to reject it. DingTalk requires tasks to be executed in approval-node order.
+   */
+  PARAM_ACTION_RESULT_HINT: () => LocalizedString
+  /**
    * Text
    */
   PARAM_TEXT_LABEL: () => LocalizedString
@@ -831,13 +983,17 @@ export type TranslationFunctions = {
    */
   PARAM_COMMENT_USER_ID_LABEL: () => LocalizedString
   /**
+   * Optional. Leave blank to resolve commentUserId from the credential's default user_union_id.
+   */
+  PARAM_COMMENT_USER_ID_HINT: () => LocalizedString
+  /**
    * File JSON
    */
   PARAM_FILE_JSON_LABEL: () => LocalizedString
   /**
-   * Optional. Provide a JSON object with photos and/or attachments. Attachment items should include fields like spaceId, fileSize, fileId, fileName, and fileType.
+   * Use the fileId from a workflow form component. Comment attachment fileIds are not supported for download links yet.
    */
-  PARAM_FILE_JSON_HINT: () => LocalizedString
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT: () => LocalizedString
   /**
    * File ID
    */
@@ -855,7 +1011,11 @@ export type TranslationFunctions = {
    */
   PARAM_START_TIME_LABEL: () => LocalizedString
   /**
-   * Unix ms timestamp or ISO datetime
+   * Required. Supports Unix ms timestamps and absolute date/time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values use the start of that day.
+   */
+  PARAM_START_TIME_HINT: () => LocalizedString
+  /**
+   * e.g. 2026-04-15 14:30 or April 15, 2026 2:30 PM
    */
   PARAM_START_TIME_PLACEHOLDER: () => LocalizedString
   /**
@@ -863,7 +1023,11 @@ export type TranslationFunctions = {
    */
   PARAM_END_TIME_LABEL: () => LocalizedString
   /**
-   * Unix ms timestamp or ISO datetime
+   * Optional. Supports the same absolute formats as Start Time. Date-only values use the end of that day.
+   */
+  PARAM_END_TIME_HINT: () => LocalizedString
+  /**
+   * e.g. 2026-04-15, 2026/04/15 14:30:00, or 2026年4月15日 14:30
    */
   PARAM_END_TIME_PLACEHOLDER: () => LocalizedString
   /**
@@ -987,6 +1151,14 @@ export type TranslationFunctions = {
    */
   OPTION_STATUS_COMPLETED_WITH_BLANKS: () => LocalizedString
   /**
+   * Approve
+   */
+  OPTION_ACTION_RESULT_AGREE: () => LocalizedString
+  /**
+   * Reject
+   */
+  OPTION_ACTION_RESULT_REFUSE: () => LocalizedString
+  /**
    * Visible
    */
   OPTION_VISIBILITY_VISIBLE: () => LocalizedString
@@ -1074,6 +1246,14 @@ export type TranslationFunctions = {
    * Add a comment to a process instance.
    */
   WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Execute Process Task
+   */
+  WORKFLOW_EXECUTE_TASK_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Approve or reject a single workflow task. DingTalk documents this capability for internal apps and requires task execution in approval-node order.
+   */
+  WORKFLOW_EXECUTE_TASK_TOOL_DESCRIPTION: () => LocalizedString
   /**
    * Download Process Attachment
    */
@@ -1211,19 +1391,63 @@ export type TranslationFunctions = {
    */
   WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * Optional user ID of the commenter in DingTalk.
+   * Optional commenter userId in DingTalk. If omitted, the plugin resolves it from the credential's default user_union_id.
    */
   WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional image file to include in the workflow comment. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional. Select an image file to attach to the workflow comment.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_HINT: () => LocalizedString
   /**
    * Optional JSON object describing workflow comment photos and/or attachments.
    */
   WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION: () => LocalizedString
   /**
+   * Workflow process instance ID that owns the task to execute.
+   */
+  WORKFLOW_EXECUTE_TASK_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Task node ID of the workflow task to approve or reject.
+   */
+  WORKFLOW_EXECUTE_TASK_TASK_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional DingTalk user ID of the actor executing the workflow task. This maps to actionerUserId in the API. If omitted, the plugin resolves it from the credential's default user_union_id.
+   */
+  WORKFLOW_EXECUTE_TASK_ACTIONER_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Execution result for the workflow task: use agree to approve or refuse to reject.
+   */
+  WORKFLOW_EXECUTE_TASK_RESULT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional remark to include with the approval or rejection.
+   */
+  WORKFLOW_EXECUTE_TASK_REMARK_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional image file to include while executing the workflow task. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional. Select an image file to send with the task execution.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_HINT: () => LocalizedString
+  /**
+   * Optional JSON object describing photos and/or attachments to send with the task execution.
+   */
+  WORKFLOW_EXECUTE_TASK_FILE_JSON_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional. Useful for approval comments or rejection reasons. DingTalk documents this task-execution API for internal apps.
+   */
+  WORKFLOW_EXECUTE_TASK_REMARK_HINT: () => LocalizedString
+  /**
    * Workflow process instance ID that owns the attachment.
    */
   WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * Workflow attachment file ID to download.
+   * The fileId uploaded in a workflow form component. Comment attachment fileIds are not supported for download links yet.
    */
   WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION: () => LocalizedString
   /**
@@ -1235,11 +1459,11 @@ export type TranslationFunctions = {
    */
   WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * Start time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.
+   * Required start time for filtering process instances. Supports Unix millisecond timestamps and absolute EN/ZH date-time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values resolve to the start of that day in the runtime local timezone.
    */
   WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * Optional end time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.
+   * Optional end time for filtering process instances. Supports the same absolute EN/ZH date-time formats as start_time. Date-only values resolve to the end of that day in the runtime local timezone. Reject ambiguous numeric dates like 04/05/2026.
    */
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: () => LocalizedString
   /**
@@ -1251,7 +1475,7 @@ export type TranslationFunctions = {
    */
   WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * DingTalk user ID used to query workflow attachment space info.
+   * Optional DingTalk user ID used to query workflow attachment space info. If omitted, the plugin resolves it from the credential's default user_union_id.
    */
   WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION: () => LocalizedString
   /**
@@ -1279,7 +1503,7 @@ export type TranslationFunctions = {
    */
   WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * DingTalk user ID whose visible workflow templates should be listed.
+   * Optional DingTalk user ID whose visible workflow templates should be listed. If omitted, the plugin resolves it from the credential's default user_union_id.
    */
   WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION: () => LocalizedString
   /**

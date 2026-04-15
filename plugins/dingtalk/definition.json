@@ -16,7 +16,7 @@
     "zh-Hans"
   ],
   "author": "Xavier",
-  "email": "zhiqiang.jiang@choiceform.com",
+  "email": "zhqjiang@outlook.com",
   "version": "0.1.0",
   "credentials": [
     {
@@ -104,12 +104,33 @@
           "required": false,
           "ui": {
             "hint": {
-              "en_US": "Optional default operator unionId for document and workflow operations. Tools can still override it.",
-              "zh_Hans": "可选。用于文档和审批等操作的默认操作人 unionId；工具里仍可覆盖。"
+              "en_US": "Optional default operator unionId for document and workflow operations. When a workflow tool needs a userId and none is provided, the plugin resolves it from this unionId.",
+              "zh_Hans": "可选。用于文档和审批等操作的默认操作人 unionId。当审批工具需要 userId 且未直接填写时，插件会用这个 unionId 自动解析。"
             },
             "placeholder": {
               "en_US": "unionId",
               "zh_Hans": "unionId"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "agent_id",
+          "display_name": {
+            "en_US": "Default Agent ID",
+            "zh_Hans": "默认 Agent ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Required. Use the AgentId of your internal DingTalk app. See DingTalk Basic Concepts and find it in the developer console for the app.",
+              "zh_Hans": "必填。填写钉钉企业内部应用的 AgentId。可参考钉钉开放平台《基础概念》文档，并在该应用的开发者后台中查看。"
+            },
+            "placeholder": {
+              "en_US": "agentId",
+              "zh_Hans": "agentId"
             },
             "width": "full",
             "component": "input"
@@ -737,6 +758,10 @@
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "User name, name pinyin, or English name.",
+              "zh_Hans": "用户名称、名称拼音或英文名称。"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -929,8 +954,81 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Optional user ID of the commenter in DingTalk.",
-              "zh_Hans": "评论人在钉钉中的 userId，可选。"
+              "en_US": "Optional commenter userId in DingTalk. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "评论人在钉钉中的 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve commentUserId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 commentUserId。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional image file to include in the workflow comment. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.",
+              "zh_Hans": "审批评论里附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Select an image file to attach to the workflow comment.",
+              "zh_Hans": "可选。选择要附在审批评论里的图片文件。"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
+        }
+      ]
+    },
+    {
+      "name": "dingtalk-workflow-execute-process-task",
+      "display_name": {
+        "en_US": "Execute Process Task",
+        "zh_Hans": "处理审批任务"
+      },
+      "description": {
+        "en_US": "Approve or reject a single workflow task. DingTalk documents this capability for internal apps and requires task execution in approval-node order.",
+        "zh_Hans": "对单个审批任务执行同意或拒绝。钉钉文档说明该能力面向内部应用，且任务需按审批节点顺序处理。"
+      },
+      "icon": "✅",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_instance_id",
+          "display_name": {
+            "en_US": "Process Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process instance ID that owns the task to execute.",
+              "zh_Hans": "要处理的审批任务所属流程审批实例 ID。"
             }
           },
           "ui": {
@@ -941,28 +1039,136 @@
           "type": "string"
         },
         {
-          "name": "file_json",
+          "name": "task_id",
           "display_name": {
-            "en_US": "File JSON",
-            "zh_Hans": "文件 JSON"
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Task node ID of the workflow task to approve or reject.",
+              "zh_Hans": "要同意或拒绝的审批任务节点 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "actioner_user_id",
+          "display_name": {
+            "en_US": "Actioner User ID",
+            "zh_Hans": "处理人 userId"
           },
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Optional JSON object describing workflow comment photos and/or attachments.",
-              "zh_Hans": "描述审批评论图片和/或附件的 JSON 对象，可选。"
+              "en_US": "Optional DingTalk user ID of the actor executing the workflow task. This maps to actionerUserId in the API. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "执行审批任务的钉钉用户 userId，对应接口中的 actionerUserId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Optional. Provide a JSON object with photos and/or attachments. Attachment items should include fields like spaceId, fileSize, fileId, fileName, and fileType.",
-              "zh_Hans": "可选。填写包含 photos 和/或 attachments 的 JSON 对象。附件项应包含 spaceId、fileSize、fileId、fileName、fileType 等字段。"
+              "en_US": "Optional. Leave blank to resolve actionerUserId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 actionerUserId。"
             },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
+            "component": "input"
           },
           "type": "string"
+        },
+        {
+          "name": "result",
+          "display_name": {
+            "en_US": "Result",
+            "zh_Hans": "处理结果"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Execution result for the workflow task: use agree to approve or refuse to reject.",
+              "zh_Hans": "审批任务的处理结果：agree 表示同意，refuse 表示拒绝。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Use agree to approve the current task or refuse to reject it. DingTalk requires tasks to be executed in approval-node order.",
+              "zh_Hans": "agree 表示同意，refuse 表示拒绝。钉钉要求按审批节点顺序处理任务。"
+            },
+            "options": [
+              {
+                "label": {
+                  "en_US": "Approve",
+                  "zh_Hans": "同意"
+                },
+                "value": "agree"
+              },
+              {
+                "label": {
+                  "en_US": "Reject",
+                  "zh_Hans": "拒绝"
+                },
+                "value": "refuse"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "agree",
+            "refuse"
+          ]
+        },
+        {
+          "name": "remark",
+          "display_name": {
+            "en_US": "Remark",
+            "zh_Hans": "备注"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional remark to include with the approval or rejection.",
+              "zh_Hans": "审批同意或拒绝时附带的备注文本，可选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Useful for approval comments or rejection reasons. DingTalk documents this task-execution API for internal apps.",
+              "zh_Hans": "可选。可填写审批意见或拒绝原因。钉钉文档说明该任务处理接口面向内部应用。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional image file to include while executing the workflow task. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.",
+              "zh_Hans": "处理审批任务时附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Select an image file to send with the task execution.",
+              "zh_Hans": "可选。选择要随审批任务处理一并发送的图片文件。"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
         }
       ]
     },
@@ -1020,11 +1226,15 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Workflow attachment file ID to download.",
-              "zh_Hans": "要下载的审批附件文件 ID。"
+              "en_US": "The fileId uploaded in a workflow form component. Comment attachment fileIds are not supported for download links yet.",
+              "zh_Hans": "审批组件中上传的 fileId。评论中上传的附件 fileId 暂不支持获取下载链接。"
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "Use the fileId from a workflow form component. Comment attachment fileIds are not supported for download links yet.",
+              "zh_Hans": "请填写审批表单组件中上传的 fileId。评论附件中的 fileId 暂不支持获取下载链接。"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"
@@ -1107,14 +1317,18 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Start time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.",
-              "zh_Hans": "筛选审批实例的开始时间。可填写 Unix 毫秒时间戳或 ISO 日期时间。"
+              "en_US": "Required start time for filtering process instances. Supports Unix millisecond timestamps and absolute EN/ZH date-time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values resolve to the start of that day in the runtime local timezone.",
+              "zh_Hans": "筛选审批实例的开始时间，必填。支持 Unix 毫秒时间戳，以及多种中英文绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按运行时本地时区的当天开始时间解析。"
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "Required. Supports Unix ms timestamps and absolute date/time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values use the start of that day.",
+              "zh_Hans": "必填。支持 Unix 毫秒时间戳，以及多种绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按当天开始时间处理。"
+            },
             "placeholder": {
-              "en_US": "Unix ms timestamp or ISO datetime",
-              "zh_Hans": "Unix 毫秒时间戳或 ISO 日期时间"
+              "en_US": "e.g. 2026-04-15 14:30 or April 15, 2026 2:30 PM",
+              "zh_Hans": "例如 2026-04-15 14:30 或 2026年4月15日 14:30"
             },
             "support_expression": true,
             "width": "full",
@@ -1131,14 +1345,18 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Optional end time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.",
-              "zh_Hans": "筛选审批实例的结束时间，可选。可填写 Unix 毫秒时间戳或 ISO 日期时间。"
+              "en_US": "Optional end time for filtering process instances. Supports the same absolute EN/ZH date-time formats as start_time. Date-only values resolve to the end of that day in the runtime local timezone. Reject ambiguous numeric dates like 04/05/2026.",
+              "zh_Hans": "筛选审批实例的结束时间，可选。支持与 start_time 相同的中英文绝对日期时间格式。仅填写日期时会按运行时本地时区的当天结束时间解析；像 04/05/2026 这类有歧义的纯数字日期会被拒绝。"
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "Optional. Supports the same absolute formats as Start Time. Date-only values use the end of that day.",
+              "zh_Hans": "可选。支持与开始时间相同的绝对日期时间格式。仅填写日期时会按当天结束时间处理。"
+            },
             "placeholder": {
-              "en_US": "Unix ms timestamp or ISO datetime",
-              "zh_Hans": "Unix 毫秒时间戳或 ISO 日期时间"
+              "en_US": "e.g. 2026-04-15, 2026/04/15 14:30:00, or 2026年4月15日 14:30",
+              "zh_Hans": "例如 2026-04-15、2026/04/15 14:30:00 或 April 15, 2026 2:30 PM"
             },
             "support_expression": true,
             "width": "full",
@@ -1290,168 +1508,21 @@
             "en_US": "User ID",
             "zh_Hans": "用户 ID"
           },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "DingTalk user ID used to query workflow attachment space info.",
-              "zh_Hans": "用于查询审批附件空间信息的钉钉用户 userId。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "agent_id",
-          "display_name": {
-            "en_US": "Agent ID",
-            "zh_Hans": "Agent ID"
-          },
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Optional agent ID for the DingTalk app whose workflow space info is needed.",
-              "zh_Hans": "需要查询审批空间信息的钉钉应用 Agent ID，可选。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "dingtalk-workflow-update-process-instance",
-      "display_name": {
-        "en_US": "Update Process Instance",
-        "zh_Hans": "更新流程审批实例"
-      },
-      "description": {
-        "en_US": "Update a workflow process instance with variables and remark.",
-        "zh_Hans": "更新流程审批实例的表单变量和备注。"
-      },
-      "icon": "✏️",
-      "parameters": [
-        {
-          "name": "credential_id",
-          "display_name": {
-            "en_US": "Credential",
-            "zh_Hans": "凭证"
-          },
-          "required": true,
-          "ui": {
-            "component": "credential-select"
-          },
-          "type": "credential_id",
-          "credential_name": "dingtalk-app"
-        },
-        {
-          "name": "op_user_id",
-          "display_name": {
-            "en_US": "Operator User ID",
-            "zh_Hans": "操作人 userId"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "User ID of the operator performing the workflow process instance update.",
-              "zh_Hans": "执行流程审批实例更新操作的用户 userId。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "process_code",
-          "display_name": {
-            "en_US": "Process Code",
-            "zh_Hans": "审批流编码"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Optional workflow process code for the instance being updated.",
-              "zh_Hans": "要更新的实例所属审批流编码，可选。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "process_instance_id",
-          "display_name": {
-            "en_US": "Process Instance ID",
-            "zh_Hans": "审批实例 ID"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "Workflow process instance ID to update.",
-              "zh_Hans": "要更新的流程审批实例 ID。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "variables_json",
-          "display_name": {
-            "en_US": "Variables JSON",
-            "zh_Hans": "变量 JSON"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "JSON array of workflow variable objects. Each item must include id and value, and may include bizAlias or extValue.",
-              "zh_Hans": "流程变量对象组成的 JSON 数组。每项必须包含 id 和 value，也可以包含 bizAlias 或 extValue。"
+              "en_US": "Optional DingTalk user ID used to query workflow attachment space info. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "用于查询审批附件空间信息的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Provide a JSON array of variable objects. Each item should include an id and value, and can also include bizAlias or extValue.",
-              "zh_Hans": "填写变量对象组成的 JSON 数组。每项至少应包含 id 和 value，也可以附带 bizAlias 或 extValue。"
+              "en_US": "Optional. Leave blank to resolve userId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。"
             },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
-          },
-          "type": "string"
-        },
-        {
-          "name": "remark",
-          "display_name": {
-            "en_US": "Remark",
-            "zh_Hans": "备注"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Optional remark text to save with the workflow update.",
-              "zh_Hans": "随流程更新一并保存的备注文本，可选。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "textarea"
+            "component": "input"
           },
           "type": "string"
         }
@@ -1488,14 +1559,18 @@
             "en_US": "User ID",
             "zh_Hans": "用户 ID"
           },
-          "required": true,
+          "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "DingTalk user ID whose visible workflow templates should be listed.",
-              "zh_Hans": "要列出其可见审批模板的钉钉用户 userId。"
+              "en_US": "Optional DingTalk user ID whose visible workflow templates should be listed. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "要列出其可见审批模板的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
             }
           },
           "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve userId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。"
+            },
             "support_expression": true,
             "width": "full",
             "component": "input"

@@ -9,16 +9,16 @@ import { batchSendRobotMessageTool } from "./tools/robots/batch-send-robot-messa
 import { downloadRobotMessageFileTool } from "./tools/robots/download-robot-message-file"
 import { recallDingMessageTool } from "./tools/robots/recall-ding-message"
 import { sendDingMessageTool } from "./tools/robots/send-ding-message"
-import { getUserByMobileTool } from "./tools/users/get-user-by-mobile"
 import { getUserTool } from "./tools/users/get-user"
+import { getUserByMobileTool } from "./tools/users/get-user-by-mobile"
 import { searchUsersTool } from "./tools/users/search-users"
 import { addProcessCommentTool } from "./tools/workflows/add-process-comment"
 import { downloadProcessAttachmentTool } from "./tools/workflows/download-process-attachment"
+import { executeProcessTaskTool } from "./tools/workflows/execute-process-task"
 import { getProcessInstanceTool } from "./tools/workflows/get-process-instance"
 import { getProcessSpaceInfoTool } from "./tools/workflows/get-process-space-info"
 import { listProcessInstanceIdsTool } from "./tools/workflows/list-process-instance-ids"
 import { listVisibleProcessTemplatesTool } from "./tools/workflows/list-visible-process-templates"
-import { updateProcessInstanceTool } from "./tools/workflows/update-process-instance"
 
 await loadAllLocalesAsync()
 
@@ -47,10 +47,10 @@ for (const tool of [
   searchUsersTool,
   getProcessInstanceTool,
   addProcessCommentTool,
+  executeProcessTaskTool,
   downloadProcessAttachmentTool,
   listProcessInstanceIdsTool,
   getProcessSpaceInfoTool,
-  updateProcessInstanceTool,
   listVisibleProcessTemplatesTool,
 ]) {
   plugin.addTool(tool)

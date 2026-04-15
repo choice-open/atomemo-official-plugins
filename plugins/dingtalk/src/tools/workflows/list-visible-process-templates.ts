@@ -1,13 +1,21 @@
 import { z } from "zod"
 import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
-import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
+import {
+  dingtalkRequest,
+  resolveCredential,
+  resolveOperatorUserId,
+} from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
-import { coercedNumber, nonEmptyString, parseParams } from "../../lib/schemas"
+import {
+  coercedNumber,
+  optionalTrimmedString,
+  parseParams,
+} from "../../lib/schemas"
 
 const paramsSchema = z.object({
   credential_id: z.string(),
-  user_id: nonEmptyString,
+  user_id: optionalTrimmedString,
   max_results: coercedNumber.default(100),
   next_token: coercedNumber.default(0),
 })
@@ -22,13 +30,14 @@ export const listVisibleProcessTemplatesTool: ToolDefinition = {
     {
       name: "user_id",
       type: "string",
-      required: true,
+      required: false,
       display_name: t("PARAM_USER_ID_LABEL"),
       ai: {
         llm_description: t("WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION"),
       },
       ui: {
         component: "input",
+        hint: t("PARAM_USER_ID_HINT"),
         support_expression: true,
         width: "full",
       },
@@ -72,11 +81,12 @@ export const listVisibleProcessTemplatesTool: ToolDefinition = {
   async invoke({ args }): Promise<JsonValue> {
     const params = parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
+    const userId = params.user_id ?? (await resolveOperatorUserId(credential))
     return dingtalkRequest(credential, {
       method: "GET",
       path: "/workflow/processes/userVisibilities/templates",
       query: {
-        userId: params.user_id,
+        userId,
         maxResults: params.max_results,
         nextToken: params.next_token,
       },

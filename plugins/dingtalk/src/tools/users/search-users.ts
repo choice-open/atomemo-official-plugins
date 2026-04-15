@@ -30,6 +30,7 @@ export const searchUsersTool: ToolDefinition = {
       },
       ui: {
         component: "input",
+        hint: t("PARAM_QUERY_WORD_HINT"),
         support_expression: true,
         width: "full",
       },

@@ -1,22 +1,25 @@
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import {
   coercedNumber,
   nonEmptyString,
+  optionalDateTimeRangeEndMs,
   optionalStringArray,
   parseParams,
-  requiredTimestampMs,
-  timestampMs,
+  requiredDateTimeRangeStartMs,
 } from "../../lib/schemas"
 
 const paramsSchema = z.object({
   credential_id: z.string(),
   process_code: nonEmptyString,
-  start_time: requiredTimestampMs,
-  end_time: timestampMs,
+  start_time: requiredDateTimeRangeStartMs,
+  end_time: optionalDateTimeRangeEndMs,
   user_ids: optionalStringArray,
   statuses: optionalStringArray,
   max_results: coercedNumber.default(20),
@@ -36,7 +39,9 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       required: true,
       display_name: t("PARAM_PROCESS_CODE_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION",
+        ),
       },
       ui: {
         component: "input",
@@ -50,9 +55,12 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       required: true,
       display_name: t("PARAM_START_TIME_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION",
+        ),
       },
       ui: {
+        hint: t("PARAM_START_TIME_HINT"),
         component: "input",
         placeholder: t("PARAM_START_TIME_PLACEHOLDER"),
         support_expression: true,
@@ -65,9 +73,12 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       required: false,
       display_name: t("PARAM_END_TIME_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION",
+        ),
       },
       ui: {
+        hint: t("PARAM_END_TIME_HINT"),
         component: "input",
         placeholder: t("PARAM_END_TIME_PLACEHOLDER"),
         support_expression: true,
@@ -95,12 +106,7 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       items: {
         name: "statuses_item",
         type: "string",
-        enum: [
-          "RUNNING",
-          "TERMINATED",
-          "COMPLETED",
-          "COMPLETED_WITH_BLANKS",
-        ],
+        enum: ["RUNNING", "TERMINATED", "COMPLETED", "COMPLETED_WITH_BLANKS"],
       },
       ui: {
         component: "multi-select",
@@ -124,7 +130,9 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       maximum: 100,
       display_name: t("PARAM_MAX_RESULTS_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION",
+        ),
       },
       ui: {
         component: "number-input",
@@ -139,7 +147,9 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       minimum: 0,
       display_name: t("PARAM_NEXT_TOKEN_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION",
+        ),
       },
       ui: {
         component: "number-input",
@@ -149,8 +159,13 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
   ],
   async invoke({ args }): Promise<JsonValue> {
     const params = parseParams(paramsSchema, args.parameters)
+    if (params.end_time !== undefined && params.end_time < params.start_time) {
+      throw new Error("end_time must be greater than or equal to start_time.")
+    }
+
     const credential = resolveCredential(args)
 
+    // api doc url: https://open.dingtalk.com/document/development/obtain-an-approval-list-of-instance-ids
     return dingtalkRequest(credential, {
       method: "POST",
       path: "/workflow/processes/instanceIds/query",

@@ -10,6 +10,7 @@ export type DingtalkAppCredential = {
   client_id?: string
   client_secret?: string
   user_union_id?: string
+  agent_id?: string
 }
 
 type DingtalkRequestOptions = {
@@ -27,6 +28,7 @@ type TokenCacheEntry = {
 }
 
 const tokenCache = new Map<string, TokenCacheEntry>()
+const unionIdUserIdCache = new Map<string, string>()
 
 function credentialCacheKey(credential: DingtalkAppCredential): string {
   return JSON.stringify([
@@ -356,21 +358,63 @@ export function resolveCredential(
   return credential as DingtalkAppCredential
 }
 
-export function resolveOperatorId(
-  parameters: Record<string, unknown>,
-  credential: DingtalkAppCredential,
-): string {
-  const operatorId =
-    asNonEmptyString(parameters.operator_id) ??
-    asNonEmptyString(credential.user_union_id)
+export function resolveOperatorId(credential: DingtalkAppCredential): string {
+  const operatorId = asNonEmptyString(credential.user_union_id)
 
   if (!operatorId) {
     throw new Error(
-      "This operation requires an operator unionId. Set operator_id on the tool or user_union_id on the credential.",
+      "This operation requires a default operator unionId on the credential. Set user_union_id on the DingTalk credential.",
     )
   }
 
   return operatorId
+}
+
+export async function getUserIdByUnionId(
+  credential: DingtalkAppCredential,
+  unionId: string,
+): Promise<string> {
+  const normalizedUnionId = asNonEmptyString(unionId)
+  if (!normalizedUnionId) {
+    throw new Error("A non-empty unionId is required to resolve a DingTalk userId.")
+  }
+
+  const cacheKey = JSON.stringify([credentialCacheKey(credential), normalizedUnionId])
+  const cachedUserId = unionIdUserIdCache.get(cacheKey)
+  if (cachedUserId) return cachedUserId
+
+  const response = await dingtalkRequest<{
+    result?: {
+      userid?: unknown
+    }
+    userid?: unknown
+  }>(credential, {
+    method: "POST",
+    url: "https://oapi.dingtalk.com/topapi/user/getbyunionid",
+    body: {
+      unionid: normalizedUnionId,
+    },
+  })
+
+  const userId =
+    asNonEmptyString(response.result?.userid) ??
+    asNonEmptyString(response.userid)
+
+  if (!userId) {
+    throw new Error(
+      "DingTalk user lookup by unionId did not return a userid.",
+    )
+  }
+
+  unionIdUserIdCache.set(cacheKey, userId)
+  return userId
+}
+
+export async function resolveOperatorUserId(
+  credential: DingtalkAppCredential,
+): Promise<string> {
+  const operatorUnionId = resolveOperatorId(credential)
+  return getUserIdByUnionId(credential, operatorUnionId)
 }
 
 export function parseJsonParameter<T>(
@@ -416,4 +460,5 @@ export function guessExtension(filename: string, mimeType: string): string | nul
 
 export function resetTokenCacheForTests() {
   tokenCache.clear()
+  unionIdUserIdCache.clear()
 }

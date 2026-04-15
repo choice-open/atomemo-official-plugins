@@ -1,4 +1,4 @@
-import type { Property, PropertyCredentialId } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { PropertyCredentialId } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "./i18n"
 import { DINGTALK_APP_CREDENTIAL_NAME } from "./dingtalk"
 
@@ -12,22 +12,5 @@ export const credentialParameter: PropertyCredentialId<"credential_id"> = {
   display_name: t("PARAM_CREDENTIAL_LABEL"),
   ui: {
     component: "credential-select",
-  },
-}
-
-export const operatorParameter: Property<"operator_id"> = {
-  name: "operator_id",
-  type: "string",
-  required: false,
-  display_name: t("PARAM_OPERATOR_ID_LABEL"),
-  ai: {
-    llm_description: t("PARAM_OPERATOR_ID_LLM_DESCRIPTION"),
-  },
-  ui: {
-    component: "input",
-    hint: t("PARAM_OPERATOR_ID_HINT"),
-    placeholder: t("PARAM_OPERATOR_ID_PLACEHOLDER"),
-    support_expression: true,
-    width: "full",
   },
 }
