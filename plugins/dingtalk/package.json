@@ -2,11 +2,11 @@
   "name": "dingtalk",
   "type": "module",
   "version": "0.1.0",
-  "description": "DingTalk integration for Atomemo: AI tables, documents, users, approvals, robots, and stream events",
+  "description": "DingTalk integration for Atomemo: users, approvals, documents, and robots",
   "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",
-  "homepage": "",
-  "repository": "",
+  "homepage": "https://github.com/choice-open/atomemo-official-plugins/plugins/dingtalk#readme",
+  "repository": "https://github.com/choice-open/atomemo-official-plugins/plugins/dingtalk",
   "exports": {
     ".": "./dist/index.mjs",
     "./package.json": "./package.json"

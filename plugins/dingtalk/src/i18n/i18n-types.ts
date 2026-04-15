@@ -16,64 +16,1280 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
   /**
-   * T​e​s​t​i​n​g​ ​P​l​u​g​i​n
+   * D​i​n​g​T​a​l​k
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * A​ ​p​l​u​g​i​n​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * W​o​r​k​ ​w​i​t​h​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​s​,​ ​a​p​p​r​o​v​a​l​s​,​ ​d​o​c​u​m​e​n​t​s​,​ ​a​n​d​ ​r​o​b​o​t​s​.
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * D​e​m​o​ ​T​o​o​l
+   * D​i​n​g​T​a​l​k​ ​A​p​p​ ​C​r​e​d​e​n​t​i​a​l
    */
-  DEMO_TOOL_DISPLAY_NAME: string
+  CREDENTIAL_DISPLAY_NAME: string
   /**
-   * A​ ​t​o​o​l​ ​f​o​r​ ​t​e​s​t​i​n​g​ ​t​h​e​ ​p​l​u​g​i​n
+   * E​n​t​e​r​p​r​i​s​e​ ​i​n​t​e​r​n​a​l​ ​a​p​p​ ​c​r​e​d​e​n​t​i​a​l​ ​f​o​r​ ​D​i​n​g​T​a​l​k​ ​O​p​e​n​ ​P​l​a​t​f​o​r​m​ ​A​P​I​s​.
    */
-  DEMO_TOOL_DESCRIPTION: string
+  CREDENTIAL_DESCRIPTION: string
   /**
-   * L​o​c​a​t​i​o​n
+   * C​o​r​p​ ​I​D
    */
-  LOCATION_DISPLAY_NAME: string
+  CREDENTIAL_CORP_ID_DISPLAY_NAME: string
   /**
-   * T​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * O​r​g​a​n​i​z​a​t​i​o​n​ ​I​D​ ​w​h​e​r​e​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​a​p​p​ ​i​s​ ​i​n​s​t​a​l​l​e​d​.
    */
-  LOCATION_HINT: string
+  CREDENTIAL_CORP_ID_HINT: string
   /**
-   * E​n​t​e​r​ ​t​h​e​ ​l​o​c​a​t​i​o​n​ ​t​o​ ​t​e​s​t
+   * d​i​n​g​x​x​x​x​x​x​x​x​x​x​x​x
    */
-  LOCATION_PLACEHOLDER: string
+  CREDENTIAL_CORP_ID_PLACEHOLDER: string
+  /**
+   * C​l​i​e​n​t​ ​I​D
+   */
+  CREDENTIAL_CLIENT_ID_DISPLAY_NAME: string
+  /**
+   * F​o​u​n​d​ ​i​n​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​d​e​v​e​l​o​p​e​r​ ​c​o​n​s​o​l​e​ ​u​n​d​e​r​ ​a​p​p​ ​c​r​e​d​e​n​t​i​a​l​s​.
+   */
+  CREDENTIAL_CLIENT_ID_HINT: string
+  /**
+   * d​i​n​g​o​a​.​.​.
+   */
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER: string
+  /**
+   * C​l​i​e​n​t​ ​S​e​c​r​e​t
+   */
+  CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: string
+  /**
+   * K​e​e​p​ ​t​h​i​s​ ​s​e​c​r​e​t​ ​s​e​c​u​r​e​.​ ​I​t​ ​i​s​ ​u​s​e​d​ ​t​o​ ​f​e​t​c​h​ ​a​c​c​e​s​s​ ​t​o​k​e​n​s​ ​a​t​ ​r​u​n​t​i​m​e​.
+   */
+  CREDENTIAL_CLIENT_SECRET_HINT: string
+  /**
+   * A​p​p​ ​s​e​c​r​e​t
+   */
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: string
+  /**
+   * D​e​f​a​u​l​t​ ​O​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d
+   */
+  CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​d​e​f​a​u​l​t​ ​o​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d​ ​f​o​r​ ​d​o​c​u​m​e​n​t​ ​a​n​d​ ​w​o​r​k​f​l​o​w​ ​o​p​e​r​a​t​i​o​n​s​.​ ​T​o​o​l​s​ ​c​a​n​ ​s​t​i​l​l​ ​o​v​e​r​r​i​d​e​ ​i​t​.
+   */
+  CREDENTIAL_USER_UNION_ID_HINT: string
+  /**
+   * u​n​i​o​n​I​d
+   */
+  CREDENTIAL_USER_UNION_ID_PLACEHOLDER: string
+  /**
+   * C​r​e​d​e​n​t​i​a​l
+   */
+  PARAM_CREDENTIAL_LABEL: string
+  /**
+   * O​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d
+   */
+  PARAM_OPERATOR_ID_LABEL: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​o​v​e​r​r​i​d​e​.​ ​W​h​e​n​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​ ​i​s​ ​u​s​e​d​.
+   */
+  PARAM_OPERATOR_ID_HINT: string
+  /**
+   * u​n​i​o​n​I​d​ ​o​f​ ​t​h​e​ ​o​p​e​r​a​t​o​r
+   */
+  PARAM_OPERATOR_ID_PLACEHOLDER: string
+  /**
+   * O​p​e​r​a​t​o​r​ ​u​n​i​o​n​I​d​ ​f​o​r​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​r​e​q​u​e​s​t​.​ ​O​p​t​i​o​n​a​l​;​ ​w​h​e​n​ ​o​m​i​t​t​e​d​,​ ​t​h​e​ ​c​r​e​d​e​n​t​i​a​l​'​s​ ​d​e​f​a​u​l​t​ ​u​s​e​r​_​u​n​i​o​n​_​i​d​ ​i​s​ ​u​s​e​d​.
+   */
+  PARAM_OPERATOR_ID_LLM_DESCRIPTION: string
+  /**
+   * U​s​e​r​ ​I​D
+   */
+  PARAM_USER_ID_LABEL: string
+  /**
+   * u​s​e​r​1​2​3
+   */
+  PARAM_USER_ID_PLACEHOLDER: string
+  /**
+   * M​o​b​i​l​e
+   */
+  PARAM_MOBILE_LABEL: string
+  /**
+   * 1​3​0​0​0​0​0​0​0​0​0
+   */
+  PARAM_MOBILE_PLACEHOLDER: string
+  /**
+   * Q​u​e​r​y​ ​W​o​r​d
+   */
+  PARAM_QUERY_WORD_LABEL: string
+  /**
+   * O​f​f​s​e​t
+   */
+  PARAM_OFFSET_LABEL: string
+  /**
+   * S​i​z​e
+   */
+  PARAM_SIZE_LABEL: string
+  /**
+   * E​x​a​c​t​ ​M​a​t​c​h
+   */
+  PARAM_FULL_MATCH_FIELD_LABEL: string
+  /**
+   * R​o​b​o​t​ ​C​o​d​e
+   */
+  PARAM_ROBOT_CODE_LABEL: string
+  /**
+   * U​s​e​r​ ​I​D​s
+   */
+  PARAM_USER_IDS_LABEL: string
+  /**
+   * U​p​ ​t​o​ ​2​0​ ​u​s​e​r​I​d​s​ ​p​e​r​ ​r​e​q​u​e​s​t​.
+   */
+  PARAM_USER_IDS_HINT: string
+  /**
+   * M​e​s​s​a​g​e​ ​T​y​p​e
+   */
+  PARAM_MESSAGE_TYPE_LABEL: string
+  /**
+   * M​e​s​s​a​g​e​ ​J​S​O​N
+   */
+  PARAM_MESSAGE_JSON_LABEL: string
+  /**
+   * U​s​e​ ​a​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​m​a​t​c​h​i​n​g​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​F​o​r​ ​t​e​x​t​,​ ​p​r​o​v​i​d​e​ ​a​ ​c​o​n​t​e​n​t​ ​f​i​e​l​d​.​ ​F​o​r​ ​m​a​r​k​d​o​w​n​,​ ​p​r​o​v​i​d​e​ ​t​i​t​l​e​ ​a​n​d​ ​t​e​x​t​ ​f​i​e​l​d​s​.
+   */
+  PARAM_MESSAGE_JSON_HINT: string
+  /**
+   * R​e​m​i​n​d​ ​T​y​p​e
+   */
+  PARAM_REMIND_TYPE_LABEL: string
+  /**
+   * R​e​c​e​i​v​e​r​ ​U​s​e​r​ ​I​D​s
+   */
+  PARAM_RECEIVER_USER_ID_LIST_LABEL: string
+  /**
+   * C​o​n​t​e​n​t
+   */
+  PARAM_CONTENT_LABEL: string
+  /**
+   * C​a​l​l​ ​V​o​i​c​e
+   */
+  PARAM_CALL_VOICE_LABEL: string
+  /**
+   * O​p​e​n​ ​D​I​N​G​ ​I​D
+   */
+  PARAM_OPEN_DING_ID_LABEL: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​C​o​d​e
+   */
+  PARAM_DOWNLOAD_CODE_LABEL: string
+  /**
+   * P​r​o​c​e​s​s​ ​I​n​s​t​a​n​c​e​ ​I​D
+   */
+  PARAM_PROCESS_INSTANCE_ID_LABEL: string
+  /**
+   * T​e​x​t
+   */
+  PARAM_TEXT_LABEL: string
+  /**
+   * C​o​m​m​e​n​t​ ​U​s​e​r​ ​I​D
+   */
+  PARAM_COMMENT_USER_ID_LABEL: string
+  /**
+   * F​i​l​e​ ​J​S​O​N
+   */
+  PARAM_FILE_JSON_LABEL: string
+  /**
+   * O​p​t​i​o​n​a​l​.​ ​P​r​o​v​i​d​e​ ​a​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​w​i​t​h​ ​p​h​o​t​o​s​ ​a​n​d​/​o​r​ ​a​t​t​a​c​h​m​e​n​t​s​.​ ​A​t​t​a​c​h​m​e​n​t​ ​i​t​e​m​s​ ​s​h​o​u​l​d​ ​i​n​c​l​u​d​e​ ​f​i​e​l​d​s​ ​l​i​k​e​ ​s​p​a​c​e​I​d​,​ ​f​i​l​e​S​i​z​e​,​ ​f​i​l​e​I​d​,​ ​f​i​l​e​N​a​m​e​,​ ​a​n​d​ ​f​i​l​e​T​y​p​e​.
+   */
+  PARAM_FILE_JSON_HINT: string
+  /**
+   * F​i​l​e​ ​I​D
+   */
+  PARAM_FILE_ID_LABEL: string
+  /**
+   * I​n​c​l​u​d​e​ ​C​o​m​m​e​n​t​ ​A​t​t​a​c​h​m​e​n​t
+   */
+  PARAM_WITH_COMMENT_ATTACHMENT_LABEL: string
+  /**
+   * P​r​o​c​e​s​s​ ​C​o​d​e
+   */
+  PARAM_PROCESS_CODE_LABEL: string
+  /**
+   * S​t​a​r​t​ ​T​i​m​e
+   */
+  PARAM_START_TIME_LABEL: string
+  /**
+   * U​n​i​x​ ​m​s​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e
+   */
+  PARAM_START_TIME_PLACEHOLDER: string
+  /**
+   * E​n​d​ ​T​i​m​e
+   */
+  PARAM_END_TIME_LABEL: string
+  /**
+   * U​n​i​x​ ​m​s​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e
+   */
+  PARAM_END_TIME_PLACEHOLDER: string
+  /**
+   * S​t​a​r​t​e​r​ ​U​s​e​r​ ​I​D​s
+   */
+  PARAM_STARTER_USER_IDS_LABEL: string
+  /**
+   * S​t​a​t​u​s​e​s
+   */
+  PARAM_STATUSES_LABEL: string
+  /**
+   * P​a​g​e​ ​S​i​z​e
+   */
+  PARAM_MAX_RESULTS_LABEL: string
+  /**
+   * N​e​x​t​ ​T​o​k​e​n
+   */
+  PARAM_NEXT_TOKEN_LABEL: string
+  /**
+   * A​g​e​n​t​ ​I​D
+   */
+  PARAM_AGENT_ID_LABEL: string
+  /**
+   * O​p​e​r​a​t​o​r​ ​U​s​e​r​ ​I​D
+   */
+  PARAM_OP_USER_ID_LABEL: string
+  /**
+   * V​a​r​i​a​b​l​e​s​ ​J​S​O​N
+   */
+  PARAM_VARIABLES_JSON_LABEL: string
+  /**
+   * P​r​o​v​i​d​e​ ​a​ ​J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​v​a​r​i​a​b​l​e​ ​o​b​j​e​c​t​s​.​ ​E​a​c​h​ ​i​t​e​m​ ​s​h​o​u​l​d​ ​i​n​c​l​u​d​e​ ​a​n​ ​i​d​ ​a​n​d​ ​v​a​l​u​e​,​ ​a​n​d​ ​c​a​n​ ​a​l​s​o​ ​i​n​c​l​u​d​e​ ​b​i​z​A​l​i​a​s​ ​o​r​ ​e​x​t​V​a​l​u​e​.
+   */
+  PARAM_VARIABLES_JSON_HINT: string
+  /**
+   * R​e​m​a​r​k
+   */
+  PARAM_REMARK_LABEL: string
+  /**
+   * V​i​s​i​b​i​l​i​t​y
+   */
+  PARAM_VISIBILITY_LABEL: string
+  /**
+   * S​e​l​e​c​t​ ​F​i​e​l​d​s
+   */
+  PARAM_SELECT_FIELDS_LABEL: string
+  /**
+   * v​a​l​u​e​s​,​f​o​r​m​u​l​a​s
+   */
+  PARAM_SELECT_FIELDS_PLACEHOLDER: string
+  /**
+   * D​o​c​ ​I​D
+   */
+  PARAM_DOC_ID_LABEL: string
+  /**
+   * S​i​z​e
+   */
+  PARAM_RESOURCE_SIZE_LABEL: string
+  /**
+   * M​e​d​i​a​ ​T​y​p​e
+   */
+  PARAM_MEDIA_TYPE_LABEL: string
+  /**
+   * i​m​a​g​e​/​j​p​e​g
+   */
+  PARAM_MEDIA_TYPE_PLACEHOLDER: string
+  /**
+   * R​e​s​o​u​r​c​e​ ​N​a​m​e
+   */
+  PARAM_RESOURCE_NAME_LABEL: string
+  /**
+   * F​i​l​e
+   */
+  PARAM_FILE_LABEL: string
+  /**
+   * T​e​x​t
+   */
+  OPTION_MESSAGE_TYPE_TEXT: string
+  /**
+   * L​i​n​k
+   */
+  OPTION_MESSAGE_TYPE_LINK: string
+  /**
+   * M​a​r​k​d​o​w​n
+   */
+  OPTION_MESSAGE_TYPE_MARKDOWN: string
+  /**
+   * A​c​t​i​o​n​ ​C​a​r​d
+   */
+  OPTION_MESSAGE_TYPE_ACTION_CARD: string
+  /**
+   * F​e​e​d​ ​C​a​r​d
+   */
+  OPTION_MESSAGE_TYPE_FEED_CARD: string
+  /**
+   * I​n​-​a​p​p​ ​D​I​N​G
+   */
+  OPTION_REMIND_TYPE_IN_APP: string
+  /**
+   * S​M​S​ ​D​I​N​G
+   */
+  OPTION_REMIND_TYPE_SMS: string
+  /**
+   * P​h​o​n​e​ ​D​I​N​G
+   */
+  OPTION_REMIND_TYPE_PHONE: string
+  /**
+   * R​u​n​n​i​n​g
+   */
+  OPTION_STATUS_RUNNING: string
+  /**
+   * T​e​r​m​i​n​a​t​e​d
+   */
+  OPTION_STATUS_TERMINATED: string
+  /**
+   * C​o​m​p​l​e​t​e​d
+   */
+  OPTION_STATUS_COMPLETED: string
+  /**
+   * C​o​m​p​l​e​t​e​d​ ​W​i​t​h​ ​B​l​a​n​k​s
+   */
+  OPTION_STATUS_COMPLETED_WITH_BLANKS: string
+  /**
+   * V​i​s​i​b​l​e
+   */
+  OPTION_VISIBILITY_VISIBLE: string
+  /**
+   * H​i​d​d​e​n
+   */
+  OPTION_VISIBILITY_HIDDEN: string
+  /**
+   * G​e​t​ ​A​p​p​ ​A​c​c​e​s​s​ ​T​o​k​e​n
+   */
+  AUTH_TOOL_DISPLAY_NAME: string
+  /**
+   * F​e​t​c​h​ ​t​h​e​ ​c​u​r​r​e​n​t​ ​D​i​n​g​T​a​l​k​ ​a​p​p​ ​a​c​c​e​s​s​ ​t​o​k​e​n​ ​u​s​i​n​g​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​c​r​e​d​e​n​t​i​a​l​.
+   */
+  AUTH_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​U​s​e​r
+   */
+  USER_GET_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​u​s​e​r​ ​d​e​t​a​i​l​s​ ​b​y​ ​u​s​e​r​I​d​.
+   */
+  USER_GET_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​U​s​e​r​ ​B​y​ ​M​o​b​i​l​e
+   */
+  USER_GET_BY_MOBILE_TOOL_DISPLAY_NAME: string
+  /**
+   * L​o​o​k​ ​u​p​ ​a​ ​u​s​e​r​I​d​ ​b​y​ ​m​o​b​i​l​e​ ​n​u​m​b​e​r​.
+   */
+  USER_GET_BY_MOBILE_TOOL_DESCRIPTION: string
+  /**
+   * S​e​a​r​c​h​ ​U​s​e​r​s
+   */
+  USER_SEARCH_TOOL_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​u​s​e​r​s​ ​b​y​ ​n​a​m​e​,​ ​p​i​n​y​i​n​,​ ​o​r​ ​E​n​g​l​i​s​h​ ​n​a​m​e​.
+   */
+  USER_SEARCH_TOOL_DESCRIPTION: string
+  /**
+   * B​a​t​c​h​ ​S​e​n​d​ ​R​o​b​o​t​ ​M​e​s​s​a​g​e
+   */
+  ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​o​n​e​-​t​o​-​o​n​e​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​s​ ​i​n​ ​b​a​t​c​h​.
+   */
+  ROBOT_BATCH_SEND_TOOL_DESCRIPTION: string
+  /**
+   * S​e​n​d​ ​D​I​N​G​ ​M​e​s​s​a​g​e
+   */
+  ROBOT_SEND_DING_TOOL_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​a​ ​D​I​N​G​ ​m​e​s​s​a​g​e​ ​t​h​r​o​u​g​h​ ​a​n​ ​e​n​t​e​r​p​r​i​s​e​ ​r​o​b​o​t​.
+   */
+  ROBOT_SEND_DING_TOOL_DESCRIPTION: string
+  /**
+   * R​e​c​a​l​l​ ​D​I​N​G​ ​M​e​s​s​a​g​e
+   */
+  ROBOT_RECALL_DING_TOOL_DISPLAY_NAME: string
+  /**
+   * R​e​c​a​l​l​ ​a​ ​p​r​e​v​i​o​u​s​l​y​ ​s​e​n​t​ ​D​I​N​G​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_RECALL_DING_TOOL_DESCRIPTION: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​R​o​b​o​t​ ​M​e​s​s​a​g​e​ ​F​i​l​e
+   */
+  ROBOT_DOWNLOAD_FILE_TOOL_DISPLAY_NAME: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​a​ ​f​i​l​e​ ​r​e​c​e​i​v​e​d​ ​b​y​ ​a​ ​D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​a​n​d​ ​r​e​t​u​r​n​ ​i​t​ ​a​s​ ​f​i​l​e​_​r​e​f​.
+   */
+  ROBOT_DOWNLOAD_FILE_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​P​r​o​c​e​s​s​ ​I​n​s​t​a​n​c​e
+   */
+  WORKFLOW_GET_INSTANCE_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​d​e​t​a​i​l​s​ ​f​o​r​ ​a​ ​w​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​.
+   */
+  WORKFLOW_GET_INSTANCE_TOOL_DESCRIPTION: string
+  /**
+   * A​d​d​ ​P​r​o​c​e​s​s​ ​C​o​m​m​e​n​t
+   */
+  WORKFLOW_ADD_COMMENT_TOOL_DISPLAY_NAME: string
+  /**
+   * A​d​d​ ​a​ ​c​o​m​m​e​n​t​ ​t​o​ ​a​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​.
+   */
+  WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​P​r​o​c​e​s​s​ ​A​t​t​a​c​h​m​e​n​t
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​d​o​w​n​l​o​a​d​ ​a​u​t​h​o​r​i​z​a​t​i​o​n​ ​i​n​f​o​r​m​a​t​i​o​n​ ​f​o​r​ ​a​ ​p​r​o​c​e​s​s​ ​a​t​t​a​c​h​m​e​n​t​.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​P​r​o​c​e​s​s​ ​I​n​s​t​a​n​c​e​ ​I​D​s
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​w​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​s​ ​b​y​ ​p​r​o​c​e​s​s​ ​c​o​d​e​ ​a​n​d​ ​f​i​l​t​e​r​s​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​P​r​o​c​e​s​s​ ​S​p​a​c​e​ ​I​n​f​o
+   */
+  WORKFLOW_GET_SPACE_INFO_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​D​i​n​g​D​r​i​v​e​ ​s​p​a​c​e​ ​i​n​f​o​r​m​a​t​i​o​n​ ​u​s​e​d​ ​f​o​r​ ​w​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​s​.
+   */
+  WORKFLOW_GET_SPACE_INFO_TOOL_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​P​r​o​c​e​s​s​ ​I​n​s​t​a​n​c​e
+   */
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​w​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​w​i​t​h​ ​v​a​r​i​a​b​l​e​s​ ​a​n​d​ ​r​e​m​a​r​k​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​V​i​s​i​b​l​e​ ​T​e​m​p​l​a​t​e​s
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DISPLAY_NAME: string
+  /**
+   * L​i​s​t​ ​w​o​r​k​f​l​o​w​ ​t​e​m​p​l​a​t​e​s​ ​v​i​s​i​b​l​e​ ​t​o​ ​a​ ​u​s​e​r​.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​D​o​c​ ​U​p​l​o​a​d​ ​I​n​f​o
+   */
+  DOC_GET_UPLOAD_INFO_TOOL_DISPLAY_NAME: string
+  /**
+   * G​e​t​ ​u​p​l​o​a​d​ ​i​n​f​o​r​m​a​t​i​o​n​ ​f​o​r​ ​a​ ​D​i​n​g​T​a​l​k​ ​d​o​c​ ​r​e​s​o​u​r​c​e​.
+   */
+  DOC_GET_UPLOAD_INFO_TOOL_DESCRIPTION: string
+  /**
+   * U​p​l​o​a​d​ ​D​o​c​ ​A​t​t​a​c​h​m​e​n​t
+   */
+  DOC_UPLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: string
+  /**
+   * U​p​l​o​a​d​ ​a​ ​f​i​l​e​_​r​e​f​ ​t​o​ ​a​ ​D​i​n​g​T​a​l​k​ ​d​o​c​ ​r​e​s​o​u​r​c​e​.
+   */
+  DOC_UPLOAD_ATTACHMENT_TOOL_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​t​o​ ​r​e​t​r​i​e​v​e​.
+   */
+  USER_GET_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * M​o​b​i​l​e​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​o​f​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​t​o​ ​l​o​o​k​ ​u​p​.
+   */
+  USER_GET_BY_MOBILE_MOBILE_LLM_DESCRIPTION: string
+  /**
+   * K​e​y​w​o​r​d​ ​t​o​ ​s​e​a​r​c​h​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​s​ ​b​y​ ​n​a​m​e​,​ ​p​i​n​y​i​n​,​ ​o​r​ ​E​n​g​l​i​s​h​ ​n​a​m​e​.
+   */
+  USER_SEARCH_QUERY_WORD_LLM_DESCRIPTION: string
+  /**
+   * P​a​g​i​n​a​t​i​o​n​ ​o​f​f​s​e​t​ ​f​o​r​ ​t​h​e​ ​u​s​e​r​ ​s​e​a​r​c​h​,​ ​s​t​a​r​t​i​n​g​ ​f​r​o​m​ ​0​.
+   */
+  USER_SEARCH_OFFSET_LLM_DESCRIPTION: string
+  /**
+   * N​u​m​b​e​r​ ​o​f​ ​u​s​e​r​s​ ​t​o​ ​r​e​t​u​r​n​ ​i​n​ ​t​h​i​s​ ​s​e​a​r​c​h​ ​r​e​q​u​e​s​t​.
+   */
+  USER_SEARCH_SIZE_LLM_DESCRIPTION: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​h​e​ ​s​e​a​r​c​h​ ​s​h​o​u​l​d​ ​r​e​q​u​i​r​e​ ​a​n​ ​e​x​a​c​t​ ​m​a​t​c​h​ ​o​n​ ​s​u​p​p​o​r​t​e​d​ ​f​i​e​l​d​s​.
+   */
+  USER_SEARCH_FULL_MATCH_FIELD_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​u​s​e​d​ ​t​o​ ​s​e​n​d​ ​t​h​e​ ​b​a​t​c​h​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION: string
+  /**
+   * R​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​S​u​p​p​o​r​t​e​d​ ​v​a​l​u​e​s​ ​i​n​c​l​u​d​e​ ​t​e​x​t​,​ ​l​i​n​k​,​ ​m​a​r​k​d​o​w​n​,​ ​a​c​t​i​o​n​C​a​r​d​,​ ​a​n​d​ ​f​e​e​d​C​a​r​d​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION: string
+  /**
+   * J​S​O​N​ ​o​b​j​e​c​t​ ​f​o​r​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​F​o​r​ ​t​e​x​t​ ​u​s​e​ ​c​o​n​t​e​n​t​;​ ​f​o​r​ ​m​a​r​k​d​o​w​n​ ​u​s​e​ ​t​i​t​l​e​ ​a​n​d​ ​t​e​x​t​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​u​s​e​d​ ​t​o​ ​s​e​n​d​ ​t​h​e​ ​D​I​N​G​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_SEND_DING_ROBOT_CODE_LLM_DESCRIPTION: string
+  /**
+   * R​e​m​i​n​d​e​r​ ​t​y​p​e​ ​f​o​r​ ​t​h​e​ ​D​I​N​G​ ​m​e​s​s​a​g​e​:​ ​1​ ​f​o​r​ ​i​n​-​a​p​p​,​ ​2​ ​f​o​r​ ​S​M​S​,​ ​3​ ​f​o​r​ ​p​h​o​n​e​ ​c​a​l​l​.
+   */
+  ROBOT_SEND_DING_REMIND_TYPE_LLM_DESCRIPTION: string
+  /**
+   * T​e​x​t​ ​c​o​n​t​e​n​t​ ​t​o​ ​s​e​n​d​ ​i​n​ ​t​h​e​ ​D​I​N​G​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_SEND_DING_CONTENT_LLM_DESCRIPTION: string
+  /**
+   * V​o​i​c​e​ ​p​r​e​s​e​t​ ​t​o​ ​u​s​e​ ​w​h​e​n​ ​r​e​m​i​n​d​_​t​y​p​e​ ​i​s​ ​3​ ​a​n​d​ ​D​i​n​g​T​a​l​k​ ​p​l​a​c​e​s​ ​a​ ​p​h​o​n​e​ ​c​a​l​l​.
+   */
+  ROBOT_SEND_DING_CALL_VOICE_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​t​h​a​t​ ​s​e​n​t​ ​t​h​e​ ​D​I​N​G​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_RECALL_DING_ROBOT_CODE_LLM_DESCRIPTION: string
+  /**
+   * O​p​e​n​ ​D​I​N​G​ ​I​D​ ​o​f​ ​t​h​e​ ​m​e​s​s​a​g​e​ ​t​o​ ​r​e​c​a​l​l​.
+   */
+  ROBOT_RECALL_DING_OPEN_DING_ID_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​u​s​e​d​ ​t​o​ ​a​c​c​e​s​s​ ​t​h​e​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​f​i​l​e​.
+   */
+  ROBOT_DOWNLOAD_FILE_ROBOT_CODE_LLM_DESCRIPTION: string
+  /**
+   * D​o​w​n​l​o​a​d​ ​c​o​d​e​ ​r​e​t​u​r​n​e​d​ ​b​y​ ​D​i​n​g​T​a​l​k​ ​f​o​r​ ​t​h​e​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​f​i​l​e​ ​t​o​ ​r​e​t​r​i​e​v​e​.
+   */
+  ROBOT_DOWNLOAD_FILE_DOWNLOAD_CODE_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​o​ ​r​e​t​r​i​e​v​e​.
+   */
+  WORKFLOW_GET_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​o​ ​c​o​m​m​e​n​t​ ​o​n​.
+   */
+  WORKFLOW_ADD_COMMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​t​e​x​t​ ​b​o​d​y​ ​o​f​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​c​o​m​m​e​n​t​.
+   */
+  WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​u​s​e​r​ ​I​D​ ​o​f​ ​t​h​e​ ​c​o​m​m​e​n​t​e​r​ ​i​n​ ​D​i​n​g​T​a​l​k​.
+   */
+  WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​d​e​s​c​r​i​b​i​n​g​ ​w​o​r​k​f​l​o​w​ ​c​o​m​m​e​n​t​ ​p​h​o​t​o​s​ ​a​n​d​/​o​r​ ​a​t​t​a​c​h​m​e​n​t​s​.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​h​a​t​ ​o​w​n​s​ ​t​h​e​ ​a​t​t​a​c​h​m​e​n​t​.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​ ​f​i​l​e​ ​I​D​ ​t​o​ ​d​o​w​n​l​o​a​d​.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​h​e​ ​f​i​l​e​_​i​d​ ​r​e​f​e​r​s​ ​t​o​ ​a​ ​c​o​m​m​e​n​t​ ​a​t​t​a​c​h​m​e​n​t​ ​i​n​s​t​e​a​d​ ​o​f​ ​a​ ​f​o​r​m​ ​a​t​t​a​c​h​m​e​n​t​.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_WITH_COMMENT_ATTACHMENT_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​c​o​d​e​ ​w​h​o​s​e​ ​i​n​s​t​a​n​c​e​ ​I​D​s​ ​s​h​o​u​l​d​ ​b​e​ ​l​i​s​t​e​d​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION: string
+  /**
+   * S​t​a​r​t​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​P​r​o​v​i​d​e​ ​a​ ​U​n​i​x​ ​m​i​l​l​i​s​e​c​o​n​d​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​e​n​d​ ​t​i​m​e​ ​f​o​r​ ​f​i​l​t​e​r​i​n​g​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​P​r​o​v​i​d​e​ ​a​ ​U​n​i​x​ ​m​i​l​l​i​s​e​c​o​n​d​ ​t​i​m​e​s​t​a​m​p​ ​o​r​ ​I​S​O​ ​d​a​t​e​t​i​m​e​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​s​ ​t​o​ ​r​e​t​u​r​n​ ​p​e​r​ ​p​a​g​e​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION: string
+  /**
+   * P​a​g​i​n​a​t​i​o​n​ ​t​o​k​e​n​ ​f​o​r​ ​t​h​e​ ​n​e​x​t​ ​p​a​g​e​ ​o​f​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​s​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​u​s​e​d​ ​t​o​ ​q​u​e​r​y​ ​w​o​r​k​f​l​o​w​ ​a​t​t​a​c​h​m​e​n​t​ ​s​p​a​c​e​ ​i​n​f​o​.
+   */
+  WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​a​g​e​n​t​ ​I​D​ ​f​o​r​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​a​p​p​ ​w​h​o​s​e​ ​w​o​r​k​f​l​o​w​ ​s​p​a​c​e​ ​i​n​f​o​ ​i​s​ ​n​e​e​d​e​d​.
+   */
+  WORKFLOW_GET_SPACE_INFO_AGENT_ID_LLM_DESCRIPTION: string
+  /**
+   * U​s​e​r​ ​I​D​ ​o​f​ ​t​h​e​ ​o​p​e​r​a​t​o​r​ ​p​e​r​f​o​r​m​i​n​g​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​u​p​d​a​t​e​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_OP_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​w​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​c​o​d​e​ ​f​o​r​ ​t​h​e​ ​i​n​s​t​a​n​c​e​ ​b​e​i​n​g​ ​u​p​d​a​t​e​d​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_CODE_LLM_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​ ​t​o​ ​u​p​d​a​t​e​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: string
+  /**
+   * J​S​O​N​ ​a​r​r​a​y​ ​o​f​ ​w​o​r​k​f​l​o​w​ ​v​a​r​i​a​b​l​e​ ​o​b​j​e​c​t​s​.​ ​E​a​c​h​ ​i​t​e​m​ ​m​u​s​t​ ​i​n​c​l​u​d​e​ ​i​d​ ​a​n​d​ ​v​a​l​u​e​,​ ​a​n​d​ ​m​a​y​ ​i​n​c​l​u​d​e​ ​b​i​z​A​l​i​a​s​ ​o​r​ ​e​x​t​V​a​l​u​e​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_VARIABLES_JSON_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​r​e​m​a​r​k​ ​t​e​x​t​ ​t​o​ ​s​a​v​e​ ​w​i​t​h​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​u​p​d​a​t​e​.
+   */
+  WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​ ​w​h​o​s​e​ ​v​i​s​i​b​l​e​ ​w​o​r​k​f​l​o​w​ ​t​e​m​p​l​a​t​e​s​ ​s​h​o​u​l​d​ ​b​e​ ​l​i​s​t​e​d​.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​t​e​m​p​l​a​t​e​s​ ​t​o​ ​r​e​t​u​r​n​ ​p​e​r​ ​p​a​g​e​.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_MAX_RESULTS_LLM_DESCRIPTION: string
+  /**
+   * P​a​g​i​n​a​t​i​o​n​ ​t​o​k​e​n​ ​f​o​r​ ​t​h​e​ ​n​e​x​t​ ​p​a​g​e​ ​o​f​ ​v​i​s​i​b​l​e​ ​t​e​m​p​l​a​t​e​s​.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_NEXT_TOKEN_LLM_DESCRIPTION: string
 }
 
 export type TranslationFunctions = {
   /**
-   * Testing Plugin
+   * DingTalk
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * A plugin for testing the plugin
+   * Work with DingTalk users, approvals, documents, and robots.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
-   * Demo Tool
+   * DingTalk App Credential
    */
-  DEMO_TOOL_DISPLAY_NAME: () => LocalizedString
+  CREDENTIAL_DISPLAY_NAME: () => LocalizedString
   /**
-   * A tool for testing the plugin
+   * Enterprise internal app credential for DingTalk Open Platform APIs.
    */
-  DEMO_TOOL_DESCRIPTION: () => LocalizedString
+  CREDENTIAL_DESCRIPTION: () => LocalizedString
   /**
-   * Location
+   * Corp ID
    */
-  LOCATION_DISPLAY_NAME: () => LocalizedString
+  CREDENTIAL_CORP_ID_DISPLAY_NAME: () => LocalizedString
   /**
-   * The location to test
+   * Organization ID where the DingTalk app is installed.
    */
-  LOCATION_HINT: () => LocalizedString
+  CREDENTIAL_CORP_ID_HINT: () => LocalizedString
   /**
-   * Enter the location to test
+   * dingxxxxxxxxxxxx
    */
-  LOCATION_PLACEHOLDER: () => LocalizedString
+  CREDENTIAL_CORP_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Client ID
+   */
+  CREDENTIAL_CLIENT_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Found in the DingTalk developer console under app credentials.
+   */
+  CREDENTIAL_CLIENT_ID_HINT: () => LocalizedString
+  /**
+   * dingoa...
+   */
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Client Secret
+   */
+  CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Keep this secret secure. It is used to fetch access tokens at runtime.
+   */
+  CREDENTIAL_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * App secret
+   */
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: () => LocalizedString
+  /**
+   * Default Operator unionId
+   */
+  CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional default operator unionId for document and workflow operations. Tools can still override it.
+   */
+  CREDENTIAL_USER_UNION_ID_HINT: () => LocalizedString
+  /**
+   * unionId
+   */
+  CREDENTIAL_USER_UNION_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Credential
+   */
+  PARAM_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * Operator unionId
+   */
+  PARAM_OPERATOR_ID_LABEL: () => LocalizedString
+  /**
+   * Optional override. When omitted, the credential's default user_union_id is used.
+   */
+  PARAM_OPERATOR_ID_HINT: () => LocalizedString
+  /**
+   * unionId of the operator
+   */
+  PARAM_OPERATOR_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Operator unionId for the DingTalk request. Optional; when omitted, the credential's default user_union_id is used.
+   */
+  PARAM_OPERATOR_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * User ID
+   */
+  PARAM_USER_ID_LABEL: () => LocalizedString
+  /**
+   * user123
+   */
+  PARAM_USER_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Mobile
+   */
+  PARAM_MOBILE_LABEL: () => LocalizedString
+  /**
+   * 13000000000
+   */
+  PARAM_MOBILE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Query Word
+   */
+  PARAM_QUERY_WORD_LABEL: () => LocalizedString
+  /**
+   * Offset
+   */
+  PARAM_OFFSET_LABEL: () => LocalizedString
+  /**
+   * Size
+   */
+  PARAM_SIZE_LABEL: () => LocalizedString
+  /**
+   * Exact Match
+   */
+  PARAM_FULL_MATCH_FIELD_LABEL: () => LocalizedString
+  /**
+   * Robot Code
+   */
+  PARAM_ROBOT_CODE_LABEL: () => LocalizedString
+  /**
+   * User IDs
+   */
+  PARAM_USER_IDS_LABEL: () => LocalizedString
+  /**
+   * Up to 20 userIds per request.
+   */
+  PARAM_USER_IDS_HINT: () => LocalizedString
+  /**
+   * Message Type
+   */
+  PARAM_MESSAGE_TYPE_LABEL: () => LocalizedString
+  /**
+   * Message JSON
+   */
+  PARAM_MESSAGE_JSON_LABEL: () => LocalizedString
+  /**
+   * Use a JSON object matching the selected message type. For text, provide a content field. For markdown, provide title and text fields.
+   */
+  PARAM_MESSAGE_JSON_HINT: () => LocalizedString
+  /**
+   * Remind Type
+   */
+  PARAM_REMIND_TYPE_LABEL: () => LocalizedString
+  /**
+   * Receiver User IDs
+   */
+  PARAM_RECEIVER_USER_ID_LIST_LABEL: () => LocalizedString
+  /**
+   * Content
+   */
+  PARAM_CONTENT_LABEL: () => LocalizedString
+  /**
+   * Call Voice
+   */
+  PARAM_CALL_VOICE_LABEL: () => LocalizedString
+  /**
+   * Open DING ID
+   */
+  PARAM_OPEN_DING_ID_LABEL: () => LocalizedString
+  /**
+   * Download Code
+   */
+  PARAM_DOWNLOAD_CODE_LABEL: () => LocalizedString
+  /**
+   * Process Instance ID
+   */
+  PARAM_PROCESS_INSTANCE_ID_LABEL: () => LocalizedString
+  /**
+   * Text
+   */
+  PARAM_TEXT_LABEL: () => LocalizedString
+  /**
+   * Comment User ID
+   */
+  PARAM_COMMENT_USER_ID_LABEL: () => LocalizedString
+  /**
+   * File JSON
+   */
+  PARAM_FILE_JSON_LABEL: () => LocalizedString
+  /**
+   * Optional. Provide a JSON object with photos and/or attachments. Attachment items should include fields like spaceId, fileSize, fileId, fileName, and fileType.
+   */
+  PARAM_FILE_JSON_HINT: () => LocalizedString
+  /**
+   * File ID
+   */
+  PARAM_FILE_ID_LABEL: () => LocalizedString
+  /**
+   * Include Comment Attachment
+   */
+  PARAM_WITH_COMMENT_ATTACHMENT_LABEL: () => LocalizedString
+  /**
+   * Process Code
+   */
+  PARAM_PROCESS_CODE_LABEL: () => LocalizedString
+  /**
+   * Start Time
+   */
+  PARAM_START_TIME_LABEL: () => LocalizedString
+  /**
+   * Unix ms timestamp or ISO datetime
+   */
+  PARAM_START_TIME_PLACEHOLDER: () => LocalizedString
+  /**
+   * End Time
+   */
+  PARAM_END_TIME_LABEL: () => LocalizedString
+  /**
+   * Unix ms timestamp or ISO datetime
+   */
+  PARAM_END_TIME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Starter User IDs
+   */
+  PARAM_STARTER_USER_IDS_LABEL: () => LocalizedString
+  /**
+   * Statuses
+   */
+  PARAM_STATUSES_LABEL: () => LocalizedString
+  /**
+   * Page Size
+   */
+  PARAM_MAX_RESULTS_LABEL: () => LocalizedString
+  /**
+   * Next Token
+   */
+  PARAM_NEXT_TOKEN_LABEL: () => LocalizedString
+  /**
+   * Agent ID
+   */
+  PARAM_AGENT_ID_LABEL: () => LocalizedString
+  /**
+   * Operator User ID
+   */
+  PARAM_OP_USER_ID_LABEL: () => LocalizedString
+  /**
+   * Variables JSON
+   */
+  PARAM_VARIABLES_JSON_LABEL: () => LocalizedString
+  /**
+   * Provide a JSON array of variable objects. Each item should include an id and value, and can also include bizAlias or extValue.
+   */
+  PARAM_VARIABLES_JSON_HINT: () => LocalizedString
+  /**
+   * Remark
+   */
+  PARAM_REMARK_LABEL: () => LocalizedString
+  /**
+   * Visibility
+   */
+  PARAM_VISIBILITY_LABEL: () => LocalizedString
+  /**
+   * Select Fields
+   */
+  PARAM_SELECT_FIELDS_LABEL: () => LocalizedString
+  /**
+   * values,formulas
+   */
+  PARAM_SELECT_FIELDS_PLACEHOLDER: () => LocalizedString
+  /**
+   * Doc ID
+   */
+  PARAM_DOC_ID_LABEL: () => LocalizedString
+  /**
+   * Size
+   */
+  PARAM_RESOURCE_SIZE_LABEL: () => LocalizedString
+  /**
+   * Media Type
+   */
+  PARAM_MEDIA_TYPE_LABEL: () => LocalizedString
+  /**
+   * image/jpeg
+   */
+  PARAM_MEDIA_TYPE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Resource Name
+   */
+  PARAM_RESOURCE_NAME_LABEL: () => LocalizedString
+  /**
+   * File
+   */
+  PARAM_FILE_LABEL: () => LocalizedString
+  /**
+   * Text
+   */
+  OPTION_MESSAGE_TYPE_TEXT: () => LocalizedString
+  /**
+   * Link
+   */
+  OPTION_MESSAGE_TYPE_LINK: () => LocalizedString
+  /**
+   * Markdown
+   */
+  OPTION_MESSAGE_TYPE_MARKDOWN: () => LocalizedString
+  /**
+   * Action Card
+   */
+  OPTION_MESSAGE_TYPE_ACTION_CARD: () => LocalizedString
+  /**
+   * Feed Card
+   */
+  OPTION_MESSAGE_TYPE_FEED_CARD: () => LocalizedString
+  /**
+   * In-app DING
+   */
+  OPTION_REMIND_TYPE_IN_APP: () => LocalizedString
+  /**
+   * SMS DING
+   */
+  OPTION_REMIND_TYPE_SMS: () => LocalizedString
+  /**
+   * Phone DING
+   */
+  OPTION_REMIND_TYPE_PHONE: () => LocalizedString
+  /**
+   * Running
+   */
+  OPTION_STATUS_RUNNING: () => LocalizedString
+  /**
+   * Terminated
+   */
+  OPTION_STATUS_TERMINATED: () => LocalizedString
+  /**
+   * Completed
+   */
+  OPTION_STATUS_COMPLETED: () => LocalizedString
+  /**
+   * Completed With Blanks
+   */
+  OPTION_STATUS_COMPLETED_WITH_BLANKS: () => LocalizedString
+  /**
+   * Visible
+   */
+  OPTION_VISIBILITY_VISIBLE: () => LocalizedString
+  /**
+   * Hidden
+   */
+  OPTION_VISIBILITY_HIDDEN: () => LocalizedString
+  /**
+   * Get App Access Token
+   */
+  AUTH_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Fetch the current DingTalk app access token using the selected credential.
+   */
+  AUTH_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get User
+   */
+  USER_GET_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get user details by userId.
+   */
+  USER_GET_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get User By Mobile
+   */
+  USER_GET_BY_MOBILE_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Look up a userId by mobile number.
+   */
+  USER_GET_BY_MOBILE_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Search Users
+   */
+  USER_SEARCH_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search users by name, pinyin, or English name.
+   */
+  USER_SEARCH_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Batch Send Robot Message
+   */
+  ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send one-to-one robot messages in batch.
+   */
+  ROBOT_BATCH_SEND_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Send DING Message
+   */
+  ROBOT_SEND_DING_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send a DING message through an enterprise robot.
+   */
+  ROBOT_SEND_DING_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Recall DING Message
+   */
+  ROBOT_RECALL_DING_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Recall a previously sent DING message.
+   */
+  ROBOT_RECALL_DING_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Download Robot Message File
+   */
+  ROBOT_DOWNLOAD_FILE_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Download a file received by a DingTalk robot and return it as file_ref.
+   */
+  ROBOT_DOWNLOAD_FILE_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Process Instance
+   */
+  WORKFLOW_GET_INSTANCE_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get details for a workflow process instance.
+   */
+  WORKFLOW_GET_INSTANCE_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Add Process Comment
+   */
+  WORKFLOW_ADD_COMMENT_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Add a comment to a process instance.
+   */
+  WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Download Process Attachment
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get download authorization information for a process attachment.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * List Process Instance IDs
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List workflow process instance IDs by process code and filters.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Process Space Info
+   */
+  WORKFLOW_GET_SPACE_INFO_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get DingDrive space information used for workflow attachments.
+   */
+  WORKFLOW_GET_SPACE_INFO_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Process Instance
+   */
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a workflow process instance with variables and remark.
+   */
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * List Visible Templates
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * List workflow templates visible to a user.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Doc Upload Info
+   */
+  DOC_GET_UPLOAD_INFO_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Get upload information for a DingTalk doc resource.
+   */
+  DOC_GET_UPLOAD_INFO_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Upload Doc Attachment
+   */
+  DOC_UPLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Upload a file_ref to a DingTalk doc resource.
+   */
+  DOC_UPLOAD_ATTACHMENT_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk user ID to retrieve.
+   */
+  USER_GET_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Mobile phone number of the DingTalk user to look up.
+   */
+  USER_GET_BY_MOBILE_MOBILE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Keyword to search DingTalk users by name, pinyin, or English name.
+   */
+  USER_SEARCH_QUERY_WORD_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Pagination offset for the user search, starting from 0.
+   */
+  USER_SEARCH_OFFSET_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Number of users to return in this search request.
+   */
+  USER_SEARCH_SIZE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Whether the search should require an exact match on supported fields.
+   */
+  USER_SEARCH_FULL_MATCH_FIELD_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk robot code used to send the batch robot message.
+   */
+  ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Robot message type. Supported values include text, link, markdown, actionCard, and feedCard.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * JSON object for the selected robot message type. For text use content; for markdown use title and text.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk robot code used to send the DING message.
+   */
+  ROBOT_SEND_DING_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Reminder type for the DING message: 1 for in-app, 2 for SMS, 3 for phone call.
+   */
+  ROBOT_SEND_DING_REMIND_TYPE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Text content to send in the DING message.
+   */
+  ROBOT_SEND_DING_CONTENT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Voice preset to use when remind_type is 3 and DingTalk places a phone call.
+   */
+  ROBOT_SEND_DING_CALL_VOICE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk robot code that sent the DING message.
+   */
+  ROBOT_RECALL_DING_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Open DING ID of the message to recall.
+   */
+  ROBOT_RECALL_DING_OPEN_DING_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk robot code used to access the robot message file.
+   */
+  ROBOT_DOWNLOAD_FILE_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Download code returned by DingTalk for the robot message file to retrieve.
+   */
+  ROBOT_DOWNLOAD_FILE_DOWNLOAD_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow process instance ID to retrieve.
+   */
+  WORKFLOW_GET_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow process instance ID to comment on.
+   */
+  WORKFLOW_ADD_COMMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional text body of the workflow comment.
+   */
+  WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional user ID of the commenter in DingTalk.
+   */
+  WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional JSON object describing workflow comment photos and/or attachments.
+   */
+  WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow process instance ID that owns the attachment.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow attachment file ID to download.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Whether the file_id refers to a comment attachment instead of a form attachment.
+   */
+  WORKFLOW_DOWNLOAD_ATTACHMENT_WITH_COMMENT_ATTACHMENT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow process code whose instance IDs should be listed.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Start time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional end time for filtering process instances. Provide a Unix millisecond timestamp or ISO datetime.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Maximum number of process instance IDs to return per page.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Pagination token for the next page of process instance IDs.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk user ID used to query workflow attachment space info.
+   */
+  WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional agent ID for the DingTalk app whose workflow space info is needed.
+   */
+  WORKFLOW_GET_SPACE_INFO_AGENT_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * User ID of the operator performing the workflow process instance update.
+   */
+  WORKFLOW_UPDATE_INSTANCE_OP_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional workflow process code for the instance being updated.
+   */
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow process instance ID to update.
+   */
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * JSON array of workflow variable objects. Each item must include id and value, and may include bizAlias or extValue.
+   */
+  WORKFLOW_UPDATE_INSTANCE_VARIABLES_JSON_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional remark text to save with the workflow update.
+   */
+  WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk user ID whose visible workflow templates should be listed.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Maximum number of templates to return per page.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_MAX_RESULTS_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Pagination token for the next page of visible templates.
+   */
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_NEXT_TOKEN_LLM_DESCRIPTION: () => LocalizedString
 }
 
 export type Formatters = {}
