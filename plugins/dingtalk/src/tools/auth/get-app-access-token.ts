@@ -1,13 +1,7 @@
-import { z } from "zod"
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { getAccessToken, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
-import { parseParams } from "../../lib/schemas"
-
-const paramsSchema = z.object({
-  credential_id: z.string(),
-})
 
 export const getAppAccessTokenTool: ToolDefinition = {
   name: "dingtalk-auth-get-access-token",
@@ -16,8 +10,9 @@ export const getAppAccessTokenTool: ToolDefinition = {
   icon: "🔐",
   parameters: [credentialParameter],
   async invoke({ args }) {
-    parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
+    // api doc url: https://open.dingtalk.com/document/orgapp/obtain-orgapp-token
+    // 需要权限： 无额外接口权限（需提供应用 Client ID / Client Secret）
     const accessToken = await getAccessToken(credential)
 
     return {

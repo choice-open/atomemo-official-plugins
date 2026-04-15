@@ -10,6 +10,7 @@ const paramsSchema = z.object({
   mobile: nonEmptyString,
 })
 
+
 export const getUserByMobileTool: ToolDefinition = {
   name: "dingtalk-user-get-by-mobile",
   display_name: t("USER_GET_BY_MOBILE_TOOL_DISPLAY_NAME"),
@@ -39,6 +40,8 @@ export const getUserByMobileTool: ToolDefinition = {
 
     return dingtalkRequest(credential, {
       method: "POST",
+      // api doc url: https://open.dingtalk.com/document/development/query-users-by-phone-number
+      // 需要权限： 根据手机号获取成员基本信息权限
       url: "https://oapi.dingtalk.com/topapi/v2/user/getbymobile",
       body: { mobile: params.mobile },
     })

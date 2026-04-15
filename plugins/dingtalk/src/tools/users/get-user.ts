@@ -39,6 +39,9 @@ export const getUserTool: ToolDefinition = {
 
     return dingtalkRequest(credential, {
       method: "POST",
+      // api doc url: https://open.dingtalk.com/document/development/query-user-details
+      // 需要权限：成员信息读权限
+      // 权限点code:  qyapi_get_member
       url: "https://oapi.dingtalk.com/topapi/v2/user/get",
       body: { userid: params.user_id },
     })

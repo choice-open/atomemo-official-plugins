@@ -86,6 +86,8 @@ export const searchUsersTool: ToolDefinition = {
 
     return dingtalkRequest(credential, {
       method: "POST",
+      // api doc url: https://open.dingtalk.com/document/development/address-book-search-user-id
+      // 需要权限： 搜索企业通讯录的权限
       path: "/contact/users/search",
       body: {
         offset: params.offset,
