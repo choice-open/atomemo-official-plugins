@@ -8,11 +8,26 @@ const commonQuerySchema = z
   })
   .strict()
 
+const emptyQuerySchema = z.object({}).strict()
+
 const listQuerySchema = z
   .object({
     user_id_type: userIdTypeSchema.optional(),
     page_size: z.number().int().positive().optional(),
     page_token: z.string().optional(),
+    completed: z.boolean().optional(),
+    type: z.string().optional(),
+  })
+  .strict()
+
+const tasklistListTasksQuerySchema = z
+  .object({
+    user_id_type: userIdTypeSchema.optional(),
+    page_size: z.number().int().positive().optional(),
+    page_token: z.string().optional(),
+    completed: z.boolean().optional(),
+    created_from: z.string().optional(),
+    created_to: z.string().optional(),
   })
   .strict()
 
@@ -26,7 +41,7 @@ export function parseTaskGetQuery(raw: Record<string, unknown>) {
   return commonQuerySchema.parse(raw)
 }
 export function parseTaskDeleteQuery(raw: Record<string, unknown>) {
-  return commonQuerySchema.parse(raw)
+  return emptyQuerySchema.parse(raw)
 }
 export function parseTaskAddMembersQuery(raw: Record<string, unknown>) {
   return commonQuerySchema.parse(raw)
@@ -63,7 +78,7 @@ export function parseTasklistPatchQuery(raw: Record<string, unknown>) {
   return commonQuerySchema.parse(raw)
 }
 export function parseTasklistDeleteQuery(raw: Record<string, unknown>) {
-  return commonQuerySchema.parse(raw)
+  return emptyQuerySchema.parse(raw)
 }
 export function parseTasklistAddMembersQuery(raw: Record<string, unknown>) {
   return commonQuerySchema.parse(raw)
@@ -72,7 +87,7 @@ export function parseTasklistRemoveMembersQuery(raw: Record<string, unknown>) {
   return commonQuerySchema.parse(raw)
 }
 export function parseTasklistListTasksQuery(raw: Record<string, unknown>) {
-  return listQuerySchema.parse(raw)
+  return tasklistListTasksQuerySchema.parse(raw)
 }
 export function parseTasklistListQuery(raw: Record<string, unknown>) {
   return listQuerySchema.parse(raw)

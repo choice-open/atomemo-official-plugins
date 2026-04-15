@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -50,25 +49,11 @@ export const feishuCalendarGetCalendarTool: ToolDefinition = {
       display_name: { en_US: "Calendar ID", zh_Hans: "日历 ID" },
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"calendar_id">,
-    {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarGetCalendarQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseCalendarGetCalendarQuery({})
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

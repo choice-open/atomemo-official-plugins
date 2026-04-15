@@ -44,18 +44,6 @@ export const feishuApprovalCreateInstanceTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
-    {
       name: "body_json",
       type: "string",
       required: true,
@@ -66,9 +54,7 @@ export const feishuApprovalCreateInstanceTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseApprovalCreateInstanceQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseApprovalCreateInstanceQuery({})
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

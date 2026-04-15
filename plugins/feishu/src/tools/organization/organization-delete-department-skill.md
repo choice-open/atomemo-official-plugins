@@ -13,7 +13,7 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `department_id`：路径参数（必填），示例值 `od-1a2b3c4d5e`。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例
@@ -25,7 +25,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "department_id": "od-1a2b3c4d5e",
-    "query_params_json": "{\"department_id_type\":\"open_department_id\"}"
+    "department_id_type": "open_department_id"
   }
 }
 ```
@@ -36,8 +36,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "department_id": "od-1a2b3c4d5e",
-    "query_params_json": "{bad-json"
+    "department_id": ""
   }
 }
 ```

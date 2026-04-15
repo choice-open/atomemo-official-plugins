@@ -12,8 +12,7 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
-  - `user_id_type`（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）
+- `user_id_type`：用户 ID 类型（可选）：`open_id` | `union_id` | `user_id`（默认 `open_id`）
 - `body_json`：请求体 JSON 字符串（必填）。
   - 必填字段：`user_id`、`task_id`、`task_def_key_list`（`string[]`，长度 1~100）
   - 可选字段：`reason`、`extra`（灰度参数）
@@ -24,7 +23,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"user_id_type\":\"open_id\"}",
+    "user_id_type": "open_id",
     "body_json": "{\"user_id\":\"893g4c45\",\"task_id\":\"7026591166355210260\",\"reason\":\"申请事项填写不具体，请重新填写\",\"task_def_key_list\":[\"START\",\"APPROVAL_27997_285502\"]}"
   }
 }

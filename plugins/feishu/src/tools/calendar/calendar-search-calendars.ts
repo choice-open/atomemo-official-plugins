@@ -22,6 +22,12 @@ const fn: FeishuApiFunction = {
   path: "/open-apis/calendar/v4/calendars/search",
 }
 
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
+}
+
 export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
@@ -44,17 +50,23 @@ export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "page_size",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"page_size">,
+    {
+      name: "page_token",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Token", zh_Hans: "分页游标" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"page_token">,
     {
       name: "body_json",
       type: "string",
@@ -74,9 +86,12 @@ export const feishuCalendarSearchCalendarsTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarSearchCalendarsQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseCalendarSearchCalendarsQuery({
+      ...(optionalString(p.page_size) ? { page_size: optionalString(p.page_size) } : {}),
+      ...(optionalString(p.page_token)
+        ? { page_token: optionalString(p.page_token) }
+        : {}),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

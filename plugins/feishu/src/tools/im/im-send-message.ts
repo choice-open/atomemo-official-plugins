@@ -9,6 +9,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseImSendMessageQuery } from "./im.zod"
 import im_send_messageSkill from "./im-send-message-skill.md" with {
   type: "text",
 }
@@ -44,18 +45,23 @@ export const feishuImSendMessageTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "receive_id_type",
       type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
+      required: true,
+      display_name: {
+        en_US: "Receive ID Type",
+        zh_Hans: "消息接收方 ID 类型",
+      },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
+        component: "input",
+        placeholder: {
+          en_US: "open_id | union_id | user_id | email | chat_id",
+          zh_Hans: "open_id | union_id | user_id | email | chat_id",
+        },
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"receive_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -73,10 +79,9 @@ export const feishuImSendMessageTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
-    )
+    const queryParams = parseImSendMessageQuery({
+      receive_id_type: readRequiredStringParam(p, "receive_id_type"),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

@@ -22,6 +22,12 @@ const fn: FeishuApiFunction = {
   path: "/open-apis/calendar/v4/calendars/mget",
 }
 
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
+}
+
 export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
@@ -44,17 +50,17 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "user_id_type",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"user_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -79,9 +85,10 @@ export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarBatchGetCalendarsQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const userIdType = optionalString(p.user_id_type)
+    const queryParams = parseCalendarBatchGetCalendarsQuery({
+      ...(userIdType ? { user_id_type: userIdType } : {}),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

@@ -12,7 +12,6 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选），本接口无查询参数，建议留空或传 `{}`。
 - `body_json`：请求体 JSON 字符串（必填），字段遵循官方文档。
   - 必填字段：`approval_code`、`form`
   - 至少二选一：`user_id` / `open_id`
@@ -24,7 +23,6 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{}",
     "body_json": "{\"approval_code\":\"4202AD96-9EC1-4284-9C48-B923CDC4F30B\",\"user_id\":\"59a92c4a\",\"form\":\"[{\\\"id\\\":\\\"111\\\",\\\"type\\\":\\\"input\\\",\\\"value\\\":\\\"11111\\\"}]\"}"
   }
 }

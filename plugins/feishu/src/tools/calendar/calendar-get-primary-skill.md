@@ -12,7 +12,7 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。
 - `body_json`：请求体 JSON 字符串（可选）；不需要时可留空或填 `{}`。
 
 ## Tool Input 示例
@@ -23,19 +23,8 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"user_id_type\":\"open_id\"}",
+    "user_id_type": "open_id",
     "body_json": "{}"
-  }
-}
-```
-
-### 示例2（错误示例）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json"
   }
 }
 ```

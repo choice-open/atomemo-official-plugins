@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -20,6 +19,12 @@ const fn: FeishuApiFunction = {
   name: "删除日程",
   method: "DELETE",
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
+}
+
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
 }
 
 export const feishuCalendarDeleteEventTool: ToolDefinition = {
@@ -58,24 +63,25 @@ export const feishuCalendarDeleteEventTool: ToolDefinition = {
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"event_id">,
     {
-      name: "query_params_json",
+      name: "need_notification",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Need Notification", zh_Hans: "是否通知参与人" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
+        placeholder: { en_US: "true | false", zh_Hans: "true | false" },
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"need_notification">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarDeleteEventQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const needNotification = optionalString(p.need_notification)
+    const queryParams = parseCalendarDeleteEventQuery({
+      ...(needNotification ? { need_notification: needNotification } : {}),
+    })
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

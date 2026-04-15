@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -20,6 +19,12 @@ const fn: FeishuApiFunction = {
   name: "获取日程",
   method: "GET",
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
+}
+
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
 }
 
 export const feishuCalendarGetEventTool: ToolDefinition = {
@@ -57,25 +62,28 @@ export const feishuCalendarGetEventTool: ToolDefinition = {
       display_name: { en_US: "Event ID", zh_Hans: "日程 ID" },
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"event_id">,
-    {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
+    { name: "need_meeting_settings", type: "string", required: false, display_name: { en_US: "Need Meeting Settings", zh_Hans: "是否返回会前设置" }, ui: { component: "input", placeholder: { en_US: "true | false", zh_Hans: "true | false" }, width: "full", support_expression: true } } satisfies Property<"need_meeting_settings">,
+    { name: "need_attendee", type: "string", required: false, display_name: { en_US: "Need Attendee", zh_Hans: "是否返回参与人信息" }, ui: { component: "input", placeholder: { en_US: "true | false", zh_Hans: "true | false" }, width: "full", support_expression: true } } satisfies Property<"need_attendee">,
+    { name: "max_attendee_num", type: "string", required: false, display_name: { en_US: "Max Attendee Number", zh_Hans: "返回最大参与人数" }, ui: { component: "input", width: "full", support_expression: true } } satisfies Property<"max_attendee_num">,
+    { name: "user_id_type", type: "string", required: false, display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" }, ui: { component: "input", placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" }, width: "full", support_expression: true } } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarGetEventQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseCalendarGetEventQuery({
+      ...(optionalString(p.need_meeting_settings)
+        ? { need_meeting_settings: optionalString(p.need_meeting_settings) }
+        : {}),
+      ...(optionalString(p.need_attendee)
+        ? { need_attendee: optionalString(p.need_attendee) }
+        : {}),
+      ...(optionalString(p.max_attendee_num)
+        ? { max_attendee_num: optionalString(p.max_attendee_num) }
+        : {}),
+      ...(optionalString(p.user_id_type)
+        ? { user_id_type: optionalString(p.user_id_type) }
+        : {}),
+    })
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

@@ -14,7 +14,7 @@
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `calendar_id`：路径参数（必填），日历 ID。
 - `event_id`：路径参数（必填），日程 ID。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `need_notification`：是否通知参与人（可选，`true | false`）。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例

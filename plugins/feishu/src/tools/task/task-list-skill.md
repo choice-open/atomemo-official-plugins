@@ -12,7 +12,11 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `page_size`：分页大小（可选）。
+- `page_token`：分页游标（可选）。
+- `completed`：是否已完成（可选，`true | false`）。
+- `type`：任务类型（可选）。
+- `user_id_type`：用户 ID 类型（可选，`open_id | union_id | user_id`）。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例

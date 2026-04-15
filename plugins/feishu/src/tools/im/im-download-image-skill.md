@@ -13,7 +13,6 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `image_key`：图片 Key（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
 
 ## Tool Input 示例
 

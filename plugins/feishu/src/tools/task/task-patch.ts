@@ -49,17 +49,17 @@ export const feishuTaskPatchTool: ToolDefinition = {
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"task_guid">,
     {
-      name: "query_params_json",
+      name: "user_id_type",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"user_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -71,9 +71,13 @@ export const feishuTaskPatchTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTaskPatchQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const userIdType =
+      typeof p.user_id_type === "string" && p.user_id_type.trim() !== ""
+        ? p.user_id_type.trim()
+        : undefined
+    const queryParams = parseTaskPatchQuery({
+      ...(userIdType ? { user_id_type: userIdType } : {}),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

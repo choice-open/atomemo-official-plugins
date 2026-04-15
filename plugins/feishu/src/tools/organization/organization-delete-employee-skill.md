@@ -13,7 +13,8 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `employee_id`：路径参数（必填），示例值 `u273y71`。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。
+- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。
 - 飞书官方接口支持可选请求体 `options`（用于资源接收者配置），但当前 Tool 未暴露 `body_json` 参数，因此本 Tool 调用时不支持传请求体。
 
 ## Tool Input 示例
@@ -25,7 +26,7 @@
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
     "employee_id": "u273y71",
-    "query_params_json": "{\"employee_id_type\":\"employee_id\"}"
+    "employee_id_type": "employee_id"
   }
 }
 ```
@@ -36,8 +37,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "employee_id": "u273y71",
-    "query_params_json": "{bad-json"
+    "employee_id": ""
   }
 }
 ```

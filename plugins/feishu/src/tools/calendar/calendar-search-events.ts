@@ -22,6 +22,12 @@ const fn: FeishuApiFunction = {
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events/search",
 }
 
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
+}
+
 export const feishuCalendarSearchEventsTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
@@ -51,17 +57,18 @@ export const feishuCalendarSearchEventsTool: ToolDefinition = {
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"calendar_id">,
     {
-      name: "query_params_json",
+      name: "page_size",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"page_size">,
+    { name: "page_token", type: "string", required: false, display_name: { en_US: "Page Token", zh_Hans: "分页游标" }, ui: { component: "input", width: "full", support_expression: true } } satisfies Property<"page_token">,
+    { name: "user_id_type", type: "string", required: false, display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" }, ui: { component: "input", placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" }, width: "full", support_expression: true } } satisfies Property<"user_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -81,9 +88,15 @@ export const feishuCalendarSearchEventsTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarSearchEventsQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseCalendarSearchEventsQuery({
+      ...(optionalString(p.page_size) ? { page_size: optionalString(p.page_size) } : {}),
+      ...(optionalString(p.page_token)
+        ? { page_token: optionalString(p.page_token) }
+        : {}),
+      ...(optionalString(p.user_id_type)
+        ? { user_id_type: optionalString(p.user_id_type) }
+        : {}),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

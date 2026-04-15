@@ -3,12 +3,9 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import {
-  invokeFeishuOpenApi,
-  parseOptionalJsonObject,
-  readRequiredStringParam,
-} from "../feishu/request"
+import { invokeFeishuOpenApi, readRequiredStringParam } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseImEmptyQuery } from "./im.zod"
 import im_download_imageSkill from "./im-download-image-skill.md" with {
   type: "text",
 }
@@ -54,19 +51,6 @@ export const feishuImDownloadImageTool: ToolDefinition = {
         width: "full",
       },
     } satisfies Property<"image_key">,
-    {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
@@ -74,10 +58,7 @@ export const feishuImDownloadImageTool: ToolDefinition = {
     const pathParams = {
       image_key: readRequiredStringParam(p, "image_key"),
     }
-    const queryParams = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
-    )
+    const queryParams = parseImEmptyQuery({})
     const body = {}
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,

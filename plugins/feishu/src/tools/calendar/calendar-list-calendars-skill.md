@@ -12,7 +12,9 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选），可含 `user_id_type`、`page_size`、`page_token`、`sync_token` 等。
+- `page_size`：分页大小（可选）。
+- `page_token`：分页游标（可选）。
+- `sync_token`：增量同步 token（可选）。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例
@@ -23,18 +25,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"user_id_type\":\"open_id\",\"page_size\":20}"
-  }
-}
-```
-
-### 示例2（错误示例）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json"
+    "page_size": "50"
   }
 }
 ```

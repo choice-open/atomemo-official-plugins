@@ -12,7 +12,8 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- `employee_id_type`：员工 ID 类型（可选），与官方查询参数 `employee_id_type` 一致，支持值：`open_id`、`employee_id`、`union_id`。
+- `department_id_type`：部门 ID 类型（可选），与官方查询参数 `department_id_type` 一致，支持值：`open_department_id`、`department_id`。
 - `body_json`：请求体 JSON 字符串（必填），字段需遵循官方文档定义。
 
 ## Tool Input 示例
@@ -23,7 +24,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{\"employee_id_type\":\"employee_id\"}",
+    "employee_id_type": "employee_id",
     "body_json": "{\"employee_ids\":[\"u273y71\",\"u9ab8c7\"],\"required_fields\":[\"base_info.name.name\",\"base_info.mobile\",\"work_info.job_number\"]}"
   }
 }
@@ -35,7 +36,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json"
+    "body_json": "{bad-json"
   }
 }
 ```

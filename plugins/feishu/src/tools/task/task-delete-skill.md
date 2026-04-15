@@ -12,7 +12,7 @@
 ## 参数说明
 
 - `credential_id`：飞书应用凭据 ID（必填）。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- 本接口无查询参数。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例

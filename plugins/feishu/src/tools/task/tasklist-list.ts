@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -42,24 +41,57 @@ export const feishuTasklistListTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "page_size",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"page_size">,
+    {
+      name: "page_token",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Token", zh_Hans: "分页游标" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"page_token">,
+    {
+      name: "user_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTasklistListQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const optionalString = (key: string): string | undefined => {
+      const raw = p[key]
+      if (typeof raw !== "string") return undefined
+      const trimmed = raw.trim()
+      return trimmed === "" ? undefined : trimmed
+    }
+    const pageSizeRaw = optionalString("page_size")
+    const pageSize =
+      pageSizeRaw && Number.isInteger(Number(pageSizeRaw))
+        ? Number(pageSizeRaw)
+        : undefined
+    const pageToken = optionalString("page_token")
+    const userIdType = optionalString("user_id_type")
+    const queryParams = parseTasklistListQuery({
+      ...(pageSize !== undefined ? { page_size: pageSize } : {}),
+      ...(pageToken ? { page_token: pageToken } : {}),
+      ...(userIdType ? { user_id_type: userIdType } : {}),
+    })
     const body = {}
     const pathParams = {}
     return invokeFeishuOpenApi(fn, {

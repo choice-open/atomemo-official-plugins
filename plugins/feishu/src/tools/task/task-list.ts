@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -42,24 +41,97 @@ export const feishuTaskListTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "page_size",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"page_size">,
+    {
+      name: "page_token",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Token", zh_Hans: "分页游标" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"page_token">,
+    {
+      name: "completed",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Completed", zh_Hans: "是否完成过滤" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "true | false", zh_Hans: "true | false" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"completed">,
+    {
+      name: "type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Type", zh_Hans: "列取类型" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "my_tasks", zh_Hans: "my_tasks" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"type">,
+    {
+      name: "user_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTaskListQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const optionalString = (key: string): string | undefined => {
+      const raw = p[key]
+      if (typeof raw !== "string") return undefined
+      const trimmed = raw.trim()
+      return trimmed === "" ? undefined : trimmed
+    }
+    const optionalInt = (key: string): number | undefined => {
+      const raw = optionalString(key)
+      if (!raw) return undefined
+      const n = Number(raw)
+      return Number.isInteger(n) ? n : undefined
+    }
+    const optionalBoolean = (key: string): boolean | undefined => {
+      const raw = optionalString(key)
+      if (!raw) return undefined
+      if (raw === "true") return true
+      if (raw === "false") return false
+      return undefined
+    }
+    const queryParams = parseTaskListQuery({
+      ...(optionalInt("page_size") !== undefined
+        ? { page_size: optionalInt("page_size") }
+        : {}),
+      ...(optionalString("page_token")
+        ? { page_token: optionalString("page_token") }
+        : {}),
+      ...(optionalBoolean("completed") !== undefined
+        ? { completed: optionalBoolean("completed") }
+        : {}),
+      ...(optionalString("type") ? { type: optionalString("type") } : {}),
+      ...(optionalString("user_id_type")
+        ? { user_id_type: optionalString("user_id_type") }
+        : {}),
+    })
     const body = {}
     const pathParams = {}
     return invokeFeishuOpenApi(fn, {

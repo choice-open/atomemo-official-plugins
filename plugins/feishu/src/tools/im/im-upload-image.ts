@@ -9,6 +9,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { parseImEmptyQuery } from "./im.zod"
 import im_upload_imageSkill from "./im-upload-image-skill.md" with {
   type: "text",
 }
@@ -43,19 +44,6 @@ export const feishuImUploadImageTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        placeholder: { en_US: '{"page_size":20}', zh_Hans: '{"page_size":20}' },
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
-    {
       name: "body_json",
       type: "string",
       required: true,
@@ -72,10 +60,7 @@ export const feishuImUploadImageTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
-    )
+    const queryParams = parseImEmptyQuery({})
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -51,24 +50,104 @@ export const feishuTasklistListTasksTool: ToolDefinition = {
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"tasklist_guid">,
     {
-      name: "query_params_json",
+      name: "page_size",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Page Size", zh_Hans: "分页大小" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"page_size">,
+    {
+      name: "page_token",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Page Token", zh_Hans: "分页游标" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"page_token">,
+    {
+      name: "completed",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Completed", zh_Hans: "是否完成过滤" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "true | false", zh_Hans: "true | false" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"completed">,
+    {
+      name: "created_from",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Created From", zh_Hans: "创建时间起点(ms)" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"created_from">,
+    {
+      name: "created_to",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Created To", zh_Hans: "创建时间终点(ms)" },
+      ui: { component: "input", width: "full", support_expression: true },
+    } satisfies Property<"created_to">,
+    {
+      name: "user_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"user_id_type">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTasklistListTasksQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const optionalString = (key: string): string | undefined => {
+      const raw = p[key]
+      if (typeof raw !== "string") return undefined
+      const trimmed = raw.trim()
+      return trimmed === "" ? undefined : trimmed
+    }
+    const optionalInt = (key: string): number | undefined => {
+      const raw = optionalString(key)
+      if (!raw) return undefined
+      const n = Number(raw)
+      return Number.isInteger(n) ? n : undefined
+    }
+    const optionalBoolean = (key: string): boolean | undefined => {
+      const raw = optionalString(key)
+      if (!raw) return undefined
+      if (raw === "true") return true
+      if (raw === "false") return false
+      return undefined
+    }
+    const queryParams = parseTasklistListTasksQuery({
+      ...(optionalInt("page_size") !== undefined
+        ? { page_size: optionalInt("page_size") }
+        : {}),
+      ...(optionalString("page_token")
+        ? { page_token: optionalString("page_token") }
+        : {}),
+      ...(optionalBoolean("completed") !== undefined
+        ? { completed: optionalBoolean("completed") }
+        : {}),
+      ...(optionalString("created_from")
+        ? { created_from: optionalString("created_from") }
+        : {}),
+      ...(optionalString("created_to")
+        ? { created_to: optionalString("created_to") }
+        : {}),
+      ...(optionalString("user_id_type")
+        ? { user_id_type: optionalString("user_id_type") }
+        : {}),
+    })
     const body = {}
     const pathParams = {
       tasklist_guid: readRequiredStringParam(p, "tasklist_guid"),

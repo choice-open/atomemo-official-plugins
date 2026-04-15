@@ -22,6 +22,12 @@ const fn: FeishuApiFunction = {
   path: "/open-apis/calendar/v4/calendars/:calendar_id/events",
 }
 
+function optionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed === "" ? undefined : trimmed
+}
+
 export const feishuCalendarCreateEventTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
@@ -51,18 +57,28 @@ export const feishuCalendarCreateEventTool: ToolDefinition = {
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"calendar_id">,
     {
-      name: "query_params_json",
+      name: "idempotency_key",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Idempotency Key", zh_Hans: "幂等 Key" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        placeholder: { en_US: "{}", zh_Hans: "{}" },
+        component: "input",
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"idempotency_key">,
+    {
+      name: "user_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "User ID Type", zh_Hans: "用户 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: { en_US: "open_id | union_id | user_id", zh_Hans: "open_id | union_id | user_id" },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"user_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -86,9 +102,12 @@ export const feishuCalendarCreateEventTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseCalendarCreateEventQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const idempotencyKey = optionalString(p.idempotency_key)
+    const userIdType = optionalString(p.user_id_type)
+    const queryParams = parseCalendarCreateEventQuery({
+      ...(idempotencyKey ? { idempotency_key: idempotencyKey } : {}),
+      ...(userIdType ? { user_id_type: userIdType } : {}),
+    })
     const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",

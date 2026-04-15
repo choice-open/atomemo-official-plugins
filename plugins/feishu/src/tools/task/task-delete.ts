@@ -5,7 +5,6 @@ import type {
 import { t } from "../../i18n/i18n-node"
 import {
   invokeFeishuOpenApi,
-  parseOptionalJsonObject,
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
@@ -48,25 +47,11 @@ export const feishuTaskDeleteTool: ToolDefinition = {
       display_name: { en_US: "Task GUID", zh_Hans: "任务 GUID" },
       ui: { component: "input", width: "full", support_expression: true },
     } satisfies Property<"task_guid">,
-    {
-      name: "query_params_json",
-      type: "string",
-      required: false,
-      display_name: t("QUERY_PARAMS"),
-      ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        width: "full",
-        support_expression: true,
-      },
-    } satisfies Property<"query_params_json">,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryParams = parseTaskDeleteQuery(
-      parseOptionalJsonObject(p.query_params_json, "query_params_json"),
-    )
+    const queryParams = parseTaskDeleteQuery({})
     const body = {}
     const pathParams = {
       task_guid: readRequiredStringParam(p, "task_guid"),

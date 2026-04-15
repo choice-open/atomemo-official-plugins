@@ -9,6 +9,7 @@ import {
   readRequiredStringParam,
 } from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
+import { buildOrganizationQueryParams } from "./organization-query-build"
 import { parseOrganizationCreateEmployeeQuery } from "./organization.zod"
 import organization_create_employeeSkill from "./organization-create-employee-skill.md" with {
   type: "text",
@@ -44,18 +45,35 @@ export const feishuOrganizationCreateEmployeeTool: ToolDefinition = {
       ui: { component: "credential-select" },
     } satisfies Property<"credential_id">,
     {
-      name: "query_params_json",
+      name: "employee_id_type",
       type: "string",
       required: false,
-      display_name: t("QUERY_PARAMS"),
+      display_name: { en_US: "Employee ID Type", zh_Hans: "员工 ID 类型" },
       ui: {
-        component: "code-editor",
-        hint: t("QUERY_PARAMS_HINT"),
-        placeholder: { en_US: "{}", zh_Hans: "{}" },
+        component: "input",
+        placeholder: {
+          en_US: "open_id | employee_id | union_id",
+          zh_Hans: "open_id | employee_id | union_id",
+        },
         width: "full",
         support_expression: true,
       },
-    } satisfies Property<"query_params_json">,
+    } satisfies Property<"employee_id_type">,
+    {
+      name: "department_id_type",
+      type: "string",
+      required: false,
+      display_name: { en_US: "Department ID Type", zh_Hans: "部门 ID 类型" },
+      ui: {
+        component: "input",
+        placeholder: {
+          en_US: "open_department_id | department_id",
+          zh_Hans: "open_department_id | department_id",
+        },
+        width: "full",
+        support_expression: true,
+      },
+    } satisfies Property<"department_id_type">,
     {
       name: "body_json",
       type: "string",
@@ -76,16 +94,13 @@ export const feishuOrganizationCreateEmployeeTool: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const queryRaw = parseOptionalJsonObject(
-      p.query_params_json,
-      "query_params_json",
+    const queryParams = parseOrganizationCreateEmployeeQuery(
+      buildOrganizationQueryParams(p),
     )
-    const bodyRaw = parseOptionalJsonObject(
+    const body = parseOptionalJsonObject(
       readRequiredStringParam(p, "body_json"),
       "body_json",
     )
-    const queryParams = parseOrganizationCreateEmployeeQuery(queryRaw)
-    const body = bodyRaw
     return invokeFeishuOpenApi(fn, {
       credentials: args.credentials,
       credentialId,

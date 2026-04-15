@@ -13,7 +13,7 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `calendar_id`：路径参数（必填），日历 ID。
-- `query_params_json`：查询参数 JSON 字符串（可选）。
+- 本接口无查询参数。
 - 本接口无请求体参数（无需 `body_json`）。
 
 ## Tool Input 示例
@@ -24,19 +24,7 @@
 {
   "parameters": {
     "credential_id": "<your-feishu-credential-id>",
-    "calendar_id": "feishu.cn_xxx@group.calendar.feishu.cn",
-    "query_params_json": "{\"user_id_type\":\"open_id\"}"
-  }
-}
-```
-
-### 示例2（错误示例）
-
-```json
-{
-  "parameters": {
-    "credential_id": "<your-feishu-credential-id>",
-    "query_params_json": "{bad-json"
+    "calendar_id": "feishu.cn_xxx@group.calendar.feishu.cn"
   }
 }
 ```

@@ -13,9 +13,8 @@
 
 - `credential_id`：飞书应用凭据 ID（必填）。
 - `calendar_id`：路径参数（必填），日历 ID。
-- `query_params_json`：查询参数 JSON 字符串（可选）。常用参数：
-  - `user_id_type`：用户ID类型，支持 `open_id`、`union_id`、`user_id`，默认 `open_id`
-  - `idempotency_key`：幂等键，32-128字符，用于避免重复创建
+- `idempotency_key`：幂等键（可选），32-128 字符，用于避免重复创建。
+- `user_id_type`：用户 ID 类型（可选），支持 `open_id`、`union_id`、`user_id`。
 - `body_json`：请求体 JSON 字符串（必填），包含以下字段：
   - `summary`（可选）：日程标题，最大1000字符
   - `start_time`（**必填**）：开始时间，包含 `timestamp`（秒级时间戳）或 `date`（全天事件，RFC 3339格式）
@@ -32,11 +31,11 @@
 
 ```json
 {
-  “parameters”: {
-    “credential_id”: “<your-feishu-credential-id>”,
-    “calendar_id”: “feishu.cn_xxx@group.calendar.feishu.cn”,
-    “query_params_json”: “{\n\t\"user_id_type\": \"open_id\"\n}”,
-    “body_json”: “{\n\t\"summary\": \"周会\",\n\t\"start_time\": {\n\t\t\"timestamp\": \"1704067200\",\n\t\t\"timezone\": \"Asia/Shanghai\"\n\t},\n\t\"end_time\": {\n\t\t\"timestamp\": \"1704070800\",\n\t\t\"timezone\": \"Asia/Shanghai\"\n\t}\n}”
+  "parameters": {
+    "credential_id": "<your-feishu-credential-id>",
+    "calendar_id": "feishu.cn_xxx@group.calendar.feishu.cn",
+    "user_id_type": "open_id",
+    "body_json": "{\"summary\":\"周会\",\"start_time\":{\"timestamp\":\"1704067200\",\"timezone\":\"Asia/Shanghai\"},\"end_time\":{\"timestamp\":\"1704070800\",\"timezone\":\"Asia/Shanghai\"}}"
   }
 }
 ```
