@@ -171,6 +171,54 @@ type RootTranslation = {
    * P​a​g​i​n​a​t​i​o​n​ ​t​o​k​e​n​ ​f​o​r​ ​n​e​x​t​ ​p​a​g​e
    */
   PAGE_TOKEN_HINT: string
+  /**
+   * I​m​a​g​e​ ​f​i​l​e
+   */
+  IM_IMAGE_FILE_DISPLAY_NAME: string
+  /**
+   * I​m​a​g​e​ ​t​o​ ​u​p​l​o​a​d​ ​(​J​P​E​G​,​ ​P​N​G​,​ ​W​E​B​P​,​ ​G​I​F​,​ ​T​I​F​F​,​ ​B​M​P​,​ ​I​C​O​)​.​ ​U​s​e​ ​a​ ​f​i​l​e​_​r​e​f​ ​f​r​o​m​ ​a​n​ ​u​p​s​t​r​e​a​m​ ​s​t​e​p​ ​o​r​ ​f​i​l​e​ ​p​i​c​k​e​r​.
+   */
+  IM_IMAGE_FILE_HINT: string
+  /**
+   * A​ ​w​o​r​k​f​l​o​w​ ​f​i​l​e​_​r​e​f​ ​p​o​i​n​t​i​n​g​ ​t​o​ ​t​h​e​ ​i​m​a​g​e​ ​b​y​t​e​s​ ​t​o​ ​u​p​l​o​a​d​ ​t​o​ ​F​e​i​s​h​u​.
+   */
+  IM_IMAGE_FILE_AI_DESCRIPTION: string
+  /**
+   * i​m​a​g​e​_​t​y​p​e
+   */
+  IM_IMAGE_TYPE_DISPLAY_NAME: string
+  /**
+   * m​e​s​s​a​g​e​:​ ​f​o​r​ ​c​h​a​t​ ​i​m​a​g​e​s​ ​(​d​e​f​a​u​l​t​)​.​ ​a​v​a​t​a​r​:​ ​f​o​r​ ​p​r​o​f​i​l​e​ ​a​v​a​t​a​r​s​.
+   */
+  IM_IMAGE_TYPE_HINT: string
+  /**
+   * F​i​l​e
+   */
+  IM_FILE_REF_DISPLAY_NAME: string
+  /**
+   * F​i​l​e​ ​t​o​ ​u​p​l​o​a​d​.​ ​U​s​e​ ​a​ ​f​i​l​e​_​r​e​f​ ​f​r​o​m​ ​a​n​ ​u​p​s​t​r​e​a​m​ ​s​t​e​p​ ​o​r​ ​f​i​l​e​ ​p​i​c​k​e​r​ ​(​s​a​m​e​ ​p​a​t​t​e​r​n​ ​a​s​ ​u​p​l​o​a​d​ ​i​m​a​g​e​)​.
+   */
+  IM_FILE_REF_HINT: string
+  /**
+   * A​ ​w​o​r​k​f​l​o​w​ ​f​i​l​e​_​r​e​f​ ​p​o​i​n​t​i​n​g​ ​t​o​ ​t​h​e​ ​f​i​l​e​ ​b​y​t​e​s​ ​t​o​ ​u​p​l​o​a​d​ ​t​o​ ​F​e​i​s​h​u​ ​I​M​.
+   */
+  IM_FILE_REF_AI_DESCRIPTION: string
+  /**
+   * f​i​l​e​_​t​y​p​e
+   */
+  IM_FILE_TYPE_PARAM_DISPLAY_NAME: string
+  /**
+   * F​e​i​s​h​u​ ​f​i​l​e​ ​t​y​p​e​:​ ​o​p​u​s​ ​|​ ​m​p​4​ ​|​ ​p​d​f​ ​|​ ​d​o​c​ ​|​ ​x​l​s​ ​|​ ​p​p​t​ ​|​ ​s​t​r​e​a​m​ ​(​d​e​f​a​u​l​t​ ​s​t​r​e​a​m​)​.
+   */
+  IM_FILE_TYPE_PARAM_HINT: string
+  /**
+   * f​i​l​e​_​n​a​m​e
+   */
+  IM_FILE_NAME_PARAM_DISPLAY_NAME: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​d​i​s​p​l​a​y​ ​n​a​m​e​ ​i​n​ ​F​e​i​s​h​u​.​ ​D​e​f​a​u​l​t​s​ ​t​o​ ​t​h​e​ ​f​i​l​e​_​r​e​f​ ​f​i​l​e​n​a​m​e​ ​w​h​e​n​ ​o​m​i​t​t​e​d​.
+   */
+  IM_FILE_NAME_PARAM_HINT: string
 }
 
 export type TranslationFunctions = {
@@ -330,6 +378,54 @@ export type TranslationFunctions = {
    * Pagination token for next page
    */
   PAGE_TOKEN_HINT: () => LocalizedString
+  /**
+   * Image file
+   */
+  IM_IMAGE_FILE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Image to upload (JPEG, PNG, WEBP, GIF, TIFF, BMP, ICO). Use a file_ref from an upstream step or file picker.
+   */
+  IM_IMAGE_FILE_HINT: () => LocalizedString
+  /**
+   * A workflow file_ref pointing to the image bytes to upload to Feishu.
+   */
+  IM_IMAGE_FILE_AI_DESCRIPTION: () => LocalizedString
+  /**
+   * image_type
+   */
+  IM_IMAGE_TYPE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * message: for chat images (default). avatar: for profile avatars.
+   */
+  IM_IMAGE_TYPE_HINT: () => LocalizedString
+  /**
+   * File
+   */
+  IM_FILE_REF_DISPLAY_NAME: () => LocalizedString
+  /**
+   * File to upload. Use a file_ref from an upstream step or file picker (same pattern as upload image).
+   */
+  IM_FILE_REF_HINT: () => LocalizedString
+  /**
+   * A workflow file_ref pointing to the file bytes to upload to Feishu IM.
+   */
+  IM_FILE_REF_AI_DESCRIPTION: () => LocalizedString
+  /**
+   * file_type
+   */
+  IM_FILE_TYPE_PARAM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Feishu file type: opus | mp4 | pdf | doc | xls | ppt | stream (default stream).
+   */
+  IM_FILE_TYPE_PARAM_HINT: () => LocalizedString
+  /**
+   * file_name
+   */
+  IM_FILE_NAME_PARAM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Optional display name in Feishu. Defaults to the file_ref filename when omitted.
+   */
+  IM_FILE_NAME_PARAM_HINT: () => LocalizedString
 }
 
 export type Formatters = {}

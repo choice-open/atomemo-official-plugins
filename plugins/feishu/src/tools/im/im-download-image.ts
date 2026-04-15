@@ -1,11 +1,15 @@
 import type {
+  FileRef,
+  JsonValue,
   Property,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { invokeFeishuOpenApi, readRequiredStringParam } from "../feishu/request"
+import {
+  createFeishuLarkClient,
+  readRequiredStringParam,
+} from "../feishu/request"
 import type { FeishuApiFunction } from "../feishu-api-functions"
-import { parseImEmptyQuery } from "./im.zod"
 import im_download_imageSkill from "./im-download-image-skill.md" with {
   type: "text",
 }
@@ -18,6 +22,36 @@ const fn: FeishuApiFunction = {
   path: "/open-apis/im/v1/images/{image_key}",
 }
 
+function extensionFromFilename(filename: string): string | null {
+  const parts = filename.split(".")
+  if (parts.length < 2) return null
+  const ext = (parts.pop() ?? "").toLowerCase()
+  return ext || null
+}
+
+function mimeToExtension(mime: string): string {
+  const base = mime.split(";")[0].trim().toLowerCase()
+  if (base === "image/png") return "png"
+  if (base === "image/jpeg" || base === "image/jpg") return "jpg"
+  if (base === "image/webp") return "webp"
+  if (base === "image/gif") return "gif"
+  if (base === "image/tiff") return "tiff"
+  if (base === "image/bmp" || base === "image/x-ms-bmp") return "bmp"
+  if (base === "image/x-icon" || base === "image/vnd.microsoft.icon")
+    return "ico"
+  return "bin"
+}
+
+async function readableToBuffer(
+  stream: AsyncIterable<Uint8Array | string | Buffer>,
+): Promise<Buffer> {
+  const chunks: Buffer[] = []
+  for await (const chunk of stream) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk))
+  }
+  return Buffer.concat(chunks)
+}
+
 export const feishuImDownloadImageTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
   display_name: {
@@ -25,8 +59,10 @@ export const feishuImDownloadImageTool: ToolDefinition = {
     zh_Hans: "下载图片",
   },
   description: {
-    en_US: "This API is used to download an image by image key.",
-    zh_Hans: "本接口用于通过图片的 Key 值下载图片。",
+    en_US:
+      "Download an image by image key and return an Atomemo file_ref for downstream steps.",
+    zh_Hans:
+      "通过图片 Key 从飞书下载图片，并上传为可在工作流中复用的 file_ref。",
   },
   skill: im_download_imageSkill,
   icon: "🪶",
@@ -52,20 +88,52 @@ export const feishuImDownloadImageTool: ToolDefinition = {
       },
     } satisfies Property<"image_key">,
   ],
-  invoke: async ({ args }) => {
+  invoke: async ({ args, context }): Promise<JsonValue> => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
-    const pathParams = {
-      image_key: readRequiredStringParam(p, "image_key"),
+    const imageKey = readRequiredStringParam(p, "image_key")
+
+    if (!context?.files) {
+      throw new Error("File context is unavailable.")
     }
-    const queryParams = parseImEmptyQuery({})
-    const body = {}
-    return invokeFeishuOpenApi(fn, {
-      credentials: args.credentials,
-      credentialId,
-      pathParams,
-      queryParams,
-      body,
+
+    const client = createFeishuLarkClient(args.credentials, credentialId)
+    const result = await client.im.image.get({
+      path: { image_key: imageKey },
     })
+
+    if (!result) {
+      throw new Error("Feishu returned an empty response for image download.")
+    }
+
+    const stream = result.getReadableStream()
+    const buffer = await readableToBuffer(stream as AsyncIterable<Uint8Array>)
+
+    const headers = result.headers as Record<string, unknown> | undefined
+    const rawType =
+      headers &&
+      typeof headers["content-type"] === "string" &&
+      headers["content-type"].trim() !== ""
+        ? headers["content-type"].trim()
+        : "application/octet-stream"
+
+    const ext = mimeToExtension(rawType)
+    const filename = `${imageKey.replace(/[/\\]/g, "_")}.${ext}`
+    const contentBase64 = buffer.toString("base64")
+
+    // 与 google-drive download-a-file 一致：组装 FileRef 后 upload，并直接返回结果
+    const fileRef: FileRef = {
+      __type__: "file_ref",
+      source: "mem",
+      filename,
+      content: contentBase64,
+      mime_type: rawType.split(";")[0]?.trim() ?? rawType,
+      extension: extensionFromFilename(filename),
+      size: buffer.length,
+      res_key: null,
+      remote_url: null,
+    }
+
+    return (await context.files.upload(fileRef, {})) as JsonValue
   },
 }

@@ -41,6 +41,22 @@ const zh_Hans = {
   PAGE_SIZE: "分页大小",
   PAGE_TOKEN: "分页令牌",
   PAGE_TOKEN_HINT: "下一页的分页令牌",
+  IM_IMAGE_FILE_DISPLAY_NAME: "图片文件",
+  IM_IMAGE_FILE_HINT:
+    "要上传的图片（支持 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO）。请传入上游步骤的 file_ref 或通过文件选择器选择。",
+  IM_IMAGE_FILE_AI_DESCRIPTION: "指向待上传图片内容的 workflow file_ref。",
+  IM_IMAGE_TYPE_DISPLAY_NAME: "image_type",
+  IM_IMAGE_TYPE_HINT: "message：聊天消息图片（默认）；avatar：用户头像。",
+  IM_FILE_REF_DISPLAY_NAME: "文件",
+  IM_FILE_REF_HINT:
+    "待上传文件。请传入上游步骤的 file_ref 或通过文件选择器选择（与上传图片相同）。",
+  IM_FILE_REF_AI_DESCRIPTION: "指向待上传文件内容的 workflow file_ref。",
+  IM_FILE_TYPE_PARAM_DISPLAY_NAME: "file_type",
+  IM_FILE_TYPE_PARAM_HINT:
+    "飞书文件类型：opus | mp4 | pdf | doc | xls | ppt | stream（默认 stream）。",
+  IM_FILE_NAME_PARAM_DISPLAY_NAME: "file_name",
+  IM_FILE_NAME_PARAM_HINT:
+    "可选：在飞书中显示的文件名；不填则使用 file_ref 自带的文件名。",
 } satisfies Translation
 
 export default zh_Hans

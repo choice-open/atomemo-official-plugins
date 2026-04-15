@@ -1639,29 +1639,52 @@
           "credential_name": "feishu-app-credential"
         },
         {
-          "name": "body_json",
+          "name": "image",
           "display_name": {
-            "en_US": "Body",
-            "zh_Hans": "请求体"
+            "en_US": "Image file",
+            "zh_Hans": "图片文件"
           },
           "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "A workflow file_ref pointing to the image bytes to upload to Feishu.",
+              "zh_Hans": "指向待上传图片内容的 workflow file_ref。"
+            }
+          },
           "ui": {
             "hint": {
-              "en_US": "HTTP body object as JSON string (optional)",
-              "zh_Hans": "HTTP 请求体，JSON 对象字符串（可选）"
+              "en_US": "Image to upload (JPEG, PNG, WEBP, GIF, TIFF, BMP, ICO). Use a file_ref from an upstream step or file picker.",
+              "zh_Hans": "要上传的图片（支持 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO）。请传入上游步骤的 file_ref 或通过文件选择器选择。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "file_ref"
+        },
+        {
+          "name": "image_type",
+          "display_name": {
+            "en_US": "image_type",
+            "zh_Hans": "image_type"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "message: for chat images (default). avatar: for profile avatars.",
+              "zh_Hans": "message：聊天消息图片（默认）；avatar：用户头像。"
             },
             "placeholder": {
-              "en_US": "{\"key\":\"value\"}",
-              "zh_Hans": "{\"key\":\"value\"}"
+              "en_US": "message",
+              "zh_Hans": "message"
             },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
+            "component": "input"
           },
           "type": "string"
         }
       ],
-      "skill": "# 上传图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_image`\n- **Module**: `im`\n- **Method**: `POST`\n- **Path**: `/open-apis/im/v1/images`\n- **Purpose**: 本接口用于将图片上传至飞书开放平台。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"image_type\\\":\\\"message\\\",\\\"image\\\":\\\"<binary-or-file-ref>\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {\n    \"image_key\": \"img_v2_xxx\"\n  }\n}\n```\n"
+      "skill": "# 上传图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_image`\n- **Module**: `im`\n- **Method**: `POST`（SDK：`im.image.create`，multipart）\n- **Path**: `/open-apis/im/v1/images`\n- **Purpose**: 本接口用于将图片上传至飞书开放平台。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `image`：`file_ref`（必填）。待上传图片，与 Atomemo `PropertyFileReference`（`type: \"file_ref\"`）一致；由上游步骤或本地上传提供。读取方式与 `google-drive-upload-file` 相同：`parseFileRef` 后统一 `download` 取得字节再上传至飞书。\n- `image_type`（可选）：`message` | `avatar`，默认 `message`。`message` 用于聊天消息图片；`avatar` 用于头像。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"image\": \"<file_ref from upstream or picker>\",\n    \"image_type\": \"message\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与飞书 SDK `im.image.create` 返回一致，通常包含 `image_key`：\n\n```json\n{\n  \"image_key\": \"img_v2_xxx\"\n}\n```\n"
     },
     {
       "name": "feishu-im_download_image",
@@ -1670,8 +1693,8 @@
         "zh_Hans": "下载图片"
       },
       "description": {
-        "en_US": "This API is used to download an image by image key.",
-        "zh_Hans": "本接口用于通过图片的 Key 值下载图片。"
+        "en_US": "Download an image by image key and return an Atomemo file_ref for downstream steps.",
+        "zh_Hans": "通过图片 Key 从飞书下载图片，并上传为可在工作流中复用的 file_ref。"
       },
       "icon": "🪶",
       "parameters": [
@@ -1707,7 +1730,7 @@
           "type": "string"
         }
       ],
-      "skill": "# 下载图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_image`\n- **Module**: `im`\n- **Method**: `GET`\n- **Path**: `/open-apis/im/v1/images/{image_key}`\n- **Purpose**: 本接口用于通过图片的 Key 值下载图片。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `image_key`：图片 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"image_key\": \"img_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 下载图片 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_image`\n- **Module**: `im`\n- **Method**: `GET`（SDK：`im.image.get`，二进制流）\n- **Path**: `/open-apis/im/v1/images/{image_key}`\n- **Purpose**: 通过 `image_key` 下载应用自身上传且类型为 `message` 的图片，并写入 Atomemo 文件系统，返回可在工作流中复用的 `file_ref`（`PropertyFileReference` / `type: \"file_ref\"`）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/image/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `image_key`：图片 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"image_key\": \"img_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与 `google-drive-download-file` 一致：直接返回 `context.files.upload` 的结果（`file_ref` 对象），供下游步骤引用。\n\n```json\n{\n  \"__type__\": \"file_ref\",\n  \"filename\": \"img_v2_xxx.png\",\n  \"mime_type\": \"image/png\",\n  \"content\": \"<base64 omitted>\"\n}\n```\n"
     },
     {
       "name": "feishu-im_upload_file",
@@ -1716,8 +1739,8 @@
         "zh_Hans": "上传文件"
       },
       "description": {
-        "en_US": "This API is used to upload a local file to the Feishu Open Platform.",
-        "zh_Hans": "本接口用于将本地文件上传至飞书开放平台。"
+        "en_US": "Upload a file to the Feishu Open Platform using a workflow file_ref (multipart).",
+        "zh_Hans": "通过 workflow file_ref 将文件以 multipart 方式上传至飞书开放平台。"
       },
       "icon": "🪶",
       "parameters": [
@@ -1735,29 +1758,70 @@
           "credential_name": "feishu-app-credential"
         },
         {
-          "name": "body_json",
+          "name": "file",
           "display_name": {
-            "en_US": "Body",
-            "zh_Hans": "请求体"
+            "en_US": "File",
+            "zh_Hans": "文件"
           },
           "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "A workflow file_ref pointing to the file bytes to upload to Feishu IM.",
+              "zh_Hans": "指向待上传文件内容的 workflow file_ref。"
+            }
+          },
           "ui": {
             "hint": {
-              "en_US": "HTTP body object as JSON string (optional)",
-              "zh_Hans": "HTTP 请求体，JSON 对象字符串（可选）"
+              "en_US": "File to upload. Use a file_ref from an upstream step or file picker (same pattern as upload image).",
+              "zh_Hans": "待上传文件。请传入上游步骤的 file_ref 或通过文件选择器选择（与上传图片相同）。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "file_ref"
+        },
+        {
+          "name": "file_type",
+          "display_name": {
+            "en_US": "file_type",
+            "zh_Hans": "file_type"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Feishu file type: opus | mp4 | pdf | doc | xls | ppt | stream (default stream).",
+              "zh_Hans": "飞书文件类型：opus | mp4 | pdf | doc | xls | ppt | stream（默认 stream）。"
             },
             "placeholder": {
-              "en_US": "{\"key\":\"value\"}",
-              "zh_Hans": "{\"key\":\"value\"}"
+              "en_US": "stream",
+              "zh_Hans": "stream"
             },
             "support_expression": true,
             "width": "full",
-            "component": "code-editor"
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file_name",
+          "display_name": {
+            "en_US": "file_name",
+            "zh_Hans": "file_name"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional display name in Feishu. Defaults to the file_ref filename when omitted.",
+              "zh_Hans": "可选：在飞书中显示的文件名；不填则使用 file_ref 自带的文件名。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
           },
           "type": "string"
         }
       ],
-      "skill": "# 上传文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_file`\n- **Module**: `im`\n- **Method**: `POST`\n- **Path**: `/open-apis/im/v1/files`\n- **Purpose**: 本接口用于将本地文件上传至飞书开放平台。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `body_json`：请求体 JSON 字符串（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"body_json\": \"{\\\"file_type\\\":\\\"stream\\\",\\\"file_name\\\":\\\"example.txt\\\",\\\"file\\\":\\\"<binary-or-file-ref>\\\"}\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {\n    \"file_key\": \"file_v2_xxx\"\n  }\n}\n```\n"
+      "skill": "# 上传文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_upload_file`\n- **Module**: `im`\n- **Method**: `POST`（SDK：`im.file.create`，multipart）\n- **Path**: `/open-apis/im/v1/files`\n- **Purpose**: 将本地/工作流文件上传至飞书开放平台（与 `feishu-im_upload_image` 相同：`file_ref` + `parseFileRef` + `download` 取字节）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/create\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `file`：`file_ref`（必填），待上传文件。\n- `file_type`（可选）：`opus` | `mp4` | `pdf` | `doc` | `xls` | `ppt` | `stream`，默认 `stream`。\n- `file_name`（可选）：飞书侧显示的文件名；不填则使用 `file_ref` 自带文件名。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"file\": \"<file_ref from upstream or picker>\",\n    \"file_type\": \"stream\",\n    \"file_name\": \"report.pdf\"\n  }\n}\n```\n\n## Tool Output 示例\n\n与 SDK `im.file.create` 返回一致，通常包含 `file_key`：\n\n```json\n{\n  \"file_key\": \"file_v2_xxx\"\n}\n```\n"
     },
     {
       "name": "feishu-im_download_file",
@@ -1766,8 +1830,8 @@
         "zh_Hans": "下载文件"
       },
       "description": {
-        "en_US": "This API is used to download a file by file key.",
-        "zh_Hans": "本接口用于通过文件的 Key 下载文件。"
+        "en_US": "Download a file by file key and return an Atomemo file_ref for downstream steps.",
+        "zh_Hans": "通过文件 Key 从飞书下载文件，并上传为可在工作流中复用的 file_ref。"
       },
       "icon": "🪶",
       "parameters": [
@@ -1803,7 +1867,7 @@
           "type": "string"
         }
       ],
-      "skill": "# 下载文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_file`\n- **Module**: `im`\n- **Method**: `GET`\n- **Path**: `/open-apis/im/v1/files/{file_key}`\n- **Purpose**: 本接口用于通过文件的 Key 下载文件。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `file_key`：文件 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"file_key\": \"file_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n```json\n{\n  \"code\": 0,\n  \"msg\": \"success\",\n  \"data\": {}\n}\n```\n"
+      "skill": "# 下载文件 Tool Documentation\n\n## Tool\n\n- **Name**: `feishu-im_download_file`\n- **Module**: `im`\n- **Method**: `GET`（SDK：`im.file.get`，二进制流）\n- **Path**: `/open-apis/im/v1/files/{file_key}`\n- **Purpose**：通过 `file_key` 下载机器人自行上传的文件，写入 Atomemo 并返回 `file_ref`（与 `feishu-im_download_image` 一致：直接返回 `context.files.upload` 的结果）。\n- **API Doc**: https://open.feishu.cn/document/server-docs/im-v1/file/get\n\n## 参数说明\n\n- `credential_id`：飞书应用凭据 ID（必填）。\n- `file_key`：文件 Key（必填）。\n\n## Tool Input 示例\n\n```json\n{\n  \"parameters\": {\n    \"credential_id\": \"<your-feishu-credential-id>\",\n    \"file_key\": \"file_v2_xxx\"\n  }\n}\n```\n\n## Tool Output 示例\n\n直接返回 `file_ref` 对象（与下载图片 / Google Drive 下载一致）：\n\n```json\n{\n  \"__type__\": \"file_ref\",\n  \"filename\": \"file_v2_xxx.pdf\",\n  \"mime_type\": \"application/pdf\",\n  \"content\": \"<base64 omitted>\"\n}\n```\n"
     },
     {
       "name": "feishu-calendar_create_shared_calendar",

@@ -41,6 +41,25 @@ const en_US = {
   PAGE_SIZE: "Page Size",
   PAGE_TOKEN: "Page Token",
   PAGE_TOKEN_HINT: "Pagination token for next page",
+  IM_IMAGE_FILE_DISPLAY_NAME: "Image file",
+  IM_IMAGE_FILE_HINT:
+    "Image to upload (JPEG, PNG, WEBP, GIF, TIFF, BMP, ICO). Use a file_ref from an upstream step or file picker.",
+  IM_IMAGE_FILE_AI_DESCRIPTION:
+    "A workflow file_ref pointing to the image bytes to upload to Feishu.",
+  IM_IMAGE_TYPE_DISPLAY_NAME: "image_type",
+  IM_IMAGE_TYPE_HINT:
+    "message: for chat images (default). avatar: for profile avatars.",
+  IM_FILE_REF_DISPLAY_NAME: "File",
+  IM_FILE_REF_HINT:
+    "File to upload. Use a file_ref from an upstream step or file picker (same pattern as upload image).",
+  IM_FILE_REF_AI_DESCRIPTION:
+    "A workflow file_ref pointing to the file bytes to upload to Feishu IM.",
+  IM_FILE_TYPE_PARAM_DISPLAY_NAME: "file_type",
+  IM_FILE_TYPE_PARAM_HINT:
+    "Feishu file type: opus | mp4 | pdf | doc | xls | ppt | stream (default stream).",
+  IM_FILE_NAME_PARAM_DISPLAY_NAME: "file_name",
+  IM_FILE_NAME_PARAM_HINT:
+    "Optional display name in Feishu. Defaults to the file_ref filename when omitted.",
 } satisfies BaseTranslation
 
 export default en_US

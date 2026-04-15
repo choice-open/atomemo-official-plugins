@@ -9,7 +9,6 @@ import {
   readRequiredStringParam,
 } from "../feishu/request";
 import type { FeishuApiFunction } from "../feishu-api-functions";
-import { parseCalendarBatchGetCalendarsQuery } from "./calendar.zod";
 import calendar_batch_get_calendarsSkill from "./calendar-batch-get-calendars-skill.md" with { type: "text" };
 
 const fn: FeishuApiFunction = {
@@ -19,12 +18,6 @@ const fn: FeishuApiFunction = {
   method: "POST",
   path: "/open-apis/calendar/v4/calendars/mget",
 };
-
-function optionalString(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined;
-  const trimmed = value.trim();
-  return trimmed === "" ? undefined : trimmed;
-}
 
 export const feishuCalendarBatchGetCalendarsTool: ToolDefinition = {
   name: `feishu-${fn.id}`,
