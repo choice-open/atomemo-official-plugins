@@ -1,0 +1,208 @@
+{
+  "name": "wechat-work",
+  "display_name": {
+    "en_US": "WeChat Work",
+    "zh_Hans": "企业微信"
+  },
+  "description": {
+    "en_US": "Connect to WeChat Work (企业微信) Open API for org and messaging.",
+    "zh_Hans": "通过企业微信开放接口连接通讯录与消息能力。"
+  },
+  "icon": "🏢",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/wechat-work",
+  "locales": ["en-US", "zh-Hans"],
+  "author": "yong yu",
+  "email": "leoyyong@gmail.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "wechat-work",
+      "display_name": {
+        "en_US": "WeChat Work credential",
+        "zh_Hans": "企业微信凭证"
+      },
+      "description": {
+        "en_US": "OAuth2 client credentials (Corp ID + app secret) for WeChat Work Open API (企业微信).",
+        "zh_Hans": "企业微信开放接口的 OAuth2 客户端模式凭证（企业 ID + 应用 Secret）。"
+      },
+      "icon": "🔐",
+      "oauth2": true,
+      "oauth2_grant_type": "client_credentials",
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Corp ID (client_id)",
+            "zh_Hans": "企业 ID（client_id）"
+          },
+          "required": true,
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Enterprise ID from WeChat Work admin (我的企业 → 企业信息). Same as corpid in gettoken.",
+              "zh_Hans": "管理后台「我的企业」→「企业信息」中的企业 ID，对应 gettoken 的 corpid。"
+            },
+            "width": "full"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Application Secret",
+            "zh_Hans": "应用 Secret"
+          },
+          "required": true,
+          "ui": {
+            "component": "encrypted-input",
+            "hint": {
+              "en_US": "Secret of the self-built application (corpsecret in gettoken).",
+              "zh_Hans": "自建应用的 Secret，对应 gettoken 的 corpsecret。"
+            },
+            "sensitive": true,
+            "width": "full"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "wechat-work-list-departments",
+      "display_name": {
+        "en_US": "List departments",
+        "zh_Hans": "获取部门列表"
+      },
+      "description": {
+        "en_US": "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
+        "zh_Hans": "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。"
+      },
+      "icon": "🗂️",
+      "parameters": [
+        {
+          "name": "wechat_work_credential",
+          "display_name": {
+            "en_US": "WeChat Work credential",
+            "zh_Hans": "企业微信凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "wechat-work"
+        },
+        {
+          "name": "parent_department_id",
+          "display_name": {
+            "en_US": "Parent department ID",
+            "zh_Hans": "父部门 ID"
+          },
+          "required": false,
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional. When empty, returns the full organization tree per API defaults.",
+              "zh_Hans": "可选。留空则按接口默认返回全量组织架构。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# List departments (`wechat-work-list-departments`)\n\nCalls `GET /department/simplelist` to retrieve the simplified department list (id, parentid, order).\n\n## Parameters\n\n- **wechat_work_credential** (required): `credential_id` for `wechat-work` (OAuth2 client_credentials: client_id + client_secret; access_token managed by Hub).\n- **parent_department_id** (optional): When set, scopes to that parent department; when empty, behavior follows enterprise default (often full tree).\n\n## Output\n\nReturns `{ department_id: Array<{ id, parentid, order }> }` on success.\n"
+    },
+    {
+      "name": "wechat-work-send-text-message",
+      "display_name": {
+        "en_US": "Send app text message",
+        "zh_Hans": "发送应用文本消息"
+      },
+      "description": {
+        "en_US": "Send a text message to members via a self-built application (消息推送).",
+        "zh_Hans": "通过自建应用向成员发送文本消息（应用消息）。"
+      },
+      "icon": "✉️",
+      "parameters": [
+        {
+          "name": "wechat_work_credential",
+          "display_name": {
+            "en_US": "WeChat Work credential",
+            "zh_Hans": "企业微信凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "wechat-work"
+        },
+        {
+          "name": "agent_id",
+          "display_name": {
+            "en_US": "Agent ID",
+            "zh_Hans": "应用 AgentId"
+          },
+          "required": true,
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "The numeric agent id of your self-built app (应用管理 → 应用详情).",
+              "zh_Hans": "自建应用的 AgentId（应用管理 → 对应应用详情）。"
+            }
+          },
+          "type": "integer"
+        },
+        {
+          "name": "touser",
+          "display_name": {
+            "en_US": "To users (userid)",
+            "zh_Hans": "接收成员 userid"
+          },
+          "required": true,
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Pipe-separated userids, e.g. zhangsan|lisi.",
+              "zh_Hans": "成员 userid，多个用 | 分隔，例如 zhangsan|lisi。"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "display_name": {
+            "en_US": "Message content",
+            "zh_Hans": "消息内容"
+          },
+          "required": true,
+          "ui": {
+            "component": "textarea",
+            "support_expression": true,
+            "width": "full"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# Send text message (`wechat-work-send-text-message`)\n\nCalls `POST /message/send` with `msgtype: text` for a self-built application.\n\n## Parameters\n\n- **wechat_work_credential** (required): `credential_id` for `wechat-work`.\n- **agent_id** (required): Numeric AgentId of the app.\n- **touser** (required): Recipient userids separated by `|`.\n- **content** (required): Plain text body.\n\n## Output\n\nReturns `msgid` and optional invalid user/party/tag fields when the API reports partial delivery issues.\n"
+    }
+  ]
+}
