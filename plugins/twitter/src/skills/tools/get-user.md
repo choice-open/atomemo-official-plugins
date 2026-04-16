@@ -1,4 +1,4 @@
-export default `# twitter / get-user
+# twitter / get-user
 
 Get a user's profile by their user ID.
 
@@ -6,32 +6,32 @@ Get a user's profile by their user ID.
 
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
-| \`twitter_credential\` | \`credential_id\` | yes | — | Links to credential \`twitter-oauth\`. |
-| \`user_id\` | \`string\` | yes | — | The unique identifier of the user. |
+| `twitter_credential` | `credential_id` | yes | — | Links to credential `twitter-oauth`. |
+| `user_id` | `string` | yes | — | The unique identifier of the user. |
 
 ### Example Input
-\`\`\`json
+```json
 {
   "twitter_credential": "my-twitter-account",
   "user_id": "987654321"
 }
-\`\`\`
+```
 
 ## Credential
 
-- Credential name: \`twitter-oauth\`
+- Credential name: `twitter-oauth`
 - Fields:
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| \`client_id\` | \`string\` | yes | Twitter App Client ID. |
-| \`client_secret\` | \`encrypted_string\` | yes | Twitter App Client Secret. |
-| \`access_token\` | \`encrypted_string\` | no | OAuth 2.0 access token (auto-filled after authorization). |
-| \`refresh_token\` | \`encrypted_string\` | no | OAuth 2.0 refresh token (auto-filled after authorization). |
+| `client_id` | `string` | yes | Twitter App Client ID. |
+| `client_secret` | `encrypted_string` | yes | Twitter App Client Secret. |
+| `access_token` | `encrypted_string` | no | OAuth 2.0 access token (auto-filled after authorization). |
+| `refresh_token` | `encrypted_string` | no | OAuth 2.0 refresh token (auto-filled after authorization). |
 
 ## Success Output
 
-\`\`\`json
+```json
 {
   "data": {
     "id": "987654321",
@@ -49,5 +49,4 @@ Get a user's profile by their user ID.
     "verified": false
   }
 }
-\`\`\`
-`
+```
