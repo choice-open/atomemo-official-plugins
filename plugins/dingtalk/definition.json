@@ -1,0 +1,2470 @@
+{
+  "name": "dingtalk",
+  "display_name": {
+    "en_US": "DingTalk",
+    "zh_Hans": "钉钉"
+  },
+  "description": {
+    "en_US": "Work with DingTalk users, approvals, documents, and robots.",
+    "zh_Hans": "操作钉钉用户、审批、文档和机器人。"
+  },
+  "icon": "https://cdn.worldvectorlogo.com/logos/dingtalk.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/dingtalk/README.md",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.2.0",
+  "credentials": [
+    {
+      "name": "dingtalk-app",
+      "display_name": {
+        "en_US": "DingTalk App Credential",
+        "zh_Hans": "钉钉应用凭证"
+      },
+      "description": {
+        "en_US": "Enterprise internal app credential for DingTalk Open Platform APIs.",
+        "zh_Hans": "用于调用钉钉开放平台企业内部应用 API 的凭证。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "corp_id",
+          "display_name": {
+            "en_US": "Corp ID",
+            "zh_Hans": "组织 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Organization ID where the DingTalk app is installed.",
+              "zh_Hans": "钉钉应用所属组织的 Corp ID。"
+            },
+            "placeholder": {
+              "en_US": "dingxxxxxxxxxxxx",
+              "zh_Hans": "dingxxxxxxxxxxxx"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "应用 Client ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Found in the DingTalk developer console under app credentials.",
+              "zh_Hans": "可在钉钉开发者后台的应用凭证中找到。"
+            },
+            "placeholder": {
+              "en_US": "dingoa...",
+              "zh_Hans": "dingoa..."
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "应用 Client Secret"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Keep this secret secure. It is used to fetch access tokens at runtime.",
+              "zh_Hans": "请妥善保管。运行时会用它来获取 access token。"
+            },
+            "placeholder": {
+              "en_US": "App secret",
+              "zh_Hans": "应用密钥"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "user_union_id",
+          "display_name": {
+            "en_US": "Default Operator unionId",
+            "zh_Hans": "默认操作人 unionId"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Optional default operator unionId for document and workflow operations. When a workflow tool needs a userId and none is provided, the plugin resolves it from this unionId.",
+              "zh_Hans": "可选。用于文档和审批等操作的默认操作人 unionId。当审批工具需要 userId 且未直接填写时，插件会用这个 unionId 自动解析。"
+            },
+            "placeholder": {
+              "en_US": "unionId",
+              "zh_Hans": "unionId"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "agent_id",
+          "display_name": {
+            "en_US": "Default Agent ID",
+            "zh_Hans": "默认 Agent ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Required. Use the AgentId of your internal DingTalk app. See DingTalk Basic Concepts and find it in the developer console for the app.",
+              "zh_Hans": "必填。填写钉钉企业内部应用的 AgentId。可参考钉钉开放平台《基础概念》文档，并在该应用的开发者后台中查看。"
+            },
+            "placeholder": {
+              "en_US": "agentId",
+              "zh_Hans": "agentId"
+            },
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "dingtalk-auth-get-access-token",
+      "display_name": {
+        "en_US": "Get App Access Token",
+        "zh_Hans": "获取应用 Access Token"
+      },
+      "description": {
+        "en_US": "Fetch the current DingTalk app access token using the selected credential.",
+        "zh_Hans": "使用所选凭证获取当前钉钉应用的 access token。"
+      },
+      "icon": "🔐",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        }
+      ],
+      "skill": "# dingtalk / get-app-access-token\n\nFetch the current DingTalk app access token using the selected credential.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | yes | — | Links to credential `dingtalk-app`. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `corp_id` | `string` | yes | Organization ID where the DingTalk app is installed. |\n| `client_id` | `string` | yes | DingTalk app Client ID. |\n| `client_secret` | `encrypted_string` | yes | DingTalk app Client Secret. |\n| `user_union_id` | `string` | no | Default operator unionId for workflow-related operations. |\n| `agent_id` | `string` | yes | AgentId of the internal DingTalk app. |\n\n## Success Output\n\n```json\n{\n  \"corpId\": \"dingxxxxxxxxxxxx\",\n  \"clientId\": \"dingoaxxxxxxxxxxxx\",\n  \"accessToken\": \"abc123def456\"\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-robot-batch-send",
+      "display_name": {
+        "en_US": "Batch Send Robot Message",
+        "zh_Hans": "批量发送机器人消息"
+      },
+      "description": {
+        "en_US": "Send one-to-one robot messages in batch.",
+        "zh_Hans": "批量发送人与机器人单聊消息。"
+      },
+      "icon": "🤖",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "robot_code",
+          "display_name": {
+            "en_US": "Robot Code",
+            "zh_Hans": "机器人编码"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "DingTalk robot code used to send the batch robot message.",
+              "zh_Hans": "用于发送批量机器人消息的钉钉机器人编码。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_ids",
+          "display_name": {
+            "en_US": "User IDs",
+            "zh_Hans": "用户 ID 列表"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "DingTalk user IDs to send the batch robot message to. Up to 20 userIds per request.",
+              "zh_Hans": "要发送批量机器人消息的钉钉用户 userId 列表。每次请求最多 20 个 userId。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Up to 20 userIds per request.",
+              "zh_Hans": "每次请求最多 20 个 userId。"
+            },
+            "support_expression": true,
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "user_ids_item",
+            "type": "string"
+          },
+          "max_items": 20,
+          "min_items": 1
+        },
+        {
+          "name": "message",
+          "display_name": {
+            "en_US": "Message",
+            "zh_Hans": "消息"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Structured robot message payload. Choose one message type and provide the fields for that type.",
+              "zh_Hans": "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。"
+            }
+          },
+          "ui": {
+            "component": "section"
+          },
+          "type": "object",
+          "properties": [
+            {
+              "name": "type",
+              "display_name": {
+                "en_US": "Message Type",
+                "zh_Hans": "消息类型"
+              },
+              "required": true,
+              "ai": {
+                "llm_description": {
+                  "en_US": "Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.",
+                  "zh_Hans": "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Choose the message type and fill the fields for that type only.",
+                  "zh_Hans": "选择消息类型后，只填写该类型对应的字段。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Text",
+                      "zh_Hans": "文本"
+                    },
+                    "value": "text"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Link",
+                      "zh_Hans": "链接"
+                    },
+                    "value": "link"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Markdown",
+                      "zh_Hans": "Markdown"
+                    },
+                    "value": "markdown"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Action Card",
+                      "zh_Hans": "Action Card"
+                    },
+                    "value": "actionCard"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Feed Card",
+                      "zh_Hans": "Feed Card"
+                    },
+                    "value": "feedCard"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "text",
+              "enum": [
+                "text",
+                "link",
+                "markdown",
+                "actionCard",
+                "feedCard"
+              ]
+            },
+            {
+              "name": "content",
+              "display_name": {
+                "en_US": "Content",
+                "zh_Hans": "内容"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "text"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Content for a text robot message.",
+                  "zh_Hans": "文本机器人消息的内容。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "title",
+              "display_name": {
+                "en_US": "Title",
+                "zh_Hans": "标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Title shown for link, markdown, or action card messages.",
+                  "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "text",
+              "display_name": {
+                "en_US": "Text",
+                "zh_Hans": "文本"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.",
+                  "zh_Hans": "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.",
+                  "zh_Hans": "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "message_url",
+              "display_name": {
+                "en_US": "Message URL",
+                "zh_Hans": "消息链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the user clicks the message or feed card item.",
+                  "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "pic_url",
+              "display_name": {
+                "en_US": "Picture URL",
+                "zh_Hans": "图片链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                  "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                  "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "action_card_variant",
+              "display_name": {
+                "en_US": "Action Card Variant",
+                "zh_Hans": "Action Card 变体"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "actionCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Single Button",
+                      "zh_Hans": "单按钮"
+                    },
+                    "value": "single"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Vertical Buttons",
+                      "zh_Hans": "竖向按钮"
+                    },
+                    "value": "vertical_buttons"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Horizontal Buttons",
+                      "zh_Hans": "横向按钮"
+                    },
+                    "value": "horizontal_buttons"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "single",
+              "enum": [
+                "single",
+                "vertical_buttons",
+                "horizontal_buttons"
+              ]
+            },
+            {
+              "name": "single_title",
+              "display_name": {
+                "en_US": "Single Button Title",
+                "zh_Hans": "单按钮标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Button title used when the action card has a single button.",
+                  "zh_Hans": "当 Action Card 使用单按钮时展示的按钮标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "single_url",
+              "display_name": {
+                "en_US": "Single Button URL",
+                "zh_Hans": "单按钮链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the single action card button is clicked.",
+                  "zh_Hans": "点击单按钮 Action Card 时打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "buttons",
+              "display_name": {
+                "en_US": "Buttons",
+                "zh_Hans": "按钮列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": {
+                        "$in": [
+                          "vertical_buttons",
+                          "horizontal_buttons"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.",
+                  "zh_Hans": "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.",
+                  "zh_Hans": "竖向按钮支持 2-5 个，横向按钮固定 2 个。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "button",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Button Title",
+                      "zh_Hans": "按钮标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for an action card button.",
+                        "zh_Hans": "Action Card 按钮显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "action_url",
+                    "display_name": {
+                      "en_US": "Action URL",
+                      "zh_Hans": "按钮链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when an action card button is clicked.",
+                        "zh_Hans": "点击 Action Card 按钮后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "max_items": 5,
+              "min_items": 2
+            },
+            {
+              "name": "links",
+              "display_name": {
+                "en_US": "Links",
+                "zh_Hans": "链接列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "feedCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Feed card items. Provide at least one item with title, message_url, and pic_url.",
+                  "zh_Hans": "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Add one or more feed card items.",
+                  "zh_Hans": "至少添加一个 FeedCard 条目。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "link",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Title",
+                      "zh_Hans": "标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for link, markdown, or action card messages.",
+                        "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "message_url",
+                    "display_name": {
+                      "en_US": "Message URL",
+                      "zh_Hans": "消息链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when the user clicks the message or feed card item.",
+                        "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "pic_url",
+                    "display_name": {
+                      "en_US": "Picture URL",
+                      "zh_Hans": "图片链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                        "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                        "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "min_items": 1
+            }
+          ]
+        }
+      ],
+      "skill": "# dingtalk / batch-send-robot-message\n\nSend one-to-one robot messages to multiple DingTalk users in batch.\n\n## Input Parameters\n\n| Field           | Type                | Required | Default | Description                         |\n| --------------- | ------------------- | -------- | ------- | ----------------------------------- |\n| `credential_id` | `credential_id`     | yes      | —       | Links to credential `dingtalk-app`. |\n| `robot_code`    | `string`            | yes      | —       | DingTalk robot code.                |\n| `user_ids`      | `array` of `string` | yes      | —       | Target user IDs. Min 1, max 20.     |\n| `message`       | `object`            | yes      | —       | Structured robot message payload.   |\n\n### Message Object\nThe `message` object must include a `type` and the fields required for that type:\n\n- `type`: `\"text\"` | `\"link\"` | `\"markdown\"` | `\"actionCard\"` | `\"feedCard\"`\n- **text**: requires `content`\n- **link**: requires `title`, `text`, `message_url`; optional `pic_url`\n- **markdown**: requires `title`, `text`\n- **actionCard**: requires `title`, `text`, `action_card_variant`\n  - `single`: requires `single_title`, `single_url`\n  - `vertical_buttons`: requires `buttons` (2–5 items)\n  - `horizontal_buttons`: requires `buttons` (exactly 2 items)\n- **feedCard**: requires `links` (at least 1 item with `title`, `message_url`, `pic_url`)\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"robot_code\": \"robot123\",\n  \"user_ids\": [\"user1\", \"user2\"],\n  \"message\": {\n    \"type\": \"text\",\n    \"content\": \"Hello from Atomemo!\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"processQueryKey\": \"abc123\",\n  \"invalidStaffIdList\": [],\n  \"flowControlledStaffIdList\": []\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-robot-send-group-message",
+      "display_name": {
+        "en_US": "Send Group Robot Message",
+        "zh_Hans": "发送群机器人消息"
+      },
+      "description": {
+        "en_US": "Send a robot message to a DingTalk group chat.",
+        "zh_Hans": "向钉钉群聊发送机器人消息。"
+      },
+      "icon": "💬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "robot_code",
+          "display_name": {
+            "en_US": "Robot Code",
+            "zh_Hans": "机器人编码"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "DingTalk robot code used to send the group robot message.",
+              "zh_Hans": "用于发送群机器人消息的钉钉机器人编码。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "open_conversation_id",
+          "display_name": {
+            "en_US": "Open Conversation ID",
+            "zh_Hans": "Open Conversation ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "openConversationId of the DingTalk group chat that should receive the robot message.",
+              "zh_Hans": "要接收机器人消息的钉钉群聊 openConversationId。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "message",
+          "display_name": {
+            "en_US": "Message",
+            "zh_Hans": "消息"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Structured robot message payload. Choose one message type and provide the fields for that type.",
+              "zh_Hans": "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。"
+            }
+          },
+          "ui": {
+            "component": "section"
+          },
+          "type": "object",
+          "properties": [
+            {
+              "name": "type",
+              "display_name": {
+                "en_US": "Message Type",
+                "zh_Hans": "消息类型"
+              },
+              "required": true,
+              "ai": {
+                "llm_description": {
+                  "en_US": "Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.",
+                  "zh_Hans": "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Choose the message type and fill the fields for that type only.",
+                  "zh_Hans": "选择消息类型后，只填写该类型对应的字段。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Text",
+                      "zh_Hans": "文本"
+                    },
+                    "value": "text"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Link",
+                      "zh_Hans": "链接"
+                    },
+                    "value": "link"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Markdown",
+                      "zh_Hans": "Markdown"
+                    },
+                    "value": "markdown"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Action Card",
+                      "zh_Hans": "Action Card"
+                    },
+                    "value": "actionCard"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Feed Card",
+                      "zh_Hans": "Feed Card"
+                    },
+                    "value": "feedCard"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "text",
+              "enum": [
+                "text",
+                "link",
+                "markdown",
+                "actionCard",
+                "feedCard"
+              ]
+            },
+            {
+              "name": "content",
+              "display_name": {
+                "en_US": "Content",
+                "zh_Hans": "内容"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "text"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Content for a text robot message.",
+                  "zh_Hans": "文本机器人消息的内容。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "title",
+              "display_name": {
+                "en_US": "Title",
+                "zh_Hans": "标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Title shown for link, markdown, or action card messages.",
+                  "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "text",
+              "display_name": {
+                "en_US": "Text",
+                "zh_Hans": "文本"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.",
+                  "zh_Hans": "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.",
+                  "zh_Hans": "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "message_url",
+              "display_name": {
+                "en_US": "Message URL",
+                "zh_Hans": "消息链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the user clicks the message or feed card item.",
+                  "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "pic_url",
+              "display_name": {
+                "en_US": "Picture URL",
+                "zh_Hans": "图片链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                  "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                  "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "action_card_variant",
+              "display_name": {
+                "en_US": "Action Card Variant",
+                "zh_Hans": "Action Card 变体"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "actionCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Single Button",
+                      "zh_Hans": "单按钮"
+                    },
+                    "value": "single"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Vertical Buttons",
+                      "zh_Hans": "竖向按钮"
+                    },
+                    "value": "vertical_buttons"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Horizontal Buttons",
+                      "zh_Hans": "横向按钮"
+                    },
+                    "value": "horizontal_buttons"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "single",
+              "enum": [
+                "single",
+                "vertical_buttons",
+                "horizontal_buttons"
+              ]
+            },
+            {
+              "name": "single_title",
+              "display_name": {
+                "en_US": "Single Button Title",
+                "zh_Hans": "单按钮标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Button title used when the action card has a single button.",
+                  "zh_Hans": "当 Action Card 使用单按钮时展示的按钮标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "single_url",
+              "display_name": {
+                "en_US": "Single Button URL",
+                "zh_Hans": "单按钮链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the single action card button is clicked.",
+                  "zh_Hans": "点击单按钮 Action Card 时打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "buttons",
+              "display_name": {
+                "en_US": "Buttons",
+                "zh_Hans": "按钮列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": {
+                        "$in": [
+                          "vertical_buttons",
+                          "horizontal_buttons"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.",
+                  "zh_Hans": "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.",
+                  "zh_Hans": "竖向按钮支持 2-5 个，横向按钮固定 2 个。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "button",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Button Title",
+                      "zh_Hans": "按钮标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for an action card button.",
+                        "zh_Hans": "Action Card 按钮显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "action_url",
+                    "display_name": {
+                      "en_US": "Action URL",
+                      "zh_Hans": "按钮链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when an action card button is clicked.",
+                        "zh_Hans": "点击 Action Card 按钮后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "max_items": 5,
+              "min_items": 2
+            },
+            {
+              "name": "links",
+              "display_name": {
+                "en_US": "Links",
+                "zh_Hans": "链接列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "feedCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Feed card items. Provide at least one item with title, message_url, and pic_url.",
+                  "zh_Hans": "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Add one or more feed card items.",
+                  "zh_Hans": "至少添加一个 FeedCard 条目。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "link",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Title",
+                      "zh_Hans": "标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for link, markdown, or action card messages.",
+                        "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "message_url",
+                    "display_name": {
+                      "en_US": "Message URL",
+                      "zh_Hans": "消息链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when the user clicks the message or feed card item.",
+                        "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "pic_url",
+                    "display_name": {
+                      "en_US": "Picture URL",
+                      "zh_Hans": "图片链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                        "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                        "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "min_items": 1
+            }
+          ]
+        }
+      ],
+      "skill": "# dingtalk / send-group-robot-message\n\nSend a robot message to a DingTalk group chat.\n\n## Input Parameters\n\n| Field                  | Type            | Required | Default | Description                                    |\n| ---------------------- | --------------- | -------- | ------- | ---------------------------------------------- |\n| `credential_id`        | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.            |\n| `robot_code`           | `string`        | yes      | —       | DingTalk robot code.                           |\n| `open_conversation_id` | `string`        | yes      | —       | Open conversation ID of the target group chat. |\n| `message`              | `object`        | yes      | —       | Structured robot message payload.              |\n\n### Message Object\nSame schema as `batch-send-robot-message`.\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"robot_code\": \"robot123\",\n  \"open_conversation_id\": \"cidxxxxxxxxxx\",\n  \"message\": {\n    \"type\": \"markdown\",\n    \"title\": \"Weekly Report\",\n    \"text\": \"## Summary\\\\nAll systems operational.\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"processQueryKey\": \"abc123\"\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-user-get",
+      "display_name": {
+        "en_US": "Get User",
+        "zh_Hans": "获取用户详情"
+      },
+      "description": {
+        "en_US": "Get user details by userId.",
+        "zh_Hans": "根据 userId 获取用户详情。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "DingTalk user ID to retrieve.",
+              "zh_Hans": "要获取详情的钉钉用户 userId。"
+            }
+          },
+          "ui": {
+            "placeholder": {
+              "en_US": "user123",
+              "zh_Hans": "user123"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# dingtalk / get-user\n\nGet user details by DingTalk userId.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                         |\n| --------------- | --------------- | -------- | ------- | ----------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`. |\n| `user_id`       | `string`        | yes      | —       | DingTalk user ID to retrieve.       |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n    \"errcode\": 0,\n    \"errmsg\": \"ok\",\n    \"request_id\": \"16mn0sl6oplfp\",\n    \"result\": {\n      \"active\": true,\n      \"admin\": true,\n      \"avatar\": \"\",\n      \"boss\": true,\n      \"create_time\": \"2025-05-28T06:39:19.000Z\",\n      \"dept_id_list\": [\n        1\n      ],\n      \"dept_order_list\": [\n        {\n          \"dept_id\": 1,\n          \"order\": 176169207419780500\n        }\n      ],\n      \"exclusive_account\": false,\n      \"hide_mobile\": false,\n      \"leader_in_dept\": [\n        {\n          \"dept_id\": 1,\n          \"leader\": false\n        }\n      ],\n      \"name\": \"John\",\n      \"real_authed\": true,\n      \"role_list\": [\n        {\n          \"group_name\": \"默认\",\n          \"id\": 4956354843,\n          \"name\": \"主管理员\"\n        },\n        {\n          \"group_name\": \"默认\",\n          \"id\": 4956354845,\n          \"name\": \"负责人\"\n        }\n      ],\n      \"senior\": false,\n      \"unionid\": \"7NBLG0T38Zn6VzCG7KCJmAiEiE\",\n      \"userid\": \"093204182627445986\"\n    }\n  }\n```\n\n"
+    },
+    {
+      "name": "dingtalk-user-get-by-mobile",
+      "display_name": {
+        "en_US": "Get User By Mobile",
+        "zh_Hans": "通过手机号获取用户"
+      },
+      "description": {
+        "en_US": "Look up a userId by mobile number.",
+        "zh_Hans": "根据手机号查询用户 userId。"
+      },
+      "icon": "📱",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "mobile",
+          "display_name": {
+            "en_US": "Mobile",
+            "zh_Hans": "手机号"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Mobile phone number of the DingTalk user to look up.",
+              "zh_Hans": "要查询的钉钉用户手机号。"
+            }
+          },
+          "ui": {
+            "placeholder": {
+              "en_US": "13000000000",
+              "zh_Hans": "13000000000"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# dingtalk / get-user-by-mobile\n\nLook up a DingTalk userId by mobile phone number.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                               |\n| --------------- | --------------- | -------- | ------- | ----------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.       |\n| `mobile`        | `string`        | yes      | —       | Mobile phone number of the DingTalk user. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"mobile\": \"13000000000\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"userid\": \"user123\"\n  }\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-user-search",
+      "display_name": {
+        "en_US": "Search Users",
+        "zh_Hans": "搜索用户"
+      },
+      "description": {
+        "en_US": "Search users by name, pinyin, or English name.",
+        "zh_Hans": "按姓名、拼音或英文名搜索用户。"
+      },
+      "icon": "🔎",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "query_word",
+          "display_name": {
+            "en_US": "Query Word",
+            "zh_Hans": "搜索词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Keyword to search DingTalk users by name, pinyin, or English name.",
+              "zh_Hans": "按姓名、拼音或英文名搜索钉钉用户时使用的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "User name, name pinyin, or English name.",
+              "zh_Hans": "用户名称、名称拼音或英文名称。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset for the user search, starting from 0.",
+              "zh_Hans": "用户搜索的分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        },
+        {
+          "name": "size",
+          "display_name": {
+            "en_US": "Size",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of users to return in this search request.",
+              "zh_Hans": "本次搜索请求要返回的用户数量。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 10,
+          "maximum": 100,
+          "minimum": 1
+        },
+        {
+          "name": "full_match_field",
+          "display_name": {
+            "en_US": "Exact Match",
+            "zh_Hans": "精确匹配"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether the search should require an exact match on supported fields.",
+              "zh_Hans": "搜索时是否要求在支持的字段上进行精确匹配。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "skill": "# dingtalk / search-users\n\nSearch DingTalk users by name, pinyin, or English name.\n\n## Input Parameters\n\n| Field              | Type            | Required | Default | Description                                            |\n| ------------------ | --------------- | -------- | ------- | ------------------------------------------------------ |\n| `credential_id`    | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                    |\n| `query_word`       | `string`        | yes      | —       | Keyword to search by name, pinyin, or English name.    |\n| `offset`           | `integer`       | no       | `0`     | Pagination offset starting from 0.                     |\n| `size`             | `integer`       | no       | `10`    | Number of users to return (1–100).                     |\n| `full_match_field` | `boolean`       | no       | `false` | Whether to require an exact match on supported fields. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"query_word\": \"Zhang San\",\n  \"offset\": 0,\n  \"size\": 10,\n  \"full_match_field\": false\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"hasMore\": false,\n  \"totalCount\": 1,\n  \"list\": [\"user123\"]\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-get-process-instance",
+      "display_name": {
+        "en_US": "Get Process Instance",
+        "zh_Hans": "获取审批实例"
+      },
+      "description": {
+        "en_US": "Get details for a workflow process instance.",
+        "zh_Hans": "获取单个审批实例详情。"
+      },
+      "icon": "📄",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_instance_id",
+          "display_name": {
+            "en_US": "Process Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process instance ID to retrieve.",
+              "zh_Hans": "要获取详情的流程审批实例 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# dingtalk / get-process-instance\n\nGet details for a workflow process instance.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                               |\n| --------------------- | --------------- | -------- | ------- | ----------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.       |\n| `process_instance_id` | `string`        | yes      | —       | Workflow process instance ID to retrieve. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n    \"result\": {\n      \"attachedProcessInstanceIds\": [],\n      \"bizAction\": \"NONE\",\n      \"bizData\": \"{}\",\n      \"businessId\": \"202604161534000376553\",\n      \"createTime\": \"2026-04-16T15:34Z\",\n      \"formComponentValues\": [\n        {\n          \"componentType\": \"TextField\",\n          \"id\": \"TextField-JZ9IVH1K\",\n          \"name\": \"客户名称\",\n          \"value\": \"ttt\"\n        },\n        {\n          \"componentType\": \"DDSelectField\",\n          \"extValue\": \"{\\\"label\\\":\\\"选项2\\\",\\\"key\\\":\\\"option_1\\\"}\",\n          \"id\": \"DDSelectField-JZ9IZXWF\",\n          \"name\": \"预约内容\",\n          \"value\": \"选项2\"\n        },\n        {\n          \"componentType\": \"InnerContactField\",\n          \"extValue\": \"[{\\\"nick\\\":\\\"某用户\\\",\\\"orgUserName\\\":\\\"某用户\\\",\\\"emplId\\\":\\\"093204182627445986\\\",\\\"name\\\":\\\"某用户\\\",\\\"avatar\\\":\\\"\\\",\\\"ecologicalCorpId\\\":\\\"dingbe690074789b06fd4ac5d6980864d335\\\"}]\",\n          \"id\": \"InnerContactField-JZ9IZXWH\",\n          \"name\": \"分配接待人员\",\n          \"value\": \"某用户\"\n        }\n      ],\n      \"operationRecords\": [\n        {\n          \"date\": \"2026-04-16T15:34Z\",\n          \"images\": [],\n          \"result\": \"NONE\",\n          \"showName\": \"提交申请\",\n          \"type\": \"START_PROCESS_INSTANCE\",\n          \"userId\": \"093204182627445986\"\n        }\n      ],\n      \"originatorDeptId\": \"-1\",\n      \"originatorDeptName\": \"Xxx\",\n      \"originatorUserId\": \"093204182627445986\",\n      \"result\": \"\",\n      \"status\": \"RUNNING\",\n      \"tasks\": [\n        {\n          \"activityId\": \"sid-1234_5678\",\n          \"createTime\": \"2026-04-16T15:34Z\",\n          \"mobileUrl\": \"aflow.dingtalk.com?procInsId=eNxe43IIT8S4oQBRC_CrhQ00221776324877&taskId=100468167919&businessId=202604161534000376553\",\n          \"pcUrl\": \"aflow.dingtalk.com?procInsId=eNxe43IIT8S4oQBRC_CrhQ00221776324877&taskId=100468167919&businessId=202604161534000376553\",\n          \"result\": \"NONE\",\n          \"status\": \"RUNNING\",\n          \"taskId\": 100468167919,\n          \"userId\": \"093204182627445986\"\n        }\n      ],\n      \"title\": \"某用户提交的客户信息预约\"\n    },\n    \"success\": true\n  }\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-add-process-comment",
+      "display_name": {
+        "en_US": "Add Process Comment",
+        "zh_Hans": "添加审批评论"
+      },
+      "description": {
+        "en_US": "Add a comment to a process instance.",
+        "zh_Hans": "为审批实例添加评论。"
+      },
+      "icon": "💬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_instance_id",
+          "display_name": {
+            "en_US": "Process Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process instance ID to comment on.",
+              "zh_Hans": "要添加评论的流程审批实例 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "display_name": {
+            "en_US": "Text",
+            "zh_Hans": "文本"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional text body of the workflow comment.",
+              "zh_Hans": "审批评论的文本内容，可选。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "comment_user_id",
+          "display_name": {
+            "en_US": "Comment User ID",
+            "zh_Hans": "评论人 userId"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional commenter userId in DingTalk. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "评论人在钉钉中的 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve commentUserId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 commentUserId。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional image file to include in the workflow comment. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.",
+              "zh_Hans": "审批评论里附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Select an image file to attach to the workflow comment.",
+              "zh_Hans": "可选。选择要附在审批评论里的图片文件。"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
+        }
+      ],
+      "skill": "# dingtalk / add-process-comment\n\nAdd a comment to a workflow process instance.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                                               |\n| --------------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `process_instance_id` | `string`        | yes      | —       | Workflow process instance ID to comment on.               |\n| `text`                | `string`        | no       | —       | Comment text body.                                        |\n| `comment_user_id`     | `string`        | no       | —       | Commenter userId. Defaults to credential `user_union_id`. |\n| `file`                | `file_ref`      | no       | —       | Optional image file to attach. Must be an image.          |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"text\": \"Approved, please proceed.\",\n  \"comment_user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": true,\n  \"success\": true\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-execute-process-task",
+      "display_name": {
+        "en_US": "Execute Process Task",
+        "zh_Hans": "处理审批任务"
+      },
+      "description": {
+        "en_US": "Approve or reject a single workflow task. DingTalk documents this capability for internal apps and requires task execution in approval-node order.",
+        "zh_Hans": "对单个审批任务执行同意或拒绝。钉钉文档说明该能力面向内部应用，且任务需按审批节点顺序处理。"
+      },
+      "icon": "✅",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_instance_id",
+          "display_name": {
+            "en_US": "Process Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process instance ID that owns the task to execute.",
+              "zh_Hans": "要处理的审批任务所属流程审批实例 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "task_id",
+          "display_name": {
+            "en_US": "Task ID",
+            "zh_Hans": "任务 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Task node ID of the workflow task to approve or reject.",
+              "zh_Hans": "要同意或拒绝的审批任务节点 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "actioner_user_id",
+          "display_name": {
+            "en_US": "Actioner User ID",
+            "zh_Hans": "处理人 userId"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional DingTalk user ID of the actor executing the workflow task. This maps to actionerUserId in the API. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "执行审批任务的钉钉用户 userId，对应接口中的 actionerUserId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve actionerUserId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 actionerUserId。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "result",
+          "display_name": {
+            "en_US": "Result",
+            "zh_Hans": "处理结果"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Execution result for the workflow task: use agree to approve or refuse to reject.",
+              "zh_Hans": "审批任务的处理结果：agree 表示同意，refuse 表示拒绝。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Use agree to approve the current task or refuse to reject it. DingTalk requires tasks to be executed in approval-node order.",
+              "zh_Hans": "agree 表示同意，refuse 表示拒绝。钉钉要求按审批节点顺序处理任务。"
+            },
+            "options": [
+              {
+                "label": {
+                  "en_US": "Approve",
+                  "zh_Hans": "同意"
+                },
+                "value": "agree"
+              },
+              {
+                "label": {
+                  "en_US": "Reject",
+                  "zh_Hans": "拒绝"
+                },
+                "value": "refuse"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "agree",
+            "refuse"
+          ]
+        },
+        {
+          "name": "remark",
+          "display_name": {
+            "en_US": "Remark",
+            "zh_Hans": "备注"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional remark to include with the approval or rejection.",
+              "zh_Hans": "审批同意或拒绝时附带的备注文本，可选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Useful for approval comments or rejection reasons. DingTalk documents this task-execution API for internal apps.",
+              "zh_Hans": "可选。可填写审批意见或拒绝原因。钉钉文档说明该任务处理接口面向内部应用。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file",
+          "display_name": {
+            "en_US": "File",
+            "zh_Hans": "文件"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional image file to include while executing the workflow task. Provide a file_ref; the plugin will send it as file.photos after resolving a remote URL.",
+              "zh_Hans": "处理审批任务时附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Select an image file to send with the task execution.",
+              "zh_Hans": "可选。选择要随审批任务处理一并发送的图片文件。"
+            },
+            "width": "full"
+          },
+          "type": "file_ref"
+        }
+      ],
+      "skill": "# dingtalk / execute-process-task\n\nApprove or reject a single workflow task.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                                           |\n| --------------------- | --------------- | -------- | ------- | ----------------------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                   |\n| `process_instance_id` | `string`        | yes      | —       | Process instance that owns the task.                  |\n| `task_id`             | `integer`       | yes      | —       | Task node ID to execute.                              |\n| `actioner_user_id`    | `string`        | no       | —       | Actor userId. Defaults to credential `user_union_id`. |\n| `result`              | `string`        | yes      | —       | `agree` or `refuse`.                                  |\n| `remark`              | `string`        | no       | —       | Optional remark for the action.                       |\n| `file`                | `file_ref`      | no       | —       | Optional image attachment. Must be an image.          |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"task_id\": 1,\n  \"actioner_user_id\": \"user123\",\n  \"result\": \"agree\",\n  \"remark\": \"Looks good\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": true,\n  \"success\": true\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-download-process-attachment",
+      "display_name": {
+        "en_US": "Download Process Attachment",
+        "zh_Hans": "获取审批附件下载信息"
+      },
+      "description": {
+        "en_US": "Get download authorization information for a process attachment.",
+        "zh_Hans": "获取审批附件下载授权信息。"
+      },
+      "icon": "📎",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_instance_id",
+          "display_name": {
+            "en_US": "Process Instance ID",
+            "zh_Hans": "审批实例 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process instance ID that owns the attachment.",
+              "zh_Hans": "包含该附件的流程审批实例 ID。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file_id",
+          "display_name": {
+            "en_US": "File ID",
+            "zh_Hans": "文件 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The fileId uploaded in a workflow form component. Comment attachment fileIds are not supported for download links yet.",
+              "zh_Hans": "审批组件中上传的 fileId。评论中上传的附件 fileId 暂不支持获取下载链接。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Use the fileId from a workflow form component. Comment attachment fileIds are not supported for download links yet.",
+              "zh_Hans": "请填写审批表单组件中上传的 fileId。评论附件中的 fileId 暂不支持获取下载链接。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "with_comment_attachment",
+          "display_name": {
+            "en_US": "Include Comment Attachment",
+            "zh_Hans": "包含评论附件"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether the file_id refers to a comment attachment instead of a form attachment.",
+              "zh_Hans": "file_id 是否指向评论附件而不是表单附件。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "skill": "# dingtalk / download-process-attachment\n\nGet download authorization information for a process attachment.\n\n## Input Parameters\n\n| Field                     | Type            | Required | Default | Description                                         |\n| ------------------------- | --------------- | -------- | ------- | --------------------------------------------------- |\n| `credential_id`           | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                 |\n| `process_instance_id`     | `string`        | yes      | —       | Process instance that owns the attachment.          |\n| `file_id`                 | `string`        | yes      | —       | File ID from the workflow form component.           |\n| `with_comment_attachment` | `boolean`       | no       | `false` | Whether the file_id refers to a comment attachment. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"file_id\": \"file456\",\n  \"with_comment_attachment\": false\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"result\": {\n    \"downloadUri\": \"https://example.com/download/file.pdf\",\n    \"fileId\": \"26748422566\",\n    \"spaceId\": 3996960664\n  }\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-list-process-instance-ids",
+      "display_name": {
+        "en_US": "List Process Instance IDs",
+        "zh_Hans": "获取审批实例 ID 列表"
+      },
+      "description": {
+        "en_US": "List workflow process instance IDs by process code and filters.",
+        "zh_Hans": "按审批流编码和筛选条件获取审批实例 ID 列表。"
+      },
+      "icon": "🧾",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "process_code",
+          "display_name": {
+            "en_US": "Process Code",
+            "zh_Hans": "审批流编码"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Workflow process code whose instance IDs should be listed.",
+              "zh_Hans": "要列出实例 ID 的审批流编码。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "start_time",
+          "display_name": {
+            "en_US": "Start Time",
+            "zh_Hans": "开始时间"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Required start time for filtering process instances. Supports Unix millisecond timestamps and absolute EN/ZH date-time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values resolve to the start of that day in the runtime local timezone.",
+              "zh_Hans": "筛选审批实例的开始时间，必填。支持 Unix 毫秒时间戳，以及多种中英文绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按运行时本地时区的当天开始时间解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Required. Supports Unix ms timestamps and absolute date/time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values use the start of that day.",
+              "zh_Hans": "必填。支持 Unix 毫秒时间戳，以及多种绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按当天开始时间处理。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 2026-04-15 14:30 or April 15, 2026 2:30 PM",
+              "zh_Hans": "例如 2026-04-15 14:30 或 2026年4月15日 14:30"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "end_time",
+          "display_name": {
+            "en_US": "End Time",
+            "zh_Hans": "结束时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional end time for filtering process instances. Supports the same absolute EN/ZH date-time formats as start_time. Date-only values resolve to the end of that day in the runtime local timezone. Reject ambiguous numeric dates like 04/05/2026.",
+              "zh_Hans": "筛选审批实例的结束时间，可选。支持与 start_time 相同的中英文绝对日期时间格式。仅填写日期时会按运行时本地时区的当天结束时间解析；像 04/05/2026 这类有歧义的纯数字日期会被拒绝。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Supports the same absolute formats as Start Time. Date-only values use the end of that day.",
+              "zh_Hans": "可选。支持与开始时间相同的绝对日期时间格式。仅填写日期时会按当天结束时间处理。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 2026-04-15, 2026/04/15 14:30:00, or 2026年4月15日 14:30",
+              "zh_Hans": "例如 2026-04-15、2026/04/15 14:30:00 或 April 15, 2026 2:30 PM"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "user_ids",
+          "display_name": {
+            "en_US": "Starter User IDs",
+            "zh_Hans": "发起人 userId 列表"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional list of DingTalk user IDs who started the process instances. Filters results to only instances started by these users.",
+              "zh_Hans": "可选的审批实例发起人钉钉用户 userId 列表。用于筛选仅由这些用户发起的审批实例。"
+            }
+          },
+          "ui": {
+            "component": "tag-input"
+          },
+          "type": "array",
+          "items": {
+            "name": "user_ids_item",
+            "type": "string"
+          }
+        },
+        {
+          "name": "statuses",
+          "display_name": {
+            "en_US": "Statuses",
+            "zh_Hans": "状态"
+          },
+          "required": false,
+          "ui": {
+            "options": [
+              {
+                "label": {
+                  "en_US": "Running",
+                  "zh_Hans": "审批中"
+                },
+                "value": "RUNNING"
+              },
+              {
+                "label": {
+                  "en_US": "Terminated",
+                  "zh_Hans": "已撤销"
+                },
+                "value": "TERMINATED"
+              },
+              {
+                "label": {
+                  "en_US": "Completed",
+                  "zh_Hans": "审批完成"
+                },
+                "value": "COMPLETED"
+              },
+              {
+                "label": {
+                  "en_US": "Completed With Blanks",
+                  "zh_Hans": "审批完成（有空值）"
+                },
+                "value": "COMPLETED_WITH_BLANKS"
+              }
+            ],
+            "component": "multi-select"
+          },
+          "type": "array",
+          "items": {
+            "name": "statuses_item",
+            "type": "string",
+            "enum": [
+              "RUNNING",
+              "TERMINATED",
+              "COMPLETED",
+              "COMPLETED_WITH_BLANKS"
+            ]
+          }
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Maximum number of process instance IDs to return per page.",
+              "zh_Hans": "每页返回的审批实例 ID 数量上限。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1
+        },
+        {
+          "name": "next_token",
+          "display_name": {
+            "en_US": "Next Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination token for the next page of process instance IDs.",
+              "zh_Hans": "获取下一页审批实例 ID 时使用的分页游标。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        }
+      ],
+      "skill": "# dingtalk / list-process-instance-ids\n\nList workflow process instance IDs by process code and filters.\n\n## Input Parameters\n\n| Field           | Type                | Required | Default | Description                                                                     |\n| --------------- | ------------------- | -------- | ------- | ------------------------------------------------------------------------------- |\n| `credential_id` | `credential_id`     | yes      | —       | Links to credential `dingtalk-app`.                                             |\n| `process_code`  | `string`            | yes      | —       | Workflow process code.                                                          |\n| `start_time`    | `string` / `number` | yes      | —       | Start time filter (Unix ms or absolute date).                                   |\n| `end_time`      | `string` / `number` | no       | —       | End time filter (same format as start_time).                                    |\n| `user_ids`      | `array` of `string` | no       | —       | Optional starter user IDs filter.                                               |\n| `statuses`      | `array` of `string` | no       | —       | Optional status filters: RUNNING, TERMINATED, COMPLETED, COMPLETED_WITH_BLANKS. |\n| `max_results`   | `integer`           | no       | `20`    | Page size (1–100).                                                              |\n| `next_token`    | `integer`           | no       | `0`     | Pagination token.                                                               |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_code\": \"PROC-123\",\n  \"start_time\": \"2026-04-01\",\n  \"end_time\": \"2026-04-15\",\n  \"statuses\": [\"COMPLETED\"],\n  \"max_results\": 20,\n  \"next_token\": 0\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"list\": [\"instance1\", \"instance2\"],\n    \"nextToken\": \"20\"\n  },\n  \"success\": true\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-get-process-space-info",
+      "display_name": {
+        "en_US": "Get Process Space Info",
+        "zh_Hans": "获取审批钉盘空间信息"
+      },
+      "description": {
+        "en_US": "Get DingDrive space information used for workflow attachments.",
+        "zh_Hans": "获取审批附件上传所需的钉盘空间信息。"
+      },
+      "icon": "🗄️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional DingTalk user ID used to query workflow attachment space info. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "用于查询审批附件空间信息的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve userId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": "# dingtalk / get-process-space-info\n\nGet DingDrive space information used for workflow attachments.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                                               |\n| --------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `user_id`       | `string`        | no       | —       | DingTalk user ID. Defaults to credential `user_union_id`. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n- Requires `agent_id` to be set on the credential.\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"spaceId\": 3996960664\n  },\n  \"success\": true\n}\n```\n\n"
+    },
+    {
+      "name": "dingtalk-workflow-list-user-visible-templates",
+      "display_name": {
+        "en_US": "List Visible Templates",
+        "zh_Hans": "获取用户可见审批模板"
+      },
+      "description": {
+        "en_US": "List workflow templates visible to a user.",
+        "zh_Hans": "获取指定用户可见的审批模板列表。"
+      },
+      "icon": "📚",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "dingtalk-app"
+        },
+        {
+          "name": "user_id",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional DingTalk user ID whose visible workflow templates should be listed. If omitted, the plugin resolves it from the credential's default user_union_id.",
+              "zh_Hans": "要列出其可见审批模板的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional. Leave blank to resolve userId from the credential's default user_union_id.",
+              "zh_Hans": "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_results",
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "分页大小"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Maximum number of templates to return per page.",
+              "zh_Hans": "每页返回的模板数量上限。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1
+        },
+        {
+          "name": "next_token",
+          "display_name": {
+            "en_US": "Next Token",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination token for the next page of visible templates.",
+              "zh_Hans": "获取下一页可见模板时使用的分页游标。"
+            }
+          },
+          "ui": {
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        }
+      ],
+      "skill": "# dingtalk / list-visible-process-templates\n\nList workflow templates visible to a DingTalk user.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                                               |\n| --------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `user_id`       | `string`        | no       | —       | DingTalk user ID. Defaults to credential `user_union_id`. |\n| `max_results`   | `integer`       | no       | `100`   | Page size (1–100).                                        |\n| `next_token`    | `integer`       | no       | `0`     | Pagination token.                                         |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\",\n  \"max_results\": 100,\n  \"next_token\": 0\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"processList\": [\n      {\n        \"iconUrl\": \"https://img.alicdn.com/imgextra/i4/O1CN01YAC0Pa1LM7OrwrIdZ_!!6000000001284-0-tps-480-480.jpg\",\n        \"name\": \"客户信息预约\",\n        \"processCode\": \"PROC-8F049F69-A5AE-4B0F-BD70-A1E0844B773D\",\n        \"url\": \"https://aflow.dingtalk.com/dingtalk/mobile/homepage.htm?dd_share=false&showmenu=true&back=native&swfrom=corp&corpid=dingbe690074789b06fd4ac5d6980864d335&processCode=PROC-8F049F69-A5AE-4B0F-BD70-A1E0844B773D#/custom\"\n      }\n    ]\n  }\n}\n```\n\n"
+    }
+  ]
+}

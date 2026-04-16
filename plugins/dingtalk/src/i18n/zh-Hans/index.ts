@@ -1,0 +1,329 @@
+import type { Translation } from "../i18n-types"
+
+const zh_Hans = {
+  PLUGIN_DISPLAY_NAME: "钉钉",
+  PLUGIN_DESCRIPTION: "操作钉钉用户、审批、文档和机器人。",
+
+  CREDENTIAL_DISPLAY_NAME: "钉钉应用凭证",
+  CREDENTIAL_DESCRIPTION: "用于调用钉钉开放平台企业内部应用 API 的凭证。",
+  CREDENTIAL_CORP_ID_DISPLAY_NAME: "组织 ID",
+  CREDENTIAL_CORP_ID_HINT: "钉钉应用所属组织的 Corp ID。",
+  CREDENTIAL_CORP_ID_PLACEHOLDER: "dingxxxxxxxxxxxx",
+  CREDENTIAL_CLIENT_ID_DISPLAY_NAME: "应用 Client ID",
+  CREDENTIAL_CLIENT_ID_HINT: "可在钉钉开发者后台的应用凭证中找到。",
+  CREDENTIAL_CLIENT_ID_PLACEHOLDER: "dingoa...",
+  CREDENTIAL_CLIENT_SECRET_DISPLAY_NAME: "应用 Client Secret",
+  CREDENTIAL_CLIENT_SECRET_HINT:
+    "请妥善保管。运行时会用它来获取 access token。",
+  CREDENTIAL_CLIENT_SECRET_PLACEHOLDER: "应用密钥",
+  CREDENTIAL_USER_UNION_ID_DISPLAY_NAME: "默认操作人 unionId",
+  CREDENTIAL_USER_UNION_ID_HINT:
+    "可选。用于文档和审批等操作的默认操作人 unionId。当审批工具需要 userId 且未直接填写时，插件会用这个 unionId 自动解析。",
+  CREDENTIAL_USER_UNION_ID_PLACEHOLDER: "unionId",
+  CREDENTIAL_AGENT_ID_DISPLAY_NAME: "默认 Agent ID",
+  CREDENTIAL_AGENT_ID_HINT:
+    "必填。填写钉钉企业内部应用的 AgentId。可参考钉钉开放平台《基础概念》文档，并在该应用的开发者后台中查看。",
+  CREDENTIAL_AGENT_ID_PLACEHOLDER: "agentId",
+
+  PARAM_CREDENTIAL_LABEL: "凭证",
+  PARAM_OPERATOR_ID_LABEL: "操作人 unionId",
+  PARAM_OPERATOR_ID_HINT: "可选覆盖。留空时使用凭证中的默认 user_union_id。",
+  PARAM_OPERATOR_ID_PLACEHOLDER: "操作人的 unionId",
+  PARAM_OPERATOR_ID_LLM_DESCRIPTION:
+    "本次钉钉请求的操作人 unionId。可选；留空时使用凭证里的默认 user_union_id。",
+  PARAM_USER_ID_LABEL: "用户 ID",
+  PARAM_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 userId。",
+  PARAM_USER_ID_PLACEHOLDER: "user123",
+  PARAM_MOBILE_LABEL: "手机号",
+  PARAM_MOBILE_PLACEHOLDER: "13000000000",
+  PARAM_QUERY_WORD_LABEL: "搜索词",
+  PARAM_QUERY_WORD_HINT: "用户名称、名称拼音或英文名称。",
+  PARAM_OFFSET_LABEL: "偏移量",
+  PARAM_SIZE_LABEL: "数量",
+  PARAM_FULL_MATCH_FIELD_LABEL: "精确匹配",
+  PARAM_ROBOT_CODE_LABEL: "机器人编码",
+  PARAM_OPEN_CONVERSATION_ID_LABEL: "Open Conversation ID",
+  PARAM_OPEN_CONVERSATION_ID_PLACEHOLDER: "cid...",
+  PARAM_CHAT_ID_LABEL: "Chat ID",
+  PARAM_CHAT_ID_HINT: "填写目标群会话对应的钉钉 chatId。",
+  PARAM_CHAT_ID_PLACEHOLDER: "chatxxxxxxxx",
+  PARAM_USER_IDS_LABEL: "用户 ID 列表",
+  PARAM_USER_IDS_HINT: "每次请求最多 20 个 userId。",
+  PARAM_USER_IDS_LLM_DESCRIPTION:
+    "要发送批量机器人消息的钉钉用户 userId 列表。每次请求最多 20 个 userId。",
+  PARAM_MESSAGE_LABEL: "消息",
+  PARAM_MESSAGE_HINT: "选择消息类型后，只填写该类型对应的字段。",
+  PARAM_MESSAGE_TYPE_LABEL: "消息类型",
+  PARAM_TITLE_LABEL: "标题",
+  PARAM_MESSAGE_URL_LABEL: "消息链接",
+  PARAM_MESSAGE_URL_HINT: "通常填写 https URL。",
+  PARAM_PIC_URL_LABEL: "图片链接",
+  PARAM_PIC_URL_HINT:
+    "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。",
+  PARAM_MESSAGE_MARKDOWN_HINT:
+    "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。",
+  PARAM_ACTION_CARD_VARIANT_LABEL: "Action Card 变体",
+  PARAM_ACTION_CARD_VARIANT_HINT:
+    "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。",
+  PARAM_SINGLE_TITLE_LABEL: "单按钮标题",
+  PARAM_SINGLE_URL_LABEL: "单按钮链接",
+  PARAM_BUTTONS_LABEL: "按钮列表",
+  PARAM_BUTTONS_HINT: "竖向按钮支持 2-5 个，横向按钮固定 2 个。",
+  PARAM_BUTTON_TITLE_LABEL: "按钮标题",
+  PARAM_ACTION_URL_LABEL: "按钮链接",
+  PARAM_LINKS_LABEL: "链接列表",
+  PARAM_LINKS_HINT: "至少添加一个 FeedCard 条目。",
+  PARAM_REMIND_TYPE_LABEL: "提醒类型",
+  PARAM_RECEIVER_USER_ID_LIST_LABEL: "接收人 userId 列表",
+  PARAM_CONTENT_LABEL: "内容",
+  PARAM_CALL_VOICE_LABEL: "电话音色",
+  PARAM_OPEN_DING_ID_LABEL: "Open DING ID",
+  PARAM_DOWNLOAD_CODE_LABEL: "下载码",
+  PARAM_PROCESS_INSTANCE_ID_LABEL: "审批实例 ID",
+  PARAM_TASK_ID_LABEL: "任务 ID",
+  PARAM_ACTIONER_USER_ID_LABEL: "处理人 userId",
+  PARAM_ACTIONER_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 actionerUserId。",
+  PARAM_ACTION_RESULT_LABEL: "处理结果",
+  PARAM_ACTION_RESULT_HINT:
+    "agree 表示同意，refuse 表示拒绝。钉钉要求按审批节点顺序处理任务。",
+  PARAM_TEXT_LABEL: "文本",
+  PARAM_COMMENT_USER_ID_LABEL: "评论人 userId",
+  PARAM_COMMENT_USER_ID_HINT:
+    "可选。留空时会通过凭证里的默认 user_union_id 解析出 commentUserId。",
+  PARAM_FILE_JSON_LABEL: "文件 JSON",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT:
+    "请填写审批表单组件中上传的 fileId。评论附件中的 fileId 暂不支持获取下载链接。",
+  PARAM_FILE_ID_LABEL: "文件 ID",
+  PARAM_WITH_COMMENT_ATTACHMENT_LABEL: "包含评论附件",
+  PARAM_PROCESS_CODE_LABEL: "审批流编码",
+  PARAM_START_TIME_LABEL: "开始时间",
+  PARAM_START_TIME_HINT:
+    "必填。支持 Unix 毫秒时间戳，以及多种绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按当天开始时间处理。",
+  PARAM_START_TIME_PLACEHOLDER: "例如 2026-04-15 14:30 或 2026年4月15日 14:30",
+  PARAM_END_TIME_LABEL: "结束时间",
+  PARAM_END_TIME_HINT:
+    "可选。支持与开始时间相同的绝对日期时间格式。仅填写日期时会按当天结束时间处理。",
+  PARAM_END_TIME_PLACEHOLDER:
+    "例如 2026-04-15、2026/04/15 14:30:00 或 April 15, 2026 2:30 PM",
+  PARAM_STARTER_USER_IDS_LABEL: "发起人 userId 列表",
+  PARAM_STATUSES_LABEL: "状态",
+  PARAM_MAX_RESULTS_LABEL: "分页大小",
+  PARAM_NEXT_TOKEN_LABEL: "分页游标",
+  PARAM_AGENT_ID_LABEL: "Agent ID",
+  PARAM_OP_USER_ID_LABEL: "操作人 userId",
+  PARAM_VARIABLES_JSON_LABEL: "变量 JSON",
+  PARAM_VARIABLES_JSON_HINT:
+    "填写变量对象组成的 JSON 数组。每项至少应包含 id 和 value，也可以附带 bizAlias 或 extValue。",
+  PARAM_REMARK_LABEL: "备注",
+  PARAM_VISIBILITY_LABEL: "可见性",
+  PARAM_SELECT_FIELDS_LABEL: "返回字段筛选",
+  PARAM_SELECT_FIELDS_PLACEHOLDER: "values,formulas",
+  PARAM_DOC_ID_LABEL: "文档 ID",
+  PARAM_RESOURCE_SIZE_LABEL: "资源大小",
+  PARAM_MEDIA_TYPE_LABEL: "资源类型",
+  PARAM_MEDIA_TYPE_PLACEHOLDER: "image/jpeg",
+  PARAM_RESOURCE_NAME_LABEL: "资源名称",
+  PARAM_FILE_LABEL: "文件",
+
+  OPTION_MESSAGE_TYPE_TEXT: "文本",
+  OPTION_MESSAGE_TYPE_LINK: "链接",
+  OPTION_MESSAGE_TYPE_MARKDOWN: "Markdown",
+  OPTION_MESSAGE_TYPE_ACTION_CARD: "Action Card",
+  OPTION_MESSAGE_TYPE_FEED_CARD: "Feed Card",
+  OPTION_ACTION_CARD_VARIANT_SINGLE: "单按钮",
+  OPTION_ACTION_CARD_VARIANT_VERTICAL_BUTTONS: "竖向按钮",
+  OPTION_ACTION_CARD_VARIANT_HORIZONTAL_BUTTONS: "横向按钮",
+  OPTION_REMIND_TYPE_IN_APP: "应用内 DING",
+  OPTION_REMIND_TYPE_SMS: "短信 DING",
+  OPTION_REMIND_TYPE_PHONE: "电话 DING",
+  OPTION_STATUS_RUNNING: "审批中",
+  OPTION_STATUS_TERMINATED: "已撤销",
+  OPTION_STATUS_COMPLETED: "审批完成",
+  OPTION_STATUS_COMPLETED_WITH_BLANKS: "审批完成（有空值）",
+  OPTION_ACTION_RESULT_AGREE: "同意",
+  OPTION_ACTION_RESULT_REFUSE: "拒绝",
+  OPTION_VISIBILITY_VISIBLE: "可见",
+  OPTION_VISIBILITY_HIDDEN: "隐藏",
+
+  AUTH_TOOL_DISPLAY_NAME: "获取应用 Access Token",
+  AUTH_TOOL_DESCRIPTION: "使用所选凭证获取当前钉钉应用的 access token。",
+
+  USER_GET_TOOL_DISPLAY_NAME: "获取用户详情",
+  USER_GET_TOOL_DESCRIPTION: "根据 userId 获取用户详情。",
+  USER_GET_BY_MOBILE_TOOL_DISPLAY_NAME: "通过手机号获取用户",
+  USER_GET_BY_MOBILE_TOOL_DESCRIPTION: "根据手机号查询用户 userId。",
+  USER_SEARCH_TOOL_DISPLAY_NAME: "搜索用户",
+  USER_SEARCH_TOOL_DESCRIPTION: "按姓名、拼音或英文名搜索用户。",
+
+  ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME: "批量发送机器人消息",
+  ROBOT_BATCH_SEND_TOOL_DESCRIPTION: "批量发送人与机器人单聊消息。",
+  ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME: "发送群机器人消息",
+  ROBOT_SEND_GROUP_TOOL_DESCRIPTION: "向钉钉群聊发送机器人消息。",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DISPLAY_NAME: "获取 Open Conversation ID",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DESCRIPTION:
+    "根据钉钉 chatId 解析 openConversationId。",
+  ROBOT_SEND_DING_TOOL_DISPLAY_NAME: "发送 DING 消息",
+  ROBOT_SEND_DING_TOOL_DESCRIPTION: "通过企业机器人发送 DING 消息。",
+  ROBOT_RECALL_DING_TOOL_DISPLAY_NAME: "撤回 DING 消息",
+  ROBOT_RECALL_DING_TOOL_DESCRIPTION: "撤回已经发送的 DING 消息。",
+  ROBOT_DOWNLOAD_FILE_TOOL_DISPLAY_NAME: "下载机器人消息文件",
+  ROBOT_DOWNLOAD_FILE_TOOL_DESCRIPTION:
+    "下载机器人收到的文件并以 file_ref 返回。",
+
+  WORKFLOW_GET_INSTANCE_TOOL_DISPLAY_NAME: "获取审批实例",
+  WORKFLOW_GET_INSTANCE_TOOL_DESCRIPTION: "获取单个审批实例详情。",
+  WORKFLOW_ADD_COMMENT_TOOL_DISPLAY_NAME: "添加审批评论",
+  WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION: "为审批实例添加评论。",
+  WORKFLOW_EXECUTE_TASK_TOOL_DISPLAY_NAME: "处理审批任务",
+  WORKFLOW_EXECUTE_TASK_TOOL_DESCRIPTION:
+    "对单个审批任务执行同意或拒绝。钉钉文档说明该能力面向内部应用，且任务需按审批节点顺序处理。",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: "获取审批附件下载信息",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DESCRIPTION: "获取审批附件下载授权信息。",
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DISPLAY_NAME: "获取审批实例 ID 列表",
+  WORKFLOW_LIST_INSTANCE_IDS_TOOL_DESCRIPTION:
+    "按审批流编码和筛选条件获取审批实例 ID 列表。",
+  WORKFLOW_GET_SPACE_INFO_TOOL_DISPLAY_NAME: "获取审批钉盘空间信息",
+  WORKFLOW_GET_SPACE_INFO_TOOL_DESCRIPTION:
+    "获取审批附件上传所需的钉盘空间信息。",
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DISPLAY_NAME: "更新流程审批实例",
+  WORKFLOW_UPDATE_INSTANCE_TOOL_DESCRIPTION:
+    "更新流程审批实例的表单变量和备注。",
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DISPLAY_NAME: "获取用户可见审批模板",
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DESCRIPTION:
+    "获取指定用户可见的审批模板列表。",
+
+  DOC_GET_UPLOAD_INFO_TOOL_DISPLAY_NAME: "获取文档上传信息",
+  DOC_GET_UPLOAD_INFO_TOOL_DESCRIPTION: "获取钉钉文档资源上传信息。",
+  DOC_UPLOAD_ATTACHMENT_TOOL_DISPLAY_NAME: "上传文档附件",
+  DOC_UPLOAD_ATTACHMENT_TOOL_DESCRIPTION: "把 file_ref 上传为钉钉文档附件。",
+
+  USER_GET_USER_ID_LLM_DESCRIPTION: "要获取详情的钉钉用户 userId。",
+  USER_GET_BY_MOBILE_MOBILE_LLM_DESCRIPTION: "要查询的钉钉用户手机号。",
+  USER_SEARCH_QUERY_WORD_LLM_DESCRIPTION:
+    "按姓名、拼音或英文名搜索钉钉用户时使用的关键词。",
+  USER_SEARCH_OFFSET_LLM_DESCRIPTION: "用户搜索的分页偏移量，从 0 开始。",
+  USER_SEARCH_SIZE_LLM_DESCRIPTION: "本次搜索请求要返回的用户数量。",
+  USER_SEARCH_FULL_MATCH_FIELD_LLM_DESCRIPTION:
+    "搜索时是否要求在支持的字段上进行精确匹配。",
+  ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION:
+    "用于发送批量机器人消息的钉钉机器人编码。",
+  ROBOT_SEND_GROUP_ROBOT_CODE_LLM_DESCRIPTION:
+    "用于发送群机器人消息的钉钉机器人编码。",
+  ROBOT_SEND_GROUP_OPEN_CONVERSATION_ID_LLM_DESCRIPTION:
+    "要接收机器人消息的钉钉群聊 openConversationId。",
+  CHAT_GET_OPEN_CONVERSATION_ID_CHAT_ID_LLM_DESCRIPTION:
+    "用于解析对应 openConversationId 的钉钉 chatId。",
+  ROBOT_BATCH_SEND_MESSAGE_LLM_DESCRIPTION:
+    "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。",
+  ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION:
+    "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。",
+  ROBOT_BATCH_SEND_MESSAGE_CONTENT_LLM_DESCRIPTION: "文本机器人消息的内容。",
+  ROBOT_BATCH_SEND_MESSAGE_TITLE_LLM_DESCRIPTION:
+    "链接、Markdown 或 Action Card 消息显示的标题。",
+  ROBOT_BATCH_SEND_MESSAGE_TEXT_LLM_DESCRIPTION:
+    "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。",
+  ROBOT_BATCH_SEND_MESSAGE_URL_LLM_DESCRIPTION:
+    "用户点击消息或 FeedCard 条目后打开的 URL。",
+  ROBOT_BATCH_SEND_MESSAGE_PIC_URL_LLM_DESCRIPTION:
+    "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。",
+  ROBOT_BATCH_SEND_ACTION_CARD_VARIANT_LLM_DESCRIPTION:
+    "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。",
+  ROBOT_BATCH_SEND_SINGLE_TITLE_LLM_DESCRIPTION:
+    "当 Action Card 使用单按钮时展示的按钮标题。",
+  ROBOT_BATCH_SEND_SINGLE_URL_LLM_DESCRIPTION:
+    "点击单按钮 Action Card 时打开的 URL。",
+  ROBOT_BATCH_SEND_BUTTONS_LLM_DESCRIPTION:
+    "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。",
+  ROBOT_BATCH_SEND_BUTTON_TITLE_LLM_DESCRIPTION: "Action Card 按钮显示的标题。",
+  ROBOT_BATCH_SEND_BUTTON_ACTION_URL_LLM_DESCRIPTION:
+    "点击 Action Card 按钮后打开的 URL。",
+  ROBOT_BATCH_SEND_FEED_LINKS_LLM_DESCRIPTION:
+    "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。",
+  ROBOT_SEND_DING_ROBOT_CODE_LLM_DESCRIPTION:
+    "用于发送 DING 消息的钉钉机器人编码。",
+  ROBOT_SEND_DING_REMIND_TYPE_LLM_DESCRIPTION:
+    "DING 消息的提醒类型：1 为应用内提醒，2 为短信提醒，3 为电话提醒。",
+  ROBOT_SEND_DING_CONTENT_LLM_DESCRIPTION: "要发送的 DING 消息文本内容。",
+  ROBOT_SEND_DING_CALL_VOICE_LLM_DESCRIPTION:
+    "当 remind_type 为 3 且钉钉发起电话提醒时使用的语音音色预设。",
+  ROBOT_RECALL_DING_ROBOT_CODE_LLM_DESCRIPTION:
+    "发送该 DING 消息的钉钉机器人编码。",
+  ROBOT_RECALL_DING_OPEN_DING_ID_LLM_DESCRIPTION:
+    "要撤回的消息对应的 Open DING ID。",
+  ROBOT_DOWNLOAD_FILE_ROBOT_CODE_LLM_DESCRIPTION:
+    "用于访问机器人消息文件的钉钉机器人编码。",
+  ROBOT_DOWNLOAD_FILE_DOWNLOAD_CODE_LLM_DESCRIPTION:
+    "钉钉返回的机器人消息文件下载码，用于拉取对应文件。",
+  WORKFLOW_GET_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "要获取详情的流程审批实例 ID。",
+  WORKFLOW_ADD_COMMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "要添加评论的流程审批实例 ID。",
+  WORKFLOW_ADD_COMMENT_TEXT_LLM_DESCRIPTION: "审批评论的文本内容，可选。",
+  WORKFLOW_ADD_COMMENT_COMMENT_USER_ID_LLM_DESCRIPTION:
+    "评论人在钉钉中的 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_ADD_COMMENT_FILE_LLM_DESCRIPTION:
+    "审批评论里附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。",
+  WORKFLOW_ADD_COMMENT_FILE_HINT: "可选。选择要附在审批评论里的图片文件。",
+  WORKFLOW_ADD_COMMENT_FILE_JSON_LLM_DESCRIPTION:
+    "描述审批评论图片和/或附件的 JSON 对象，可选。",
+  WORKFLOW_EXECUTE_TASK_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "要处理的审批任务所属流程审批实例 ID。",
+  WORKFLOW_EXECUTE_TASK_TASK_ID_LLM_DESCRIPTION:
+    "要同意或拒绝的审批任务节点 ID。",
+  WORKFLOW_EXECUTE_TASK_ACTIONER_USER_ID_LLM_DESCRIPTION:
+    "执行审批任务的钉钉用户 userId，对应接口中的 actionerUserId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_EXECUTE_TASK_RESULT_LLM_DESCRIPTION:
+    "审批任务的处理结果：agree 表示同意，refuse 表示拒绝。",
+  WORKFLOW_EXECUTE_TASK_REMARK_LLM_DESCRIPTION:
+    "审批同意或拒绝时附带的备注文本，可选。",
+  WORKFLOW_EXECUTE_TASK_FILE_LLM_DESCRIPTION:
+    "处理审批任务时附带的图片文件，可选。传入 file_ref 后，插件会解析远程 URL 并按 file.photos 发送。",
+  WORKFLOW_EXECUTE_TASK_FILE_HINT:
+    "可选。选择要随审批任务处理一并发送的图片文件。",
+  WORKFLOW_EXECUTE_TASK_FILE_JSON_LLM_DESCRIPTION:
+    "审批任务处理时附带图片和/或附件的 JSON 对象，可选。",
+  WORKFLOW_EXECUTE_TASK_REMARK_HINT:
+    "可选。可填写审批意见或拒绝原因。钉钉文档说明该任务处理接口面向内部应用。",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "包含该附件的流程审批实例 ID。",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION:
+    "审批组件中上传的 fileId。评论中上传的附件 fileId 暂不支持获取下载链接。",
+  WORKFLOW_DOWNLOAD_ATTACHMENT_WITH_COMMENT_ATTACHMENT_LLM_DESCRIPTION:
+    "file_id 是否指向评论附件而不是表单附件。",
+  WORKFLOW_LIST_INSTANCE_IDS_PROCESS_CODE_LLM_DESCRIPTION:
+    "要列出实例 ID 的审批流编码。",
+  WORKFLOW_LIST_INSTANCE_IDS_START_TIME_LLM_DESCRIPTION:
+    "筛选审批实例的开始时间，必填。支持 Unix 毫秒时间戳，以及多种中英文绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按运行时本地时区的当天开始时间解析。",
+  WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION:
+    "筛选审批实例的结束时间，可选。支持与 start_time 相同的中英文绝对日期时间格式。仅填写日期时会按运行时本地时区的当天结束时间解析；像 04/05/2026 这类有歧义的纯数字日期会被拒绝。",
+  WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION:
+    "可选的审批实例发起人钉钉用户 userId 列表。用于筛选仅由这些用户发起的审批实例。",
+  WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION:
+    "每页返回的审批实例 ID 数量上限。",
+  WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION:
+    "获取下一页审批实例 ID 时使用的分页游标。",
+  WORKFLOW_GET_SPACE_INFO_USER_ID_LLM_DESCRIPTION:
+    "用于查询审批附件空间信息的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_GET_SPACE_INFO_AGENT_ID_LLM_DESCRIPTION:
+    "需要查询审批空间信息的钉钉应用 Agent ID，可选。",
+  WORKFLOW_UPDATE_INSTANCE_OP_USER_ID_LLM_DESCRIPTION:
+    "执行流程审批实例更新操作的用户 userId。",
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_CODE_LLM_DESCRIPTION:
+    "要更新的实例所属审批流编码，可选。",
+  WORKFLOW_UPDATE_INSTANCE_PROCESS_INSTANCE_ID_LLM_DESCRIPTION:
+    "要更新的流程审批实例 ID。",
+  WORKFLOW_UPDATE_INSTANCE_VARIABLES_JSON_LLM_DESCRIPTION:
+    "流程变量对象组成的 JSON 数组。每项必须包含 id 和 value，也可以包含 bizAlias 或 extValue。",
+  WORKFLOW_UPDATE_INSTANCE_REMARK_LLM_DESCRIPTION:
+    "随流程更新一并保存的备注文本，可选。",
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION:
+    "要列出其可见审批模板的钉钉用户 userId，可选。留空时插件会通过凭证里的默认 user_union_id 自动解析。",
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_MAX_RESULTS_LLM_DESCRIPTION:
+    "每页返回的模板数量上限。",
+  WORKFLOW_LIST_VISIBLE_TEMPLATES_NEXT_TOKEN_LLM_DESCRIPTION:
+    "获取下一页可见模板时使用的分页游标。",
+} satisfies Translation
+
+export default zh_Hans
