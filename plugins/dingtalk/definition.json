@@ -16,7 +16,7 @@
     "zh-Hans"
   ],
   "author": "Xavier",
-  "email": "zhqjiang@outlook.com",
+  "email": "zhiqiang.jiang@choiceform.com",
   "version": "0.1.0",
   "credentials": [
     {
@@ -221,279 +221,606 @@
             "zh_Hans": "用户 ID 列表"
           },
           "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "DingTalk user IDs to send the batch robot message to. Up to 20 userIds per request.",
+              "zh_Hans": "要发送批量机器人消息的钉钉用户 userId 列表。每次请求最多 20 个 userId。"
+            }
+          },
           "ui": {
             "hint": {
               "en_US": "Up to 20 userIds per request.",
               "zh_Hans": "每次请求最多 20 个 userId。"
             },
+            "support_expression": true,
             "component": "tag-input"
           },
           "type": "array",
           "items": {
             "name": "user_ids_item",
             "type": "string"
-          }
+          },
+          "max_items": 20,
+          "min_items": 1
         },
         {
-          "name": "message_type",
+          "name": "message",
           "display_name": {
-            "en_US": "Message Type",
-            "zh_Hans": "消息类型"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Robot message type. Supported values include text, link, markdown, actionCard, and feedCard.",
-              "zh_Hans": "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "options": [
-              {
-                "label": {
-                  "en_US": "Text",
-                  "zh_Hans": "文本"
-                },
-                "value": "text"
-              },
-              {
-                "label": {
-                  "en_US": "Link",
-                  "zh_Hans": "链接"
-                },
-                "value": "link"
-              },
-              {
-                "label": {
-                  "en_US": "Markdown",
-                  "zh_Hans": "Markdown"
-                },
-                "value": "markdown"
-              },
-              {
-                "label": {
-                  "en_US": "Action Card",
-                  "zh_Hans": "Action Card"
-                },
-                "value": "actionCard"
-              },
-              {
-                "label": {
-                  "en_US": "Feed Card",
-                  "zh_Hans": "Feed Card"
-                },
-                "value": "feedCard"
-              }
-            ],
-            "component": "select"
-          },
-          "type": "string",
-          "default": "text",
-          "enum": [
-            "text",
-            "link",
-            "markdown",
-            "actionCard",
-            "feedCard"
-          ]
-        },
-        {
-          "name": "message_json",
-          "display_name": {
-            "en_US": "Message JSON",
-            "zh_Hans": "消息 JSON"
+            "en_US": "Message",
+            "zh_Hans": "消息"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "JSON object for the selected robot message type. For text use content; for markdown use title and text.",
-              "zh_Hans": "与所选机器人消息类型匹配的 JSON 对象。文本消息使用 content；Markdown 消息使用 title 和 text。"
+              "en_US": "Structured robot message payload. Choose one message type and provide the fields for that type.",
+              "zh_Hans": "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "Use a JSON object matching the selected message type. For text, provide a content field. For markdown, provide title and text fields.",
-              "zh_Hans": "填写与所选消息类型匹配的 JSON 对象。文本消息需要 content 字段；Markdown 消息需要 title 和 text 字段。"
+            "component": "section"
+          },
+          "type": "object",
+          "properties": [
+            {
+              "name": "type",
+              "display_name": {
+                "en_US": "Message Type",
+                "zh_Hans": "消息类型"
+              },
+              "required": true,
+              "ai": {
+                "llm_description": {
+                  "en_US": "Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.",
+                  "zh_Hans": "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Choose the message type and fill the fields for that type only.",
+                  "zh_Hans": "选择消息类型后，只填写该类型对应的字段。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Text",
+                      "zh_Hans": "文本"
+                    },
+                    "value": "text"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Link",
+                      "zh_Hans": "链接"
+                    },
+                    "value": "link"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Markdown",
+                      "zh_Hans": "Markdown"
+                    },
+                    "value": "markdown"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Action Card",
+                      "zh_Hans": "Action Card"
+                    },
+                    "value": "actionCard"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Feed Card",
+                      "zh_Hans": "Feed Card"
+                    },
+                    "value": "feedCard"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "text",
+              "enum": [
+                "text",
+                "link",
+                "markdown",
+                "actionCard",
+                "feedCard"
+              ]
             },
-            "support_expression": true,
-            "width": "full",
-            "component": "code-editor"
-          },
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "dingtalk-robot-send-ding",
-      "display_name": {
-        "en_US": "Send DING Message",
-        "zh_Hans": "发送 DING 消息"
-      },
-      "description": {
-        "en_US": "Send a DING message through an enterprise robot.",
-        "zh_Hans": "通过企业机器人发送 DING 消息。"
-      },
-      "icon": "📣",
-      "parameters": [
-        {
-          "name": "credential_id",
-          "display_name": {
-            "en_US": "Credential",
-            "zh_Hans": "凭证"
-          },
-          "required": true,
-          "ui": {
-            "component": "credential-select"
-          },
-          "type": "credential_id",
-          "credential_name": "dingtalk-app"
-        },
-        {
-          "name": "robot_code",
-          "display_name": {
-            "en_US": "Robot Code",
-            "zh_Hans": "机器人编码"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "DingTalk robot code used to send the DING message.",
-              "zh_Hans": "用于发送 DING 消息的钉钉机器人编码。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "remind_type",
-          "display_name": {
-            "en_US": "Remind Type",
-            "zh_Hans": "提醒类型"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Reminder type for the DING message: 1 for in-app, 2 for SMS, 3 for phone call.",
-              "zh_Hans": "DING 消息的提醒类型：1 为应用内提醒，2 为短信提醒，3 为电话提醒。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "options": [
-              {
-                "label": {
-                  "en_US": "In-app DING",
-                  "zh_Hans": "应用内 DING"
-                },
-                "value": "1"
+            {
+              "name": "content",
+              "display_name": {
+                "en_US": "Content",
+                "zh_Hans": "内容"
               },
-              {
-                "label": {
-                  "en_US": "SMS DING",
-                  "zh_Hans": "短信 DING"
-                },
-                "value": "2"
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "text"
+                  }
+                }
               },
-              {
-                "label": {
-                  "en_US": "Phone DING",
-                  "zh_Hans": "电话 DING"
+              "ai": {
+                "llm_description": {
+                  "en_US": "Content for a text robot message.",
+                  "zh_Hans": "文本机器人消息的内容。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "title",
+              "display_name": {
+                "en_US": "Title",
+                "zh_Hans": "标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Title shown for link, markdown, or action card messages.",
+                  "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "text",
+              "display_name": {
+                "en_US": "Text",
+                "zh_Hans": "文本"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.",
+                  "zh_Hans": "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.",
+                  "zh_Hans": "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。"
                 },
-                "value": "3"
-              }
-            ],
-            "component": "select"
-          },
-          "type": "string",
-          "default": "1",
-          "enum": [
-            "1",
-            "2",
-            "3"
-          ]
-        },
-        {
-          "name": "receiver_user_id_list",
-          "display_name": {
-            "en_US": "Receiver User IDs",
-            "zh_Hans": "接收人 userId 列表"
-          },
-          "required": true,
-          "ui": {
-            "component": "tag-input"
-          },
-          "type": "array",
-          "items": {
-            "name": "receiver_user_id_list_item",
-            "type": "string"
-          }
-        },
-        {
-          "name": "content",
-          "display_name": {
-            "en_US": "Content",
-            "zh_Hans": "内容"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "Text content to send in the DING message.",
-              "zh_Hans": "要发送的 DING 消息文本内容。"
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "message_url",
+              "display_name": {
+                "en_US": "Message URL",
+                "zh_Hans": "消息链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the user clicks the message or feed card item.",
+                  "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "pic_url",
+              "display_name": {
+                "en_US": "Picture URL",
+                "zh_Hans": "图片链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                  "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                  "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "action_card_variant",
+              "display_name": {
+                "en_US": "Action Card Variant",
+                "zh_Hans": "Action Card 变体"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "actionCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Single Button",
+                      "zh_Hans": "单按钮"
+                    },
+                    "value": "single"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Vertical Buttons",
+                      "zh_Hans": "竖向按钮"
+                    },
+                    "value": "vertical_buttons"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Horizontal Buttons",
+                      "zh_Hans": "横向按钮"
+                    },
+                    "value": "horizontal_buttons"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "single",
+              "enum": [
+                "single",
+                "vertical_buttons",
+                "horizontal_buttons"
+              ]
+            },
+            {
+              "name": "single_title",
+              "display_name": {
+                "en_US": "Single Button Title",
+                "zh_Hans": "单按钮标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Button title used when the action card has a single button.",
+                  "zh_Hans": "当 Action Card 使用单按钮时展示的按钮标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "single_url",
+              "display_name": {
+                "en_US": "Single Button URL",
+                "zh_Hans": "单按钮链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the single action card button is clicked.",
+                  "zh_Hans": "点击单按钮 Action Card 时打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "buttons",
+              "display_name": {
+                "en_US": "Buttons",
+                "zh_Hans": "按钮列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": {
+                        "$in": [
+                          "vertical_buttons",
+                          "horizontal_buttons"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.",
+                  "zh_Hans": "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.",
+                  "zh_Hans": "竖向按钮支持 2-5 个，横向按钮固定 2 个。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "button",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Button Title",
+                      "zh_Hans": "按钮标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for an action card button.",
+                        "zh_Hans": "Action Card 按钮显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "action_url",
+                    "display_name": {
+                      "en_US": "Action URL",
+                      "zh_Hans": "按钮链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when an action card button is clicked.",
+                        "zh_Hans": "点击 Action Card 按钮后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "max_items": 5,
+              "min_items": 2
+            },
+            {
+              "name": "links",
+              "display_name": {
+                "en_US": "Links",
+                "zh_Hans": "链接列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "feedCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Feed card items. Provide at least one item with title, message_url, and pic_url.",
+                  "zh_Hans": "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Add one or more feed card items.",
+                  "zh_Hans": "至少添加一个 FeedCard 条目。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "link",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Title",
+                      "zh_Hans": "标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for link, markdown, or action card messages.",
+                        "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "message_url",
+                    "display_name": {
+                      "en_US": "Message URL",
+                      "zh_Hans": "消息链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when the user clicks the message or feed card item.",
+                        "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "pic_url",
+                    "display_name": {
+                      "en_US": "Picture URL",
+                      "zh_Hans": "图片链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                        "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                        "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "min_items": 1
             }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "textarea"
-          },
-          "type": "string"
-        },
-        {
-          "name": "call_voice",
-          "display_name": {
-            "en_US": "Call Voice",
-            "zh_Hans": "电话音色"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Voice preset to use when remind_type is 3 and DingTalk places a phone call.",
-              "zh_Hans": "当 remind_type 为 3 且钉钉发起电话提醒时使用的语音音色预设。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "component": "select"
-          },
-          "type": "string",
-          "default": "Standard_Female_Voice",
-          "enum": [
-            "Standard_Female_Voice",
-            "Cantonese_Female_Voice",
-            "Gentine_Female_Voice",
-            "Overbearing_Female_Voice",
-            "Lovely_Girl_Voice",
-            "Standard_Male_Voice"
           ]
         }
       ]
     },
     {
-      "name": "dingtalk-robot-recall-ding",
+      "name": "dingtalk-robot-send-group-message",
       "display_name": {
-        "en_US": "Recall DING Message",
-        "zh_Hans": "撤回 DING 消息"
+        "en_US": "Send Group Robot Message",
+        "zh_Hans": "发送群机器人消息"
       },
       "description": {
-        "en_US": "Recall a previously sent DING message.",
-        "zh_Hans": "撤回已经发送的 DING 消息。"
+        "en_US": "Send a robot message to a DingTalk group chat.",
+        "zh_Hans": "向钉钉群聊发送机器人消息。"
       },
-      "icon": "↩️",
+      "icon": "💬",
       "parameters": [
         {
           "name": "credential_id",
@@ -517,8 +844,8 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "DingTalk robot code that sent the DING message.",
-              "zh_Hans": "发送该 DING 消息的钉钉机器人编码。"
+              "en_US": "DingTalk robot code used to send the group robot message.",
+              "zh_Hans": "用于发送群机器人消息的钉钉机器人编码。"
             }
           },
           "ui": {
@@ -529,63 +856,16 @@
           "type": "string"
         },
         {
-          "name": "open_ding_id",
+          "name": "open_conversation_id",
           "display_name": {
-            "en_US": "Open DING ID",
-            "zh_Hans": "Open DING ID"
+            "en_US": "Open Conversation ID",
+            "zh_Hans": "Open Conversation ID"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Open DING ID of the message to recall.",
-              "zh_Hans": "要撤回的消息对应的 Open DING ID。"
-            }
-          },
-          "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
-          },
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "dingtalk-robot-download-message-file",
-      "display_name": {
-        "en_US": "Download Robot Message File",
-        "zh_Hans": "下载机器人消息文件"
-      },
-      "description": {
-        "en_US": "Download a file received by a DingTalk robot and return it as file_ref.",
-        "zh_Hans": "下载机器人收到的文件并以 file_ref 返回。"
-      },
-      "icon": "📥",
-      "parameters": [
-        {
-          "name": "credential_id",
-          "display_name": {
-            "en_US": "Credential",
-            "zh_Hans": "凭证"
-          },
-          "required": true,
-          "ui": {
-            "component": "credential-select"
-          },
-          "type": "credential_id",
-          "credential_name": "dingtalk-app"
-        },
-        {
-          "name": "robot_code",
-          "display_name": {
-            "en_US": "Robot Code",
-            "zh_Hans": "机器人编码"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "DingTalk robot code used to access the robot message file.",
-              "zh_Hans": "用于访问机器人消息文件的钉钉机器人编码。"
+              "en_US": "openConversationId of the DingTalk group chat that should receive the robot message.",
+              "zh_Hans": "要接收机器人消息的钉钉群聊 openConversationId。"
             }
           },
           "ui": {
@@ -596,24 +876,569 @@
           "type": "string"
         },
         {
-          "name": "download_code",
+          "name": "message",
           "display_name": {
-            "en_US": "Download Code",
-            "zh_Hans": "下载码"
+            "en_US": "Message",
+            "zh_Hans": "消息"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Download code returned by DingTalk for the robot message file to retrieve.",
-              "zh_Hans": "钉钉返回的机器人消息文件下载码，用于拉取对应文件。"
+              "en_US": "Structured robot message payload. Choose one message type and provide the fields for that type.",
+              "zh_Hans": "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。"
             }
           },
           "ui": {
-            "support_expression": true,
-            "width": "full",
-            "component": "input"
+            "component": "section"
           },
-          "type": "string"
+          "type": "object",
+          "properties": [
+            {
+              "name": "type",
+              "display_name": {
+                "en_US": "Message Type",
+                "zh_Hans": "消息类型"
+              },
+              "required": true,
+              "ai": {
+                "llm_description": {
+                  "en_US": "Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.",
+                  "zh_Hans": "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Choose the message type and fill the fields for that type only.",
+                  "zh_Hans": "选择消息类型后，只填写该类型对应的字段。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Text",
+                      "zh_Hans": "文本"
+                    },
+                    "value": "text"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Link",
+                      "zh_Hans": "链接"
+                    },
+                    "value": "link"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Markdown",
+                      "zh_Hans": "Markdown"
+                    },
+                    "value": "markdown"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Action Card",
+                      "zh_Hans": "Action Card"
+                    },
+                    "value": "actionCard"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Feed Card",
+                      "zh_Hans": "Feed Card"
+                    },
+                    "value": "feedCard"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "text",
+              "enum": [
+                "text",
+                "link",
+                "markdown",
+                "actionCard",
+                "feedCard"
+              ]
+            },
+            {
+              "name": "content",
+              "display_name": {
+                "en_US": "Content",
+                "zh_Hans": "内容"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "text"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Content for a text robot message.",
+                  "zh_Hans": "文本机器人消息的内容。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "title",
+              "display_name": {
+                "en_US": "Title",
+                "zh_Hans": "标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Title shown for link, markdown, or action card messages.",
+                  "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "text",
+              "display_name": {
+                "en_US": "Text",
+                "zh_Hans": "文本"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$in": [
+                      "link",
+                      "markdown",
+                      "actionCard"
+                    ]
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.",
+                  "zh_Hans": "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.",
+                  "zh_Hans": "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "textarea"
+              },
+              "type": "string"
+            },
+            {
+              "name": "message_url",
+              "display_name": {
+                "en_US": "Message URL",
+                "zh_Hans": "消息链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the user clicks the message or feed card item.",
+                  "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "pic_url",
+              "display_name": {
+                "en_US": "Picture URL",
+                "zh_Hans": "图片链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "link"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                  "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                  "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "action_card_variant",
+              "display_name": {
+                "en_US": "Action Card Variant",
+                "zh_Hans": "Action Card 变体"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "actionCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+                  "zh_Hans": "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。"
+                },
+                "support_expression": true,
+                "options": [
+                  {
+                    "label": {
+                      "en_US": "Single Button",
+                      "zh_Hans": "单按钮"
+                    },
+                    "value": "single"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Vertical Buttons",
+                      "zh_Hans": "竖向按钮"
+                    },
+                    "value": "vertical_buttons"
+                  },
+                  {
+                    "label": {
+                      "en_US": "Horizontal Buttons",
+                      "zh_Hans": "横向按钮"
+                    },
+                    "value": "horizontal_buttons"
+                  }
+                ],
+                "component": "select"
+              },
+              "type": "string",
+              "default": "single",
+              "enum": [
+                "single",
+                "vertical_buttons",
+                "horizontal_buttons"
+              ]
+            },
+            {
+              "name": "single_title",
+              "display_name": {
+                "en_US": "Single Button Title",
+                "zh_Hans": "单按钮标题"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Button title used when the action card has a single button.",
+                  "zh_Hans": "当 Action Card 使用单按钮时展示的按钮标题。"
+                }
+              },
+              "ui": {
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "single_url",
+              "display_name": {
+                "en_US": "Single Button URL",
+                "zh_Hans": "单按钮链接"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": "single"
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "URL opened when the single action card button is clicked.",
+                  "zh_Hans": "点击单按钮 Action Card 时打开的 URL。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Usually an https URL.",
+                  "zh_Hans": "通常填写 https URL。"
+                },
+                "support_expression": true,
+                "width": "full",
+                "component": "input"
+              },
+              "type": "string"
+            },
+            {
+              "name": "buttons",
+              "display_name": {
+                "en_US": "Buttons",
+                "zh_Hans": "按钮列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "$and": [
+                    {
+                      "type": "actionCard"
+                    },
+                    {
+                      "action_card_variant": {
+                        "$in": [
+                          "vertical_buttons",
+                          "horizontal_buttons"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.",
+                  "zh_Hans": "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.",
+                  "zh_Hans": "竖向按钮支持 2-5 个，横向按钮固定 2 个。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "button",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Button Title",
+                      "zh_Hans": "按钮标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for an action card button.",
+                        "zh_Hans": "Action Card 按钮显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "action_url",
+                    "display_name": {
+                      "en_US": "Action URL",
+                      "zh_Hans": "按钮链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when an action card button is clicked.",
+                        "zh_Hans": "点击 Action Card 按钮后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "max_items": 5,
+              "min_items": 2
+            },
+            {
+              "name": "links",
+              "display_name": {
+                "en_US": "Links",
+                "zh_Hans": "链接列表"
+              },
+              "required": false,
+              "display": {
+                "show": {
+                  "type": {
+                    "$eq": "feedCard"
+                  }
+                }
+              },
+              "ai": {
+                "llm_description": {
+                  "en_US": "Feed card items. Provide at least one item with title, message_url, and pic_url.",
+                  "zh_Hans": "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。"
+                }
+              },
+              "ui": {
+                "hint": {
+                  "en_US": "Add one or more feed card items.",
+                  "zh_Hans": "至少添加一个 FeedCard 条目。"
+                },
+                "component": "array-section"
+              },
+              "type": "array",
+              "items": {
+                "name": "link",
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "display_name": {
+                      "en_US": "Title",
+                      "zh_Hans": "标题"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Title shown for link, markdown, or action card messages.",
+                        "zh_Hans": "链接、Markdown 或 Action Card 消息显示的标题。"
+                      }
+                    },
+                    "ui": {
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "message_url",
+                    "display_name": {
+                      "en_US": "Message URL",
+                      "zh_Hans": "消息链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "URL opened when the user clicks the message or feed card item.",
+                        "zh_Hans": "用户点击消息或 FeedCard 条目后打开的 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "Usually an https URL.",
+                        "zh_Hans": "通常填写 https URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  },
+                  {
+                    "name": "pic_url",
+                    "display_name": {
+                      "en_US": "Picture URL",
+                      "zh_Hans": "图片链接"
+                    },
+                    "required": true,
+                    "ai": {
+                      "llm_description": {
+                        "en_US": "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+                        "zh_Hans": "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。"
+                      }
+                    },
+                    "ui": {
+                      "hint": {
+                        "en_US": "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+                        "zh_Hans": "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。"
+                      },
+                      "support_expression": true,
+                      "width": "full",
+                      "component": "input"
+                    },
+                    "type": "string"
+                  }
+                ]
+              },
+              "min_items": 1
+            }
+          ]
         }
       ]
     },

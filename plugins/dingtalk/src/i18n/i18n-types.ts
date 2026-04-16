@@ -156,6 +156,26 @@ type RootTranslation = {
    */
   PARAM_ROBOT_CODE_LABEL: string
   /**
+   * O​p​e​n​ ​C​o​n​v​e​r​s​a​t​i​o​n​ ​I​D
+   */
+  PARAM_OPEN_CONVERSATION_ID_LABEL: string
+  /**
+   * c​i​d​.​.​.
+   */
+  PARAM_OPEN_CONVERSATION_ID_PLACEHOLDER: string
+  /**
+   * C​h​a​t​ ​I​D
+   */
+  PARAM_CHAT_ID_LABEL: string
+  /**
+   * U​s​e​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​c​h​a​t​I​d​ ​f​o​r​ ​t​h​e​ ​t​a​r​g​e​t​ ​g​r​o​u​p​ ​s​e​s​s​i​o​n​.
+   */
+  PARAM_CHAT_ID_HINT: string
+  /**
+   * c​h​a​t​x​x​x​x​x​x​x​x
+   */
+  PARAM_CHAT_ID_PLACEHOLDER: string
+  /**
    * U​s​e​r​ ​I​D​s
    */
   PARAM_USER_IDS_LABEL: string
@@ -164,17 +184,85 @@ type RootTranslation = {
    */
   PARAM_USER_IDS_HINT: string
   /**
+   * D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​s​ ​t​o​ ​s​e​n​d​ ​t​h​e​ ​b​a​t​c​h​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​o​.​ ​U​p​ ​t​o​ ​2​0​ ​u​s​e​r​I​d​s​ ​p​e​r​ ​r​e​q​u​e​s​t​.
+   */
+  PARAM_USER_IDS_LLM_DESCRIPTION: string
+  /**
+   * M​e​s​s​a​g​e
+   */
+  PARAM_MESSAGE_LABEL: string
+  /**
+   * C​h​o​o​s​e​ ​t​h​e​ ​m​e​s​s​a​g​e​ ​t​y​p​e​ ​a​n​d​ ​f​i​l​l​ ​t​h​e​ ​f​i​e​l​d​s​ ​f​o​r​ ​t​h​a​t​ ​t​y​p​e​ ​o​n​l​y​.
+   */
+  PARAM_MESSAGE_HINT: string
+  /**
    * M​e​s​s​a​g​e​ ​T​y​p​e
    */
   PARAM_MESSAGE_TYPE_LABEL: string
   /**
-   * M​e​s​s​a​g​e​ ​J​S​O​N
+   * T​i​t​l​e
    */
-  PARAM_MESSAGE_JSON_LABEL: string
+  PARAM_TITLE_LABEL: string
   /**
-   * U​s​e​ ​a​ ​J​S​O​N​ ​o​b​j​e​c​t​ ​m​a​t​c​h​i​n​g​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​F​o​r​ ​t​e​x​t​,​ ​p​r​o​v​i​d​e​ ​a​ ​c​o​n​t​e​n​t​ ​f​i​e​l​d​.​ ​F​o​r​ ​m​a​r​k​d​o​w​n​,​ ​p​r​o​v​i​d​e​ ​t​i​t​l​e​ ​a​n​d​ ​t​e​x​t​ ​f​i​e​l​d​s​.
+   * M​e​s​s​a​g​e​ ​U​R​L
    */
-  PARAM_MESSAGE_JSON_HINT: string
+  PARAM_MESSAGE_URL_LABEL: string
+  /**
+   * U​s​u​a​l​l​y​ ​a​n​ ​h​t​t​p​s​ ​U​R​L​.
+   */
+  PARAM_MESSAGE_URL_HINT: string
+  /**
+   * P​i​c​t​u​r​e​ ​U​R​L
+   */
+  PARAM_PIC_URL_LABEL: string
+  /**
+   * F​o​r​ ​l​i​n​k​ ​m​e​s​s​a​g​e​s​,​ ​D​i​n​g​T​a​l​k​ ​a​c​c​e​p​t​s​ ​a​n​ ​i​m​a​g​e​ ​U​R​L​ ​o​r​ ​a​ ​m​e​d​i​a​I​d​.​ ​F​e​e​d​ ​c​a​r​d​s​ ​u​s​u​a​l​l​y​ ​u​s​e​ ​a​n​ ​i​m​a​g​e​ ​U​R​L​.
+   */
+  PARAM_PIC_URL_HINT: string
+  /**
+   * F​o​r​ ​l​i​n​k​ ​m​e​s​s​a​g​e​s​,​ ​t​h​i​s​ ​i​s​ ​t​h​e​ ​p​r​e​v​i​e​w​/​b​o​d​y​ ​t​e​x​t​.​ ​F​o​r​ ​m​a​r​k​d​o​w​n​ ​m​e​s​s​a​g​e​s​,​ ​e​n​t​e​r​ ​M​a​r​k​d​o​w​n​ ​c​o​n​t​e​n​t​.​ ​F​o​r​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​m​e​s​s​a​g​e​s​,​ ​e​n​t​e​r​ ​t​h​e​ ​c​a​r​d​ ​b​o​d​y​ ​a​n​d​ ​D​i​n​g​T​a​l​k​ ​s​u​p​p​o​r​t​s​ ​M​a​r​k​d​o​w​n​ ​t​h​e​r​e​ ​t​o​o​.
+   */
+  PARAM_MESSAGE_MARKDOWN_HINT: string
+  /**
+   * A​c​t​i​o​n​ ​C​a​r​d​ ​V​a​r​i​a​n​t
+   */
+  PARAM_ACTION_CARD_VARIANT_LABEL: string
+  /**
+   * S​i​n​g​l​e​ ​b​u​t​t​o​n​,​ ​v​e​r​t​i​c​a​l​ ​2​-​5​ ​b​u​t​t​o​n​s​,​ ​o​r​ ​h​o​r​i​z​o​n​t​a​l​ ​2​ ​b​u​t​t​o​n​s​.
+   */
+  PARAM_ACTION_CARD_VARIANT_HINT: string
+  /**
+   * S​i​n​g​l​e​ ​B​u​t​t​o​n​ ​T​i​t​l​e
+   */
+  PARAM_SINGLE_TITLE_LABEL: string
+  /**
+   * S​i​n​g​l​e​ ​B​u​t​t​o​n​ ​U​R​L
+   */
+  PARAM_SINGLE_URL_LABEL: string
+  /**
+   * B​u​t​t​o​n​s
+   */
+  PARAM_BUTTONS_LABEL: string
+  /**
+   * U​s​e​ ​2​-​5​ ​b​u​t​t​o​n​s​ ​f​o​r​ ​v​e​r​t​i​c​a​l​ ​b​u​t​t​o​n​s​,​ ​o​r​ ​e​x​a​c​t​l​y​ ​2​ ​f​o​r​ ​h​o​r​i​z​o​n​t​a​l​ ​b​u​t​t​o​n​s​.
+   */
+  PARAM_BUTTONS_HINT: string
+  /**
+   * B​u​t​t​o​n​ ​T​i​t​l​e
+   */
+  PARAM_BUTTON_TITLE_LABEL: string
+  /**
+   * A​c​t​i​o​n​ ​U​R​L
+   */
+  PARAM_ACTION_URL_LABEL: string
+  /**
+   * L​i​n​k​s
+   */
+  PARAM_LINKS_LABEL: string
+  /**
+   * A​d​d​ ​o​n​e​ ​o​r​ ​m​o​r​e​ ​f​e​e​d​ ​c​a​r​d​ ​i​t​e​m​s​.
+   */
+  PARAM_LINKS_HINT: string
   /**
    * R​e​m​i​n​d​ ​T​y​p​e
    */
@@ -372,6 +460,18 @@ type RootTranslation = {
    */
   OPTION_MESSAGE_TYPE_FEED_CARD: string
   /**
+   * S​i​n​g​l​e​ ​B​u​t​t​o​n
+   */
+  OPTION_ACTION_CARD_VARIANT_SINGLE: string
+  /**
+   * V​e​r​t​i​c​a​l​ ​B​u​t​t​o​n​s
+   */
+  OPTION_ACTION_CARD_VARIANT_VERTICAL_BUTTONS: string
+  /**
+   * H​o​r​i​z​o​n​t​a​l​ ​B​u​t​t​o​n​s
+   */
+  OPTION_ACTION_CARD_VARIANT_HORIZONTAL_BUTTONS: string
+  /**
    * I​n​-​a​p​p​ ​D​I​N​G
    */
   OPTION_REMIND_TYPE_IN_APP: string
@@ -455,6 +555,22 @@ type RootTranslation = {
    * S​e​n​d​ ​o​n​e​-​t​o​-​o​n​e​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​s​ ​i​n​ ​b​a​t​c​h​.
    */
   ROBOT_BATCH_SEND_TOOL_DESCRIPTION: string
+  /**
+   * S​e​n​d​ ​G​r​o​u​p​ ​R​o​b​o​t​ ​M​e​s​s​a​g​e
+   */
+  ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​a​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​o​ ​a​ ​D​i​n​g​T​a​l​k​ ​g​r​o​u​p​ ​c​h​a​t​.
+   */
+  ROBOT_SEND_GROUP_TOOL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​O​p​e​n​ ​C​o​n​v​e​r​s​a​t​i​o​n​ ​I​D
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DISPLAY_NAME: string
+  /**
+   * R​e​s​o​l​v​e​ ​o​p​e​n​C​o​n​v​e​r​s​a​t​i​o​n​I​d​ ​f​r​o​m​ ​a​ ​D​i​n​g​T​a​l​k​ ​c​h​a​t​I​d​.
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DESCRIPTION: string
   /**
    * S​e​n​d​ ​D​I​N​G​ ​M​e​s​s​a​g​e
    */
@@ -588,13 +704,73 @@ type RootTranslation = {
    */
   ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION: string
   /**
-   * R​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​S​u​p​p​o​r​t​e​d​ ​v​a​l​u​e​s​ ​i​n​c​l​u​d​e​ ​t​e​x​t​,​ ​l​i​n​k​,​ ​m​a​r​k​d​o​w​n​,​ ​a​c​t​i​o​n​C​a​r​d​,​ ​a​n​d​ ​f​e​e​d​C​a​r​d​.
+   * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​u​s​e​d​ ​t​o​ ​s​e​n​d​ ​t​h​e​ ​g​r​o​u​p​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_SEND_GROUP_ROBOT_CODE_LLM_DESCRIPTION: string
+  /**
+   * o​p​e​n​C​o​n​v​e​r​s​a​t​i​o​n​I​d​ ​o​f​ ​t​h​e​ ​D​i​n​g​T​a​l​k​ ​g​r​o​u​p​ ​c​h​a​t​ ​t​h​a​t​ ​s​h​o​u​l​d​ ​r​e​c​e​i​v​e​ ​t​h​e​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​.
+   */
+  ROBOT_SEND_GROUP_OPEN_CONVERSATION_ID_LLM_DESCRIPTION: string
+  /**
+   * D​i​n​g​T​a​l​k​ ​c​h​a​t​I​d​ ​u​s​e​d​ ​t​o​ ​r​e​s​o​l​v​e​ ​t​h​e​ ​c​o​r​r​e​s​p​o​n​d​i​n​g​ ​o​p​e​n​C​o​n​v​e​r​s​a​t​i​o​n​I​d​.
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_CHAT_ID_LLM_DESCRIPTION: string
+  /**
+   * S​t​r​u​c​t​u​r​e​d​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​p​a​y​l​o​a​d​.​ ​C​h​o​o​s​e​ ​o​n​e​ ​m​e​s​s​a​g​e​ ​t​y​p​e​ ​a​n​d​ ​p​r​o​v​i​d​e​ ​t​h​e​ ​f​i​e​l​d​s​ ​f​o​r​ ​t​h​a​t​ ​t​y​p​e​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_LLM_DESCRIPTION: string
+  /**
+   * R​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​S​u​p​p​o​r​t​e​d​ ​v​a​l​u​e​s​ ​a​r​e​ ​t​e​x​t​,​ ​l​i​n​k​,​ ​m​a​r​k​d​o​w​n​,​ ​a​c​t​i​o​n​C​a​r​d​,​ ​a​n​d​ ​f​e​e​d​C​a​r​d​.
    */
   ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION: string
   /**
-   * J​S​O​N​ ​o​b​j​e​c​t​ ​f​o​r​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​ ​t​y​p​e​.​ ​F​o​r​ ​t​e​x​t​ ​u​s​e​ ​c​o​n​t​e​n​t​;​ ​f​o​r​ ​m​a​r​k​d​o​w​n​ ​u​s​e​ ​t​i​t​l​e​ ​a​n​d​ ​t​e​x​t​.
+   * C​o​n​t​e​n​t​ ​f​o​r​ ​a​ ​t​e​x​t​ ​r​o​b​o​t​ ​m​e​s​s​a​g​e​.
    */
-  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION: string
+  ROBOT_BATCH_SEND_MESSAGE_CONTENT_LLM_DESCRIPTION: string
+  /**
+   * T​i​t​l​e​ ​s​h​o​w​n​ ​f​o​r​ ​l​i​n​k​,​ ​m​a​r​k​d​o​w​n​,​ ​o​r​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​m​e​s​s​a​g​e​s​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TITLE_LLM_DESCRIPTION: string
+  /**
+   * T​e​x​t​ ​f​i​e​l​d​ ​w​h​o​s​e​ ​m​e​a​n​i​n​g​ ​d​e​p​e​n​d​s​ ​o​n​ ​t​h​e​ ​m​e​s​s​a​g​e​ ​t​y​p​e​:​ ​f​o​r​ ​l​i​n​k​,​ ​u​s​e​ ​t​h​e​ ​s​h​o​r​t​ ​b​o​d​y​/​p​r​e​v​i​e​w​ ​t​e​x​t​;​ ​f​o​r​ ​m​a​r​k​d​o​w​n​,​ ​u​s​e​ ​t​h​e​ ​M​a​r​k​d​o​w​n​ ​b​o​d​y​;​ ​f​o​r​ ​a​c​t​i​o​n​C​a​r​d​,​ ​u​s​e​ ​t​h​e​ ​c​a​r​d​ ​b​o​d​y​ ​t​e​x​t​,​ ​w​h​i​c​h​ ​a​l​s​o​ ​s​u​p​p​o​r​t​s​ ​M​a​r​k​d​o​w​n​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TEXT_LLM_DESCRIPTION: string
+  /**
+   * U​R​L​ ​o​p​e​n​e​d​ ​w​h​e​n​ ​t​h​e​ ​u​s​e​r​ ​c​l​i​c​k​s​ ​t​h​e​ ​m​e​s​s​a​g​e​ ​o​r​ ​f​e​e​d​ ​c​a​r​d​ ​i​t​e​m​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_URL_LLM_DESCRIPTION: string
+  /**
+   * O​p​t​i​o​n​a​l​ ​i​m​a​g​e​ ​U​R​L​ ​o​r​ ​m​e​d​i​a​I​d​ ​f​o​r​ ​l​i​n​k​ ​m​e​s​s​a​g​e​s​,​ ​a​n​d​ ​t​h​e​ ​i​m​a​g​e​ ​U​R​L​ ​f​o​r​ ​f​e​e​d​ ​c​a​r​d​ ​i​t​e​m​s​.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_PIC_URL_LLM_DESCRIPTION: string
+  /**
+   * A​c​t​i​o​n​ ​c​a​r​d​ ​l​a​y​o​u​t​ ​v​a​r​i​a​n​t​:​ ​s​i​n​g​l​e​ ​b​u​t​t​o​n​,​ ​v​e​r​t​i​c​a​l​ ​2​-​5​ ​b​u​t​t​o​n​s​,​ ​o​r​ ​h​o​r​i​z​o​n​t​a​l​ ​2​ ​b​u​t​t​o​n​s​.
+   */
+  ROBOT_BATCH_SEND_ACTION_CARD_VARIANT_LLM_DESCRIPTION: string
+  /**
+   * B​u​t​t​o​n​ ​t​i​t​l​e​ ​u​s​e​d​ ​w​h​e​n​ ​t​h​e​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​h​a​s​ ​a​ ​s​i​n​g​l​e​ ​b​u​t​t​o​n​.
+   */
+  ROBOT_BATCH_SEND_SINGLE_TITLE_LLM_DESCRIPTION: string
+  /**
+   * U​R​L​ ​o​p​e​n​e​d​ ​w​h​e​n​ ​t​h​e​ ​s​i​n​g​l​e​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​b​u​t​t​o​n​ ​i​s​ ​c​l​i​c​k​e​d​.
+   */
+  ROBOT_BATCH_SEND_SINGLE_URL_LLM_DESCRIPTION: string
+  /**
+   * B​u​t​t​o​n​s​ ​f​o​r​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​v​a​r​i​a​n​t​s​ ​t​h​a​t​ ​u​s​e​ ​m​u​l​t​i​p​l​e​ ​b​u​t​t​o​n​s​.​ ​E​a​c​h​ ​i​t​e​m​ ​n​e​e​d​s​ ​a​ ​t​i​t​l​e​ ​a​n​d​ ​a​c​t​i​o​n​_​u​r​l​.
+   */
+  ROBOT_BATCH_SEND_BUTTONS_LLM_DESCRIPTION: string
+  /**
+   * T​i​t​l​e​ ​s​h​o​w​n​ ​f​o​r​ ​a​n​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​b​u​t​t​o​n​.
+   */
+  ROBOT_BATCH_SEND_BUTTON_TITLE_LLM_DESCRIPTION: string
+  /**
+   * U​R​L​ ​o​p​e​n​e​d​ ​w​h​e​n​ ​a​n​ ​a​c​t​i​o​n​ ​c​a​r​d​ ​b​u​t​t​o​n​ ​i​s​ ​c​l​i​c​k​e​d​.
+   */
+  ROBOT_BATCH_SEND_BUTTON_ACTION_URL_LLM_DESCRIPTION: string
+  /**
+   * F​e​e​d​ ​c​a​r​d​ ​i​t​e​m​s​.​ ​P​r​o​v​i​d​e​ ​a​t​ ​l​e​a​s​t​ ​o​n​e​ ​i​t​e​m​ ​w​i​t​h​ ​t​i​t​l​e​,​ ​m​e​s​s​a​g​e​_​u​r​l​,​ ​a​n​d​ ​p​i​c​_​u​r​l​.
+   */
+  ROBOT_BATCH_SEND_FEED_LINKS_LLM_DESCRIPTION: string
   /**
    * D​i​n​g​T​a​l​k​ ​r​o​b​o​t​ ​c​o​d​e​ ​u​s​e​d​ ​t​o​ ​s​e​n​d​ ​t​h​e​ ​D​I​N​G​ ​m​e​s​s​a​g​e​.
    */
@@ -907,6 +1083,26 @@ export type TranslationFunctions = {
    */
   PARAM_ROBOT_CODE_LABEL: () => LocalizedString
   /**
+   * Open Conversation ID
+   */
+  PARAM_OPEN_CONVERSATION_ID_LABEL: () => LocalizedString
+  /**
+   * cid...
+   */
+  PARAM_OPEN_CONVERSATION_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Chat ID
+   */
+  PARAM_CHAT_ID_LABEL: () => LocalizedString
+  /**
+   * Use the DingTalk chatId for the target group session.
+   */
+  PARAM_CHAT_ID_HINT: () => LocalizedString
+  /**
+   * chatxxxxxxxx
+   */
+  PARAM_CHAT_ID_PLACEHOLDER: () => LocalizedString
+  /**
    * User IDs
    */
   PARAM_USER_IDS_LABEL: () => LocalizedString
@@ -915,17 +1111,85 @@ export type TranslationFunctions = {
    */
   PARAM_USER_IDS_HINT: () => LocalizedString
   /**
+   * DingTalk user IDs to send the batch robot message to. Up to 20 userIds per request.
+   */
+  PARAM_USER_IDS_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Message
+   */
+  PARAM_MESSAGE_LABEL: () => LocalizedString
+  /**
+   * Choose the message type and fill the fields for that type only.
+   */
+  PARAM_MESSAGE_HINT: () => LocalizedString
+  /**
    * Message Type
    */
   PARAM_MESSAGE_TYPE_LABEL: () => LocalizedString
   /**
-   * Message JSON
+   * Title
    */
-  PARAM_MESSAGE_JSON_LABEL: () => LocalizedString
+  PARAM_TITLE_LABEL: () => LocalizedString
   /**
-   * Use a JSON object matching the selected message type. For text, provide a content field. For markdown, provide title and text fields.
+   * Message URL
    */
-  PARAM_MESSAGE_JSON_HINT: () => LocalizedString
+  PARAM_MESSAGE_URL_LABEL: () => LocalizedString
+  /**
+   * Usually an https URL.
+   */
+  PARAM_MESSAGE_URL_HINT: () => LocalizedString
+  /**
+   * Picture URL
+   */
+  PARAM_PIC_URL_LABEL: () => LocalizedString
+  /**
+   * For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.
+   */
+  PARAM_PIC_URL_HINT: () => LocalizedString
+  /**
+   * For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.
+   */
+  PARAM_MESSAGE_MARKDOWN_HINT: () => LocalizedString
+  /**
+   * Action Card Variant
+   */
+  PARAM_ACTION_CARD_VARIANT_LABEL: () => LocalizedString
+  /**
+   * Single button, vertical 2-5 buttons, or horizontal 2 buttons.
+   */
+  PARAM_ACTION_CARD_VARIANT_HINT: () => LocalizedString
+  /**
+   * Single Button Title
+   */
+  PARAM_SINGLE_TITLE_LABEL: () => LocalizedString
+  /**
+   * Single Button URL
+   */
+  PARAM_SINGLE_URL_LABEL: () => LocalizedString
+  /**
+   * Buttons
+   */
+  PARAM_BUTTONS_LABEL: () => LocalizedString
+  /**
+   * Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.
+   */
+  PARAM_BUTTONS_HINT: () => LocalizedString
+  /**
+   * Button Title
+   */
+  PARAM_BUTTON_TITLE_LABEL: () => LocalizedString
+  /**
+   * Action URL
+   */
+  PARAM_ACTION_URL_LABEL: () => LocalizedString
+  /**
+   * Links
+   */
+  PARAM_LINKS_LABEL: () => LocalizedString
+  /**
+   * Add one or more feed card items.
+   */
+  PARAM_LINKS_HINT: () => LocalizedString
   /**
    * Remind Type
    */
@@ -1123,6 +1387,18 @@ export type TranslationFunctions = {
    */
   OPTION_MESSAGE_TYPE_FEED_CARD: () => LocalizedString
   /**
+   * Single Button
+   */
+  OPTION_ACTION_CARD_VARIANT_SINGLE: () => LocalizedString
+  /**
+   * Vertical Buttons
+   */
+  OPTION_ACTION_CARD_VARIANT_VERTICAL_BUTTONS: () => LocalizedString
+  /**
+   * Horizontal Buttons
+   */
+  OPTION_ACTION_CARD_VARIANT_HORIZONTAL_BUTTONS: () => LocalizedString
+  /**
    * In-app DING
    */
   OPTION_REMIND_TYPE_IN_APP: () => LocalizedString
@@ -1206,6 +1482,22 @@ export type TranslationFunctions = {
    * Send one-to-one robot messages in batch.
    */
   ROBOT_BATCH_SEND_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Send Group Robot Message
+   */
+  ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send a robot message to a DingTalk group chat.
+   */
+  ROBOT_SEND_GROUP_TOOL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Open Conversation ID
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Resolve openConversationId from a DingTalk chatId.
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DESCRIPTION: () => LocalizedString
   /**
    * Send DING Message
    */
@@ -1339,13 +1631,73 @@ export type TranslationFunctions = {
    */
   ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * Robot message type. Supported values include text, link, markdown, actionCard, and feedCard.
+   * DingTalk robot code used to send the group robot message.
+   */
+  ROBOT_SEND_GROUP_ROBOT_CODE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * openConversationId of the DingTalk group chat that should receive the robot message.
+   */
+  ROBOT_SEND_GROUP_OPEN_CONVERSATION_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * DingTalk chatId used to resolve the corresponding openConversationId.
+   */
+  CHAT_GET_OPEN_CONVERSATION_ID_CHAT_ID_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Structured robot message payload. Choose one message type and provide the fields for that type.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.
    */
   ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION: () => LocalizedString
   /**
-   * JSON object for the selected robot message type. For text use content; for markdown use title and text.
+   * Content for a text robot message.
    */
-  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION: () => LocalizedString
+  ROBOT_BATCH_SEND_MESSAGE_CONTENT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Title shown for link, markdown, or action card messages.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TITLE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_TEXT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * URL opened when the user clicks the message or feed card item.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_URL_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional image URL or mediaId for link messages, and the image URL for feed card items.
+   */
+  ROBOT_BATCH_SEND_MESSAGE_PIC_URL_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.
+   */
+  ROBOT_BATCH_SEND_ACTION_CARD_VARIANT_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Button title used when the action card has a single button.
+   */
+  ROBOT_BATCH_SEND_SINGLE_TITLE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * URL opened when the single action card button is clicked.
+   */
+  ROBOT_BATCH_SEND_SINGLE_URL_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.
+   */
+  ROBOT_BATCH_SEND_BUTTONS_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Title shown for an action card button.
+   */
+  ROBOT_BATCH_SEND_BUTTON_TITLE_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * URL opened when an action card button is clicked.
+   */
+  ROBOT_BATCH_SEND_BUTTON_ACTION_URL_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Feed card items. Provide at least one item with title, message_url, and pic_url.
+   */
+  ROBOT_BATCH_SEND_FEED_LINKS_LLM_DESCRIPTION: () => LocalizedString
   /**
    * DingTalk robot code used to send the DING message.
    */

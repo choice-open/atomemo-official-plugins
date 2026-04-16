@@ -48,12 +48,39 @@ const en_US = {
   PARAM_SIZE_LABEL: "Size",
   PARAM_FULL_MATCH_FIELD_LABEL: "Exact Match",
   PARAM_ROBOT_CODE_LABEL: "Robot Code",
+  PARAM_OPEN_CONVERSATION_ID_LABEL: "Open Conversation ID",
+  PARAM_OPEN_CONVERSATION_ID_PLACEHOLDER: "cid...",
+  PARAM_CHAT_ID_LABEL: "Chat ID",
+  PARAM_CHAT_ID_HINT: "Use the DingTalk chatId for the target group session.",
+  PARAM_CHAT_ID_PLACEHOLDER: "chatxxxxxxxx",
   PARAM_USER_IDS_LABEL: "User IDs",
   PARAM_USER_IDS_HINT: "Up to 20 userIds per request.",
+  PARAM_USER_IDS_LLM_DESCRIPTION:
+    "DingTalk user IDs to send the batch robot message to. Up to 20 userIds per request.",
+  PARAM_MESSAGE_LABEL: "Message",
+  PARAM_MESSAGE_HINT:
+    "Choose the message type and fill the fields for that type only.",
   PARAM_MESSAGE_TYPE_LABEL: "Message Type",
-  PARAM_MESSAGE_JSON_LABEL: "Message JSON",
-  PARAM_MESSAGE_JSON_HINT:
-    "Use a JSON object matching the selected message type. For text, provide a content field. For markdown, provide title and text fields.",
+  PARAM_TITLE_LABEL: "Title",
+  PARAM_MESSAGE_URL_LABEL: "Message URL",
+  PARAM_MESSAGE_URL_HINT: "Usually an https URL.",
+  PARAM_PIC_URL_LABEL: "Picture URL",
+  PARAM_PIC_URL_HINT:
+    "For link messages, DingTalk accepts an image URL or a mediaId. Feed cards usually use an image URL.",
+  PARAM_MESSAGE_MARKDOWN_HINT:
+    "For link messages, this is the preview/body text. For markdown messages, enter Markdown content. For action card messages, enter the card body and DingTalk supports Markdown there too.",
+  PARAM_ACTION_CARD_VARIANT_LABEL: "Action Card Variant",
+  PARAM_ACTION_CARD_VARIANT_HINT:
+    "Single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+  PARAM_SINGLE_TITLE_LABEL: "Single Button Title",
+  PARAM_SINGLE_URL_LABEL: "Single Button URL",
+  PARAM_BUTTONS_LABEL: "Buttons",
+  PARAM_BUTTONS_HINT:
+    "Use 2-5 buttons for vertical buttons, or exactly 2 for horizontal buttons.",
+  PARAM_BUTTON_TITLE_LABEL: "Button Title",
+  PARAM_ACTION_URL_LABEL: "Action URL",
+  PARAM_LINKS_LABEL: "Links",
+  PARAM_LINKS_HINT: "Add one or more feed card items.",
   PARAM_REMIND_TYPE_LABEL: "Remind Type",
   PARAM_RECEIVER_USER_ID_LIST_LABEL: "Receiver User IDs",
   PARAM_CONTENT_LABEL: "Content",
@@ -113,6 +140,9 @@ const en_US = {
   OPTION_MESSAGE_TYPE_MARKDOWN: "Markdown",
   OPTION_MESSAGE_TYPE_ACTION_CARD: "Action Card",
   OPTION_MESSAGE_TYPE_FEED_CARD: "Feed Card",
+  OPTION_ACTION_CARD_VARIANT_SINGLE: "Single Button",
+  OPTION_ACTION_CARD_VARIANT_VERTICAL_BUTTONS: "Vertical Buttons",
+  OPTION_ACTION_CARD_VARIANT_HORIZONTAL_BUTTONS: "Horizontal Buttons",
   OPTION_REMIND_TYPE_IN_APP: "In-app DING",
   OPTION_REMIND_TYPE_SMS: "SMS DING",
   OPTION_REMIND_TYPE_PHONE: "Phone DING",
@@ -139,6 +169,12 @@ const en_US = {
 
   ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME: "Batch Send Robot Message",
   ROBOT_BATCH_SEND_TOOL_DESCRIPTION: "Send one-to-one robot messages in batch.",
+  ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME: "Send Group Robot Message",
+  ROBOT_SEND_GROUP_TOOL_DESCRIPTION:
+    "Send a robot message to a DingTalk group chat.",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DISPLAY_NAME: "Get Open Conversation ID",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DESCRIPTION:
+    "Resolve openConversationId from a DingTalk chatId.",
   ROBOT_SEND_DING_TOOL_DISPLAY_NAME: "Send DING Message",
   ROBOT_SEND_DING_TOOL_DESCRIPTION:
     "Send a DING message through an enterprise robot.",
@@ -192,10 +228,40 @@ const en_US = {
     "Whether the search should require an exact match on supported fields.",
   ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION:
     "DingTalk robot code used to send the batch robot message.",
+  ROBOT_SEND_GROUP_ROBOT_CODE_LLM_DESCRIPTION:
+    "DingTalk robot code used to send the group robot message.",
+  ROBOT_SEND_GROUP_OPEN_CONVERSATION_ID_LLM_DESCRIPTION:
+    "openConversationId of the DingTalk group chat that should receive the robot message.",
+  CHAT_GET_OPEN_CONVERSATION_ID_CHAT_ID_LLM_DESCRIPTION:
+    "DingTalk chatId used to resolve the corresponding openConversationId.",
+  ROBOT_BATCH_SEND_MESSAGE_LLM_DESCRIPTION:
+    "Structured robot message payload. Choose one message type and provide the fields for that type.",
   ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION:
-    "Robot message type. Supported values include text, link, markdown, actionCard, and feedCard.",
-  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION:
-    "JSON object for the selected robot message type. For text use content; for markdown use title and text.",
+    "Robot message type. Supported values are text, link, markdown, actionCard, and feedCard.",
+  ROBOT_BATCH_SEND_MESSAGE_CONTENT_LLM_DESCRIPTION:
+    "Content for a text robot message.",
+  ROBOT_BATCH_SEND_MESSAGE_TITLE_LLM_DESCRIPTION:
+    "Title shown for link, markdown, or action card messages.",
+  ROBOT_BATCH_SEND_MESSAGE_TEXT_LLM_DESCRIPTION:
+    "Text field whose meaning depends on the message type: for link, use the short body/preview text; for markdown, use the Markdown body; for actionCard, use the card body text, which also supports Markdown.",
+  ROBOT_BATCH_SEND_MESSAGE_URL_LLM_DESCRIPTION:
+    "URL opened when the user clicks the message or feed card item.",
+  ROBOT_BATCH_SEND_MESSAGE_PIC_URL_LLM_DESCRIPTION:
+    "Optional image URL or mediaId for link messages, and the image URL for feed card items.",
+  ROBOT_BATCH_SEND_ACTION_CARD_VARIANT_LLM_DESCRIPTION:
+    "Action card layout variant: single button, vertical 2-5 buttons, or horizontal 2 buttons.",
+  ROBOT_BATCH_SEND_SINGLE_TITLE_LLM_DESCRIPTION:
+    "Button title used when the action card has a single button.",
+  ROBOT_BATCH_SEND_SINGLE_URL_LLM_DESCRIPTION:
+    "URL opened when the single action card button is clicked.",
+  ROBOT_BATCH_SEND_BUTTONS_LLM_DESCRIPTION:
+    "Buttons for action card variants that use multiple buttons. Each item needs a title and action_url.",
+  ROBOT_BATCH_SEND_BUTTON_TITLE_LLM_DESCRIPTION:
+    "Title shown for an action card button.",
+  ROBOT_BATCH_SEND_BUTTON_ACTION_URL_LLM_DESCRIPTION:
+    "URL opened when an action card button is clicked.",
+  ROBOT_BATCH_SEND_FEED_LINKS_LLM_DESCRIPTION:
+    "Feed card items. Provide at least one item with title, message_url, and pic_url.",
   ROBOT_SEND_DING_ROBOT_CODE_LLM_DESCRIPTION:
     "DingTalk robot code used to send the DING message.",
   ROBOT_SEND_DING_REMIND_TYPE_LLM_DESCRIPTION:

@@ -43,12 +43,37 @@ const zh_Hans = {
   PARAM_SIZE_LABEL: "数量",
   PARAM_FULL_MATCH_FIELD_LABEL: "精确匹配",
   PARAM_ROBOT_CODE_LABEL: "机器人编码",
+  PARAM_OPEN_CONVERSATION_ID_LABEL: "Open Conversation ID",
+  PARAM_OPEN_CONVERSATION_ID_PLACEHOLDER: "cid...",
+  PARAM_CHAT_ID_LABEL: "Chat ID",
+  PARAM_CHAT_ID_HINT: "填写目标群会话对应的钉钉 chatId。",
+  PARAM_CHAT_ID_PLACEHOLDER: "chatxxxxxxxx",
   PARAM_USER_IDS_LABEL: "用户 ID 列表",
   PARAM_USER_IDS_HINT: "每次请求最多 20 个 userId。",
+  PARAM_USER_IDS_LLM_DESCRIPTION:
+    "要发送批量机器人消息的钉钉用户 userId 列表。每次请求最多 20 个 userId。",
+  PARAM_MESSAGE_LABEL: "消息",
+  PARAM_MESSAGE_HINT: "选择消息类型后，只填写该类型对应的字段。",
   PARAM_MESSAGE_TYPE_LABEL: "消息类型",
-  PARAM_MESSAGE_JSON_LABEL: "消息 JSON",
-  PARAM_MESSAGE_JSON_HINT:
-    "填写与所选消息类型匹配的 JSON 对象。文本消息需要 content 字段；Markdown 消息需要 title 和 text 字段。",
+  PARAM_TITLE_LABEL: "标题",
+  PARAM_MESSAGE_URL_LABEL: "消息链接",
+  PARAM_MESSAGE_URL_HINT: "通常填写 https URL。",
+  PARAM_PIC_URL_LABEL: "图片链接",
+  PARAM_PIC_URL_HINT:
+    "链接消息可填写图片 URL 或 mediaId；FeedCard 通常填写图片 URL。",
+  PARAM_MESSAGE_MARKDOWN_HINT:
+    "当类型为链接消息时，这里填写摘要/正文文本；当类型为 Markdown 消息时，这里填写 Markdown 正文；当类型为 Action Card 时，这里填写卡片正文，且同样支持 Markdown。",
+  PARAM_ACTION_CARD_VARIANT_LABEL: "Action Card 变体",
+  PARAM_ACTION_CARD_VARIANT_HINT:
+    "可选单按钮、竖向 2-5 个按钮或横向 2 个按钮。",
+  PARAM_SINGLE_TITLE_LABEL: "单按钮标题",
+  PARAM_SINGLE_URL_LABEL: "单按钮链接",
+  PARAM_BUTTONS_LABEL: "按钮列表",
+  PARAM_BUTTONS_HINT: "竖向按钮支持 2-5 个，横向按钮固定 2 个。",
+  PARAM_BUTTON_TITLE_LABEL: "按钮标题",
+  PARAM_ACTION_URL_LABEL: "按钮链接",
+  PARAM_LINKS_LABEL: "链接列表",
+  PARAM_LINKS_HINT: "至少添加一个 FeedCard 条目。",
   PARAM_REMIND_TYPE_LABEL: "提醒类型",
   PARAM_RECEIVER_USER_ID_LIST_LABEL: "接收人 userId 列表",
   PARAM_CONTENT_LABEL: "内容",
@@ -107,6 +132,9 @@ const zh_Hans = {
   OPTION_MESSAGE_TYPE_MARKDOWN: "Markdown",
   OPTION_MESSAGE_TYPE_ACTION_CARD: "Action Card",
   OPTION_MESSAGE_TYPE_FEED_CARD: "Feed Card",
+  OPTION_ACTION_CARD_VARIANT_SINGLE: "单按钮",
+  OPTION_ACTION_CARD_VARIANT_VERTICAL_BUTTONS: "竖向按钮",
+  OPTION_ACTION_CARD_VARIANT_HORIZONTAL_BUTTONS: "横向按钮",
   OPTION_REMIND_TYPE_IN_APP: "应用内 DING",
   OPTION_REMIND_TYPE_SMS: "短信 DING",
   OPTION_REMIND_TYPE_PHONE: "电话 DING",
@@ -131,6 +159,11 @@ const zh_Hans = {
 
   ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME: "批量发送机器人消息",
   ROBOT_BATCH_SEND_TOOL_DESCRIPTION: "批量发送人与机器人单聊消息。",
+  ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME: "发送群机器人消息",
+  ROBOT_SEND_GROUP_TOOL_DESCRIPTION: "向钉钉群聊发送机器人消息。",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DISPLAY_NAME: "获取 Open Conversation ID",
+  CHAT_GET_OPEN_CONVERSATION_ID_TOOL_DESCRIPTION:
+    "根据钉钉 chatId 解析 openConversationId。",
   ROBOT_SEND_DING_TOOL_DISPLAY_NAME: "发送 DING 消息",
   ROBOT_SEND_DING_TOOL_DESCRIPTION: "通过企业机器人发送 DING 消息。",
   ROBOT_RECALL_DING_TOOL_DISPLAY_NAME: "撤回 DING 消息",
@@ -176,10 +209,38 @@ const zh_Hans = {
     "搜索时是否要求在支持的字段上进行精确匹配。",
   ROBOT_BATCH_SEND_ROBOT_CODE_LLM_DESCRIPTION:
     "用于发送批量机器人消息的钉钉机器人编码。",
+  ROBOT_SEND_GROUP_ROBOT_CODE_LLM_DESCRIPTION:
+    "用于发送群机器人消息的钉钉机器人编码。",
+  ROBOT_SEND_GROUP_OPEN_CONVERSATION_ID_LLM_DESCRIPTION:
+    "要接收机器人消息的钉钉群聊 openConversationId。",
+  CHAT_GET_OPEN_CONVERSATION_ID_CHAT_ID_LLM_DESCRIPTION:
+    "用于解析对应 openConversationId 的钉钉 chatId。",
+  ROBOT_BATCH_SEND_MESSAGE_LLM_DESCRIPTION:
+    "结构化的机器人消息对象。选择一种消息类型，并填写该类型所需字段。",
   ROBOT_BATCH_SEND_MESSAGE_TYPE_LLM_DESCRIPTION:
     "机器人消息类型。支持 text、link、markdown、actionCard 和 feedCard。",
-  ROBOT_BATCH_SEND_MESSAGE_JSON_LLM_DESCRIPTION:
-    "与所选机器人消息类型匹配的 JSON 对象。文本消息使用 content；Markdown 消息使用 title 和 text。",
+  ROBOT_BATCH_SEND_MESSAGE_CONTENT_LLM_DESCRIPTION: "文本机器人消息的内容。",
+  ROBOT_BATCH_SEND_MESSAGE_TITLE_LLM_DESCRIPTION:
+    "链接、Markdown 或 Action Card 消息显示的标题。",
+  ROBOT_BATCH_SEND_MESSAGE_TEXT_LLM_DESCRIPTION:
+    "文本字段的含义取决于消息类型：link 使用摘要/正文文本，markdown 使用 Markdown 正文，actionCard 使用卡片正文文本，且 markdown 与 actionCard 的文本都支持 Markdown。",
+  ROBOT_BATCH_SEND_MESSAGE_URL_LLM_DESCRIPTION:
+    "用户点击消息或 FeedCard 条目后打开的 URL。",
+  ROBOT_BATCH_SEND_MESSAGE_PIC_URL_LLM_DESCRIPTION:
+    "链接消息可选的图片 URL 或 mediaId，以及 FeedCard 条目的图片 URL。",
+  ROBOT_BATCH_SEND_ACTION_CARD_VARIANT_LLM_DESCRIPTION:
+    "Action Card 的布局变体：单按钮、竖向 2-5 个按钮，或横向 2 个按钮。",
+  ROBOT_BATCH_SEND_SINGLE_TITLE_LLM_DESCRIPTION:
+    "当 Action Card 使用单按钮时展示的按钮标题。",
+  ROBOT_BATCH_SEND_SINGLE_URL_LLM_DESCRIPTION:
+    "点击单按钮 Action Card 时打开的 URL。",
+  ROBOT_BATCH_SEND_BUTTONS_LLM_DESCRIPTION:
+    "多按钮 Action Card 使用的按钮列表。每个按钮都需要 title 和 action_url。",
+  ROBOT_BATCH_SEND_BUTTON_TITLE_LLM_DESCRIPTION: "Action Card 按钮显示的标题。",
+  ROBOT_BATCH_SEND_BUTTON_ACTION_URL_LLM_DESCRIPTION:
+    "点击 Action Card 按钮后打开的 URL。",
+  ROBOT_BATCH_SEND_FEED_LINKS_LLM_DESCRIPTION:
+    "FeedCard 条目列表。至少提供一个包含 title、message_url 和 pic_url 的条目。",
   ROBOT_SEND_DING_ROBOT_CODE_LLM_DESCRIPTION:
     "用于发送 DING 消息的钉钉机器人编码。",
   ROBOT_SEND_DING_REMIND_TYPE_LLM_DESCRIPTION:
