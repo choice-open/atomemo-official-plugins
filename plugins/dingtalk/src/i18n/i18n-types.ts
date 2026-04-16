@@ -20,7 +20,7 @@ type RootTranslation = {
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * W​o​r​k​ ​w​i​t​h​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​s​,​ ​a​p​p​r​o​v​a​l​s​,​ ​d​o​c​u​m​e​n​t​s​,​ ​a​n​d​ ​r​o​b​o​t​s​.
+   * W​o​r​k​ ​w​i​t​h​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​s​,​ ​a​p​p​r​o​v​a​l​s​,​ ​a​n​d​ ​r​o​b​o​t​s​.
    */
   PLUGIN_DESCRIPTION: string
   /**
@@ -951,7 +951,7 @@ export type TranslationFunctions = {
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Work with DingTalk users, approvals, documents, and robots.
+   * Work with DingTalk users, approvals, and robots.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**

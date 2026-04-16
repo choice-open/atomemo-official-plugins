@@ -2,8 +2,7 @@ import type { BaseTranslation } from "../i18n-types"
 
 const en_US = {
   PLUGIN_DISPLAY_NAME: "DingTalk",
-  PLUGIN_DESCRIPTION:
-    "Work with DingTalk users, approvals, documents, and robots.",
+  PLUGIN_DESCRIPTION: "Work with DingTalk users, approvals, and robots.",
 
   CREDENTIAL_DISPLAY_NAME: "DingTalk App Credential",
   CREDENTIAL_DESCRIPTION:
