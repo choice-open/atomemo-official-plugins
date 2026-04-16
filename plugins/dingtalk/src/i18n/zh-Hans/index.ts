@@ -2,7 +2,7 @@ import type { Translation } from "../i18n-types"
 
 const zh_Hans = {
   PLUGIN_DISPLAY_NAME: "钉钉",
-  PLUGIN_DESCRIPTION: "操作钉钉用户、审批、文档和机器人。",
+  PLUGIN_DESCRIPTION: "操作钉钉用户、审批和机器人。",
 
   CREDENTIAL_DISPLAY_NAME: "钉钉应用凭证",
   CREDENTIAL_DESCRIPTION: "用于调用钉钉开放平台企业内部应用 API 的凭证。",

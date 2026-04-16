@@ -5,8 +5,8 @@
     "zh_Hans": "钉钉"
   },
   "description": {
-    "en_US": "Work with DingTalk users, approvals, documents, and robots.",
-    "zh_Hans": "操作钉钉用户、审批、文档和机器人。"
+    "en_US": "Work with DingTalk users, approvals, and robots.",
+    "zh_Hans": "操作钉钉用户、审批和机器人。"
   },
   "icon": "https://cdn.worldvectorlogo.com/logos/dingtalk.svg",
   "lang": "typescript",
@@ -17,7 +17,7 @@
   ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "credentials": [
     {
       "name": "dingtalk-app",
