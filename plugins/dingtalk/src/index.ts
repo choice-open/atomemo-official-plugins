@@ -24,10 +24,10 @@ const plugin = await createPlugin({
   name: packageJSON.name,
   display_name: t("PLUGIN_DISPLAY_NAME"),
   description: t("PLUGIN_DESCRIPTION"),
-  icon: "symbol:icon-dingtalk",
+  icon: "https://cdn.worldvectorlogo.com/logos/dingtalk.svg",
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/dingtalk",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/dingtalk/README.md",
   locales,
   transporterOptions: {},
 })

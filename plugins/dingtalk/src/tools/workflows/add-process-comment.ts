@@ -6,7 +6,7 @@ import { z } from "zod"
 import {
   dingtalkRequest,
   resolveCredential,
-  resolveOperatorUserId,
+  resolveDefaultWorkflowUserId,
 } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
@@ -15,6 +15,9 @@ import {
   optionalTrimmedString,
   parseParams,
 } from "../../lib/schemas"
+import addProcessCommentSkill from "../../skills/tools/add-process-comment.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
@@ -29,6 +32,7 @@ export const addProcessCommentTool: ToolDefinition = {
   display_name: t("WORKFLOW_ADD_COMMENT_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_ADD_COMMENT_TOOL_DESCRIPTION"),
   icon: "💬",
+  skill: addProcessCommentSkill,
   parameters: [
     credentialParameter,
     {
@@ -96,7 +100,7 @@ export const addProcessCommentTool: ToolDefinition = {
     const params = parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
     const commentUserId =
-      params.comment_user_id ?? (await resolveOperatorUserId(credential))
+      params.comment_user_id ?? (await resolveDefaultWorkflowUserId(credential))
     const body: Record<string, unknown> = {
       processInstanceId: params.process_instance_id,
     }

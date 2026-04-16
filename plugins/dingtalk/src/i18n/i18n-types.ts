@@ -892,6 +892,10 @@ type RootTranslation = {
    */
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: string
   /**
+   * O​p​t​i​o​n​a​l​ ​l​i​s​t​ ​o​f​ ​D​i​n​g​T​a​l​k​ ​u​s​e​r​ ​I​D​s​ ​w​h​o​ ​s​t​a​r​t​e​d​ ​t​h​e​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​s​.​ ​F​i​l​t​e​r​s​ ​r​e​s​u​l​t​s​ ​t​o​ ​o​n​l​y​ ​i​n​s​t​a​n​c​e​s​ ​s​t​a​r​t​e​d​ ​b​y​ ​t​h​e​s​e​ ​u​s​e​r​s​.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION: string
+  /**
    * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​p​r​o​c​e​s​s​ ​i​n​s​t​a​n​c​e​ ​I​D​s​ ​t​o​ ​r​e​t​u​r​n​ ​p​e​r​ ​p​a​g​e​.
    */
   WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION: string
@@ -1818,6 +1822,10 @@ export type TranslationFunctions = {
    * Optional end time for filtering process instances. Supports the same absolute EN/ZH date-time formats as start_time. Date-only values resolve to the end of that day in the runtime local timezone. Reject ambiguous numeric dates like 04/05/2026.
    */
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION: () => LocalizedString
+  /**
+   * Optional list of DingTalk user IDs who started the process instances. Filters results to only instances started by these users.
+   */
+  WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION: () => LocalizedString
   /**
    * Maximum number of process instance IDs to return per page.
    */

@@ -1,4 +1,7 @@
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { z } from "zod"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
@@ -9,6 +12,9 @@ import {
   robotMessageParameter,
   robotMessageSchema,
 } from "../../lib/robot-message"
+import sendGroupRobotMessageSkill from "../../skills/tools/send-group-robot-message.md" with {
+  type: "text",
+}
 
 export const sendGroupRobotMessageParamsSchema = z
   .object({
@@ -24,6 +30,7 @@ export const sendGroupRobotMessageTool: ToolDefinition = {
   display_name: t("ROBOT_SEND_GROUP_TOOL_DISPLAY_NAME"),
   description: t("ROBOT_SEND_GROUP_TOOL_DESCRIPTION"),
   icon: "💬",
+  skill: sendGroupRobotMessageSkill,
   parameters: [
     credentialParameter,
     {
@@ -59,7 +66,10 @@ export const sendGroupRobotMessageTool: ToolDefinition = {
     robotMessageParameter,
   ],
   async invoke({ args }): Promise<JsonValue> {
-    const params = parseParams(sendGroupRobotMessageParamsSchema, args.parameters)
+    const params = parseParams(
+      sendGroupRobotMessageParamsSchema,
+      args.parameters,
+    )
     const credential = resolveCredential(args)
     const message = buildRobotMessagePayload(params.message)
 

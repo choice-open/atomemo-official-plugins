@@ -14,6 +14,9 @@ import {
   parseParams,
   requiredDateTimeRangeStartMs,
 } from "../../lib/schemas"
+import listProcessInstanceIdsSkill from "../../skills/tools/list-process-instance-ids.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
@@ -31,6 +34,7 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
   display_name: t("WORKFLOW_LIST_INSTANCE_IDS_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_LIST_INSTANCE_IDS_TOOL_DESCRIPTION"),
   icon: "🧾",
+  skill: listProcessInstanceIdsSkill,
   parameters: [
     credentialParameter,
     {
@@ -90,6 +94,11 @@ export const listProcessInstanceIdsTool: ToolDefinition = {
       type: "array",
       required: false,
       display_name: t("PARAM_STARTER_USER_IDS_LABEL"),
+      ai: {
+        llm_description: t(
+          "WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION",
+        ),
+      },
       items: {
         name: "user_ids_item",
         type: "string",

@@ -1,21 +1,27 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import { nonEmptyString, parseParams } from "../../lib/schemas"
+import getUserByMobileSkill from "../../skills/tools/get-user-by-mobile.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
   mobile: nonEmptyString,
 })
 
-
 export const getUserByMobileTool: ToolDefinition = {
   name: "dingtalk-user-get-by-mobile",
   display_name: t("USER_GET_BY_MOBILE_TOOL_DISPLAY_NAME"),
   description: t("USER_GET_BY_MOBILE_TOOL_DESCRIPTION"),
   icon: "📱",
+  skill: getUserByMobileSkill,
   parameters: [
     credentialParameter,
     {

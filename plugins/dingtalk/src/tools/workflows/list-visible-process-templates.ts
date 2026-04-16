@@ -1,9 +1,12 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   dingtalkRequest,
   resolveCredential,
-  resolveOperatorUserId,
+  resolveDefaultWorkflowUserId,
 } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
@@ -12,6 +15,9 @@ import {
   optionalTrimmedString,
   parseParams,
 } from "../../lib/schemas"
+import listVisibleProcessTemplatesSkill from "../../skills/tools/list-visible-process-templates.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
@@ -25,6 +31,7 @@ export const listVisibleProcessTemplatesTool: ToolDefinition = {
   display_name: t("WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_LIST_VISIBLE_TEMPLATES_TOOL_DESCRIPTION"),
   icon: "📚",
+  skill: listVisibleProcessTemplatesSkill,
   parameters: [
     credentialParameter,
     {
@@ -33,7 +40,9 @@ export const listVisibleProcessTemplatesTool: ToolDefinition = {
       required: false,
       display_name: t("PARAM_USER_ID_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_LIST_VISIBLE_TEMPLATES_USER_ID_LLM_DESCRIPTION",
+        ),
       },
       ui: {
         component: "input",
@@ -81,7 +90,8 @@ export const listVisibleProcessTemplatesTool: ToolDefinition = {
   async invoke({ args }): Promise<JsonValue> {
     const params = parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
-    const userId = params.user_id ?? (await resolveOperatorUserId(credential))
+    const userId =
+      params.user_id ?? (await resolveDefaultWorkflowUserId(credential))
     return dingtalkRequest(credential, {
       method: "GET",
       path: "/workflow/processes/userVisibilities/templates",

@@ -322,6 +322,8 @@ const en_US = {
     "Required start time for filtering process instances. Supports Unix millisecond timestamps and absolute EN/ZH date-time formats such as 2026-04-15, 2026-04-15 14:30, 2026/04/15 14:30:00, 2026-04-15T14:30:00+08:00, April 15, 2026 2:30 PM, and 2026年4月15日 14:30. Date-only values resolve to the start of that day in the runtime local timezone.",
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION:
     "Optional end time for filtering process instances. Supports the same absolute EN/ZH date-time formats as start_time. Date-only values resolve to the end of that day in the runtime local timezone. Reject ambiguous numeric dates like 04/05/2026.",
+  WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION:
+    "Optional list of DingTalk user IDs who started the process instances. Filters results to only instances started by these users.",
   WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION:
     "Maximum number of process instance IDs to return per page.",
   WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION:

@@ -1,15 +1,24 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import { nonEmptyString, parseParams } from "../../lib/schemas"
+import downloadProcessAttachmentSkill from "../../skills/tools/download-process-attachment.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
   process_instance_id: nonEmptyString,
   file_id: nonEmptyString,
-  with_comment_attachment: z.preprocess((v) => Boolean(v ?? false), z.boolean()),
+  with_comment_attachment: z.preprocess(
+    (v) => Boolean(v ?? false),
+    z.boolean(),
+  ),
 })
 
 export const downloadProcessAttachmentTool: ToolDefinition = {
@@ -17,6 +26,7 @@ export const downloadProcessAttachmentTool: ToolDefinition = {
   display_name: t("WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_DOWNLOAD_ATTACHMENT_TOOL_DESCRIPTION"),
   icon: "📎",
+  skill: downloadProcessAttachmentSkill,
   parameters: [
     credentialParameter,
     {
@@ -41,13 +51,15 @@ export const downloadProcessAttachmentTool: ToolDefinition = {
       required: true,
       display_name: t("PARAM_FILE_ID_LABEL"),
       ai: {
-        llm_description: t("WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION"),
+        llm_description: t(
+          "WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_LLM_DESCRIPTION",
+        ),
       },
       ui: {
         component: "input",
         support_expression: true,
         width: "full",
-        hint: t("WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT")
+        hint: t("WORKFLOW_DOWNLOAD_ATTACHMENT_FILE_ID_HINT"),
       },
     },
     {

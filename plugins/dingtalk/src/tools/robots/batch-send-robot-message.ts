@@ -6,16 +6,15 @@ import type {
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
-import {
-  nonEmptyString,
-  parseParams,
-  stringArray,
-} from "../../lib/schemas"
+import { nonEmptyString, parseParams, stringArray } from "../../lib/schemas"
 import {
   buildRobotMessagePayload,
   robotMessageParameter,
   robotMessageSchema,
 } from "../../lib/robot-message"
+import batchSendRobotMessageSkill from "../../skills/tools/batch-send-robot-message.md" with {
+  type: "text",
+}
 
 export const batchSendRobotMessageParamsSchema = z
   .object({
@@ -36,6 +35,7 @@ export const batchSendRobotMessageTool: ToolDefinition = {
   display_name: t("ROBOT_BATCH_SEND_TOOL_DISPLAY_NAME"),
   description: t("ROBOT_BATCH_SEND_TOOL_DESCRIPTION"),
   icon: "🤖",
+  skill: batchSendRobotMessageSkill,
   parameters: [
     credentialParameter,
     {

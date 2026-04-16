@@ -8,9 +8,9 @@
     "en_US": "Work with DingTalk users, approvals, documents, and robots.",
     "zh_Hans": "操作钉钉用户、审批、文档和机器人。"
   },
-  "icon": "symbol:icon-dingtalk",
+  "icon": "https://cdn.worldvectorlogo.com/logos/dingtalk.svg",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/dingtalk",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/dingtalk/README.md",
   "locales": [
     "en-US",
     "zh-Hans"
@@ -167,7 +167,8 @@
           "type": "credential_id",
           "credential_name": "dingtalk-app"
         }
-      ]
+      ],
+      "skill": "# dingtalk / get-app-access-token\n\nFetch the current DingTalk app access token using the selected credential.\n\n## Input Parameters\n\n| Field | Type | Required | Default | Description |\n| --- | --- | --- | --- | --- |\n| `credential_id` | `credential_id` | yes | — | Links to credential `dingtalk-app`. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n- Fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `corp_id` | `string` | yes | Organization ID where the DingTalk app is installed. |\n| `client_id` | `string` | yes | DingTalk app Client ID. |\n| `client_secret` | `encrypted_string` | yes | DingTalk app Client Secret. |\n| `user_union_id` | `string` | no | Default operator unionId for workflow-related operations. |\n| `agent_id` | `string` | yes | AgentId of the internal DingTalk app. |\n\n## Success Output\n\n```json\n{\n  \"corpId\": \"dingxxxxxxxxxxxx\",\n  \"clientId\": \"dingoaxxxxxxxxxxxx\",\n  \"accessToken\": \"abc123def456\"\n}\n```\n\n"
     },
     {
       "name": "dingtalk-robot-batch-send",
@@ -808,7 +809,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# dingtalk / batch-send-robot-message\n\nSend one-to-one robot messages to multiple DingTalk users in batch.\n\n## Input Parameters\n\n| Field           | Type                | Required | Default | Description                         |\n| --------------- | ------------------- | -------- | ------- | ----------------------------------- |\n| `credential_id` | `credential_id`     | yes      | —       | Links to credential `dingtalk-app`. |\n| `robot_code`    | `string`            | yes      | —       | DingTalk robot code.                |\n| `user_ids`      | `array` of `string` | yes      | —       | Target user IDs. Min 1, max 20.     |\n| `message`       | `object`            | yes      | —       | Structured robot message payload.   |\n\n### Message Object\nThe `message` object must include a `type` and the fields required for that type:\n\n- `type`: `\"text\"` | `\"link\"` | `\"markdown\"` | `\"actionCard\"` | `\"feedCard\"`\n- **text**: requires `content`\n- **link**: requires `title`, `text`, `message_url`; optional `pic_url`\n- **markdown**: requires `title`, `text`\n- **actionCard**: requires `title`, `text`, `action_card_variant`\n  - `single`: requires `single_title`, `single_url`\n  - `vertical_buttons`: requires `buttons` (2–5 items)\n  - `horizontal_buttons`: requires `buttons` (exactly 2 items)\n- **feedCard**: requires `links` (at least 1 item with `title`, `message_url`, `pic_url`)\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"robot_code\": \"robot123\",\n  \"user_ids\": [\"user1\", \"user2\"],\n  \"message\": {\n    \"type\": \"text\",\n    \"content\": \"Hello from Atomemo!\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"processQueryKey\": \"abc123\",\n  \"invalidStaffIdList\": [],\n  \"flowControlledStaffIdList\": []\n}\n```\n\n"
     },
     {
       "name": "dingtalk-robot-send-group-message",
@@ -1440,7 +1442,8 @@
             }
           ]
         }
-      ]
+      ],
+      "skill": "# dingtalk / send-group-robot-message\n\nSend a robot message to a DingTalk group chat.\n\n## Input Parameters\n\n| Field                  | Type            | Required | Default | Description                                    |\n| ---------------------- | --------------- | -------- | ------- | ---------------------------------------------- |\n| `credential_id`        | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.            |\n| `robot_code`           | `string`        | yes      | —       | DingTalk robot code.                           |\n| `open_conversation_id` | `string`        | yes      | —       | Open conversation ID of the target group chat. |\n| `message`              | `object`        | yes      | —       | Structured robot message payload.              |\n\n### Message Object\nSame schema as `batch-send-robot-message`.\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"robot_code\": \"robot123\",\n  \"open_conversation_id\": \"cidxxxxxxxxxx\",\n  \"message\": {\n    \"type\": \"markdown\",\n    \"title\": \"Weekly Report\",\n    \"text\": \"## Summary\\\\nAll systems operational.\"\n  }\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"processQueryKey\": \"abc123\"\n}\n```\n\n"
     },
     {
       "name": "dingtalk-user-get",
@@ -1491,7 +1494,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# dingtalk / get-user\n\nGet user details by DingTalk userId.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                         |\n| --------------- | --------------- | -------- | ------- | ----------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`. |\n| `user_id`       | `string`        | yes      | —       | DingTalk user ID to retrieve.       |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n    \"errcode\": 0,\n    \"errmsg\": \"ok\",\n    \"request_id\": \"16mn0sl6oplfp\",\n    \"result\": {\n      \"active\": true,\n      \"admin\": true,\n      \"avatar\": \"\",\n      \"boss\": true,\n      \"create_time\": \"2025-05-28T06:39:19.000Z\",\n      \"dept_id_list\": [\n        1\n      ],\n      \"dept_order_list\": [\n        {\n          \"dept_id\": 1,\n          \"order\": 176169207419780500\n        }\n      ],\n      \"exclusive_account\": false,\n      \"hide_mobile\": false,\n      \"leader_in_dept\": [\n        {\n          \"dept_id\": 1,\n          \"leader\": false\n        }\n      ],\n      \"name\": \"John\",\n      \"real_authed\": true,\n      \"role_list\": [\n        {\n          \"group_name\": \"默认\",\n          \"id\": 4956354843,\n          \"name\": \"主管理员\"\n        },\n        {\n          \"group_name\": \"默认\",\n          \"id\": 4956354845,\n          \"name\": \"负责人\"\n        }\n      ],\n      \"senior\": false,\n      \"unionid\": \"7NBLG0T38Zn6VzCG7KCJmAiEiE\",\n      \"userid\": \"093204182627445986\"\n    }\n  }\n```\n\n"
     },
     {
       "name": "dingtalk-user-get-by-mobile",
@@ -1542,7 +1546,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# dingtalk / get-user-by-mobile\n\nLook up a DingTalk userId by mobile phone number.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                               |\n| --------------- | --------------- | -------- | ------- | ----------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.       |\n| `mobile`        | `string`        | yes      | —       | Mobile phone number of the DingTalk user. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"mobile\": \"13000000000\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"userid\": \"user123\"\n  }\n}\n```\n\n"
     },
     {
       "name": "dingtalk-user-search",
@@ -1656,7 +1661,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# dingtalk / search-users\n\nSearch DingTalk users by name, pinyin, or English name.\n\n## Input Parameters\n\n| Field              | Type            | Required | Default | Description                                            |\n| ------------------ | --------------- | -------- | ------- | ------------------------------------------------------ |\n| `credential_id`    | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                    |\n| `query_word`       | `string`        | yes      | —       | Keyword to search by name, pinyin, or English name.    |\n| `offset`           | `integer`       | no       | `0`     | Pagination offset starting from 0.                     |\n| `size`             | `integer`       | no       | `10`    | Number of users to return (1–100).                     |\n| `full_match_field` | `boolean`       | no       | `false` | Whether to require an exact match on supported fields. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"query_word\": \"Zhang San\",\n  \"offset\": 0,\n  \"size\": 10,\n  \"full_match_field\": false\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"hasMore\": false,\n  \"totalCount\": 1,\n  \"list\": [\"user123\"]\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-get-process-instance",
@@ -1703,7 +1709,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# dingtalk / get-process-instance\n\nGet details for a workflow process instance.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                               |\n| --------------------- | --------------- | -------- | ------- | ----------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.       |\n| `process_instance_id` | `string`        | yes      | —       | Workflow process instance ID to retrieve. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n    \"result\": {\n      \"attachedProcessInstanceIds\": [],\n      \"bizAction\": \"NONE\",\n      \"bizData\": \"{}\",\n      \"businessId\": \"202604161534000376553\",\n      \"createTime\": \"2026-04-16T15:34Z\",\n      \"formComponentValues\": [\n        {\n          \"componentType\": \"TextField\",\n          \"id\": \"TextField-JZ9IVH1K\",\n          \"name\": \"客户名称\",\n          \"value\": \"ttt\"\n        },\n        {\n          \"componentType\": \"DDSelectField\",\n          \"extValue\": \"{\\\"label\\\":\\\"选项2\\\",\\\"key\\\":\\\"option_1\\\"}\",\n          \"id\": \"DDSelectField-JZ9IZXWF\",\n          \"name\": \"预约内容\",\n          \"value\": \"选项2\"\n        },\n        {\n          \"componentType\": \"InnerContactField\",\n          \"extValue\": \"[{\\\"nick\\\":\\\"某用户\\\",\\\"orgUserName\\\":\\\"某用户\\\",\\\"emplId\\\":\\\"093204182627445986\\\",\\\"name\\\":\\\"某用户\\\",\\\"avatar\\\":\\\"\\\",\\\"ecologicalCorpId\\\":\\\"dingbe690074789b06fd4ac5d6980864d335\\\"}]\",\n          \"id\": \"InnerContactField-JZ9IZXWH\",\n          \"name\": \"分配接待人员\",\n          \"value\": \"某用户\"\n        }\n      ],\n      \"operationRecords\": [\n        {\n          \"date\": \"2026-04-16T15:34Z\",\n          \"images\": [],\n          \"result\": \"NONE\",\n          \"showName\": \"提交申请\",\n          \"type\": \"START_PROCESS_INSTANCE\",\n          \"userId\": \"093204182627445986\"\n        }\n      ],\n      \"originatorDeptId\": \"-1\",\n      \"originatorDeptName\": \"Xxx\",\n      \"originatorUserId\": \"093204182627445986\",\n      \"result\": \"\",\n      \"status\": \"RUNNING\",\n      \"tasks\": [\n        {\n          \"activityId\": \"sid-1234_5678\",\n          \"createTime\": \"2026-04-16T15:34Z\",\n          \"mobileUrl\": \"aflow.dingtalk.com?procInsId=eNxe43IIT8S4oQBRC_CrhQ00221776324877&taskId=100468167919&businessId=202604161534000376553\",\n          \"pcUrl\": \"aflow.dingtalk.com?procInsId=eNxe43IIT8S4oQBRC_CrhQ00221776324877&taskId=100468167919&businessId=202604161534000376553\",\n          \"result\": \"NONE\",\n          \"status\": \"RUNNING\",\n          \"taskId\": 100468167919,\n          \"userId\": \"093204182627445986\"\n        }\n      ],\n      \"title\": \"某用户提交的客户信息预约\"\n    },\n    \"success\": true\n  }\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-add-process-comment",
@@ -1816,7 +1823,8 @@
           },
           "type": "file_ref"
         }
-      ]
+      ],
+      "skill": "# dingtalk / add-process-comment\n\nAdd a comment to a workflow process instance.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                                               |\n| --------------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `process_instance_id` | `string`        | yes      | —       | Workflow process instance ID to comment on.               |\n| `text`                | `string`        | no       | —       | Comment text body.                                        |\n| `comment_user_id`     | `string`        | no       | —       | Commenter userId. Defaults to credential `user_union_id`. |\n| `file`                | `file_ref`      | no       | —       | Optional image file to attach. Must be an image.          |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"text\": \"Approved, please proceed.\",\n  \"comment_user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": true,\n  \"success\": true\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-execute-process-task",
@@ -1995,7 +2003,8 @@
           },
           "type": "file_ref"
         }
-      ]
+      ],
+      "skill": "# dingtalk / execute-process-task\n\nApprove or reject a single workflow task.\n\n## Input Parameters\n\n| Field                 | Type            | Required | Default | Description                                           |\n| --------------------- | --------------- | -------- | ------- | ----------------------------------------------------- |\n| `credential_id`       | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                   |\n| `process_instance_id` | `string`        | yes      | —       | Process instance that owns the task.                  |\n| `task_id`             | `integer`       | yes      | —       | Task node ID to execute.                              |\n| `actioner_user_id`    | `string`        | no       | —       | Actor userId. Defaults to credential `user_union_id`. |\n| `result`              | `string`        | yes      | —       | `agree` or `refuse`.                                  |\n| `remark`              | `string`        | no       | —       | Optional remark for the action.                       |\n| `file`                | `file_ref`      | no       | —       | Optional image attachment. Must be an image.          |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"task_id\": 1,\n  \"actioner_user_id\": \"user123\",\n  \"result\": \"agree\",\n  \"remark\": \"Looks good\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": true,\n  \"success\": true\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-download-process-attachment",
@@ -2086,7 +2095,8 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "skill": "# dingtalk / download-process-attachment\n\nGet download authorization information for a process attachment.\n\n## Input Parameters\n\n| Field                     | Type            | Required | Default | Description                                         |\n| ------------------------- | --------------- | -------- | ------- | --------------------------------------------------- |\n| `credential_id`           | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                 |\n| `process_instance_id`     | `string`        | yes      | —       | Process instance that owns the attachment.          |\n| `file_id`                 | `string`        | yes      | —       | File ID from the workflow form component.           |\n| `with_comment_attachment` | `boolean`       | no       | `false` | Whether the file_id refers to a comment attachment. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_instance_id\": \"instance123\",\n  \"file_id\": \"file456\",\n  \"with_comment_attachment\": false\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"success\": true,\n  \"result\": {\n    \"downloadUri\": \"https://example.com/download/file.pdf\",\n    \"fileId\": \"26748422566\",\n    \"spaceId\": 3996960664\n  }\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-list-process-instance-ids",
@@ -2196,6 +2206,12 @@
             "zh_Hans": "发起人 userId 列表"
           },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional list of DingTalk user IDs who started the process instances. Filters results to only instances started by these users.",
+              "zh_Hans": "可选的审批实例发起人钉钉用户 userId 列表。用于筛选仅由这些用户发起的审批实例。"
+            }
+          },
           "ui": {
             "component": "tag-input"
           },
@@ -2300,7 +2316,8 @@
           "default": 0,
           "minimum": 0
         }
-      ]
+      ],
+      "skill": "# dingtalk / list-process-instance-ids\n\nList workflow process instance IDs by process code and filters.\n\n## Input Parameters\n\n| Field           | Type                | Required | Default | Description                                                                     |\n| --------------- | ------------------- | -------- | ------- | ------------------------------------------------------------------------------- |\n| `credential_id` | `credential_id`     | yes      | —       | Links to credential `dingtalk-app`.                                             |\n| `process_code`  | `string`            | yes      | —       | Workflow process code.                                                          |\n| `start_time`    | `string` / `number` | yes      | —       | Start time filter (Unix ms or absolute date).                                   |\n| `end_time`      | `string` / `number` | no       | —       | End time filter (same format as start_time).                                    |\n| `user_ids`      | `array` of `string` | no       | —       | Optional starter user IDs filter.                                               |\n| `statuses`      | `array` of `string` | no       | —       | Optional status filters: RUNNING, TERMINATED, COMPLETED, COMPLETED_WITH_BLANKS. |\n| `max_results`   | `integer`           | no       | `20`    | Page size (1–100).                                                              |\n| `next_token`    | `integer`           | no       | `0`     | Pagination token.                                                               |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"process_code\": \"PROC-123\",\n  \"start_time\": \"2026-04-01\",\n  \"end_time\": \"2026-04-15\",\n  \"statuses\": [\"COMPLETED\"],\n  \"max_results\": 20,\n  \"next_token\": 0\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"list\": [\"instance1\", \"instance2\"],\n    \"nextToken\": \"20\"\n  },\n  \"success\": true\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-get-process-space-info",
@@ -2351,7 +2368,8 @@
           },
           "type": "string"
         }
-      ]
+      ],
+      "skill": "# dingtalk / get-process-space-info\n\nGet DingDrive space information used for workflow attachments.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                                               |\n| --------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `user_id`       | `string`        | no       | —       | DingTalk user ID. Defaults to credential `user_union_id`. |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\"\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n- Requires `agent_id` to be set on the credential.\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"spaceId\": 3996960664\n  },\n  \"success\": true\n}\n```\n\n"
     },
     {
       "name": "dingtalk-workflow-list-user-visible-templates",
@@ -2445,7 +2463,8 @@
           "default": 0,
           "minimum": 0
         }
-      ]
+      ],
+      "skill": "# dingtalk / list-visible-process-templates\n\nList workflow templates visible to a DingTalk user.\n\n## Input Parameters\n\n| Field           | Type            | Required | Default | Description                                               |\n| --------------- | --------------- | -------- | ------- | --------------------------------------------------------- |\n| `credential_id` | `credential_id` | yes      | —       | Links to credential `dingtalk-app`.                       |\n| `user_id`       | `string`        | no       | —       | DingTalk user ID. Defaults to credential `user_union_id`. |\n| `max_results`   | `integer`       | no       | `100`   | Page size (1–100).                                        |\n| `next_token`    | `integer`       | no       | `0`     | Pagination token.                                         |\n\n### Example Input\n```json\n{\n  \"credential_id\": \"my-dingtalk-app\",\n  \"user_id\": \"user123\",\n  \"max_results\": 100,\n  \"next_token\": 0\n}\n```\n\n## Credential\n\n- Credential name: `dingtalk-app`\n\n## Success Output\n\n```json\n{\n  \"result\": {\n    \"processList\": [\n      {\n        \"iconUrl\": \"https://img.alicdn.com/imgextra/i4/O1CN01YAC0Pa1LM7OrwrIdZ_!!6000000001284-0-tps-480-480.jpg\",\n        \"name\": \"客户信息预约\",\n        \"processCode\": \"PROC-8F049F69-A5AE-4B0F-BD70-A1E0844B773D\",\n        \"url\": \"https://aflow.dingtalk.com/dingtalk/mobile/homepage.htm?dd_share=false&showmenu=true&back=native&swfrom=corp&corpid=dingbe690074789b06fd4ac5d6980864d335&processCode=PROC-8F049F69-A5AE-4B0F-BD70-A1E0844B773D#/custom\"\n      }\n    ]\n  }\n}\n```\n\n"
     }
   ]
 }

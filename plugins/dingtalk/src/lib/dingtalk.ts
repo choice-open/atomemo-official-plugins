@@ -177,14 +177,17 @@ async function fetchAccessToken(
   const accessToken =
     asNonEmptyString(payload.accessToken) ??
     asNonEmptyString(payload.access_token)
-  const expiresInRaw = payload.expireIn ?? payload.expiresIn ?? payload.expires_in
+  const expiresInRaw =
+    payload.expireIn ?? payload.expiresIn ?? payload.expires_in
   const expiresIn =
     typeof expiresInRaw === "number"
       ? expiresInRaw
       : Number(String(expiresInRaw ?? "7200"))
 
   if (!accessToken) {
-    throw new Error("DingTalk access token response did not include accessToken.")
+    throw new Error(
+      "DingTalk access token response did not include accessToken.",
+    )
   }
 
   return {
@@ -234,7 +237,9 @@ async function sendRequest(
       method: options.method,
       headers: {
         ...headers,
-        ...(options.body !== undefined ? { "content-type": "application/json" } : {}),
+        ...(options.body !== undefined
+          ? { "content-type": "application/json" }
+          : {}),
       },
       body:
         options.body === undefined
@@ -250,7 +255,9 @@ async function sendRequest(
     headers: {
       ...headers,
       "x-acs-dingtalk-access-token": accessToken,
-      ...(options.body !== undefined ? { "content-type": "application/json" } : {}),
+      ...(options.body !== undefined
+        ? { "content-type": "application/json" }
+        : {}),
     },
     body:
       options.body === undefined
@@ -376,10 +383,15 @@ export async function getUserIdByUnionId(
 ): Promise<string> {
   const normalizedUnionId = asNonEmptyString(unionId)
   if (!normalizedUnionId) {
-    throw new Error("A non-empty unionId is required to resolve a DingTalk userId.")
+    throw new Error(
+      "A non-empty unionId is required to resolve a DingTalk userId.",
+    )
   }
 
-  const cacheKey = JSON.stringify([credentialCacheKey(credential), normalizedUnionId])
+  const cacheKey = JSON.stringify([
+    credentialCacheKey(credential),
+    normalizedUnionId,
+  ])
   const cachedUserId = unionIdUserIdCache.get(cacheKey)
   if (cachedUserId) return cachedUserId
 
@@ -401,16 +413,14 @@ export async function getUserIdByUnionId(
     asNonEmptyString(response.userid)
 
   if (!userId) {
-    throw new Error(
-      "DingTalk user lookup by unionId did not return a userid.",
-    )
+    throw new Error("DingTalk user lookup by unionId did not return a userid.")
   }
 
   unionIdUserIdCache.set(cacheKey, userId)
   return userId
 }
 
-export async function resolveOperatorUserId(
+export async function resolveDefaultWorkflowUserId(
   credential: DingtalkAppCredential,
 ): Promise<string> {
   const operatorUnionId = resolveOperatorId(credential)
@@ -440,7 +450,10 @@ export function parseJsonParameter<T>(
   }
 }
 
-export function guessExtension(filename: string, mimeType: string): string | null {
+export function guessExtension(
+  filename: string,
+  mimeType: string,
+): string | null {
   const lastDot = filename.lastIndexOf(".")
   if (lastDot > -1 && lastDot < filename.length - 1) {
     return filename.slice(lastDot)

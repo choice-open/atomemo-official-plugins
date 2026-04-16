@@ -1,16 +1,24 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import { coercedNumber, nonEmptyString, parseParams } from "../../lib/schemas"
+import searchUsersSkill from "../../skills/tools/search-users.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
   query_word: nonEmptyString,
   offset: coercedNumber.default(0),
   size: coercedNumber.default(10),
-  full_match_field: z.preprocess((v) => (v == null ? false : v), z.boolean()).optional(),
+  full_match_field: z
+    .preprocess((v) => (v == null ? false : v), z.boolean())
+    .optional(),
 })
 
 export const searchUsersTool: ToolDefinition = {
@@ -18,6 +26,7 @@ export const searchUsersTool: ToolDefinition = {
   display_name: t("USER_SEARCH_TOOL_DISPLAY_NAME"),
   description: t("USER_SEARCH_TOOL_DESCRIPTION"),
   icon: "🔎",
+  skill: searchUsersSkill,
   parameters: [
     credentialParameter,
     {

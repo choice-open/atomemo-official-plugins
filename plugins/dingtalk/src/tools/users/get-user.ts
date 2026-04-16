@@ -1,9 +1,13 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { dingtalkRequest, resolveCredential } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import { nonEmptyString, parseParams } from "../../lib/schemas"
+import getUserSkill from "../../skills/tools/get-user.md" with { type: "text" }
 
 const paramsSchema = z.object({
   credential_id: z.string(),
@@ -15,6 +19,7 @@ export const getUserTool: ToolDefinition = {
   display_name: t("USER_GET_TOOL_DISPLAY_NAME"),
   description: t("USER_GET_TOOL_DESCRIPTION"),
   icon: "👤",
+  skill: getUserSkill,
   parameters: [
     credentialParameter,
     {

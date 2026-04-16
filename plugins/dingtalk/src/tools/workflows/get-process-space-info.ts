@@ -1,13 +1,19 @@
 import { z } from "zod"
-import type { JsonValue, ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type {
+  JsonValue,
+  ToolDefinition,
+} from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   dingtalkRequest,
   resolveCredential,
-  resolveOperatorUserId,
+  resolveDefaultWorkflowUserId,
 } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
 import { optionalTrimmedString, parseParams } from "../../lib/schemas"
+import getProcessSpaceInfoSkill from "../../skills/tools/get-process-space-info.md" with {
+  type: "text",
+}
 
 const paramsSchema = z.object({
   credential_id: z.string(),
@@ -19,6 +25,7 @@ export const getProcessSpaceInfoTool: ToolDefinition = {
   display_name: t("WORKFLOW_GET_SPACE_INFO_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_GET_SPACE_INFO_TOOL_DESCRIPTION"),
   icon: "🗄️",
+  skill: getProcessSpaceInfoSkill,
   parameters: [
     credentialParameter,
     {
@@ -40,7 +47,8 @@ export const getProcessSpaceInfoTool: ToolDefinition = {
   async invoke({ args }): Promise<JsonValue> {
     const params = parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
-    const userId = params.user_id ?? (await resolveOperatorUserId(credential))
+    const userId =
+      params.user_id ?? (await resolveDefaultWorkflowUserId(credential))
     const agentId = credential?.agent_id?.trim() || undefined
     if (!agentId) {
       throw new Error(

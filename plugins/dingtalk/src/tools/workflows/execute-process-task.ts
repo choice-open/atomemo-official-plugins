@@ -6,7 +6,7 @@ import { z } from "zod"
 import {
   dingtalkRequest,
   resolveCredential,
-  resolveOperatorUserId,
+  resolveDefaultWorkflowUserId,
 } from "../../lib/dingtalk"
 import { t } from "../../lib/i18n"
 import { credentialParameter } from "../../lib/parameters"
@@ -15,6 +15,9 @@ import {
   optionalTrimmedString,
   parseParams,
 } from "../../lib/schemas"
+import executeProcessTaskSkill from "../../skills/tools/execute-process-task.md" with {
+  type: "text",
+}
 
 const taskIdSchema = z.preprocess(
   (value) => (value == null || value === "" ? undefined : Number(value)),
@@ -36,6 +39,7 @@ export const executeProcessTaskTool: ToolDefinition = {
   display_name: t("WORKFLOW_EXECUTE_TASK_TOOL_DISPLAY_NAME"),
   description: t("WORKFLOW_EXECUTE_TASK_TOOL_DESCRIPTION"),
   icon: "✅",
+  skill: executeProcessTaskSkill,
   parameters: [
     credentialParameter,
     {
@@ -136,7 +140,8 @@ export const executeProcessTaskTool: ToolDefinition = {
     const params = parseParams(paramsSchema, args.parameters)
     const credential = resolveCredential(args)
     const actionerUserId =
-      params.actioner_user_id ?? (await resolveOperatorUserId(credential))
+      params.actioner_user_id ??
+      (await resolveDefaultWorkflowUserId(credential))
     const body: Record<string, unknown> = {
       processInstanceId: params.process_instance_id,
       taskId: params.task_id,

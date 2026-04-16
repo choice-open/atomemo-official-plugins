@@ -298,6 +298,8 @@ const zh_Hans = {
     "筛选审批实例的开始时间，必填。支持 Unix 毫秒时间戳，以及多种中英文绝对日期时间格式，例如 2026-04-15、2026-04-15 14:30、2026/04/15 14:30:00、2026-04-15T14:30:00+08:00、April 15, 2026 2:30 PM、2026年4月15日 14:30。仅填写日期时会按运行时本地时区的当天开始时间解析。",
   WORKFLOW_LIST_INSTANCE_IDS_END_TIME_LLM_DESCRIPTION:
     "筛选审批实例的结束时间，可选。支持与 start_time 相同的中英文绝对日期时间格式。仅填写日期时会按运行时本地时区的当天结束时间解析；像 04/05/2026 这类有歧义的纯数字日期会被拒绝。",
+  WORKFLOW_LIST_INSTANCE_IDS_USER_IDS_LLM_DESCRIPTION:
+    "可选的审批实例发起人钉钉用户 userId 列表。用于筛选仅由这些用户发起的审批实例。",
   WORKFLOW_LIST_INSTANCE_IDS_MAX_RESULTS_LLM_DESCRIPTION:
     "每页返回的审批实例 ID 数量上限。",
   WORKFLOW_LIST_INSTANCE_IDS_NEXT_TOKEN_LLM_DESCRIPTION:
