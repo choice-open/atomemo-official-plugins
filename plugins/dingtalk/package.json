@@ -1,7 +1,7 @@
 {
   "name": "dingtalk",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "DingTalk integration for Atomemo: users, approvals, and robots",
   "author": "Xavier <zhiqiang.jiang@choiceform.com>",
   "license": "MIT",
