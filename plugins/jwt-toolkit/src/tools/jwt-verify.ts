@@ -77,6 +77,7 @@ export const jwtVerifyTool = {
         component: "select",
         options: algorithmOptions,
         hint: t("VERIFY_ALGORITHMS_HINT"),
+        support_expression: true,
         width: "medium",
       },
     },

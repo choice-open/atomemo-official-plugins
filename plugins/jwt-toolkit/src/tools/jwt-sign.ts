@@ -65,6 +65,7 @@ export const jwtSignTool = {
         component: "select",
         options: algorithmOptions,
         hint: t("SIGN_ALGORITHM_HINT"),
+        support_expression: true,
         width: "medium",
       },
     },
