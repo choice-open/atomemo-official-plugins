@@ -1,7 +1,7 @@
 {
   "name": "twitter",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Twitter plugin for Atomemo",
   "author": "smartepsh <smartepsh@gmail.com>",
   "license": "MIT",
