@@ -48,6 +48,7 @@
 - `corp_id`
 - `client_id`
 - `client_secret`
+- `agent_id`：必填，企业内部应用的 AgentId，审批附件空间相关接口会用到
 - `user_union_id`：可选，作为审批相关操作的默认操作人 unionId
 
 ## 身份验证配置
@@ -67,6 +68,7 @@
 - **Corp ID**：你的钉钉应用运行的组织 ID，可在 [钉钉开放平台开发者后台](https://open-dev.dingtalk.com/) 获取
 - **Client ID**：你的钉钉应用 Client ID
 - **Client Secret**：你的钉钉应用 Client Secret
+- **Agent ID**：你的钉钉企业内部应用 AgentId，可在 [钉钉开放平台开发者后台](https://open-dev.dingtalk.com/) 获取。审批附件空间相关接口会要求提供该字段
 - **操作人 unionId（可选）**：如果已经拿到常用操作人的 unionId，可在此填写，工具会默认复用；也可留空，后续在工具参数中按需覆盖
 
 ### 3. 权限配置

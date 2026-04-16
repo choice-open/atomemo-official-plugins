@@ -59,6 +59,10 @@ describe("coercedNumber", () => {
     expect(coercedNumber.parse("7")).toBe(7)
   })
 
+  it("rejects floats", () => {
+    expect(() => coercedNumber.parse(3.14)).toThrow()
+  })
+
   it("rejects null without a default", () => {
     expect(() => coercedNumber.parse(null)).toThrow()
   })

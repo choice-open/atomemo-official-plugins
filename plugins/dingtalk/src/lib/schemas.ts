@@ -338,12 +338,13 @@ export const optionalTrimmedString = z.preprocess(
 )
 
 /**
- * Coerces a value to a number (for integer fields).
- * Use `.default(n)` to supply a fallback for absent/null inputs.
+ * Coerces a value to an integer.
+ * Use `.default(n)` to supply a fallback for absent inputs (`undefined`).
+ * `null` is converted to `undefined` in preprocess and still fails validation.
  */
 export const coercedNumber = z.preprocess(
   (v) => (v == null || v === "" ? undefined : Number(v)),
-  z.number(),
+  z.number().int(),
 )
 
 /** Non-empty string array; non-array inputs (including absent) become []. */

@@ -48,6 +48,7 @@ Configure one `dingtalk-app` credential with:
 - `corp_id`
 - `client_id`
 - `client_secret`
+- `agent_id` required internal app AgentId used by workflow attachment space APIs
 - `user_union_id` optional default operator unionId for workflow-related operations
 
 ## Authentication Setup
@@ -67,6 +68,7 @@ Create a `dingtalk-app` credential in Atomemo:
 - **Corp ID**: The organization ID where your DingTalk app runs, available from the [DingTalk Open Platform developer console](https://open-dev.dingtalk.com/)
 - **Client ID**: Your DingTalk app Client ID
 - **Client Secret**: Your DingTalk app Client Secret
+- **Agent ID**: Your DingTalk internal app AgentId, available in the [DingTalk Open Platform developer console](https://open-dev.dingtalk.com/). This is required by workflow attachment space related APIs
 - **Operator unionId (optional)**: If you already know a commonly used operator's unionId, you can fill it in here and tools will reuse it by default. You can also leave it empty and override it later in individual tool parameters when needed
 
 ### 3. Configure Permissions
