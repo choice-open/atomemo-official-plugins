@@ -17,7 +17,7 @@
   ],
   "author": "smartepsh",
   "email": "smartepsh@gmail.com",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "credentials": [
     {
       "name": "jwt-secret",
@@ -189,7 +189,8 @@
                 "value": "EdDSA"
               }
             ],
-            "component": "select"
+            "component": "select",
+            "support_expression": true
           },
           "type": "string",
           "default": "HS256"
@@ -458,7 +459,8 @@
                 "value": "EdDSA"
               }
             ],
-            "component": "select"
+            "component": "select",
+            "support_expression": true
           },
           "type": "string"
         },
