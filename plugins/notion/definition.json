@@ -10,7 +10,7 @@
   },
   "icon": "symbol:icon-notion",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/notion",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/notion/README.md",
   "locales": [
     "en-US",
     "zh-Hans"
