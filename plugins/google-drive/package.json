@@ -1,7 +1,7 @@
 {
   "name": "google-drive",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Integrate Google Drive in Atomemo",
   "author": "Choiceform <support@choiceform.com>",
   "license": "MIT",
