@@ -31,7 +31,7 @@ const plugin = await createPlugin({
   icon: "symbol:icon-firecrawl", // firecrawl icon is builtin in Atomemo
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/firecrawl/README.md",
   locales,
   transporterOptions: {},
 })
