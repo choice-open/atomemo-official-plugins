@@ -10,14 +10,14 @@
   },
   "icon": "https://news.ycombinator.com/y18.svg",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/hacker-news",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/hacker-news/README.md",
   "locales": [
     "en-US",
     "zh-Hans"
   ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [],
   "models": [],
   "tools": [

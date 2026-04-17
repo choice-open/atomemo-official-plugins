@@ -16,7 +16,7 @@ const plugin = await createPlugin({
   icon: "https://news.ycombinator.com/y18.svg",
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/hacker-news",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/hacker-news/README.md",
   locales,
   transporterOptions: {},
 })
