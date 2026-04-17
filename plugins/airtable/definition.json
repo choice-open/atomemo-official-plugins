@@ -10,7 +10,7 @@
   },
   "icon": "symbol:icon-airtable",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/airtable",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/airtable/README.md",
   "locales": [
     "en-US",
     "zh-Hans"

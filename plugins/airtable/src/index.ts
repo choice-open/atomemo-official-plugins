@@ -23,7 +23,7 @@ const plugin = await createPlugin({
   icon: "symbol:icon-airtable",
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/airtable",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/airtable/README.md",
   locales,
   transporterOptions: {},
 })
