@@ -26,7 +26,7 @@ const plugin = await createPlugin({
   icon: "symbol:icon-notion", // notion icon is builtin in Atomemo
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/notion",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/notion/README.md",
   locales,
   transporterOptions: {},
 })
