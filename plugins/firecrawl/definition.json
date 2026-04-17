@@ -10,14 +10,14 @@
   },
   "icon": "symbol:icon-firecrawl",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/firecrawl",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/firecrawl/README.md",
   "locales": [
     "en-US",
     "zh-Hans"
   ],
   "author": "Xavier",
-  "email": "zhqjiang@outlook.com",
-  "version": "0.3.1",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.3.2",
   "credentials": [
     {
       "name": "firecrawl",
