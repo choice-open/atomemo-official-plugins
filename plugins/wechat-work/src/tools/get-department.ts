@@ -3,29 +3,33 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import getDepartmentSkill from "./get-department-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type GetDepartmentResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  department?: {
+    id: number
+    name: string
+    name_en?: string
+    parentid: number
+    order: number
+    department_leader?: string[]
+  }
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const getDepartmentTool: ToolDefinition = {
+  name: "wechat-work-get-department",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Get department details",
+    zh_Hans: "获取单个部门详情",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get detailed information for a single department in WeChat Work.",
+    zh_Hans: "获取企业微信中单个部门的详细信息。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: getDepartmentSkill,
+  icon: "🏢",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +43,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "department_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Department ID",
+        zh_Hans: "部门 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "The ID of the department to get",
+          zh_Hans: "要获取的部门ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +64,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      department_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const departmentId = params.department_id?.trim()
+    if (!departmentId) {
+      throw new Error("department_id is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +85,12 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkGetJson<GetDepartmentResponse>(
+      "/department/get",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { id: departmentId },
     )
-    return { department_id: data.department_id ?? [] }
+    return data.department ?? null
   },
 }

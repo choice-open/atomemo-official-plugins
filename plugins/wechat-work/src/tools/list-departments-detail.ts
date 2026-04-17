@@ -3,29 +3,34 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
+import listDepartmentsDetailSkill from "./list-departments-detail-skill.md" with {
   type: "text",
 }
 
-type SimpleListResponse = {
+type DepartmentListResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  department?: Array<{
+    id: number
+    name: string
+    parentid: number
+    order: number
+  }>
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const listDepartmentsDetailTool: ToolDefinition = {
+  name: "wechat-work-list-departments-detail",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "List department details",
+    zh_Hans: "获取部门详情列表",
   },
   description: {
     en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+      "Fetch the full department list with names from WeChat Work (部门详情列表).",
+    zh_Hans: "获取企业微信组织架构中的部门详情列表（包含名称）。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: listDepartmentsDetailSkill,
+  icon: "🏢",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -81,11 +86,11 @@ export const listDepartmentsTool: ToolDefinition = {
     const parent = params.parent_department_id?.trim()
     if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkGetJson<DepartmentListResponse>(
+      "/department/list",
       token,
       Object.keys(extra).length ? extra : undefined,
     )
-    return { department_id: data.department_id ?? [] }
+    return { department: data.department ?? [] }
   },
 }

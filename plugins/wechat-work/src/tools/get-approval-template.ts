@@ -3,29 +3,43 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import getApprovalTemplateSkill from "./get-approval-template-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type ApprovalTemplateResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  template?: {
+    template_id?: string
+    title?: string
+    icon?: string
+    creator?: string
+    create_time?: number
+    updater?: string
+    update_time?: number
+    deploy_status?: number
+    tags?: string[]
+    controls?: Array<{
+      id?: string
+      title?: string
+      type?: string
+      require?: number
+      value?: string
+    }>
+  }
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const getApprovalTemplateTool: ToolDefinition = {
+  name: "wechat-work-get-approval-template",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Get approval template",
+    zh_Hans: "获取审批模板",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get approval template details by template ID.",
+    zh_Hans: "根据模板ID获取审批模板详情。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: getApprovalTemplateSkill,
+  icon: "📄",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +53,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "template_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Template ID",
+        zh_Hans: "模板 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "Approval template ID",
+          zh_Hans: "审批模板 ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +74,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      template_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const template_id = params.template_id?.trim()
+    if (!template_id) {
+      throw new Error("Template ID is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +95,13 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkGetJson<ApprovalTemplateResponse>(
+      "/oa/get_template",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { template_id },
     )
-    return { department_id: data.department_id ?? [] }
+
+    return data
   },
 }

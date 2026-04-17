@@ -3,29 +3,34 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import listCalendarsSkill from "./list-calendars-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type ListCalendarResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  calendar_list?: Array<{
+    cal_id: string
+    title: string
+    owner: string
+    color: number
+    permission: number
+    description: string
+    share_type: number
+  }>
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const listCalendarsTool: ToolDefinition = {
+  name: "wechat-work-list-calendars",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "List calendars",
+    zh_Hans: "获取日历列表",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get the list of calendars in WeChat Work.",
+    zh_Hans: "获取企业微信中的日历列表。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: listCalendarsSkill,
+  icon: "📅",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +44,36 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "offset",
       type: "string",
       required: false,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Offset",
+        zh_Hans: "偏移量",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "Offset for pagination (default: 0)",
+          zh_Hans: "分页偏移量，默认0",
+        },
+        support_expression: true,
+        width: "full",
+      },
+    },
+    {
+      name: "limit",
+      type: "string",
+      required: false,
+      display_name: {
+        en_US: "Limit",
+        zh_Hans: "限制数量",
+      },
+      ui: {
+        component: "input",
+        hint: {
+          en_US: "Number of results (default: 500)",
+          zh_Hans: "返回数量，默认500",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +83,14 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      offset?: string
+      limit?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +101,16 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const extra: Record<string, string> = {}
+    if (params.offset?.trim()) extra.offset = params.offset.trim()
+    if (params.limit?.trim()) extra.limit = params.limit.trim()
+
+    const data = await wechatWorkGetJson<ListCalendarResponse>(
+      "/calendar/list",
       token,
       Object.keys(extra).length ? extra : undefined,
     )
-    return { department_id: data.department_id ?? [] }
+    return { calendar_list: data.calendar_list ?? [] }
   },
 }

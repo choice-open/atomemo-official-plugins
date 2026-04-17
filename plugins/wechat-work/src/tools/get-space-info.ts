@@ -3,29 +3,34 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import getSpaceInfoSkill from "./get-space-info-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type SpaceInfoResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  space_info?: {
+    space_id: string
+    space_name: string
+    space_owner_userid: string
+    space_desc?: string
+    total_size?: number
+    used_size?: number
+    file_count?: number
+  }
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const getSpaceInfoTool: ToolDefinition = {
+  name: "wechat-work-get-space-info",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Get WeDrive space info",
+    zh_Hans: "获取微盘空间信息",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get detailed information for a WeDrive space.",
+    zh_Hans: "获取微盘空间的详细信息。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: getSpaceInfoSkill,
+  icon: "💾",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +44,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "space_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Space ID",
+        zh_Hans: "空间 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "The ID of the WeDrive space",
+          zh_Hans: "微盘空间ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +65,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      space_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const spaceId = params.space_id?.trim()
+    if (!spaceId) {
+      throw new Error("space_id is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +86,12 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkGetJson<SpaceInfoResponse>(
+      "/wedrive/space_info",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { space_id: spaceId },
     )
-    return { department_id: data.department_id ?? [] }
+    return data.space_info ?? null
   },
 }

@@ -1,31 +1,27 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   resolveWechatWorkCredential,
-  wechatWorkGetJson,
+  wechatWorkPostJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import deleteWedriveFileSkill from "./delete-wedrive-file-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type DeleteFileResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const deleteWedriveFileTool: ToolDefinition = {
+  name: "wechat-work-delete-wedrive-file",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Delete WeDrive file",
+    zh_Hans: "删除微盘文件",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Delete a file from WeDrive.",
+    zh_Hans: "从微盘删除文件。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: deleteWedriveFileSkill,
+  icon: "🗑️",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +35,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "file_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "File ID",
+        zh_Hans: "文件 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "The ID of the file to delete",
+          zh_Hans: "要删除的文件ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +56,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      file_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const fileId = params.file_id?.trim()
+    if (!fileId) {
+      throw new Error("file_id is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +77,12 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    await wechatWorkPostJson<DeleteFileResponse>(
+      "/wedrive/file_del",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { file_id: fileId },
     )
-    return { department_id: data.department_id ?? [] }
+    return { success: true }
   },
 }

@@ -1,31 +1,27 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   resolveWechatWorkCredential,
-  wechatWorkGetJson,
+  wechatWorkPostJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import deletePermanentMaterialSkill from "./delete-permanent-material-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type DeletePermanentMaterialResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const deletePermanentMaterialTool: ToolDefinition = {
+  name: "wechat-work-delete-permanent-material",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Delete permanent material",
+    zh_Hans: "删除永久素材",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Delete a permanent material from WeChat Work.",
+    zh_Hans: "删除企业微信中的永久素材。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: deletePermanentMaterialSkill,
+  icon: "🗑️",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +35,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "media_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Media ID",
+        zh_Hans: "素材 media_id",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "Media ID of the permanent material to delete",
+          zh_Hans: "要删除的永久素材 media_id",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +56,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      media_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const mediaId = params.media_id?.trim()
+    if (!mediaId) {
+      throw new Error("media_id is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +77,16 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkPostJson<DeletePermanentMaterialResponse>(
+      "/material/del_material",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { media_id: mediaId },
     )
-    return { department_id: data.department_id ?? [] }
+
+    return {
+      success: true,
+      media_id: mediaId,
+    }
   },
 }

@@ -1,31 +1,36 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   resolveWechatWorkCredential,
-  wechatWorkGetJson,
+  wechatWorkPostJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import getFormInfoSkill from "./get-form-info-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type GetFormInfoResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  form?: {
+    formid?: string
+    title?: string
+    description?: string
+    create_time?: number
+    expire_time?: number
+    status?: number
+    submit_count?: number
+  }
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const getFormInfoTool: ToolDefinition = {
+  name: "wechat-work-get-form-info",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Get form info",
+    zh_Hans: "获取收集表信息",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get configuration information of a WeChat Work form.",
+    zh_Hans: "获取企业微信收集表的配置信息。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: getFormInfoSkill,
+  icon: "📋",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +44,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "formid",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Form ID",
+        zh_Hans: "收集表 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "The form ID",
+          zh_Hans: "收集表 ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +65,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      formid?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const formid = params.formid?.trim()
+    if (!formid) {
+      throw new Error("Form ID is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +86,16 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkPostJson<GetFormInfoResponse>(
+      "/cgi-bin/wedoc/get_form_info",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { formid },
     )
-    return { department_id: data.department_id ?? [] }
+    return {
+      form: data.form ?? {},
+      errcode: data.errcode ?? 0,
+      errmsg: data.errmsg ?? "ok",
+    }
   },
 }

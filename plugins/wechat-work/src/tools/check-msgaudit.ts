@@ -1,31 +1,28 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import {
   resolveWechatWorkCredential,
-  wechatWorkGetJson,
+  wechatWorkPostJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import checkMsgauditSkill from "./check-msgaudit-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type CheckMsgauditResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  audit_status?: number
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const checkMsgauditTool: ToolDefinition = {
+  name: "wechat-work-check-msgaudit",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Check message audit (enable)",
+    zh_Hans: "开通会话存档",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Enable message audit (conversation archiving) for WeChat Work.",
+    zh_Hans: "开通企业微信会话存档功能。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: checkMsgauditSkill,
+  icon: "🔒",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +36,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "userid",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "User ID",
+        zh_Hans: "成员 userid",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "The member's userid to enable audit for",
+          zh_Hans: "要开通存档的成员 userid",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +57,17 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      userid?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+    const userid = params.userid?.trim()
+    if (!userid) {
+      throw new Error("User ID is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +78,18 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkPostJson<CheckMsgauditResponse>(
+      "/msgaudit/check",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { userid },
     )
-    return { department_id: data.department_id ?? [] }
+    const result: {
+      audit_status?: number
+      message?: string
+    } = {}
+    if (data.audit_status !== undefined) result.audit_status = data.audit_status
+    if (data.errmsg) result.message = data.errmsg
+    return result
   },
 }

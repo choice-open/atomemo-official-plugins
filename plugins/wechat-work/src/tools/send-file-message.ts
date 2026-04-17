@@ -3,32 +3,31 @@ import {
   resolveWechatWorkCredential,
   wechatWorkPostJson,
 } from "../wechat-work/client"
-import sendTextMessageSkill from "./send-text-message-skill.md" with {
+import sendFileMessageSkill from "./send-file-message-skill.md" with {
   type: "text",
 }
 
 type SendMessageResponse = {
   errcode?: number
   errmsg?: string
+  msgid?: string
   invaliduser?: string
   invalidparty?: string
   invalidtag?: string
-  msgid?: string
 }
 
-export const sendTextMessageTool: ToolDefinition = {
-  name: "wechat-work-send-text-message",
+export const sendFileMessageTool: ToolDefinition = {
+  name: "wechat-work-send-file",
   display_name: {
-    en_US: "Send app text message",
-    zh_Hans: "发送应用文本消息",
+    en_US: "Send file message",
+    zh_Hans: "发送文件消息",
   },
   description: {
-    en_US:
-      "Send a text message to members via a self-built application (消息推送).",
-    zh_Hans: "通过自建应用向成员发送文本消息（应用消息）。",
+    en_US: "Send a file message to members via a self-built application.",
+    zh_Hans: "通过自建应用向成员发送文件消息。",
   },
-  skill: sendTextMessageSkill,
-  icon: "✉️",
+  skill: sendFileMessageSkill,
+  icon: "📎",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -52,16 +51,14 @@ export const sendTextMessageTool: ToolDefinition = {
       ui: {
         component: "number-input",
         hint: {
-          en_US:
-            "The numeric agent id of your self-built app (应用管理 → 应用详情).",
-          zh_Hans: "自建应用的 AgentId（应用管理 → 对应应用详情）。",
+          en_US: "The numeric agent id of your self-built app",
+          zh_Hans: "自建应用的 AgentId",
         },
       },
     },
     {
       name: "touser",
       type: "string",
-      required: false,
       display_name: {
         en_US: "To users (userid)",
         zh_Hans: "接收成员 userid",
@@ -69,9 +66,8 @@ export const sendTextMessageTool: ToolDefinition = {
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Pipe-separated userids, e.g. zhangsan|lisi. Use @all to send to all members.",
-          zh_Hans: "成员 userid，多个用 | 分隔，例如 zhangsan|lisi。使用 @all 发送给全部成员。",
+          en_US: "Pipe-separated userids, e.g., zhangsan|lisi",
+          zh_Hans: "成员 userid，多个用 | 分隔",
         },
         support_expression: true,
         width: "full",
@@ -80,7 +76,6 @@ export const sendTextMessageTool: ToolDefinition = {
     {
       name: "toparty",
       type: "string",
-      required: false,
       display_name: {
         en_US: "To departments (partyid)",
         zh_Hans: "接收部门 partyid",
@@ -88,8 +83,8 @@ export const sendTextMessageTool: ToolDefinition = {
       ui: {
         component: "input",
         hint: {
-          en_US: "Pipe-separated partyids, e.g. 1|2|3",
-          zh_Hans: "部门ID，多个用 | 分隔，例如 1|2|3",
+          en_US: "Pipe-separated partyids, e.g., 1|2",
+          zh_Hans: "部门 partyid，多个用 | 分隔",
         },
         support_expression: true,
         width: "full",
@@ -98,7 +93,6 @@ export const sendTextMessageTool: ToolDefinition = {
     {
       name: "totag",
       type: "string",
-      required: false,
       display_name: {
         en_US: "To tags (tagid)",
         zh_Hans: "接收标签 tagid",
@@ -106,26 +100,26 @@ export const sendTextMessageTool: ToolDefinition = {
       ui: {
         component: "input",
         hint: {
-          en_US: "Pipe-separated tagids, e.g. 1|2|3",
-          zh_Hans: "标签ID，多个用 | 分隔，例如 1|2|3",
+          en_US: "Pipe-separated tagids, e.g., 1|2",
+          zh_Hans: "标签 tagid，多个用 | 分隔",
         },
         support_expression: true,
         width: "full",
       },
     },
     {
-      name: "content",
+      name: "media_id",
       type: "string",
       required: true,
       display_name: {
-        en_US: "Message content",
-        zh_Hans: "消息内容",
+        en_US: "Media ID",
+        zh_Hans: "素材 media_id",
       },
       ui: {
-        component: "textarea",
+        component: "input",
         hint: {
-          en_US: "Message text (max 2048 bytes, supports newlines and links)",
-          zh_Hans: "消息内容，最长不超过2048字节，支持换行以及A标签",
+          en_US: "Media ID from media upload API",
+          zh_Hans: "通过媒体上传接口获取的 media_id",
         },
         support_expression: true,
         width: "full",
@@ -155,7 +149,7 @@ export const sendTextMessageTool: ToolDefinition = {
       touser?: string
       toparty?: string
       totag?: string
-      content?: string
+      media_id?: string
       safe?: number
     }
     const credentialId = params.wechat_work_credential
@@ -165,12 +159,12 @@ export const sendTextMessageTool: ToolDefinition = {
     const touser = params.touser?.trim()
     const toparty = params.toparty?.trim()
     const totag = params.totag?.trim()
-    const content = params.content?.trim()
-    if (!content) {
-      throw new Error("content is required.")
-    }
+    const mediaId = params.media_id?.trim()
     if (!touser && !toparty && !totag) {
       throw new Error("At least one of touser, toparty, or totag is required.")
+    }
+    if (!mediaId) {
+      throw new Error("media_id is required.")
     }
     if (
       typeof params.agent_id !== "number" ||
@@ -190,20 +184,18 @@ export const sendTextMessageTool: ToolDefinition = {
       )
     }
 
-    const body: Record<string, unknown> = {
-      msgtype: "text",
-      agentid: params.agent_id,
-      text: { content },
-    }
-    if (touser) body.touser = touser
-    if (toparty) body.toparty = toparty
-    if (totag) body.totag = totag
-    if (typeof params.safe === "number") body.safe = params.safe
-
     const data = await wechatWorkPostJson<SendMessageResponse>(
       "/message/send",
       token,
-      body,
+      {
+        touser: touser || undefined,
+        toparty: toparty || undefined,
+        totag: totag || undefined,
+        msgtype: "file",
+        agentid: params.agent_id,
+        file: { media_id: mediaId },
+        ...(typeof params.safe === "number" ? { safe: params.safe } : {}),
+      },
     )
     return {
       msgid: data.msgid ?? null,

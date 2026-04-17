@@ -3,29 +3,33 @@ import {
   resolveWechatWorkCredential,
   wechatWorkGetJson,
 } from "../wechat-work/client"
-import listDepartmentsSkill from "./list-departments-skill.md" with {
-  type: "text",
-}
+import getTagMembersSkill from "./get-tag-members-skill.md" with { type: "text" }
 
-type SimpleListResponse = {
+type GetTagMembersResponse = {
   errcode?: number
   errmsg?: string
-  department_id?: Array<{ id: number; parentid: number; order: number }>
+  tagname?: string
+  userlist?: Array<{
+    userid: string
+    name: string
+  }>
+  partylist?: Array<{
+    partyid: number
+  }>
 }
 
-export const listDepartmentsTool: ToolDefinition = {
-  name: "wechat-work-list-departments",
+export const getTagMembersTool: ToolDefinition = {
+  name: "wechat-work-get-tag-members",
   display_name: {
-    en_US: "List departments",
-    zh_Hans: "获取部门列表",
+    en_US: "Get tag members",
+    zh_Hans: "获取标签成员",
   },
   description: {
-    en_US:
-      "Fetch the simplified department ID list from WeChat Work (子部门 ID 列表).",
-    zh_Hans: "获取企业微信组织架构中的部门 ID 列表（simplelist 接口）。",
+    en_US: "Get the list of members in a WeChat Work tag.",
+    zh_Hans: "获取企业微信标签下的成员列表。",
   },
-  skill: listDepartmentsSkill,
-  icon: "🗂️",
+  skill: getTagMembersSkill,
+  icon: "🏷️",
   parameters: [
     {
       name: "wechat_work_credential",
@@ -39,19 +43,18 @@ export const listDepartmentsTool: ToolDefinition = {
       ui: { component: "credential-select" },
     },
     {
-      name: "parent_department_id",
+      name: "tag_id",
       type: "string",
-      required: false,
+      required: true,
       display_name: {
-        en_US: "Parent department ID",
-        zh_Hans: "父部门 ID",
+        en_US: "Tag ID",
+        zh_Hans: "标签 ID",
       },
       ui: {
         component: "input",
         hint: {
-          en_US:
-            "Optional. When empty, returns the full organization tree per API defaults.",
-          zh_Hans: "可选。留空则按接口默认返回全量组织架构。",
+          en_US: "Tag ID to get members from",
+          zh_Hans: "要获取成员的标签 ID",
         },
         support_expression: true,
         width: "full",
@@ -61,12 +64,18 @@ export const listDepartmentsTool: ToolDefinition = {
   async invoke({ args }) {
     const params = args.parameters as {
       wechat_work_credential?: string
-      parent_department_id?: string
+      tag_id?: string
     }
     const credentialId = params.wechat_work_credential
     if (typeof credentialId !== "string" || !credentialId.trim()) {
       throw new Error("Select a WeChat Work credential.")
     }
+
+    const tagId = params.tag_id?.trim()
+    if (!tagId) {
+      throw new Error("tag_id is required.")
+    }
+
     const cred = resolveWechatWorkCredential(
       args.credentials as Record<string, unknown> | undefined,
       credentialId.trim(),
@@ -77,15 +86,16 @@ export const listDepartmentsTool: ToolDefinition = {
         "Wechat work credential is missing or has no access_token.",
       )
     }
-    const extra: Record<string, string> = {}
-    const parent = params.parent_department_id?.trim()
-    if (parent) extra.id = parent
 
-    const data = await wechatWorkGetJson<SimpleListResponse>(
-      "/department/simplelist",
+    const data = await wechatWorkGetJson<GetTagMembersResponse>(
+      "/tag/get",
       token,
-      Object.keys(extra).length ? extra : undefined,
+      { tagid: tagId },
     )
-    return { department_id: data.department_id ?? [] }
+    return {
+      tagname: data.tagname ?? "",
+      userlist: data.userlist ?? [],
+      partylist: data.partylist ?? [],
+    }
   },
 }
