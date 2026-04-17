@@ -16,7 +16,7 @@ const plugin = await createPlugin({
   icon: "symbol:icon-gemini",
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/nano-banana",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/nano-banana/README.md",
   locales,
   transporterOptions: {},
 })
