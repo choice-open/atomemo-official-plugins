@@ -11,17 +11,13 @@
 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| meetingid | 否 | string | 会议ID。meetingid 和 meeting_code 必须填一个 |
-| meeting_code | 否 | string | 入会码。meetingid 和 meeting_code 必须填一个 |
-| sub_meetingid | 否 | string | 周期性会议子会议ID |
+| meetingid | 是 | string | 会议ID |
 
 ## 请求示例
 
 ```json
 {
-  "meetingid": "XXXXXXXXX",
-  "meeting_code": "meetingcodexxx",
-  "sub_meetingid": "submeeting"
+  "meetingid": "XXXXXXXXX"
 }
 ```
 

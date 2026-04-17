@@ -17,7 +17,7 @@
 | meeting_duration | 否 | uint32 | 会议持续时间（秒），最小300秒，最大86399秒。修改时须同时指定meeting_start |
 | description | 否 | string | 会议描述，最多500个字节或utf8字符 |
 | location | 否 | string | 会议地点，最多128个字符 |
-| remind_time | 否 | uint32 | 会议开始前多久提醒成员（秒），默认0 |
+| remind_time | 否 | uint32 | 指定会议开始前多久提醒成员，相对于meeting_start前的秒数，默认为0 |
 | agentid | 否 | uint32 | 授权方安装的应用agentid，仅旧的第三方多应用套件需要填此参数 |
 | invitees | 否 | obj | 邀请参会成员 { userid: string[] }，普通企业最多100人，付费企业最多300人 |
 | cal_id | 否 | string | 会议所属日历ID，不多于64字节 |
@@ -28,24 +28,24 @@
 
 | 参数 | 类型 | 说明 |
 | --- | --- | --- |
-| password | string | 入会密码，4-6位纯数字 |
-| enable_waiting_room | bool | 是否开启等候室，默认不开 |
-| allow_enter_before_host | bool | 是否允许主持人前加入，默认允许 |
-| remind_scope | uint32 | 来电提醒。1-不提醒；2-仅主持人；3-所有成员；4-指定部分人 |
-| enable_enter_mute | uint32 | 入会静音。1-开启；0-关闭；2-超过6人自动开启 |
-| enable_screen_watermark | bool | 是否开启屏幕水印 |
-| hosts | obj | 会议主持人 { userid: string[] }，最多10个 |
-| ring_users | obj | 指定响铃成员 { userid: string[] }，remind_scope=4时有效 |
+| password | string | 入会密码，仅可输入4-6位纯数字 |
+| enable_waiting_room | bool | 是否开启等候室。true:开启；false:不开启。默认不开 |
+| allow_enter_before_host | bool | 是否允许成员在主持人进会前加入。true:允许；false:不允许。默认允许 |
+| remind_scope | uint32 | 会议开始时来电提醒方式，1-不提醒；2-仅提醒主持人；3-提醒所有成员入；4-指定部分人响铃。默认提醒所有成员 |
+| enable_enter_mute | uint32 | 成员入会时静音。1:开启；0:关闭；2:超过6人自动开启。默认超过6人自动开启 |
+| enable_screen_watermark | bool | 是否开启屏幕水印。true:开启；false:不开启。默认不开启 |
+| hosts | obj | 会议主持人列表 { userid: string[] }，主持人员最多10个 |
+| ring_users | obj | 指定响铃的成员列表 { userid: string[] } |
 
 ### Reminders说明
 
 | 参数 | 类型 | 说明 |
 | --- | --- | --- |
-| is_repeat | uint32 | 是否周期性会议。1-是；0-否 |
-| repeat_type | uint32 | 重复类型。0-每天；1-每周；2-每月；7-工作日 |
-| repeat_until | uint32 | 重复结束时刻 |
-| repeat_interval | uint32 | 重复间隔，仅repeat_type=1时支持，值不能大于2 |
-| remind_before | uint32[] | 会议前提醒秒数。支持：0/300/900/3600/86400 |
+| is_repeat | uint32 | 是否是周期性会议，1-周期性；0-非周期性。默认为0 |
+| repeat_type | uint32 | 周期性会议重复类型，0-每天；1-每周；2-每月；7-每个工作日。默认为0 |
+| repeat_until | uint32 | 重复结束时刻。每天/工作日/每周最多重复200次；每两周/每月最多重复50次 |
+| repeat_interval | uint32 | 重复间隔，目前仅repeat_type=1时支持，且值不能大于2 |
+| remind_before | uint32[] | 会议开始前多久提醒（秒）。支持：0-会议开始时提醒；300-5分钟前；900-15分钟前；3600-一小时前；86400-一天前 |
 
 ## 请求示例
 
@@ -74,6 +74,7 @@
       "userid": ["zhangsan", "lis"]
     }
   },
+  "cal_id": "wcjgewCwAAqeJcPI1d8Pwbjt7nttzAAA",
   "reminders": {
     "is_repeat": 1,
     "repeat_type": 0,
@@ -90,4 +91,4 @@
 | --- | --- | --- |
 | errcode | int32 | 返回码 |
 | errmsg | string | 对返回码的文本描述内容 |
-| excess_users | string[] | 参会人中包含无效会议账号的userid |
+| excess_users | string[] | 参会人中包含无效会议账号的userid列表 |
