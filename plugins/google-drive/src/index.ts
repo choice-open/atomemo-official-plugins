@@ -13,7 +13,7 @@ const plugin = await createPlugin({
   icon: "symbol:icon-google-drive",
   lang: "typescript",
   version: packageJSON.version,
-  repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/google-drive",
+  repo: "https://github.com/choice-open/atomemo-official-plugins/blob/main/plugins/google-drive/README.md",
   locales: [...locales],
   transporterOptions: {},
 })
