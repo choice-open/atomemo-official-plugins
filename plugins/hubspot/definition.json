@@ -1,0 +1,39 @@
+{
+  "name": "hubspot",
+  "display_name": {
+    "en_US": "HubSpot",
+    "zh_Hans": "HubSpot"
+  },
+  "description": {
+    "en_US": "HubSpot starter scaffold plugin for future CRM tools and credentials.",
+    "zh_Hans": "面向未来 CRM 工具与凭证的 HubSpot 起步脚手架插件。"
+  },
+  "icon": "https://cdn.worldvectorlogo.com/logos/hubspot-1.svg",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/hubspot",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "author": "Xavier",
+  "email": "zhiqiang.jiang@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [],
+  "models": [],
+  "tools": [
+    {
+      "name": "hubspot-plugin-status",
+      "display_name": {
+        "en_US": "HubSpot Plugin Status",
+        "zh_Hans": "HubSpot 插件状态"
+      },
+      "description": {
+        "en_US": "Return scaffold metadata for the HubSpot starter plugin. This does not call the HubSpot API.",
+        "zh_Hans": "返回 HubSpot 起步插件的脚手架元数据。该工具不会调用 HubSpot API。"
+      },
+      "icon": "🧡",
+      "parameters": [],
+      "skill": "# HubSpot Plugin Status Tool\n\n## Tool\n\n- **Name**: `hubspot-plugin-status`\n- **Purpose**: Returns stable scaffold metadata for the current HubSpot starter plugin. This tool exists only to verify plugin wiring and document planned scope.\n\n## Parameters\n\nThis tool takes no parameters.\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {}\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"status\": \"scaffold_only\",\n  \"plugin\": \"hubspot\",\n  \"credentials_configured\": false,\n  \"planned_resources\": [\n    \"contact\",\n    \"company\",\n    \"contactList\",\n    \"deal\",\n    \"engagement\",\n    \"ticket\"\n  ],\n  \"planned_auth\": [\n    \"oauth2\",\n    \"private_app_token\"\n  ],\n  \"note\": \"No real HubSpot operations are implemented yet.\"\n}\n```\n"
+    }
+  ]
+}
