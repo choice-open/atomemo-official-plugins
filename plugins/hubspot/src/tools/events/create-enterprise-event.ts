@@ -1,4 +1,4 @@
-// API docs: https://developers.hubspot.com/docs/api/analytics/events
+// API docs: https://developers.hubspot.com/docs/api-reference/legacy/events/send-event-data/guide
 import type {
   JsonValue,
   ToolDefinition,

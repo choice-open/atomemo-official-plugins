@@ -7,13 +7,19 @@ const zh_Hans = {
 
   // ── 凭证 ─────────────────────────────────────────────────────
   CREDENTIAL_OAUTH2_DISPLAY_NAME: "HubSpot OAuth2",
-  CREDENTIAL_OAUTH2_DESCRIPTION: "使用 OAuth2 对 HubSpot 进行身份验证。",
+  CREDENTIAL_OAUTH2_DESCRIPTION:
+    "使用 OAuth2 对 HubSpot 进行身份验证。此凭证会请求内置 HubSpot 工具所需的作用域，并在账号支持时额外请求社交发布和自定义对象的可选作用域。",
   CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: "客户端 ID",
   CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER:
     "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  CREDENTIAL_OAUTH2_CLIENT_ID_HINT: "HubSpot 应用设置中的客户端 ID。",
+  CREDENTIAL_OAUTH2_CLIENT_ID_HINT:
+    "HubSpot 应用设置中的客户端 ID。请确保应用中的 OAuth 作用域与此凭证保持一致；修改作用域后请重新连接。",
   CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: "客户端密钥",
-  CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: "HubSpot 应用设置中的客户端密钥。",
+  CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT:
+    "HubSpot 应用设置中的客户端密钥。如果你在 HubSpot 中更新了作用域，请重新连接此凭证以应用新的授权。",
+  CREDENTIAL_OAUTH2_SCOPES_LABEL: "作用域（请先配置再进行 OAuth2）",
+  CREDENTIAL_OAUTH2_SCOPES_HINT:
+    "列出此凭证可能请求的全部作用域。请先在 HubSpot 应用设置中添加这些作用域再进行连接；其中一些作用域是可选的，或取决于你的 HubSpot 账号等级。参考文档：https://developers.hubspot.com/docs/apps/legacy-apps/public-apps/overview#configure-scopes",
 
   // ── 共享参数 ───────────────────────────────────────────────────
   PARAM_OAUTH2_CREDENTIAL_LABEL: "HubSpot OAuth2 凭证",

@@ -1,4 +1,4 @@
-// API docs: https://developers.hubspot.com/docs/api/cms/blog-posts
+// API docs: https://developers.hubspot.com/docs/api-reference/latest/cms/blogs/posts/guide
 import type {
   JsonValue,
   ToolDefinition,

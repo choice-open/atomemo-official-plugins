@@ -1,4 +1,4 @@
-// API docs: https://developers.hubspot.com/docs/api/marketing/subscriptions
+// API docs: https://developers.hubspot.com/docs/api-reference/legacy/communication-preferences/v3/guide
 import type {
   JsonValue,
   ToolDefinition,

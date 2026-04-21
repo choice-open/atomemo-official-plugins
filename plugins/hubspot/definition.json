@@ -5,32 +5,5508 @@
     "zh_Hans": "HubSpot"
   },
   "description": {
-    "en_US": "HubSpot starter scaffold plugin for future CRM tools and credentials.",
-    "zh_Hans": "面向未来 CRM 工具与凭证的 HubSpot 起步脚手架插件。"
+    "en_US": "Integrate with HubSpot CRM — manage contacts, companies, deals, tickets, and more.",
+    "zh_Hans": "集成 HubSpot CRM — 管理联系人、公司、交易、工单等。"
   },
   "icon": "https://cdn.worldvectorlogo.com/logos/hubspot-1.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/hubspot",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
   "version": "0.1.0",
-  "credentials": [],
+  "credentials": [
+    {
+      "name": "hubspot-oauth2",
+      "display_name": {
+        "en_US": "HubSpot OAuth2",
+        "zh_Hans": "HubSpot OAuth2"
+      },
+      "description": {
+        "en_US": "Authenticate with HubSpot using OAuth2. This credential requests the scopes needed by the built-in HubSpot tools, plus optional scopes for social publishing and custom objects when available.",
+        "zh_Hans": "使用 OAuth2 对 HubSpot 进行身份验证。此凭证会请求内置 HubSpot 工具所需的作用域，并在账号支持时额外请求社交发布和自定义对象的可选作用域。"
+      },
+      "icon": "🔐",
+      "oauth2": true,
+      "oauth2_grant_type": "authorization_code",
+      "parameters": [
+        {
+          "name": "client_id",
+          "display_name": {
+            "en_US": "Client ID",
+            "zh_Hans": "客户端 ID"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The client ID from your HubSpot app settings. Keep your app's OAuth scopes aligned with this credential, then reconnect after changing scopes.",
+              "zh_Hans": "HubSpot 应用设置中的客户端 ID。请确保应用中的 OAuth 作用域与此凭证保持一致；修改作用域后请重新连接。"
+            },
+            "placeholder": {
+              "en_US": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+              "zh_Hans": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            },
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "client_secret",
+          "display_name": {
+            "en_US": "Client Secret",
+            "zh_Hans": "客户端密钥"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "The client secret from your HubSpot app settings. If you update scopes in HubSpot, reconnect this credential so the new grant is applied.",
+              "zh_Hans": "HubSpot 应用设置中的客户端密钥。如果你在 HubSpot 中更新了作用域，请重新连接此凭证以应用新的授权。"
+            },
+            "sensitive": true,
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        },
+        {
+          "name": "scopes",
+          "display_name": {
+            "en_US": "Scopes (configure before OAuth2)",
+            "zh_Hans": "作用域（请先配置再进行 OAuth2）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Lists all scopes this credential may request. Add these scopes in your HubSpot app settings before connecting; some scopes are optional or depend on your HubSpot account tier. Reference: https://developers.hubspot.com/docs/apps/legacy-apps/public-apps/overview#configure-scopes",
+              "zh_Hans": "列出此凭证可能请求的全部作用域。请先在 HubSpot 应用设置中添加这些作用域再进行连接；其中一些作用域是可选的，或取决于你的 HubSpot 账号等级。参考文档：https://developers.hubspot.com/docs/apps/legacy-apps/public-apps/overview#configure-scopes"
+            },
+            "readonly": true,
+            "component": "textarea"
+          },
+          "type": "string",
+          "constant": "crm.objects.contacts.read\ncrm.objects.contacts.write\ncrm.objects.companies.read\ncrm.objects.companies.write\ncrm.objects.deals.read\ncrm.objects.deals.write\ncrm.objects.appointments.write\ncrm.objects.line_items.read\ncrm.objects.line_items.write\ncrm.objects.products.read\ncrm.objects.products.write\ncrm.objects.owners.read\ncrm.schemas.appointments.read\ncrm.schemas.contacts.read\ncrm.schemas.companies.read\ncrm.schemas.deals.read\ncrm.schemas.line_items.read\ncrm.lists.read\ncrm.lists.write\ntickets\nforms\ncontent\nfiles\nautomation\nanalytics.behavioral_events.send\ncommunication_preferences.read_write\nsocial\ncrm.objects.custom.read\ncrm.objects.custom.write\ncrm.schemas.custom.read"
+        },
+        {
+          "name": "access_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "refresh_token",
+          "type": "encrypted_string"
+        },
+        {
+          "name": "expires_at",
+          "type": "integer"
+        }
+      ]
+    }
+  ],
   "models": [],
   "tools": [
     {
-      "name": "hubspot-plugin-status",
+      "name": "hubspot-create-contact",
       "display_name": {
-        "en_US": "HubSpot Plugin Status",
-        "zh_Hans": "HubSpot 插件状态"
+        "en_US": "Create Contact",
+        "zh_Hans": "创建联系人"
       },
       "description": {
-        "en_US": "Return scaffold metadata for the HubSpot starter plugin. This does not call the HubSpot API.",
-        "zh_Hans": "返回 HubSpot 起步插件的脚手架元数据。该工具不会调用 HubSpot API。"
+        "en_US": "Create a new contact in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新联系人。"
       },
-      "icon": "🧡",
-      "parameters": [],
-      "skill": "# HubSpot Plugin Status Tool\n\n## Tool\n\n- **Name**: `hubspot-plugin-status`\n- **Purpose**: Returns stable scaffold metadata for the current HubSpot starter plugin. This tool exists only to verify plugin wiring and document planned scope.\n\n## Parameters\n\nThis tool takes no parameters.\n\n## Tool Input Example\n\n```json\n{\n  \"parameters\": {}\n}\n```\n\n## Tool Output Example\n\n```json\n{\n  \"status\": \"scaffold_only\",\n  \"plugin\": \"hubspot\",\n  \"credentials_configured\": false,\n  \"planned_resources\": [\n    \"contact\",\n    \"company\",\n    \"contactList\",\n    \"deal\",\n    \"engagement\",\n    \"ticket\"\n  ],\n  \"planned_auth\": [\n    \"oauth2\",\n    \"private_app_token\"\n  ],\n  \"note\": \"No real HubSpot operations are implemented yet.\"\n}\n```\n"
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-contact",
+      "display_name": {
+        "en_US": "Get Contact",
+        "zh_Hans": "获取联系人"
+      },
+      "description": {
+        "en_US": "Retrieve a contact by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取联系人。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-contact",
+      "display_name": {
+        "en_US": "Update Contact",
+        "zh_Hans": "更新联系人"
+      },
+      "description": {
+        "en_US": "Update a contact in HubSpot CRM. Supports upsert by email.",
+        "zh_Hans": "更新 HubSpot CRM 中的联系人。支持通过邮箱进行 upsert。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        },
+        {
+          "name": "upsert",
+          "display_name": {
+            "en_US": "Create or Update (Upsert)",
+            "zh_Hans": "创建或更新（Upsert）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If enabled, creates the object if it doesn't exist. Requires ID Property.",
+              "zh_Hans": "启用后，如果对象不存在则创建。需要 ID 属性。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "id_property",
+          "display_name": {
+            "en_US": "ID Property",
+            "zh_Hans": "ID 属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            },
+            "placeholder": {
+              "en_US": "email",
+              "zh_Hans": "email"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-contact",
+      "display_name": {
+        "en_US": "Find Contact",
+        "zh_Hans": "查找联系人"
+      },
+      "description": {
+        "en_US": "Search for contacts in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索联系人。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-company",
+      "display_name": {
+        "en_US": "Create Company",
+        "zh_Hans": "创建公司"
+      },
+      "description": {
+        "en_US": "Create a new company in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新公司。"
+      },
+      "icon": "🏢",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-company",
+      "display_name": {
+        "en_US": "Get Company",
+        "zh_Hans": "获取公司"
+      },
+      "description": {
+        "en_US": "Retrieve a company by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取公司。"
+      },
+      "icon": "🏢",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-company",
+      "display_name": {
+        "en_US": "Update Company",
+        "zh_Hans": "更新公司"
+      },
+      "description": {
+        "en_US": "Update a company in HubSpot CRM. Supports upsert by domain.",
+        "zh_Hans": "更新 HubSpot CRM 中的公司。支持通过域名进行 upsert。"
+      },
+      "icon": "🏢",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        },
+        {
+          "name": "upsert",
+          "display_name": {
+            "en_US": "Create or Update (Upsert)",
+            "zh_Hans": "创建或更新（Upsert）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If enabled, creates the object if it doesn't exist. Requires ID Property.",
+              "zh_Hans": "启用后，如果对象不存在则创建。需要 ID 属性。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "id_property",
+          "display_name": {
+            "en_US": "ID Property",
+            "zh_Hans": "ID 属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            },
+            "placeholder": {
+              "en_US": "email",
+              "zh_Hans": "email"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-company",
+      "display_name": {
+        "en_US": "Find Company",
+        "zh_Hans": "查找公司"
+      },
+      "description": {
+        "en_US": "Search for companies in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索公司。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-deal",
+      "display_name": {
+        "en_US": "Create Deal",
+        "zh_Hans": "创建交易"
+      },
+      "description": {
+        "en_US": "Create a new deal in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新交易。"
+      },
+      "icon": "💰",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-deal",
+      "display_name": {
+        "en_US": "Get Deal",
+        "zh_Hans": "获取交易"
+      },
+      "description": {
+        "en_US": "Retrieve a deal by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取交易。"
+      },
+      "icon": "💰",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-deal",
+      "display_name": {
+        "en_US": "Update Deal",
+        "zh_Hans": "更新交易"
+      },
+      "description": {
+        "en_US": "Update a deal in HubSpot CRM.",
+        "zh_Hans": "更新 HubSpot CRM 中的交易。"
+      },
+      "icon": "💰",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-deal",
+      "display_name": {
+        "en_US": "Find Deal",
+        "zh_Hans": "查找交易"
+      },
+      "description": {
+        "en_US": "Search for deals in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索交易。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-ticket",
+      "display_name": {
+        "en_US": "Create Ticket",
+        "zh_Hans": "创建工单"
+      },
+      "description": {
+        "en_US": "Create a new ticket in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新工单。"
+      },
+      "icon": "🎫",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-ticket",
+      "display_name": {
+        "en_US": "Get Ticket",
+        "zh_Hans": "获取工单"
+      },
+      "description": {
+        "en_US": "Retrieve a ticket by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取工单。"
+      },
+      "icon": "🎫",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-ticket",
+      "display_name": {
+        "en_US": "Update Ticket",
+        "zh_Hans": "更新工单"
+      },
+      "description": {
+        "en_US": "Update a ticket in HubSpot CRM.",
+        "zh_Hans": "更新 HubSpot CRM 中的工单。"
+      },
+      "icon": "🎫",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-ticket",
+      "display_name": {
+        "en_US": "Find Ticket",
+        "zh_Hans": "查找工单"
+      },
+      "description": {
+        "en_US": "Search for tickets in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索工单。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-line-item",
+      "display_name": {
+        "en_US": "Create Line Item",
+        "zh_Hans": "创建行项目"
+      },
+      "description": {
+        "en_US": "Create a new line item in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新行项目。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-line-item",
+      "display_name": {
+        "en_US": "Get Line Item",
+        "zh_Hans": "获取行项目"
+      },
+      "description": {
+        "en_US": "Retrieve a line item by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取行项目。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-line-item",
+      "display_name": {
+        "en_US": "Update Line Item",
+        "zh_Hans": "更新行项目"
+      },
+      "description": {
+        "en_US": "Update a line item in HubSpot CRM.",
+        "zh_Hans": "更新 HubSpot CRM 中的行项目。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-line-item",
+      "display_name": {
+        "en_US": "Find Line Item",
+        "zh_Hans": "查找行项目"
+      },
+      "description": {
+        "en_US": "Search for line items in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索行项目。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-product",
+      "display_name": {
+        "en_US": "Create Product",
+        "zh_Hans": "创建产品"
+      },
+      "description": {
+        "en_US": "Create a new product in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建新产品。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-product",
+      "display_name": {
+        "en_US": "Get Product",
+        "zh_Hans": "获取产品"
+      },
+      "description": {
+        "en_US": "Retrieve a product by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取产品。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-product",
+      "display_name": {
+        "en_US": "Update Product",
+        "zh_Hans": "更新产品"
+      },
+      "description": {
+        "en_US": "Update a product in HubSpot CRM.",
+        "zh_Hans": "更新 HubSpot CRM 中的产品。"
+      },
+      "icon": "📦",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-product",
+      "display_name": {
+        "en_US": "Find Product",
+        "zh_Hans": "查找产品"
+      },
+      "description": {
+        "en_US": "Search for products in HubSpot CRM using filters or text query.",
+        "zh_Hans": "使用筛选器或文本查询在 HubSpot CRM 中搜索产品。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-crm-object",
+      "display_name": {
+        "en_US": "Create CRM Object",
+        "zh_Hans": "创建 CRM 对象"
+      },
+      "description": {
+        "en_US": "Create a new object of any type in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中创建任何类型的新对象。"
+      },
+      "icon": "🔷",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_type",
+          "display_name": {
+            "en_US": "Object Type",
+            "zh_Hans": "对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            },
+            "placeholder": {
+              "en_US": "contacts",
+              "zh_Hans": "contacts"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-crm-object",
+      "display_name": {
+        "en_US": "Get CRM Object",
+        "zh_Hans": "获取 CRM 对象"
+      },
+      "description": {
+        "en_US": "Retrieve an object of any type by ID from HubSpot CRM.",
+        "zh_Hans": "通过 ID 从 HubSpot CRM 获取任何类型的对象。"
+      },
+      "icon": "🔷",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_type",
+          "display_name": {
+            "en_US": "Object Type",
+            "zh_Hans": "对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            },
+            "placeholder": {
+              "en_US": "contacts",
+              "zh_Hans": "contacts"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "return_associations",
+          "display_name": {
+            "en_US": "Return Associations",
+            "zh_Hans": "返回关联"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-crm-object",
+      "display_name": {
+        "en_US": "Update CRM Object",
+        "zh_Hans": "更新 CRM 对象"
+      },
+      "description": {
+        "en_US": "Update an object of any type in HubSpot CRM.",
+        "zh_Hans": "更新 HubSpot CRM 中任何类型的对象。"
+      },
+      "icon": "🔷",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_type",
+          "display_name": {
+            "en_US": "Object Type",
+            "zh_Hans": "对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            },
+            "placeholder": {
+              "en_US": "contacts",
+              "zh_Hans": "contacts"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Properties",
+            "zh_Hans": "属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.",
+              "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        },
+        {
+          "name": "upsert",
+          "display_name": {
+            "en_US": "Create or Update (Upsert)",
+            "zh_Hans": "创建或更新（Upsert）"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "If enabled, creates the object if it doesn't exist. Requires ID Property.",
+              "zh_Hans": "启用后，如果对象不存在则创建。需要 ID 属性。"
+            },
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "id_property",
+          "display_name": {
+            "en_US": "ID Property",
+            "zh_Hans": "ID 属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The property to use as the unique identifier for upsert (e.g. email for contacts).",
+              "zh_Hans": "用作 upsert 唯一标识符的属性（例如联系人的 email）。"
+            },
+            "placeholder": {
+              "en_US": "email",
+              "zh_Hans": "email"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-delete-crm-object",
+      "display_name": {
+        "en_US": "Delete CRM Object",
+        "zh_Hans": "删除 CRM 对象"
+      },
+      "description": {
+        "en_US": "Delete an object of any type from HubSpot CRM.",
+        "zh_Hans": "从 HubSpot CRM 中删除任何类型的对象。"
+      },
+      "icon": "🔷",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_type",
+          "display_name": {
+            "en_US": "Object Type",
+            "zh_Hans": "对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            },
+            "placeholder": {
+              "en_US": "contacts",
+              "zh_Hans": "contacts"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "object_id",
+          "display_name": {
+            "en_US": "Object ID",
+            "zh_Hans": "对象 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot object.",
+              "zh_Hans": "HubSpot 对象的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345",
+              "zh_Hans": "12345"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-crm-object",
+      "display_name": {
+        "en_US": "Find CRM Object",
+        "zh_Hans": "查找 CRM 对象"
+      },
+      "description": {
+        "en_US": "Search for objects of any type in HubSpot CRM.",
+        "zh_Hans": "在 HubSpot CRM 中搜索任何类型的对象。"
+      },
+      "icon": "🔍",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "object_type",
+          "display_name": {
+            "en_US": "Object Type",
+            "zh_Hans": "对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).",
+              "zh_Hans": "CRM 对象类型（例如 contacts、companies、deals、tickets、line_items、products 或自定义对象类型）。"
+            },
+            "placeholder": {
+              "en_US": "contacts",
+              "zh_Hans": "contacts"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "search_query",
+          "display_name": {
+            "en_US": "Search Query",
+            "zh_Hans": "搜索查询"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "A text query to search objects by. Searches across default searchable properties.",
+              "zh_Hans": "用于搜索对象的文本查询。在默认可搜索属性中进行搜索。"
+            },
+            "placeholder": {
+              "en_US": "john@example.com",
+              "zh_Hans": "john@example.com"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "filter_groups",
+          "display_name": {
+            "en_US": "Filter Groups",
+            "zh_Hans": "筛选器组"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.",
+              "zh_Hans": "高级搜索的筛选器组。组之间为 OR 关系；组内筛选器为 AND 关系。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "filter_group",
+            "type": "object",
+            "properties": [
+              {
+                "name": "filters",
+                "display_name": {
+                  "en_US": "Filters",
+                  "zh_Hans": "筛选器"
+                },
+                "required": true,
+                "ui": {
+                  "component": "array-section"
+                },
+                "type": "array",
+                "items": {
+                  "name": "filter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "propertyName",
+                      "display_name": {
+                        "en_US": "Property Name",
+                        "zh_Hans": "属性名称"
+                      },
+                      "required": true,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "operator",
+                      "display_name": {
+                        "en_US": "Operator",
+                        "zh_Hans": "运算符"
+                      },
+                      "required": true,
+                      "ui": {
+                        "options": [
+                          {
+                            "label": {
+                              "en_US": "Equal to",
+                              "zh_Hans": "等于"
+                            },
+                            "value": "EQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Not equal to",
+                              "zh_Hans": "不等于"
+                            },
+                            "value": "NEQ"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than",
+                              "zh_Hans": "小于"
+                            },
+                            "value": "LT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Less than or equal to",
+                              "zh_Hans": "小于或等于"
+                            },
+                            "value": "LTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than",
+                              "zh_Hans": "大于"
+                            },
+                            "value": "GT"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Greater than or equal to",
+                              "zh_Hans": "大于或等于"
+                            },
+                            "value": "GTE"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Contains token",
+                              "zh_Hans": "包含"
+                            },
+                            "value": "CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not contain token",
+                              "zh_Hans": "不包含"
+                            },
+                            "value": "NOT_CONTAINS_TOKEN"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Has property",
+                              "zh_Hans": "具有属性"
+                            },
+                            "value": "HAS_PROPERTY"
+                          },
+                          {
+                            "label": {
+                              "en_US": "Does not have property",
+                              "zh_Hans": "不具有属性"
+                            },
+                            "value": "NOT_HAS_PROPERTY"
+                          }
+                        ],
+                        "component": "select"
+                      },
+                      "type": "string"
+                    },
+                    {
+                      "name": "value",
+                      "display_name": {
+                        "en_US": "Value",
+                        "zh_Hans": "值"
+                      },
+                      "required": false,
+                      "ui": {
+                        "support_expression": true,
+                        "component": "input"
+                      },
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "display_name": {
+            "en_US": "Limit",
+            "zh_Hans": "限制数量"
+          },
+          "required": false,
+          "ui": {
+            "hint": {
+              "en_US": "Maximum number of results to return.",
+              "zh_Hans": "返回结果的最大数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 100,
+          "maximum": 200,
+          "minimum": 1
+        },
+        {
+          "name": "return_properties",
+          "display_name": {
+            "en_US": "Return Properties",
+            "zh_Hans": "返回属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated list of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-associations",
+      "display_name": {
+        "en_US": "Create Associations",
+        "zh_Hans": "创建关联"
+      },
+      "description": {
+        "en_US": "Create associations between HubSpot CRM objects.",
+        "zh_Hans": "在 HubSpot CRM 对象之间创建关联。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "from_object_type",
+          "display_name": {
+            "en_US": "From Object Type",
+            "zh_Hans": "源对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "to_object_type",
+          "display_name": {
+            "en_US": "To Object Type",
+            "zh_Hans": "目标对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "inputs",
+          "display_name": {
+            "en_US": "Association Pairs",
+            "zh_Hans": "关联对"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pairs of object IDs to associate or disassociate.",
+              "zh_Hans": "要关联或取消关联的对象 ID 对。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "association_pair",
+            "type": "object",
+            "properties": [
+              {
+                "name": "from_id",
+                "display_name": {
+                  "en_US": "From ID",
+                  "zh_Hans": "源 ID"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "input"
+                },
+                "type": "string"
+              },
+              {
+                "name": "to_id",
+                "display_name": {
+                  "en_US": "To ID",
+                  "zh_Hans": "目标 ID"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "input"
+                },
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-remove-associations",
+      "display_name": {
+        "en_US": "Remove Associations",
+        "zh_Hans": "移除关联"
+      },
+      "description": {
+        "en_US": "Remove associations between HubSpot CRM objects.",
+        "zh_Hans": "移除 HubSpot CRM 对象之间的关联。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "from_object_type",
+          "display_name": {
+            "en_US": "From Object Type",
+            "zh_Hans": "源对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "to_object_type",
+          "display_name": {
+            "en_US": "To Object Type",
+            "zh_Hans": "目标对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "inputs",
+          "display_name": {
+            "en_US": "Association Pairs",
+            "zh_Hans": "关联对"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pairs of object IDs to associate or disassociate.",
+              "zh_Hans": "要关联或取消关联的对象 ID 对。"
+            }
+          },
+          "ui": {
+            "component": "array-section"
+          },
+          "type": "array",
+          "items": {
+            "name": "association_pair",
+            "type": "object",
+            "properties": [
+              {
+                "name": "from_id",
+                "display_name": {
+                  "en_US": "From ID",
+                  "zh_Hans": "源 ID"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "input"
+                },
+                "type": "string"
+              },
+              {
+                "name": "to_id",
+                "display_name": {
+                  "en_US": "To ID",
+                  "zh_Hans": "目标 ID"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "input"
+                },
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-find-associations",
+      "display_name": {
+        "en_US": "Find Associations",
+        "zh_Hans": "查找关联"
+      },
+      "description": {
+        "en_US": "Find associations between HubSpot CRM objects.",
+        "zh_Hans": "查找 HubSpot CRM 对象之间的关联。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "from_object_type",
+          "display_name": {
+            "en_US": "From Object Type",
+            "zh_Hans": "源对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The source object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "源对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "to_object_type",
+          "display_name": {
+            "en_US": "To Object Type",
+            "zh_Hans": "目标对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The target object type (e.g. contacts, companies, deals).",
+              "zh_Hans": "目标对象类型（例如 contacts、companies、deals）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "from_ids",
+          "display_name": {
+            "en_US": "From Object IDs",
+            "zh_Hans": "源对象 ID 列表"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated IDs of source objects to find associations for.",
+              "zh_Hans": "要查找关联的源对象 ID，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated IDs of source objects to find associations for.",
+              "zh_Hans": "要查找关联的源对象 ID，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-owner-by-email",
+      "display_name": {
+        "en_US": "Get Owner by Email",
+        "zh_Hans": "通过邮箱获取所有者"
+      },
+      "description": {
+        "en_US": "Retrieve a HubSpot owner by their email address.",
+        "zh_Hans": "通过邮箱地址获取 HubSpot 所有者信息。"
+      },
+      "icon": "👑",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Owner Email",
+            "zh_Hans": "所有者邮箱"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The email address of the HubSpot owner.",
+              "zh_Hans": "HubSpot 所有者的邮箱地址。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The email address of the HubSpot owner.",
+              "zh_Hans": "HubSpot 所有者的邮箱地址。"
+            },
+            "placeholder": {
+              "en_US": "owner@company.com",
+              "zh_Hans": "owner@company.com"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-owner-by-id",
+      "display_name": {
+        "en_US": "Get Owner by ID",
+        "zh_Hans": "通过 ID 获取所有者"
+      },
+      "description": {
+        "en_US": "Retrieve a HubSpot owner by their ID.",
+        "zh_Hans": "通过 ID 获取 HubSpot 所有者信息。"
+      },
+      "icon": "👑",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "owner_id",
+          "display_name": {
+            "en_US": "Owner ID",
+            "zh_Hans": "所有者 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the HubSpot owner.",
+              "zh_Hans": "HubSpot 所有者的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the HubSpot owner.",
+              "zh_Hans": "HubSpot 所有者的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345678",
+              "zh_Hans": "12345678"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-pipeline-stage-details",
+      "display_name": {
+        "en_US": "Get Pipeline Stage Details",
+        "zh_Hans": "获取管道阶段详情"
+      },
+      "description": {
+        "en_US": "Retrieve pipeline and stage details for a HubSpot object type.",
+        "zh_Hans": "获取 HubSpot 对象类型的管道和阶段详情。"
+      },
+      "icon": "🔀",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "pipeline_object_type",
+          "display_name": {
+            "en_US": "Pipeline Object Type",
+            "zh_Hans": "管道对象类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The object type to get pipelines for (e.g. deals, tickets).",
+              "zh_Hans": "要获取管道的对象类型（例如 deals、tickets）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The object type to get pipelines for (e.g. deals, tickets).",
+              "zh_Hans": "要获取管道的对象类型（例如 deals、tickets）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-list",
+      "display_name": {
+        "en_US": "Create List (Segment)",
+        "zh_Hans": "创建列表（分段）"
+      },
+      "description": {
+        "en_US": "Create a new static or dynamic list in HubSpot.",
+        "zh_Hans": "在 HubSpot 中创建新的静态或动态列表。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "list_name",
+          "display_name": {
+            "en_US": "List Name",
+            "zh_Hans": "列表名称"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The name of the list to create.",
+              "zh_Hans": "要创建的列表名称。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The name of the list to create.",
+              "zh_Hans": "要创建的列表名称。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "object_type_id",
+          "display_name": {
+            "en_US": "Object Type ID",
+            "zh_Hans": "对象类型 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The object type for the list (e.g. 0-1 for contacts).",
+              "zh_Hans": "列表的对象类型（例如 0-1 表示联系人）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The object type for the list (e.g. 0-1 for contacts).",
+              "zh_Hans": "列表的对象类型（例如 0-1 表示联系人）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0-1"
+        },
+        {
+          "name": "processing_type",
+          "display_name": {
+            "en_US": "Processing Type",
+            "zh_Hans": "处理类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether the list is MANUAL (static) or SNAPSHOT (dynamic).",
+              "zh_Hans": "列表是 MANUAL（静态）还是 SNAPSHOT（动态）。"
+            }
+          },
+          "ui": {
+            "options": [
+              {
+                "label": {
+                  "en_US": "Manual (Static)",
+                  "zh_Hans": "手动（静态）"
+                },
+                "value": "MANUAL"
+              },
+              {
+                "label": {
+                  "en_US": "Snapshot (Dynamic)",
+                  "zh_Hans": "快照（动态）"
+                },
+                "value": "SNAPSHOT"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-add-contact-to-list",
+      "display_name": {
+        "en_US": "Add Contact to List",
+        "zh_Hans": "添加联系人到列表"
+      },
+      "description": {
+        "en_US": "Add one or more contacts to a HubSpot list.",
+        "zh_Hans": "将一个或多个联系人添加到 HubSpot 列表。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "list_id",
+          "display_name": {
+            "en_US": "List ID",
+            "zh_Hans": "列表 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the list.",
+              "zh_Hans": "列表的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the list.",
+              "zh_Hans": "列表的 ID。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "contact_ids",
+          "display_name": {
+            "en_US": "Contact IDs",
+            "zh_Hans": "联系人 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-remove-contact-from-list",
+      "display_name": {
+        "en_US": "Remove Contact from List",
+        "zh_Hans": "从列表中移除联系人"
+      },
+      "description": {
+        "en_US": "Remove one or more contacts from a HubSpot list.",
+        "zh_Hans": "从 HubSpot 列表中移除一个或多个联系人。"
+      },
+      "icon": "📋",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "list_id",
+          "display_name": {
+            "en_US": "List ID",
+            "zh_Hans": "列表 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the list.",
+              "zh_Hans": "列表的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the list.",
+              "zh_Hans": "列表的 ID。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "contact_ids",
+          "display_name": {
+            "en_US": "Contact IDs",
+            "zh_Hans": "联系人 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-engagement",
+      "display_name": {
+        "en_US": "Create Engagement",
+        "zh_Hans": "创建互动"
+      },
+      "description": {
+        "en_US": "Create an engagement (call, email, meeting, task, or note) in HubSpot.",
+        "zh_Hans": "在 HubSpot 中创建互动（通话、邮件、会议、任务或备注）。"
+      },
+      "icon": "📞",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "engagement_type",
+          "display_name": {
+            "en_US": "Engagement Type",
+            "zh_Hans": "互动类型"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The type of engagement to create.",
+              "zh_Hans": "要创建的互动类型。"
+            }
+          },
+          "ui": {
+            "options": [
+              {
+                "label": {
+                  "en_US": "Call",
+                  "zh_Hans": "通话"
+                },
+                "value": "call"
+              },
+              {
+                "label": {
+                  "en_US": "Email",
+                  "zh_Hans": "邮件"
+                },
+                "value": "email"
+              },
+              {
+                "label": {
+                  "en_US": "Meeting",
+                  "zh_Hans": "会议"
+                },
+                "value": "meeting"
+              },
+              {
+                "label": {
+                  "en_US": "Task",
+                  "zh_Hans": "任务"
+                },
+                "value": "task"
+              },
+              {
+                "label": {
+                  "en_US": "Note",
+                  "zh_Hans": "备注"
+                },
+                "value": "note"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Engagement Properties",
+            "zh_Hans": "互动属性"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Properties for the engagement. Fields vary by engagement type.",
+              "zh_Hans": "互动的属性。字段因互动类型而异。"
+            }
+          },
+          "type": "resource_mapper",
+          "mapping_method": "map_object_properties"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-form-submission",
+      "display_name": {
+        "en_US": "Create Form Submission",
+        "zh_Hans": "创建表单提交"
+      },
+      "description": {
+        "en_US": "Submit data to a HubSpot form.",
+        "zh_Hans": "向 HubSpot 表单提交数据。"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "portal_id",
+          "display_name": {
+            "en_US": "Portal ID",
+            "zh_Hans": "Portal ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Your HubSpot portal (account) ID.",
+              "zh_Hans": "您的 HubSpot 门户（账号）ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Your HubSpot portal (account) ID.",
+              "zh_Hans": "您的 HubSpot 门户（账号）ID。"
+            },
+            "placeholder": {
+              "en_US": "12345678",
+              "zh_Hans": "12345678"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "form_guid",
+          "display_name": {
+            "en_US": "Form GUID",
+            "zh_Hans": "表单 GUID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The unique identifier of the form.",
+              "zh_Hans": "表单的唯一标识符。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The unique identifier of the form.",
+              "zh_Hans": "表单的唯一标识符。"
+            },
+            "placeholder": {
+              "en_US": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+              "zh_Hans": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "fields",
+          "display_name": {
+            "en_US": "Form Fields",
+            "zh_Hans": "表单字段"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Key-value pairs of form field names and their values.",
+              "zh_Hans": "表单字段名称和值的键值对。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Key-value pairs of form field names and their values.",
+              "zh_Hans": "表单字段名称和值的键值对。"
+            },
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-remove-email-subscription",
+      "display_name": {
+        "en_US": "Remove Email Subscription",
+        "zh_Hans": "移除邮件订阅"
+      },
+      "description": {
+        "en_US": "Unsubscribe an email address from a HubSpot subscription type.",
+        "zh_Hans": "从 HubSpot 订阅类型中取消订阅邮箱地址。"
+      },
+      "icon": "📧",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "email_address",
+          "display_name": {
+            "en_US": "Email Address",
+            "zh_Hans": "邮箱地址"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The email address to update subscriptions for.",
+              "zh_Hans": "要更新订阅的邮箱地址。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The email address to update subscriptions for.",
+              "zh_Hans": "要更新订阅的邮箱地址。"
+            },
+            "placeholder": {
+              "en_US": "contact@example.com",
+              "zh_Hans": "contact@example.com"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subscription_id",
+          "display_name": {
+            "en_US": "Subscription ID",
+            "zh_Hans": "订阅 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the subscription type.",
+              "zh_Hans": "订阅类型的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the subscription type.",
+              "zh_Hans": "订阅类型的 ID。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-update-subscription-preferences",
+      "display_name": {
+        "en_US": "Update Contact Subscription Preferences",
+        "zh_Hans": "更新联系人订阅偏好"
+      },
+      "description": {
+        "en_US": "Update email subscription preferences for a contact in HubSpot.",
+        "zh_Hans": "更新 HubSpot 中联系人的邮件订阅偏好。"
+      },
+      "icon": "📬",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "email_address",
+          "display_name": {
+            "en_US": "Email Address",
+            "zh_Hans": "邮箱地址"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The email address to update subscriptions for.",
+              "zh_Hans": "要更新订阅的邮箱地址。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The email address to update subscriptions for.",
+              "zh_Hans": "要更新订阅的邮箱地址。"
+            },
+            "placeholder": {
+              "en_US": "contact@example.com",
+              "zh_Hans": "contact@example.com"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "subscription_statuses",
+          "display_name": {
+            "en_US": "Subscription Statuses",
+            "zh_Hans": "订阅状态"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "List of subscription IDs and their subscribed status.",
+              "zh_Hans": "订阅 ID 及其订阅状态列表。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "List of subscription IDs and their subscribed status.",
+              "zh_Hans": "订阅 ID 及其订阅状态列表。"
+            },
+            "component": "code-editor"
+          },
+          "type": "string"
+        },
+        {
+          "name": "legal_basis",
+          "display_name": {
+            "en_US": "Legal Basis",
+            "zh_Hans": "法律依据"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The legal basis for updating the subscription (e.g. CONSENT_WITH_NOTICE).",
+              "zh_Hans": "更新订阅的法律依据（例如 CONSENT_WITH_NOTICE）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The legal basis for updating the subscription (e.g. CONSENT_WITH_NOTICE).",
+              "zh_Hans": "更新订阅的法律依据（例如 CONSENT_WITH_NOTICE）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "legal_basis_explanation",
+          "display_name": {
+            "en_US": "Legal Basis Explanation",
+            "zh_Hans": "法律依据说明"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Explanation of the legal basis for the subscription change.",
+              "zh_Hans": "订阅变更的法律依据说明。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Explanation of the legal basis for the subscription change.",
+              "zh_Hans": "订阅变更的法律依据说明。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-social-message",
+      "display_name": {
+        "en_US": "Create Social Media Message",
+        "zh_Hans": "创建社交媒体消息"
+      },
+      "description": {
+        "en_US": "Create and schedule a social media message through HubSpot.",
+        "zh_Hans": "通过 HubSpot 创建和安排社交媒体消息。"
+      },
+      "icon": "📢",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "channel_guid",
+          "display_name": {
+            "en_US": "Channel GUID",
+            "zh_Hans": "频道 GUID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The unique identifier of the social media channel.",
+              "zh_Hans": "社交媒体频道的唯一标识符。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The unique identifier of the social media channel.",
+              "zh_Hans": "社交媒体频道的唯一标识符。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "display_name": {
+            "en_US": "Message Content",
+            "zh_Hans": "消息内容"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The content of the social media message.",
+              "zh_Hans": "社交媒体消息的内容。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The content of the social media message.",
+              "zh_Hans": "社交媒体消息的内容。"
+            },
+            "placeholder": {
+              "en_US": "Check out our new product!",
+              "zh_Hans": "看看我们的新产品！"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-add-contact-to-workflow",
+      "display_name": {
+        "en_US": "Add Contact to Workflow",
+        "zh_Hans": "添加联系人到工作流"
+      },
+      "description": {
+        "en_US": "Enroll a contact into a HubSpot workflow by email.",
+        "zh_Hans": "通过邮箱将联系人注册到 HubSpot 工作流。"
+      },
+      "icon": "⚙️",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "workflow_id",
+          "display_name": {
+            "en_US": "Workflow ID",
+            "zh_Hans": "工作流 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the workflow to enroll the contact in.",
+              "zh_Hans": "要注册联系人的工作流 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the workflow to enroll the contact in.",
+              "zh_Hans": "要注册联系人的工作流 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345678",
+              "zh_Hans": "12345678"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "contact_email",
+          "display_name": {
+            "en_US": "Contact Email",
+            "zh_Hans": "联系人邮箱"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The email address of the contact to enroll.",
+              "zh_Hans": "要注册的联系人邮箱地址。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The email address of the contact to enroll.",
+              "zh_Hans": "要注册的联系人邮箱地址。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-blog-post",
+      "display_name": {
+        "en_US": "Create COS Blog Post",
+        "zh_Hans": "创建 COS 博客文章"
+      },
+      "description": {
+        "en_US": "Create a new blog post in HubSpot CMS.",
+        "zh_Hans": "在 HubSpot CMS 中创建新的博客文章。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Post Title",
+            "zh_Hans": "文章标题"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The title of the blog post.",
+              "zh_Hans": "博客文章的标题。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The title of the blog post.",
+              "zh_Hans": "博客文章的标题。"
+            },
+            "placeholder": {
+              "en_US": "My New Blog Post",
+              "zh_Hans": "我的新博客文章"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "content_group_id",
+          "display_name": {
+            "en_US": "Blog ID (Content Group)",
+            "zh_Hans": "博客 ID（内容组）"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the blog to publish to.",
+              "zh_Hans": "要发布到的博客 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the blog to publish to.",
+              "zh_Hans": "要发布到的博客 ID。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "post_body",
+          "display_name": {
+            "en_US": "Post Body",
+            "zh_Hans": "文章正文"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The HTML body of the blog post.",
+              "zh_Hans": "博客文章的 HTML 正文。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The HTML body of the blog post.",
+              "zh_Hans": "博客文章的 HTML 正文。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        },
+        {
+          "name": "slug",
+          "display_name": {
+            "en_US": "Slug",
+            "zh_Hans": "Slug"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The URL slug for the blog post.",
+              "zh_Hans": "博客文章的 URL slug。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The URL slug for the blog post.",
+              "zh_Hans": "博客文章的 URL slug。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "display_name": {
+            "en_US": "State",
+            "zh_Hans": "状态"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The publish state of the blog post.",
+              "zh_Hans": "博客文章的发布状态。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The publish state of the blog post.",
+              "zh_Hans": "博客文章的发布状态。"
+            },
+            "options": [
+              {
+                "label": {
+                  "en_US": "Draft",
+                  "zh_Hans": "草稿"
+                },
+                "value": "DRAFT"
+              },
+              {
+                "label": {
+                  "en_US": "Published",
+                  "zh_Hans": "已发布"
+                },
+                "value": "PUBLISHED"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        },
+        {
+          "name": "meta_description",
+          "display_name": {
+            "en_US": "Meta Description",
+            "zh_Hans": "Meta 描述"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The meta description for SEO.",
+              "zh_Hans": "用于 SEO 的 Meta 描述。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The meta description for SEO.",
+              "zh_Hans": "用于 SEO 的 Meta 描述。"
+            },
+            "support_expression": true,
+            "component": "textarea"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-create-enterprise-event",
+      "display_name": {
+        "en_US": "Create Enterprise Event",
+        "zh_Hans": "创建企业事件"
+      },
+      "description": {
+        "en_US": "Send a custom behavioral event to HubSpot.",
+        "zh_Hans": "向 HubSpot 发送自定义行为事件。"
+      },
+      "icon": "📊",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "event_name",
+          "display_name": {
+            "en_US": "Event Name",
+            "zh_Hans": "事件名称"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The internal name of the event definition.",
+              "zh_Hans": "事件定义的内部名称。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The internal name of the event definition.",
+              "zh_Hans": "事件定义的内部名称。"
+            },
+            "placeholder": {
+              "en_US": "pe12345_my_event",
+              "zh_Hans": "pe12345_my_event"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "display_name": {
+            "en_US": "Contact Email",
+            "zh_Hans": "联系人邮箱"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The email of the contact to associate the event with.",
+              "zh_Hans": "要关联事件的联系人邮箱。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The email of the contact to associate the event with.",
+              "zh_Hans": "要关联事件的联系人邮箱。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "properties",
+          "display_name": {
+            "en_US": "Event Properties",
+            "zh_Hans": "事件属性"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Key-value pairs of custom event properties.",
+              "zh_Hans": "自定义事件属性的键值对。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Key-value pairs of custom event properties.",
+              "zh_Hans": "自定义事件属性的键值对。"
+            },
+            "component": "code-editor"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-get-file-public-url",
+      "display_name": {
+        "en_US": "Get File Public URL",
+        "zh_Hans": "获取文件公开 URL"
+      },
+      "description": {
+        "en_US": "Retrieve the public URL of a file in HubSpot.",
+        "zh_Hans": "获取 HubSpot 中文件的公开 URL。"
+      },
+      "icon": "🔗",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "file_id",
+          "display_name": {
+            "en_US": "File ID",
+            "zh_Hans": "文件 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the file.",
+              "zh_Hans": "文件的 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the file.",
+              "zh_Hans": "文件的 ID。"
+            },
+            "placeholder": {
+              "en_US": "12345678",
+              "zh_Hans": "12345678"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
+    },
+    {
+      "name": "hubspot-upload-file",
+      "display_name": {
+        "en_US": "Upload File",
+        "zh_Hans": "上传文件"
+      },
+      "description": {
+        "en_US": "Upload a file to HubSpot file manager.",
+        "zh_Hans": "将文件上传到 HubSpot 文件管理器。"
+      },
+      "icon": "📤",
+      "parameters": [
+        {
+          "name": "hubspot_oauth2_credential",
+          "display_name": {
+            "en_US": "HubSpot OAuth2 Credential",
+            "zh_Hans": "HubSpot OAuth2 凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "hubspot-oauth2"
+        },
+        {
+          "name": "file_name",
+          "display_name": {
+            "en_US": "File Name",
+            "zh_Hans": "文件名"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The name for the uploaded file.",
+              "zh_Hans": "上传文件的名称。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The name for the uploaded file.",
+              "zh_Hans": "上传文件的名称。"
+            },
+            "placeholder": {
+              "en_US": "document.pdf",
+              "zh_Hans": "document.pdf"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "file_content",
+          "display_name": {
+            "en_US": "File Content",
+            "zh_Hans": "文件内容"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The file content to upload (base64 encoded).",
+              "zh_Hans": "要上传的文件内容（base64 编码）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The file content to upload (base64 encoded).",
+              "zh_Hans": "要上传的文件内容（base64 编码）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "folder_id",
+          "display_name": {
+            "en_US": "Folder ID",
+            "zh_Hans": "文件夹 ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the folder to upload to (optional).",
+              "zh_Hans": "要上传到的文件夹 ID（可选）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The ID of the folder to upload to (optional).",
+              "zh_Hans": "要上传到的文件夹 ID（可选）。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "access",
+          "display_name": {
+            "en_US": "Access",
+            "zh_Hans": "访问级别"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "The access level for the file.",
+              "zh_Hans": "文件的访问级别。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "The access level for the file.",
+              "zh_Hans": "文件的访问级别。"
+            },
+            "options": [
+              {
+                "label": {
+                  "en_US": "Private",
+                  "zh_Hans": "私有"
+                },
+                "value": "PRIVATE"
+              },
+              {
+                "label": {
+                  "en_US": "Public (Indexable)",
+                  "zh_Hans": "公开（可索引）"
+                },
+                "value": "PUBLIC_INDEXABLE"
+              },
+              {
+                "label": {
+                  "en_US": "Public (Not Indexable)",
+                  "zh_Hans": "公开（不可索引）"
+                },
+                "value": "PUBLIC_NOT_INDEXABLE"
+              }
+            ],
+            "component": "select"
+          },
+          "type": "string"
+        }
+      ],
+      "skill": ""
     }
   ]
 }

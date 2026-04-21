@@ -1,4 +1,4 @@
-// API docs: https://developers.hubspot.com/docs/api/marketing/social-media
+// API docs (deprecated): https://developers.hubspot.com/docs/api-reference/legacy/social-v1/create-broadcast
 import type {
   JsonValue,
   ToolDefinition,

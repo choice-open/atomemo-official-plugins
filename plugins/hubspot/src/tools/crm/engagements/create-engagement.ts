@@ -1,4 +1,4 @@
-// API docs: https://developers.hubspot.com/docs/api/crm/engagements
+// API docs: https://developers.hubspot.com/docs/api-reference/legacy/crm/using-object-apis
 import type {
   JsonValue,
   ToolDefinition,

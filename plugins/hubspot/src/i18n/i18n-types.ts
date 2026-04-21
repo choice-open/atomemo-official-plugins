@@ -28,7 +28,7 @@ type RootTranslation = {
    */
   CREDENTIAL_OAUTH2_DISPLAY_NAME: string
   /**
-   * A​u​t​h​e​n​t​i​c​a​t​e​ ​w​i​t​h​ ​H​u​b​S​p​o​t​ ​u​s​i​n​g​ ​O​A​u​t​h​2​.
+   * A​u​t​h​e​n​t​i​c​a​t​e​ ​w​i​t​h​ ​H​u​b​S​p​o​t​ ​u​s​i​n​g​ ​O​A​u​t​h​2​.​ ​T​h​i​s​ ​c​r​e​d​e​n​t​i​a​l​ ​r​e​q​u​e​s​t​s​ ​t​h​e​ ​s​c​o​p​e​s​ ​n​e​e​d​e​d​ ​b​y​ ​t​h​e​ ​b​u​i​l​t​-​i​n​ ​H​u​b​S​p​o​t​ ​t​o​o​l​s​,​ ​p​l​u​s​ ​o​p​t​i​o​n​a​l​ ​s​c​o​p​e​s​ ​f​o​r​ ​s​o​c​i​a​l​ ​p​u​b​l​i​s​h​i​n​g​ ​a​n​d​ ​c​u​s​t​o​m​ ​o​b​j​e​c​t​s​ ​w​h​e​n​ ​a​v​a​i​l​a​b​l​e​.
    */
   CREDENTIAL_OAUTH2_DESCRIPTION: string
   /**
@@ -40,7 +40,7 @@ type RootTranslation = {
    */
   CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER: string
   /**
-   * T​h​e​ ​c​l​i​e​n​t​ ​I​D​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.
+   * T​h​e​ ​c​l​i​e​n​t​ ​I​D​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.​ ​K​e​e​p​ ​y​o​u​r​ ​a​p​p​'​s​ ​O​A​u​t​h​ ​s​c​o​p​e​s​ ​a​l​i​g​n​e​d​ ​w​i​t​h​ ​t​h​i​s​ ​c​r​e​d​e​n​t​i​a​l​,​ ​t​h​e​n​ ​r​e​c​o​n​n​e​c​t​ ​a​f​t​e​r​ ​c​h​a​n​g​i​n​g​ ​s​c​o​p​e​s​.
    */
   CREDENTIAL_OAUTH2_CLIENT_ID_HINT: string
   /**
@@ -48,9 +48,17 @@ type RootTranslation = {
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: string
   /**
-   * T​h​e​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.
+   * T​h​e​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.​ ​I​f​ ​y​o​u​ ​u​p​d​a​t​e​ ​s​c​o​p​e​s​ ​i​n​ ​H​u​b​S​p​o​t​,​ ​r​e​c​o​n​n​e​c​t​ ​t​h​i​s​ ​c​r​e​d​e​n​t​i​a​l​ ​s​o​ ​t​h​e​ ​n​e​w​ ​g​r​a​n​t​ ​i​s​ ​a​p​p​l​i​e​d​.
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: string
+  /**
+   * S​c​o​p​e​s
+   */
+  CREDENTIAL_OAUTH2_SCOPES_LABEL: string
+  /**
+   * L​i​s​t​s​ ​a​l​l​ ​s​c​o​p​e​s​ ​t​h​i​s​ ​c​r​e​d​e​n​t​i​a​l​ ​m​a​y​ ​r​e​q​u​e​s​t​.​ ​A​d​d​ ​t​h​e​s​e​ ​s​c​o​p​e​s​ ​i​n​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​ ​b​e​f​o​r​e​ ​c​o​n​n​e​c​t​i​n​g​;​ ​s​o​m​e​ ​s​c​o​p​e​s​ ​a​r​e​ ​o​p​t​i​o​n​a​l​ ​o​r​ ​d​e​p​e​n​d​ ​o​n​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​c​c​o​u​n​t​ ​t​i​e​r​.​ ​R​e​f​e​r​e​n​c​e​:​ ​h​t​t​p​s​:​/​/​d​e​v​e​l​o​p​e​r​s​.​h​u​b​s​p​o​t​.​c​o​m​/​d​o​c​s​/​a​p​p​s​/​l​e​g​a​c​y​-​a​p​p​s​/​p​u​b​l​i​c​-​a​p​p​s​/​o​v​e​r​v​i​e​w​#​c​o​n​f​i​g​u​r​e​-​s​c​o​p​e​s
+   */
+  CREDENTIAL_OAUTH2_SCOPES_HINT: string
   /**
    * H​u​b​S​p​o​t​ ​O​A​u​t​h​2​ ​C​r​e​d​e​n​t​i​a​l
    */
@@ -1067,7 +1075,7 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_OAUTH2_DISPLAY_NAME: () => LocalizedString
   /**
-   * Authenticate with HubSpot using OAuth2.
+   * Authenticate with HubSpot using OAuth2. This credential requests the scopes needed by the built-in HubSpot tools, plus optional scopes for social publishing and custom objects when available.
    */
   CREDENTIAL_OAUTH2_DESCRIPTION: () => LocalizedString
   /**
@@ -1079,7 +1087,7 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER: () => LocalizedString
   /**
-   * The client ID from your HubSpot app settings.
+   * The client ID from your HubSpot app settings. Keep your app's OAuth scopes aligned with this credential, then reconnect after changing scopes.
    */
   CREDENTIAL_OAUTH2_CLIENT_ID_HINT: () => LocalizedString
   /**
@@ -1087,9 +1095,17 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: () => LocalizedString
   /**
-   * The client secret from your HubSpot app settings.
+   * The client secret from your HubSpot app settings. If you update scopes in HubSpot, reconnect this credential so the new grant is applied.
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * Scopes
+   */
+  CREDENTIAL_OAUTH2_SCOPES_LABEL: () => LocalizedString
+  /**
+   * Lists all scopes this credential may request. Add these scopes in your HubSpot app settings before connecting; some scopes are optional or depend on your HubSpot account tier. Reference: https://developers.hubspot.com/docs/apps/legacy-apps/public-apps/overview#configure-scopes
+   */
+  CREDENTIAL_OAUTH2_SCOPES_HINT: () => LocalizedString
   /**
    * HubSpot OAuth2 Credential
    */

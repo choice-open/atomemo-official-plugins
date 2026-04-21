@@ -8,15 +8,19 @@ const en_US = {
 
   // ── Credentials ─────────────────────────────────────────────────
   CREDENTIAL_OAUTH2_DISPLAY_NAME: "HubSpot OAuth2",
-  CREDENTIAL_OAUTH2_DESCRIPTION: "Authenticate with HubSpot using OAuth2.",
+  CREDENTIAL_OAUTH2_DESCRIPTION:
+    "Authenticate with HubSpot using OAuth2. This credential requests the scopes needed by the built-in HubSpot tools, plus optional scopes for social publishing and custom objects when available.",
   CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: "Client ID",
   CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER:
     "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   CREDENTIAL_OAUTH2_CLIENT_ID_HINT:
-    "The client ID from your HubSpot app settings.",
+    "The client ID from your HubSpot app settings. Keep your app's OAuth scopes aligned with this credential, then reconnect after changing scopes.",
   CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: "Client Secret",
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT:
-    "The client secret from your HubSpot app settings.",
+    "The client secret from your HubSpot app settings. If you update scopes in HubSpot, reconnect this credential so the new grant is applied.",
+  CREDENTIAL_OAUTH2_SCOPES_LABEL: "Scopes (configure before OAuth2)",
+  CREDENTIAL_OAUTH2_SCOPES_HINT:
+    "Lists all scopes this credential may request. Add these scopes in your HubSpot app settings before connecting; some scopes are optional or depend on your HubSpot account tier. Reference: https://developers.hubspot.com/docs/apps/legacy-apps/public-apps/overview#configure-scopes",
 
   // ── Shared Parameters ───────────────────────────────────────────
   PARAM_OAUTH2_CREDENTIAL_LABEL: "HubSpot OAuth2 Credential",
