@@ -3,20 +3,12 @@ import type { ToolArgs } from "./types"
 
 /**
  * Create an authenticated HubSpot SDK client from tool args.
- * Checks the Private App Token credential first, then OAuth2.
+ * Uses the configured OAuth2 credential.
  */
 export function getHubSpotClient(args: ToolArgs): Client {
   const params = args.parameters
   const credentials = args.credentials ?? {}
 
-  // Try Private App Token credential
-  const tokenCredId = params.hubspot_token_credential as string | undefined
-  if (tokenCredId && credentials[tokenCredId]) {
-    const token = credentials[tokenCredId].access_token
-    if (token) return new Client({ accessToken: String(token) })
-  }
-
-  // Try OAuth2 credential
   const oauth2CredId = params.hubspot_oauth2_credential as string | undefined
   if (oauth2CredId && credentials[oauth2CredId]) {
     const token = credentials[oauth2CredId].access_token
@@ -24,7 +16,7 @@ export function getHubSpotClient(args: ToolArgs): Client {
   }
 
   throw new Error(
-    "Missing HubSpot credential. Please provide a Private App Token or OAuth2 credential.",
+    "Missing HubSpot credential. Please provide a HubSpot OAuth2 credential.",
   )
 }
 

@@ -24,26 +24,6 @@ type RootTranslation = {
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​T​o​k​e​n
-   */
-  CREDENTIAL_TOKEN_DISPLAY_NAME: string
-  /**
-   * A​u​t​h​e​n​t​i​c​a​t​e​ ​w​i​t​h​ ​a​ ​H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​a​c​c​e​s​s​ ​t​o​k​e​n​.
-   */
-  CREDENTIAL_TOKEN_DESCRIPTION: string
-  /**
-   * A​c​c​e​s​s​ ​T​o​k​e​n
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: string
-  /**
-   * T​h​e​ ​a​c​c​e​s​s​ ​t​o​k​e​n​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​s​e​t​t​i​n​g​s​.
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT: string
-  /**
-   * p​a​t​-​n​a​1​-​x​x​x​x​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​x​x​x​x​x​x​x​x
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER: string
-  /**
    * H​u​b​S​p​o​t​ ​O​A​u​t​h​2
    */
   CREDENTIAL_OAUTH2_DISPLAY_NAME: string
@@ -71,10 +51,6 @@ type RootTranslation = {
    * T​h​e​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: string
-  /**
-   * H​u​b​S​p​o​t​ ​T​o​k​e​n​ ​C​r​e​d​e​n​t​i​a​l
-   */
-  PARAM_TOKEN_CREDENTIAL_LABEL: string
   /**
    * H​u​b​S​p​o​t​ ​O​A​u​t​h​2​ ​C​r​e​d​e​n​t​i​a​l
    */
@@ -1072,7 +1048,7 @@ type RootTranslation = {
    */
   OPTION_PUBLIC_NOT_INDEXABLE: string
   /**
-   * M​i​s​s​i​n​g​ ​H​u​b​S​p​o​t​ ​c​r​e​d​e​n​t​i​a​l​.​ ​P​l​e​a​s​e​ ​p​r​o​v​i​d​e​ ​a​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​T​o​k​e​n​ ​o​r​ ​O​A​u​t​h​2​ ​c​r​e​d​e​n​t​i​a​l​.
+   * M​i​s​s​i​n​g​ ​H​u​b​S​p​o​t​ ​c​r​e​d​e​n​t​i​a​l​.​ ​P​l​e​a​s​e​ ​p​r​o​v​i​d​e​ ​a​ ​H​u​b​S​p​o​t​ ​O​A​u​t​h​2​ ​c​r​e​d​e​n​t​i​a​l​.
    */
   ERROR_MISSING_CREDENTIAL: string
 }
@@ -1086,26 +1062,6 @@ export type TranslationFunctions = {
    * Integrate with HubSpot CRM — manage contacts, companies, deals, tickets, and more.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
-  /**
-   * HubSpot Private App Token
-   */
-  CREDENTIAL_TOKEN_DISPLAY_NAME: () => LocalizedString
-  /**
-   * Authenticate with a HubSpot Private App access token.
-   */
-  CREDENTIAL_TOKEN_DESCRIPTION: () => LocalizedString
-  /**
-   * Access Token
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: () => LocalizedString
-  /**
-   * The access token from your HubSpot Private App settings.
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT: () => LocalizedString
-  /**
-   * pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-   */
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER: () => LocalizedString
   /**
    * HubSpot OAuth2
    */
@@ -1134,10 +1090,6 @@ export type TranslationFunctions = {
    * The client secret from your HubSpot app settings.
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: () => LocalizedString
-  /**
-   * HubSpot Token Credential
-   */
-  PARAM_TOKEN_CREDENTIAL_LABEL: () => LocalizedString
   /**
    * HubSpot OAuth2 Credential
    */
@@ -2135,7 +2087,7 @@ export type TranslationFunctions = {
    */
   OPTION_PUBLIC_NOT_INDEXABLE: () => LocalizedString
   /**
-   * Missing HubSpot credential. Please provide a Private App Token or OAuth2 credential.
+   * Missing HubSpot credential. Please provide a HubSpot OAuth2 credential.
    */
   ERROR_MISSING_CREDENTIAL: () => LocalizedString
 }

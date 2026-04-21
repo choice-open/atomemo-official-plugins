@@ -7,15 +7,6 @@ const en_US = {
     "Integrate with HubSpot CRM — manage contacts, companies, deals, tickets, and more.",
 
   // ── Credentials ─────────────────────────────────────────────────
-  CREDENTIAL_TOKEN_DISPLAY_NAME: "HubSpot Private App Token",
-  CREDENTIAL_TOKEN_DESCRIPTION:
-    "Authenticate with a HubSpot Private App access token.",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: "Access Token",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT:
-    "The access token from your HubSpot Private App settings.",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER:
-    "pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-
   CREDENTIAL_OAUTH2_DISPLAY_NAME: "HubSpot OAuth2",
   CREDENTIAL_OAUTH2_DESCRIPTION: "Authenticate with HubSpot using OAuth2.",
   CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: "Client ID",
@@ -28,7 +19,6 @@ const en_US = {
     "The client secret from your HubSpot app settings.",
 
   // ── Shared Parameters ───────────────────────────────────────────
-  PARAM_TOKEN_CREDENTIAL_LABEL: "HubSpot Token Credential",
   PARAM_OAUTH2_CREDENTIAL_LABEL: "HubSpot OAuth2 Credential",
   PARAM_OBJECT_TYPE_LABEL: "Object Type",
   PARAM_OBJECT_TYPE_HINT:
@@ -369,7 +359,7 @@ const en_US = {
 
   // ── Errors ────────────────────────────────────────────────────
   ERROR_MISSING_CREDENTIAL:
-    "Missing HubSpot credential. Please provide a Private App Token or OAuth2 credential.",
+    "Missing HubSpot credential. Please provide a HubSpot OAuth2 credential.",
 } satisfies BaseTranslation
 
 export default en_US

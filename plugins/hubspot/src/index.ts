@@ -1,7 +1,6 @@
 import { createPlugin } from "@choiceopen/atomemo-plugin-sdk-js"
 import packageJSON from "../package.json"
 import { hubspotOAuth2Credential } from "./credentials/hubspot-oauth2"
-import { hubspotPrivateAppTokenCredential } from "./credentials/hubspot-private-app-token"
 import { t } from "./i18n/i18n-node"
 import { locales } from "./i18n/i18n-util"
 import { loadAllLocalesAsync } from "./i18n/i18n-util.async"
@@ -90,7 +89,6 @@ const plugin = await createPlugin({
 })
 
 // ── Credentials ─────────────────────────────────────────────────────
-plugin.addCredential(hubspotPrivateAppTokenCredential)
 plugin.addCredential(hubspotOAuth2Credential)
 
 // ── CRM > Contacts ──────────────────────────────────────────────────

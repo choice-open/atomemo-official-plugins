@@ -6,13 +6,6 @@ const zh_Hans = {
   PLUGIN_DESCRIPTION: "集成 HubSpot CRM — 管理联系人、公司、交易、工单等。",
 
   // ── 凭证 ─────────────────────────────────────────────────────
-  CREDENTIAL_TOKEN_DISPLAY_NAME: "HubSpot 私有应用令牌",
-  CREDENTIAL_TOKEN_DESCRIPTION: "使用 HubSpot 私有应用访问令牌进行身份验证。",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: "访问令牌",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT: "HubSpot 私有应用设置中的访问令牌。",
-  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER:
-    "pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-
   CREDENTIAL_OAUTH2_DISPLAY_NAME: "HubSpot OAuth2",
   CREDENTIAL_OAUTH2_DESCRIPTION: "使用 OAuth2 对 HubSpot 进行身份验证。",
   CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: "客户端 ID",
@@ -23,7 +16,6 @@ const zh_Hans = {
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: "HubSpot 应用设置中的客户端密钥。",
 
   // ── 共享参数 ───────────────────────────────────────────────────
-  PARAM_TOKEN_CREDENTIAL_LABEL: "HubSpot 令牌凭证",
   PARAM_OAUTH2_CREDENTIAL_LABEL: "HubSpot OAuth2 凭证",
   PARAM_OBJECT_TYPE_LABEL: "对象类型",
   PARAM_OBJECT_TYPE_HINT:
@@ -331,8 +323,7 @@ const zh_Hans = {
   OPTION_PUBLIC_NOT_INDEXABLE: "公开（不可索引）",
 
   // ── 错误 ──────────────────────────────────────────────────
-  ERROR_MISSING_CREDENTIAL:
-    "缺少 HubSpot 凭证。请提供私有应用令牌或 OAuth2 凭证。",
+  ERROR_MISSING_CREDENTIAL: "缺少 HubSpot 凭证。请提供 HubSpot OAuth2 凭证。",
 } satisfies Translation
 
 export default zh_Hans

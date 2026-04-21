@@ -6,28 +6,16 @@ import { t } from "../../i18n/i18n-node"
 
 // ── Credential Parameters ───────────────────────────────────────────
 
-const hubspotTokenCredentialParam = {
-  name: "hubspot_token_credential",
-  type: "credential_id",
-  required: false,
-  display_name: t("PARAM_TOKEN_CREDENTIAL_LABEL"),
-  credential_name: "hubspot-private-app-token",
-  ui: { component: "credential-select" },
-} satisfies Property<"hubspot_token_credential">
-
 const hubspotOAuth2CredentialParam = {
   name: "hubspot_oauth2_credential",
   type: "credential_id",
-  required: false,
+  required: true,
   display_name: t("PARAM_OAUTH2_CREDENTIAL_LABEL"),
   credential_name: "hubspot-oauth2",
   ui: { component: "credential-select" },
 } satisfies Property<"hubspot_oauth2_credential">
 
-export const credentialParams = [
-  hubspotTokenCredentialParam,
-  hubspotOAuth2CredentialParam,
-] as const
+export const credentialParams = [hubspotOAuth2CredentialParam] as const
 
 // ── Object Type Parameter (for generic CRM tools) ──────────────────
 
