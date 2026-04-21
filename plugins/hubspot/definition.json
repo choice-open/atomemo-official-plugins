@@ -11,10 +11,7 @@
   "icon": "https://cdn.worldvectorlogo.com/logos/hubspot-1.svg",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/hubspot",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "author": "Xavier",
   "email": "zhiqiang.jiang@choiceform.com",
   "version": "0.1.0",

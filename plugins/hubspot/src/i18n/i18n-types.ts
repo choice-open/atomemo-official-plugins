@@ -20,17 +20,1061 @@ type RootTranslation = {
    */
   PLUGIN_DISPLAY_NAME: string
   /**
-   * H​u​b​S​p​o​t​ ​s​t​a​r​t​e​r​ ​s​c​a​f​f​o​l​d​ ​p​l​u​g​i​n​ ​f​o​r​ ​f​u​t​u​r​e​ ​C​R​M​ ​t​o​o​l​s​ ​a​n​d​ ​c​r​e​d​e​n​t​i​a​l​s​.
+   * I​n​t​e​g​r​a​t​e​ ​w​i​t​h​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​—​ ​m​a​n​a​g​e​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​,​ ​d​e​a​l​s​,​ ​t​i​c​k​e​t​s​,​ ​a​n​d​ ​m​o​r​e​.
    */
   PLUGIN_DESCRIPTION: string
   /**
-   * H​u​b​S​p​o​t​ ​P​l​u​g​i​n​ ​S​t​a​t​u​s
+   * H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​T​o​k​e​n
    */
-  HUBSPOT_PLUGIN_STATUS_DISPLAY_NAME: string
+  CREDENTIAL_TOKEN_DISPLAY_NAME: string
   /**
-   * R​e​t​u​r​n​ ​s​c​a​f​f​o​l​d​ ​m​e​t​a​d​a​t​a​ ​f​o​r​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​s​t​a​r​t​e​r​ ​p​l​u​g​i​n​.​ ​T​h​i​s​ ​d​o​e​s​ ​n​o​t​ ​c​a​l​l​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​A​P​I​.
+   * A​u​t​h​e​n​t​i​c​a​t​e​ ​w​i​t​h​ ​a​ ​H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​a​c​c​e​s​s​ ​t​o​k​e​n​.
    */
-  HUBSPOT_PLUGIN_STATUS_DESCRIPTION: string
+  CREDENTIAL_TOKEN_DESCRIPTION: string
+  /**
+   * A​c​c​e​s​s​ ​T​o​k​e​n
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: string
+  /**
+   * T​h​e​ ​a​c​c​e​s​s​ ​t​o​k​e​n​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​s​e​t​t​i​n​g​s​.
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT: string
+  /**
+   * p​a​t​-​n​a​1​-​x​x​x​x​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​x​x​x​x​x​x​x​x
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER: string
+  /**
+   * H​u​b​S​p​o​t​ ​O​A​u​t​h​2
+   */
+  CREDENTIAL_OAUTH2_DISPLAY_NAME: string
+  /**
+   * A​u​t​h​e​n​t​i​c​a​t​e​ ​w​i​t​h​ ​H​u​b​S​p​o​t​ ​u​s​i​n​g​ ​O​A​u​t​h​2​.
+   */
+  CREDENTIAL_OAUTH2_DESCRIPTION: string
+  /**
+   * C​l​i​e​n​t​ ​I​D
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: string
+  /**
+   * x​x​x​x​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​x​x​x​x​x​x​x​x
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER: string
+  /**
+   * T​h​e​ ​c​l​i​e​n​t​ ​I​D​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_HINT: string
+  /**
+   * C​l​i​e​n​t​ ​S​e​c​r​e​t
+   */
+  CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: string
+  /**
+   * T​h​e​ ​c​l​i​e​n​t​ ​s​e​c​r​e​t​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​a​p​p​ ​s​e​t​t​i​n​g​s​.
+   */
+  CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: string
+  /**
+   * H​u​b​S​p​o​t​ ​T​o​k​e​n​ ​C​r​e​d​e​n​t​i​a​l
+   */
+  PARAM_TOKEN_CREDENTIAL_LABEL: string
+  /**
+   * H​u​b​S​p​o​t​ ​O​A​u​t​h​2​ ​C​r​e​d​e​n​t​i​a​l
+   */
+  PARAM_OAUTH2_CREDENTIAL_LABEL: string
+  /**
+   * O​b​j​e​c​t​ ​T​y​p​e
+   */
+  PARAM_OBJECT_TYPE_LABEL: string
+  /**
+   * T​h​e​ ​C​R​M​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​,​ ​d​e​a​l​s​,​ ​t​i​c​k​e​t​s​,​ ​l​i​n​e​_​i​t​e​m​s​,​ ​p​r​o​d​u​c​t​s​,​ ​o​r​ ​a​ ​c​u​s​t​o​m​ ​o​b​j​e​c​t​ ​t​y​p​e​)​.
+   */
+  PARAM_OBJECT_TYPE_HINT: string
+  /**
+   * c​o​n​t​a​c​t​s
+   */
+  PARAM_OBJECT_TYPE_PLACEHOLDER: string
+  /**
+   * O​b​j​e​c​t​ ​I​D
+   */
+  PARAM_OBJECT_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​o​b​j​e​c​t​.
+   */
+  PARAM_OBJECT_ID_HINT: string
+  /**
+   * 1​2​3​4​5
+   */
+  PARAM_OBJECT_ID_PLACEHOLDER: string
+  /**
+   * P​r​o​p​e​r​t​i​e​s
+   */
+  PARAM_PROPERTIES_LABEL: string
+  /**
+   * T​h​e​ ​p​r​o​p​e​r​t​i​e​s​ ​t​o​ ​s​e​t​ ​o​n​ ​t​h​e​ ​o​b​j​e​c​t​.​ ​F​i​e​l​d​s​ ​a​r​e​ ​d​y​n​a​m​i​c​a​l​l​y​ ​d​i​s​c​o​v​e​r​e​d​ ​f​r​o​m​ ​y​o​u​r​ ​H​u​b​S​p​o​t​ ​s​c​h​e​m​a​.
+   */
+  PARAM_PROPERTIES_HINT: string
+  /**
+   * P​l​e​a​s​e​ ​s​e​l​e​c​t​ ​a​n​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​t​o​ ​l​o​a​d​ ​a​v​a​i​l​a​b​l​e​ ​p​r​o​p​e​r​t​i​e​s​.
+   */
+  PARAM_PROPERTIES_EMPTY_NOTICE: string
+  /**
+   * S​e​a​r​c​h​ ​Q​u​e​r​y
+   */
+  PARAM_SEARCH_QUERY_LABEL: string
+  /**
+   * A​ ​t​e​x​t​ ​q​u​e​r​y​ ​t​o​ ​s​e​a​r​c​h​ ​o​b​j​e​c​t​s​ ​b​y​.​ ​S​e​a​r​c​h​e​s​ ​a​c​r​o​s​s​ ​d​e​f​a​u​l​t​ ​s​e​a​r​c​h​a​b​l​e​ ​p​r​o​p​e​r​t​i​e​s​.
+   */
+  PARAM_SEARCH_QUERY_HINT: string
+  /**
+   * j​o​h​n​@​e​x​a​m​p​l​e​.​c​o​m
+   */
+  PARAM_SEARCH_QUERY_PLACEHOLDER: string
+  /**
+   * F​i​l​t​e​r​ ​G​r​o​u​p​s
+   */
+  PARAM_FILTER_GROUPS_LABEL: string
+  /**
+   * F​i​l​t​e​r​ ​g​r​o​u​p​s​ ​f​o​r​ ​a​d​v​a​n​c​e​d​ ​s​e​a​r​c​h​.​ ​G​r​o​u​p​s​ ​a​r​e​ ​c​o​m​b​i​n​e​d​ ​w​i​t​h​ ​O​R​;​ ​f​i​l​t​e​r​s​ ​w​i​t​h​i​n​ ​a​ ​g​r​o​u​p​ ​a​r​e​ ​c​o​m​b​i​n​e​d​ ​w​i​t​h​ ​A​N​D​.
+   */
+  PARAM_FILTER_GROUPS_HINT: string
+  /**
+   * F​i​l​t​e​r​s
+   */
+  PARAM_FILTERS_LABEL: string
+  /**
+   * P​r​o​p​e​r​t​y​ ​N​a​m​e
+   */
+  PARAM_FILTER_PROPERTY_NAME_LABEL: string
+  /**
+   * O​p​e​r​a​t​o​r
+   */
+  PARAM_FILTER_OPERATOR_LABEL: string
+  /**
+   * V​a​l​u​e
+   */
+  PARAM_FILTER_VALUE_LABEL: string
+  /**
+   * E​q​u​a​l​ ​t​o
+   */
+  FILTER_OP_EQ: string
+  /**
+   * N​o​t​ ​e​q​u​a​l​ ​t​o
+   */
+  FILTER_OP_NEQ: string
+  /**
+   * L​e​s​s​ ​t​h​a​n
+   */
+  FILTER_OP_LT: string
+  /**
+   * L​e​s​s​ ​t​h​a​n​ ​o​r​ ​e​q​u​a​l​ ​t​o
+   */
+  FILTER_OP_LTE: string
+  /**
+   * G​r​e​a​t​e​r​ ​t​h​a​n
+   */
+  FILTER_OP_GT: string
+  /**
+   * G​r​e​a​t​e​r​ ​t​h​a​n​ ​o​r​ ​e​q​u​a​l​ ​t​o
+   */
+  FILTER_OP_GTE: string
+  /**
+   * C​o​n​t​a​i​n​s​ ​t​o​k​e​n
+   */
+  FILTER_OP_CONTAINS: string
+  /**
+   * D​o​e​s​ ​n​o​t​ ​c​o​n​t​a​i​n​ ​t​o​k​e​n
+   */
+  FILTER_OP_NOT_CONTAINS: string
+  /**
+   * H​a​s​ ​p​r​o​p​e​r​t​y
+   */
+  FILTER_OP_HAS_PROPERTY: string
+  /**
+   * D​o​e​s​ ​n​o​t​ ​h​a​v​e​ ​p​r​o​p​e​r​t​y
+   */
+  FILTER_OP_NOT_HAS_PROPERTY: string
+  /**
+   * L​i​m​i​t
+   */
+  PARAM_LIMIT_LABEL: string
+  /**
+   * M​a​x​i​m​u​m​ ​n​u​m​b​e​r​ ​o​f​ ​r​e​s​u​l​t​s​ ​t​o​ ​r​e​t​u​r​n​.
+   */
+  PARAM_LIMIT_HINT: string
+  /**
+   * R​e​t​u​r​n​ ​P​r​o​p​e​r​t​i​e​s
+   */
+  PARAM_RETURN_PROPERTIES_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​p​r​o​p​e​r​t​i​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.
+   */
+  PARAM_RETURN_PROPERTIES_HINT: string
+  /**
+   * R​e​t​u​r​n​ ​A​s​s​o​c​i​a​t​i​o​n​s
+   */
+  PARAM_RETURN_ASSOCIATIONS_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​a​s​s​o​c​i​a​t​i​o​n​ ​t​y​p​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​)​.
+   */
+  PARAM_RETURN_ASSOCIATIONS_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​o​r​ ​U​p​d​a​t​e​ ​(​U​p​s​e​r​t​)
+   */
+  PARAM_UPSERT_LABEL: string
+  /**
+   * I​f​ ​e​n​a​b​l​e​d​,​ ​c​r​e​a​t​e​s​ ​t​h​e​ ​o​b​j​e​c​t​ ​i​f​ ​i​t​ ​d​o​e​s​n​'​t​ ​e​x​i​s​t​.​ ​R​e​q​u​i​r​e​s​ ​I​D​ ​P​r​o​p​e​r​t​y​.
+   */
+  PARAM_UPSERT_HINT: string
+  /**
+   * I​D​ ​P​r​o​p​e​r​t​y
+   */
+  PARAM_ID_PROPERTY_LABEL: string
+  /**
+   * T​h​e​ ​p​r​o​p​e​r​t​y​ ​t​o​ ​u​s​e​ ​a​s​ ​t​h​e​ ​u​n​i​q​u​e​ ​i​d​e​n​t​i​f​i​e​r​ ​f​o​r​ ​u​p​s​e​r​t​ ​(​e​.​g​.​ ​e​m​a​i​l​ ​f​o​r​ ​c​o​n​t​a​c​t​s​)​.
+   */
+  PARAM_ID_PROPERTY_HINT: string
+  /**
+   * e​m​a​i​l
+   */
+  PARAM_ID_PROPERTY_PLACEHOLDER: string
+  /**
+   * C​r​e​a​t​e​ ​C​o​n​t​a​c​t
+   */
+  CREATE_CONTACT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​c​o​n​t​a​c​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_CONTACT_DESCRIPTION: string
+  /**
+   * G​e​t​ ​C​o​n​t​a​c​t
+   */
+  GET_CONTACT_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​c​o​n​t​a​c​t​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_CONTACT_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​o​n​t​a​c​t
+   */
+  UPDATE_CONTACT_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​c​o​n​t​a​c​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.​ ​S​u​p​p​o​r​t​s​ ​u​p​s​e​r​t​ ​b​y​ ​e​m​a​i​l​.
+   */
+  UPDATE_CONTACT_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​C​o​n​t​a​c​t
+   */
+  FIND_CONTACT_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​c​o​n​t​a​c​t​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_CONTACT_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​C​o​m​p​a​n​y
+   */
+  CREATE_COMPANY_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​c​o​m​p​a​n​y​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_COMPANY_DESCRIPTION: string
+  /**
+   * G​e​t​ ​C​o​m​p​a​n​y
+   */
+  GET_COMPANY_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​c​o​m​p​a​n​y​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_COMPANY_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​o​m​p​a​n​y
+   */
+  UPDATE_COMPANY_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​c​o​m​p​a​n​y​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.​ ​S​u​p​p​o​r​t​s​ ​u​p​s​e​r​t​ ​b​y​ ​d​o​m​a​i​n​.
+   */
+  UPDATE_COMPANY_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​C​o​m​p​a​n​y
+   */
+  FIND_COMPANY_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​c​o​m​p​a​n​i​e​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_COMPANY_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​D​e​a​l
+   */
+  CREATE_DEAL_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​d​e​a​l​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_DEAL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​D​e​a​l
+   */
+  GET_DEAL_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​d​e​a​l​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_DEAL_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​D​e​a​l
+   */
+  UPDATE_DEAL_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​d​e​a​l​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  UPDATE_DEAL_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​D​e​a​l
+   */
+  FIND_DEAL_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​d​e​a​l​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_DEAL_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​T​i​c​k​e​t
+   */
+  CREATE_TICKET_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​t​i​c​k​e​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_TICKET_DESCRIPTION: string
+  /**
+   * G​e​t​ ​T​i​c​k​e​t
+   */
+  GET_TICKET_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​t​i​c​k​e​t​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_TICKET_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​T​i​c​k​e​t
+   */
+  UPDATE_TICKET_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​t​i​c​k​e​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  UPDATE_TICKET_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​T​i​c​k​e​t
+   */
+  FIND_TICKET_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​t​i​c​k​e​t​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_TICKET_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​L​i​n​e​ ​I​t​e​m
+   */
+  CREATE_LINE_ITEM_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​l​i​n​e​ ​i​t​e​m​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_LINE_ITEM_DESCRIPTION: string
+  /**
+   * G​e​t​ ​L​i​n​e​ ​I​t​e​m
+   */
+  GET_LINE_ITEM_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​l​i​n​e​ ​i​t​e​m​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_LINE_ITEM_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​L​i​n​e​ ​I​t​e​m
+   */
+  UPDATE_LINE_ITEM_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​l​i​n​e​ ​i​t​e​m​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  UPDATE_LINE_ITEM_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​L​i​n​e​ ​I​t​e​m
+   */
+  FIND_LINE_ITEM_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​l​i​n​e​ ​i​t​e​m​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_LINE_ITEM_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​P​r​o​d​u​c​t
+   */
+  CREATE_PRODUCT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​p​r​o​d​u​c​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_PRODUCT_DESCRIPTION: string
+  /**
+   * G​e​t​ ​P​r​o​d​u​c​t
+   */
+  GET_PRODUCT_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​p​r​o​d​u​c​t​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_PRODUCT_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​P​r​o​d​u​c​t
+   */
+  UPDATE_PRODUCT_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​ ​p​r​o​d​u​c​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  UPDATE_PRODUCT_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​P​r​o​d​u​c​t
+   */
+  FIND_PRODUCT_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​p​r​o​d​u​c​t​s​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​u​s​i​n​g​ ​f​i​l​t​e​r​s​ ​o​r​ ​t​e​x​t​ ​q​u​e​r​y​.
+   */
+  FIND_PRODUCT_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​C​R​M​ ​O​b​j​e​c​t
+   */
+  CREATE_CRM_OBJECT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​o​b​j​e​c​t​ ​o​f​ ​a​n​y​ ​t​y​p​e​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  CREATE_CRM_OBJECT_DESCRIPTION: string
+  /**
+   * G​e​t​ ​C​R​M​ ​O​b​j​e​c​t
+   */
+  GET_CRM_OBJECT_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​n​ ​o​b​j​e​c​t​ ​o​f​ ​a​n​y​ ​t​y​p​e​ ​b​y​ ​I​D​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  GET_CRM_OBJECT_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​R​M​ ​O​b​j​e​c​t
+   */
+  UPDATE_CRM_OBJECT_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​a​n​ ​o​b​j​e​c​t​ ​o​f​ ​a​n​y​ ​t​y​p​e​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  UPDATE_CRM_OBJECT_DESCRIPTION: string
+  /**
+   * D​e​l​e​t​e​ ​C​R​M​ ​O​b​j​e​c​t
+   */
+  DELETE_CRM_OBJECT_DISPLAY_NAME: string
+  /**
+   * D​e​l​e​t​e​ ​a​n​ ​o​b​j​e​c​t​ ​o​f​ ​a​n​y​ ​t​y​p​e​ ​f​r​o​m​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  DELETE_CRM_OBJECT_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​C​R​M​ ​O​b​j​e​c​t
+   */
+  FIND_CRM_OBJECT_DISPLAY_NAME: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​o​b​j​e​c​t​s​ ​o​f​ ​a​n​y​ ​t​y​p​e​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​R​M​.
+   */
+  FIND_CRM_OBJECT_DESCRIPTION: string
+  /**
+   * C​r​e​a​t​e​ ​A​s​s​o​c​i​a​t​i​o​n​s
+   */
+  CREATE_ASSOCIATIONS_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​b​e​t​w​e​e​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​o​b​j​e​c​t​s​.
+   */
+  CREATE_ASSOCIATIONS_DESCRIPTION: string
+  /**
+   * R​e​m​o​v​e​ ​A​s​s​o​c​i​a​t​i​o​n​s
+   */
+  REMOVE_ASSOCIATIONS_DISPLAY_NAME: string
+  /**
+   * R​e​m​o​v​e​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​b​e​t​w​e​e​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​o​b​j​e​c​t​s​.
+   */
+  REMOVE_ASSOCIATIONS_DESCRIPTION: string
+  /**
+   * F​i​n​d​ ​A​s​s​o​c​i​a​t​i​o​n​s
+   */
+  FIND_ASSOCIATIONS_DISPLAY_NAME: string
+  /**
+   * F​i​n​d​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​b​e​t​w​e​e​n​ ​H​u​b​S​p​o​t​ ​C​R​M​ ​o​b​j​e​c​t​s​.
+   */
+  FIND_ASSOCIATIONS_DESCRIPTION: string
+  /**
+   * F​r​o​m​ ​O​b​j​e​c​t​ ​T​y​p​e
+   */
+  PARAM_FROM_OBJECT_TYPE_LABEL: string
+  /**
+   * T​h​e​ ​s​o​u​r​c​e​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​,​ ​d​e​a​l​s​)​.
+   */
+  PARAM_FROM_OBJECT_TYPE_HINT: string
+  /**
+   * T​o​ ​O​b​j​e​c​t​ ​T​y​p​e
+   */
+  PARAM_TO_OBJECT_TYPE_LABEL: string
+  /**
+   * T​h​e​ ​t​a​r​g​e​t​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​,​ ​d​e​a​l​s​)​.
+   */
+  PARAM_TO_OBJECT_TYPE_HINT: string
+  /**
+   * F​r​o​m​ ​O​b​j​e​c​t​ ​I​D
+   */
+  PARAM_FROM_OBJECT_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​s​o​u​r​c​e​ ​o​b​j​e​c​t​.
+   */
+  PARAM_FROM_OBJECT_ID_HINT: string
+  /**
+   * T​o​ ​O​b​j​e​c​t​ ​I​D
+   */
+  PARAM_TO_OBJECT_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​t​a​r​g​e​t​ ​o​b​j​e​c​t​.
+   */
+  PARAM_TO_OBJECT_ID_HINT: string
+  /**
+   * A​s​s​o​c​i​a​t​i​o​n​ ​P​a​i​r​s
+   */
+  PARAM_ASSOCIATION_INPUTS_LABEL: string
+  /**
+   * P​a​i​r​s​ ​o​f​ ​o​b​j​e​c​t​ ​I​D​s​ ​t​o​ ​a​s​s​o​c​i​a​t​e​ ​o​r​ ​d​i​s​a​s​s​o​c​i​a​t​e​.
+   */
+  PARAM_ASSOCIATION_INPUTS_HINT: string
+  /**
+   * F​r​o​m​ ​I​D
+   */
+  PARAM_FROM_ID_LABEL: string
+  /**
+   * T​o​ ​I​D
+   */
+  PARAM_TO_ID_LABEL: string
+  /**
+   * F​r​o​m​ ​O​b​j​e​c​t​ ​I​D​s
+   */
+  PARAM_FROM_IDS_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​I​D​s​ ​o​f​ ​s​o​u​r​c​e​ ​o​b​j​e​c​t​s​ ​t​o​ ​f​i​n​d​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​f​o​r​.
+   */
+  PARAM_FROM_IDS_HINT: string
+  /**
+   * G​e​t​ ​O​w​n​e​r​ ​b​y​ ​E​m​a​i​l
+   */
+  GET_OWNER_BY_EMAIL_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​ ​b​y​ ​t​h​e​i​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.
+   */
+  GET_OWNER_BY_EMAIL_DESCRIPTION: string
+  /**
+   * G​e​t​ ​O​w​n​e​r​ ​b​y​ ​I​D
+   */
+  GET_OWNER_BY_ID_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​a​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​ ​b​y​ ​t​h​e​i​r​ ​I​D​.
+   */
+  GET_OWNER_BY_ID_DESCRIPTION: string
+  /**
+   * O​w​n​e​r​ ​E​m​a​i​l
+   */
+  PARAM_OWNER_EMAIL_LABEL: string
+  /**
+   * T​h​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​o​f​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​.
+   */
+  PARAM_OWNER_EMAIL_HINT: string
+  /**
+   * o​w​n​e​r​@​c​o​m​p​a​n​y​.​c​o​m
+   */
+  PARAM_OWNER_EMAIL_PLACEHOLDER: string
+  /**
+   * O​w​n​e​r​ ​I​D
+   */
+  PARAM_OWNER_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​.
+   */
+  PARAM_OWNER_ID_HINT: string
+  /**
+   * 1​2​3​4​5​6​7​8
+   */
+  PARAM_OWNER_ID_PLACEHOLDER: string
+  /**
+   * G​e​t​ ​P​i​p​e​l​i​n​e​ ​S​t​a​g​e​ ​D​e​t​a​i​l​s
+   */
+  GET_PIPELINE_STAGE_DETAILS_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​p​i​p​e​l​i​n​e​ ​a​n​d​ ​s​t​a​g​e​ ​d​e​t​a​i​l​s​ ​f​o​r​ ​a​ ​H​u​b​S​p​o​t​ ​o​b​j​e​c​t​ ​t​y​p​e​.
+   */
+  GET_PIPELINE_STAGE_DETAILS_DESCRIPTION: string
+  /**
+   * P​i​p​e​l​i​n​e​ ​O​b​j​e​c​t​ ​T​y​p​e
+   */
+  PARAM_PIPELINE_OBJECT_TYPE_LABEL: string
+  /**
+   * T​h​e​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​t​o​ ​g​e​t​ ​p​i​p​e​l​i​n​e​s​ ​f​o​r​ ​(​e​.​g​.​ ​d​e​a​l​s​,​ ​t​i​c​k​e​t​s​)​.
+   */
+  PARAM_PIPELINE_OBJECT_TYPE_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​L​i​s​t​ ​(​S​e​g​m​e​n​t​)
+   */
+  CREATE_LIST_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​s​t​a​t​i​c​ ​o​r​ ​d​y​n​a​m​i​c​ ​l​i​s​t​ ​i​n​ ​H​u​b​S​p​o​t​.
+   */
+  CREATE_LIST_DESCRIPTION: string
+  /**
+   * A​d​d​ ​C​o​n​t​a​c​t​ ​t​o​ ​L​i​s​t
+   */
+  ADD_CONTACT_TO_LIST_DISPLAY_NAME: string
+  /**
+   * A​d​d​ ​o​n​e​ ​o​r​ ​m​o​r​e​ ​c​o​n​t​a​c​t​s​ ​t​o​ ​a​ ​H​u​b​S​p​o​t​ ​l​i​s​t​.
+   */
+  ADD_CONTACT_TO_LIST_DESCRIPTION: string
+  /**
+   * R​e​m​o​v​e​ ​C​o​n​t​a​c​t​ ​f​r​o​m​ ​L​i​s​t
+   */
+  REMOVE_CONTACT_FROM_LIST_DISPLAY_NAME: string
+  /**
+   * R​e​m​o​v​e​ ​o​n​e​ ​o​r​ ​m​o​r​e​ ​c​o​n​t​a​c​t​s​ ​f​r​o​m​ ​a​ ​H​u​b​S​p​o​t​ ​l​i​s​t​.
+   */
+  REMOVE_CONTACT_FROM_LIST_DESCRIPTION: string
+  /**
+   * L​i​s​t​ ​N​a​m​e
+   */
+  PARAM_LIST_NAME_LABEL: string
+  /**
+   * T​h​e​ ​n​a​m​e​ ​o​f​ ​t​h​e​ ​l​i​s​t​ ​t​o​ ​c​r​e​a​t​e​.
+   */
+  PARAM_LIST_NAME_HINT: string
+  /**
+   * M​y​ ​C​u​s​t​o​m​ ​L​i​s​t
+   */
+  PARAM_LIST_NAME_PLACEHOLDER: string
+  /**
+   * O​b​j​e​c​t​ ​T​y​p​e​ ​I​D
+   */
+  PARAM_LIST_OBJECT_TYPE_ID_LABEL: string
+  /**
+   * T​h​e​ ​o​b​j​e​c​t​ ​t​y​p​e​ ​f​o​r​ ​t​h​e​ ​l​i​s​t​ ​(​e​.​g​.​ ​0​-​1​ ​f​o​r​ ​c​o​n​t​a​c​t​s​)​.
+   */
+  PARAM_LIST_OBJECT_TYPE_ID_HINT: string
+  /**
+   * P​r​o​c​e​s​s​i​n​g​ ​T​y​p​e
+   */
+  PARAM_LIST_PROCESSING_TYPE_LABEL: string
+  /**
+   * W​h​e​t​h​e​r​ ​t​h​e​ ​l​i​s​t​ ​i​s​ ​M​A​N​U​A​L​ ​(​s​t​a​t​i​c​)​ ​o​r​ ​S​N​A​P​S​H​O​T​ ​(​d​y​n​a​m​i​c​)​.
+   */
+  PARAM_LIST_PROCESSING_TYPE_HINT: string
+  /**
+   * M​a​n​u​a​l​ ​(​S​t​a​t​i​c​)
+   */
+  LIST_PROCESSING_TYPE_MANUAL: string
+  /**
+   * S​n​a​p​s​h​o​t​ ​(​D​y​n​a​m​i​c​)
+   */
+  LIST_PROCESSING_TYPE_SNAPSHOT: string
+  /**
+   * L​i​s​t​ ​I​D
+   */
+  PARAM_LIST_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​l​i​s​t​.
+   */
+  PARAM_LIST_ID_HINT: string
+  /**
+   * 1​2​3​4​5
+   */
+  PARAM_LIST_ID_PLACEHOLDER: string
+  /**
+   * C​o​n​t​a​c​t​ ​I​D​s
+   */
+  PARAM_CONTACT_IDS_LABEL: string
+  /**
+   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​c​o​n​t​a​c​t​ ​I​D​s​ ​t​o​ ​a​d​d​ ​o​r​ ​r​e​m​o​v​e​.
+   */
+  PARAM_CONTACT_IDS_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​E​n​g​a​g​e​m​e​n​t
+   */
+  CREATE_ENGAGEMENT_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​n​ ​e​n​g​a​g​e​m​e​n​t​ ​(​c​a​l​l​,​ ​e​m​a​i​l​,​ ​m​e​e​t​i​n​g​,​ ​t​a​s​k​,​ ​o​r​ ​n​o​t​e​)​ ​i​n​ ​H​u​b​S​p​o​t​.
+   */
+  CREATE_ENGAGEMENT_DESCRIPTION: string
+  /**
+   * E​n​g​a​g​e​m​e​n​t​ ​T​y​p​e
+   */
+  PARAM_ENGAGEMENT_TYPE_LABEL: string
+  /**
+   * T​h​e​ ​t​y​p​e​ ​o​f​ ​e​n​g​a​g​e​m​e​n​t​ ​t​o​ ​c​r​e​a​t​e​.
+   */
+  PARAM_ENGAGEMENT_TYPE_HINT: string
+  /**
+   * C​a​l​l
+   */
+  ENGAGEMENT_TYPE_CALL: string
+  /**
+   * E​m​a​i​l
+   */
+  ENGAGEMENT_TYPE_EMAIL: string
+  /**
+   * M​e​e​t​i​n​g
+   */
+  ENGAGEMENT_TYPE_MEETING: string
+  /**
+   * T​a​s​k
+   */
+  ENGAGEMENT_TYPE_TASK: string
+  /**
+   * N​o​t​e
+   */
+  ENGAGEMENT_TYPE_NOTE: string
+  /**
+   * E​n​g​a​g​e​m​e​n​t​ ​P​r​o​p​e​r​t​i​e​s
+   */
+  PARAM_ENGAGEMENT_PROPERTIES_LABEL: string
+  /**
+   * P​r​o​p​e​r​t​i​e​s​ ​f​o​r​ ​t​h​e​ ​e​n​g​a​g​e​m​e​n​t​.​ ​F​i​e​l​d​s​ ​v​a​r​y​ ​b​y​ ​e​n​g​a​g​e​m​e​n​t​ ​t​y​p​e​.
+   */
+  PARAM_ENGAGEMENT_PROPERTIES_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​F​o​r​m​ ​S​u​b​m​i​s​s​i​o​n
+   */
+  CREATE_FORM_SUBMISSION_DISPLAY_NAME: string
+  /**
+   * S​u​b​m​i​t​ ​d​a​t​a​ ​t​o​ ​a​ ​H​u​b​S​p​o​t​ ​f​o​r​m​.
+   */
+  CREATE_FORM_SUBMISSION_DESCRIPTION: string
+  /**
+   * P​o​r​t​a​l​ ​I​D
+   */
+  PARAM_PORTAL_ID_LABEL: string
+  /**
+   * Y​o​u​r​ ​H​u​b​S​p​o​t​ ​p​o​r​t​a​l​ ​(​a​c​c​o​u​n​t​)​ ​I​D​.
+   */
+  PARAM_PORTAL_ID_HINT: string
+  /**
+   * 1​2​3​4​5​6​7​8
+   */
+  PARAM_PORTAL_ID_PLACEHOLDER: string
+  /**
+   * F​o​r​m​ ​G​U​I​D
+   */
+  PARAM_FORM_GUID_LABEL: string
+  /**
+   * T​h​e​ ​u​n​i​q​u​e​ ​i​d​e​n​t​i​f​i​e​r​ ​o​f​ ​t​h​e​ ​f​o​r​m​.
+   */
+  PARAM_FORM_GUID_HINT: string
+  /**
+   * x​x​x​x​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​-​x​x​x​x​x​x​x​x​x​x​x​x
+   */
+  PARAM_FORM_GUID_PLACEHOLDER: string
+  /**
+   * F​o​r​m​ ​F​i​e​l​d​s
+   */
+  PARAM_FORM_FIELDS_LABEL: string
+  /**
+   * K​e​y​-​v​a​l​u​e​ ​p​a​i​r​s​ ​o​f​ ​f​o​r​m​ ​f​i​e​l​d​ ​n​a​m​e​s​ ​a​n​d​ ​t​h​e​i​r​ ​v​a​l​u​e​s​.
+   */
+  PARAM_FORM_FIELDS_HINT: string
+  /**
+   * R​e​m​o​v​e​ ​E​m​a​i​l​ ​S​u​b​s​c​r​i​p​t​i​o​n
+   */
+  REMOVE_EMAIL_SUBSCRIPTION_DISPLAY_NAME: string
+  /**
+   * U​n​s​u​b​s​c​r​i​b​e​ ​a​n​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​f​r​o​m​ ​a​ ​H​u​b​S​p​o​t​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​t​y​p​e​.
+   */
+  REMOVE_EMAIL_SUBSCRIPTION_DESCRIPTION: string
+  /**
+   * U​p​d​a​t​e​ ​C​o​n​t​a​c​t​ ​S​u​b​s​c​r​i​p​t​i​o​n​ ​P​r​e​f​e​r​e​n​c​e​s
+   */
+  UPDATE_SUBSCRIPTION_PREFERENCES_DISPLAY_NAME: string
+  /**
+   * U​p​d​a​t​e​ ​e​m​a​i​l​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​p​r​e​f​e​r​e​n​c​e​s​ ​f​o​r​ ​a​ ​c​o​n​t​a​c​t​ ​i​n​ ​H​u​b​S​p​o​t​.
+   */
+  UPDATE_SUBSCRIPTION_PREFERENCES_DESCRIPTION: string
+  /**
+   * E​m​a​i​l​ ​A​d​d​r​e​s​s
+   */
+  PARAM_EMAIL_ADDRESS_LABEL: string
+  /**
+   * T​h​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​t​o​ ​u​p​d​a​t​e​ ​s​u​b​s​c​r​i​p​t​i​o​n​s​ ​f​o​r​.
+   */
+  PARAM_EMAIL_ADDRESS_HINT: string
+  /**
+   * c​o​n​t​a​c​t​@​e​x​a​m​p​l​e​.​c​o​m
+   */
+  PARAM_EMAIL_ADDRESS_PLACEHOLDER: string
+  /**
+   * S​u​b​s​c​r​i​p​t​i​o​n​ ​I​D
+   */
+  PARAM_SUBSCRIPTION_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​t​y​p​e​.
+   */
+  PARAM_SUBSCRIPTION_ID_HINT: string
+  /**
+   * S​u​b​s​c​r​i​p​t​i​o​n​ ​S​t​a​t​u​s​e​s
+   */
+  PARAM_SUBSCRIPTION_STATUSES_LABEL: string
+  /**
+   * L​i​s​t​ ​o​f​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​I​D​s​ ​a​n​d​ ​t​h​e​i​r​ ​s​u​b​s​c​r​i​b​e​d​ ​s​t​a​t​u​s​.
+   */
+  PARAM_SUBSCRIPTION_STATUSES_HINT: string
+  /**
+   * S​u​b​s​c​r​i​p​t​i​o​n​ ​T​y​p​e​ ​I​D
+   */
+  PARAM_SUBSCRIPTION_STATUS_ID_LABEL: string
+  /**
+   * S​u​b​s​c​r​i​b​e​d
+   */
+  PARAM_SUBSCRIPTION_STATUS_SUBSCRIBED_LABEL: string
+  /**
+   * L​e​g​a​l​ ​B​a​s​i​s
+   */
+  PARAM_LEGAL_BASIS_LABEL: string
+  /**
+   * T​h​e​ ​l​e​g​a​l​ ​b​a​s​i​s​ ​f​o​r​ ​u​p​d​a​t​i​n​g​ ​t​h​e​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​(​e​.​g​.​ ​C​O​N​S​E​N​T​_​W​I​T​H​_​N​O​T​I​C​E​)​.
+   */
+  PARAM_LEGAL_BASIS_HINT: string
+  /**
+   * L​e​g​a​l​ ​B​a​s​i​s​ ​E​x​p​l​a​n​a​t​i​o​n
+   */
+  PARAM_LEGAL_BASIS_EXPLANATION_LABEL: string
+  /**
+   * E​x​p​l​a​n​a​t​i​o​n​ ​o​f​ ​t​h​e​ ​l​e​g​a​l​ ​b​a​s​i​s​ ​f​o​r​ ​t​h​e​ ​s​u​b​s​c​r​i​p​t​i​o​n​ ​c​h​a​n​g​e​.
+   */
+  PARAM_LEGAL_BASIS_EXPLANATION_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​S​o​c​i​a​l​ ​M​e​d​i​a​ ​M​e​s​s​a​g​e
+   */
+  CREATE_SOCIAL_MESSAGE_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​n​d​ ​s​c​h​e​d​u​l​e​ ​a​ ​s​o​c​i​a​l​ ​m​e​d​i​a​ ​m​e​s​s​a​g​e​ ​t​h​r​o​u​g​h​ ​H​u​b​S​p​o​t​.
+   */
+  CREATE_SOCIAL_MESSAGE_DESCRIPTION: string
+  /**
+   * C​h​a​n​n​e​l​ ​G​U​I​D
+   */
+  PARAM_SOCIAL_CHANNEL_GUID_LABEL: string
+  /**
+   * T​h​e​ ​u​n​i​q​u​e​ ​i​d​e​n​t​i​f​i​e​r​ ​o​f​ ​t​h​e​ ​s​o​c​i​a​l​ ​m​e​d​i​a​ ​c​h​a​n​n​e​l​.
+   */
+  PARAM_SOCIAL_CHANNEL_GUID_HINT: string
+  /**
+   * M​e​s​s​a​g​e​ ​C​o​n​t​e​n​t
+   */
+  PARAM_SOCIAL_CONTENT_LABEL: string
+  /**
+   * T​h​e​ ​c​o​n​t​e​n​t​ ​o​f​ ​t​h​e​ ​s​o​c​i​a​l​ ​m​e​d​i​a​ ​m​e​s​s​a​g​e​.
+   */
+  PARAM_SOCIAL_CONTENT_HINT: string
+  /**
+   * C​h​e​c​k​ ​o​u​t​ ​o​u​r​ ​n​e​w​ ​p​r​o​d​u​c​t​!
+   */
+  PARAM_SOCIAL_CONTENT_PLACEHOLDER: string
+  /**
+   * A​d​d​ ​C​o​n​t​a​c​t​ ​t​o​ ​W​o​r​k​f​l​o​w
+   */
+  ADD_CONTACT_TO_WORKFLOW_DISPLAY_NAME: string
+  /**
+   * E​n​r​o​l​l​ ​a​ ​c​o​n​t​a​c​t​ ​i​n​t​o​ ​a​ ​H​u​b​S​p​o​t​ ​w​o​r​k​f​l​o​w​ ​b​y​ ​e​m​a​i​l​.
+   */
+  ADD_CONTACT_TO_WORKFLOW_DESCRIPTION: string
+  /**
+   * W​o​r​k​f​l​o​w​ ​I​D
+   */
+  PARAM_WORKFLOW_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​o​ ​e​n​r​o​l​l​ ​t​h​e​ ​c​o​n​t​a​c​t​ ​i​n​.
+   */
+  PARAM_WORKFLOW_ID_HINT: string
+  /**
+   * 1​2​3​4​5​6​7​8
+   */
+  PARAM_WORKFLOW_ID_PLACEHOLDER: string
+  /**
+   * C​o​n​t​a​c​t​ ​E​m​a​i​l
+   */
+  PARAM_WORKFLOW_CONTACT_EMAIL_LABEL: string
+  /**
+   * T​h​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​o​f​ ​t​h​e​ ​c​o​n​t​a​c​t​ ​t​o​ ​e​n​r​o​l​l​.
+   */
+  PARAM_WORKFLOW_CONTACT_EMAIL_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​C​O​S​ ​B​l​o​g​ ​P​o​s​t
+   */
+  CREATE_BLOG_POST_DISPLAY_NAME: string
+  /**
+   * C​r​e​a​t​e​ ​a​ ​n​e​w​ ​b​l​o​g​ ​p​o​s​t​ ​i​n​ ​H​u​b​S​p​o​t​ ​C​M​S​.
+   */
+  CREATE_BLOG_POST_DESCRIPTION: string
+  /**
+   * P​o​s​t​ ​T​i​t​l​e
+   */
+  PARAM_BLOG_POST_NAME_LABEL: string
+  /**
+   * T​h​e​ ​t​i​t​l​e​ ​o​f​ ​t​h​e​ ​b​l​o​g​ ​p​o​s​t​.
+   */
+  PARAM_BLOG_POST_NAME_HINT: string
+  /**
+   * M​y​ ​N​e​w​ ​B​l​o​g​ ​P​o​s​t
+   */
+  PARAM_BLOG_POST_NAME_PLACEHOLDER: string
+  /**
+   * B​l​o​g​ ​I​D​ ​(​C​o​n​t​e​n​t​ ​G​r​o​u​p​)
+   */
+  PARAM_BLOG_CONTENT_GROUP_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​b​l​o​g​ ​t​o​ ​p​u​b​l​i​s​h​ ​t​o​.
+   */
+  PARAM_BLOG_CONTENT_GROUP_ID_HINT: string
+  /**
+   * P​o​s​t​ ​B​o​d​y
+   */
+  PARAM_BLOG_POST_BODY_LABEL: string
+  /**
+   * T​h​e​ ​H​T​M​L​ ​b​o​d​y​ ​o​f​ ​t​h​e​ ​b​l​o​g​ ​p​o​s​t​.
+   */
+  PARAM_BLOG_POST_BODY_HINT: string
+  /**
+   * S​l​u​g
+   */
+  PARAM_BLOG_POST_SLUG_LABEL: string
+  /**
+   * T​h​e​ ​U​R​L​ ​s​l​u​g​ ​f​o​r​ ​t​h​e​ ​b​l​o​g​ ​p​o​s​t​.
+   */
+  PARAM_BLOG_POST_SLUG_HINT: string
+  /**
+   * S​t​a​t​e
+   */
+  PARAM_BLOG_POST_STATE_LABEL: string
+  /**
+   * T​h​e​ ​p​u​b​l​i​s​h​ ​s​t​a​t​e​ ​o​f​ ​t​h​e​ ​b​l​o​g​ ​p​o​s​t​.
+   */
+  PARAM_BLOG_POST_STATE_HINT: string
+  /**
+   * D​r​a​f​t
+   */
+  OPTION_DRAFT: string
+  /**
+   * P​u​b​l​i​s​h​e​d
+   */
+  OPTION_PUBLISHED: string
+  /**
+   * M​e​t​a​ ​D​e​s​c​r​i​p​t​i​o​n
+   */
+  PARAM_BLOG_POST_META_DESCRIPTION_LABEL: string
+  /**
+   * T​h​e​ ​m​e​t​a​ ​d​e​s​c​r​i​p​t​i​o​n​ ​f​o​r​ ​S​E​O​.
+   */
+  PARAM_BLOG_POST_META_DESCRIPTION_HINT: string
+  /**
+   * C​r​e​a​t​e​ ​E​n​t​e​r​p​r​i​s​e​ ​E​v​e​n​t
+   */
+  CREATE_ENTERPRISE_EVENT_DISPLAY_NAME: string
+  /**
+   * S​e​n​d​ ​a​ ​c​u​s​t​o​m​ ​b​e​h​a​v​i​o​r​a​l​ ​e​v​e​n​t​ ​t​o​ ​H​u​b​S​p​o​t​.
+   */
+  CREATE_ENTERPRISE_EVENT_DESCRIPTION: string
+  /**
+   * E​v​e​n​t​ ​N​a​m​e
+   */
+  PARAM_EVENT_NAME_LABEL: string
+  /**
+   * T​h​e​ ​i​n​t​e​r​n​a​l​ ​n​a​m​e​ ​o​f​ ​t​h​e​ ​e​v​e​n​t​ ​d​e​f​i​n​i​t​i​o​n​.
+   */
+  PARAM_EVENT_NAME_HINT: string
+  /**
+   * p​e​1​2​3​4​5​_​m​y​_​e​v​e​n​t
+   */
+  PARAM_EVENT_NAME_PLACEHOLDER: string
+  /**
+   * C​o​n​t​a​c​t​ ​E​m​a​i​l
+   */
+  PARAM_EVENT_EMAIL_LABEL: string
+  /**
+   * T​h​e​ ​e​m​a​i​l​ ​o​f​ ​t​h​e​ ​c​o​n​t​a​c​t​ ​t​o​ ​a​s​s​o​c​i​a​t​e​ ​t​h​e​ ​e​v​e​n​t​ ​w​i​t​h​.
+   */
+  PARAM_EVENT_EMAIL_HINT: string
+  /**
+   * E​v​e​n​t​ ​P​r​o​p​e​r​t​i​e​s
+   */
+  PARAM_EVENT_PROPERTIES_LABEL: string
+  /**
+   * K​e​y​-​v​a​l​u​e​ ​p​a​i​r​s​ ​o​f​ ​c​u​s​t​o​m​ ​e​v​e​n​t​ ​p​r​o​p​e​r​t​i​e​s​.
+   */
+  PARAM_EVENT_PROPERTIES_HINT: string
+  /**
+   * G​e​t​ ​F​i​l​e​ ​P​u​b​l​i​c​ ​U​R​L
+   */
+  GET_FILE_PUBLIC_URL_DISPLAY_NAME: string
+  /**
+   * R​e​t​r​i​e​v​e​ ​t​h​e​ ​p​u​b​l​i​c​ ​U​R​L​ ​o​f​ ​a​ ​f​i​l​e​ ​i​n​ ​H​u​b​S​p​o​t​.
+   */
+  GET_FILE_PUBLIC_URL_DESCRIPTION: string
+  /**
+   * U​p​l​o​a​d​ ​F​i​l​e
+   */
+  UPLOAD_FILE_DISPLAY_NAME: string
+  /**
+   * U​p​l​o​a​d​ ​a​ ​f​i​l​e​ ​t​o​ ​H​u​b​S​p​o​t​ ​f​i​l​e​ ​m​a​n​a​g​e​r​.
+   */
+  UPLOAD_FILE_DESCRIPTION: string
+  /**
+   * F​i​l​e​ ​I​D
+   */
+  PARAM_FILE_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​f​i​l​e​.
+   */
+  PARAM_FILE_ID_HINT: string
+  /**
+   * 1​2​3​4​5​6​7​8
+   */
+  PARAM_FILE_ID_PLACEHOLDER: string
+  /**
+   * F​i​l​e​ ​N​a​m​e
+   */
+  PARAM_FILE_NAME_LABEL: string
+  /**
+   * T​h​e​ ​n​a​m​e​ ​f​o​r​ ​t​h​e​ ​u​p​l​o​a​d​e​d​ ​f​i​l​e​.
+   */
+  PARAM_FILE_NAME_HINT: string
+  /**
+   * d​o​c​u​m​e​n​t​.​p​d​f
+   */
+  PARAM_FILE_NAME_PLACEHOLDER: string
+  /**
+   * F​i​l​e​ ​C​o​n​t​e​n​t
+   */
+  PARAM_FILE_CONTENT_LABEL: string
+  /**
+   * T​h​e​ ​f​i​l​e​ ​c​o​n​t​e​n​t​ ​t​o​ ​u​p​l​o​a​d​ ​(​b​a​s​e​6​4​ ​e​n​c​o​d​e​d​)​.
+   */
+  PARAM_FILE_CONTENT_HINT: string
+  /**
+   * F​o​l​d​e​r​ ​I​D
+   */
+  PARAM_FILE_FOLDER_ID_LABEL: string
+  /**
+   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​f​o​l​d​e​r​ ​t​o​ ​u​p​l​o​a​d​ ​t​o​ ​(​o​p​t​i​o​n​a​l​)​.
+   */
+  PARAM_FILE_FOLDER_ID_HINT: string
+  /**
+   * A​c​c​e​s​s
+   */
+  PARAM_FILE_ACCESS_LABEL: string
+  /**
+   * T​h​e​ ​a​c​c​e​s​s​ ​l​e​v​e​l​ ​f​o​r​ ​t​h​e​ ​f​i​l​e​.
+   */
+  PARAM_FILE_ACCESS_HINT: string
+  /**
+   * P​r​i​v​a​t​e
+   */
+  OPTION_PRIVATE: string
+  /**
+   * P​u​b​l​i​c​ ​(​I​n​d​e​x​a​b​l​e​)
+   */
+  OPTION_PUBLIC_INDEXABLE: string
+  /**
+   * P​u​b​l​i​c​ ​(​N​o​t​ ​I​n​d​e​x​a​b​l​e​)
+   */
+  OPTION_PUBLIC_NOT_INDEXABLE: string
+  /**
+   * M​i​s​s​i​n​g​ ​H​u​b​S​p​o​t​ ​c​r​e​d​e​n​t​i​a​l​.​ ​P​l​e​a​s​e​ ​p​r​o​v​i​d​e​ ​a​ ​P​r​i​v​a​t​e​ ​A​p​p​ ​T​o​k​e​n​ ​o​r​ ​O​A​u​t​h​2​ ​c​r​e​d​e​n​t​i​a​l​.
+   */
+  ERROR_MISSING_CREDENTIAL: string
 }
 
 export type TranslationFunctions = {
@@ -39,17 +1083,1061 @@ export type TranslationFunctions = {
    */
   PLUGIN_DISPLAY_NAME: () => LocalizedString
   /**
-   * HubSpot starter scaffold plugin for future CRM tools and credentials.
+   * Integrate with HubSpot CRM — manage contacts, companies, deals, tickets, and more.
    */
   PLUGIN_DESCRIPTION: () => LocalizedString
   /**
-   * HubSpot Plugin Status
+   * HubSpot Private App Token
    */
-  HUBSPOT_PLUGIN_STATUS_DISPLAY_NAME: () => LocalizedString
+  CREDENTIAL_TOKEN_DISPLAY_NAME: () => LocalizedString
   /**
-   * Return scaffold metadata for the HubSpot starter plugin. This does not call the HubSpot API.
+   * Authenticate with a HubSpot Private App access token.
    */
-  HUBSPOT_PLUGIN_STATUS_DESCRIPTION: () => LocalizedString
+  CREDENTIAL_TOKEN_DESCRIPTION: () => LocalizedString
+  /**
+   * Access Token
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_LABEL: () => LocalizedString
+  /**
+   * The access token from your HubSpot Private App settings.
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_HINT: () => LocalizedString
+  /**
+   * pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   */
+  CREDENTIAL_TOKEN_ACCESS_TOKEN_PLACEHOLDER: () => LocalizedString
+  /**
+   * HubSpot OAuth2
+   */
+  CREDENTIAL_OAUTH2_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Authenticate with HubSpot using OAuth2.
+   */
+  CREDENTIAL_OAUTH2_DESCRIPTION: () => LocalizedString
+  /**
+   * Client ID
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_LABEL: () => LocalizedString
+  /**
+   * xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * The client ID from your HubSpot app settings.
+   */
+  CREDENTIAL_OAUTH2_CLIENT_ID_HINT: () => LocalizedString
+  /**
+   * Client Secret
+   */
+  CREDENTIAL_OAUTH2_CLIENT_SECRET_LABEL: () => LocalizedString
+  /**
+   * The client secret from your HubSpot app settings.
+   */
+  CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: () => LocalizedString
+  /**
+   * HubSpot Token Credential
+   */
+  PARAM_TOKEN_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * HubSpot OAuth2 Credential
+   */
+  PARAM_OAUTH2_CREDENTIAL_LABEL: () => LocalizedString
+  /**
+   * Object Type
+   */
+  PARAM_OBJECT_TYPE_LABEL: () => LocalizedString
+  /**
+   * The CRM object type (e.g. contacts, companies, deals, tickets, line_items, products, or a custom object type).
+   */
+  PARAM_OBJECT_TYPE_HINT: () => LocalizedString
+  /**
+   * contacts
+   */
+  PARAM_OBJECT_TYPE_PLACEHOLDER: () => LocalizedString
+  /**
+   * Object ID
+   */
+  PARAM_OBJECT_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the HubSpot object.
+   */
+  PARAM_OBJECT_ID_HINT: () => LocalizedString
+  /**
+   * 12345
+   */
+  PARAM_OBJECT_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Properties
+   */
+  PARAM_PROPERTIES_LABEL: () => LocalizedString
+  /**
+   * The properties to set on the object. Fields are dynamically discovered from your HubSpot schema.
+   */
+  PARAM_PROPERTIES_HINT: () => LocalizedString
+  /**
+   * Please select an object type to load available properties.
+   */
+  PARAM_PROPERTIES_EMPTY_NOTICE: () => LocalizedString
+  /**
+   * Search Query
+   */
+  PARAM_SEARCH_QUERY_LABEL: () => LocalizedString
+  /**
+   * A text query to search objects by. Searches across default searchable properties.
+   */
+  PARAM_SEARCH_QUERY_HINT: () => LocalizedString
+  /**
+   * john@example.com
+   */
+  PARAM_SEARCH_QUERY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Filter Groups
+   */
+  PARAM_FILTER_GROUPS_LABEL: () => LocalizedString
+  /**
+   * Filter groups for advanced search. Groups are combined with OR; filters within a group are combined with AND.
+   */
+  PARAM_FILTER_GROUPS_HINT: () => LocalizedString
+  /**
+   * Filters
+   */
+  PARAM_FILTERS_LABEL: () => LocalizedString
+  /**
+   * Property Name
+   */
+  PARAM_FILTER_PROPERTY_NAME_LABEL: () => LocalizedString
+  /**
+   * Operator
+   */
+  PARAM_FILTER_OPERATOR_LABEL: () => LocalizedString
+  /**
+   * Value
+   */
+  PARAM_FILTER_VALUE_LABEL: () => LocalizedString
+  /**
+   * Equal to
+   */
+  FILTER_OP_EQ: () => LocalizedString
+  /**
+   * Not equal to
+   */
+  FILTER_OP_NEQ: () => LocalizedString
+  /**
+   * Less than
+   */
+  FILTER_OP_LT: () => LocalizedString
+  /**
+   * Less than or equal to
+   */
+  FILTER_OP_LTE: () => LocalizedString
+  /**
+   * Greater than
+   */
+  FILTER_OP_GT: () => LocalizedString
+  /**
+   * Greater than or equal to
+   */
+  FILTER_OP_GTE: () => LocalizedString
+  /**
+   * Contains token
+   */
+  FILTER_OP_CONTAINS: () => LocalizedString
+  /**
+   * Does not contain token
+   */
+  FILTER_OP_NOT_CONTAINS: () => LocalizedString
+  /**
+   * Has property
+   */
+  FILTER_OP_HAS_PROPERTY: () => LocalizedString
+  /**
+   * Does not have property
+   */
+  FILTER_OP_NOT_HAS_PROPERTY: () => LocalizedString
+  /**
+   * Limit
+   */
+  PARAM_LIMIT_LABEL: () => LocalizedString
+  /**
+   * Maximum number of results to return.
+   */
+  PARAM_LIMIT_HINT: () => LocalizedString
+  /**
+   * Return Properties
+   */
+  PARAM_RETURN_PROPERTIES_LABEL: () => LocalizedString
+  /**
+   * Comma-separated list of properties to include in the response.
+   */
+  PARAM_RETURN_PROPERTIES_HINT: () => LocalizedString
+  /**
+   * Return Associations
+   */
+  PARAM_RETURN_ASSOCIATIONS_LABEL: () => LocalizedString
+  /**
+   * Comma-separated list of association types to include (e.g. contacts, companies).
+   */
+  PARAM_RETURN_ASSOCIATIONS_HINT: () => LocalizedString
+  /**
+   * Create or Update (Upsert)
+   */
+  PARAM_UPSERT_LABEL: () => LocalizedString
+  /**
+   * If enabled, creates the object if it doesn't exist. Requires ID Property.
+   */
+  PARAM_UPSERT_HINT: () => LocalizedString
+  /**
+   * ID Property
+   */
+  PARAM_ID_PROPERTY_LABEL: () => LocalizedString
+  /**
+   * The property to use as the unique identifier for upsert (e.g. email for contacts).
+   */
+  PARAM_ID_PROPERTY_HINT: () => LocalizedString
+  /**
+   * email
+   */
+  PARAM_ID_PROPERTY_PLACEHOLDER: () => LocalizedString
+  /**
+   * Create Contact
+   */
+  CREATE_CONTACT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new contact in HubSpot CRM.
+   */
+  CREATE_CONTACT_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Contact
+   */
+  GET_CONTACT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a contact by ID from HubSpot CRM.
+   */
+  GET_CONTACT_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Contact
+   */
+  UPDATE_CONTACT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a contact in HubSpot CRM. Supports upsert by email.
+   */
+  UPDATE_CONTACT_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Contact
+   */
+  FIND_CONTACT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for contacts in HubSpot CRM using filters or text query.
+   */
+  FIND_CONTACT_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Company
+   */
+  CREATE_COMPANY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new company in HubSpot CRM.
+   */
+  CREATE_COMPANY_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Company
+   */
+  GET_COMPANY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a company by ID from HubSpot CRM.
+   */
+  GET_COMPANY_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Company
+   */
+  UPDATE_COMPANY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a company in HubSpot CRM. Supports upsert by domain.
+   */
+  UPDATE_COMPANY_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Company
+   */
+  FIND_COMPANY_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for companies in HubSpot CRM using filters or text query.
+   */
+  FIND_COMPANY_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Deal
+   */
+  CREATE_DEAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new deal in HubSpot CRM.
+   */
+  CREATE_DEAL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Deal
+   */
+  GET_DEAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a deal by ID from HubSpot CRM.
+   */
+  GET_DEAL_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Deal
+   */
+  UPDATE_DEAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a deal in HubSpot CRM.
+   */
+  UPDATE_DEAL_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Deal
+   */
+  FIND_DEAL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for deals in HubSpot CRM using filters or text query.
+   */
+  FIND_DEAL_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Ticket
+   */
+  CREATE_TICKET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new ticket in HubSpot CRM.
+   */
+  CREATE_TICKET_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Ticket
+   */
+  GET_TICKET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a ticket by ID from HubSpot CRM.
+   */
+  GET_TICKET_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Ticket
+   */
+  UPDATE_TICKET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a ticket in HubSpot CRM.
+   */
+  UPDATE_TICKET_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Ticket
+   */
+  FIND_TICKET_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for tickets in HubSpot CRM using filters or text query.
+   */
+  FIND_TICKET_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Line Item
+   */
+  CREATE_LINE_ITEM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new line item in HubSpot CRM.
+   */
+  CREATE_LINE_ITEM_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Line Item
+   */
+  GET_LINE_ITEM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a line item by ID from HubSpot CRM.
+   */
+  GET_LINE_ITEM_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Line Item
+   */
+  UPDATE_LINE_ITEM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a line item in HubSpot CRM.
+   */
+  UPDATE_LINE_ITEM_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Line Item
+   */
+  FIND_LINE_ITEM_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for line items in HubSpot CRM using filters or text query.
+   */
+  FIND_LINE_ITEM_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Product
+   */
+  CREATE_PRODUCT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new product in HubSpot CRM.
+   */
+  CREATE_PRODUCT_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Product
+   */
+  GET_PRODUCT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a product by ID from HubSpot CRM.
+   */
+  GET_PRODUCT_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Product
+   */
+  UPDATE_PRODUCT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update a product in HubSpot CRM.
+   */
+  UPDATE_PRODUCT_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Product
+   */
+  FIND_PRODUCT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for products in HubSpot CRM using filters or text query.
+   */
+  FIND_PRODUCT_DESCRIPTION: () => LocalizedString
+  /**
+   * Create CRM Object
+   */
+  CREATE_CRM_OBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new object of any type in HubSpot CRM.
+   */
+  CREATE_CRM_OBJECT_DESCRIPTION: () => LocalizedString
+  /**
+   * Get CRM Object
+   */
+  GET_CRM_OBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve an object of any type by ID from HubSpot CRM.
+   */
+  GET_CRM_OBJECT_DESCRIPTION: () => LocalizedString
+  /**
+   * Update CRM Object
+   */
+  UPDATE_CRM_OBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update an object of any type in HubSpot CRM.
+   */
+  UPDATE_CRM_OBJECT_DESCRIPTION: () => LocalizedString
+  /**
+   * Delete CRM Object
+   */
+  DELETE_CRM_OBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Delete an object of any type from HubSpot CRM.
+   */
+  DELETE_CRM_OBJECT_DESCRIPTION: () => LocalizedString
+  /**
+   * Find CRM Object
+   */
+  FIND_CRM_OBJECT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Search for objects of any type in HubSpot CRM.
+   */
+  FIND_CRM_OBJECT_DESCRIPTION: () => LocalizedString
+  /**
+   * Create Associations
+   */
+  CREATE_ASSOCIATIONS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create associations between HubSpot CRM objects.
+   */
+  CREATE_ASSOCIATIONS_DESCRIPTION: () => LocalizedString
+  /**
+   * Remove Associations
+   */
+  REMOVE_ASSOCIATIONS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Remove associations between HubSpot CRM objects.
+   */
+  REMOVE_ASSOCIATIONS_DESCRIPTION: () => LocalizedString
+  /**
+   * Find Associations
+   */
+  FIND_ASSOCIATIONS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Find associations between HubSpot CRM objects.
+   */
+  FIND_ASSOCIATIONS_DESCRIPTION: () => LocalizedString
+  /**
+   * From Object Type
+   */
+  PARAM_FROM_OBJECT_TYPE_LABEL: () => LocalizedString
+  /**
+   * The source object type (e.g. contacts, companies, deals).
+   */
+  PARAM_FROM_OBJECT_TYPE_HINT: () => LocalizedString
+  /**
+   * To Object Type
+   */
+  PARAM_TO_OBJECT_TYPE_LABEL: () => LocalizedString
+  /**
+   * The target object type (e.g. contacts, companies, deals).
+   */
+  PARAM_TO_OBJECT_TYPE_HINT: () => LocalizedString
+  /**
+   * From Object ID
+   */
+  PARAM_FROM_OBJECT_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the source object.
+   */
+  PARAM_FROM_OBJECT_ID_HINT: () => LocalizedString
+  /**
+   * To Object ID
+   */
+  PARAM_TO_OBJECT_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the target object.
+   */
+  PARAM_TO_OBJECT_ID_HINT: () => LocalizedString
+  /**
+   * Association Pairs
+   */
+  PARAM_ASSOCIATION_INPUTS_LABEL: () => LocalizedString
+  /**
+   * Pairs of object IDs to associate or disassociate.
+   */
+  PARAM_ASSOCIATION_INPUTS_HINT: () => LocalizedString
+  /**
+   * From ID
+   */
+  PARAM_FROM_ID_LABEL: () => LocalizedString
+  /**
+   * To ID
+   */
+  PARAM_TO_ID_LABEL: () => LocalizedString
+  /**
+   * From Object IDs
+   */
+  PARAM_FROM_IDS_LABEL: () => LocalizedString
+  /**
+   * Comma-separated IDs of source objects to find associations for.
+   */
+  PARAM_FROM_IDS_HINT: () => LocalizedString
+  /**
+   * Get Owner by Email
+   */
+  GET_OWNER_BY_EMAIL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a HubSpot owner by their email address.
+   */
+  GET_OWNER_BY_EMAIL_DESCRIPTION: () => LocalizedString
+  /**
+   * Get Owner by ID
+   */
+  GET_OWNER_BY_ID_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve a HubSpot owner by their ID.
+   */
+  GET_OWNER_BY_ID_DESCRIPTION: () => LocalizedString
+  /**
+   * Owner Email
+   */
+  PARAM_OWNER_EMAIL_LABEL: () => LocalizedString
+  /**
+   * The email address of the HubSpot owner.
+   */
+  PARAM_OWNER_EMAIL_HINT: () => LocalizedString
+  /**
+   * owner@company.com
+   */
+  PARAM_OWNER_EMAIL_PLACEHOLDER: () => LocalizedString
+  /**
+   * Owner ID
+   */
+  PARAM_OWNER_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the HubSpot owner.
+   */
+  PARAM_OWNER_ID_HINT: () => LocalizedString
+  /**
+   * 12345678
+   */
+  PARAM_OWNER_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Get Pipeline Stage Details
+   */
+  GET_PIPELINE_STAGE_DETAILS_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve pipeline and stage details for a HubSpot object type.
+   */
+  GET_PIPELINE_STAGE_DETAILS_DESCRIPTION: () => LocalizedString
+  /**
+   * Pipeline Object Type
+   */
+  PARAM_PIPELINE_OBJECT_TYPE_LABEL: () => LocalizedString
+  /**
+   * The object type to get pipelines for (e.g. deals, tickets).
+   */
+  PARAM_PIPELINE_OBJECT_TYPE_HINT: () => LocalizedString
+  /**
+   * Create List (Segment)
+   */
+  CREATE_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new static or dynamic list in HubSpot.
+   */
+  CREATE_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Add Contact to List
+   */
+  ADD_CONTACT_TO_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Add one or more contacts to a HubSpot list.
+   */
+  ADD_CONTACT_TO_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * Remove Contact from List
+   */
+  REMOVE_CONTACT_FROM_LIST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Remove one or more contacts from a HubSpot list.
+   */
+  REMOVE_CONTACT_FROM_LIST_DESCRIPTION: () => LocalizedString
+  /**
+   * List Name
+   */
+  PARAM_LIST_NAME_LABEL: () => LocalizedString
+  /**
+   * The name of the list to create.
+   */
+  PARAM_LIST_NAME_HINT: () => LocalizedString
+  /**
+   * My Custom List
+   */
+  PARAM_LIST_NAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Object Type ID
+   */
+  PARAM_LIST_OBJECT_TYPE_ID_LABEL: () => LocalizedString
+  /**
+   * The object type for the list (e.g. 0-1 for contacts).
+   */
+  PARAM_LIST_OBJECT_TYPE_ID_HINT: () => LocalizedString
+  /**
+   * Processing Type
+   */
+  PARAM_LIST_PROCESSING_TYPE_LABEL: () => LocalizedString
+  /**
+   * Whether the list is MANUAL (static) or SNAPSHOT (dynamic).
+   */
+  PARAM_LIST_PROCESSING_TYPE_HINT: () => LocalizedString
+  /**
+   * Manual (Static)
+   */
+  LIST_PROCESSING_TYPE_MANUAL: () => LocalizedString
+  /**
+   * Snapshot (Dynamic)
+   */
+  LIST_PROCESSING_TYPE_SNAPSHOT: () => LocalizedString
+  /**
+   * List ID
+   */
+  PARAM_LIST_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the list.
+   */
+  PARAM_LIST_ID_HINT: () => LocalizedString
+  /**
+   * 12345
+   */
+  PARAM_LIST_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Contact IDs
+   */
+  PARAM_CONTACT_IDS_LABEL: () => LocalizedString
+  /**
+   * Comma-separated contact IDs to add or remove.
+   */
+  PARAM_CONTACT_IDS_HINT: () => LocalizedString
+  /**
+   * Create Engagement
+   */
+  CREATE_ENGAGEMENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create an engagement (call, email, meeting, task, or note) in HubSpot.
+   */
+  CREATE_ENGAGEMENT_DESCRIPTION: () => LocalizedString
+  /**
+   * Engagement Type
+   */
+  PARAM_ENGAGEMENT_TYPE_LABEL: () => LocalizedString
+  /**
+   * The type of engagement to create.
+   */
+  PARAM_ENGAGEMENT_TYPE_HINT: () => LocalizedString
+  /**
+   * Call
+   */
+  ENGAGEMENT_TYPE_CALL: () => LocalizedString
+  /**
+   * Email
+   */
+  ENGAGEMENT_TYPE_EMAIL: () => LocalizedString
+  /**
+   * Meeting
+   */
+  ENGAGEMENT_TYPE_MEETING: () => LocalizedString
+  /**
+   * Task
+   */
+  ENGAGEMENT_TYPE_TASK: () => LocalizedString
+  /**
+   * Note
+   */
+  ENGAGEMENT_TYPE_NOTE: () => LocalizedString
+  /**
+   * Engagement Properties
+   */
+  PARAM_ENGAGEMENT_PROPERTIES_LABEL: () => LocalizedString
+  /**
+   * Properties for the engagement. Fields vary by engagement type.
+   */
+  PARAM_ENGAGEMENT_PROPERTIES_HINT: () => LocalizedString
+  /**
+   * Create Form Submission
+   */
+  CREATE_FORM_SUBMISSION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Submit data to a HubSpot form.
+   */
+  CREATE_FORM_SUBMISSION_DESCRIPTION: () => LocalizedString
+  /**
+   * Portal ID
+   */
+  PARAM_PORTAL_ID_LABEL: () => LocalizedString
+  /**
+   * Your HubSpot portal (account) ID.
+   */
+  PARAM_PORTAL_ID_HINT: () => LocalizedString
+  /**
+   * 12345678
+   */
+  PARAM_PORTAL_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Form GUID
+   */
+  PARAM_FORM_GUID_LABEL: () => LocalizedString
+  /**
+   * The unique identifier of the form.
+   */
+  PARAM_FORM_GUID_HINT: () => LocalizedString
+  /**
+   * xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   */
+  PARAM_FORM_GUID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Form Fields
+   */
+  PARAM_FORM_FIELDS_LABEL: () => LocalizedString
+  /**
+   * Key-value pairs of form field names and their values.
+   */
+  PARAM_FORM_FIELDS_HINT: () => LocalizedString
+  /**
+   * Remove Email Subscription
+   */
+  REMOVE_EMAIL_SUBSCRIPTION_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Unsubscribe an email address from a HubSpot subscription type.
+   */
+  REMOVE_EMAIL_SUBSCRIPTION_DESCRIPTION: () => LocalizedString
+  /**
+   * Update Contact Subscription Preferences
+   */
+  UPDATE_SUBSCRIPTION_PREFERENCES_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Update email subscription preferences for a contact in HubSpot.
+   */
+  UPDATE_SUBSCRIPTION_PREFERENCES_DESCRIPTION: () => LocalizedString
+  /**
+   * Email Address
+   */
+  PARAM_EMAIL_ADDRESS_LABEL: () => LocalizedString
+  /**
+   * The email address to update subscriptions for.
+   */
+  PARAM_EMAIL_ADDRESS_HINT: () => LocalizedString
+  /**
+   * contact@example.com
+   */
+  PARAM_EMAIL_ADDRESS_PLACEHOLDER: () => LocalizedString
+  /**
+   * Subscription ID
+   */
+  PARAM_SUBSCRIPTION_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the subscription type.
+   */
+  PARAM_SUBSCRIPTION_ID_HINT: () => LocalizedString
+  /**
+   * Subscription Statuses
+   */
+  PARAM_SUBSCRIPTION_STATUSES_LABEL: () => LocalizedString
+  /**
+   * List of subscription IDs and their subscribed status.
+   */
+  PARAM_SUBSCRIPTION_STATUSES_HINT: () => LocalizedString
+  /**
+   * Subscription Type ID
+   */
+  PARAM_SUBSCRIPTION_STATUS_ID_LABEL: () => LocalizedString
+  /**
+   * Subscribed
+   */
+  PARAM_SUBSCRIPTION_STATUS_SUBSCRIBED_LABEL: () => LocalizedString
+  /**
+   * Legal Basis
+   */
+  PARAM_LEGAL_BASIS_LABEL: () => LocalizedString
+  /**
+   * The legal basis for updating the subscription (e.g. CONSENT_WITH_NOTICE).
+   */
+  PARAM_LEGAL_BASIS_HINT: () => LocalizedString
+  /**
+   * Legal Basis Explanation
+   */
+  PARAM_LEGAL_BASIS_EXPLANATION_LABEL: () => LocalizedString
+  /**
+   * Explanation of the legal basis for the subscription change.
+   */
+  PARAM_LEGAL_BASIS_EXPLANATION_HINT: () => LocalizedString
+  /**
+   * Create Social Media Message
+   */
+  CREATE_SOCIAL_MESSAGE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create and schedule a social media message through HubSpot.
+   */
+  CREATE_SOCIAL_MESSAGE_DESCRIPTION: () => LocalizedString
+  /**
+   * Channel GUID
+   */
+  PARAM_SOCIAL_CHANNEL_GUID_LABEL: () => LocalizedString
+  /**
+   * The unique identifier of the social media channel.
+   */
+  PARAM_SOCIAL_CHANNEL_GUID_HINT: () => LocalizedString
+  /**
+   * Message Content
+   */
+  PARAM_SOCIAL_CONTENT_LABEL: () => LocalizedString
+  /**
+   * The content of the social media message.
+   */
+  PARAM_SOCIAL_CONTENT_HINT: () => LocalizedString
+  /**
+   * Check out our new product!
+   */
+  PARAM_SOCIAL_CONTENT_PLACEHOLDER: () => LocalizedString
+  /**
+   * Add Contact to Workflow
+   */
+  ADD_CONTACT_TO_WORKFLOW_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Enroll a contact into a HubSpot workflow by email.
+   */
+  ADD_CONTACT_TO_WORKFLOW_DESCRIPTION: () => LocalizedString
+  /**
+   * Workflow ID
+   */
+  PARAM_WORKFLOW_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the workflow to enroll the contact in.
+   */
+  PARAM_WORKFLOW_ID_HINT: () => LocalizedString
+  /**
+   * 12345678
+   */
+  PARAM_WORKFLOW_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * Contact Email
+   */
+  PARAM_WORKFLOW_CONTACT_EMAIL_LABEL: () => LocalizedString
+  /**
+   * The email address of the contact to enroll.
+   */
+  PARAM_WORKFLOW_CONTACT_EMAIL_HINT: () => LocalizedString
+  /**
+   * Create COS Blog Post
+   */
+  CREATE_BLOG_POST_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Create a new blog post in HubSpot CMS.
+   */
+  CREATE_BLOG_POST_DESCRIPTION: () => LocalizedString
+  /**
+   * Post Title
+   */
+  PARAM_BLOG_POST_NAME_LABEL: () => LocalizedString
+  /**
+   * The title of the blog post.
+   */
+  PARAM_BLOG_POST_NAME_HINT: () => LocalizedString
+  /**
+   * My New Blog Post
+   */
+  PARAM_BLOG_POST_NAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Blog ID (Content Group)
+   */
+  PARAM_BLOG_CONTENT_GROUP_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the blog to publish to.
+   */
+  PARAM_BLOG_CONTENT_GROUP_ID_HINT: () => LocalizedString
+  /**
+   * Post Body
+   */
+  PARAM_BLOG_POST_BODY_LABEL: () => LocalizedString
+  /**
+   * The HTML body of the blog post.
+   */
+  PARAM_BLOG_POST_BODY_HINT: () => LocalizedString
+  /**
+   * Slug
+   */
+  PARAM_BLOG_POST_SLUG_LABEL: () => LocalizedString
+  /**
+   * The URL slug for the blog post.
+   */
+  PARAM_BLOG_POST_SLUG_HINT: () => LocalizedString
+  /**
+   * State
+   */
+  PARAM_BLOG_POST_STATE_LABEL: () => LocalizedString
+  /**
+   * The publish state of the blog post.
+   */
+  PARAM_BLOG_POST_STATE_HINT: () => LocalizedString
+  /**
+   * Draft
+   */
+  OPTION_DRAFT: () => LocalizedString
+  /**
+   * Published
+   */
+  OPTION_PUBLISHED: () => LocalizedString
+  /**
+   * Meta Description
+   */
+  PARAM_BLOG_POST_META_DESCRIPTION_LABEL: () => LocalizedString
+  /**
+   * The meta description for SEO.
+   */
+  PARAM_BLOG_POST_META_DESCRIPTION_HINT: () => LocalizedString
+  /**
+   * Create Enterprise Event
+   */
+  CREATE_ENTERPRISE_EVENT_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Send a custom behavioral event to HubSpot.
+   */
+  CREATE_ENTERPRISE_EVENT_DESCRIPTION: () => LocalizedString
+  /**
+   * Event Name
+   */
+  PARAM_EVENT_NAME_LABEL: () => LocalizedString
+  /**
+   * The internal name of the event definition.
+   */
+  PARAM_EVENT_NAME_HINT: () => LocalizedString
+  /**
+   * pe12345_my_event
+   */
+  PARAM_EVENT_NAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * Contact Email
+   */
+  PARAM_EVENT_EMAIL_LABEL: () => LocalizedString
+  /**
+   * The email of the contact to associate the event with.
+   */
+  PARAM_EVENT_EMAIL_HINT: () => LocalizedString
+  /**
+   * Event Properties
+   */
+  PARAM_EVENT_PROPERTIES_LABEL: () => LocalizedString
+  /**
+   * Key-value pairs of custom event properties.
+   */
+  PARAM_EVENT_PROPERTIES_HINT: () => LocalizedString
+  /**
+   * Get File Public URL
+   */
+  GET_FILE_PUBLIC_URL_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Retrieve the public URL of a file in HubSpot.
+   */
+  GET_FILE_PUBLIC_URL_DESCRIPTION: () => LocalizedString
+  /**
+   * Upload File
+   */
+  UPLOAD_FILE_DISPLAY_NAME: () => LocalizedString
+  /**
+   * Upload a file to HubSpot file manager.
+   */
+  UPLOAD_FILE_DESCRIPTION: () => LocalizedString
+  /**
+   * File ID
+   */
+  PARAM_FILE_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the file.
+   */
+  PARAM_FILE_ID_HINT: () => LocalizedString
+  /**
+   * 12345678
+   */
+  PARAM_FILE_ID_PLACEHOLDER: () => LocalizedString
+  /**
+   * File Name
+   */
+  PARAM_FILE_NAME_LABEL: () => LocalizedString
+  /**
+   * The name for the uploaded file.
+   */
+  PARAM_FILE_NAME_HINT: () => LocalizedString
+  /**
+   * document.pdf
+   */
+  PARAM_FILE_NAME_PLACEHOLDER: () => LocalizedString
+  /**
+   * File Content
+   */
+  PARAM_FILE_CONTENT_LABEL: () => LocalizedString
+  /**
+   * The file content to upload (base64 encoded).
+   */
+  PARAM_FILE_CONTENT_HINT: () => LocalizedString
+  /**
+   * Folder ID
+   */
+  PARAM_FILE_FOLDER_ID_LABEL: () => LocalizedString
+  /**
+   * The ID of the folder to upload to (optional).
+   */
+  PARAM_FILE_FOLDER_ID_HINT: () => LocalizedString
+  /**
+   * Access
+   */
+  PARAM_FILE_ACCESS_LABEL: () => LocalizedString
+  /**
+   * The access level for the file.
+   */
+  PARAM_FILE_ACCESS_HINT: () => LocalizedString
+  /**
+   * Private
+   */
+  OPTION_PRIVATE: () => LocalizedString
+  /**
+   * Public (Indexable)
+   */
+  OPTION_PUBLIC_INDEXABLE: () => LocalizedString
+  /**
+   * Public (Not Indexable)
+   */
+  OPTION_PUBLIC_NOT_INDEXABLE: () => LocalizedString
+  /**
+   * Missing HubSpot credential. Please provide a Private App Token or OAuth2 credential.
+   */
+  ERROR_MISSING_CREDENTIAL: () => LocalizedString
 }
 
 export type Formatters = {}
