@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const updateSubscriptionPreferencesTool = {
@@ -35,13 +36,33 @@ export const updateSubscriptionPreferencesTool = {
     },
     {
       name: "subscription_statuses",
-      type: "string",
+      type: "array",
       required: true,
       display_name: t("PARAM_SUBSCRIPTION_STATUSES_LABEL"),
       ai: { llm_description: t("PARAM_SUBSCRIPTION_STATUSES_HINT") },
       ui: {
-        component: "code-editor",
+        component: "array-section",
         hint: t("PARAM_SUBSCRIPTION_STATUSES_HINT"),
+      },
+      items: {
+        type: "object",
+        name: "subscription_status",
+        properties: [
+          {
+            name: "id",
+            type: "string",
+            required: true,
+            display_name: t("PARAM_SUBSCRIPTION_STATUS_ID_LABEL"),
+            ui: { component: "input", support_expression: true },
+          },
+          {
+            name: "subscribed",
+            type: "boolean",
+            required: true,
+            display_name: t("PARAM_SUBSCRIPTION_STATUS_SUBSCRIBED_LABEL"),
+            ui: { component: "switch", support_expression: true },
+          },
+        ],
       },
     },
     {
@@ -76,20 +97,31 @@ export const updateSubscriptionPreferencesTool = {
     if (!emailAddress) throw new Error("email_address is required")
 
     const rawStatuses = args.parameters.subscription_statuses
-    const subscriptionStatuses = (() => {
-      if (!rawStatuses) return undefined
-      if (typeof rawStatuses === "string") {
-        try {
-          return JSON.parse(rawStatuses) as Array<{
+    const parsedStatuses =
+      typeof rawStatuses === "string"
+        ? (() => {
+            try {
+              return JSON.parse(rawStatuses) as unknown
+            } catch {
+              return undefined
+            }
+          })()
+        : rawStatuses
+    const subscriptionStatuses = Array.isArray(parsedStatuses)
+      ? parsedStatuses.filter(
+          (
+            status,
+          ): status is {
             id: string
             subscribed: boolean
-          }>
-        } catch {
-          return undefined
-        }
-      }
-      return rawStatuses as Array<{ id: string; subscribed: boolean }>
-    })()
+          } =>
+            !!status &&
+            typeof status === "object" &&
+            typeof (status as { id?: unknown }).id === "string" &&
+            typeof (status as { subscribed?: unknown }).subscribed ===
+              "boolean",
+        )
+      : undefined
     if (!subscriptionStatuses?.length)
       throw new Error("subscription_statuses is required")
 
@@ -123,7 +155,7 @@ export const updateSubscriptionPreferencesTool = {
           results.push(result)
         }
       }
-      return { success: true, result: results } as unknown as JsonValue
+      return toJsonValue({ success: true, result: results })
     } catch (error) {
       handleHubSpotError(error)
     }

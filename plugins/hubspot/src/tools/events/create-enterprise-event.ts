@@ -10,6 +10,8 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  resolveStringMap,
+  toJsonValue,
 } from "../_shared/utils"
 
 export const createEnterpriseEventTool = {
@@ -47,11 +49,30 @@ export const createEnterpriseEventTool = {
     },
     {
       name: "properties",
-      type: "string",
+      type: "array",
       required: false,
       display_name: t("PARAM_EVENT_PROPERTIES_LABEL"),
       ai: { llm_description: t("PARAM_EVENT_PROPERTIES_HINT") },
-      ui: { component: "code-editor", hint: t("PARAM_EVENT_PROPERTIES_HINT") },
+      ui: { component: "key-value-editor", hint: t("PARAM_EVENT_PROPERTIES_HINT") },
+      items: {
+        type: "object",
+        name: "property",
+        properties: [
+          {
+            name: "key",
+            type: "string",
+            required: true,
+            display_name: t("PARAM_EVENT_PROPERTY_NAME_LABEL"),
+          },
+          {
+            name: "value",
+            type: "string",
+            required: true,
+            display_name: t("PARAM_EVENT_PROPERTY_VALUE_LABEL"),
+            ui: { component: "textarea", support_expression: true },
+          },
+        ],
+      },
     },
   ],
 
@@ -63,18 +84,7 @@ export const createEnterpriseEventTool = {
     const body: Record<string, unknown> = { eventName }
     const email = getString(args.parameters, "email")
     if (email) body.email = email
-    const raw = args.parameters.properties
-    const properties = (() => {
-      if (!raw) return undefined
-      if (typeof raw === "string") {
-        try {
-          return JSON.parse(raw) as Record<string, string>
-        } catch {
-          return undefined
-        }
-      }
-      return raw as Record<string, string>
-    })()
+    const properties = resolveStringMap(args.parameters.properties)
     if (properties) body.properties = properties
 
     try {
@@ -84,7 +94,7 @@ export const createEnterpriseEventTool = {
         body,
       })
       const result = await response.json()
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

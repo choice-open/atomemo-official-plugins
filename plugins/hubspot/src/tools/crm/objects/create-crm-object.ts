@@ -7,8 +7,8 @@ import { t } from "../../../i18n/i18n-node"
 import { createPropertyMappingMethod } from "../../_shared/methods"
 import {
   credentialParams,
+  genericObjectPropertiesParam,
   objectTypeParam,
-  propertiesParam,
 } from "../../_shared/parameters"
 import type { ToolArgs } from "../../_shared/types"
 import {
@@ -16,6 +16,7 @@ import {
   getString,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const createCrmObjectTool = {
@@ -24,7 +25,7 @@ export const createCrmObjectTool = {
   description: t("CREATE_CRM_OBJECT_DESCRIPTION"),
   icon: "🔷",
   skill: "",
-  parameters: [...credentialParams, objectTypeParam, propertiesParam],
+  parameters: [...credentialParams, objectTypeParam, genericObjectPropertiesParam],
   resource_mapping: createPropertyMappingMethod(""),
 
   async invoke({ args }: { args: ToolArgs }): Promise<JsonValue> {
@@ -38,7 +39,7 @@ export const createCrmObjectTool = {
         properties,
         associations: [],
       })
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }

@@ -57,7 +57,7 @@ const zh_Hans = {
   PARAM_LIMIT_LABEL: "限制数量",
   PARAM_LIMIT_HINT: "返回结果的最大数量。",
   PARAM_RETURN_PROPERTIES_LABEL: "返回属性",
-  PARAM_RETURN_PROPERTIES_HINT: "响应中包含的属性列表，以逗号分隔。",
+  PARAM_RETURN_PROPERTIES_HINT: "响应中包含的属性列表。",
   PARAM_RETURN_ASSOCIATIONS_LABEL: "返回关联",
   PARAM_RETURN_ASSOCIATIONS_HINT:
     "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。",
@@ -165,7 +165,7 @@ const zh_Hans = {
   PARAM_FROM_ID_LABEL: "源 ID",
   PARAM_TO_ID_LABEL: "目标 ID",
   PARAM_FROM_IDS_LABEL: "源对象 ID 列表",
-  PARAM_FROM_IDS_HINT: "要查找关联的源对象 ID，以逗号分隔。",
+  PARAM_FROM_IDS_HINT: "要查找关联的源对象 ID 列表。",
 
   // ── CRM > 所有者 ──────────────────────────────────────────
   GET_OWNER_BY_EMAIL_DISPLAY_NAME: "通过邮箱获取所有者",
@@ -176,7 +176,8 @@ const zh_Hans = {
   PARAM_OWNER_EMAIL_HINT: "HubSpot 所有者的邮箱地址。",
   PARAM_OWNER_EMAIL_PLACEHOLDER: "owner@company.com",
   PARAM_OWNER_ID_LABEL: "所有者 ID",
-  PARAM_OWNER_ID_HINT: "HubSpot 所有者的 ID。",
+  PARAM_OWNER_ID_HINT: "从选择器中选择 HubSpot 所有者，或直接输入所有者 ID。",
+  PARAM_OWNER_ID_MODE_LIST_PLACEHOLDER: "搜索所有者...",
   PARAM_OWNER_ID_PLACEHOLDER: "12345678",
 
   // ── CRM > 管道 ─────────────────────────────────────────────
@@ -206,10 +207,11 @@ const zh_Hans = {
   LIST_PROCESSING_TYPE_MANUAL: "手动（静态）",
   LIST_PROCESSING_TYPE_SNAPSHOT: "快照（动态）",
   PARAM_LIST_ID_LABEL: "列表 ID",
-  PARAM_LIST_ID_HINT: "列表的 ID。",
+  PARAM_LIST_ID_HINT: "选择一个 HubSpot 列表，或直接输入列表 ID。",
+  PARAM_LIST_ID_MODE_LIST_PLACEHOLDER: "搜索列表...",
   PARAM_LIST_ID_PLACEHOLDER: "12345",
   PARAM_CONTACT_IDS_LABEL: "联系人 ID",
-  PARAM_CONTACT_IDS_HINT: "要添加或移除的联系人 ID，以逗号分隔。",
+  PARAM_CONTACT_IDS_HINT: "要添加或移除的联系人 ID 列表。",
 
   // ── CRM > 互动 ─────────────────────────────────────────────
   CREATE_ENGAGEMENT_DISPLAY_NAME: "创建互动",
@@ -236,6 +238,8 @@ const zh_Hans = {
   PARAM_FORM_GUID_PLACEHOLDER: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   PARAM_FORM_FIELDS_LABEL: "表单字段",
   PARAM_FORM_FIELDS_HINT: "表单字段名称和值的键值对。",
+  PARAM_FORM_FIELD_NAME_LABEL: "字段名称",
+  PARAM_FORM_FIELD_VALUE_LABEL: "字段值",
 
   // ── 营销 > 邮件订阅 ───────────────────────────────────────
   REMOVE_EMAIL_SUBSCRIPTION_DISPLAY_NAME: "移除邮件订阅",
@@ -272,7 +276,8 @@ const zh_Hans = {
   ADD_CONTACT_TO_WORKFLOW_DESCRIPTION:
     "通过邮箱将联系人注册到 HubSpot 工作流。",
   PARAM_WORKFLOW_ID_LABEL: "工作流 ID",
-  PARAM_WORKFLOW_ID_HINT: "要注册联系人的工作流 ID。",
+  PARAM_WORKFLOW_ID_HINT: "从选择器中选择工作流，或直接输入工作流 ID。",
+  PARAM_WORKFLOW_ID_MODE_LIST_PLACEHOLDER: "搜索工作流...",
   PARAM_WORKFLOW_ID_PLACEHOLDER: "12345678",
   PARAM_WORKFLOW_CONTACT_EMAIL_LABEL: "联系人邮箱",
   PARAM_WORKFLOW_CONTACT_EMAIL_HINT: "要注册的联系人邮箱地址。",
@@ -306,6 +311,8 @@ const zh_Hans = {
   PARAM_EVENT_EMAIL_HINT: "要关联事件的联系人邮箱。",
   PARAM_EVENT_PROPERTIES_LABEL: "事件属性",
   PARAM_EVENT_PROPERTIES_HINT: "自定义事件属性的键值对。",
+  PARAM_EVENT_PROPERTY_NAME_LABEL: "属性名称",
+  PARAM_EVENT_PROPERTY_VALUE_LABEL: "属性值",
 
   // ── 文件 ──────────────────────────────────────────────────
   GET_FILE_PUBLIC_URL_DISPLAY_NAME: "获取文件公开 URL",
@@ -313,15 +320,19 @@ const zh_Hans = {
   UPLOAD_FILE_DISPLAY_NAME: "上传文件",
   UPLOAD_FILE_DESCRIPTION: "将文件上传到 HubSpot 文件管理器。",
   PARAM_FILE_ID_LABEL: "文件 ID",
-  PARAM_FILE_ID_HINT: "文件的 ID。",
+  PARAM_FILE_ID_HINT: "选择一个 HubSpot 文件，或直接输入文件 ID。",
+  PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: "搜索文件...",
   PARAM_FILE_ID_PLACEHOLDER: "12345678",
   PARAM_FILE_NAME_LABEL: "文件名",
   PARAM_FILE_NAME_HINT: "上传文件的名称。",
   PARAM_FILE_NAME_PLACEHOLDER: "document.pdf",
-  PARAM_FILE_CONTENT_LABEL: "文件内容",
-  PARAM_FILE_CONTENT_HINT: "要上传的文件内容（base64 编码）。",
+  PARAM_FILE_CONTENT_LABEL: "文件",
+  PARAM_FILE_CONTENT_HINT:
+    "从文件选择器中选择文件，或传入上游步骤的 file_ref。",
   PARAM_FILE_FOLDER_ID_LABEL: "文件夹 ID",
-  PARAM_FILE_FOLDER_ID_HINT: "要上传到的文件夹 ID（可选）。",
+  PARAM_FILE_FOLDER_ID_HINT: "选择目标文件夹，或直接输入文件夹 ID。",
+  PARAM_FILE_FOLDER_ID_MODE_LIST_PLACEHOLDER: "搜索文件夹...",
+  PARAM_FILE_FOLDER_ID_PLACEHOLDER: "12345678",
   PARAM_FILE_ACCESS_LABEL: "访问级别",
   PARAM_FILE_ACCESS_HINT: "文件的访问级别。",
   OPTION_PRIVATE: "私有",

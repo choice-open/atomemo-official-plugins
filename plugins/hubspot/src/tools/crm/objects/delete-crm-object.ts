@@ -14,6 +14,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const deleteCrmObjectTool = {
@@ -32,11 +33,11 @@ export const deleteCrmObjectTool = {
     if (!objectId) throw new Error("object_id is required")
     try {
       await client.crm.objects.basicApi.archive(objectType, objectId)
-      return {
+      return toJsonValue({
         success: true,
         deleted: true,
         id: objectId,
-      } as unknown as JsonValue
+      })
     } catch (error) {
       handleHubSpotError(error)
     }

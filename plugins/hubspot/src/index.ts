@@ -23,8 +23,6 @@ import {
   createDealTool,
   // CRM > Engagements
   createEngagementTool,
-  // Events
-  createEnterpriseEventTool,
   // Marketing > Forms
   createFormSubmissionTool,
   // CRM > Line Items
@@ -32,8 +30,6 @@ import {
   createListTool,
   // CRM > Products
   createProductTool,
-  // Marketing > Social
-  createSocialMessageTool,
   // CRM > Tickets
   createTicketTool,
   deleteCrmObjectTool,
@@ -161,8 +157,8 @@ plugin.addTool(createFormSubmissionTool)
 plugin.addTool(removeEmailSubscriptionTool)
 plugin.addTool(updateSubscriptionPreferencesTool)
 
-// ── Marketing > Social ──────────────────────────────────────────────
-plugin.addTool(createSocialMessageTool)
+// ── Marketing > Social (disabled) ───────────────────────────────────
+// plugin.addTool(createSocialMessageTool)
 
 // ── Automation > Workflows ──────────────────────────────────────────
 plugin.addTool(addContactToWorkflowTool)
@@ -170,8 +166,8 @@ plugin.addTool(addContactToWorkflowTool)
 // ── CMS > Blog ──────────────────────────────────────────────────────
 plugin.addTool(createBlogPostTool)
 
-// ── Events ──────────────────────────────────────────────────────────
-plugin.addTool(createEnterpriseEventTool)
+// ── Events (disabled) ────────────────────────────────────────────────
+// plugin.addTool(createEnterpriseEventTool)
 
 // ── Files ───────────────────────────────────────────────────────────
 plugin.addTool(getFilePublicUrlTool)

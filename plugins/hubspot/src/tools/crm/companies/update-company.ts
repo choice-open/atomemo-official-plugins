@@ -19,6 +19,7 @@ import {
   getString,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const updateCompanyTool = {
@@ -52,18 +53,18 @@ export const updateCompanyTool = {
         const response = await client.crm.companies.batchApi.upsert({
           inputs: [{ idProperty, id: objectId, properties }],
         })
-        return {
+        return toJsonValue({
           success: true,
           object: response.results[0],
           upserted: true,
-        } as unknown as JsonValue
+        })
       }
       const objectId = getString(args.parameters, "object_id")
       if (!objectId) throw new Error("object_id is required")
       const result = await client.crm.companies.basicApi.update(objectId, {
         properties,
       })
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }

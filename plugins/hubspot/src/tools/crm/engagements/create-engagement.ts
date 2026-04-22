@@ -12,6 +12,7 @@ import {
   getString,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 const ENGAGEMENT_TYPE_MAP: Record<string, string> = {
@@ -81,11 +82,11 @@ export const createEngagementTool = {
         properties,
         associations: [],
       })
-      return {
+      return toJsonValue({
         success: true,
         engagement: result,
         type: engagementType,
-      } as unknown as JsonValue
+      })
     } catch (error) {
       handleHubSpotError(error)
     }

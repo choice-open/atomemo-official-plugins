@@ -15,6 +15,7 @@ import {
   getString,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const updateDealTool = {
@@ -35,7 +36,7 @@ export const updateDealTool = {
       const result = await client.crm.deals.basicApi.update(objectId, {
         properties,
       })
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }

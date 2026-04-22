@@ -4,12 +4,17 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { credentialParams } from "../_shared/parameters"
+import { hubspotLocatorListMethods } from "../_shared/methods"
+import {
+  credentialParams,
+  fileIdParam,
+} from "../_shared/parameters"
 import type { ToolArgs } from "../_shared/types"
 import {
   getHubSpotClient,
-  getString,
+  getResourceLocatorValue,
   handleHubSpotError,
+  toJsonValue,
 } from "../_shared/utils"
 
 export const getFilePublicUrlTool = {
@@ -18,31 +23,17 @@ export const getFilePublicUrlTool = {
   description: t("GET_FILE_PUBLIC_URL_DESCRIPTION"),
   icon: "🔗",
   skill: "",
-  parameters: [
-    ...credentialParams,
-    {
-      name: "file_id",
-      type: "string",
-      required: true,
-      display_name: t("PARAM_FILE_ID_LABEL"),
-      ai: { llm_description: t("PARAM_FILE_ID_HINT") },
-      ui: {
-        component: "input",
-        hint: t("PARAM_FILE_ID_HINT"),
-        placeholder: t("PARAM_FILE_ID_PLACEHOLDER"),
-        support_expression: true,
-      },
-    },
-  ],
+  parameters: [...credentialParams, fileIdParam],
+  locator_list: hubspotLocatorListMethods,
 
   async invoke({ args }: { args: ToolArgs }): Promise<JsonValue> {
     const client = getHubSpotClient(args)
-    const fileId = getString(args.parameters, "file_id")
+    const fileId = getResourceLocatorValue(args.parameters, "file_id")
     if (!fileId) throw new Error("file_id is required")
 
     try {
       const result = await client.files.filesApi.getById(fileId)
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

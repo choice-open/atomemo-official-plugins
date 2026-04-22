@@ -4,12 +4,18 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
-import { credentialParams } from "../../_shared/parameters"
+import { hubspotLocatorListMethods } from "../../_shared/methods"
+import {
+  credentialParams,
+  workflowIdParam,
+} from "../../_shared/parameters"
 import type { ToolArgs } from "../../_shared/types"
 import {
   getHubSpotClient,
+  getResourceLocatorValue,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const addContactToWorkflowTool = {
@@ -20,19 +26,7 @@ export const addContactToWorkflowTool = {
   skill: "",
   parameters: [
     ...credentialParams,
-    {
-      name: "workflow_id",
-      type: "string",
-      required: true,
-      display_name: t("PARAM_WORKFLOW_ID_LABEL"),
-      ai: { llm_description: t("PARAM_WORKFLOW_ID_HINT") },
-      ui: {
-        component: "input",
-        hint: t("PARAM_WORKFLOW_ID_HINT"),
-        placeholder: t("PARAM_WORKFLOW_ID_PLACEHOLDER"),
-        support_expression: true,
-      },
-    },
+    workflowIdParam,
     {
       name: "contact_email",
       type: "string",
@@ -46,10 +40,11 @@ export const addContactToWorkflowTool = {
       },
     },
   ],
+  locator_list: hubspotLocatorListMethods,
 
   async invoke({ args }: { args: ToolArgs }): Promise<JsonValue> {
     const client = getHubSpotClient(args)
-    const workflowId = getString(args.parameters, "workflow_id")
+    const workflowId = getResourceLocatorValue(args.parameters, "workflow_id")
     const contactEmail = getString(args.parameters, "contact_email")
     if (!workflowId || !contactEmail)
       throw new Error("workflow_id and contact_email are required")
@@ -61,7 +56,7 @@ export const addContactToWorkflowTool = {
         body: { email: contactEmail },
       })
       const result = await response.json()
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

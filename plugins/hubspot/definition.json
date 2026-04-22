@@ -86,7 +86,7 @@
             "component": "textarea"
           },
           "type": "string",
-          "constant": "crm.objects.contacts.read\ncrm.objects.contacts.write\ncrm.objects.companies.read\ncrm.objects.companies.write\ncrm.objects.deals.read\ncrm.objects.deals.write\ncrm.objects.appointments.write\ncrm.objects.line_items.read\ncrm.objects.line_items.write\ncrm.objects.products.read\ncrm.objects.products.write\ncrm.objects.owners.read\ncrm.schemas.appointments.read\ncrm.schemas.contacts.read\ncrm.schemas.companies.read\ncrm.schemas.deals.read\ncrm.schemas.line_items.read\ncrm.lists.read\ncrm.lists.write\ntickets\nforms\ncontent\nfiles\nautomation\nanalytics.behavioral_events.send\ncommunication_preferences.read_write\nsocial\ncrm.objects.custom.read\ncrm.objects.custom.write\ncrm.schemas.custom.read"
+          "constant": "automation\ncommunication_preferences.read_write\ncontent\ncrm.lists.read\ncrm.lists.write\ncrm.objects.appointments.write\ncrm.objects.companies.read\ncrm.objects.companies.write\ncrm.objects.contacts.read\ncrm.objects.contacts.write\ncrm.objects.custom.read\ncrm.objects.custom.write\ncrm.objects.deals.read\ncrm.objects.deals.write\ncrm.objects.line_items.read\ncrm.objects.line_items.write\ncrm.objects.owners.read\ncrm.objects.products.read\ncrm.objects.products.write\ncrm.schemas.appointments.read\ncrm.schemas.companies.read\ncrm.schemas.contacts.read\ncrm.schemas.custom.read\ncrm.schemas.deals.read\ncrm.schemas.line_items.read\nfiles\nforms\ntickets"
         },
         {
           "name": "access_token",
@@ -210,19 +210,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -233,19 +237,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -600,19 +608,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -722,19 +734,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -745,19 +761,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -1112,19 +1132,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -1234,19 +1258,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -1257,19 +1285,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -1579,19 +1611,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -1701,19 +1737,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -1724,19 +1764,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -2046,19 +2090,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -2168,19 +2216,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -2191,19 +2243,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -2513,19 +2569,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -2635,19 +2695,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -2658,19 +2722,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -2980,19 +3048,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -3062,6 +3134,9 @@
               "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
             }
           },
+          "depends_on": [
+            "object_type"
+          ],
           "type": "resource_mapper",
           "mapping_method": "map_object_properties"
         }
@@ -3156,19 +3231,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         },
         {
           "name": "return_associations",
@@ -3179,19 +3258,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of association types to include (e.g. contacts, companies).",
+              "en_US": "List of association types to include (e.g. contacts, companies).",
               "zh_Hans": "要包含的关联类型列表，以逗号分隔（例如 contacts、companies）。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "association_type",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -3288,6 +3371,9 @@
               "zh_Hans": "要在对象上设置的属性。字段从 HubSpot 模式动态发现。"
             }
           },
+          "depends_on": [
+            "object_type"
+          ],
           "type": "resource_mapper",
           "mapping_method": "map_object_properties"
         },
@@ -3682,19 +3768,23 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated list of properties to include in the response.",
-              "zh_Hans": "响应中包含的属性列表，以逗号分隔。"
+              "en_US": "List of properties to include in the response.",
+              "zh_Hans": "响应中包含的属性列表。"
             },
             "support_expression": true,
-            "component": "textarea"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "property_name",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -4027,19 +4117,23 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated IDs of source objects to find associations for.",
-              "zh_Hans": "要查找关联的源对象 ID，以逗号分隔。"
+              "en_US": "List of source object IDs to find associations for.",
+              "zh_Hans": "要查找关联的源对象 ID 列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated IDs of source objects to find associations for.",
-              "zh_Hans": "要查找关联的源对象 ID，以逗号分隔。"
+              "en_US": "List of source object IDs to find associations for.",
+              "zh_Hans": "要查找关联的源对象 ID 列表。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "from_object_id",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -4133,23 +4227,32 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the HubSpot owner.",
-              "zh_Hans": "HubSpot 所有者的 ID。"
+              "en_US": "Select a HubSpot owner from the picker or enter the owner ID directly.",
+              "zh_Hans": "从选择器中选择 HubSpot 所有者，或直接输入所有者 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the HubSpot owner.",
-              "zh_Hans": "HubSpot 所有者的 ID。"
-            },
-            "placeholder": {
-              "en_US": "12345678",
-              "zh_Hans": "12345678"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for an owner...",
+                "zh_Hans": "搜索所有者..."
+              },
+              "search_list_method": "search_owners",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345678",
+                "zh_Hans": "12345678"
+              }
+            }
+          ]
         }
       ],
       "skill": ""
@@ -4348,19 +4451,32 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the list.",
-              "zh_Hans": "列表的 ID。"
+              "en_US": "Select a HubSpot list or enter the list ID directly.",
+              "zh_Hans": "选择一个 HubSpot 列表，或直接输入列表 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the list.",
-              "zh_Hans": "列表的 ID。"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a list...",
+                "zh_Hans": "搜索列表..."
+              },
+              "search_list_method": "search_lists",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345",
+                "zh_Hans": "12345"
+              }
+            }
+          ]
         },
         {
           "name": "contact_ids",
@@ -4371,19 +4487,23 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated contact IDs to add or remove.",
-              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+              "en_US": "List of contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID 列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated contact IDs to add or remove.",
-              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+              "en_US": "List of contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID 列表。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "contact_id",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -4422,19 +4542,32 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the list.",
-              "zh_Hans": "列表的 ID。"
+              "en_US": "Select a HubSpot list or enter the list ID directly.",
+              "zh_Hans": "选择一个 HubSpot 列表，或直接输入列表 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the list.",
-              "zh_Hans": "列表的 ID。"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a list...",
+                "zh_Hans": "搜索列表..."
+              },
+              "search_list_method": "search_lists",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345",
+                "zh_Hans": "12345"
+              }
+            }
+          ]
         },
         {
           "name": "contact_ids",
@@ -4445,19 +4578,23 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "Comma-separated contact IDs to add or remove.",
-              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+              "en_US": "List of contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID 列表。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Comma-separated contact IDs to add or remove.",
-              "zh_Hans": "要添加或移除的联系人 ID，以逗号分隔。"
+              "en_US": "List of contact IDs to add or remove.",
+              "zh_Hans": "要添加或移除的联系人 ID 列表。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "tag-input"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "contact_id",
+            "type": "string"
+          }
         }
       ],
       "skill": ""
@@ -4658,9 +4795,37 @@
               "en_US": "Key-value pairs of form field names and their values.",
               "zh_Hans": "表单字段名称和值的键值对。"
             },
-            "component": "code-editor"
+            "component": "key-value-editor"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "field",
+            "type": "object",
+            "properties": [
+              {
+                "name": "key",
+                "display_name": {
+                  "en_US": "Field Name",
+                  "zh_Hans": "字段名称"
+                },
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "value",
+                "display_name": {
+                  "en_US": "Field Value",
+                  "zh_Hans": "字段值"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "textarea"
+                },
+                "type": "string"
+              }
+            ]
+          }
         }
       ],
       "skill": ""
@@ -4813,9 +4978,41 @@
               "en_US": "List of subscription IDs and their subscribed status.",
               "zh_Hans": "订阅 ID 及其订阅状态列表。"
             },
-            "component": "code-editor"
+            "component": "array-section"
           },
-          "type": "string"
+          "type": "array",
+          "items": {
+            "name": "subscription_status",
+            "type": "object",
+            "properties": [
+              {
+                "name": "id",
+                "display_name": {
+                  "en_US": "Subscription Type ID",
+                  "zh_Hans": "订阅类型 ID"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "input"
+                },
+                "type": "string"
+              },
+              {
+                "name": "subscribed",
+                "display_name": {
+                  "en_US": "Subscribed",
+                  "zh_Hans": "已订阅"
+                },
+                "required": true,
+                "ui": {
+                  "support_expression": true,
+                  "component": "switch"
+                },
+                "type": "boolean"
+              }
+            ]
+          }
         },
         {
           "name": "legal_basis",
@@ -4867,84 +5064,6 @@
       "skill": ""
     },
     {
-      "name": "hubspot-create-social-message",
-      "display_name": {
-        "en_US": "Create Social Media Message",
-        "zh_Hans": "创建社交媒体消息"
-      },
-      "description": {
-        "en_US": "Create and schedule a social media message through HubSpot.",
-        "zh_Hans": "通过 HubSpot 创建和安排社交媒体消息。"
-      },
-      "icon": "📢",
-      "parameters": [
-        {
-          "name": "hubspot_oauth2_credential",
-          "display_name": {
-            "en_US": "HubSpot OAuth2 Credential",
-            "zh_Hans": "HubSpot OAuth2 凭证"
-          },
-          "required": true,
-          "ui": {
-            "component": "credential-select"
-          },
-          "type": "credential_id",
-          "credential_name": "hubspot-oauth2"
-        },
-        {
-          "name": "channel_guid",
-          "display_name": {
-            "en_US": "Channel GUID",
-            "zh_Hans": "频道 GUID"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "The unique identifier of the social media channel.",
-              "zh_Hans": "社交媒体频道的唯一标识符。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "The unique identifier of the social media channel.",
-              "zh_Hans": "社交媒体频道的唯一标识符。"
-            },
-            "support_expression": true,
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "content",
-          "display_name": {
-            "en_US": "Message Content",
-            "zh_Hans": "消息内容"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "The content of the social media message.",
-              "zh_Hans": "社交媒体消息的内容。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "The content of the social media message.",
-              "zh_Hans": "社交媒体消息的内容。"
-            },
-            "placeholder": {
-              "en_US": "Check out our new product!",
-              "zh_Hans": "看看我们的新产品！"
-            },
-            "support_expression": true,
-            "component": "textarea"
-          },
-          "type": "string"
-        }
-      ],
-      "skill": ""
-    },
-    {
       "name": "hubspot-add-contact-to-workflow",
       "display_name": {
         "en_US": "Add Contact to Workflow",
@@ -4978,23 +5097,32 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the workflow to enroll the contact in.",
-              "zh_Hans": "要注册联系人的工作流 ID。"
+              "en_US": "Select a workflow from the picker or enter the workflow ID directly.",
+              "zh_Hans": "从选择器中选择工作流，或直接输入工作流 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the workflow to enroll the contact in.",
-              "zh_Hans": "要注册联系人的工作流 ID。"
-            },
-            "placeholder": {
-              "en_US": "12345678",
-              "zh_Hans": "12345678"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a workflow...",
+                "zh_Hans": "搜索工作流..."
+              },
+              "search_list_method": "search_workflows",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345678",
+                "zh_Hans": "12345678"
+              }
+            }
+          ]
         },
         {
           "name": "contact_email",
@@ -5208,106 +5336,6 @@
       "skill": ""
     },
     {
-      "name": "hubspot-create-enterprise-event",
-      "display_name": {
-        "en_US": "Create Enterprise Event",
-        "zh_Hans": "创建企业事件"
-      },
-      "description": {
-        "en_US": "Send a custom behavioral event to HubSpot.",
-        "zh_Hans": "向 HubSpot 发送自定义行为事件。"
-      },
-      "icon": "📊",
-      "parameters": [
-        {
-          "name": "hubspot_oauth2_credential",
-          "display_name": {
-            "en_US": "HubSpot OAuth2 Credential",
-            "zh_Hans": "HubSpot OAuth2 凭证"
-          },
-          "required": true,
-          "ui": {
-            "component": "credential-select"
-          },
-          "type": "credential_id",
-          "credential_name": "hubspot-oauth2"
-        },
-        {
-          "name": "event_name",
-          "display_name": {
-            "en_US": "Event Name",
-            "zh_Hans": "事件名称"
-          },
-          "required": true,
-          "ai": {
-            "llm_description": {
-              "en_US": "The internal name of the event definition.",
-              "zh_Hans": "事件定义的内部名称。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "The internal name of the event definition.",
-              "zh_Hans": "事件定义的内部名称。"
-            },
-            "placeholder": {
-              "en_US": "pe12345_my_event",
-              "zh_Hans": "pe12345_my_event"
-            },
-            "support_expression": true,
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "email",
-          "display_name": {
-            "en_US": "Contact Email",
-            "zh_Hans": "联系人邮箱"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "The email of the contact to associate the event with.",
-              "zh_Hans": "要关联事件的联系人邮箱。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "The email of the contact to associate the event with.",
-              "zh_Hans": "要关联事件的联系人邮箱。"
-            },
-            "support_expression": true,
-            "component": "input"
-          },
-          "type": "string"
-        },
-        {
-          "name": "properties",
-          "display_name": {
-            "en_US": "Event Properties",
-            "zh_Hans": "事件属性"
-          },
-          "required": false,
-          "ai": {
-            "llm_description": {
-              "en_US": "Key-value pairs of custom event properties.",
-              "zh_Hans": "自定义事件属性的键值对。"
-            }
-          },
-          "ui": {
-            "hint": {
-              "en_US": "Key-value pairs of custom event properties.",
-              "zh_Hans": "自定义事件属性的键值对。"
-            },
-            "component": "code-editor"
-          },
-          "type": "string"
-        }
-      ],
-      "skill": ""
-    },
-    {
       "name": "hubspot-get-file-public-url",
       "display_name": {
         "en_US": "Get File Public URL",
@@ -5341,23 +5369,32 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the file.",
-              "zh_Hans": "文件的 ID。"
+              "en_US": "Select a HubSpot file or enter the file ID directly.",
+              "zh_Hans": "选择一个 HubSpot 文件，或直接输入文件 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the file.",
-              "zh_Hans": "文件的 ID。"
-            },
-            "placeholder": {
-              "en_US": "12345678",
-              "zh_Hans": "12345678"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a file...",
+                "zh_Hans": "搜索文件..."
+              },
+              "search_list_method": "search_files",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345678",
+                "zh_Hans": "12345678"
+              }
+            }
+          ]
         }
       ],
       "skill": ""
@@ -5417,25 +5454,23 @@
         {
           "name": "file_content",
           "display_name": {
-            "en_US": "File Content",
-            "zh_Hans": "文件内容"
+            "en_US": "File",
+            "zh_Hans": "文件"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "The file content to upload (base64 encoded).",
-              "zh_Hans": "要上传的文件内容（base64 编码）。"
+              "en_US": "Select a file from the picker or pass a file_ref from an upstream step.",
+              "zh_Hans": "从文件选择器中选择文件，或传入上游步骤的 file_ref。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "The file content to upload (base64 encoded).",
-              "zh_Hans": "要上传的文件内容（base64 编码）。"
-            },
-            "support_expression": true,
-            "component": "input"
+              "en_US": "Select a file from the picker or pass a file_ref from an upstream step.",
+              "zh_Hans": "从文件选择器中选择文件，或传入上游步骤的 file_ref。"
+            }
           },
-          "type": "string"
+          "type": "file_ref"
         },
         {
           "name": "folder_id",
@@ -5446,19 +5481,32 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "The ID of the folder to upload to (optional).",
-              "zh_Hans": "要上传到的文件夹 ID（可选）。"
+              "en_US": "Select a destination folder or enter the folder ID directly.",
+              "zh_Hans": "选择目标文件夹，或直接输入文件夹 ID。"
             }
           },
           "ui": {
-            "hint": {
-              "en_US": "The ID of the folder to upload to (optional).",
-              "zh_Hans": "要上传到的文件夹 ID（可选）。"
-            },
-            "support_expression": true,
-            "component": "input"
+            "support_expression": true
           },
-          "type": "string"
+          "type": "resource_locator",
+          "modes": [
+            {
+              "type": "list",
+              "placeholder": {
+                "en_US": "Search for a folder...",
+                "zh_Hans": "搜索文件夹..."
+              },
+              "search_list_method": "search_folders",
+              "searchable": true
+            },
+            {
+              "type": "id",
+              "placeholder": {
+                "en_US": "12345678",
+                "zh_Hans": "12345678"
+              }
+            }
+          ]
         },
         {
           "name": "access",

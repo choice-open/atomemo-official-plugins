@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const removeEmailSubscriptionTool = {
@@ -62,7 +63,7 @@ export const removeEmailSubscriptionTool = {
           legalBasis: undefined as any,
           legalBasisExplanation: undefined as any,
         })
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

@@ -11,6 +11,7 @@ import {
   getHubSpotClient,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const createCompanyTool = {
@@ -31,7 +32,7 @@ export const createCompanyTool = {
         properties,
         associations: [],
       })
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }

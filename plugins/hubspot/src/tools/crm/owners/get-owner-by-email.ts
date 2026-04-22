@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const getOwnerByEmailTool = {
@@ -43,7 +44,7 @@ export const getOwnerByEmailTool = {
       const result = await client.crm.owners.ownersApi.getPage(email)
       const owner = result.results[0]
       if (!owner) throw new Error(`Owner not found with email: ${email}`)
-      return { success: true, owner } as unknown as JsonValue
+      return toJsonValue({ success: true, owner })
     } catch (error) {
       handleHubSpotError(error)
     }

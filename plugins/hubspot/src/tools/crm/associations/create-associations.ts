@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const createAssociationsTool = {
@@ -98,7 +99,7 @@ export const createAssociationsTool = {
           })),
         },
       )
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

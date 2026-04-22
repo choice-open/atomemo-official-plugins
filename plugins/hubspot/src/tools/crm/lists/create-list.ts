@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const createListTool = {
@@ -76,7 +77,7 @@ export const createListTool = {
         processingType,
         filterBranch: undefined as any,
       })
-      return { success: true, list: result } as unknown as JsonValue
+      return toJsonValue({ success: true, list: result })
     } catch (error) {
       handleHubSpotError(error)
     }

@@ -1,5 +1,15 @@
+import {
+  extractResourceLocator,
+  extractResourceMapper,
+} from "@choiceopen/atomemo-plugin-sdk-js"
+import type { JsonValue } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { Client } from "@hubspot/api-client"
 import type { ToolArgs } from "./types"
+
+type KeyValueEntryLike = {
+  key?: unknown
+  value?: unknown
+}
 
 /**
  * Create an authenticated HubSpot SDK client from tool args.
@@ -40,6 +50,13 @@ export function handleHubSpotError(error: unknown): never {
 }
 
 /**
+ * Convert SDK model instances into plain JSON-safe data for Atomemo tool results.
+ */
+export function toJsonValue(value: unknown): JsonValue {
+  return JSON.parse(JSON.stringify(value)) as JsonValue
+}
+
+/**
  * Safely extract a string parameter.
  */
 export function getString(
@@ -48,6 +65,30 @@ export function getString(
 ): string | undefined {
   const v = params[key]
   return typeof v === "string" && v.length > 0 ? v : undefined
+}
+
+/**
+ * Safely extract a resource locator value or plain string fallback.
+ */
+export function getResourceLocatorValue(
+  params: Record<string, unknown>,
+  key: string,
+): string | undefined {
+  const v = params[key]
+  if (typeof v === "string") {
+    const trimmed = v.trim()
+    return trimmed.length > 0 ? trimmed : undefined
+  }
+  if (!v) return undefined
+
+  try {
+    const extracted = extractResourceLocator(v)
+    if (typeof extracted !== "string") return undefined
+    const trimmed = extracted.trim()
+    return trimmed.length > 0 ? trimmed : undefined
+  } catch {
+    return undefined
+  }
 }
 
 /**
@@ -81,31 +122,142 @@ export function getBoolean(
 }
 
 /**
+ * Safely extract a list of strings from an array parameter.
+ * Falls back to comma-separated strings for backward compatibility.
+ */
+export function getStringArray(
+  params: Record<string, unknown>,
+  key: string,
+): string[] | undefined {
+  const v = params[key]
+  if (Array.isArray(v)) {
+    const values = v
+      .map((item) => (typeof item === "string" ? item.trim() : ""))
+      .filter(Boolean)
+    return values.length > 0 ? values : undefined
+  }
+
+  if (typeof v === "string" && v.length > 0) {
+    const values = v
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean)
+    return values.length > 0 ? values : undefined
+  }
+
+  return undefined
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
+
+function normalizeObjectStringValues(
+  value: Record<string, unknown>,
+): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(value)
+      .map(([key, item]) => [key, typeof item === "string" ? item : String(item)])
+      .filter(([key]) => key.trim().length > 0),
+  )
+}
+
+function normalizeObjectValues(
+  value: Record<string, unknown>,
+): Record<string, any> | undefined {
+  const entries = Object.entries(value).filter(([key]) => key.trim().length > 0)
+  return entries.length > 0 ? Object.fromEntries(entries) : undefined
+}
+
+/**
+ * Resolve a key/value editor payload, legacy JSON string, or plain object into a string map.
+ */
+export function resolveStringMap(
+  value: unknown,
+): Record<string, string> | undefined {
+  if (!value) return undefined
+
+  if (typeof value === "string") {
+    try {
+      return resolveStringMap(JSON.parse(value))
+    } catch {
+      return undefined
+    }
+  }
+
+  if (Array.isArray(value)) {
+    const entries = value
+      .map((item) => {
+        if (!item || typeof item !== "object") return undefined
+        const { key, value: entryValue } = item as KeyValueEntryLike
+        if (typeof key !== "string" || key.trim().length === 0) return undefined
+        return [
+          key.trim(),
+          typeof entryValue === "string" ? entryValue : String(entryValue ?? ""),
+        ] as const
+      })
+      .filter(
+        (entry): entry is readonly [string, string] => entry !== undefined,
+      )
+
+    return entries.length > 0
+      ? Object.fromEntries(entries)
+      : undefined
+  }
+
+  if (isRecord(value)) {
+    return normalizeObjectStringValues(value)
+  }
+
+  return undefined
+}
+
+/**
  * Resolve a resource_mapper value to a properties object.
  */
 export function resolveResourceMapper(
   params: Record<string, unknown>,
   key: string,
-): Record<string, string> | undefined {
+): Record<string, any> | undefined {
   const v = params[key]
-  if (!v || typeof v !== "object") return undefined
+  if (!v) return undefined
 
-  // Direct object of key-value pairs
-  if (!("mapping_mode" in v)) {
-    return v as Record<string, string>
+  if (isRecord(v) && !("mapping_mode" in v)) {
+    return normalizeObjectValues(v)
   }
 
-  const mapper = v as { mapping_mode: string; value: unknown }
-  if (mapper.value && typeof mapper.value === "object") {
-    return mapper.value as Record<string, string>
+  try {
+    const extracted = extractResourceMapper(v)
+    return extracted && isRecord(extracted)
+      ? normalizeObjectValues(extracted)
+      : undefined
+  } catch {
+    // Fall through to legacy parsing for previously saved string-based payloads.
   }
-  if (typeof mapper.value === "string") {
+
+  if (typeof v === "string") {
     try {
-      return JSON.parse(mapper.value) as Record<string, string>
+      return resolveResourceMapper({ [key]: JSON.parse(v) }, key)
     } catch {
       return undefined
     }
   }
+
+  if (isRecord(v) && "value" in v) {
+    const mapperValue = v.value
+    if (typeof mapperValue === "string") {
+      try {
+        return resolveResourceMapper({ [key]: JSON.parse(mapperValue) }, key)
+      } catch {
+        return undefined
+      }
+    }
+
+    return isRecord(mapperValue)
+      ? normalizeObjectValues(mapperValue)
+      : undefined
+  }
+
   return undefined
 }
 

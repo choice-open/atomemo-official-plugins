@@ -7,10 +7,10 @@ import { t } from "../../../i18n/i18n-node"
 import { createPropertyMappingMethod } from "../../_shared/methods"
 import {
   credentialParams,
+  genericObjectPropertiesOptionalParam,
   idPropertyParam,
   objectIdParam,
   objectTypeParam,
-  propertiesOptionalParam,
   upsertParam,
 } from "../../_shared/parameters"
 import type { ToolArgs } from "../../_shared/types"
@@ -20,6 +20,7 @@ import {
   getString,
   handleHubSpotError,
   resolveResourceMapper,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const updateCrmObjectTool = {
@@ -32,7 +33,7 @@ export const updateCrmObjectTool = {
     ...credentialParams,
     objectTypeParam,
     objectIdParam,
-    propertiesOptionalParam,
+    genericObjectPropertiesOptionalParam,
     upsertParam,
     idPropertyParam,
   ],
@@ -58,11 +59,11 @@ export const updateCrmObjectTool = {
         const response = await client.crm.objects.batchApi.upsert(objectType, {
           inputs: [{ idProperty, id: objectId, properties }],
         })
-        return {
+        return toJsonValue({
           success: true,
           object: response.results[0],
           upserted: true,
-        } as unknown as JsonValue
+        })
       }
 
       const objectId = getString(args.parameters, "object_id")
@@ -72,7 +73,7 @@ export const updateCrmObjectTool = {
         objectId,
         { properties },
       )
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }

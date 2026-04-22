@@ -1,18 +1,22 @@
 // API docs: https://developers.hubspot.com/docs/api/files/files
 import type {
-  JsonValue,
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
-import { credentialParams } from "../_shared/parameters"
-import type { ToolArgs } from "../_shared/types"
+import { hubspotLocatorListMethods } from "../_shared/methods"
+import {
+  credentialParams,
+  folderIdParam,
+} from "../_shared/parameters"
 import {
   getHubSpotClient,
+  getResourceLocatorValue,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../_shared/utils"
 
-export const uploadFileTool = {
+export const uploadFileTool: ToolDefinition = {
   name: "hubspot-upload-file",
   display_name: t("UPLOAD_FILE_DISPLAY_NAME"),
   description: t("UPLOAD_FILE_DESCRIPTION"),
@@ -35,28 +39,15 @@ export const uploadFileTool = {
     },
     {
       name: "file_content",
-      type: "string",
+      type: "file_ref",
       required: true,
       display_name: t("PARAM_FILE_CONTENT_LABEL"),
       ai: { llm_description: t("PARAM_FILE_CONTENT_HINT") },
       ui: {
-        component: "input",
         hint: t("PARAM_FILE_CONTENT_HINT"),
-        support_expression: true,
       },
     },
-    {
-      name: "folder_id",
-      type: "string",
-      required: false,
-      display_name: t("PARAM_FILE_FOLDER_ID_LABEL"),
-      ai: { llm_description: t("PARAM_FILE_FOLDER_ID_HINT") },
-      ui: {
-        component: "input",
-        hint: t("PARAM_FILE_FOLDER_ID_HINT"),
-        support_expression: true,
-      },
-    },
+    folderIdParam,
     {
       name: "access",
       type: "string",
@@ -77,16 +68,28 @@ export const uploadFileTool = {
       },
     },
   ],
+  locator_list: hubspotLocatorListMethods,
 
-  async invoke({ args }: { args: ToolArgs }): Promise<JsonValue> {
+  async invoke({ args, context }) {
     const client = getHubSpotClient(args)
     const fileName = getString(args.parameters, "file_name")
-    const fileContent = getString(args.parameters, "file_content")
-    if (!fileName || !fileContent)
+    if (!fileName || !args.parameters.file_content)
       throw new Error("file_name and file_content are required")
+    if (!context?.files) {
+      throw new Error("File context is unavailable.")
+    }
+
+    const fileRef = context.files.parseFileRef(args.parameters.file_content)
+    let fileContent = fileRef.content
+    if (!fileContent) {
+      fileContent = (await context.files.download(fileRef)).content
+    }
+    if (!fileContent) {
+      throw new Error("Failed to read the input file content.")
+    }
 
     const buffer = Buffer.from(fileContent, "base64")
-    const folderId = getString(args.parameters, "folder_id")
+    const folderId = getResourceLocatorValue(args.parameters, "folder_id")
     const access = getString(args.parameters, "access")
 
     try {
@@ -108,9 +111,9 @@ export const uploadFileTool = {
           duplicateValidationScope: "ENTIRE_PORTAL",
         }),
       )
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }
   },
-} satisfies ToolDefinition
+}

@@ -4,45 +4,41 @@ import { t } from "../i18n/i18n-node"
 const HUBSPOT_TOKEN_ENDPOINT = "https://api.hubapi.com/oauth/v3/token"
 
 const HUBSPOT_REQUIRED_SCOPES = [
-  "crm.objects.contacts.read",
-  "crm.objects.contacts.write",
-  "crm.objects.companies.read",
-  "crm.objects.companies.write",
-  "crm.objects.deals.read",
-  "crm.objects.deals.write",
-  // `hubspot-create-engagement` supports meetings, which map to appointments scopes.
-  "crm.objects.appointments.write",
-  "crm.objects.line_items.read",
-  "crm.objects.line_items.write",
-  "crm.objects.products.read",
-  "crm.objects.products.write",
-  "crm.objects.owners.read",
-  "crm.schemas.appointments.read",
-  "crm.schemas.contacts.read",
-  "crm.schemas.companies.read",
-  "crm.schemas.deals.read",
-  "crm.schemas.line_items.read",
+  "automation",
+  "communication_preferences.read_write",
+  "content",
   "crm.lists.read",
   "crm.lists.write",
-  "tickets",
-  "forms",
-  "content",
-  "files",
-  "automation",
-  "analytics.behavioral_events.send",
-  "communication_preferences.read_write",
-]
-
-const HUBSPOT_OPTIONAL_SCOPES = [
-  // These are either account-tier-dependent or tied to deprecated APIs.
-  "social",
+  // `hubspot-create-engagement` supports meetings, which map to appointments scopes.
+  "crm.objects.appointments.write",
+  "crm.objects.companies.read",
+  "crm.objects.companies.write",
+  "crm.objects.contacts.read",
+  "crm.objects.contacts.write",
   "crm.objects.custom.read",
   "crm.objects.custom.write",
+  "crm.objects.deals.read",
+  "crm.objects.deals.write",
+  "crm.objects.line_items.read",
+  "crm.objects.line_items.write",
+  "crm.objects.owners.read",
+  "crm.objects.products.read",
+  "crm.objects.products.write",
+  "crm.schemas.appointments.read",
+  "crm.schemas.companies.read",
+  "crm.schemas.contacts.read",
   "crm.schemas.custom.read",
+  "crm.schemas.deals.read",
+  "crm.schemas.line_items.read",
+  "files",
+  "forms",
+  "tickets",
 ]
 
+// analytics.behavioral_events.send
+// social
+
 const HUBSPOT_REQUIRED_SCOPES_QUERY = HUBSPOT_REQUIRED_SCOPES.join(" ")
-const HUBSPOT_OPTIONAL_SCOPES_QUERY = HUBSPOT_OPTIONAL_SCOPES.join(" ")
 
 type HubSpotOAuthTokenResponse = {
   access_token?: string
@@ -99,7 +95,6 @@ export const hubspotOAuth2Credential = {
       display_name: t("CREDENTIAL_OAUTH2_SCOPES_LABEL"),
       constant: [
         ...HUBSPOT_REQUIRED_SCOPES,
-        ...HUBSPOT_OPTIONAL_SCOPES,
       ].join("\n"),
       ui: {
         component: "textarea",
@@ -130,7 +125,6 @@ export const hubspotOAuth2Credential = {
       state,
       response_type: "code",
       scope: HUBSPOT_REQUIRED_SCOPES_QUERY,
-      optional_scope: HUBSPOT_OPTIONAL_SCOPES_QUERY,
     })
     return {
       url: `https://app.hubspot.com/oauth/authorize?${params.toString()}`,
@@ -170,8 +164,7 @@ export const hubspotOAuth2Credential = {
       parameters_patch: {
         access_token: payload.access_token,
         refresh_token: payload.refresh_token,
-        expires_at:
-          Math.floor(Date.now() / 1000) + (payload.expires_in ?? 3600),
+        expires_at: Math.floor(Date.now() / 1000) + (payload.expires_in ?? 3600),
       },
     }
   },

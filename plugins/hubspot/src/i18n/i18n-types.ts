@@ -52,7 +52,7 @@ type RootTranslation = {
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: string
   /**
-   * S​c​o​p​e​s
+   * S​c​o​p​e​s​ ​(​c​o​n​f​i​g​u​r​e​ ​b​e​f​o​r​e​ ​O​A​u​t​h​2​)
    */
   CREDENTIAL_OAUTH2_SCOPES_LABEL: string
   /**
@@ -188,7 +188,7 @@ type RootTranslation = {
    */
   PARAM_RETURN_PROPERTIES_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​p​r​o​p​e​r​t​i​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.
+   * L​i​s​t​ ​o​f​ ​p​r​o​p​e​r​t​i​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​i​n​ ​t​h​e​ ​r​e​s​p​o​n​s​e​.
    */
   PARAM_RETURN_PROPERTIES_HINT: string
   /**
@@ -196,7 +196,7 @@ type RootTranslation = {
    */
   PARAM_RETURN_ASSOCIATIONS_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​l​i​s​t​ ​o​f​ ​a​s​s​o​c​i​a​t​i​o​n​ ​t​y​p​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​)​.
+   * L​i​s​t​ ​o​f​ ​a​s​s​o​c​i​a​t​i​o​n​ ​t​y​p​e​s​ ​t​o​ ​i​n​c​l​u​d​e​ ​(​e​.​g​.​ ​c​o​n​t​a​c​t​s​,​ ​c​o​m​p​a​n​i​e​s​)​.
    */
   PARAM_RETURN_ASSOCIATIONS_HINT: string
   /**
@@ -528,7 +528,7 @@ type RootTranslation = {
    */
   PARAM_FROM_IDS_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​I​D​s​ ​o​f​ ​s​o​u​r​c​e​ ​o​b​j​e​c​t​s​ ​t​o​ ​f​i​n​d​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​f​o​r​.
+   * L​i​s​t​ ​o​f​ ​s​o​u​r​c​e​ ​o​b​j​e​c​t​ ​I​D​s​ ​t​o​ ​f​i​n​d​ ​a​s​s​o​c​i​a​t​i​o​n​s​ ​f​o​r​.
    */
   PARAM_FROM_IDS_HINT: string
   /**
@@ -564,9 +564,13 @@ type RootTranslation = {
    */
   PARAM_OWNER_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​.
+   * S​e​l​e​c​t​ ​a​ ​H​u​b​S​p​o​t​ ​o​w​n​e​r​ ​f​r​o​m​ ​t​h​e​ ​p​i​c​k​e​r​ ​o​r​ ​e​n​t​e​r​ ​t​h​e​ ​o​w​n​e​r​ ​I​D​ ​d​i​r​e​c​t​l​y​.
    */
   PARAM_OWNER_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​n​ ​o​w​n​e​r​.​.​.
+   */
+  PARAM_OWNER_ID_MODE_LIST_PLACEHOLDER: string
   /**
    * 1​2​3​4​5​6​7​8
    */
@@ -652,9 +656,13 @@ type RootTranslation = {
    */
   PARAM_LIST_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​l​i​s​t​.
+   * S​e​l​e​c​t​ ​a​ ​H​u​b​S​p​o​t​ ​l​i​s​t​ ​o​r​ ​e​n​t​e​r​ ​t​h​e​ ​l​i​s​t​ ​I​D​ ​d​i​r​e​c​t​l​y​.
    */
   PARAM_LIST_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​l​i​s​t​.​.​.
+   */
+  PARAM_LIST_ID_MODE_LIST_PLACEHOLDER: string
   /**
    * 1​2​3​4​5
    */
@@ -664,7 +672,7 @@ type RootTranslation = {
    */
   PARAM_CONTACT_IDS_LABEL: string
   /**
-   * C​o​m​m​a​-​s​e​p​a​r​a​t​e​d​ ​c​o​n​t​a​c​t​ ​I​D​s​ ​t​o​ ​a​d​d​ ​o​r​ ​r​e​m​o​v​e​.
+   * L​i​s​t​ ​o​f​ ​c​o​n​t​a​c​t​ ​I​D​s​ ​t​o​ ​a​d​d​ ​o​r​ ​r​e​m​o​v​e​.
    */
   PARAM_CONTACT_IDS_HINT: string
   /**
@@ -751,6 +759,14 @@ type RootTranslation = {
    * K​e​y​-​v​a​l​u​e​ ​p​a​i​r​s​ ​o​f​ ​f​o​r​m​ ​f​i​e​l​d​ ​n​a​m​e​s​ ​a​n​d​ ​t​h​e​i​r​ ​v​a​l​u​e​s​.
    */
   PARAM_FORM_FIELDS_HINT: string
+  /**
+   * F​i​e​l​d​ ​N​a​m​e
+   */
+  PARAM_FORM_FIELD_NAME_LABEL: string
+  /**
+   * F​i​e​l​d​ ​V​a​l​u​e
+   */
+  PARAM_FORM_FIELD_VALUE_LABEL: string
   /**
    * R​e​m​o​v​e​ ​E​m​a​i​l​ ​S​u​b​s​c​r​i​p​t​i​o​n
    */
@@ -860,9 +876,13 @@ type RootTranslation = {
    */
   PARAM_WORKFLOW_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​t​o​ ​e​n​r​o​l​l​ ​t​h​e​ ​c​o​n​t​a​c​t​ ​i​n​.
+   * S​e​l​e​c​t​ ​a​ ​w​o​r​k​f​l​o​w​ ​f​r​o​m​ ​t​h​e​ ​p​i​c​k​e​r​ ​o​r​ ​e​n​t​e​r​ ​t​h​e​ ​w​o​r​k​f​l​o​w​ ​I​D​ ​d​i​r​e​c​t​l​y​.
    */
   PARAM_WORKFLOW_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​w​o​r​k​f​l​o​w​.​.​.
+   */
+  PARAM_WORKFLOW_ID_MODE_LIST_PLACEHOLDER: string
   /**
    * 1​2​3​4​5​6​7​8
    */
@@ -980,6 +1000,14 @@ type RootTranslation = {
    */
   PARAM_EVENT_PROPERTIES_HINT: string
   /**
+   * P​r​o​p​e​r​t​y​ ​N​a​m​e
+   */
+  PARAM_EVENT_PROPERTY_NAME_LABEL: string
+  /**
+   * P​r​o​p​e​r​t​y​ ​V​a​l​u​e
+   */
+  PARAM_EVENT_PROPERTY_VALUE_LABEL: string
+  /**
    * G​e​t​ ​F​i​l​e​ ​P​u​b​l​i​c​ ​U​R​L
    */
   GET_FILE_PUBLIC_URL_DISPLAY_NAME: string
@@ -1000,9 +1028,13 @@ type RootTranslation = {
    */
   PARAM_FILE_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​f​i​l​e​.
+   * S​e​l​e​c​t​ ​a​ ​H​u​b​S​p​o​t​ ​f​i​l​e​ ​o​r​ ​e​n​t​e​r​ ​t​h​e​ ​f​i​l​e​ ​I​D​ ​d​i​r​e​c​t​l​y​.
    */
   PARAM_FILE_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​f​i​l​e​.​.​.
+   */
+  PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: string
   /**
    * 1​2​3​4​5​6​7​8
    */
@@ -1020,11 +1052,11 @@ type RootTranslation = {
    */
   PARAM_FILE_NAME_PLACEHOLDER: string
   /**
-   * F​i​l​e​ ​C​o​n​t​e​n​t
+   * F​i​l​e
    */
   PARAM_FILE_CONTENT_LABEL: string
   /**
-   * T​h​e​ ​f​i​l​e​ ​c​o​n​t​e​n​t​ ​t​o​ ​u​p​l​o​a​d​ ​(​b​a​s​e​6​4​ ​e​n​c​o​d​e​d​)​.
+   * S​e​l​e​c​t​ ​a​ ​f​i​l​e​ ​f​r​o​m​ ​t​h​e​ ​p​i​c​k​e​r​ ​o​r​ ​p​a​s​s​ ​a​ ​f​i​l​e​_​r​e​f​ ​f​r​o​m​ ​a​n​ ​u​p​s​t​r​e​a​m​ ​s​t​e​p​.
    */
   PARAM_FILE_CONTENT_HINT: string
   /**
@@ -1032,9 +1064,17 @@ type RootTranslation = {
    */
   PARAM_FILE_FOLDER_ID_LABEL: string
   /**
-   * T​h​e​ ​I​D​ ​o​f​ ​t​h​e​ ​f​o​l​d​e​r​ ​t​o​ ​u​p​l​o​a​d​ ​t​o​ ​(​o​p​t​i​o​n​a​l​)​.
+   * S​e​l​e​c​t​ ​a​ ​d​e​s​t​i​n​a​t​i​o​n​ ​f​o​l​d​e​r​ ​o​r​ ​e​n​t​e​r​ ​t​h​e​ ​f​o​l​d​e​r​ ​I​D​ ​d​i​r​e​c​t​l​y​.
    */
   PARAM_FILE_FOLDER_ID_HINT: string
+  /**
+   * S​e​a​r​c​h​ ​f​o​r​ ​a​ ​f​o​l​d​e​r​.​.​.
+   */
+  PARAM_FILE_FOLDER_ID_MODE_LIST_PLACEHOLDER: string
+  /**
+   * 1​2​3​4​5​6​7​8
+   */
+  PARAM_FILE_FOLDER_ID_PLACEHOLDER: string
   /**
    * A​c​c​e​s​s
    */
@@ -1099,7 +1139,7 @@ export type TranslationFunctions = {
    */
   CREDENTIAL_OAUTH2_CLIENT_SECRET_HINT: () => LocalizedString
   /**
-   * Scopes
+   * Scopes (configure before OAuth2)
    */
   CREDENTIAL_OAUTH2_SCOPES_LABEL: () => LocalizedString
   /**
@@ -1235,7 +1275,7 @@ export type TranslationFunctions = {
    */
   PARAM_RETURN_PROPERTIES_LABEL: () => LocalizedString
   /**
-   * Comma-separated list of properties to include in the response.
+   * List of properties to include in the response.
    */
   PARAM_RETURN_PROPERTIES_HINT: () => LocalizedString
   /**
@@ -1243,7 +1283,7 @@ export type TranslationFunctions = {
    */
   PARAM_RETURN_ASSOCIATIONS_LABEL: () => LocalizedString
   /**
-   * Comma-separated list of association types to include (e.g. contacts, companies).
+   * List of association types to include (e.g. contacts, companies).
    */
   PARAM_RETURN_ASSOCIATIONS_HINT: () => LocalizedString
   /**
@@ -1575,7 +1615,7 @@ export type TranslationFunctions = {
    */
   PARAM_FROM_IDS_LABEL: () => LocalizedString
   /**
-   * Comma-separated IDs of source objects to find associations for.
+   * List of source object IDs to find associations for.
    */
   PARAM_FROM_IDS_HINT: () => LocalizedString
   /**
@@ -1611,9 +1651,13 @@ export type TranslationFunctions = {
    */
   PARAM_OWNER_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the HubSpot owner.
+   * Select a HubSpot owner from the picker or enter the owner ID directly.
    */
   PARAM_OWNER_ID_HINT: () => LocalizedString
+  /**
+   * Search for an owner...
+   */
+  PARAM_OWNER_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
   /**
    * 12345678
    */
@@ -1699,9 +1743,13 @@ export type TranslationFunctions = {
    */
   PARAM_LIST_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the list.
+   * Select a HubSpot list or enter the list ID directly.
    */
   PARAM_LIST_ID_HINT: () => LocalizedString
+  /**
+   * Search for a list...
+   */
+  PARAM_LIST_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
   /**
    * 12345
    */
@@ -1711,7 +1759,7 @@ export type TranslationFunctions = {
    */
   PARAM_CONTACT_IDS_LABEL: () => LocalizedString
   /**
-   * Comma-separated contact IDs to add or remove.
+   * List of contact IDs to add or remove.
    */
   PARAM_CONTACT_IDS_HINT: () => LocalizedString
   /**
@@ -1798,6 +1846,14 @@ export type TranslationFunctions = {
    * Key-value pairs of form field names and their values.
    */
   PARAM_FORM_FIELDS_HINT: () => LocalizedString
+  /**
+   * Field Name
+   */
+  PARAM_FORM_FIELD_NAME_LABEL: () => LocalizedString
+  /**
+   * Field Value
+   */
+  PARAM_FORM_FIELD_VALUE_LABEL: () => LocalizedString
   /**
    * Remove Email Subscription
    */
@@ -1907,9 +1963,13 @@ export type TranslationFunctions = {
    */
   PARAM_WORKFLOW_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the workflow to enroll the contact in.
+   * Select a workflow from the picker or enter the workflow ID directly.
    */
   PARAM_WORKFLOW_ID_HINT: () => LocalizedString
+  /**
+   * Search for a workflow...
+   */
+  PARAM_WORKFLOW_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
   /**
    * 12345678
    */
@@ -2027,6 +2087,14 @@ export type TranslationFunctions = {
    */
   PARAM_EVENT_PROPERTIES_HINT: () => LocalizedString
   /**
+   * Property Name
+   */
+  PARAM_EVENT_PROPERTY_NAME_LABEL: () => LocalizedString
+  /**
+   * Property Value
+   */
+  PARAM_EVENT_PROPERTY_VALUE_LABEL: () => LocalizedString
+  /**
    * Get File Public URL
    */
   GET_FILE_PUBLIC_URL_DISPLAY_NAME: () => LocalizedString
@@ -2047,9 +2115,13 @@ export type TranslationFunctions = {
    */
   PARAM_FILE_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the file.
+   * Select a HubSpot file or enter the file ID directly.
    */
   PARAM_FILE_ID_HINT: () => LocalizedString
+  /**
+   * Search for a file...
+   */
+  PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
   /**
    * 12345678
    */
@@ -2067,11 +2139,11 @@ export type TranslationFunctions = {
    */
   PARAM_FILE_NAME_PLACEHOLDER: () => LocalizedString
   /**
-   * File Content
+   * File
    */
   PARAM_FILE_CONTENT_LABEL: () => LocalizedString
   /**
-   * The file content to upload (base64 encoded).
+   * Select a file from the picker or pass a file_ref from an upstream step.
    */
   PARAM_FILE_CONTENT_HINT: () => LocalizedString
   /**
@@ -2079,9 +2151,17 @@ export type TranslationFunctions = {
    */
   PARAM_FILE_FOLDER_ID_LABEL: () => LocalizedString
   /**
-   * The ID of the folder to upload to (optional).
+   * Select a destination folder or enter the folder ID directly.
    */
   PARAM_FILE_FOLDER_ID_HINT: () => LocalizedString
+  /**
+   * Search for a folder...
+   */
+  PARAM_FILE_FOLDER_ID_MODE_LIST_PLACEHOLDER: () => LocalizedString
+  /**
+   * 12345678
+   */
+  PARAM_FILE_FOLDER_ID_PLACEHOLDER: () => LocalizedString
   /**
    * Access
    */

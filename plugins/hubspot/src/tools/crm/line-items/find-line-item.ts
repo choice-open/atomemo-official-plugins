@@ -16,8 +16,10 @@ import {
   getHubSpotClient,
   getNumber,
   getString,
+  getStringArray,
   handleHubSpotError,
   resolveFilters,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const findLineItemTool = {
@@ -39,11 +41,7 @@ export const findLineItemTool = {
     const query = getString(args.parameters, "search_query")
     const filterGroups = resolveFilters(args.parameters, "filter_groups")
     const limit = getNumber(args.parameters, "limit") ?? 100
-    const returnProps = getString(args.parameters, "return_properties")
-    const properties = returnProps
-      ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
+    const properties = getStringArray(args.parameters, "return_properties")
 
     try {
       const result = await client.crm.lineItems.searchApi.doSearch({
@@ -54,12 +52,12 @@ export const findLineItemTool = {
         after: undefined,
         sorts: undefined,
       })
-      return {
+      return toJsonValue({
         success: true,
         results: result.results,
         total: result.results.length,
         hasMore: !!result.paging?.next,
-      } as unknown as JsonValue
+      })
     } catch (error) {
       handleHubSpotError(error)
     }

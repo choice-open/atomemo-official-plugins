@@ -1,5 +1,6 @@
 import type {
   Property,
+  PropertyResourceLocator,
   PropertyResourceMapper,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../i18n/i18n-node"
@@ -67,6 +68,16 @@ export const propertiesOptionalParam = {
   display_name: t("PARAM_PROPERTIES_LABEL"),
   ai: { llm_description: t("PARAM_PROPERTIES_HINT") },
   mapping_method: "map_object_properties",
+} satisfies PropertyResourceMapper<"properties">
+
+export const genericObjectPropertiesParam = {
+  ...propertiesParam,
+  depends_on: ["object_type"],
+} satisfies PropertyResourceMapper<"properties">
+
+export const genericObjectPropertiesOptionalParam = {
+  ...propertiesOptionalParam,
+  depends_on: ["object_type"],
 } satisfies PropertyResourceMapper<"properties">
 
 // ── Search / Filter Parameters ──────────────────────────────────────
@@ -174,27 +185,35 @@ export const limitParam = {
 
 export const returnPropertiesParam = {
   name: "return_properties",
-  type: "string",
+  type: "array",
   required: false,
   display_name: t("PARAM_RETURN_PROPERTIES_LABEL"),
   ai: { llm_description: t("PARAM_RETURN_PROPERTIES_HINT") },
   ui: {
-    component: "textarea",
+    component: "tag-input",
     hint: t("PARAM_RETURN_PROPERTIES_HINT"),
     support_expression: true,
+  },
+  items: {
+    name: "property_name",
+    type: "string",
   },
 } satisfies Property<"return_properties">
 
 export const associationsParam = {
   name: "return_associations",
-  type: "string",
+  type: "array",
   required: false,
   display_name: t("PARAM_RETURN_ASSOCIATIONS_LABEL"),
   ai: { llm_description: t("PARAM_RETURN_ASSOCIATIONS_HINT") },
   ui: {
-    component: "textarea",
+    component: "tag-input",
     hint: t("PARAM_RETURN_ASSOCIATIONS_HINT"),
     support_expression: true,
+  },
+  items: {
+    name: "association_type",
+    type: "string",
   },
 } satisfies Property<"return_associations">
 
@@ -226,3 +245,142 @@ export const idPropertyParam = {
     support_expression: true,
   },
 } satisfies Property<"id_property">
+
+export const workflowIdParam = {
+  name: "workflow_id",
+  type: "resource_locator",
+  required: true,
+  display_name: t("PARAM_WORKFLOW_ID_LABEL"),
+  ai: { llm_description: t("PARAM_WORKFLOW_ID_HINT") },
+  modes: [
+    {
+      type: "list",
+      search_list_method: "search_workflows",
+      searchable: true,
+      placeholder: t("PARAM_WORKFLOW_ID_MODE_LIST_PLACEHOLDER"),
+    },
+    {
+      type: "id",
+      placeholder: t("PARAM_WORKFLOW_ID_PLACEHOLDER"),
+    },
+  ],
+  ui: { support_expression: true },
+} satisfies PropertyResourceLocator<"workflow_id">
+
+export const listIdParam = {
+  name: "list_id",
+  type: "resource_locator",
+  required: true,
+  display_name: t("PARAM_LIST_ID_LABEL"),
+  ai: { llm_description: t("PARAM_LIST_ID_HINT") },
+  modes: [
+    {
+      type: "list",
+      search_list_method: "search_lists",
+      searchable: true,
+      placeholder: t("PARAM_LIST_ID_MODE_LIST_PLACEHOLDER"),
+    },
+    {
+      type: "id",
+      placeholder: t("PARAM_LIST_ID_PLACEHOLDER"),
+    },
+  ],
+  ui: { support_expression: true },
+} satisfies PropertyResourceLocator<"list_id">
+
+export const ownerIdParam = {
+  name: "owner_id",
+  type: "resource_locator",
+  required: true,
+  display_name: t("PARAM_OWNER_ID_LABEL"),
+  ai: { llm_description: t("PARAM_OWNER_ID_HINT") },
+  modes: [
+    {
+      type: "list",
+      search_list_method: "search_owners",
+      searchable: true,
+      placeholder: t("PARAM_OWNER_ID_MODE_LIST_PLACEHOLDER"),
+    },
+    {
+      type: "id",
+      placeholder: t("PARAM_OWNER_ID_PLACEHOLDER"),
+    },
+  ],
+  ui: { support_expression: true },
+} satisfies PropertyResourceLocator<"owner_id">
+
+export const fileIdParam = {
+  name: "file_id",
+  type: "resource_locator",
+  required: true,
+  display_name: t("PARAM_FILE_ID_LABEL"),
+  ai: { llm_description: t("PARAM_FILE_ID_HINT") },
+  modes: [
+    {
+      type: "list",
+      search_list_method: "search_files",
+      searchable: true,
+      placeholder: t("PARAM_FILE_ID_MODE_LIST_PLACEHOLDER"),
+    },
+    {
+      type: "id",
+      placeholder: t("PARAM_FILE_ID_PLACEHOLDER"),
+    },
+  ],
+  ui: { support_expression: true },
+} satisfies PropertyResourceLocator<"file_id">
+
+export const folderIdParam = {
+  name: "folder_id",
+  type: "resource_locator",
+  required: false,
+  display_name: t("PARAM_FILE_FOLDER_ID_LABEL"),
+  ai: { llm_description: t("PARAM_FILE_FOLDER_ID_HINT") },
+  modes: [
+    {
+      type: "list",
+      search_list_method: "search_folders",
+      searchable: true,
+      placeholder: t("PARAM_FILE_FOLDER_ID_MODE_LIST_PLACEHOLDER"),
+    },
+    {
+      type: "id",
+      placeholder: t("PARAM_FILE_FOLDER_ID_PLACEHOLDER"),
+    },
+  ],
+  ui: { support_expression: true },
+} satisfies PropertyResourceLocator<"folder_id">
+
+export const contactIdsParam = {
+  name: "contact_ids",
+  type: "array",
+  required: true,
+  display_name: t("PARAM_CONTACT_IDS_LABEL"),
+  ai: { llm_description: t("PARAM_CONTACT_IDS_HINT") },
+  ui: {
+    component: "tag-input",
+    hint: t("PARAM_CONTACT_IDS_HINT"),
+    support_expression: true,
+  },
+  items: {
+    name: "contact_id",
+    type: "string",
+  },
+} satisfies Property<"contact_ids">
+
+export const fromIdsParam = {
+  name: "from_ids",
+  type: "array",
+  required: true,
+  display_name: t("PARAM_FROM_IDS_LABEL"),
+  ai: { llm_description: t("PARAM_FROM_IDS_HINT") },
+  ui: {
+    component: "tag-input",
+    hint: t("PARAM_FROM_IDS_HINT"),
+    support_expression: true,
+  },
+  items: {
+    name: "from_object_id",
+    type: "string",
+  },
+} satisfies Property<"from_ids">

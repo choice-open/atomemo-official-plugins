@@ -10,6 +10,8 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  resolveStringMap,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const createFormSubmissionTool = {
@@ -48,11 +50,30 @@ export const createFormSubmissionTool = {
     },
     {
       name: "fields",
-      type: "string",
+      type: "array",
       required: true,
       display_name: t("PARAM_FORM_FIELDS_LABEL"),
       ai: { llm_description: t("PARAM_FORM_FIELDS_HINT") },
-      ui: { component: "code-editor", hint: t("PARAM_FORM_FIELDS_HINT") },
+      ui: { component: "key-value-editor", hint: t("PARAM_FORM_FIELDS_HINT") },
+      items: {
+        type: "object",
+        name: "field",
+        properties: [
+          {
+            name: "key",
+            type: "string",
+            required: true,
+            display_name: t("PARAM_FORM_FIELD_NAME_LABEL"),
+          },
+          {
+            name: "value",
+            type: "string",
+            required: true,
+            display_name: t("PARAM_FORM_FIELD_VALUE_LABEL"),
+            ui: { component: "textarea", support_expression: true },
+          },
+        ],
+      },
     },
   ],
 
@@ -63,18 +84,7 @@ export const createFormSubmissionTool = {
     if (!portalId || !formGuid)
       throw new Error("portal_id and form_guid are required")
 
-    const fieldsObj = (() => {
-      const raw = args.parameters.fields
-      if (!raw) return {} as Record<string, string>
-      if (typeof raw === "string") {
-        try {
-          return JSON.parse(raw) as Record<string, string>
-        } catch {
-          return {} as Record<string, string>
-        }
-      }
-      return raw as Record<string, string>
-    })()
+    const fieldsObj = resolveStringMap(args.parameters.fields) ?? {}
     const fields = Object.entries(fieldsObj).map(([name, value]) => ({
       name,
       value: String(value),
@@ -87,7 +97,7 @@ export const createFormSubmissionTool = {
         body: { fields },
       })
       const result = await response.json()
-      return { success: true, result } as unknown as JsonValue
+      return toJsonValue({ success: true, result })
     } catch (error) {
       handleHubSpotError(error)
     }

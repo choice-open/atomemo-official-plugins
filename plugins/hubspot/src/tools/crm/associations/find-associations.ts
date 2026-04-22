@@ -4,12 +4,17 @@ import type {
   ToolDefinition,
 } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { t } from "../../../i18n/i18n-node"
-import { credentialParams } from "../../_shared/parameters"
+import {
+  credentialParams,
+  fromIdsParam,
+} from "../../_shared/parameters"
 import type { ToolArgs } from "../../_shared/types"
 import {
   getHubSpotClient,
   getString,
+  getStringArray,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const findAssociationsTool = {
@@ -44,18 +49,7 @@ export const findAssociationsTool = {
         support_expression: true,
       },
     },
-    {
-      name: "from_ids",
-      type: "string",
-      required: true,
-      display_name: t("PARAM_FROM_IDS_LABEL"),
-      ai: { llm_description: t("PARAM_FROM_IDS_HINT") },
-      ui: {
-        component: "input",
-        hint: t("PARAM_FROM_IDS_HINT"),
-        support_expression: true,
-      },
-    },
+    fromIdsParam,
   ],
 
   async invoke({ args }: { args: ToolArgs }): Promise<JsonValue> {
@@ -65,13 +59,8 @@ export const findAssociationsTool = {
     if (!fromType || !toType)
       throw new Error("from_object_type and to_object_type are required")
 
-    const fromIdsRaw = getString(args.parameters, "from_ids")
-    if (!fromIdsRaw) throw new Error("from_ids is required")
-    const fromIds = fromIdsRaw
-      .split(",")
-      .map((id) => id.trim())
-      .filter(Boolean)
-    if (!fromIds.length) throw new Error("At least one from_id is required")
+    const fromIds = getStringArray(args.parameters, "from_ids")
+    if (!fromIds?.length) throw new Error("At least one from_id is required")
 
     try {
       const result = await client.crm.associations.v4.batchApi.getPage(
@@ -79,10 +68,10 @@ export const findAssociationsTool = {
         toType,
         { inputs: fromIds.map((id) => ({ id })) },
       )
-      return {
+      return toJsonValue({
         success: true,
         associations: result.results,
-      } as unknown as JsonValue
+      })
     } catch (error) {
       handleHubSpotError(error)
     }

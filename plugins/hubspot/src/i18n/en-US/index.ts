@@ -61,10 +61,10 @@ const en_US = {
   PARAM_LIMIT_HINT: "Maximum number of results to return.",
   PARAM_RETURN_PROPERTIES_LABEL: "Return Properties",
   PARAM_RETURN_PROPERTIES_HINT:
-    "Comma-separated list of properties to include in the response.",
+    "List of properties to include in the response.",
   PARAM_RETURN_ASSOCIATIONS_LABEL: "Return Associations",
   PARAM_RETURN_ASSOCIATIONS_HINT:
-    "Comma-separated list of association types to include (e.g. contacts, companies).",
+    "List of association types to include (e.g. contacts, companies).",
   PARAM_UPSERT_LABEL: "Create or Update (Upsert)",
   PARAM_UPSERT_HINT:
     "If enabled, creates the object if it doesn't exist. Requires ID Property.",
@@ -182,8 +182,7 @@ const en_US = {
   PARAM_FROM_ID_LABEL: "From ID",
   PARAM_TO_ID_LABEL: "To ID",
   PARAM_FROM_IDS_LABEL: "From Object IDs",
-  PARAM_FROM_IDS_HINT:
-    "Comma-separated IDs of source objects to find associations for.",
+  PARAM_FROM_IDS_HINT: "List of source object IDs to find associations for.",
 
   // ── CRM > Owners ──────────────────────────────────────────────
   GET_OWNER_BY_EMAIL_DISPLAY_NAME: "Get Owner by Email",
@@ -195,7 +194,9 @@ const en_US = {
   PARAM_OWNER_EMAIL_HINT: "The email address of the HubSpot owner.",
   PARAM_OWNER_EMAIL_PLACEHOLDER: "owner@company.com",
   PARAM_OWNER_ID_LABEL: "Owner ID",
-  PARAM_OWNER_ID_HINT: "The ID of the HubSpot owner.",
+  PARAM_OWNER_ID_HINT:
+    "Select a HubSpot owner from the picker or enter the owner ID directly.",
+  PARAM_OWNER_ID_MODE_LIST_PLACEHOLDER: "Search for an owner...",
   PARAM_OWNER_ID_PLACEHOLDER: "12345678",
 
   // ── CRM > Pipelines ──────────────────────────────────────────
@@ -227,10 +228,11 @@ const en_US = {
   LIST_PROCESSING_TYPE_MANUAL: "Manual (Static)",
   LIST_PROCESSING_TYPE_SNAPSHOT: "Snapshot (Dynamic)",
   PARAM_LIST_ID_LABEL: "List ID",
-  PARAM_LIST_ID_HINT: "The ID of the list.",
+  PARAM_LIST_ID_HINT: "Select a HubSpot list or enter the list ID directly.",
+  PARAM_LIST_ID_MODE_LIST_PLACEHOLDER: "Search for a list...",
   PARAM_LIST_ID_PLACEHOLDER: "12345",
   PARAM_CONTACT_IDS_LABEL: "Contact IDs",
-  PARAM_CONTACT_IDS_HINT: "Comma-separated contact IDs to add or remove.",
+  PARAM_CONTACT_IDS_HINT: "List of contact IDs to add or remove.",
 
   // ── CRM > Engagements ─────────────────────────────────────────
   CREATE_ENGAGEMENT_DISPLAY_NAME: "Create Engagement",
@@ -259,6 +261,8 @@ const en_US = {
   PARAM_FORM_FIELDS_LABEL: "Form Fields",
   PARAM_FORM_FIELDS_HINT:
     "Key-value pairs of form field names and their values.",
+  PARAM_FORM_FIELD_NAME_LABEL: "Field Name",
+  PARAM_FORM_FIELD_VALUE_LABEL: "Field Value",
 
   // ── Marketing > Email Subscriptions ───────────────────────────
   REMOVE_EMAIL_SUBSCRIPTION_DISPLAY_NAME: "Remove Email Subscription",
@@ -301,7 +305,9 @@ const en_US = {
   ADD_CONTACT_TO_WORKFLOW_DESCRIPTION:
     "Enroll a contact into a HubSpot workflow by email.",
   PARAM_WORKFLOW_ID_LABEL: "Workflow ID",
-  PARAM_WORKFLOW_ID_HINT: "The ID of the workflow to enroll the contact in.",
+  PARAM_WORKFLOW_ID_HINT:
+    "Select a workflow from the picker or enter the workflow ID directly.",
+  PARAM_WORKFLOW_ID_MODE_LIST_PLACEHOLDER: "Search for a workflow...",
   PARAM_WORKFLOW_ID_PLACEHOLDER: "12345678",
   PARAM_WORKFLOW_CONTACT_EMAIL_LABEL: "Contact Email",
   PARAM_WORKFLOW_CONTACT_EMAIL_HINT:
@@ -338,6 +344,8 @@ const en_US = {
     "The email of the contact to associate the event with.",
   PARAM_EVENT_PROPERTIES_LABEL: "Event Properties",
   PARAM_EVENT_PROPERTIES_HINT: "Key-value pairs of custom event properties.",
+  PARAM_EVENT_PROPERTY_NAME_LABEL: "Property Name",
+  PARAM_EVENT_PROPERTY_VALUE_LABEL: "Property Value",
 
   // ── Files ─────────────────────────────────────────────────────
   GET_FILE_PUBLIC_URL_DISPLAY_NAME: "Get File Public URL",
@@ -346,15 +354,20 @@ const en_US = {
   UPLOAD_FILE_DISPLAY_NAME: "Upload File",
   UPLOAD_FILE_DESCRIPTION: "Upload a file to HubSpot file manager.",
   PARAM_FILE_ID_LABEL: "File ID",
-  PARAM_FILE_ID_HINT: "The ID of the file.",
+  PARAM_FILE_ID_HINT: "Select a HubSpot file or enter the file ID directly.",
+  PARAM_FILE_ID_MODE_LIST_PLACEHOLDER: "Search for a file...",
   PARAM_FILE_ID_PLACEHOLDER: "12345678",
   PARAM_FILE_NAME_LABEL: "File Name",
   PARAM_FILE_NAME_HINT: "The name for the uploaded file.",
   PARAM_FILE_NAME_PLACEHOLDER: "document.pdf",
-  PARAM_FILE_CONTENT_LABEL: "File Content",
-  PARAM_FILE_CONTENT_HINT: "The file content to upload (base64 encoded).",
+  PARAM_FILE_CONTENT_LABEL: "File",
+  PARAM_FILE_CONTENT_HINT:
+    "Select a file from the picker or pass a file_ref from an upstream step.",
   PARAM_FILE_FOLDER_ID_LABEL: "Folder ID",
-  PARAM_FILE_FOLDER_ID_HINT: "The ID of the folder to upload to (optional).",
+  PARAM_FILE_FOLDER_ID_HINT:
+    "Select a destination folder or enter the folder ID directly.",
+  PARAM_FILE_FOLDER_ID_MODE_LIST_PLACEHOLDER: "Search for a folder...",
+  PARAM_FILE_FOLDER_ID_PLACEHOLDER: "12345678",
   PARAM_FILE_ACCESS_LABEL: "Access",
   PARAM_FILE_ACCESS_HINT: "The access level for the file.",
   OPTION_PRIVATE: "Private",

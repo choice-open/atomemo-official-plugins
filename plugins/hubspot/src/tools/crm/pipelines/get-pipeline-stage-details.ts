@@ -10,6 +10,7 @@ import {
   getHubSpotClient,
   getString,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const getPipelineStageDetailsTool = {
@@ -40,10 +41,10 @@ export const getPipelineStageDetailsTool = {
     if (!objectType) throw new Error("pipeline_object_type is required")
     try {
       const result = await client.crm.pipelines.pipelinesApi.getAll(objectType)
-      return {
+      return toJsonValue({
         success: true,
         pipelines: result.results,
-      } as unknown as JsonValue
+      })
     } catch (error) {
       handleHubSpotError(error)
     }

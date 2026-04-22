@@ -13,7 +13,7 @@ describe("hubspotOAuth2Credential", () => {
     ) as
       | {
         type: string
-        default?: string
+        constant?: string
         ui?: { component?: string; readonly?: boolean }
       }
       | undefined
@@ -22,10 +22,9 @@ describe("hubspotOAuth2Credential", () => {
     expect(scopesParam?.type).toBe("string")
     expect(scopesParam?.ui?.component).toBe("textarea")
     expect(scopesParam?.ui?.readonly).toBe(true)
-    expect(scopesParam?.default).toContain("crm.objects.contacts.read")
-    expect(scopesParam?.default).toContain("communication_preferences.read_write")
-    expect(scopesParam?.default).toContain("social")
-    expect(scopesParam?.default).toContain("crm.schemas.custom.read")
+    expect(scopesParam?.constant).toContain("crm.objects.contacts.read")
+    expect(scopesParam?.constant).toContain("communication_preferences.read_write")
+    expect(scopesParam?.constant).toContain("crm.schemas.custom.read")
   })
 
   it("builds the authorize URL with space-separated scope parameters", async () => {
@@ -44,22 +43,21 @@ describe("hubspotOAuth2Credential", () => {
     expect(scope).toContain("crm.objects.contacts.read")
     expect(scope).toContain("crm.objects.contacts.write")
     expect(scope).toContain("communication_preferences.read_write")
+    expect(scope).toContain("crm.schemas.custom.read")
     expect(scope).not.toContain(",")
-
-    expect(optionalScope).toContain("social")
-    expect(optionalScope).toContain("crm.schemas.custom.read")
-    expect(optionalScope).not.toContain(",")
+    expect(optionalScope).toBe("")
   })
 
   describe("oauth2_get_token", () => {
     const mockFetch = vi.fn()
+    const originalFetch = globalThis.fetch
 
     beforeEach(() => {
-      vi.stubGlobal("fetch", mockFetch)
+      globalThis.fetch = mockFetch as typeof fetch
     })
 
     afterEach(() => {
-      vi.unstubAllGlobals()
+      globalThis.fetch = originalFetch
     })
 
     it("uses the HubSpot v3 token endpoint for authorization code exchange", async () => {
@@ -147,13 +145,14 @@ describe("hubspotOAuth2Credential", () => {
 
   describe("oauth2_refresh_token", () => {
     const mockFetch = vi.fn()
+    const originalFetch = globalThis.fetch
 
     beforeEach(() => {
-      vi.stubGlobal("fetch", mockFetch)
+      globalThis.fetch = mockFetch as typeof fetch
     })
 
     afterEach(() => {
-      vi.unstubAllGlobals()
+      globalThis.fetch = originalFetch
     })
 
     it("uses the HubSpot v3 token endpoint for refresh and preserves redirect_uri", async () => {

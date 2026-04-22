@@ -13,7 +13,9 @@ import type { ToolArgs } from "../../_shared/types"
 import {
   getHubSpotClient,
   getString,
+  getStringArray,
   handleHubSpotError,
+  toJsonValue,
 } from "../../_shared/utils"
 
 export const getTicketTool = {
@@ -32,16 +34,8 @@ export const getTicketTool = {
     const client = getHubSpotClient(args)
     const objectId = getString(args.parameters, "object_id")
     if (!objectId) throw new Error("object_id is required")
-    const returnProps = getString(args.parameters, "return_properties")
-    const properties = returnProps
-      ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
-    const returnAssoc = getString(args.parameters, "return_associations")
-    const associations = returnAssoc
-      ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
+    const properties = getStringArray(args.parameters, "return_properties")
+    const associations = getStringArray(args.parameters, "return_associations")
     try {
       const result = await client.crm.tickets.basicApi.getById(
         objectId,
@@ -49,7 +43,7 @@ export const getTicketTool = {
         undefined,
         associations,
       )
-      return { success: true, object: result } as unknown as JsonValue
+      return toJsonValue({ success: true, object: result })
     } catch (error) {
       handleHubSpotError(error)
     }
