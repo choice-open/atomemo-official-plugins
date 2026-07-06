@@ -104,7 +104,6 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_id",
       type: "string",
       required: false,
-      default: "",
       display_name: { en_US: "Search ID", zh_Hans: "搜索ID" },
       ai: {
         llm_description: {
@@ -118,7 +117,6 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_session_id",
       type: "string",
       required: false,
-      default: "",
       display_name: { en_US: "Search Session ID", zh_Hans: "搜索会话ID" },
       ai: {
         llm_description: {
@@ -136,8 +134,8 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       display_name: { en_US: "Source", zh_Hans: "来源" },
       ai: {
         llm_description: {
-          en_US: "Source identifier.",
-          zh_Hans: "来源标识。",
+          en_US: 'Source identifier. Default is "explore_feed". Do not change unless instructed.',
+          zh_Hans: '来源标识。默认为 "explore_feed"，请勿随意修改。',
         },
       },
       ui: { hint: { en_US: "Source identifier. Usually not needed.", zh_Hans: "来源标识，通常无需填写。" },  support_expression: true, component: "input" },

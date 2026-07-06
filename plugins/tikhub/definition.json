@@ -13,7 +13,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -769,8 +769,7 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string",
-          "default": ""
+          "type": "string"
         },
         {
           "name": "search_session_id",
@@ -793,8 +792,7 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string",
-          "default": ""
+          "type": "string"
         },
         {
           "name": "source",
@@ -805,8 +803,8 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Source identifier.",
-              "zh_Hans": "来源标识。"
+              "en_US": "Source identifier. Default is \"explore_feed\". Do not change unless instructed.",
+              "zh_Hans": "来源标识。默认为 \"explore_feed\"，请勿随意修改。"
             }
           },
           "ui": {

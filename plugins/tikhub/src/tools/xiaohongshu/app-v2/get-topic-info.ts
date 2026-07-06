@@ -58,8 +58,7 @@ export const tikhub_rednote_get_topic_info: ToolDefinition = {
     {
       name: "note_id",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "Source Note ID", zh_Hans: "来源笔记ID" },
       ai: {
         llm_description: {
