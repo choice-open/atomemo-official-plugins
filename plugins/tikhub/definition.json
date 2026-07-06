@@ -1,0 +1,1145 @@
+{
+  "name": "tikhub",
+  "display_name": {
+    "en_US": "TikHub",
+    "zh_Hans": "TikHub 社交媒体数据"
+  },
+  "description": {
+    "en_US": "Multi-platform social media data via TikHub API.",
+    "zh_Hans": "通过 TikHub API 提供多平台社交媒体数据。"
+  },
+  "icon": "📕",
+  "lang": "typescript",
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
+  "author": "anya.qin",
+  "email": "anya.qin@choiceform.com",
+  "version": "0.1.0",
+  "credentials": [
+    {
+      "name": "tikhub-api-key",
+      "display_name": {
+        "en_US": "TikHub API Key",
+        "zh_Hans": "TikHub API 密钥"
+      },
+      "description": {
+        "en_US": "API Key from TikHub user dashboard. One key for all platforms.",
+        "zh_Hans": "从 TikHub 用户后台获取的 API Key。所有平台共用。"
+      },
+      "icon": "🔑",
+      "parameters": [
+        {
+          "name": "api_key",
+          "display_name": {
+            "en_US": "API Key",
+            "zh_Hans": "API Key"
+          },
+          "required": true,
+          "ui": {
+            "hint": {
+              "en_US": "Get your API Key from https://user.tikhub.io",
+              "zh_Hans": "从 https://user.tikhub.io 获取 API Key"
+            },
+            "sensitive": true,
+            "width": "full",
+            "component": "encrypted-input"
+          },
+          "type": "encrypted_string"
+        }
+      ]
+    }
+  ],
+  "models": [],
+  "tools": [
+    {
+      "name": "tikhub_rednote_get_image_note_detail",
+      "display_name": {
+        "en_US": "RedNote · Get Image Note Detail",
+        "zh_Hans": "小红书 · 获取图文笔记详情"
+      },
+      "description": {
+        "en_US": "Get Xiaohongshu image note detail by note ID or share link.",
+        "zh_Hans": "通过笔记 ID 或分享链接获取小红书图文笔记详情。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "note_id",
+          "display_name": {
+            "en_US": "Note ID",
+            "zh_Hans": "笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note ID of the Xiaohongshu post. Required if share_text not provided.",
+              "zh_Hans": "小红书笔记ID。如果未提供分享链接则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu note ID, can be extracted from note URL.",
+              "zh_Hans": "小红书笔记 ID，可从笔记链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Note ID",
+              "zh_Hans": "笔记ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "share_text",
+          "display_name": {
+            "en_US": "Share Link",
+            "zh_Hans": "分享链接"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Share link of the Xiaohongshu post. Required if note_id not provided.",
+              "zh_Hans": "小红书笔记分享链接。如果未提供笔记ID则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu share link, e.g. https://www.xiaohongshu.com/...",
+              "zh_Hans": "小红书分享链接，如 https://www.xiaohongshu.com/..."
+            },
+            "placeholder": {
+              "en_US": "Share link",
+              "zh_Hans": "分享链接"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_get_video_note_detail",
+      "display_name": {
+        "en_US": "RedNote · Get Video Note Detail",
+        "zh_Hans": "小红书 · 获取视频笔记详情"
+      },
+      "description": {
+        "en_US": "Get Xiaohongshu video note detail by note ID or share link.",
+        "zh_Hans": "通过笔记 ID 或分享链接获取小红书视频笔记详情。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "note_id",
+          "display_name": {
+            "en_US": "Note ID",
+            "zh_Hans": "笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note ID of the Xiaohongshu post. Required if share_text not provided.",
+              "zh_Hans": "小红书笔记ID。如果未提供分享链接则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu note ID, can be extracted from note URL.",
+              "zh_Hans": "小红书笔记 ID，可从笔记链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Note ID",
+              "zh_Hans": "笔记ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "share_text",
+          "display_name": {
+            "en_US": "Share Link",
+            "zh_Hans": "分享链接"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Share link of the Xiaohongshu post. Required if note_id not provided.",
+              "zh_Hans": "小红书笔记分享链接。如果未提供笔记ID则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu share link, e.g. https://www.xiaohongshu.com/...",
+              "zh_Hans": "小红书分享链接，如 https://www.xiaohongshu.com/..."
+            },
+            "placeholder": {
+              "en_US": "Share link",
+              "zh_Hans": "分享链接"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_get_note_comments",
+      "display_name": {
+        "en_US": "RedNote · Get Note Comments",
+        "zh_Hans": "小红书 · 获取笔记评论列表"
+      },
+      "description": {
+        "en_US": "Get comment list of a Xiaohongshu note by note ID or share link.",
+        "zh_Hans": "通过笔记 ID 或分享链接获取小红书笔记的评论列表。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "note_id",
+          "display_name": {
+            "en_US": "Note ID",
+            "zh_Hans": "笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note ID of the Xiaohongshu post. Required if share_text not provided.",
+              "zh_Hans": "小红书笔记ID。如果未提供分享链接则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu note ID, can be extracted from note URL.",
+              "zh_Hans": "小红书笔记 ID，可从笔记链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Note ID",
+              "zh_Hans": "笔记ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "share_text",
+          "display_name": {
+            "en_US": "Share Link",
+            "zh_Hans": "分享链接"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Share link of the Xiaohongshu post. Required if note_id not provided.",
+              "zh_Hans": "小红书笔记分享链接。如果未提供笔记ID则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu share link, e.g. https://www.xiaohongshu.com/...",
+              "zh_Hans": "小红书分享链接，如 https://www.xiaohongshu.com/..."
+            },
+            "placeholder": {
+              "en_US": "Share link",
+              "zh_Hans": "分享链接"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor. Leave empty for first page.",
+              "zh_Hans": "分页游标。首次请求留空。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for first request. For pagination, use the cursor from previous response.",
+              "zh_Hans": "首次请求留空。翻页时使用上次返回的 cursor 值。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "index",
+          "display_name": {
+            "en_US": "Index",
+            "zh_Hans": "评论索引"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page index. Pass 0 for first request.",
+              "zh_Hans": "分页索引。首次请求传0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pass 0 for first request. Increment for pagination.",
+              "zh_Hans": "首次请求传 0。翻页时递增。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "page_area",
+          "display_name": {
+            "en_US": "Page Area",
+            "zh_Hans": "折叠状态"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page area state. Must be one of: UNFOLDED (default), FOLDED.",
+              "zh_Hans": "折叠状态。可选值：UNFOLDED（默认-展开），FOLDED（折叠）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page area state: \"UNFOLDED\" = expanded, \"FOLDED\" = folded.",
+              "zh_Hans": "折叠状态：\"UNFOLDED\" = 展开，\"FOLDED\" = 折叠。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "UNFOLDED",
+            "FOLDED"
+          ]
+        },
+        {
+          "name": "sort_strategy",
+          "display_name": {
+            "en_US": "Sort Strategy",
+            "zh_Hans": "排序策略"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort strategy. Must be one of: default, latest_v2, like_count.",
+              "zh_Hans": "排序策略。可选值：default（默认），latest_v2（最新），like_count（按点赞数）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort strategy: \"default\", \"latest_v2\" = newest, \"like_count\" = by likes.",
+              "zh_Hans": "排序策略：\"default\" = 默认，\"latest_v2\" = 最新，\"like_count\" = 按点赞。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "default",
+            "latest_v2",
+            "like_count"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_get_note_sub_comments",
+      "display_name": {
+        "en_US": "RedNote · Get Note Sub-comments",
+        "zh_Hans": "小红书 · 获取笔记二级评论列表"
+      },
+      "description": {
+        "en_US": "Get sub-comment list (replies to a comment) of a Xiaohongshu note.",
+        "zh_Hans": "获取小红书笔记的二级评论列表（评论的回复）。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "note_id",
+          "display_name": {
+            "en_US": "Note ID",
+            "zh_Hans": "笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note ID of the Xiaohongshu post. Required if share_text not provided.",
+              "zh_Hans": "小红书笔记ID。如果未提供分享链接则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu note ID, can be extracted from note URL.",
+              "zh_Hans": "小红书笔记 ID，可从笔记链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Note ID",
+              "zh_Hans": "笔记ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "share_text",
+          "display_name": {
+            "en_US": "Share Link",
+            "zh_Hans": "分享链接"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Share link of the Xiaohongshu post. Required if note_id not provided.",
+              "zh_Hans": "小红书笔记分享链接。如果未提供笔记ID则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu share link, e.g. https://www.xiaohongshu.com/...",
+              "zh_Hans": "小红书分享链接，如 https://www.xiaohongshu.com/..."
+            },
+            "placeholder": {
+              "en_US": "Share link",
+              "zh_Hans": "分享链接"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "comment_id",
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "父评论ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Parent comment ID to fetch sub-comments for.",
+              "zh_Hans": "父评论ID，用于获取其下的二级评论。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Parent comment ID from the comments list response.",
+              "zh_Hans": "父评论 ID，从评论列表接口的返回结果中获取。"
+            },
+            "placeholder": {
+              "en_US": "Parent comment ID",
+              "zh_Hans": "父评论ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor. Leave empty for first page.",
+              "zh_Hans": "分页游标。首次请求留空。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for first request. For pagination, use the cursor from previous response.",
+              "zh_Hans": "首次请求留空。翻页时使用上次返回的 cursor 值。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "index",
+          "display_name": {
+            "en_US": "Index",
+            "zh_Hans": "分页索引"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page index. Pass 0 for first request.",
+              "zh_Hans": "分页索引。首次请求传0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pass 0 for first request. Increment for pagination.",
+              "zh_Hans": "首次请求传 0。翻页时递增。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_search_notes",
+      "display_name": {
+        "en_US": "RedNote · Search Notes",
+        "zh_Hans": "小红书 · 搜索笔记"
+      },
+      "description": {
+        "en_US": "Search Xiaohongshu notes by keyword with optional filters for type, time, and sorting.",
+        "zh_Hans": "通过关键词搜索小红书笔记，支持笔记类型、发布时间和排序方式筛选。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Xiaohongshu notes.",
+              "zh_Hans": "小红书笔记搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword for Xiaohongshu notes.",
+              "zh_Hans": "小红书笔记搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "Search keyword",
+              "zh_Hans": "搜索关键词"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从1开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type for search results.",
+              "zh_Hans": "搜索结果排序方式。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort type for search results.",
+              "zh_Hans": "搜索结果排序方式。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "note_type",
+          "display_name": {
+            "en_US": "Note Type",
+            "zh_Hans": "笔记类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note type filter. Must be one of: 不限 (all), 视频笔记 (video notes), 普通笔记 (image/text notes), 直播笔记 (live notes).",
+              "zh_Hans": "笔记类型筛选。可选值：不限，视频笔记，普通笔记，直播笔记。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by note type.",
+              "zh_Hans": "按笔记类型筛选。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "不限",
+            "视频笔记",
+            "普通笔记",
+            "直播笔记"
+          ]
+        },
+        {
+          "name": "time_filter",
+          "display_name": {
+            "en_US": "Time Filter",
+            "zh_Hans": "发布时间筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Time filter. Must be one of: 不限 (any time), 一天内 (within 1 day), 一周内 (within 1 week), 半年内 (within 6 months).",
+              "zh_Hans": "发布时间筛选。可选值：不限，一天内，一周内，半年内。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by publish time range.",
+              "zh_Hans": "按发布时间范围筛选。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "不限",
+            "一天内",
+            "一周内",
+            "半年内"
+          ]
+        },
+        {
+          "name": "search_id",
+          "display_name": {
+            "en_US": "Search ID",
+            "zh_Hans": "搜索ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search ID from the first search response, for pagination.",
+              "zh_Hans": "首次搜索返回的搜索ID，用于翻页。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search ID from the first search response, used for pagination.",
+              "zh_Hans": "首次搜索返回的搜索 ID，翻页时传入。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "search_session_id",
+          "display_name": {
+            "en_US": "Search Session ID",
+            "zh_Hans": "搜索会话ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search session ID from the first search response, for pagination.",
+              "zh_Hans": "首次搜索返回的搜索会话ID，用于翻页。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search session ID from the first search response, used for pagination.",
+              "zh_Hans": "首次搜索返回的会话 ID，翻页时传入。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "display_name": {
+            "en_US": "Source",
+            "zh_Hans": "来源"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Source identifier.",
+              "zh_Hans": "来源标识。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Source identifier. Usually not needed.",
+              "zh_Hans": "来源标识，通常无需填写。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "ai_mode",
+          "display_name": {
+            "en_US": "AI Mode",
+            "zh_Hans": "AI模式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "AI mode: 0=off, 1=on.",
+              "zh_Hans": "AI模式：0=关闭，1=开启。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0 = AI mode off, 1 = AI mode on.",
+              "zh_Hans": "0 = 关闭 AI 模式，1 = 开启 AI 模式。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_get_topic_info",
+      "display_name": {
+        "en_US": "RedNote · Get Topic Info",
+        "zh_Hans": "小红书 · 获取话题详情"
+      },
+      "description": {
+        "en_US": "Get Xiaohongshu topic detail by topic page ID.",
+        "zh_Hans": "通过话题页面 ID 获取小红书话题详情。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "page_id",
+          "display_name": {
+            "en_US": "Page ID",
+            "zh_Hans": "话题页面ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Topic page ID.",
+              "zh_Hans": "话题页面ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Topic page ID, can be extracted from topic URL.",
+              "zh_Hans": "话题页面 ID，可从话题链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Topic page ID",
+              "zh_Hans": "话题页面ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "display_name": {
+            "en_US": "Source",
+            "zh_Hans": "来源"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Source identifier.",
+              "zh_Hans": "来源标识。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Source identifier. Usually not needed.",
+              "zh_Hans": "来源标识，通常无需填写。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "note_id",
+          "display_name": {
+            "en_US": "Source Note ID",
+            "zh_Hans": "来源笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Note ID of the Xiaohongshu post. Required if share_text not provided.",
+              "zh_Hans": "小红书笔记ID。如果未提供分享链接则必填。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Xiaohongshu note ID, can be extracted from note URL.",
+              "zh_Hans": "小红书笔记 ID，可从笔记链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Note ID when jumping from a note",
+              "zh_Hans": "从笔记跳转时传入"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_rednote_get_topic_feed",
+      "display_name": {
+        "en_US": "RedNote · Get Topic Feed",
+        "zh_Hans": "小红书 · 获取话题笔记列表"
+      },
+      "description": {
+        "en_US": "Get note list of a Xiaohongshu topic by topic page ID.",
+        "zh_Hans": "通过话题页面 ID 获取小红书话题下的笔记列表。"
+      },
+      "icon": "📕",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "page_id",
+          "display_name": {
+            "en_US": "Page ID",
+            "zh_Hans": "话题页面ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Topic page ID.",
+              "zh_Hans": "话题页面ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Topic page ID, can be extracted from topic URL.",
+              "zh_Hans": "话题页面 ID，可从话题链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Topic page ID",
+              "zh_Hans": "话题页面ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "sort",
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort order. Must be one of: trend (hottest), time (latest).",
+              "zh_Hans": "排序方式。可选值：trend（最热），time（最新）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort order: \"trend\" = hottest, \"time\" = latest.",
+              "zh_Hans": "排序方式：\"trend\" = 最热，\"time\" = 最新。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "trend",
+            "time"
+          ]
+        },
+        {
+          "name": "cursor_score",
+          "display_name": {
+            "en_US": "Cursor Score",
+            "zh_Hans": "分页游标分数"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor score from previous page response.",
+              "zh_Hans": "上一页返回的分页游标分数。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor score from previous page response.",
+              "zh_Hans": "翻页游标分数，从上页返回结果中提取。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "last_note_id",
+          "display_name": {
+            "en_US": "Last Note ID",
+            "zh_Hans": "上页最后笔记ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Last note ID from previous page, for pagination.",
+              "zh_Hans": "上一页最后一条笔记ID，用于翻页。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Last note ID from previous page, used for pagination.",
+              "zh_Hans": "上页最后一条笔记 ID，翻页时传入。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "last_note_ct",
+          "display_name": {
+            "en_US": "Last Note Create Time",
+            "zh_Hans": "上页最后笔记创建时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Last note create time from previous page, for pagination.",
+              "zh_Hans": "上一页最后一条笔记创建时间，用于翻页。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Last note create time from previous page, used for pagination.",
+              "zh_Hans": "上页最后一条笔记创建时间，翻页时传入。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "session_id",
+          "display_name": {
+            "en_US": "Session ID",
+            "zh_Hans": "会话ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Session ID, keep consistent across pagination requests.",
+              "zh_Hans": "会话ID，翻页时保持一致。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Session ID, keep consistent across pagination requests.",
+              "zh_Hans": "会话 ID，翻页时保持一致。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "first_load_time",
+          "display_name": {
+            "en_US": "First Load Time",
+            "zh_Hans": "首次加载时间戳"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "First load timestamp, keep consistent across pagination requests.",
+              "zh_Hans": "首次加载时间戳，翻页时保持一致。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "First load timestamp, keep consistent across pagination requests.",
+              "zh_Hans": "首次加载时间戳，翻页时保持一致。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "display_name": {
+            "en_US": "Source",
+            "zh_Hans": "来源"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Source identifier.",
+              "zh_Hans": "来源标识。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Source identifier. Usually not needed.",
+              "zh_Hans": "来源标识，通常无需填写。"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
