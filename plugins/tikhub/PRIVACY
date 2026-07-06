@@ -1,0 +1,37 @@
+# Privacy Policy
+
+**Last Updated: 2026-07-02**
+
+## Overview
+
+tikhub ("the Plugin") is committed to protecting your privacy. This policy explains how data is handled when you use the Plugin within the Choiceform Atomemo Platform.
+
+## Data Collection
+
+The Plugin may collect and process the following types of data:
+
+- **Usage Data**: Information about how you interact with the Plugin
+- **Configuration Data**: Settings and preferences you configure within the Plugin
+- **API Key Data**: TikHub API key securely stored via the platform credential system
+
+## Data Usage
+
+Collected data is used solely for:
+
+- Making API requests to TikHub on behalf of the user
+- Providing and improving Plugin functionality
+- Debugging and error resolution
+
+## Data Storage
+
+- All data is processed in accordance with the Choiceform Atomemo Platform's data handling policies
+- API keys are encrypted and stored securely via platform credential management
+- Data is not shared with third parties unless required by law
+
+## Contact
+
+For privacy-related inquiries, please refer to the repository.
+
+## Changes to This Policy
+
+We may update this privacy policy from time to time. Any changes will be reflected by updating the "Last Updated" date above.
