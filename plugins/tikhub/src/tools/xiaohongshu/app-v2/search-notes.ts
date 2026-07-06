@@ -45,6 +45,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "page",
       type: "integer",
       required: false,
+      default: 1,
       display_name: { en_US: "Page", zh_Hans: "页码" },
       ai: {
         llm_description: {
@@ -58,19 +59,22 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "sort_type",
       type: "string",
       required: false,
+      default: "general",
       display_name: { en_US: "Sort Type", zh_Hans: "排序方式" },
       ai: {
         llm_description: {
-          en_US: "Sort type for search results.",
-          zh_Hans: "搜索结果排序方式。",
+          en_US: 'Sort type. Must be one of: "general" (comprehensive, default), "time_descending" (latest), "popularity_descending" (most likes), "comment_descending" (most comments), "collect_descending" (most saves), "english_preferred" (English first).',
+          zh_Hans: '排序方式。可选值："general"（综合排序，默认），"time_descending"（最新），"popularity_descending"（最多点赞），"comment_descending"（最多评论），"collect_descending"（最多收藏），"english_preferred"（英文优先）。',
         },
       },
-      ui: { hint: { en_US: "Sort type for search results.", zh_Hans: "搜索结果排序方式。" },  support_expression: true, component: "input" },
+      ui: { hint: { en_US: "Sort type for search results.", zh_Hans: "搜索结果排序方式。" }, support_expression: true, component: "select" },
+      enum: ["general", "time_descending", "popularity_descending", "comment_descending", "collect_descending", "english_preferred"],
     },
     {
       name: "note_type",
       type: "string",
       required: false,
+      default: "不限",
       display_name: { en_US: "Note Type", zh_Hans: "笔记类型" },
       ai: {
         llm_description: {
@@ -85,6 +89,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "time_filter",
       type: "string",
       required: false,
+      default: "不限",
       display_name: { en_US: "Time Filter", zh_Hans: "发布时间筛选" },
       ai: {
         llm_description: {
@@ -99,6 +104,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Search ID", zh_Hans: "搜索ID" },
       ai: {
         llm_description: {
@@ -112,6 +118,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_session_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Search Session ID", zh_Hans: "搜索会话ID" },
       ai: {
         llm_description: {
@@ -125,6 +132,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "source",
       type: "string",
       required: false,
+      default: "explore_feed",
       display_name: { en_US: "Source", zh_Hans: "来源" },
       ai: {
         llm_description: {
@@ -138,6 +146,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "ai_mode",
       type: "integer",
       required: false,
+      default: 0,
       display_name: { en_US: "AI Mode", zh_Hans: "AI模式" },
       ai: {
         llm_description: {

@@ -32,6 +32,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "note_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Note ID", zh_Hans: "笔记ID" },
       ai: {
         llm_description: {
@@ -45,6 +46,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "share_text",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Share Link", zh_Hans: "分享链接" },
       ai: {
         llm_description: {
@@ -58,6 +60,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "cursor",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Cursor", zh_Hans: "分页游标" },
       ai: {
         llm_description: {
@@ -71,6 +74,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "index",
       type: "integer",
       required: false,
+      default: 0,
       display_name: { en_US: "Index", zh_Hans: "评论索引" },
       ai: {
         llm_description: {
@@ -84,6 +88,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "page_area",
       type: "string",
       required: false,
+      default: "UNFOLDED",
       display_name: { en_US: "Page Area", zh_Hans: "折叠状态" },
       ai: {
         llm_description: {
@@ -98,6 +103,7 @@ export const tikhub_rednote_get_note_comments: ToolDefinition = {
       name: "sort_strategy",
       type: "string",
       required: false,
+      default: "latest_v2",
       display_name: { en_US: "Sort Strategy", zh_Hans: "排序策略" },
       ai: {
         llm_description: {

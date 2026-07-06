@@ -13,7 +13,7 @@ const plugin = await createPlugin({
     en_US: "Multi-platform social media data via TikHub API.",
     zh_Hans: "通过 TikHub API 提供多平台社交媒体数据。",
   },
-  icon: "📕",
+  icon: "https://avatars.githubusercontent.com/u/119824398?v=4",
   lang: "typescript",
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",

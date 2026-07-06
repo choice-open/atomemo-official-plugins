@@ -8,7 +8,7 @@
     "en_US": "Multi-platform social media data via TikHub API.",
     "zh_Hans": "通过 TikHub API 提供多平台社交媒体数据。"
   },
-  "icon": "📕",
+  "icon": "https://avatars.githubusercontent.com/u/119824398?v=4",
   "lang": "typescript",
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
@@ -101,7 +101,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "share_text",
@@ -129,7 +130,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         }
       ]
     },
@@ -184,7 +186,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "share_text",
@@ -212,7 +215,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         }
       ]
     },
@@ -267,7 +271,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "share_text",
@@ -295,7 +300,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "cursor",
@@ -322,7 +328,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "index",
@@ -345,7 +352,8 @@
             "support_expression": true,
             "component": "number-input"
           },
-          "type": "integer"
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "page_area",
@@ -369,6 +377,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "UNFOLDED",
           "enum": [
             "UNFOLDED",
             "FOLDED"
@@ -396,6 +405,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "latest_v2",
           "enum": [
             "default",
             "latest_v2",
@@ -455,7 +465,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "share_text",
@@ -483,7 +494,8 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "comment_id",
@@ -538,7 +550,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "index",
@@ -549,19 +562,20 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Page index. Pass 0 for first request.",
-              "zh_Hans": "分页索引。首次请求传0。"
+              "en_US": "Page index. Pass 1 for first request.",
+              "zh_Hans": "分页索引。首次请求传1。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Pass 0 for first request. Increment for pagination.",
-              "zh_Hans": "首次请求传 0。翻页时递增。"
+              "en_US": "Pass 1 for first request. Increment for pagination.",
+              "zh_Hans": "首次请求传 1。翻页时递增。"
             },
             "support_expression": true,
             "component": "number-input"
           },
-          "type": "integer"
+          "type": "integer",
+          "default": 1
         }
       ]
     },
@@ -639,7 +653,8 @@
             "support_expression": true,
             "component": "number-input"
           },
-          "type": "integer"
+          "type": "integer",
+          "default": 1
         },
         {
           "name": "sort_type",
@@ -650,8 +665,8 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type for search results.",
-              "zh_Hans": "搜索结果排序方式。"
+              "en_US": "Sort type. Must be one of: \"general\" (comprehensive, default), \"time_descending\" (latest), \"popularity_descending\" (most likes), \"comment_descending\" (most comments), \"collect_descending\" (most saves), \"english_preferred\" (English first).",
+              "zh_Hans": "排序方式。可选值：\"general\"（综合排序，默认），\"time_descending\"（最新），\"popularity_descending\"（最多点赞），\"comment_descending\"（最多评论），\"collect_descending\"（最多收藏），\"english_preferred\"（英文优先）。"
             }
           },
           "ui": {
@@ -660,9 +675,18 @@
               "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
-          "type": "string"
+          "type": "string",
+          "default": "general",
+          "enum": [
+            "general",
+            "time_descending",
+            "popularity_descending",
+            "comment_descending",
+            "collect_descending",
+            "english_preferred"
+          ]
         },
         {
           "name": "note_type",
@@ -686,6 +710,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "不限",
           "enum": [
             "不限",
             "视频笔记",
@@ -715,6 +740,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "不限",
           "enum": [
             "不限",
             "一天内",
@@ -743,7 +769,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "search_session_id",
@@ -766,7 +793,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "source",
@@ -789,7 +817,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": "explore_feed"
         },
         {
           "name": "ai_mode",
@@ -812,7 +841,8 @@
             "support_expression": true,
             "component": "number-input"
           },
-          "type": "integer"
+          "type": "integer",
+          "default": 0
         }
       ]
     },
@@ -890,7 +920,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": "normal"
         },
         {
           "name": "note_id",
@@ -917,7 +948,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         }
       ]
     },
@@ -996,6 +1028,7 @@
             "component": "select"
           },
           "type": "string",
+          "default": "trend",
           "enum": [
             "trend",
             "time"
@@ -1022,7 +1055,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "last_note_id",
@@ -1045,7 +1079,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "last_note_ct",
@@ -1068,7 +1103,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "session_id",
@@ -1091,7 +1127,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "first_load_time",
@@ -1114,7 +1151,8 @@
             "support_expression": true,
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         {
           "name": "source",
@@ -1135,6 +1173,1233 @@
               "zh_Hans": "来源标识，通常无需填写。"
             },
             "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "normal"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_search_people",
+      "display_name": {
+        "en_US": "LinkedIn · Search People",
+        "zh_Hans": "LinkedIn · 搜索用户"
+      },
+      "description": {
+        "en_US": "Search LinkedIn people by keyword, name, title, company, school, location, and other filters.",
+        "zh_Hans": "通过关键词、姓名、职位、公司、学校、位置等筛选条件搜索 LinkedIn 用户。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "name",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "General search keyword for searching people on LinkedIn.",
+              "zh_Hans": "在 LinkedIn 上搜索用户的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "General search keyword for LinkedIn people search.",
+              "zh_Hans": "LinkedIn 用户搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Software Engineer",
+              "zh_Hans": "如：软件工程师"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "first_name",
+          "display_name": {
+            "en_US": "First Name",
+            "zh_Hans": "名"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by first name.",
+              "zh_Hans": "按名字筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by first name.",
+              "zh_Hans": "按名字筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. John",
+              "zh_Hans": "如：John"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "display_name": {
+            "en_US": "Last Name",
+            "zh_Hans": "姓"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by last name.",
+              "zh_Hans": "按姓氏筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by last name.",
+              "zh_Hans": "按姓氏筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Smith",
+              "zh_Hans": "如：Smith"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "display_name": {
+            "en_US": "Title",
+            "zh_Hans": "职位"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by job title.",
+              "zh_Hans": "按职位筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by job title.",
+              "zh_Hans": "按职位筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. CEO",
+              "zh_Hans": "如：CEO"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "company",
+          "display_name": {
+            "en_US": "Company",
+            "zh_Hans": "公司"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by company name.",
+              "zh_Hans": "按公司名称筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by company name.",
+              "zh_Hans": "按公司名称筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Google",
+              "zh_Hans": "如：Google"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "school",
+          "display_name": {
+            "en_US": "School",
+            "zh_Hans": "学校"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by school name.",
+              "zh_Hans": "按学校名称筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by school name.",
+              "zh_Hans": "按学校名称筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Stanford",
+              "zh_Hans": "如：Stanford"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "geocode_location",
+          "display_name": {
+            "en_US": "Location Geocode",
+            "zh_Hans": "地理位置代码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Geocode for location filtering, e.g. 103644278 for United States.",
+              "zh_Hans": "地理位置代码，如 103644278 代表美国。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Geocode for location, e.g. 103644278 (US).",
+              "zh_Hans": "地理位置代码，如 103644278（美国）。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 103644278",
+              "zh_Hans": "如：103644278"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "current_company",
+          "display_name": {
+            "en_US": "Current Company ID",
+            "zh_Hans": "当前公司ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by current company ID.",
+              "zh_Hans": "按当前公司 ID 筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by current company ID.",
+              "zh_Hans": "按当前公司 ID 筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1441",
+              "zh_Hans": "如：1441"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "profile_language",
+          "display_name": {
+            "en_US": "Profile Language",
+            "zh_Hans": "个人资料语言"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by profile language.",
+              "zh_Hans": "按个人资料语言筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by profile language code.",
+              "zh_Hans": "按个人资料语言代码筛选。"
+            },
+            "placeholder": {
+              "en_US": "e.g. en",
+              "zh_Hans": "如：en"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "industry",
+          "display_name": {
+            "en_US": "Industry ID",
+            "zh_Hans": "行业ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by industry ID.",
+              "zh_Hans": "按行业 ID 筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by industry ID.",
+              "zh_Hans": "按行业 ID 筛选。"
+            },
+            "placeholder": {
+              "en_US": "Industry ID",
+              "zh_Hans": "行业ID"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "service_category",
+          "display_name": {
+            "en_US": "Service Category ID",
+            "zh_Hans": "服务类别ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by service category ID.",
+              "zh_Hans": "按服务类别 ID 筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by service category ID.",
+              "zh_Hans": "按服务类别 ID 筛选。"
+            },
+            "placeholder": {
+              "en_US": "Service category ID",
+              "zh_Hans": "服务类别ID"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_get_company_profile",
+      "display_name": {
+        "en_US": "LinkedIn · Get Company Profile",
+        "zh_Hans": "LinkedIn · 获取公司资料"
+      },
+      "description": {
+        "en_US": "Get LinkedIn company profile by company name or company ID.",
+        "zh_Hans": "通过公司名称或公司 ID 获取 LinkedIn 公司资料。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "company",
+          "display_name": {
+            "en_US": "Company Name",
+            "zh_Hans": "公司名称"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Company name to look up. Provide either company name or company_id.",
+              "zh_Hans": "要查找的公司名称。提供 company 或 company_id 之一即可。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Company name, e.g. Google.",
+              "zh_Hans": "公司名称，如 Google。"
+            },
+            "placeholder": {
+              "en_US": "e.g. Google",
+              "zh_Hans": "如：Google"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "company_id",
+          "display_name": {
+            "en_US": "Company ID",
+            "zh_Hans": "公司ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "LinkedIn company ID. Costs 1 extra request compared to searching by name.",
+              "zh_Hans": "LinkedIn 公司 ID。相比按名称搜索额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "LinkedIn company ID. Costs +1 request.",
+              "zh_Hans": "LinkedIn 公司 ID，额外消耗 1 次请求。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 1441",
+              "zh_Hans": "如：1441"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_search_posts",
+      "display_name": {
+        "en_US": "LinkedIn · Search Posts",
+        "zh_Hans": "LinkedIn · 搜索帖子"
+      },
+      "description": {
+        "en_US": "Search LinkedIn posts by keyword with optional filters for date, sort, author, company, and content type.",
+        "zh_Hans": "通过关键词搜索 LinkedIn 帖子，支持按发布时间、排序、作者、公司、内容类型等筛选。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for LinkedIn posts.",
+              "zh_Hans": "LinkedIn 帖子搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword for LinkedIn posts.",
+              "zh_Hans": "LinkedIn 帖子搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. AI trends",
+              "zh_Hans": "如：AI趋势"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "date_posted",
+          "display_name": {
+            "en_US": "Date Posted",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by post date. Must be one of: past_month, past_week, past_24h.",
+              "zh_Hans": "按发布时间筛选。可选值：past_month（过去一个月），past_week（过去一周），past_24h（过去24小时）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "past_month / past_week / past_24h",
+              "zh_Hans": "past_month / past_week / past_24h"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "past_month",
+            "past_week",
+            "past_24h"
+          ]
+        },
+        {
+          "name": "sort_by",
+          "display_name": {
+            "en_US": "Sort By",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort order. Must be one of: date_posted (latest), relevance (most relevant).",
+              "zh_Hans": "排序方式。可选值：date_posted（最新），relevance（最相关）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "date_posted = latest, relevance = most relevant.",
+              "zh_Hans": "date_posted = 最新，relevance = 最相关。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "date_posted",
+            "relevance"
+          ]
+        },
+        {
+          "name": "from_member",
+          "display_name": {
+            "en_US": "From Member",
+            "zh_Hans": "按成员过滤"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by member, separate multiple values by comma.",
+              "zh_Hans": "按成员过滤，多个值用逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by member, comma-separated.",
+              "zh_Hans": "按成员过滤，逗号分隔。"
+            },
+            "placeholder": {
+              "en_US": "member1,member2",
+              "zh_Hans": "成员1,成员2"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "from_company",
+          "display_name": {
+            "en_US": "From Company",
+            "zh_Hans": "按公司过滤"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by company, separate multiple values by comma.",
+              "zh_Hans": "按公司过滤，多个值用逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter by company, comma-separated.",
+              "zh_Hans": "按公司过滤，逗号分隔。"
+            },
+            "placeholder": {
+              "en_US": "company1,company2",
+              "zh_Hans": "公司1,公司2"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "content_type",
+          "display_name": {
+            "en_US": "Content Type",
+            "zh_Hans": "内容类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter by content type. Must be one of: videos, photos, jobs, live_videos, documents, collaborative_articles.",
+              "zh_Hans": "按内容类型筛选。可选值：videos（视频），photos（图片），jobs（职位），live_videos（直播视频），documents（文档），collaborative_articles（协作文章）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "videos / photos / jobs / live_videos / documents / collaborative_articles",
+              "zh_Hans": "videos / photos / jobs / live_videos / documents / collaborative_articles"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "videos",
+            "photos",
+            "jobs",
+            "live_videos",
+            "documents",
+            "collaborative_articles"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_get_post_comments",
+      "display_name": {
+        "en_US": "LinkedIn · Get Post Comments",
+        "zh_Hans": "LinkedIn · 获取帖子评论"
+      },
+      "description": {
+        "en_US": "Get comments of a LinkedIn post by post ID, with optional sort and type filters.",
+        "zh_Hans": "通过帖子 ID 获取 LinkedIn 帖子的评论列表，支持排序和类型筛选。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "post_id",
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "LinkedIn post ID to fetch comments for.",
+              "zh_Hans": "要获取评论的 LinkedIn 帖子 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "LinkedIn post ID, can be extracted from post URL.",
+              "zh_Hans": "LinkedIn 帖子 ID，可从帖子链接中提取。"
+            },
+            "placeholder": {
+              "en_US": "Post ID",
+              "zh_Hans": "帖子ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number, starting from 1.",
+              "zh_Hans": "页码，从 1 开始。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "sort_order",
+          "display_name": {
+            "en_US": "Sort Order",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort order for comments. Must be one of: relevance (most relevant, default), recent (newest).",
+              "zh_Hans": "评论排序方式。可选值：relevance（最相关，默认），recent（最新）。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "relevance = most relevant, recent = newest.",
+              "zh_Hans": "relevance = 最相关，recent = 最新。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "default": "relevance",
+          "enum": [
+            "relevance",
+            "recent"
+          ]
+        },
+        {
+          "name": "post_type",
+          "display_name": {
+            "en_US": "Post Type",
+            "zh_Hans": "帖子类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Post type. Must be one of: activity (default), ugc.",
+              "zh_Hans": "帖子类型。可选值：activity（默认），ugc。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "activity (default) or ugc.",
+              "zh_Hans": "activity（默认）或 ugc。"
+            },
+            "support_expression": true,
+            "component": "select"
+          },
+          "type": "string",
+          "default": "activity",
+          "enum": [
+            "activity",
+            "ugc"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_get_comments_replies",
+      "display_name": {
+        "en_US": "LinkedIn · Get Comment Replies",
+        "zh_Hans": "LinkedIn · 获取评论回复"
+      },
+      "description": {
+        "en_US": "Get replies to a specific comment on a LinkedIn post.",
+        "zh_Hans": "获取 LinkedIn 帖子中指定评论的回复列表。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "post_id",
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "LinkedIn post ID.",
+              "zh_Hans": "LinkedIn 帖子 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "LinkedIn post ID.",
+              "zh_Hans": "LinkedIn 帖子 ID。"
+            },
+            "placeholder": {
+              "en_US": "Post ID",
+              "zh_Hans": "帖子ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "comment_id",
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "评论ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comment ID to fetch replies for.",
+              "zh_Hans": "要获取回复的评论 ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comment ID to fetch replies for.",
+              "zh_Hans": "要获取回复的评论 ID。"
+            },
+            "placeholder": {
+              "en_US": "Comment ID",
+              "zh_Hans": "评论ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "previous_replies_token",
+          "display_name": {
+            "en_US": "Previous Replies Token",
+            "zh_Hans": "上一组回复令牌"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Token for the previous batch of replies. Use the token returned from the parent comment or previous page.",
+              "zh_Hans": "上一组回复的令牌。使用父评论或上一页返回的令牌。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Token from the parent comment or previous page.",
+              "zh_Hans": "从父评论或上一页获取的令牌。"
+            },
+            "placeholder": {
+              "en_US": "Previous replies token",
+              "zh_Hans": "上一组回复令牌"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_get_user_profile",
+      "display_name": {
+        "en_US": "LinkedIn · Get User Profile",
+        "zh_Hans": "LinkedIn · 获取用户资料"
+      },
+      "description": {
+        "en_US": "Get LinkedIn user profile by username, with optional flags to include detailed information (each flag costs 1 extra request).",
+        "zh_Hans": "通过用户名获取 LinkedIn 用户资料，支持通过可选参数包含更多详细信息（每个参数额外消耗 1 次请求）。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "username",
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "LinkedIn username for the profile to fetch.",
+              "zh_Hans": "要获取资料的 LinkedIn 用户名。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "LinkedIn username, e.g. john-doe-123456.",
+              "zh_Hans": "LinkedIn 用户名，如 john-doe-123456。"
+            },
+            "placeholder": {
+              "en_US": "e.g. john-doe-123456",
+              "zh_Hans": "如：john-doe-123456"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "include_follower_and_connection",
+          "display_name": {
+            "en_US": "Include Followers & Connections",
+            "zh_Hans": "包含粉丝和连接数"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include follower and connection count. Costs 1 extra request.",
+              "zh_Hans": "包含粉丝和连接数，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_experiences",
+          "display_name": {
+            "en_US": "Include Work Experiences",
+            "zh_Hans": "包含工作经历"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include work experiences. Costs 1 extra request.",
+              "zh_Hans": "包含工作经历，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_skills",
+          "display_name": {
+            "en_US": "Include Skills",
+            "zh_Hans": "包含技能"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include skills. Costs 1 extra request.",
+              "zh_Hans": "包含技能，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_certifications",
+          "display_name": {
+            "en_US": "Include Certifications",
+            "zh_Hans": "包含认证"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include certifications. Costs 1 extra request.",
+              "zh_Hans": "包含认证，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_publications",
+          "display_name": {
+            "en_US": "Include Publications",
+            "zh_Hans": "包含出版物"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include publications. Costs 1 extra request.",
+              "zh_Hans": "包含出版物，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_educations",
+          "display_name": {
+            "en_US": "Include Education",
+            "zh_Hans": "包含教育背景"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include educational background. Costs 1 extra request.",
+              "zh_Hans": "包含教育背景，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_volunteers",
+          "display_name": {
+            "en_US": "Include Volunteer Experiences",
+            "zh_Hans": "包含志愿者经历"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include volunteer experiences. Costs 1 extra request.",
+              "zh_Hans": "包含志愿者经历，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_honors",
+          "display_name": {
+            "en_US": "Include Honors & Awards",
+            "zh_Hans": "包含荣誉奖项"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include honors and awards. Costs 1 extra request.",
+              "zh_Hans": "包含荣誉奖项，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_interests",
+          "display_name": {
+            "en_US": "Include Interests",
+            "zh_Hans": "包含兴趣"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include interests. Costs 1 extra request.",
+              "zh_Hans": "包含兴趣，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        },
+        {
+          "name": "include_bio",
+          "display_name": {
+            "en_US": "Include Bio/About",
+            "zh_Hans": "包含个人简介"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Include bio/about section. Costs 1 extra request.",
+              "zh_Hans": "包含个人简介，额外消耗 1 次请求。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Costs +1 request.",
+              "zh_Hans": "额外消耗 1 次请求。"
+            },
+            "component": "switch"
+          },
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_linkedin_get_user_contact",
+      "display_name": {
+        "en_US": "LinkedIn · Get User Contact Info",
+        "zh_Hans": "LinkedIn · 获取用户联系信息"
+      },
+      "description": {
+        "en_US": "Get LinkedIn user contact information (email, phone, social links, etc.) by username.",
+        "zh_Hans": "通过用户名获取 LinkedIn 用户的联系信息（邮箱、电话、社交链接等）。"
+      },
+      "icon": "💼",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "username",
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "LinkedIn username to fetch contact information for.",
+              "zh_Hans": "要获取联系信息的 LinkedIn 用户名。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "LinkedIn username, e.g. john-doe-123456.",
+              "zh_Hans": "LinkedIn 用户名，如 john-doe-123456。"
+            },
+            "placeholder": {
+              "en_US": "e.g. john-doe-123456",
+              "zh_Hans": "如：john-doe-123456"
+            },
+            "support_expression": true,
+            "width": "full",
             "component": "input"
           },
           "type": "string"

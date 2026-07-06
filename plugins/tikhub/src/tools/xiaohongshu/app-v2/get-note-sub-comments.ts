@@ -32,6 +32,7 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
       name: "note_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Note ID", zh_Hans: "笔记ID" },
       ai: {
         llm_description: {
@@ -45,6 +46,7 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
       name: "share_text",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Share Link", zh_Hans: "分享链接" },
       ai: {
         llm_description: {
@@ -71,6 +73,7 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
       name: "cursor",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Cursor", zh_Hans: "分页游标" },
       ai: {
         llm_description: {
@@ -84,14 +87,15 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
       name: "index",
       type: "integer",
       required: false,
+      default: 1,
       display_name: { en_US: "Index", zh_Hans: "分页索引" },
       ai: {
         llm_description: {
-          en_US: "Page index. Pass 0 for first request.",
-          zh_Hans: "分页索引。首次请求传0。",
+          en_US: "Page index. Pass 1 for first request.",
+          zh_Hans: "分页索引。首次请求传1。",
         },
       },
-      ui: { hint: { en_US: "Pass 0 for first request. Increment for pagination.", zh_Hans: "首次请求传 0。翻页时递增。" },  support_expression: true, component: "number-input" },
+      ui: { hint: { en_US: "Pass 1 for first request. Increment for pagination.", zh_Hans: "首次请求传 1。翻页时递增。" },  support_expression: true, component: "number-input" },
     },
   ],
   invoke: async ({ args }) => {
