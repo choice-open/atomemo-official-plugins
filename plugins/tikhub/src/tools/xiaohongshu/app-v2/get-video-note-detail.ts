@@ -32,6 +32,7 @@ export const tikhub_rednote_get_video_note_detail: ToolDefinition = {
       name: "note_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Note ID", zh_Hans: "笔记ID" },
       ai: {
         llm_description: {
@@ -45,6 +46,7 @@ export const tikhub_rednote_get_video_note_detail: ToolDefinition = {
       name: "share_text",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Share Link", zh_Hans: "分享链接" },
       ai: {
         llm_description: {
