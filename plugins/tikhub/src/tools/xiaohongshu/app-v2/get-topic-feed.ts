@@ -59,8 +59,7 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "cursor_score",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "Cursor Score", zh_Hans: "分页游标分数" },
       ai: {
         llm_description: {
@@ -73,8 +72,7 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "last_note_id",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "Last Note ID", zh_Hans: "上页最后笔记ID" },
       ai: {
         llm_description: {
@@ -87,8 +85,7 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "last_note_ct",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "Last Note Create Time", zh_Hans: "上页最后笔记创建时间" },
       ai: {
         llm_description: {
@@ -101,8 +98,7 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "session_id",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "Session ID", zh_Hans: "会话ID" },
       ai: {
         llm_description: {
@@ -115,8 +111,7 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "first_load_time",
       type: "string",
-      required: false,
-      default: "",
+      required: false
       display_name: { en_US: "First Load Time", zh_Hans: "首次加载时间戳" },
       ai: {
         llm_description: {
