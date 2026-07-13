@@ -13,7 +13,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "credentials": [
     {
       "name": "tikhub-api-key",
