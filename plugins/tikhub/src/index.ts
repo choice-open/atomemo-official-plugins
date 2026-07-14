@@ -15,6 +15,7 @@ const plugin = await createPlugin({
   },
   icon: "https://avatars.githubusercontent.com/u/119824398?v=4",
   lang: "typescript",
+  locales: ["en-US", "zh-Hans"],
   version: packageJSON.version,
   repo: "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   transporterOptions: {},

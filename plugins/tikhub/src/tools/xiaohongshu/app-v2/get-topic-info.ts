@@ -58,7 +58,8 @@ export const tikhub_rednote_get_topic_info: ToolDefinition = {
     {
       name: "note_id",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Source Note ID", zh_Hans: "来源笔记ID" },
       ai: {
         llm_description: {
@@ -72,11 +73,12 @@ export const tikhub_rednote_get_topic_info: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const pageId = readRequiredStringParam(p, "page_id")
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        page_id: typeof p.page_id === "string" ? p.page_id : undefined,
+        page_id: pageId,
         source: typeof p.source === "string" ? p.source : undefined,
         note_id: typeof p.note_id === "string" ? p.note_id : undefined,
       },

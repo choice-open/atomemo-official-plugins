@@ -84,7 +84,7 @@ export async function invokeTikHubApi(
     const text = await response.text()
     throw new Error(`TikHub API error ${response.status}: ${text}`)
   }
-  return response.json() as JsonValue
+  return (await response.json()) as JsonValue
 }
 
 export function readRequiredStringParam(

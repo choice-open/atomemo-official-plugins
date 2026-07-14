@@ -45,11 +45,12 @@ export const tikhub_linkedin_get_user_contact: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const username = readRequiredStringParam(p, "username")
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        username: typeof p.username === "string" ? p.username : undefined,
+        username,
       },
     })
   },

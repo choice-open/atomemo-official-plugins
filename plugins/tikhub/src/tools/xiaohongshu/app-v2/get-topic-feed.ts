@@ -59,7 +59,8 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "cursor_score",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Cursor Score", zh_Hans: "分页游标分数" },
       ai: {
         llm_description: {
@@ -72,7 +73,8 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "last_note_id",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Last Note ID", zh_Hans: "上页最后笔记ID" },
       ai: {
         llm_description: {
@@ -85,7 +87,8 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "last_note_ct",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Last Note Create Time", zh_Hans: "上页最后笔记创建时间" },
       ai: {
         llm_description: {
@@ -98,7 +101,8 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "session_id",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Session ID", zh_Hans: "会话ID" },
       ai: {
         llm_description: {
@@ -111,7 +115,8 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
     {
       name: "first_load_time",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "First Load Time", zh_Hans: "首次加载时间戳" },
       ai: {
         llm_description: {
@@ -139,11 +144,12 @@ export const tikhub_rednote_get_topic_feed: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const pageId = readRequiredStringParam(p, "page_id")
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        page_id: typeof p.page_id === "string" ? p.page_id : undefined,
+        page_id: pageId,
         sort: typeof p.sort === "string" ? p.sort : undefined,
         cursor_score: typeof p.cursor_score === "string" ? p.cursor_score : undefined,
         last_note_id: typeof p.last_note_id === "string" ? p.last_note_id : undefined,
