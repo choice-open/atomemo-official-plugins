@@ -127,12 +127,13 @@ export const tikhub_linkedin_search_posts: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const keyword = readRequiredStringParam(p, "keyword")
     const page = typeof p.page === "number" ? String(p.page) : undefined
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        keyword: typeof p.keyword === "string" ? p.keyword : undefined,
+        keyword,
         page,
         date_posted: typeof p.date_posted === "string" ? p.date_posted : undefined,
         sort_by: typeof p.sort_by === "string" ? p.sort_by : undefined,

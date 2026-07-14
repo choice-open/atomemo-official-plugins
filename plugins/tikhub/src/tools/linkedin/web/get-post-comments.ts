@@ -89,12 +89,13 @@ export const tikhub_linkedin_get_post_comments: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const postId = readRequiredStringParam(p, "post_id")
     const page = typeof p.page === "number" ? String(p.page) : undefined
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        post_id: typeof p.post_id === "string" ? p.post_id : undefined,
+        post_id: postId,
         page,
         sort_order: typeof p.sort_order === "string" ? p.sort_order : undefined,
         post_type: typeof p.post_type === "string" ? p.post_type : undefined,

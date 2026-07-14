@@ -104,6 +104,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Search ID", zh_Hans: "搜索ID" },
       ai: {
         llm_description: {
@@ -117,6 +118,7 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
       name: "search_session_id",
       type: "string",
       required: false,
+      default: "",
       display_name: { en_US: "Search Session ID", zh_Hans: "搜索会话ID" },
       ai: {
         llm_description: {
@@ -158,13 +160,14 @@ export const tikhub_rednote_search_notes: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const keyword = readRequiredStringParam(p, "keyword")
     const page = typeof p.page === "number" ? String(p.page) : undefined
     const ai_mode = typeof p.ai_mode === "number" ? String(p.ai_mode) : undefined
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        keyword: typeof p.keyword === "string" ? p.keyword : undefined,
+        keyword,
         page,
         sort_type: typeof p.sort_type === "string" ? p.sort_type : undefined,
         note_type: typeof p.note_type === "string" ? p.note_type : undefined,

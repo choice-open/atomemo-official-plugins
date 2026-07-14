@@ -71,13 +71,16 @@ export const tikhub_linkedin_get_comments_replies: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const postId = readRequiredStringParam(p, "post_id")
+    const commentId = readRequiredStringParam(p, "comment_id")
+    const previousRepliesToken = readRequiredStringParam(p, "previous_replies_token")
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        post_id: typeof p.post_id === "string" ? p.post_id : undefined,
-        comment_id: typeof p.comment_id === "string" ? p.comment_id : undefined,
-        previous_replies_token: typeof p.previous_replies_token === "string" ? p.previous_replies_token : undefined,
+        post_id: postId,
+        comment_id: commentId,
+        previous_replies_token: previousRepliesToken,
       },
     })
   },

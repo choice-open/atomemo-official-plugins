@@ -175,13 +175,14 @@ export const tikhub_linkedin_get_user_profile: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const username = readRequiredStringParam(p, "username")
     const toBoolStr = (v: unknown): string | undefined =>
       typeof v === "boolean" ? (v ? "true" : "false") : undefined
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
       credentialId,
       queryParams: {
-        username: typeof p.username === "string" ? p.username : undefined,
+        username,
         include_follower_and_connection: toBoolStr(p.include_follower_and_connection),
         include_experiences: toBoolStr(p.include_experiences),
         include_skills: toBoolStr(p.include_skills),

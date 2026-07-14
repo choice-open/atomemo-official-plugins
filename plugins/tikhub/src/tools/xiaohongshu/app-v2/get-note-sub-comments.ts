@@ -31,7 +31,8 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
     {
       name: "note_id",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Note ID", zh_Hans: "笔记ID" },
       ai: {
         llm_description: {
@@ -44,7 +45,8 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
     {
       name: "share_text",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Share Link", zh_Hans: "分享链接" },
       ai: {
         llm_description: {
@@ -70,7 +72,8 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
     {
       name: "cursor",
       type: "string",
-      required: false
+      required: false,
+      default: "",
       display_name: { en_US: "Cursor", zh_Hans: "分页游标" },
       ai: {
         llm_description: {
@@ -98,6 +101,7 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const credentialId = readRequiredStringParam(p, "credential_id")
+    const commentId = readRequiredStringParam(p, "comment_id")
     const index = typeof p.index === "number" ? String(p.index) : undefined
     return invokeTikHubApi(endpoint, {
       credentials: args.credentials,
@@ -105,7 +109,7 @@ export const tikhub_rednote_get_note_sub_comments: ToolDefinition = {
       queryParams: {
         note_id: typeof p.note_id === "string" ? p.note_id : undefined,
         share_text: typeof p.share_text === "string" ? p.share_text : undefined,
-        comment_id: typeof p.comment_id === "string" ? p.comment_id : undefined,
+        comment_id: commentId,
         cursor: typeof p.cursor === "string" ? p.cursor : undefined,
         index,
       },
