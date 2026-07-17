@@ -1,7 +1,7 @@
 {
   "name": "tikhub",
   "type": "module",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "TikHub multi-platform social media data API",
   "author": "",
   "license": "MIT",

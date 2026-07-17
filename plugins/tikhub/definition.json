@@ -10,14 +10,14 @@
   },
   "icon": "https://avatars.githubusercontent.com/u/119824398?v=4",
   "lang": "typescript",
-  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "locales": [
     "en-US",
     "zh-Hans"
   ],
+  "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -2407,6 +2407,1900 @@
             "component": "input"
           },
           "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_general_search_v2",
+      "display_name": {
+        "en_US": "Douyin · General Search V2",
+        "zh_Hans": "抖音 · 获取综合搜索V2"
+      },
+      "description": {
+        "en_US": "Get Douyin general search results V2 by keyword. Returns mixed content including videos, users, and hashtags.",
+        "zh_Hans": "通过关键词获取抖音综合搜索V2结果，返回包含视频、用户、话题的混合内容。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin general search.",
+              "zh_Hans": "抖音综合搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 美食",
+              "zh_Hans": "如：美食"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type. 0: default/relevance, 2: latest.",
+              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: default, 2: latest.",
+              "zh_Hans": "0: 默认，2: 最新。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
+              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
+              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_video_search_v2",
+      "display_name": {
+        "en_US": "Douyin · Video Search V2",
+        "zh_Hans": "抖音 · 获取视频搜索V2"
+      },
+      "description": {
+        "en_US": "Search Douyin videos by keyword V2. Returns video results matching the query.",
+        "zh_Hans": "通过关键词搜索抖音视频V2，返回匹配的视频结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin video search.",
+              "zh_Hans": "抖音视频搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 美食",
+              "zh_Hans": "如：美食"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type. 0: default/relevance, 2: latest.",
+              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: default, 2: latest.",
+              "zh_Hans": "0: 默认，2: 最新。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
+              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
+              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_multi_search",
+      "display_name": {
+        "en_US": "Douyin · Multi-type Search",
+        "zh_Hans": "抖音 · 获取多重搜索"
+      },
+      "description": {
+        "en_US": "Perform multi-type search on Douyin by keyword. Returns results across multiple content types.",
+        "zh_Hans": "通过关键词执行抖音多重搜索，返回多种内容类型的结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin multi-type search.",
+              "zh_Hans": "抖音多重搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 美食",
+              "zh_Hans": "如：美食"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type. 0: default/relevance, 2: latest.",
+              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: default, 2: latest.",
+              "zh_Hans": "0: 默认，2: 最新。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
+              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
+              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_user_search_v2",
+      "display_name": {
+        "en_US": "Douyin · User Search V2",
+        "zh_Hans": "抖音 · 获取用户搜索V2"
+      },
+      "description": {
+        "en_US": "Search Douyin users by keyword V2. Returns user profiles matching the query.",
+        "zh_Hans": "通过关键词搜索抖音用户V2，返回匹配的用户信息。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin user search. Can be username, nickname, or Douyin ID.",
+              "zh_Hans": "抖音用户搜索的关键词，可以是用户名、昵称或抖音号。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword for user search.",
+              "zh_Hans": "用户搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 张三",
+              "zh_Hans": "如：张三"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_image_search",
+      "display_name": {
+        "en_US": "Douyin · Image Search",
+        "zh_Hans": "抖音 · 获取图片搜索"
+      },
+      "description": {
+        "en_US": "Search Douyin image posts by keyword. Returns image content matching the query.",
+        "zh_Hans": "通过关键词搜索抖音图片内容，返回匹配的图片结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin image search.",
+              "zh_Hans": "抖音图片搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 风景",
+              "zh_Hans": "如：风景"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type. 0: default/relevance, 2: latest.",
+              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: default, 2: latest.",
+              "zh_Hans": "0: 默认，2: 最新。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_image_search_v3",
+      "display_name": {
+        "en_US": "Douyin · Image-Text Search V3",
+        "zh_Hans": "抖音 · 获取图文搜索V3"
+      },
+      "description": {
+        "en_US": "Search Douyin image-text posts by keyword V3. Returns mixed image and text content matching the query.",
+        "zh_Hans": "通过关键词搜索抖音图文内容V3，返回匹配的图文结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin image-text search.",
+              "zh_Hans": "抖音图文搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 穿搭",
+              "zh_Hans": "如：穿搭"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序方式"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type. 0: default/relevance, 2: latest.",
+              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: default, 2: latest.",
+              "zh_Hans": "0: 默认，2: 最新。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
+              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
+              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "component": "input"
+          },
+          "type": "string",
+          "default": "0"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_live_search_v1",
+      "display_name": {
+        "en_US": "Douyin · Live Search V1",
+        "zh_Hans": "抖音 · 获取直播搜索V1"
+      },
+      "description": {
+        "en_US": "Search Douyin live streams by keyword V1. Returns live room results matching the query.",
+        "zh_Hans": "通过关键词搜索抖音直播间V1，返回匹配的直播结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin live search.",
+              "zh_Hans": "抖音直播搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 唱歌",
+              "zh_Hans": "如：唱歌"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_challenge_search_v2",
+      "display_name": {
+        "en_US": "Douyin · Hashtag Search V2",
+        "zh_Hans": "抖音 · 获取话题搜索V2"
+      },
+      "description": {
+        "en_US": "Search Douyin hashtags/challenges by keyword V2. Returns hashtag results matching the query.",
+        "zh_Hans": "通过关键词搜索抖音话题V2，返回匹配的话题结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin hashtag search.",
+              "zh_Hans": "抖音话题搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 美食",
+              "zh_Hans": "如：美食"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_experience_search",
+      "display_name": {
+        "en_US": "Douyin · Experience Search",
+        "zh_Hans": "抖音 · 获取经验搜索"
+      },
+      "description": {
+        "en_US": "Search Douyin experience/guide posts by keyword. Returns experience content matching the query.",
+        "zh_Hans": "通过关键词搜索抖音经验/攻略内容，返回匹配的经验结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin experience search.",
+              "zh_Hans": "抖音经验搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 旅行攻略",
+              "zh_Hans": "如：旅行攻略"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_music_search",
+      "display_name": {
+        "en_US": "Douyin · Music Search",
+        "zh_Hans": "抖音 · 获取音乐搜索"
+      },
+      "description": {
+        "en_US": "Search Douyin music/audio by keyword. Returns music tracks matching the query.",
+        "zh_Hans": "通过关键词搜索抖音音乐/音频，返回匹配的音乐结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin music search.",
+              "zh_Hans": "抖音音乐搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 周杰伦",
+              "zh_Hans": "如：周杰伦"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_discuss_search",
+      "display_name": {
+        "en_US": "Douyin · Discussion Search",
+        "zh_Hans": "抖音 · 获取讨论搜索"
+      },
+      "description": {
+        "en_US": "Search Douyin discussion posts by keyword. Returns discussion content matching the query.",
+        "zh_Hans": "通过关键词搜索抖音讨论内容，返回匹配的讨论结果。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search keyword for Douyin discussion search.",
+              "zh_Hans": "抖音讨论搜索的关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. 热门话题",
+              "zh_Hans": "如：热门话题"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_one_video_v3",
+      "display_name": {
+        "en_US": "Douyin · Get Single Video V3",
+        "zh_Hans": "抖音 · 获取单个作品数据V3"
+      },
+      "description": {
+        "en_US": "Get single Douyin video data V3 (no copyright restrictions). Returns video details by aweme ID.",
+        "zh_Hans": "获取抖音单个作品数据V3（无版权限制）。通过视频ID返回作品详情。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Douyin video/aweme ID. Can be extracted from the video share URL.",
+              "zh_Hans": "抖音作品/视频ID，可从视频分享链接中提取。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin video ID (aweme_id), e.g. 7339393672959757570.",
+              "zh_Hans": "抖音作品ID，如 7339393672959757570。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_multi_video_v2",
+      "display_name": {
+        "en_US": "Douyin · Batch Get Videos V2",
+        "zh_Hans": "抖音 · 批量获取视频信息V2"
+      },
+      "description": {
+        "en_US": "Batch get Douyin video information V2. Returns video details for multiple video IDs.",
+        "zh_Hans": "批量获取抖音视频信息V2。通过多个视频ID返回作品详情。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "video_ids",
+          "display_name": {
+            "en_US": "Video IDs",
+            "zh_Hans": "视频ID列表"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of Douyin video/aweme IDs.",
+              "zh_Hans": "抖音作品ID列表，多个ID用逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated video IDs, e.g. 7339393672959757570,7339393672959757571.",
+              "zh_Hans": "视频ID列表，用逗号分隔，如 7339393672959757570,7339393672959757571。"
+            },
+            "placeholder": {
+              "en_US": "id1,id2,id3",
+              "zh_Hans": "id1,id2,id3"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_one_video_by_share_url",
+      "display_name": {
+        "en_US": "Douyin · Get Video by Share URL",
+        "zh_Hans": "抖音 · 根据分享链接获取单个作品数据"
+      },
+      "description": {
+        "en_US": "Get single Douyin video data by sharing link. Returns video details from a share URL.",
+        "zh_Hans": "通过分享链接获取抖音单个作品数据。从分享URL返回作品详情。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "share_url",
+          "display_name": {
+            "en_US": "Share URL",
+            "zh_Hans": "分享链接"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Douyin video share URL, e.g. https://v.douyin.com/xxxxx/ or https://www.douyin.com/video/xxxxx.",
+              "zh_Hans": "抖音视频分享链接，如 https://v.douyin.com/xxxxx/ 或 https://www.douyin.com/video/xxxxx。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin share URL, e.g. https://v.douyin.com/xxxxx/.",
+              "zh_Hans": "抖音分享链接，如 https://v.douyin.com/xxxxx/。"
+            },
+            "placeholder": {
+              "en_US": "https://v.douyin.com/xxxxx/",
+              "zh_Hans": "https://v.douyin.com/xxxxx/"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_video_statistics",
+      "display_name": {
+        "en_US": "Douyin · Get Video Statistics",
+        "zh_Hans": "抖音 · 根据视频ID获取作品的统计数据"
+      },
+      "description": {
+        "en_US": "Get Douyin video statistics by video ID. Returns like count, download count, play count, share count, etc.",
+        "zh_Hans": "根据视频ID获取抖音作品的统计数据，包括点赞数、下载数、播放数、分享数等。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Douyin video/aweme ID. Can be extracted from the video share URL.",
+              "zh_Hans": "抖音作品/视频ID，可从视频分享链接中提取。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin video ID (aweme_id).",
+              "zh_Hans": "抖音作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_multi_video_statistics",
+      "display_name": {
+        "en_US": "Douyin · Batch Get Video Statistics",
+        "zh_Hans": "抖音 · 根据视频ID批量获取作品的统计数据"
+      },
+      "description": {
+        "en_US": "Batch get Douyin video statistics by multiple video IDs. Returns like count, download count, play count, share count for each video.",
+        "zh_Hans": "根据多个视频ID批量获取抖音作品的统计数据，包括每个视频的点赞数、下载数、播放数、分享数。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "video_ids",
+          "display_name": {
+            "en_US": "Video IDs",
+            "zh_Hans": "视频ID列表"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of Douyin video/aweme IDs.",
+              "zh_Hans": "抖音作品ID列表，多个ID用逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated video IDs, e.g. 7339393672959757570,7339393672959757571.",
+              "zh_Hans": "视频ID列表，用逗号分隔，如 7339393672959757570,7339393672959757571。"
+            },
+            "placeholder": {
+              "en_US": "id1,id2,id3",
+              "zh_Hans": "id1,id2,id3"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_video_comments",
+      "display_name": {
+        "en_US": "Douyin · Get Video Comments",
+        "zh_Hans": "抖音 · 获取单个视频评论数据"
+      },
+      "description": {
+        "en_US": "Get comments for a single Douyin video by video ID. Supports pagination.",
+        "zh_Hans": "通过视频ID获取抖音单个视频的评论数据，支持分页。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Douyin video/aweme ID to fetch comments for.",
+              "zh_Hans": "要获取评论的抖音作品/视频ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin video ID (aweme_id).",
+              "zh_Hans": "抖音作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of comments per page, default 20.",
+              "zh_Hans": "每页评论数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of comments per page.",
+              "zh_Hans": "每页评论数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_douyin_fetch_video_comment_replies",
+      "display_name": {
+        "en_US": "Douyin · Get Comment Replies",
+        "zh_Hans": "抖音 · 获取指定视频的评论回复数据"
+      },
+      "description": {
+        "en_US": "Get replies to a specific comment on a Douyin video. Supports pagination.",
+        "zh_Hans": "获取抖音视频指定评论的回复数据，支持分页。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Douyin video/aweme ID that contains the comment.",
+              "zh_Hans": "包含该评论的抖音作品/视频ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin video ID (aweme_id).",
+              "zh_Hans": "抖音作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "comment_id",
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "评论ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The ID of the comment to fetch replies for.",
+              "zh_Hans": "要获取回复的评论ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Douyin comment ID to fetch replies for.",
+              "zh_Hans": "要获取回复的抖音评论ID。"
+            },
+            "placeholder": {
+              "en_US": "Comment ID",
+              "zh_Hans": "评论ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of replies per page, default 20.",
+              "zh_Hans": "每页回复数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of replies per page.",
+              "zh_Hans": "每页回复数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
         }
       ]
     }
