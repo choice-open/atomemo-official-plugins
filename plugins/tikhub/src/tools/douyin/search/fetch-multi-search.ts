@@ -75,13 +75,17 @@ export const tikhub_douyin_fetch_multi_search: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Sort Type", zh_Hans: "排序方式" },
+      enum: [
+        { label: { en_US: "Default", zh_Hans: "综合排序" }, value: "0" },
+        { label: { en_US: "Latest", zh_Hans: "最新发布" }, value: "2" },
+      ],
       ai: {
         llm_description: {
-          en_US: "Sort type. 0: default/relevance, 2: latest.",
-          zh_Hans: "排序方式。0: 默认/综合排序，2: 最新发布。",
+          en_US: "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+          zh_Hans: "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。",
         },
       },
-      ui: { hint: { en_US: "0: default, 2: latest.", zh_Hans: "0: 默认，2: 最新。" }, support_expression: true, component: "input", placeholder: { en_US: "0", zh_Hans: "0" } },
+      ui: { hint: { en_US: "Sort order for search results.", zh_Hans: "搜索结果排序方式。" }, support_expression: true, component: "select" },
     },
     {
       name: "publish_time",
@@ -89,13 +93,19 @@ export const tikhub_douyin_fetch_multi_search: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Publish Time", zh_Hans: "发布时间" },
+      enum: [
+        { label: { en_US: "Unlimited", zh_Hans: "不限" }, value: "0" },
+        { label: { en_US: "Within 1 day", zh_Hans: "一天内" }, value: "1" },
+        { label: { en_US: "Within 7 days", zh_Hans: "七天内" }, value: "7" },
+        { label: { en_US: "Within 30 days", zh_Hans: "30天内" }, value: "30" },
+      ],
       ai: {
         llm_description: {
-          en_US: "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-          zh_Hans: "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。",
+          en_US: "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+          zh_Hans: "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。",
         },
       },
-      ui: { hint: { en_US: "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.", zh_Hans: "0: 不限，1: 一天内，7: 七天内，30: 30天内。" }, support_expression: true, component: "input", placeholder: { en_US: "0", zh_Hans: "0" } },
+      ui: { hint: { en_US: "Filter by publish time.", zh_Hans: "按发布时间筛选。" }, support_expression: true, component: "select" },
     },
   ],
   invoke: async ({ args }) => {

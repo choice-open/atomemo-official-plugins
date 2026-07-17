@@ -75,13 +75,17 @@ export const tikhub_douyin_fetch_image_search: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Sort Type", zh_Hans: "排序方式" },
+      enum: [
+        { label: { en_US: "Default", zh_Hans: "综合排序" }, value: "0" },
+        { label: { en_US: "Latest", zh_Hans: "最新发布" }, value: "2" },
+      ],
       ai: {
         llm_description: {
-          en_US: "Sort type. 0: default/relevance, 2: latest.",
-          zh_Hans: "排序方式。0: 默认/综合排序，2: 最新发布。",
+          en_US: "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+          zh_Hans: "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。",
         },
       },
-      ui: { hint: { en_US: "0: default, 2: latest.", zh_Hans: "0: 默认，2: 最新。" }, support_expression: true, component: "input", placeholder: { en_US: "0", zh_Hans: "0" } },
+      ui: { hint: { en_US: "Sort order for search results.", zh_Hans: "搜索结果排序方式。" }, support_expression: true, component: "select" },
     },
   ],
   invoke: async ({ args }) => {
