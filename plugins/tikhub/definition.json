@@ -2520,24 +2520,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2548,24 +2548,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2679,24 +2681,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2707,24 +2709,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2838,24 +2842,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2866,24 +2870,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -3100,24 +3106,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         }
       ]
     },
@@ -3231,24 +3237,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -3259,24 +3265,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -4318,25 +4326,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "aweme_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok video/aweme ID.",
@@ -4348,24 +4355,23 @@
               "en_US": "TikTok video ID (aweme_id).",
               "zh_Hans": "TikTok 作品ID。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "Video ID",
               "zh_Hans": "视频ID"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "region",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Region",
             "zh_Hans": "地区"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "TikTok country or region code, default US.",
@@ -4377,14 +4383,16 @@
               "en_US": "Country or region code, default US.",
               "zh_Hans": "国家或地区代码，默认 US。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "US",
               "zh_Hans": "US"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         }
       ]
     },
@@ -4402,25 +4410,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "aweme_ids",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video IDs",
             "zh_Hans": "视频ID列表"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Comma-separated list of TikTok video/aweme IDs.",
@@ -4432,14 +4439,15 @@
               "en_US": "Comma-separated video IDs, e.g. 7339393672959757570,7339393672959757571.",
               "zh_Hans": "视频ID列表，用逗号分隔，如 7339393672959757570,7339393672959757571。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "id1,id2,id3",
               "zh_Hans": "id1,id2,id3"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -4457,25 +4465,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "share_url",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Share URL",
             "zh_Hans": "分享链接"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok video share URL.",
@@ -4487,14 +4494,15 @@
               "en_US": "TikTok share URL.",
               "zh_Hans": "TikTok 分享链接。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "https://www.tiktok.com/...",
               "zh_Hans": "https://www.tiktok.com/..."
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -4512,26 +4520,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "sec_user_id",
-          "type": "string",
-          "required": false,
-          "default": "",
           "display_name": {
             "en_US": "Sec User ID",
             "zh_Hans": "Sec User ID"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "TikTok sec_user_id. Provide this or unique_id.",
@@ -4543,24 +4549,24 @@
               "en_US": "TikTok sec_user_id. Leave empty if using unique_id.",
               "zh_Hans": "TikTok sec_user_id；使用 unique_id 时可留空。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "sec_user_id",
               "zh_Hans": "sec_user_id"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
         },
         {
           "name": "unique_id",
-          "type": "string",
-          "required": false,
-          "default": "",
           "display_name": {
             "en_US": "Unique ID",
             "zh_Hans": "用户 unique_id"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "TikTok unique_id/username. Provide this or sec_user_id.",
@@ -4572,24 +4578,24 @@
               "en_US": "TikTok unique_id. Leave empty if using sec_user_id.",
               "zh_Hans": "TikTok unique_id；使用 sec_user_id 时可留空。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "unique_id",
               "zh_Hans": "unique_id"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
         },
         {
           "name": "max_cursor",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Max Cursor",
             "zh_Hans": "最大游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Maximum pagination cursor, default 0.",
@@ -4603,17 +4609,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -4627,17 +4633,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         },
         {
           "name": "sort_type",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Sort Type",
             "zh_Hans": "排序类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort type, default 0.",
@@ -4651,7 +4657,9 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         }
       ]
     },
@@ -4669,25 +4677,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "aweme_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok video/aweme ID to fetch comments for.",
@@ -4699,24 +4706,23 @@
               "en_US": "TikTok video ID (aweme_id).",
               "zh_Hans": "TikTok 作品ID。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "Video ID",
               "zh_Hans": "视频ID"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination cursor, starting from 0.",
@@ -4730,17 +4736,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -4754,7 +4760,9 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         }
       ]
     },
@@ -4772,25 +4780,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "item_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok video/item ID that contains the comment.",
@@ -4802,23 +4809,23 @@
               "en_US": "TikTok item ID.",
               "zh_Hans": "TikTok 作品ID。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "Video ID",
               "zh_Hans": "视频ID"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "comment_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Comment ID",
             "zh_Hans": "评论ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "The comment ID to fetch replies for.",
@@ -4830,24 +4837,23 @@
               "en_US": "TikTok comment ID.",
               "zh_Hans": "TikTok 评论ID。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "Comment ID",
               "zh_Hans": "评论ID"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination cursor, starting from 0.",
@@ -4861,17 +4867,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -4885,7 +4891,9 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         }
       ]
     },
@@ -4903,25 +4911,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "搜索关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok search keyword.",
@@ -4933,24 +4940,23 @@
               "en_US": "Search keyword.",
               "zh_Hans": "搜索关键词。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "e.g. food",
               "zh_Hans": "如：food"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "offset",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Offset",
             "zh_Hans": "偏移量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination offset, starting from 0.",
@@ -4964,17 +4970,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -4988,17 +4994,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         },
         {
           "name": "sort_type",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Sort Type",
             "zh_Hans": "排序类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort type, default 0.",
@@ -5012,17 +5018,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "publish_time",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Publish Time",
             "zh_Hans": "发布时间"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Publish time filter, default 0.",
@@ -5036,7 +5042,9 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         }
       ]
     },
@@ -5054,25 +5062,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "搜索关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok search keyword.",
@@ -5084,24 +5091,23 @@
               "en_US": "Search keyword.",
               "zh_Hans": "搜索关键词。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "e.g. food",
               "zh_Hans": "如：food"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "offset",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Offset",
             "zh_Hans": "偏移量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination offset, starting from 0.",
@@ -5115,17 +5121,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -5139,17 +5145,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         },
         {
           "name": "sort_type",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Sort Type",
             "zh_Hans": "排序类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort type, default 0.",
@@ -5163,17 +5169,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "publish_time",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Publish Time",
             "zh_Hans": "发布时间"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Publish time filter, default 0.",
@@ -5187,17 +5193,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "region",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Region",
             "zh_Hans": "地区"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "TikTok country or region code, default US.",
@@ -5209,14 +5215,16 @@
               "en_US": "Country or region code, default US.",
               "zh_Hans": "国家或地区代码，默认 US。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "US",
               "zh_Hans": "US"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         }
       ]
     },
@@ -5234,25 +5242,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "搜索关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok search keyword.",
@@ -5264,24 +5271,23 @@
               "en_US": "Search keyword.",
               "zh_Hans": "搜索关键词。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "e.g. food",
               "zh_Hans": "如：food"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "offset",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Offset",
             "zh_Hans": "偏移量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination offset, starting from 0.",
@@ -5295,17 +5301,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -5319,17 +5325,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         },
         {
           "name": "user_search_follower_count",
-          "type": "string",
-          "required": false,
-          "default": "",
           "display_name": {
             "en_US": "Follower Count Filter",
             "zh_Hans": "粉丝数筛选"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional follower count filter.",
@@ -5342,19 +5348,19 @@
               "zh_Hans": "粉丝数筛选条件；留空表示不筛选。"
             },
             "support_expression": true,
-            "component": "input",
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
         },
         {
           "name": "user_search_profile_type",
-          "type": "string",
-          "required": false,
-          "default": "",
           "display_name": {
             "en_US": "Profile Type Filter",
             "zh_Hans": "账号类型筛选"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional profile type filter.",
@@ -5367,19 +5373,19 @@
               "zh_Hans": "账号类型筛选条件；留空表示不筛选。"
             },
             "support_expression": true,
-            "component": "input",
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
         },
         {
           "name": "user_search_other_pref",
-          "type": "string",
-          "required": false,
-          "default": "",
           "display_name": {
             "en_US": "Other Preference Filter",
             "zh_Hans": "其他偏好筛选"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional other preference filter.",
@@ -5392,9 +5398,11 @@
               "zh_Hans": "其他偏好筛选条件；留空表示不筛选。"
             },
             "support_expression": true,
-            "component": "input",
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
         }
       ]
     },
@@ -5412,25 +5420,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "搜索关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok search keyword.",
@@ -5442,24 +5449,23 @@
               "en_US": "Search keyword.",
               "zh_Hans": "搜索关键词。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "e.g. food",
               "zh_Hans": "如：food"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "offset",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Offset",
             "zh_Hans": "偏移量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination offset, starting from 0.",
@@ -5473,17 +5479,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -5497,17 +5503,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         },
         {
           "name": "filter_by",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Filter By",
             "zh_Hans": "过滤类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Filter type, default 0.",
@@ -5521,17 +5527,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "sort_type",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Sort Type",
             "zh_Hans": "排序类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort type, default 0.",
@@ -5545,17 +5551,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "region",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Region",
             "zh_Hans": "地区"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "TikTok country or region code, default US.",
@@ -5567,14 +5573,16 @@
               "en_US": "Country or region code, default US.",
               "zh_Hans": "国家或地区代码，默认 US。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "US",
               "zh_Hans": "US"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         }
       ]
     },
@@ -5592,25 +5600,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "搜索关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "TikTok search keyword.",
@@ -5622,24 +5629,23 @@
               "en_US": "Search keyword.",
               "zh_Hans": "搜索关键词。"
             },
-            "support_expression": true,
-            "component": "input",
             "placeholder": {
               "en_US": "e.g. food",
               "zh_Hans": "如：food"
             },
-            "width": "full"
-          }
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "offset",
-          "type": "integer",
-          "required": false,
-          "default": 0,
           "display_name": {
             "en_US": "Offset",
             "zh_Hans": "偏移量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination offset, starting from 0.",
@@ -5653,17 +5659,17 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 0
         },
         {
           "name": "count",
-          "type": "integer",
-          "required": false,
-          "default": 20,
           "display_name": {
             "en_US": "Count",
             "zh_Hans": "数量"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Number of results per page, default 20.",
@@ -5677,7 +5683,9 @@
             },
             "support_expression": true,
             "component": "number-input"
-          }
+          },
+          "type": "integer",
+          "default": 20
         }
       ]
     }

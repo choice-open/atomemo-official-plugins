@@ -1,4 +1,4 @@
-import type { Property } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import type { JsonValue, Property } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import type { TikHubApiEndpoint } from "../../../lib/request"
 import { invokeTikHubApi, readRequiredStringParam } from "../../../lib/request"
 
@@ -160,7 +160,7 @@ export async function invokeTikTokGet(
   endpoint: TikHubApiEndpoint,
   args: { parameters?: unknown; credentials?: Record<string, unknown> },
   queryParams: Record<string, string | undefined>,
-) {
+): Promise<JsonValue> {
   const params = (args.parameters ?? {}) as Record<string, unknown>
   return invokeTikHubApi(endpoint, {
     credentials: args.credentials,
