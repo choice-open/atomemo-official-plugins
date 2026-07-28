@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -2520,24 +2520,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2548,24 +2548,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2679,24 +2681,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2707,24 +2709,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2838,24 +2842,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2866,24 +2870,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -3100,24 +3106,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         }
       ]
     },
@@ -3231,24 +3237,24 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Sort type. 0: default/relevance, 2: latest.",
-              "zh_Hans": "排序方式。0: 默认/综合排序，2: 最新发布。"
+              "en_US": "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
+              "zh_Hans": "搜索结果排序方式。可选值：0（综合排序），2（最新发布）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: default, 2: latest.",
-              "zh_Hans": "0: 默认，2: 最新。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Sort order for search results.",
+              "zh_Hans": "搜索结果排序方式。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -3259,24 +3265,26 @@
           "required": false,
           "ai": {
             "llm_description": {
-              "en_US": "Publish time filter. 0: unlimited, 1: within 1 day, 7: within 7 days, 30: within 30 days.",
-              "zh_Hans": "发布时间筛选。0: 不限，1: 一天内，7: 七天内，30: 30天内。"
+              "en_US": "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",
+              "zh_Hans": "发布时间筛选。可选值：0（不限），1（一天内），7（七天内），30（30天内）。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "0: unlimited, 1: 1 day, 7: 7 days, 30: 30 days.",
-              "zh_Hans": "0: 不限，1: 一天内，7: 七天内，30: 30天内。"
-            },
-            "placeholder": {
-              "en_US": "0",
-              "zh_Hans": "0"
+              "en_US": "Filter by publish time.",
+              "zh_Hans": "按发布时间筛选。"
             },
             "support_expression": true,
-            "component": "input"
+            "component": "select"
           },
           "type": "string",
-          "default": "0"
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -4295,6 +4303,1383 @@
             "hint": {
               "en_US": "Number of replies per page.",
               "zh_Hans": "每页回复数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_one_video_v3",
+      "display_name": {
+        "en_US": "TikTok · Get Single Video V3",
+        "zh_Hans": "TikTok · 获取单个作品数据V3"
+      },
+      "description": {
+        "en_US": "Get single TikTok video data V3 by video ID, with optional region parameter.",
+        "zh_Hans": "通过视频ID获取 TikTok 单个作品数据V3，支持国家/地区参数。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok video/aweme ID.",
+              "zh_Hans": "TikTok 作品/视频ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok video ID (aweme_id).",
+              "zh_Hans": "TikTok 作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "display_name": {
+            "en_US": "Region",
+            "zh_Hans": "地区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok country or region code, default US.",
+              "zh_Hans": "TikTok 国家或地区代码，默认 US。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Country or region code, default US.",
+              "zh_Hans": "国家或地区代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_multi_video_v2",
+      "display_name": {
+        "en_US": "TikTok · Batch Get Videos V2",
+        "zh_Hans": "TikTok · 批量获取视频信息V2"
+      },
+      "description": {
+        "en_US": "Batch get TikTok video information V2. Sends a JSON array of video IDs.",
+        "zh_Hans": "批量获取 TikTok 视频信息V2。请求体为视频ID JSON 数组。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_ids",
+          "display_name": {
+            "en_US": "Video IDs",
+            "zh_Hans": "视频ID列表"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Comma-separated list of TikTok video/aweme IDs.",
+              "zh_Hans": "TikTok 作品ID列表，多个ID用逗号分隔。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Comma-separated video IDs, e.g. 7339393672959757570,7339393672959757571.",
+              "zh_Hans": "视频ID列表，用逗号分隔，如 7339393672959757570,7339393672959757571。"
+            },
+            "placeholder": {
+              "en_US": "id1,id2,id3",
+              "zh_Hans": "id1,id2,id3"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_one_video_by_share_url_v2",
+      "display_name": {
+        "en_US": "TikTok · Get Video by Share URL V2",
+        "zh_Hans": "TikTok · 根据分享链接获取单个作品数据V2"
+      },
+      "description": {
+        "en_US": "Get single TikTok video data by sharing link V2.",
+        "zh_Hans": "根据分享链接获取 TikTok 单个作品数据V2。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "share_url",
+          "display_name": {
+            "en_US": "Share URL",
+            "zh_Hans": "分享链接"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok video share URL.",
+              "zh_Hans": "TikTok 视频分享链接。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok share URL.",
+              "zh_Hans": "TikTok 分享链接。"
+            },
+            "placeholder": {
+              "en_US": "https://www.tiktok.com/...",
+              "zh_Hans": "https://www.tiktok.com/..."
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_user_post_videos_v3",
+      "display_name": {
+        "en_US": "TikTok · Get User Videos V3",
+        "zh_Hans": "TikTok · 获取用户主页作品数据V3"
+      },
+      "description": {
+        "en_US": "Get simplified TikTok user homepage video data V3 by sec_user_id or unique_id.",
+        "zh_Hans": "通过 sec_user_id 或 unique_id 获取 TikTok 用户主页作品数据V3（精简数据，更快速）。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "sec_user_id",
+          "display_name": {
+            "en_US": "Sec User ID",
+            "zh_Hans": "Sec User ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok sec_user_id. Provide this or unique_id.",
+              "zh_Hans": "TikTok sec_user_id。与 unique_id 至少填写一个。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok sec_user_id. Leave empty if using unique_id.",
+              "zh_Hans": "TikTok sec_user_id；使用 unique_id 时可留空。"
+            },
+            "placeholder": {
+              "en_US": "sec_user_id",
+              "zh_Hans": "sec_user_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "unique_id",
+          "display_name": {
+            "en_US": "Unique ID",
+            "zh_Hans": "用户 unique_id"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok unique_id/username. Provide this or sec_user_id.",
+              "zh_Hans": "TikTok unique_id/用户名。与 sec_user_id 至少填写一个。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok unique_id. Leave empty if using sec_user_id.",
+              "zh_Hans": "TikTok unique_id；使用 sec_user_id 时可留空。"
+            },
+            "placeholder": {
+              "en_US": "unique_id",
+              "zh_Hans": "unique_id"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "max_cursor",
+          "display_name": {
+            "en_US": "Max Cursor",
+            "zh_Hans": "最大游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Maximum pagination cursor, default 0.",
+              "zh_Hans": "分页最大游标，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Maximum pagination cursor, default 0.",
+              "zh_Hans": "分页最大游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_video_comments",
+      "display_name": {
+        "en_US": "TikTok · Get Video Comments",
+        "zh_Hans": "TikTok · 获取单个视频评论数据"
+      },
+      "description": {
+        "en_US": "Get comments for a single TikTok video. Supports pagination.",
+        "zh_Hans": "获取 TikTok 单个视频评论数据，支持分页。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "aweme_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok video/aweme ID to fetch comments for.",
+              "zh_Hans": "要获取评论的 TikTok 作品/视频ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok video ID (aweme_id).",
+              "zh_Hans": "TikTok 作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_video_comment_replies",
+      "display_name": {
+        "en_US": "TikTok · Get Comment Replies",
+        "zh_Hans": "TikTok · 获取指定视频的评论回复数据"
+      },
+      "description": {
+        "en_US": "Get replies to a specific TikTok video comment. Supports pagination.",
+        "zh_Hans": "获取 TikTok 指定视频评论的回复数据，支持分页。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "item_id",
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok video/item ID that contains the comment.",
+              "zh_Hans": "包含该评论的 TikTok 作品/视频ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok item ID.",
+              "zh_Hans": "TikTok 作品ID。"
+            },
+            "placeholder": {
+              "en_US": "Video ID",
+              "zh_Hans": "视频ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "comment_id",
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "评论ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "The comment ID to fetch replies for.",
+              "zh_Hans": "要获取回复的评论ID。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "TikTok comment ID.",
+              "zh_Hans": "TikTok 评论ID。"
+            },
+            "placeholder": {
+              "en_US": "Comment ID",
+              "zh_Hans": "评论ID"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "游标"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination cursor, starting from 0.",
+              "zh_Hans": "分页游标，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination cursor, default 0.",
+              "zh_Hans": "分页游标，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_general_search_result",
+      "display_name": {
+        "en_US": "TikTok · General Search",
+        "zh_Hans": "TikTok · 获取综合搜索结果"
+      },
+      "description": {
+        "en_US": "Get TikTok comprehensive search results by keyword.",
+        "zh_Hans": "根据关键词获取 TikTok 综合搜索结果。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok search keyword.",
+              "zh_Hans": "TikTok 搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. food",
+              "zh_Hans": "如：food"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset, starting from 0.",
+              "zh_Hans": "分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination offset, default 0.",
+              "zh_Hans": "分页偏移量，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter, default 0.",
+              "zh_Hans": "发布时间筛选，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Publish time filter, default 0.",
+              "zh_Hans": "发布时间筛选，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_video_search_result",
+      "display_name": {
+        "en_US": "TikTok · Video Search",
+        "zh_Hans": "TikTok · 获取视频搜索结果"
+      },
+      "description": {
+        "en_US": "Get TikTok video search results by keyword.",
+        "zh_Hans": "根据关键词获取 TikTok 视频搜索结果。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok search keyword.",
+              "zh_Hans": "TikTok 搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. food",
+              "zh_Hans": "如：food"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset, starting from 0.",
+              "zh_Hans": "分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination offset, default 0.",
+              "zh_Hans": "分页偏移量，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "publish_time",
+          "display_name": {
+            "en_US": "Publish Time",
+            "zh_Hans": "发布时间"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Publish time filter, default 0.",
+              "zh_Hans": "发布时间筛选，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Publish time filter, default 0.",
+              "zh_Hans": "发布时间筛选，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "region",
+          "display_name": {
+            "en_US": "Region",
+            "zh_Hans": "地区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok country or region code, default US.",
+              "zh_Hans": "TikTok 国家或地区代码，默认 US。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Country or region code, default US.",
+              "zh_Hans": "国家或地区代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_user_search_result",
+      "display_name": {
+        "en_US": "TikTok · User Search",
+        "zh_Hans": "TikTok · 获取用户搜索结果"
+      },
+      "description": {
+        "en_US": "Get TikTok user search results by keyword, with optional user filters.",
+        "zh_Hans": "根据关键词获取 TikTok 用户搜索结果，支持用户筛选参数。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok search keyword.",
+              "zh_Hans": "TikTok 搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. food",
+              "zh_Hans": "如：food"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset, starting from 0.",
+              "zh_Hans": "分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination offset, default 0.",
+              "zh_Hans": "分页偏移量，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "user_search_follower_count",
+          "display_name": {
+            "en_US": "Follower Count Filter",
+            "zh_Hans": "粉丝数筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional follower count filter.",
+              "zh_Hans": "可选的粉丝数筛选条件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Follower count filter. Leave empty to disable.",
+              "zh_Hans": "粉丝数筛选条件；留空表示不筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "user_search_profile_type",
+          "display_name": {
+            "en_US": "Profile Type Filter",
+            "zh_Hans": "账号类型筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional profile type filter.",
+              "zh_Hans": "可选的账号类型筛选条件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Profile type filter. Leave empty to disable.",
+              "zh_Hans": "账号类型筛选条件；留空表示不筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "user_search_other_pref",
+          "display_name": {
+            "en_US": "Other Preference Filter",
+            "zh_Hans": "其他偏好筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional other preference filter.",
+              "zh_Hans": "可选的其他偏好筛选条件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Other preference filter. Leave empty to disable.",
+              "zh_Hans": "其他偏好筛选条件；留空表示不筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_music_search_result",
+      "display_name": {
+        "en_US": "TikTok · Music Search",
+        "zh_Hans": "TikTok · 获取音乐搜索结果"
+      },
+      "description": {
+        "en_US": "Get TikTok music search results by keyword.",
+        "zh_Hans": "根据关键词获取 TikTok 音乐搜索结果。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok search keyword.",
+              "zh_Hans": "TikTok 搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. food",
+              "zh_Hans": "如：food"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset, starting from 0.",
+              "zh_Hans": "分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination offset, default 0.",
+              "zh_Hans": "分页偏移量，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 20
+        },
+        {
+          "name": "filter_by",
+          "display_name": {
+            "en_US": "Filter By",
+            "zh_Hans": "过滤类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Filter type, default 0.",
+              "zh_Hans": "过滤类型，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Filter type, default 0.",
+              "zh_Hans": "过滤类型，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "sort_type",
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "排序类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Sort type, default 0.",
+              "zh_Hans": "排序类型，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "region",
+          "display_name": {
+            "en_US": "Region",
+            "zh_Hans": "地区"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok country or region code, default US.",
+              "zh_Hans": "TikTok 国家或地区代码，默认 US。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Country or region code, default US.",
+              "zh_Hans": "国家或地区代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_tiktok_fetch_hashtag_search_result",
+      "display_name": {
+        "en_US": "TikTok · Hashtag Search",
+        "zh_Hans": "TikTok · 获取话题搜索结果"
+      },
+      "description": {
+        "en_US": "Get TikTok hashtag search results by keyword.",
+        "zh_Hans": "根据关键词获取 TikTok 话题搜索结果。"
+      },
+      "icon": "🎵",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "keyword",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "搜索关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "TikTok search keyword.",
+              "zh_Hans": "TikTok 搜索关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Search keyword.",
+              "zh_Hans": "搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "e.g. food",
+              "zh_Hans": "如：food"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "offset",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "偏移量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination offset, starting from 0.",
+              "zh_Hans": "分页偏移量，从 0 开始。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Pagination offset, default 0.",
+              "zh_Hans": "分页偏移量，默认 0。"
+            },
+            "support_expression": true,
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of results per page, default 20.",
+              "zh_Hans": "每页结果数量，默认 20。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of results per page.",
+              "zh_Hans": "每页结果数量。"
             },
             "support_expression": true,
             "component": "number-input"

@@ -75,10 +75,7 @@ export const tikhub_douyin_fetch_video_search_v2: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Sort Type", zh_Hans: "排序方式" },
-      enum: [
-        { label: { en_US: "Default", zh_Hans: "综合排序" }, value: "0" },
-        { label: { en_US: "Latest", zh_Hans: "最新发布" }, value: "2" },
-      ],
+      enum: ["0", "2"],
       ai: {
         llm_description: {
           en_US: "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
@@ -93,12 +90,7 @@ export const tikhub_douyin_fetch_video_search_v2: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Publish Time", zh_Hans: "发布时间" },
-      enum: [
-        { label: { en_US: "Unlimited", zh_Hans: "不限" }, value: "0" },
-        { label: { en_US: "Within 1 day", zh_Hans: "一天内" }, value: "1" },
-        { label: { en_US: "Within 7 days", zh_Hans: "七天内" }, value: "7" },
-        { label: { en_US: "Within 30 days", zh_Hans: "30天内" }, value: "30" },
-      ],
+      enum: ["0", "1", "7", "30"],
       ai: {
         llm_description: {
           en_US: "Publish time filter. Must be one of: 0 (unlimited), 1 (within 1 day), 7 (within 7 days), 30 (within 30 days).",

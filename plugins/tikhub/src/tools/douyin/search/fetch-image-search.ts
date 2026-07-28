@@ -75,10 +75,7 @@ export const tikhub_douyin_fetch_image_search: ToolDefinition = {
       required: false,
       default: "0",
       display_name: { en_US: "Sort Type", zh_Hans: "排序方式" },
-      enum: [
-        { label: { en_US: "Default", zh_Hans: "综合排序" }, value: "0" },
-        { label: { en_US: "Latest", zh_Hans: "最新发布" }, value: "2" },
-      ],
+      enum: ["0", "2"],
       ai: {
         llm_description: {
           en_US: "Sort order for search results. Must be one of: 0 (default/relevance), 2 (latest).",
