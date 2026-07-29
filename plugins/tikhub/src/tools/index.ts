@@ -5,6 +5,8 @@ import { linkedinWebTools } from "./linkedin/web"
 import { tiktokAppV3Tools } from "./tiktok/app-v3"
 import { twitterWebTools } from "./twitter/web"
 import { xiaohongshuAppV2Tools } from "./xiaohongshu/app-v2"
+import { youtubeWebTools } from "./youtube/web"
+import { youtubeWebV2Tools } from "./youtube/web-v2"
 
 export const allTools: ToolDefinition[] = [
   ...xiaohongshuAppV2Tools,
@@ -13,4 +15,6 @@ export const allTools: ToolDefinition[] = [
   ...douyinAppV3Tools,
   ...tiktokAppV3Tools,
   ...twitterWebTools,
+  ...youtubeWebV2Tools,
+  ...youtubeWebTools,
 ]
