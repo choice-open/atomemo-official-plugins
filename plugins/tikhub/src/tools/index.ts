@@ -3,6 +3,7 @@ import { douyinAppV3Tools } from "./douyin/app-v3"
 import { douyinSearchTools } from "./douyin/search"
 import { linkedinWebTools } from "./linkedin/web"
 import { tiktokAppV3Tools } from "./tiktok/app-v3"
+import { twitterWebTools } from "./twitter/web"
 import { xiaohongshuAppV2Tools } from "./xiaohongshu/app-v2"
 
 export const allTools: ToolDefinition[] = [
@@ -11,4 +12,5 @@ export const allTools: ToolDefinition[] = [
   ...douyinSearchTools,
   ...douyinAppV3Tools,
   ...tiktokAppV3Tools,
+  ...twitterWebTools,
 ]
