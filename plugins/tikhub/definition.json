@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -5686,6 +5686,1091 @@
           },
           "type": "integer",
           "default": 20
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_search_timeline",
+      "display_name": {
+        "en_US": "Twitter · Search Timeline",
+        "zh_Hans": "Twitter · 搜索时间线"
+      },
+      "description": {
+        "en_US": "Search X/Twitter content by keyword for monitoring and discovery.",
+        "zh_Hans": "按关键词搜索 X/Twitter 内容，用于舆情监测和热点发现。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Keyword or phrase used to search X/Twitter content for social listening, topics, accounts, media, or lists.",
+              "zh_Hans": "用于搜索 X/Twitter 内容的关键词或短语，可用于舆情、话题、账号、媒体或列表发现。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Search keyword or phrase, for example Elon Musk.",
+              "zh_Hans": "搜索关键词或短语，例如 Elon Musk。"
+            },
+            "placeholder": {
+              "en_US": "Elon Musk",
+              "zh_Hans": "Elon Musk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "search_type",
+          "type": "string",
+          "required": false,
+          "default": "Top",
+          "enum": [
+            "Top",
+            "Latest",
+            "Media",
+            "People",
+            "Lists"
+          ],
+          "display_name": {
+            "en_US": "Search Type",
+            "zh_Hans": "搜索类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search category. Must be one of: Top (default), Latest, Media, People, Lists.",
+              "zh_Hans": "搜索类型。可选值：Top（默认）、Latest、Media、People、Lists。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Top is the default. Use Latest for real-time monitoring, Media for media posts, People for accounts, Lists for lists.",
+              "zh_Hans": "默认 Top。实时监测用 Latest，媒体内容用 Media，找账号用 People，找列表用 Lists。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_tweet_detail",
+      "display_name": {
+        "en_US": "Twitter · Tweet Detail",
+        "zh_Hans": "Twitter · 推文详情"
+      },
+      "description": {
+        "en_US": "Get full tweet details including author, content, media, time, and engagement stats.",
+        "zh_Hans": "获取完整推文详情，包括作者、正文、媒体、发布时间和互动统计。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "tweet_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Tweet ID",
+            "zh_Hans": "推文 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
+              "zh_Hans": "要查询的推文 ID。必须以字符串提供，避免数字精度丢失。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
+              "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
+            },
+            "placeholder": {
+              "en_US": "1808168603721650364",
+              "zh_Hans": "1808168603721650364"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_post_comments",
+      "display_name": {
+        "en_US": "Twitter · Post Comments",
+        "zh_Hans": "Twitter · 推文评论"
+      },
+      "description": {
+        "en_US": "Get default or relevance-ordered comments under a tweet.",
+        "zh_Hans": "获取推文下默认或相关度较高排序的评论。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "tweet_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Tweet ID",
+            "zh_Hans": "推文 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
+              "zh_Hans": "要查询的推文 ID。必须以字符串提供，避免数字精度丢失。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
+              "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
+            },
+            "placeholder": {
+              "en_US": "1808168603721650364",
+              "zh_Hans": "1808168603721650364"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_latest_comments",
+      "display_name": {
+        "en_US": "Twitter · Latest Comments",
+        "zh_Hans": "Twitter · 最新评论"
+      },
+      "description": {
+        "en_US": "Get the latest comments under a tweet for real-time monitoring.",
+        "zh_Hans": "获取推文下最新评论，用于实时舆情和新增评论监测。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "tweet_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Tweet ID",
+            "zh_Hans": "推文 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
+              "zh_Hans": "要查询的推文 ID。必须以字符串提供，避免数字精度丢失。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
+              "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
+            },
+            "placeholder": {
+              "en_US": "1808168603721650364",
+              "zh_Hans": "1808168603721650364"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_profile",
+      "display_name": {
+        "en_US": "Twitter · User Profile",
+        "zh_Hans": "Twitter · 用户资料"
+      },
+      "description": {
+        "en_US": "Get an X/Twitter user profile by screen name or numeric user ID.",
+        "zh_Hans": "通过用户名或数字用户 ID 获取 X/Twitter 用户资料。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "rest_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
+              "zh_Hans": "可选 X/Twitter 用户 ID。请以字符串提供避免数字精度丢失；与 screen_name 同时提供时优先。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
+              "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
+            },
+            "placeholder": {
+              "en_US": "44196397",
+              "zh_Hans": "44196397"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_posts",
+      "display_name": {
+        "en_US": "Twitter · User Posts",
+        "zh_Hans": "Twitter · 用户发帖"
+      },
+      "description": {
+        "en_US": "Get historical tweets from a user for content strategy and posting cadence analysis.",
+        "zh_Hans": "获取指定用户历史推文，用于内容策略、账号观点和发布节奏分析。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "rest_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
+              "zh_Hans": "可选 X/Twitter 用户 ID。请以字符串提供避免数字精度丢失；与 screen_name 同时提供时优先。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
+              "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
+            },
+            "placeholder": {
+              "en_US": "44196397",
+              "zh_Hans": "44196397"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_replies",
+      "display_name": {
+        "en_US": "Twitter · User Replies",
+        "zh_Hans": "Twitter · 用户发表的回复"
+      },
+      "description": {
+        "en_US": "Get replies posted by a user, not second-level replies under one comment.",
+        "zh_Hans": "获取指定用户发表过的推文回复，不是某条评论的二级回复。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_trending",
+      "display_name": {
+        "en_US": "Twitter · Trending",
+        "zh_Hans": "Twitter · 趋势"
+      },
+      "description": {
+        "en_US": "Get X/Twitter trending topics by country.",
+        "zh_Hans": "按国家获取 X/Twitter 趋势话题。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "default": "UnitedStates",
+          "enum": [
+            "UnitedStates",
+            "China",
+            "India",
+            "Japan",
+            "Russia",
+            "Germany",
+            "Indonesia",
+            "Brazil",
+            "France",
+            "UnitedKingdom",
+            "Turkey",
+            "Italy",
+            "Mexico",
+            "SouthKorea",
+            "Canada",
+            "Spain",
+            "SaudiArabia",
+            "Egypt",
+            "Australia",
+            "Poland",
+            "Iran",
+            "Pakistan",
+            "Vietnam",
+            "Nigeria",
+            "Bangladesh",
+            "Netherlands",
+            "Argentina",
+            "Philippines",
+            "Malaysia",
+            "Colombia",
+            "UniteArabEmirates",
+            "Romania",
+            "Belgium",
+            "Switzerland",
+            "Singapore",
+            "Sweden",
+            "Norway",
+            "Austria",
+            "Kazakhstan",
+            "Algeria",
+            "Chile",
+            "Czechia",
+            "Peru",
+            "Iraq",
+            "Israel",
+            "Ukraine",
+            "Denmark",
+            "Portugal",
+            "Hungary",
+            "Greece",
+            "Finland",
+            "NewZealand",
+            "Belarus",
+            "Slovakia",
+            "Serbia",
+            "Lithuania",
+            "Luxembourg",
+            "Estonia"
+          ],
+          "display_name": {
+            "en_US": "Country",
+            "zh_Hans": "国家"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Country for trending topics. Default is UnitedStates. Must be one of: UnitedStates, China, India, Japan, Russia, Germany, Indonesia, Brazil, France, UnitedKingdom, Turkey, Italy, Mexico, SouthKorea, Canada, Spain, SaudiArabia, Egypt, Australia, Poland, Iran, Pakistan, Vietnam, Nigeria, Bangladesh, Netherlands, Argentina, Philippines, Malaysia, Colombia, UniteArabEmirates, Romania, Belgium, Switzerland, Singapore, Sweden, Norway, Austria, Kazakhstan, Algeria, Chile, Czechia, Peru, Iraq, Israel, Ukraine, Denmark, Portugal, Hungary, Greece, Finland, NewZealand, Belarus, Slovakia, Serbia, Lithuania, Luxembourg, Estonia.",
+              "zh_Hans": "趋势国家，默认 UnitedStates。可选值：UnitedStates、China、India、Japan、Russia、Germany、Indonesia、Brazil、France、UnitedKingdom、Turkey、Italy、Mexico、SouthKorea、Canada、Spain、SaudiArabia、Egypt、Australia、Poland、Iran、Pakistan、Vietnam、Nigeria、Bangladesh、Netherlands、Argentina、Philippines、Malaysia、Colombia、UniteArabEmirates、Romania、Belgium、Switzerland、Singapore、Sweden、Norway、Austria、Kazakhstan、Algeria、Chile、Czechia、Peru、Iraq、Israel、Ukraine、Denmark、Portugal、Hungary、Greece、Finland、NewZealand、Belarus、Slovakia、Serbia、Lithuania、Luxembourg、Estonia。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Select the country whose X/Twitter trends should be returned.",
+              "zh_Hans": "选择要获取 X/Twitter 趋势的国家。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_retweet_users",
+      "display_name": {
+        "en_US": "Twitter · Retweet Users",
+        "zh_Hans": "Twitter · 转推用户"
+      },
+      "description": {
+        "en_US": "Get users who retweeted a tweet for propagation and influence analysis.",
+        "zh_Hans": "获取转推某条推文的用户，用于传播路径和影响力线索分析。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "tweet_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Tweet ID",
+            "zh_Hans": "推文 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
+              "zh_Hans": "要查询的推文 ID。必须以字符串提供，避免数字精度丢失。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
+              "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
+            },
+            "placeholder": {
+              "en_US": "1808168603721650364",
+              "zh_Hans": "1808168603721650364"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_media",
+      "display_name": {
+        "en_US": "Twitter · User Media",
+        "zh_Hans": "Twitter · 用户媒体"
+      },
+      "description": {
+        "en_US": "Get media posts from a user for creative and content strategy analysis.",
+        "zh_Hans": "获取指定用户发布的媒体内容，用于素材和内容策略分析。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "rest_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
+              "zh_Hans": "可选 X/Twitter 用户 ID。请以字符串提供避免数字精度丢失；与 screen_name 同时提供时优先。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
+              "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
+            },
+            "placeholder": {
+              "en_US": "44196397",
+              "zh_Hans": "44196397"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_followers",
+      "display_name": {
+        "en_US": "Twitter · User Followers",
+        "zh_Hans": "Twitter · 用户粉丝"
+      },
+      "description": {
+        "en_US": "Get followers of an X/Twitter account for audience and prospect discovery.",
+        "zh_Hans": "获取指定账号粉丝列表，用于竞品受众和潜客发现。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_twitter_user_followings",
+      "display_name": {
+        "en_US": "Twitter · User Followings",
+        "zh_Hans": "Twitter · 用户关注"
+      },
+      "description": {
+        "en_US": "Get accounts followed by a user for network, competitor ecosystem, and key account analysis.",
+        "zh_Hans": "获取指定账号关注列表，用于账号关系、竞品生态和行业关键账号分析。"
+      },
+      "icon": "🐦",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Screen Name",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名。没有 rest_id 时使用。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "X/Twitter handle without @, for example elonmusk.",
+              "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
+            },
+            "placeholder": {
+              "en_US": "elonmusk",
+              "zh_Hans": "elonmusk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "可选分页游标。必须原样传入上次响应返回的游标，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
         }
       ]
     }
