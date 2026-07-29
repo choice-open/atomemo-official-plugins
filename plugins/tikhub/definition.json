@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -6767,6 +6767,1595 @@
             "placeholder": {
               "en_US": "Leave empty for first page",
               "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_general_search_v2",
+      "display_name": {
+        "en_US": "YouTube · General Search V2",
+        "zh_Hans": "YouTube · 综合搜索 V2"
+      },
+      "description": {
+        "en_US": "Search YouTube videos, channels, playlists, and movies by keyword with filters and continuation pagination.",
+        "zh_Hans": "按关键词搜索 YouTube 视频、频道、播放列表和电影，支持过滤条件和 continuation 翻页。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "request_mode",
+          "type": "string",
+          "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube search keyword. Required for the first page; when using a continuation_token, do not invent or rewrite the keyword.",
+              "zh_Hans": "YouTube 搜索关键词。第一页必填；使用 continuation_token 翻页时不要编造或改写关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
+              "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
+            },
+            "placeholder": {
+              "en_US": "AI product review",
+              "zh_Hans": "AI 产品评测"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Continuation Token",
+            "zh_Hans": "分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
+              "zh_Hans": "分页 continuation token。它是上次响应的不透明字符串，不要解析、解码或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
+              "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
+          }
+        },
+        {
+          "name": "upload_date",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ],
+          "display_name": {
+            "en_US": "Upload Date",
+            "zh_Hans": "上传时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Upload date filter. Valid values from TikHub OpenAPI: last_hour, today, this_week, this_month, this_year.",
+              "zh_Hans": "上传时间过滤。TikHub OpenAPI 有效值：last_hour、today、this_week、this_month、this_year。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional upload date filter: last_hour, today, this_week, this_month, this_year.",
+              "zh_Hans": "可选上传时间过滤：last_hour、today、this_week、this_month、this_year。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "video",
+            "channel",
+            "playlist",
+            "movie"
+          ],
+          "display_name": {
+            "en_US": "Content Type",
+            "zh_Hans": "内容类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Type filter. Valid values from TikHub OpenAPI: video, channel, playlist, movie.",
+              "zh_Hans": "类型过滤。TikHub OpenAPI 有效值：video、channel、playlist、movie。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional type filter: video, channel, playlist, movie.",
+              "zh_Hans": "可选类型过滤：video、channel、playlist、movie。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "duration",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "short",
+            "medium",
+            "long"
+          ],
+          "display_name": {
+            "en_US": "Duration",
+            "zh_Hans": "时长"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Duration filter. Valid values: short for under 4 minutes, medium for 4-20 minutes, long for over 20 minutes.",
+              "zh_Hans": "时长过滤。有效值：short 小于 4 分钟，medium 为 4-20 分钟，long 大于 20 分钟。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional duration filter: short (<4m), medium (4-20m), long (>20m).",
+              "zh_Hans": "可选时长过滤：short（4 分钟内）、medium（4-20 分钟）、long（20 分钟以上）。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "features",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Features",
+            "zh_Hans": "特性过滤"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional comma-separated YouTube feature filter. Pass only valid values from the OpenAPI description.",
+              "zh_Hans": "可选的 YouTube 特性过滤，用逗号分隔。仅传 OpenAPI 描述列出的有效值。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Comma-separated features: live, 4k, hd, subtitles, creative_commons, 360, vr180, 3d, hdr.",
+              "zh_Hans": "逗号分隔特性：live、4k、hd、subtitles、creative_commons、360、vr180、3d、hdr。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_by",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ],
+          "display_name": {
+            "en_US": "Sort By",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort order. Valid values from TikHub OpenAPI: relevance, upload_date, view_count, rating.",
+              "zh_Hans": "排序方式。TikHub OpenAPI 有效值：relevance、upload_date、view_count、rating。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional sort: relevance, upload_date, view_count, rating.",
+              "zh_Hans": "可选排序：relevance、upload_date、view_count、rating。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_shorts_search_v2",
+      "display_name": {
+        "en_US": "YouTube · Shorts Search V2",
+        "zh_Hans": "YouTube · Shorts 搜索 V2"
+      },
+      "description": {
+        "en_US": "Search YouTube Shorts by keyword for short-form social listening, with filters and continuation pagination.",
+        "zh_Hans": "按关键词搜索 YouTube Shorts，用于短视频舆情监测，支持过滤和 continuation 翻页。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "request_mode",
+          "type": "string",
+          "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube search keyword. Required for the first page; when using a continuation_token, do not invent or rewrite the keyword.",
+              "zh_Hans": "YouTube 搜索关键词。第一页必填；使用 continuation_token 翻页时不要编造或改写关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
+              "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
+            },
+            "placeholder": {
+              "en_US": "AI product review",
+              "zh_Hans": "AI 产品评测"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Continuation Token",
+            "zh_Hans": "分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
+              "zh_Hans": "分页 continuation token。它是上次响应的不透明字符串，不要解析、解码或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
+              "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
+          }
+        },
+        {
+          "name": "upload_date",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ],
+          "display_name": {
+            "en_US": "Upload Date",
+            "zh_Hans": "上传时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Upload date filter for Shorts search. Valid values: last_hour, today, this_week, this_month, this_year.",
+              "zh_Hans": "Shorts 搜索上传时间过滤。有效值：last_hour、today、this_week、this_month、this_year。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional upload date filter: last_hour, today, this_week, this_month, this_year.",
+              "zh_Hans": "可选上传时间过滤：last_hour、today、this_week、this_month、this_year。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_by",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ],
+          "display_name": {
+            "en_US": "Sort By",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort order for Shorts search. Valid values from TikHub OpenAPI: relevance, upload_date, view_count, rating.",
+              "zh_Hans": "Shorts 搜索排序方式。TikHub OpenAPI 有效值：relevance、upload_date、view_count、rating。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional sort: relevance, upload_date, view_count, rating.",
+              "zh_Hans": "可选排序：relevance、upload_date、view_count、rating。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_video_info_v2",
+      "display_name": {
+        "en_US": "YouTube · Get Video Info V2",
+        "zh_Hans": "YouTube · 获取视频详情 V2"
+      },
+      "description": {
+        "en_US": "Get YouTube video metadata such as title, description, author, publish time, and engagement metrics.",
+        "zh_Hans": "获取 YouTube 视频标题、描述、作者、发布时间和互动指标等元数据。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "lookup_by",
+          "type": "string",
+          "required": false,
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ],
+          "display_name": {
+            "en_US": "Lookup By",
+            "zh_Hans": "查询方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
+              "zh_Hans": "控制表单中哪个视频标识必填。优先推荐 video_id；两个值都提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
+              "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频 ID"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_id"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube video ID. Provide it as a string; it takes priority over video_url when both are present.",
+              "zh_Hans": "YouTube 视频 ID。请以字符串提供；与 video_url 同时存在时优先使用该值。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "YouTube video ID as a string. When video_url is also provided, TikHub uses video_id first.",
+              "zh_Hans": "YouTube 视频 ID，字符串。与 video_url 同时提供时优先使用 video_id。"
+            },
+            "placeholder": {
+              "en_US": "dQw4w9WgXcQ",
+              "zh_Hans": "dQw4w9WgXcQ"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_url",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Video URL",
+            "zh_Hans": "视频 URL"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_url"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Full YouTube video URL. At least one of video_id or video_url is required; video_id has priority if both are supplied.",
+              "zh_Hans": "完整 YouTube 视频链接。video_id 和 video_url 至少提供一个；同时提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Full YouTube URL. Used only when video_id is empty for endpoints that support both.",
+              "zh_Hans": "完整 YouTube 链接。仅在 video_id 为空时使用。"
+            },
+            "placeholder": {
+              "en_US": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "zh_Hans": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "格式化结果"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
+              "zh_Hans": "是否让 TikHub 返回清洗后的格式化数据。默认 true；只有需要原始 TikHub 数据时才关闭。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
+              "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_video_captions_v2",
+      "display_name": {
+        "en_US": "YouTube · Get Video Captions V2",
+        "zh_Hans": "YouTube · 获取视频字幕 V2"
+      },
+      "description": {
+        "en_US": "Get available caption languages or fetch caption text for a selected language and format.",
+        "zh_Hans": "获取可用字幕语言列表，或按指定语言和格式获取字幕内容。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "lookup_by",
+          "type": "string",
+          "required": false,
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ],
+          "display_name": {
+            "en_US": "Lookup By",
+            "zh_Hans": "查询方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
+              "zh_Hans": "控制表单中哪个视频标识必填。优先推荐 video_id；两个值都提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
+              "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频 ID"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_id"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube video ID. Provide it as a string; it takes priority over video_url when both are present.",
+              "zh_Hans": "YouTube 视频 ID。请以字符串提供；与 video_url 同时存在时优先使用该值。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "YouTube video ID as a string. When video_url is also provided, TikHub uses video_id first.",
+              "zh_Hans": "YouTube 视频 ID，字符串。与 video_url 同时提供时优先使用 video_id。"
+            },
+            "placeholder": {
+              "en_US": "dQw4w9WgXcQ",
+              "zh_Hans": "dQw4w9WgXcQ"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_url",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Video URL",
+            "zh_Hans": "视频 URL"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_url"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Full YouTube video URL. At least one of video_id or video_url is required; video_id has priority if both are supplied.",
+              "zh_Hans": "完整 YouTube 视频链接。video_id 和 video_url 至少提供一个；同时提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Full YouTube URL. Used only when video_id is empty for endpoints that support both.",
+              "zh_Hans": "完整 YouTube 链接。仅在 video_id 为空时使用。"
+            },
+            "placeholder": {
+              "en_US": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "zh_Hans": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Language Code",
+            "zh_Hans": "字幕语言代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Caption language code. Omit it to discover available captions first, then pass one returned code unchanged.",
+              "zh_Hans": "字幕语言代码。先留空发现可用字幕，再原样传入返回的某个代码获取字幕。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty to list available captions. Set a returned language code, such as en, zh-Hans, or a.en, to fetch captions.",
+              "zh_Hans": "留空返回可用字幕列表。填入返回的语言代码（如 en、zh-Hans、a.en）获取字幕。"
+            },
+            "placeholder": {
+              "en_US": "en",
+              "zh_Hans": "en"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "default": "srt",
+          "enum": [
+            "srt",
+            "xml",
+            "json3",
+            "txt"
+          ],
+          "display_name": {
+            "en_US": "Caption Format",
+            "zh_Hans": "字幕格式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Caption output format. srt keeps timestamps, xml returns raw XML, json3 returns YouTube JSON, txt returns plain text.",
+              "zh_Hans": "字幕输出格式。srt 保留时间轴，xml 返回原始 XML，json3 返回 YouTube JSON，txt 返回纯文本。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Default srt. Valid values: srt, xml, json3, txt.",
+              "zh_Hans": "默认 srt。有效值：srt、xml、json3、txt。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_video_comments",
+      "display_name": {
+        "en_US": "YouTube · Get Video Comments",
+        "zh_Hans": "YouTube · 获取视频评论"
+      },
+      "description": {
+        "en_US": "Get first-level YouTube video comments with sorting, localization, and continuation pagination.",
+        "zh_Hans": "获取 YouTube 视频一级评论，支持排序、本地化和 continuation 翻页。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "video_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Video ID",
+            "zh_Hans": "视频 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube video ID used to fetch first-level comments. Pass it as a string.",
+              "zh_Hans": "用于获取一级评论的 YouTube 视频 ID。请以字符串传递。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "11-character YouTube video ID.",
+              "zh_Hans": "11 位 YouTube 视频 ID。"
+            },
+            "placeholder": {
+              "en_US": "dQw4w9WgXcQ",
+              "zh_Hans": "dQw4w9WgXcQ"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "required": false,
+          "default": "zh-CN",
+          "display_name": {
+            "en_US": "Language Code",
+            "zh_Hans": "语言代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional language code. TikHub default is zh-CN.",
+              "zh_Hans": "可选语言代码。TikHub 默认值为 zh-CN。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Language code passed to YouTube, default zh-CN.",
+              "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
+            },
+            "placeholder": {
+              "en_US": "zh-CN",
+              "zh_Hans": "zh-CN"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "country_code",
+          "type": "string",
+          "required": false,
+          "default": "US",
+          "display_name": {
+            "en_US": "Country Code",
+            "zh_Hans": "国家代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional country code. TikHub default is US.",
+              "zh_Hans": "可选国家代码。TikHub 默认值为 US。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Country code passed to YouTube, default US.",
+              "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_by",
+          "type": "string",
+          "required": false,
+          "default": "top",
+          "enum": [
+            "top",
+            "newest"
+          ],
+          "display_name": {
+            "en_US": "Sort By",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comment sorting. TikHub OpenAPI enum values are top and newest; default is top.",
+              "zh_Hans": "评论排序。TikHub OpenAPI 枚举为 top 和 newest；默认 top。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Default top. Valid values: top, newest.",
+              "zh_Hans": "默认 top。有效值：top、newest。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Continuation Token",
+            "zh_Hans": "分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
+              "zh_Hans": "分页 continuation token。它是上次响应的不透明字符串，不要解析、解码或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
+              "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "格式化结果"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
+              "zh_Hans": "是否让 TikHub 返回清洗后的格式化数据。默认 true；只有需要原始 TikHub 数据时才关闭。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
+              "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_comment_replies",
+      "display_name": {
+        "en_US": "YouTube · Get Comment Replies",
+        "zh_Hans": "YouTube · 获取评论回复"
+      },
+      "description": {
+        "en_US": "Get second-level YouTube comment replies using the reply continuation token returned by first-level comments.",
+        "zh_Hans": "使用一级评论返回的回复 continuation token 获取 YouTube 二级评论。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Reply Continuation Token",
+            "zh_Hans": "回复分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required reply continuation token from first-level comments. Pass it exactly as returned; do not parse or modify it.",
+              "zh_Hans": "一级评论返回的回复 continuation token，必填。必须原样传入，不要解析或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required opaque reply token from reply_continuation_token in a first-level comment response.",
+              "zh_Hans": "必填。从一级评论响应的 reply_continuation_token 原样复制。"
+            },
+            "placeholder": {
+              "en_US": "reply_continuation_token",
+              "zh_Hans": "reply_continuation_token"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "required": false,
+          "default": "zh-CN",
+          "display_name": {
+            "en_US": "Language Code",
+            "zh_Hans": "语言代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional language code. TikHub default is zh-CN.",
+              "zh_Hans": "可选语言代码。TikHub 默认值为 zh-CN。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Language code passed to YouTube, default zh-CN.",
+              "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
+            },
+            "placeholder": {
+              "en_US": "zh-CN",
+              "zh_Hans": "zh-CN"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "country_code",
+          "type": "string",
+          "required": false,
+          "default": "US",
+          "display_name": {
+            "en_US": "Country Code",
+            "zh_Hans": "国家代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional country code. TikHub default is US.",
+              "zh_Hans": "可选国家代码。TikHub 默认值为 US。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Country code passed to YouTube, default US.",
+              "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "格式化结果"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
+              "zh_Hans": "是否让 TikHub 返回清洗后的格式化数据。默认 true；只有需要原始 TikHub 数据时才关闭。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
+              "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_search_channels",
+      "display_name": {
+        "en_US": "YouTube · Search Channels",
+        "zh_Hans": "YouTube · 搜索频道"
+      },
+      "description": {
+        "en_US": "Search YouTube channels by keyword, with continuation pagination for prospecting and competitor discovery.",
+        "zh_Hans": "按关键词搜索 YouTube 频道，支持 continuation 翻页，用于潜客和竞对发现。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "request_mode",
+          "type": "string",
+          "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube search keyword. Required for the first page; when using a continuation_token, do not invent or rewrite the keyword.",
+              "zh_Hans": "YouTube 搜索关键词。第一页必填；使用 continuation_token 翻页时不要编造或改写关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
+              "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
+            },
+            "placeholder": {
+              "en_US": "AI product review",
+              "zh_Hans": "AI 产品评测"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Continuation Token",
+            "zh_Hans": "分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
+              "zh_Hans": "分页 continuation token。它是上次响应的不透明字符串，不要解析、解码或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
+              "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "格式化结果"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
+              "zh_Hans": "是否让 TikHub 返回清洗后的格式化数据。默认 true；只有需要原始 TikHub 数据时才关闭。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
+              "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_channel_videos",
+      "display_name": {
+        "en_US": "YouTube · Get Channel Videos",
+        "zh_Hans": "YouTube · 获取频道视频"
+      },
+      "description": {
+        "en_US": "Get historical YouTube channel video metadata with localization and continuation pagination.",
+        "zh_Hans": "获取 YouTube 频道历史视频元数据，支持本地化和 continuation 翻页。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "channel_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Channel ID",
+            "zh_Hans": "频道 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube channel ID. Provide it as a string for channel profile and historical video analysis.",
+              "zh_Hans": "YouTube 频道 ID。用于频道画像和历史视频分析，请以字符串提供。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "YouTube channel ID as a string, for example UC...",
+              "zh_Hans": "YouTube 频道 ID，字符串，例如 UC..."
+            },
+            "placeholder": {
+              "en_US": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+              "zh_Hans": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "required": false,
+          "default": "zh-CN",
+          "display_name": {
+            "en_US": "Language Code",
+            "zh_Hans": "语言代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional language code. TikHub default is zh-CN.",
+              "zh_Hans": "可选语言代码。TikHub 默认值为 zh-CN。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Language code passed to YouTube, default zh-CN.",
+              "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
+            },
+            "placeholder": {
+              "en_US": "zh-CN",
+              "zh_Hans": "zh-CN"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "country_code",
+          "type": "string",
+          "required": false,
+          "default": "US",
+          "display_name": {
+            "en_US": "Country Code",
+            "zh_Hans": "国家代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional country code. TikHub default is US.",
+              "zh_Hans": "可选国家代码。TikHub 默认值为 US。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Country code passed to YouTube, default US.",
+              "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
+            },
+            "placeholder": {
+              "en_US": "US",
+              "zh_Hans": "US"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "continuation_token",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Continuation Token",
+            "zh_Hans": "分页 Token"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
+              "zh_Hans": "分页 continuation token。它是上次响应的不透明字符串，不要解析、解码或修改。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
+              "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "格式化结果"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
+              "zh_Hans": "是否让 TikHub 返回清洗后的格式化数据。默认 true；只有需要原始 TikHub 数据时才关闭。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
+              "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_channel_info",
+      "display_name": {
+        "en_US": "YouTube · Get Channel Info",
+        "zh_Hans": "YouTube · 获取频道资料"
+      },
+      "description": {
+        "en_US": "Get full YouTube channel profile data for channel profiling, influence analysis, and competitor research.",
+        "zh_Hans": "获取 YouTube 频道完整资料，用于频道画像、影响力和竞对分析。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "channel_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Channel ID",
+            "zh_Hans": "频道 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "YouTube channel ID. Provide it as a string for channel profile and historical video analysis.",
+              "zh_Hans": "YouTube 频道 ID。用于频道画像和历史视频分析，请以字符串提供。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "YouTube channel ID as a string, for example UC...",
+              "zh_Hans": "YouTube 频道 ID，字符串，例如 UC..."
+            },
+            "placeholder": {
+              "en_US": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+              "zh_Hans": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_youtube_trending_videos",
+      "display_name": {
+        "en_US": "YouTube · Get Trending Videos",
+        "zh_Hans": "YouTube · 获取趋势视频"
+      },
+      "description": {
+        "en_US": "Get YouTube trending videos by language, country, and section for regional trend monitoring.",
+        "zh_Hans": "按语言、国家和分区获取 YouTube 趋势视频，用于地区趋势监测。"
+      },
+      "icon": "▶️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "required": false,
+          "default": "en",
+          "display_name": {
+            "en_US": "Language Code",
+            "zh_Hans": "语言代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional language code for YouTube trending videos. Default is en.",
+              "zh_Hans": "YouTube 趋势视频语言代码，可选。默认 en。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Language code. TikHub default is en.",
+              "zh_Hans": "语言代码。TikHub 默认值为 en。"
+            },
+            "placeholder": {
+              "en_US": "en",
+              "zh_Hans": "en"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "country_code",
+          "type": "string",
+          "required": false,
+          "default": "us",
+          "display_name": {
+            "en_US": "Country Code",
+            "zh_Hans": "国家代码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional country code for regional trending videos. Default is us.",
+              "zh_Hans": "地区趋势视频国家代码，可选。默认 us。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Country code. TikHub default is us.",
+              "zh_Hans": "国家代码。TikHub 默认值为 us。"
+            },
+            "placeholder": {
+              "en_US": "us",
+              "zh_Hans": "us"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "section",
+          "type": "string",
+          "required": false,
+          "default": "Now",
+          "enum": [
+            "Now",
+            "Music",
+            "Gaming",
+            "Movies"
+          ],
+          "display_name": {
+            "en_US": "Section",
+            "zh_Hans": "趋势分区"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Trending section. Default is Now. Description lists optional values Music, Gaming, and Movies; Now is included because it is the schema default.",
+              "zh_Hans": "趋势分区。默认 Now。描述列出 Music、Gaming、Movies；Now 因 schema.default 纳入有效值。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Default Now. Valid values from the description: Now, Music, Gaming, Movies.",
+              "zh_Hans": "默认 Now。描述中的有效值：Now、Music、Gaming、Movies。"
             },
             "support_expression": true,
             "width": "full"
