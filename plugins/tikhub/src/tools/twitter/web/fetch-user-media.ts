@@ -4,11 +4,12 @@ import {
   credentialParameter,
   cursorParameter,
   invokeTwitterGet,
+  readOptionalIdStringParam,
   readOptionalStringParam,
-  readScreenNameOrRestId,
   restIdParameter,
   screenNameParameter,
 } from "./shared"
+import { readRequiredStringParam } from "../../../lib/request"
 
 const endpoint: TikHubApiEndpoint = {
   id: "fetch_user_media",
@@ -30,14 +31,15 @@ export const tikhub_twitter_user_media: ToolDefinition = {
   icon: "🐦",
   parameters: [
     credentialParameter,
-    screenNameParameter(false),
+    screenNameParameter(true),
     restIdParameter,
     cursorParameter,
   ],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeTwitterGet(endpoint, args, {
-      ...readScreenNameOrRestId(p),
+      screen_name: readRequiredStringParam(p, "screen_name"),
+      rest_id: readOptionalIdStringParam(p, "rest_id"),
       cursor: readOptionalStringParam(p, "cursor"),
     })
   },

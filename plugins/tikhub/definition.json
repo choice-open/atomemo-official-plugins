@@ -6525,7 +6525,7 @@
         {
           "name": "screen_name",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"

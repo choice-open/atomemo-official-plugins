@@ -35,7 +35,7 @@ page.
 | `tikhub_twitter_user_profile` | `GET /api/v1/twitter/web/fetch_user_profile` | Fetch profile by `screen_name` or `rest_id`. At least one must be supplied; when both are supplied, TikHub prioritizes `rest_id`. |
 | `tikhub_twitter_user_posts` | `GET /api/v1/twitter/web/fetch_user_post_tweet` | Fetch a user's historical tweets by `screen_name` or `rest_id`, with optional `cursor`. |
 | `tikhub_twitter_user_replies` | `GET /api/v1/twitter/web/fetch_user_tweet_replies` | Fetch replies authored by a user. This is not a second-level comment reply API. |
-| `tikhub_twitter_user_media` | `GET /api/v1/twitter/web/fetch_user_media` | Fetch media posts by `screen_name` or `rest_id`, with optional `cursor`. Live OpenAPI marks `screen_name` required, while the endpoint description documents `rest_id` as the preferred identifier when present; this tool accepts either and records `rest_id` priority in hints. |
+| `tikhub_twitter_user_media` | `GET /api/v1/twitter/web/fetch_user_media` | Fetch media posts by required `screen_name`, with optional `rest_id` and `cursor`. Live OpenAPI marks `screen_name` required; the endpoint description documents `rest_id` as the preferred identifier when both are present. |
 
 `rest_id` is modeled as a string even though the upstream schema says integer,
 because Twitter/X IDs can exceed JavaScript's safe integer range.
