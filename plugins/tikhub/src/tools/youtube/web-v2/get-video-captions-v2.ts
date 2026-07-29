@@ -7,6 +7,7 @@ import {
   readOptionalStringParam,
   readVideoIdOrUrl,
   videoIdParameter,
+  videoLookupModeParameter,
   videoUrlParameter,
   youtubeSelectParameter,
   youtubeStringParameter,
@@ -32,6 +33,7 @@ export const tikhub_youtube_video_captions_v2: ToolDefinition = {
   icon: "▶️",
   parameters: [
     credentialParameter,
+    videoLookupModeParameter,
     videoIdParameter,
     videoUrlParameter,
     youtubeStringParameter({

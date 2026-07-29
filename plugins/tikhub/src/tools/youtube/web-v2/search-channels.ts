@@ -1,13 +1,14 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import type { TikHubApiEndpoint } from "../../../lib/request"
 import {
-  continuationTokenParameter,
   credentialParameter,
   invokeYouTubeGet,
   keywordParameter,
   needFormatParameter,
   readKeywordOrContinuation,
   readOptionalBooleanParam,
+  searchContinuationTokenParameter,
+  searchRequestModeParameter,
 } from "../shared"
 
 const endpoint: TikHubApiEndpoint = {
@@ -31,8 +32,9 @@ export const tikhub_youtube_search_channels: ToolDefinition = {
   icon: "▶️",
   parameters: [
     credentialParameter,
+    searchRequestModeParameter,
     keywordParameter,
-    continuationTokenParameter,
+    searchContinuationTokenParameter,
     needFormatParameter,
   ],
   invoke: async ({ args }) => {

@@ -6800,12 +6800,46 @@
           }
         },
         {
-          "name": "keyword",
+          "name": "request_mode",
           "type": "string",
           "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -6830,7 +6864,7 @@
         {
           "name": "continuation_token",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
@@ -6853,6 +6887,11 @@
             },
             "support_expression": true,
             "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           }
         },
         {
@@ -7027,12 +7066,46 @@
           }
         },
         {
-          "name": "keyword",
+          "name": "request_mode",
           "type": "string",
           "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7057,7 +7130,7 @@
         {
           "name": "continuation_token",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
@@ -7080,6 +7153,11 @@
             },
             "support_expression": true,
             "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           }
         },
         {
@@ -7171,12 +7249,46 @@
           }
         },
         {
-          "name": "video_id",
+          "name": "lookup_by",
           "type": "string",
           "required": false,
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ],
+          "display_name": {
+            "en_US": "Lookup By",
+            "zh_Hans": "查询方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
+              "zh_Hans": "控制表单中哪个视频标识必填。优先推荐 video_id；两个值都提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
+              "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_id",
+          "type": "string",
+          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频 ID"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_id"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7201,10 +7313,15 @@
         {
           "name": "video_url",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Video URL",
             "zh_Hans": "视频 URL"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_url"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7278,12 +7395,46 @@
           }
         },
         {
-          "name": "video_id",
+          "name": "lookup_by",
           "type": "string",
           "required": false,
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ],
+          "display_name": {
+            "en_US": "Lookup By",
+            "zh_Hans": "查询方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
+              "zh_Hans": "控制表单中哪个视频标识必填。优先推荐 video_id；两个值都提供时 video_id 优先。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
+              "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "video_id",
+          "type": "string",
+          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频 ID"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_id"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7308,10 +7459,15 @@
         {
           "name": "video_url",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Video URL",
             "zh_Hans": "视频 URL"
+          },
+          "display": {
+            "show": {
+              "lookup_by": "video_url"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7751,12 +7907,46 @@
           }
         },
         {
-          "name": "keyword",
+          "name": "request_mode",
           "type": "string",
           "required": false,
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ],
+          "display_name": {
+            "en_US": "Request Mode",
+            "zh_Hans": "请求模式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+              "zh_Hans": "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+              "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
+          },
+          "display": {
+            "show": {
+              "request_mode": "first_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7781,7 +7971,7 @@
         {
           "name": "continuation_token",
           "type": "string",
-          "required": false,
+          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
@@ -7804,6 +7994,11 @@
             },
             "support_expression": true,
             "width": "full"
+          },
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           }
         },
         {

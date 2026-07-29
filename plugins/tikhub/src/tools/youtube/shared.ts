@@ -49,6 +49,10 @@ export const trendingSectionValues = [
   "Movies",
 ] as const
 
+export const searchRequestModeValues = ["first_page", "next_page"] as const
+
+export const videoLookupModeValues = ["video_id", "video_url"] as const
+
 export function youtubeStringParameter<Name extends string>(options: {
   name: Name
   required?: boolean
@@ -57,6 +61,7 @@ export function youtubeStringParameter<Name extends string>(options: {
   hint: { en_US: string; zh_Hans: string }
   llmDescription: { en_US: string; zh_Hans: string }
   placeholder?: { en_US: string; zh_Hans: string }
+  display?: Property<Name>["display"]
 }): Property<Name> {
   return {
     name: options.name,
@@ -64,6 +69,7 @@ export function youtubeStringParameter<Name extends string>(options: {
     required: options.required ?? false,
     ...(options.default !== undefined ? { default: options.default } : {}),
     display_name: options.displayName,
+    ...(options.display !== undefined ? { display: options.display } : {}),
     ai: { llm_description: options.llmDescription },
     ui: {
       component: "input",
@@ -122,9 +128,46 @@ export function youtubeBooleanParameter<Name extends string>(options: {
   }
 }
 
+export const searchRequestModeParameter = youtubeSelectParameter({
+  name: "request_mode",
+  values: searchRequestModeValues,
+  default: "first_page",
+  displayName: { en_US: "Request Mode", zh_Hans: "请求模式" },
+  hint: {
+    en_US:
+      "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
+    zh_Hans:
+      "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。",
+  },
+  llmDescription: {
+    en_US:
+      "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
+    zh_Hans:
+      "搜索请求模式。first_page 需要 keyword；next_page 需要上次 TikHub 响应返回的 continuation_token。",
+  },
+})
+
+export const videoLookupModeParameter = youtubeSelectParameter({
+  name: "lookup_by",
+  values: videoLookupModeValues,
+  default: "video_id",
+  displayName: { en_US: "Lookup By", zh_Hans: "查询方式" },
+  hint: {
+    en_US:
+      "Use video_id when available. Choose video_url only when you do not have the ID.",
+    zh_Hans: "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。",
+  },
+  llmDescription: {
+    en_US:
+      "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
+    zh_Hans:
+      "控制表单中哪个视频标识必填。优先推荐 video_id；两个值都提供时 video_id 优先。",
+  },
+})
+
 export const keywordParameter = youtubeStringParameter({
   name: "keyword",
-  required: false,
+  required: true,
   displayName: { en_US: "Keyword", zh_Hans: "关键词" },
   hint: {
     en_US:
@@ -138,6 +181,7 @@ export const keywordParameter = youtubeStringParameter({
       "YouTube 搜索关键词。第一页必填；使用 continuation_token 翻页时不要编造或改写关键词。",
   },
   placeholder: { en_US: "AI product review", zh_Hans: "AI 产品评测" },
+  display: { show: { request_mode: "first_page" } },
 })
 
 export const continuationTokenParameter = youtubeStringParameter({
@@ -157,9 +201,16 @@ export const continuationTokenParameter = youtubeStringParameter({
   placeholder: { en_US: "Leave empty for first page", zh_Hans: "首次请求留空" },
 })
 
+export const searchContinuationTokenParameter: Property<"continuation_token"> =
+  {
+    ...continuationTokenParameter,
+    required: true,
+    display: { show: { request_mode: "next_page" } },
+  } satisfies Property<"continuation_token">
+
 export const videoIdParameter = youtubeStringParameter({
   name: "video_id",
-  required: false,
+  required: true,
   displayName: { en_US: "Video ID", zh_Hans: "视频 ID" },
   hint: {
     en_US:
@@ -174,11 +225,12 @@ export const videoIdParameter = youtubeStringParameter({
       "YouTube 视频 ID。请以字符串提供；与 video_url 同时存在时优先使用该值。",
   },
   placeholder: { en_US: "dQw4w9WgXcQ", zh_Hans: "dQw4w9WgXcQ" },
+  display: { show: { lookup_by: "video_id" } },
 })
 
 export const videoUrlParameter = youtubeStringParameter({
   name: "video_url",
-  required: false,
+  required: true,
   displayName: { en_US: "Video URL", zh_Hans: "视频 URL" },
   hint: {
     en_US:
@@ -195,6 +247,7 @@ export const videoUrlParameter = youtubeStringParameter({
     en_US: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     zh_Hans: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
+  display: { show: { lookup_by: "video_url" } },
 })
 
 export const channelIdParameter = youtubeStringParameter({
@@ -291,10 +344,17 @@ export function readVideoIdOrUrl(params: Record<string, unknown>): {
 } {
   const videoId = readOptionalStringParam(params, "video_id")
   const videoUrl = readOptionalStringParam(params, "video_url")
+  const lookupBy = readOptionalStringParam(params, "lookup_by") ?? "video_id"
+  if (videoId) {
+    return { video_id: videoId }
+  }
+  if (lookupBy === "video_url" && videoUrl) {
+    return { video_url: videoUrl }
+  }
   if (!videoId && !videoUrl) {
     throw new Error("Provide at least one of video_id or video_url.")
   }
-  return { video_id: videoId, video_url: videoUrl }
+  return { video_url: videoUrl }
 }
 
 export function readKeywordOrContinuation(params: Record<string, unknown>): {
@@ -306,12 +366,21 @@ export function readKeywordOrContinuation(params: Record<string, unknown>): {
     params,
     "continuation_token",
   )
-  if (!keyword && !continuationToken) {
-    throw new Error(
-      "Provide keyword for the first request or continuation_token for pagination.",
-    )
+  const requestMode =
+    readOptionalStringParam(params, "request_mode") ??
+    (continuationToken && !keyword ? "next_page" : "first_page")
+  if (requestMode === "next_page") {
+    if (!continuationToken) {
+      throw new Error(
+        "Provide continuation_token when request_mode is next_page.",
+      )
+    }
+    return { continuation_token: continuationToken }
   }
-  return { keyword, continuation_token: continuationToken }
+  if (!keyword) {
+    throw new Error("Provide keyword when request_mode is first_page.")
+  }
+  return { keyword }
 }
 
 export function invokeYouTubeGet(

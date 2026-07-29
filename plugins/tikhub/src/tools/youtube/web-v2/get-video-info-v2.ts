@@ -7,6 +7,7 @@ import {
   readOptionalBooleanParam,
   readVideoIdOrUrl,
   videoIdParameter,
+  videoLookupModeParameter,
   videoUrlParameter,
 } from "../shared"
 
@@ -30,6 +31,7 @@ export const tikhub_youtube_video_info_v2: ToolDefinition = {
   icon: "▶️",
   parameters: [
     credentialParameter,
+    videoLookupModeParameter,
     videoIdParameter,
     videoUrlParameter,
     needFormatParameter,

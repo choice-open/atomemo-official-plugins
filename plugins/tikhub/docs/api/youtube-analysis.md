@@ -16,7 +16,7 @@ It implements 8 endpoints from `YouTube-Web-V2-API` and 2 supplemental endpoints
   - Searches YouTube Shorts by keyword.
   - Supports `upload_date`, `sort_by`, and `continuation_token`.
 
-For first-page searches, provide `keyword`. For pagination, pass the returned `continuation_token` unchanged; `keyword` does not need to be repeated.
+For first-page searches, set `request_mode=first_page` and provide the required `keyword`. For pagination, set `request_mode=next_page` and pass the returned `continuation_token` unchanged; `keyword` does not need to be repeated.
 
 ## Video Understanding
 
@@ -24,11 +24,13 @@ For first-page searches, provide `keyword`. For pagination, pass the returned `c
 
 - `tikhub_youtube_video_info_v2` -> `GET /api/v1/youtube/web_v2/get_video_info_v2`
   - Gets video metadata such as title, description, author, publish time, and engagement metrics.
-  - Accepts `video_id` or `video_url`; when both are provided, `video_id` takes priority.
+  - Uses `lookup_by=video_id` by default and marks `video_id` as required in that mode.
+  - Use `lookup_by=video_url` when only a URL is available; when both values are provided, `video_id` takes priority.
   - Defaults `need_format` to `true`.
 - `tikhub_youtube_video_captions_v2` -> `GET /api/v1/youtube/web_v2/get_video_captions_v2`
   - Gets available captions or caption content.
-  - Accepts `video_id` or `video_url`; when both are provided, `video_id` takes priority.
+  - Uses `lookup_by=video_id` by default and marks `video_id` as required in that mode.
+  - Use `lookup_by=video_url` when only a URL is available; when both values are provided, `video_id` takes priority.
   - `format` is a select with `srt`, `xml`, `json3`, and `txt`; default is `srt`.
 
 Caption flow:

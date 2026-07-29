@@ -2,13 +2,14 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import type { TikHubApiEndpoint } from "../../../lib/request"
 import {
   contentTypeValues,
-  continuationTokenParameter,
   credentialParameter,
   durationValues,
   invokeYouTubeGet,
   keywordParameter,
   readKeywordOrContinuation,
   readOptionalStringParam,
+  searchContinuationTokenParameter,
+  searchRequestModeParameter,
   sortByValues,
   uploadDateValues,
   youtubeSelectParameter,
@@ -36,8 +37,9 @@ export const tikhub_youtube_general_search_v2: ToolDefinition = {
   icon: "▶️",
   parameters: [
     credentialParameter,
+    searchRequestModeParameter,
     keywordParameter,
-    continuationTokenParameter,
+    searchContinuationTokenParameter,
     youtubeSelectParameter({
       name: "upload_date",
       values: uploadDateValues,
