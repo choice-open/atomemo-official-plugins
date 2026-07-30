@@ -194,27 +194,25 @@ export function readOfficialAccountUsername(
   if (!username) {
     throw new Error("username is required.")
   }
-  if (
-    username.startsWith("v2_") ||
-    username.endsWith("@finder") ||
-    username.startsWith("sph")
-  ) {
+  if (username.startsWith("v2_") || username.endsWith("@finder")) {
     throw new Error(
-      "This looks like a WeChat Channels username or channel ID. Official Account tools require an official account username; use WeChat Channels User Videos for Channels history.",
+      "This looks like a WeChat Channels username. Official Account tools require a username that starts with gh_.",
     )
   }
-  const upstreamUsername = username.startsWith("gh_") ? username : `gh_${username}`
-  if (upstreamUsername.length > 64) {
+  if (username.startsWith("sph")) {
     throw new Error(
-      "Official account username is too long. Enter the WeChat Official Account username, not a WeChat Channels finder username.",
+      "This looks like a WeChat Channels ID. Official Account tools require a username that starts with gh_.",
     )
   }
-  if (!/^gh_[A-Za-z0-9_]+$/.test(upstreamUsername)) {
+  if (username.length > 64) {
+    throw new Error("Official account username must be at most 64 characters.")
+  }
+  if (!/^gh_[A-Za-z0-9_]+$/.test(username)) {
     throw new Error(
-      "Invalid official account username. Enter the WeChat Official Account username from account search results, not a WeChat Channels username.",
+      "Invalid official account username. Enter the full WeChat Official Account username, for example gh_363b924965e9.",
     )
   }
-  return upstreamUsername
+  return username
 }
 
 export function readFinderUsername(params: Record<string, unknown>): string {
@@ -232,19 +230,15 @@ export function readFinderUsername(params: Record<string, unknown>): string {
       "This looks like a WeChat Channels ID. Resolve it first with WeChat Channels · Resolve Finder Username, then pass the returned username.",
     )
   }
-  const upstreamUsername =
-    username.startsWith("v2_") && !username.endsWith("@finder")
-      ? `${username}@finder`
-      : username
-  if (upstreamUsername.length > 256) {
+  if (username.length > 256) {
     throw new Error("WeChat Channels username is too long.")
   }
-  if (!/^v2_[0-9a-fA-F]+@finder$/.test(upstreamUsername)) {
+  if (!/^v2_[0-9a-fA-F]+@finder$/.test(username)) {
     throw new Error(
-      "Invalid WeChat Channels username. Use the username returned by Resolve Finder Username or video detail.",
+      "Invalid WeChat Channels username. Enter the full username returned by Resolve Finder Username or video detail, for example v2_...@finder.",
     )
   }
-  return upstreamUsername
+  return username
 }
 
 export function readAtLeastOneStringParam(

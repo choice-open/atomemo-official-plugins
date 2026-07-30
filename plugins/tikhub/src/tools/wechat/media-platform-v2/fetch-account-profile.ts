@@ -23,8 +23,8 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
   },
   description: {
     en_US:
-      "Get official account profile details by username. The plugin adds the upstream prefix when needed.",
-    zh_Hans: "根据 username 获取公众号资料；插件会在需要时自动补齐上游前缀。",
+      "Get official account profile details by official account username.",
+    zh_Hans: "根据公众号 username 获取公众号资料。",
   },
   icon: "📰",
   parameters: [
@@ -35,15 +35,15 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
-          "Official account username. Do not use a Channels username; the plugin adds the upstream prefix if needed.",
+          "Official account username, for example gh_363b924965e9. Do not use a Channels username.",
         zh_Hans:
-          "公众号 username。不要填写视频号 username；插件会在需要时自动补齐上游前缀。",
+          "公众号 username，例如 gh_363b924965e9。不要填写视频号 username。",
       },
       llmDescription: {
         en_US:
-          "WeChat official account username. Do not ask the user to add the gh_ prefix, and do not pass a WeChat Channels v2_...@finder username here.",
+          "WeChat official account username. The gh_ prefix is part of the official account username; do not pass a WeChat Channels v2_...@finder username here.",
         zh_Hans:
-          "微信公众号 username。不要要求用户手动添加 gh_ 前缀，也不要在这里传入视频号 v2_...@finder username。",
+          "微信公众号 username。gh_ 是公众号 username 的组成部分；不要在这里传入视频号 v2_...@finder username。",
       },
     }),
     rawParameter,

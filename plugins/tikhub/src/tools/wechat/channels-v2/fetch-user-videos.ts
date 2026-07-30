@@ -36,15 +36,15 @@ export const tikhub_wechat_channels_user_videos: ToolDefinition = {
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
-          "WeChat Channels username from the resolver or video detail. The plugin accepts the upstream finder value directly.",
+          "WeChat Channels username from the resolver or video detail, for example v2_...@finder.",
         zh_Hans:
-          "视频号 username，来自解析工具或作品详情。插件可直接接收上游 finder 值。",
+          "视频号 username，来自解析工具或作品详情，例如 v2_...@finder。",
       },
       llmDescription: {
         en_US:
-          "WeChat Channels username for the account whose historical videos should be fetched. If a v2_... value is missing @finder, the plugin appends it.",
+          "WeChat Channels username for the account whose historical videos should be fetched. The v2_...@finder format is the full Channels username.",
         zh_Hans:
-          "需要获取历史作品的视频号 username。如果 v2_... 值缺少 @finder，插件会自动补齐。",
+          "需要获取历史作品的视频号 username。v2_...@finder 是完整的视频号 username。",
       },
     }),
     wechatStringParameter({

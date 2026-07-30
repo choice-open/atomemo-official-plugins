@@ -15,15 +15,13 @@ items. The Channels ID resolver is the exception: live OpenAPI `schema.default`
 for `raw` is `false`, even though the description text only describes True/False
 response modes, so this plugin uses `raw=false` as that tool's default.
 
-The plugin exposes user-facing parameters as `username` instead of asking users
-to type upstream-only prefixes. For official account tools, users can enter the
-account username and the plugin adds the upstream `gh_` prefix when needed before
-calling TikHub. This normalization is only for official account usernames:
-Channels values such as `v2_...@finder` or `sph...` are rejected before the
-request, because they belong to WeChat Channels tools rather than Official
-Account article tools. For Channels profile and user-video tools, use the
-username returned by the resolver or video detail; if a `v2_...` finder value is
-missing the `@finder` suffix, the plugin appends it before calling TikHub.
+WeChat uses the same parameter name, `username`, for different account types.
+The complete username format is type-specific: Official Account usernames look
+like `gh_363b924965e9`, while Channels usernames look like
+`v2_...@finder`. These prefixes and suffixes are part of each account type's
+username, not extra query syntax added by the plugin. The plugin validates the
+complete username format before calling TikHub and rejects mismatched account
+types early.
 
 ## WeChat Search / 微信搜一搜
 
@@ -71,14 +69,14 @@ missing the `@finder` suffix, the plugin appends it before calling TikHub.
 - `tikhub_wechat_channels_user_profile`
   - POST `/api/v1/wechat_channels/v2/fetch_user_profile`
   - Fetches a Channels account profile and stats by `username`.
-  - Use the username returned by Resolve Finder Username or video detail; the
-    plugin normalizes the upstream finder suffix when needed.
+  - Use the full Channels username returned by Resolve Finder Username or video
+    detail, such as `v2_...@finder`.
 
 - `tikhub_wechat_channels_user_videos`
   - POST `/api/v1/wechat_channels/v2/fetch_user_videos`
   - Fetches historical videos for a finder account.
-  - Use the username returned by Resolve Finder Username or video detail; the
-    plugin normalizes the upstream finder suffix when needed.
+  - Use the full Channels username returned by Resolve Finder Username or video
+    detail, such as `v2_...@finder`.
   - Pagination uses `last_buffer` unchanged.
 
 No Channels tool downloads, decrypts, or exposes media files or playback URLs.
@@ -88,16 +86,14 @@ No Channels tool downloads, decrypts, or exposes media files or playback URLs.
 - `tikhub_wechat_mp_account_profile`
   - POST `/api/v1/wechat_mp/v2/fetch_account_profile`
   - Fetches official account profile data by `username`.
-  - Users do not need to add the upstream `gh_` prefix; the plugin normalizes it
-    before calling TikHub.
+  - Use the full Official Account username, such as `gh_363b924965e9`.
   - Do not pass a Channels username such as `v2_...@finder`; use Channels tools
     for Channels accounts.
 
 - `tikhub_wechat_mp_account_articles`
   - POST `/api/v1/wechat_mp/v2/fetch_account_articles`
   - Fetches historical official account content.
-  - Users do not need to add the upstream `gh_` prefix to `username`; the plugin
-    normalizes it before calling TikHub.
+  - Use the full Official Account username, such as `gh_363b924965e9`.
   - Do not pass a Channels username such as `v2_...@finder`; for Channels
     history, use `tikhub_wechat_channels_user_videos`.
   - `page_size` defaults to 20 and is limited to 10-20.
