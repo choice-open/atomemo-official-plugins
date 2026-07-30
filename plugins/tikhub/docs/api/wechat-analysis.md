@@ -15,6 +15,13 @@ items. The Channels ID resolver is the exception: live OpenAPI `schema.default`
 for `raw` is `false`, even though the description text only describes True/False
 response modes, so this plugin uses `raw=false` as that tool's default.
 
+The plugin exposes user-facing parameters as `username` instead of asking users
+to type upstream-only prefixes. For official account tools, users can enter the
+account username and the plugin adds the upstream `gh_` prefix when needed before
+calling TikHub. For Channels profile and user-video tools, use the username
+returned by the resolver or video detail; if a `v2_...` finder value is missing
+the `@finder` suffix, the plugin appends it before calling TikHub.
+
 ## WeChat Search / 微信搜一搜
 
 - `tikhub_wechat_search_fetch_search`
@@ -60,12 +67,15 @@ response modes, so this plugin uses `raw=false` as that tool's default.
 
 - `tikhub_wechat_channels_user_profile`
   - POST `/api/v1/wechat_channels/v2/fetch_user_profile`
-  - Fetches a finder account profile and stats by `username`, usually
-    `v2_...@finder`.
+  - Fetches a Channels account profile and stats by `username`.
+  - Use the username returned by Resolve Finder Username or video detail; the
+    plugin normalizes the upstream finder suffix when needed.
 
 - `tikhub_wechat_channels_user_videos`
   - POST `/api/v1/wechat_channels/v2/fetch_user_videos`
   - Fetches historical videos for a finder account.
+  - Use the username returned by Resolve Finder Username or video detail; the
+    plugin normalizes the upstream finder suffix when needed.
   - Pagination uses `last_buffer` unchanged.
 
 No Channels tool downloads, decrypts, or exposes media files or playback URLs.
@@ -74,11 +84,15 @@ No Channels tool downloads, decrypts, or exposes media files or playback URLs.
 
 - `tikhub_wechat_mp_account_profile`
   - POST `/api/v1/wechat_mp/v2/fetch_account_profile`
-  - Fetches official account profile data by `gh_username`.
+  - Fetches official account profile data by `username`.
+  - Users do not need to add the upstream `gh_` prefix; the plugin normalizes it
+    before calling TikHub.
 
 - `tikhub_wechat_mp_account_articles`
   - POST `/api/v1/wechat_mp/v2/fetch_account_articles`
   - Fetches historical official account content.
+  - Users do not need to add the upstream `gh_` prefix to `username`; the plugin
+    normalizes it before calling TikHub.
   - `page_size` defaults to 20 and is limited to 10-20.
   - `item_show_type`: `0` articles, `5` videos, `7` audio, `8` image-text posts.
   - Pagination uses the previous response `next_offset`.
@@ -109,7 +123,8 @@ No Channels tool downloads, decrypts, or exposes media files or playback URLs.
 Official account chain:
 
 1. Use WeChat Search with `business_type=account`.
-2. Read `jumpInfo.userName` as the `gh_username`.
+2. Read `jumpInfo.userName` as the account username, or enter the account
+   username directly.
 3. Fetch account profile.
 4. Fetch account articles.
 5. Fetch article detail and stats.
@@ -121,7 +136,7 @@ Channels ID chain:
 
 1. Get the visible Channels ID from WeChat UI, such as `sph...`.
 2. Resolve finder username with `tikhub_wechat_channels_resolve_username`.
-3. Read `data.username` as the finder username, usually `v2_...@finder`.
+3. Read `data.username` as the Channels username.
 4. Fetch user profile by finder `username`.
 5. Fetch historical user videos by finder `username`.
 
@@ -130,9 +145,9 @@ Channels search chain:
 1. Search Channels videos.
 2. Read `exportId` and `feedNonceId` as strings.
 3. Fetch video detail with `export_id`, and optionally `object_nonce_id`.
-4. Read `object_id` and finder `username`.
+4. Read `object_id` and Channels `username`.
 5. Fetch video comments by `object_id`.
-6. Fetch user profile and historical videos by finder `username`.
+6. Fetch user profile and historical videos by `username`.
 
 Pagination chain:
 

@@ -10309,8 +10309,8 @@
         "zh_Hans": "微信视频号 · 获取主页资料"
       },
       "description": {
-        "en_US": "Get WeChat Channels finder profile details and account statistics by username.",
-        "zh_Hans": "根据 finder username 获取视频号主页资料和账号统计。"
+        "en_US": "Get WeChat Channels profile details and account statistics by username.",
+        "zh_Hans": "根据 username 获取视频号主页资料和账号统计。"
       },
       "icon": "👤",
       "parameters": [
@@ -10330,20 +10330,20 @@
         {
           "name": "username",
           "display_name": {
-            "en_US": "Finder Username",
-            "zh_Hans": "视频号 username"
+            "en_US": "Username",
+            "zh_Hans": "Username"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat Channels finder username in v2_...@finder format, often obtained from video detail.",
-              "zh_Hans": "视频号 finder username，格式通常为 v2_...@finder，可从作品详情获得。"
+              "en_US": "WeChat Channels username. Prefer the value returned by Resolve Finder Username or video detail. If a v2_... value is missing @finder, the plugin appends it.",
+              "zh_Hans": "视频号 username。优先使用解析工具或作品详情返回的值。如果 v2_... 值缺少 @finder，插件会自动补齐。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Required finder username, usually v2_...@finder.",
-              "zh_Hans": "必填 finder username，通常为 v2_...@finder。"
+              "en_US": "WeChat Channels username from the resolver or video detail. The plugin accepts the upstream finder value directly.",
+              "zh_Hans": "视频号 username，来自解析工具或作品详情。插件可直接接收上游 finder 值。"
             },
             "support_expression": true,
             "width": "full",
@@ -10405,20 +10405,20 @@
         {
           "name": "username",
           "display_name": {
-            "en_US": "Finder Username",
-            "zh_Hans": "视频号 username"
+            "en_US": "Username",
+            "zh_Hans": "Username"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat Channels finder username for the account whose historical videos should be fetched.",
-              "zh_Hans": "需要获取历史作品的视频号 finder username。"
+              "en_US": "WeChat Channels username for the account whose historical videos should be fetched. If a v2_... value is missing @finder, the plugin appends it.",
+              "zh_Hans": "需要获取历史作品的视频号 username。如果 v2_... 值缺少 @finder，插件会自动补齐。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Required finder username, usually v2_...@finder.",
-              "zh_Hans": "必填 finder username，通常为 v2_...@finder。"
+              "en_US": "WeChat Channels username from the resolver or video detail. The plugin accepts the upstream finder value directly.",
+              "zh_Hans": "视频号 username，来自解析工具或作品详情。插件可直接接收上游 finder 值。"
             },
             "support_expression": true,
             "width": "full",
@@ -10484,8 +10484,8 @@
         "zh_Hans": "微信公众号 · 获取账号资料"
       },
       "description": {
-        "en_US": "Get official account profile details by gh_username from WeChat Search account results.",
-        "zh_Hans": "根据微信搜一搜账号结果中的 gh_username 获取公众号资料。"
+        "en_US": "Get official account profile details by username. The plugin adds the upstream prefix when needed.",
+        "zh_Hans": "根据 username 获取公众号资料；插件会在需要时自动补齐上游前缀。"
       },
       "icon": "📰",
       "parameters": [
@@ -10505,20 +10505,20 @@
         {
           "name": "username",
           "display_name": {
-            "en_US": "GH Username",
-            "zh_Hans": "公众号 gh_username"
+            "en_US": "Username",
+            "zh_Hans": "Username"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat official account gh_username, usually obtained from WeChat Search account result jumpInfo.userName.",
-              "zh_Hans": "微信公众号 gh_username，通常从微信搜一搜 account 结果的 jumpInfo.userName 获得。"
+              "en_US": "WeChat official account username. Do not ask the user to add the gh_ prefix; the plugin normalizes it before calling TikHub.",
+              "zh_Hans": "微信公众号 username。不要要求用户手动添加 gh_ 前缀；插件会在调用 TikHub 前规范化。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Required gh_username, usually gh_..., from jumpInfo.userName.",
-              "zh_Hans": "必填 gh_username，通常为 gh_...，可来自 jumpInfo.userName。"
+              "en_US": "Official account username. You may paste the value from search results; the plugin adds the upstream prefix if needed.",
+              "zh_Hans": "公众号 username。可粘贴搜索结果中的账号值；插件会在需要时自动补齐上游前缀。"
             },
             "support_expression": true,
             "width": "full",
@@ -10580,20 +10580,20 @@
         {
           "name": "username",
           "display_name": {
-            "en_US": "GH Username",
-            "zh_Hans": "公众号 gh_username"
+            "en_US": "Username",
+            "zh_Hans": "Username"
           },
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat official account gh_username used to fetch historical content.",
-              "zh_Hans": "用于获取公众号历史内容的 gh_username。"
+              "en_US": "WeChat official account username used to fetch historical content. Do not ask the user to add the gh_ prefix; the plugin normalizes it.",
+              "zh_Hans": "用于获取公众号历史内容的 username。不要要求用户手动添加 gh_ 前缀；插件会自动规范化。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Required gh_username, usually gh_....",
-              "zh_Hans": "必填 gh_username，通常为 gh_...。"
+              "en_US": "Official account username. The plugin adds the upstream prefix if needed.",
+              "zh_Hans": "公众号 username。插件会在需要时自动补齐上游前缀。"
             },
             "support_expression": true,
             "width": "full",

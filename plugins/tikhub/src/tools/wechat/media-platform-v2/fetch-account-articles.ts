@@ -8,6 +8,7 @@ import {
   readOptionalBooleanParam,
   readOptionalIntegerParam,
   readOptionalStringParam,
+  readOfficialAccountUsername,
   wechatIntegerParameter,
   wechatSelectParameter,
   wechatStringParameter,
@@ -36,15 +37,17 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
-      displayName: { en_US: "GH Username", zh_Hans: "公众号 gh_username" },
+      displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
-        en_US: "Required gh_username, usually gh_....",
-        zh_Hans: "必填 gh_username，通常为 gh_...。",
+        en_US:
+          "Official account username. The plugin adds the upstream prefix if needed.",
+        zh_Hans: "公众号 username。插件会在需要时自动补齐上游前缀。",
       },
       llmDescription: {
         en_US:
-          "WeChat official account gh_username used to fetch historical content.",
-        zh_Hans: "用于获取公众号历史内容的 gh_username。",
+          "WeChat official account username used to fetch historical content. Do not ask the user to add the gh_ prefix; the plugin normalizes it.",
+        zh_Hans:
+          "用于获取公众号历史内容的 username。不要要求用户手动添加 gh_ 前缀；插件会自动规范化。",
       },
     }),
     wechatIntegerParameter({
@@ -100,7 +103,7 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      username: readOptionalStringParam(p, "username"),
+      username: readOfficialAccountUsername(p),
       page_size: readOptionalIntegerParam(p, "page_size") ?? 20,
       offset: readOptionalStringParam(p, "offset") ?? "",
       item_show_type: readOptionalStringParam(p, "item_show_type") ?? "0",

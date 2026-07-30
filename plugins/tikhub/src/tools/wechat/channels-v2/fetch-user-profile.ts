@@ -4,8 +4,8 @@ import {
   credentialParameter,
   invokeWeChatPost,
   rawParameter,
+  readFinderUsername,
   readOptionalBooleanParam,
-  readOptionalStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -23,8 +23,8 @@ export const tikhub_wechat_channels_user_profile: ToolDefinition = {
   },
   description: {
     en_US:
-      "Get WeChat Channels finder profile details and account statistics by username.",
-    zh_Hans: "根据 finder username 获取视频号主页资料和账号统计。",
+      "Get WeChat Channels profile details and account statistics by username.",
+    zh_Hans: "根据 username 获取视频号主页资料和账号统计。",
   },
   icon: "👤",
   parameters: [
@@ -32,16 +32,18 @@ export const tikhub_wechat_channels_user_profile: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
-      displayName: { en_US: "Finder Username", zh_Hans: "视频号 username" },
+      displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
-        en_US: "Required finder username, usually v2_...@finder.",
-        zh_Hans: "必填 finder username，通常为 v2_...@finder。",
+        en_US:
+          "WeChat Channels username from the resolver or video detail. The plugin accepts the upstream finder value directly.",
+        zh_Hans:
+          "视频号 username，来自解析工具或作品详情。插件可直接接收上游 finder 值。",
       },
       llmDescription: {
         en_US:
-          "WeChat Channels finder username in v2_...@finder format, often obtained from video detail.",
+          "WeChat Channels username. Prefer the value returned by Resolve Finder Username or video detail. If a v2_... value is missing @finder, the plugin appends it.",
         zh_Hans:
-          "视频号 finder username，格式通常为 v2_...@finder，可从作品详情获得。",
+          "视频号 username。优先使用解析工具或作品详情返回的值。如果 v2_... 值缺少 @finder，插件会自动补齐。",
       },
     }),
     rawParameter,
@@ -49,7 +51,7 @@ export const tikhub_wechat_channels_user_profile: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      username: readOptionalStringParam(p, "username"),
+      username: readFinderUsername(p),
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

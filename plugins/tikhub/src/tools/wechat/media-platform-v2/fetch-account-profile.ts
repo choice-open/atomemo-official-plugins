@@ -5,7 +5,7 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
-  readOptionalStringParam,
+  readOfficialAccountUsername,
   wechatStringParameter,
 } from "../shared"
 
@@ -23,8 +23,8 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
   },
   description: {
     en_US:
-      "Get official account profile details by gh_username from WeChat Search account results.",
-    zh_Hans: "根据微信搜一搜账号结果中的 gh_username 获取公众号资料。",
+      "Get official account profile details by username. The plugin adds the upstream prefix when needed.",
+    zh_Hans: "根据 username 获取公众号资料；插件会在需要时自动补齐上游前缀。",
   },
   icon: "📰",
   parameters: [
@@ -32,16 +32,18 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
-      displayName: { en_US: "GH Username", zh_Hans: "公众号 gh_username" },
+      displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
-        en_US: "Required gh_username, usually gh_..., from jumpInfo.userName.",
-        zh_Hans: "必填 gh_username，通常为 gh_...，可来自 jumpInfo.userName。",
+        en_US:
+          "Official account username. You may paste the value from search results; the plugin adds the upstream prefix if needed.",
+        zh_Hans:
+          "公众号 username。可粘贴搜索结果中的账号值；插件会在需要时自动补齐上游前缀。",
       },
       llmDescription: {
         en_US:
-          "WeChat official account gh_username, usually obtained from WeChat Search account result jumpInfo.userName.",
+          "WeChat official account username. Do not ask the user to add the gh_ prefix; the plugin normalizes it before calling TikHub.",
         zh_Hans:
-          "微信公众号 gh_username，通常从微信搜一搜 account 结果的 jumpInfo.userName 获得。",
+          "微信公众号 username。不要要求用户手动添加 gh_ 前缀；插件会在调用 TikHub 前规范化。",
       },
     }),
     rawParameter,
@@ -49,7 +51,7 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      username: readOptionalStringParam(p, "username"),
+      username: readOfficialAccountUsername(p),
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

@@ -187,6 +187,27 @@ export function readOptionalStringIdParam(
   return value === undefined ? undefined : value.trim()
 }
 
+export function readOfficialAccountUsername(
+  params: Record<string, unknown>,
+): string {
+  const username = readOptionalStringIdParam(params, "username")
+  if (!username) {
+    throw new Error("username is required.")
+  }
+  return username.startsWith("gh_") ? username : `gh_${username}`
+}
+
+export function readFinderUsername(params: Record<string, unknown>): string {
+  const username = readOptionalStringIdParam(params, "username")
+  if (!username) {
+    throw new Error("username is required.")
+  }
+  if (username.startsWith("v2_") && !username.endsWith("@finder")) {
+    return `${username}@finder`
+  }
+  return username
+}
+
 export function readAtLeastOneStringParam(
   params: Record<string, unknown>,
   names: readonly string[],
