@@ -2,14 +2,18 @@
 
 TikHub WeChat analysis tools cover three related API groups in one release unit:
 WeChat Search V2, WeChat Channels V2, and WeChat Media Platform V2.
+This release includes 13 tools: 2 Search tools, 5 Channels tools, and 6 Official
+Account tools.
 
 All tools use the shared `tikhub-api-key` credential and send POST requests with
 business parameters in the JSON request body. WeChat endpoints may take about 30
 seconds to respond, especially when fetching comment or account-history data.
 
-`raw=true` is the OpenAPI default for every tool. For analysis workflows, set
+`raw=true` is the OpenAPI default for most tools. For analysis workflows, set
 `raw=false` when available to request TikHub's simplified structure with flatter
-items.
+items. The Channels ID resolver is the exception: live OpenAPI `schema.default`
+for `raw` is `false`, even though the description text only describes True/False
+response modes, so this plugin uses `raw=false` as that tool's default.
 
 ## WeChat Search / 微信搜一搜
 
@@ -31,6 +35,16 @@ items.
   - Treat `exportId` and `feedNonceId` from results as strings.
 
 ## WeChat Channels / 微信视频号
+
+- `tikhub_wechat_channels_resolve_username`
+  - POST `/api/v1/wechat_channels/v2/fetch_channel_id_to_username`
+  - Converts a visible WeChat Channels ID such as `sphi9BjV8GK0Zsl` into the
+    finder `username` required by profile and user-video tools.
+  - `channel_id` must match `^sph[A-Za-z0-9_-]+$` and be at most 64 characters.
+  - `raw=false` is the live OpenAPI schema default. In simplified responses, read
+    `data.username`, `data.channel_id`, `data.nickname`, and `data.desc`.
+  - If no account is matched, `data.username` may be null and `data.error` is
+    preserved from TikHub.
 
 - `tikhub_wechat_channels_video_detail`
   - POST `/api/v1/wechat_channels/v2/fetch_video_detail`
@@ -103,7 +117,15 @@ Official account chain:
 7. Fetch comment replies by `content_id`, or leave it empty for TikHub's default
    first-comment-with-replies behavior.
 
-Channels chain:
+Channels ID chain:
+
+1. Get the visible Channels ID from WeChat UI, such as `sph...`.
+2. Resolve finder username with `tikhub_wechat_channels_resolve_username`.
+3. Read `data.username` as the finder username, usually `v2_...@finder`.
+4. Fetch user profile by finder `username`.
+5. Fetch historical user videos by finder `username`.
+
+Channels search chain:
 
 1. Search Channels videos.
 2. Read `exportId` and `feedNonceId` as strings.
@@ -120,16 +142,16 @@ Pagination chain:
 - Official account article comments: pass `buffer` unchanged.
 - Official account comment replies: pass `next_offset` as `offset`.
 
-All IDs such as `object_id`, `comment_id`, `content_id`, `exportId`, and
-`feedNonceId` must be treated as strings. Do not convert them to JavaScript
-numbers.
+All IDs such as `channel_id`, `object_id`, `comment_id`, `content_id`,
+`exportId`, and `feedNonceId` must be treated as strings. Do not convert them to
+JavaScript numbers.
 
 ## Not Included
 
 This release intentionally does not implement:
 
-- Channels: channel id conversion, channel info, collections, live detail, live
-  history, search channel videos, user collections, or video share URL tools.
+- Channels: channel info, collections, live detail, live history, search channel
+  videos, user collections, or video share URL tools.
 - Official account: account services, article ads, or related articles.
 - Media download, decryption, playback URL extraction, live replay, advertising
   extraction, custom menu extraction, collection management, `file_ref` media
