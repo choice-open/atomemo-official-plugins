@@ -40,14 +40,15 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
-          "Official account username. The plugin adds the upstream prefix if needed.",
-        zh_Hans: "公众号 username。插件会在需要时自动补齐上游前缀。",
+          "Official account username. Do not use a Channels username; the plugin adds the upstream prefix if needed.",
+        zh_Hans:
+          "公众号 username。不要填写视频号 username；插件会在需要时自动补齐上游前缀。",
       },
       llmDescription: {
         en_US:
-          "WeChat official account username used to fetch historical content. Do not ask the user to add the gh_ prefix; the plugin normalizes it.",
+          "WeChat official account username used to fetch historical articles. Do not ask the user to add the gh_ prefix, and do not pass a WeChat Channels v2_...@finder username here.",
         zh_Hans:
-          "用于获取公众号历史内容的 username。不要要求用户手动添加 gh_ 前缀；插件会自动规范化。",
+          "用于获取公众号历史文章的 username。不要要求用户手动添加 gh_ 前缀，也不要在这里传入视频号 v2_...@finder username。",
       },
     }),
     wechatIntegerParameter({

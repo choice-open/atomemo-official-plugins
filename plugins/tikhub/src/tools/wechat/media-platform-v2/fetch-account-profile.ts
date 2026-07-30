@@ -35,15 +35,15 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
-          "Official account username. You may paste the value from search results; the plugin adds the upstream prefix if needed.",
+          "Official account username. Do not use a Channels username; the plugin adds the upstream prefix if needed.",
         zh_Hans:
-          "公众号 username。可粘贴搜索结果中的账号值；插件会在需要时自动补齐上游前缀。",
+          "公众号 username。不要填写视频号 username；插件会在需要时自动补齐上游前缀。",
       },
       llmDescription: {
         en_US:
-          "WeChat official account username. Do not ask the user to add the gh_ prefix; the plugin normalizes it before calling TikHub.",
+          "WeChat official account username. Do not ask the user to add the gh_ prefix, and do not pass a WeChat Channels v2_...@finder username here.",
         zh_Hans:
-          "微信公众号 username。不要要求用户手动添加 gh_ 前缀；插件会在调用 TikHub 前规范化。",
+          "微信公众号 username。不要要求用户手动添加 gh_ 前缀，也不要在这里传入视频号 v2_...@finder username。",
       },
     }),
     rawParameter,

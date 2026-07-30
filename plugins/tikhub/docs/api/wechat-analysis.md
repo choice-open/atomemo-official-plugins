@@ -18,9 +18,12 @@ response modes, so this plugin uses `raw=false` as that tool's default.
 The plugin exposes user-facing parameters as `username` instead of asking users
 to type upstream-only prefixes. For official account tools, users can enter the
 account username and the plugin adds the upstream `gh_` prefix when needed before
-calling TikHub. For Channels profile and user-video tools, use the username
-returned by the resolver or video detail; if a `v2_...` finder value is missing
-the `@finder` suffix, the plugin appends it before calling TikHub.
+calling TikHub. This normalization is only for official account usernames:
+Channels values such as `v2_...@finder` or `sph...` are rejected before the
+request, because they belong to WeChat Channels tools rather than Official
+Account article tools. For Channels profile and user-video tools, use the
+username returned by the resolver or video detail; if a `v2_...` finder value is
+missing the `@finder` suffix, the plugin appends it before calling TikHub.
 
 ## WeChat Search / 微信搜一搜
 
@@ -87,12 +90,16 @@ No Channels tool downloads, decrypts, or exposes media files or playback URLs.
   - Fetches official account profile data by `username`.
   - Users do not need to add the upstream `gh_` prefix; the plugin normalizes it
     before calling TikHub.
+  - Do not pass a Channels username such as `v2_...@finder`; use Channels tools
+    for Channels accounts.
 
 - `tikhub_wechat_mp_account_articles`
   - POST `/api/v1/wechat_mp/v2/fetch_account_articles`
   - Fetches historical official account content.
   - Users do not need to add the upstream `gh_` prefix to `username`; the plugin
     normalizes it before calling TikHub.
+  - Do not pass a Channels username such as `v2_...@finder`; for Channels
+    history, use `tikhub_wechat_channels_user_videos`.
   - `page_size` defaults to 20 and is limited to 10-20.
   - `item_show_type`: `0` articles, `5` videos, `7` audio, `8` image-text posts.
   - Pagination uses the previous response `next_offset`.

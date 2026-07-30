@@ -10511,14 +10511,14 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat official account username. Do not ask the user to add the gh_ prefix; the plugin normalizes it before calling TikHub.",
-              "zh_Hans": "微信公众号 username。不要要求用户手动添加 gh_ 前缀；插件会在调用 TikHub 前规范化。"
+              "en_US": "WeChat official account username. Do not ask the user to add the gh_ prefix, and do not pass a WeChat Channels v2_...@finder username here.",
+              "zh_Hans": "微信公众号 username。不要要求用户手动添加 gh_ 前缀，也不要在这里传入视频号 v2_...@finder username。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Official account username. You may paste the value from search results; the plugin adds the upstream prefix if needed.",
-              "zh_Hans": "公众号 username。可粘贴搜索结果中的账号值；插件会在需要时自动补齐上游前缀。"
+              "en_US": "Official account username. Do not use a Channels username; the plugin adds the upstream prefix if needed.",
+              "zh_Hans": "公众号 username。不要填写视频号 username；插件会在需要时自动补齐上游前缀。"
             },
             "support_expression": true,
             "width": "full",
@@ -10586,14 +10586,14 @@
           "required": true,
           "ai": {
             "llm_description": {
-              "en_US": "WeChat official account username used to fetch historical content. Do not ask the user to add the gh_ prefix; the plugin normalizes it.",
-              "zh_Hans": "用于获取公众号历史内容的 username。不要要求用户手动添加 gh_ 前缀；插件会自动规范化。"
+              "en_US": "WeChat official account username used to fetch historical articles. Do not ask the user to add the gh_ prefix, and do not pass a WeChat Channels v2_...@finder username here.",
+              "zh_Hans": "用于获取公众号历史文章的 username。不要要求用户手动添加 gh_ 前缀，也不要在这里传入视频号 v2_...@finder username。"
             }
           },
           "ui": {
             "hint": {
-              "en_US": "Official account username. The plugin adds the upstream prefix if needed.",
-              "zh_Hans": "公众号 username。插件会在需要时自动补齐上游前缀。"
+              "en_US": "Official account username. Do not use a Channels username; the plugin adds the upstream prefix if needed.",
+              "zh_Hans": "公众号 username。不要填写视频号 username；插件会在需要时自动补齐上游前缀。"
             },
             "support_expression": true,
             "width": "full",
