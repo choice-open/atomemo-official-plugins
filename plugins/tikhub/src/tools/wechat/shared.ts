@@ -75,8 +75,8 @@ export function wechatIntegerParameter<Name extends string>(options: {
     type: "integer",
     required: options.required ?? false,
     ...(options.default !== undefined ? { default: options.default } : {}),
-    ...(options.min !== undefined ? { min: options.min } : {}),
-    ...(options.max !== undefined ? { max: options.max } : {}),
+    ...(options.min !== undefined ? { minimum: options.min } : {}),
+    ...(options.max !== undefined ? { maximum: options.max } : {}),
     display_name: options.displayName,
     ai: { llm_description: options.llmDescription },
     ui: {
