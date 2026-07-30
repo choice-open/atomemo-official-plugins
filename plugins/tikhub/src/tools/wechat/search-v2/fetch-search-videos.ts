@@ -8,6 +8,7 @@ import {
   readOptionalBooleanParam,
   readOptionalIntegerParam,
   readOptionalStringParam,
+  readRequiredConstrainedStringParam,
   searchSortValues,
   videoDurationValues,
   wechatIntegerParameter,
@@ -38,6 +39,8 @@ export const tikhub_wechat_search_videos: ToolDefinition = {
     wechatStringParameter({
       name: "keyword",
       required: true,
+      minLength: 1,
+      maxLength: 100,
       displayName: { en_US: "Keyword", zh_Hans: "关键词" },
       hint: {
         en_US: "Required keyword for WeChat Channels video search.",
@@ -133,7 +136,12 @@ export const tikhub_wechat_search_videos: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      keyword: readOptionalStringParam(p, "keyword"),
+      keyword: readRequiredConstrainedStringParam(p, "keyword", {
+        label: "keyword",
+        minLength: 1,
+        maxLength: 100,
+        example: "美食",
+      }),
       duration: readOptionalStringParam(p, "duration") ?? "all",
       sort: readOptionalStringParam(p, "sort") ?? "default",
       publish_time: readOptionalStringParam(p, "publish_time") ?? "all",

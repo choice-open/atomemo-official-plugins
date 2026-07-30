@@ -5,9 +5,9 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
+  readOptionalConstrainedStringParam,
   readOptionalIntegerParam,
-  readOptionalStringIdParam,
-  readOptionalStringParam,
+  readRequiredConstrainedStringParam,
   wechatBooleanParameter,
   wechatIntegerParameter,
   wechatStringParameter,
@@ -36,6 +36,8 @@ export const tikhub_wechat_mp_comment_replies: ToolDefinition = {
     wechatStringParameter({
       name: "url",
       required: true,
+      maxLength: 2048,
+      pattern: "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
       displayName: { en_US: "Article URL", zh_Hans: "文章 URL" },
       hint: {
         en_US: "Required WeChat official account article URL.",
@@ -50,6 +52,8 @@ export const tikhub_wechat_mp_comment_replies: ToolDefinition = {
     wechatStringParameter({
       name: "content_id",
       default: "",
+      maxLength: 32,
+      pattern: "^[0-9]*$",
       displayName: { en_US: "Content ID", zh_Hans: "评论 content_id" },
       hint: {
         en_US:
@@ -102,8 +106,19 @@ export const tikhub_wechat_mp_comment_replies: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      url: readOptionalStringParam(p, "url"),
-      content_id: readOptionalStringIdParam(p, "content_id") ?? "",
+      url: readRequiredConstrainedStringParam(p, "url", {
+        label: "article URL",
+        maxLength: 2048,
+        pattern: /^https?:\/\/mp\.weixin\.qq\.com\/s([/?].+)?$/,
+        example:
+          "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd",
+      }),
+      content_id:
+        readOptionalConstrainedStringParam(p, "content_id", {
+          label: "content_id",
+          maxLength: 32,
+          pattern: /^[0-9]*$/,
+        }) ?? "",
       offset: readOptionalIntegerParam(p, "offset") ?? 0,
       all_pages: readOptionalBooleanParam(p, "all_pages") ?? false,
       raw: readOptionalBooleanParam(p, "raw") ?? true,

@@ -5,7 +5,7 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
-  readOptionalStringParam,
+  readRequiredConstrainedStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -32,6 +32,8 @@ export const tikhub_wechat_mp_article_detail: ToolDefinition = {
     wechatStringParameter({
       name: "url",
       required: true,
+      maxLength: 2048,
+      pattern: "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
       displayName: { en_US: "Article URL", zh_Hans: "文章 URL" },
       hint: {
         en_US:
@@ -50,7 +52,12 @@ export const tikhub_wechat_mp_article_detail: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      url: readOptionalStringParam(p, "url"),
+      url: readRequiredConstrainedStringParam(p, "url", {
+        label: "article URL",
+        maxLength: 2048,
+        pattern: /^https?:\/\/mp\.weixin\.qq\.com\/s([/?].+)?$/,
+        example: "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+      }),
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

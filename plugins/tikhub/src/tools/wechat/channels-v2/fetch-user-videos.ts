@@ -6,7 +6,7 @@ import {
   rawParameter,
   readFinderUsername,
   readOptionalBooleanParam,
-  readOptionalStringParam,
+  readOptionalConstrainedStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -33,6 +33,9 @@ export const tikhub_wechat_channels_user_videos: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
+      minLength: 10,
+      maxLength: 256,
+      pattern: "^v2_[0-9a-fA-F]+@finder$",
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
@@ -50,6 +53,7 @@ export const tikhub_wechat_channels_user_videos: ToolDefinition = {
     wechatStringParameter({
       name: "last_buffer",
       default: "",
+      pattern: "^[A-Za-z0-9+/=_-]*$",
       displayName: { en_US: "Last Buffer", zh_Hans: "分页 last_buffer" },
       hint: {
         en_US:
@@ -69,7 +73,11 @@ export const tikhub_wechat_channels_user_videos: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
       username: readFinderUsername(p),
-      last_buffer: readOptionalStringParam(p, "last_buffer") ?? "",
+      last_buffer:
+        readOptionalConstrainedStringParam(p, "last_buffer", {
+          label: "last_buffer",
+          pattern: /^[A-Za-z0-9+/=_-]*$/,
+        }) ?? "",
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

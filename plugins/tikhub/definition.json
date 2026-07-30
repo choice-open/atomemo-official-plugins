@@ -9550,7 +9550,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "min_length": 1,
+          "max_length": 100
         },
         {
           "name": "business_type",
@@ -9779,7 +9781,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "min_length": 1,
+          "max_length": 100
         },
         {
           "name": "duration",
@@ -9997,7 +10001,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 32,
+          "pattern": "^[0-9]*$"
         },
         {
           "name": "export_id",
@@ -10022,7 +10028,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 2048,
+          "pattern": "^(export/.+)?$"
         },
         {
           "name": "object_nonce_id",
@@ -10047,7 +10055,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 32,
+          "pattern": "^[0-9]*$"
         },
         {
           "name": "share_url",
@@ -10072,7 +10082,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 256,
+          "pattern": "^(https?://weixin\\.qq\\.com/sph/[A-Za-z0-9]+/?)?$"
         },
         {
           "name": "raw",
@@ -10147,7 +10159,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 32,
+          "pattern": "^[0-9]+$"
         },
         {
           "name": "last_buffer",
@@ -10172,7 +10186,8 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "pattern": "^[A-Za-z0-9+/=_-]*$"
         },
         {
           "name": "comment_id",
@@ -10197,7 +10212,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 32,
+          "pattern": "^[0-9]*$"
         },
         {
           "name": "raw",
@@ -10276,7 +10293,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 64,
+          "pattern": "^sph[A-Za-z0-9_-]+$"
         },
         {
           "name": "raw",
@@ -10351,7 +10370,10 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "min_length": 10,
+          "max_length": 256,
+          "pattern": "^v2_[0-9a-fA-F]+@finder$"
         },
         {
           "name": "raw",
@@ -10426,7 +10448,10 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "min_length": 10,
+          "max_length": 256,
+          "pattern": "^v2_[0-9a-fA-F]+@finder$"
         },
         {
           "name": "last_buffer",
@@ -10451,7 +10476,8 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "pattern": "^[A-Za-z0-9+/=_-]*$"
         },
         {
           "name": "raw",
@@ -10526,7 +10552,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 64,
+          "pattern": "^gh_[A-Za-z0-9_]+$"
         },
         {
           "name": "raw",
@@ -10601,7 +10629,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 64,
+          "pattern": "^gh_[A-Za-z0-9_]+$"
         },
         {
           "name": "page_size",
@@ -10653,7 +10683,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 8192,
+          "pattern": "^[A-Za-z0-9+/=_-]*$"
         },
         {
           "name": "item_show_type",
@@ -10759,7 +10791,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 2048,
+          "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$"
         },
         {
           "name": "raw",
@@ -10834,7 +10868,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 2048,
+          "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$"
         },
         {
           "name": "raw",
@@ -10909,7 +10945,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 2048,
+          "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$"
         },
         {
           "name": "buffer",
@@ -10934,7 +10972,8 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 8192
         },
         {
           "name": "raw",
@@ -11009,7 +11048,9 @@
             "width": "full",
             "component": "input"
           },
-          "type": "string"
+          "type": "string",
+          "max_length": 2048,
+          "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$"
         },
         {
           "name": "content_id",
@@ -11034,7 +11075,9 @@
             "component": "input"
           },
           "type": "string",
-          "default": ""
+          "default": "",
+          "max_length": 32,
+          "pattern": "^[0-9]*$"
         },
         {
           "name": "offset",

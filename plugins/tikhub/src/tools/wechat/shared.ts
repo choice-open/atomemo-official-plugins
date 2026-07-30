@@ -38,6 +38,9 @@ export function wechatStringParameter<Name extends string>(options: {
   name: Name
   required?: boolean
   default?: string
+  minLength?: number
+  maxLength?: number
+  pattern?: string
   displayName: { en_US: string; zh_Hans: string }
   hint: { en_US: string; zh_Hans: string }
   llmDescription: { en_US: string; zh_Hans: string }
@@ -48,6 +51,9 @@ export function wechatStringParameter<Name extends string>(options: {
     type: "string",
     required: options.required ?? false,
     ...(options.default !== undefined ? { default: options.default } : {}),
+    ...(options.minLength !== undefined ? { min_length: options.minLength } : {}),
+    ...(options.maxLength !== undefined ? { max_length: options.maxLength } : {}),
+    ...(options.pattern !== undefined ? { pattern: options.pattern } : {}),
     display_name: options.displayName,
     ai: { llm_description: options.llmDescription },
     ui: {
@@ -187,6 +193,60 @@ export function readOptionalStringIdParam(
   return value === undefined ? undefined : value.trim()
 }
 
+export interface WeChatStringRules {
+  label: string
+  minLength?: number
+  maxLength?: number
+  pattern?: RegExp
+  example?: string
+}
+
+function validateWeChatString(value: string, rules: WeChatStringRules): string {
+  if (rules.minLength !== undefined && value.length < rules.minLength) {
+    throw new Error(
+      `${rules.label} must be at least ${rules.minLength} characters.${
+        rules.example ? ` Example: ${rules.example}.` : ""
+      }`,
+    )
+  }
+  if (rules.maxLength !== undefined && value.length > rules.maxLength) {
+    throw new Error(
+      `${rules.label} must be at most ${rules.maxLength} characters.${
+        rules.example ? ` Example: ${rules.example}.` : ""
+      }`,
+    )
+  }
+  if (rules.pattern && !rules.pattern.test(value)) {
+    throw new Error(
+      `Invalid ${rules.label}.${
+        rules.example ? ` Example: ${rules.example}.` : ""
+      }`,
+    )
+  }
+  return value
+}
+
+export function readRequiredConstrainedStringParam(
+  params: Record<string, unknown>,
+  name: string,
+  rules: WeChatStringRules,
+): string {
+  const value = readOptionalStringIdParam(params, name)
+  if (value === undefined || value === "") {
+    throw new Error(`${rules.label} is required.`)
+  }
+  return validateWeChatString(value, rules)
+}
+
+export function readOptionalConstrainedStringParam(
+  params: Record<string, unknown>,
+  name: string,
+  rules: WeChatStringRules,
+): string | undefined {
+  const value = readOptionalStringIdParam(params, name)
+  return value === undefined ? undefined : validateWeChatString(value, rules)
+}
+
 export function readOfficialAccountUsername(
   params: Record<string, unknown>,
 ): string {
@@ -204,15 +264,12 @@ export function readOfficialAccountUsername(
       "This looks like a WeChat Channels ID. Official Account tools require a username that starts with gh_.",
     )
   }
-  if (username.length > 64) {
-    throw new Error("Official account username must be at most 64 characters.")
-  }
-  if (!/^gh_[A-Za-z0-9_]+$/.test(username)) {
-    throw new Error(
-      "Invalid official account username. Enter the full WeChat Official Account username, for example gh_363b924965e9.",
-    )
-  }
-  return username
+  return validateWeChatString(username, {
+    label: "official account username",
+    maxLength: 64,
+    pattern: /^gh_[A-Za-z0-9_]+$/,
+    example: "gh_363b924965e9",
+  })
 }
 
 export function readFinderUsername(params: Record<string, unknown>): string {
@@ -230,15 +287,13 @@ export function readFinderUsername(params: Record<string, unknown>): string {
       "This looks like a WeChat Channels ID. Resolve it first with WeChat Channels · Resolve Finder Username, then pass the returned username.",
     )
   }
-  if (username.length > 256) {
-    throw new Error("WeChat Channels username is too long.")
-  }
-  if (!/^v2_[0-9a-fA-F]+@finder$/.test(username)) {
-    throw new Error(
-      "Invalid WeChat Channels username. Enter the full username returned by Resolve Finder Username or video detail, for example v2_...@finder.",
-    )
-  }
-  return username
+  return validateWeChatString(username, {
+    label: "WeChat Channels username",
+    minLength: 10,
+    maxLength: 256,
+    pattern: /^v2_[0-9a-fA-F]+@finder$/,
+    example: "v2_...@finder",
+  })
 }
 
 export function readAtLeastOneStringParam(

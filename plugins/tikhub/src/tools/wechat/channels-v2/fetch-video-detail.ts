@@ -6,7 +6,7 @@ import {
   rawParameter,
   readAtLeastOneStringParam,
   readOptionalBooleanParam,
-  readOptionalStringIdParam,
+  readOptionalConstrainedStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -34,6 +34,8 @@ export const tikhub_wechat_channels_video_detail: ToolDefinition = {
     wechatStringParameter({
       name: "object_id",
       default: "",
+      maxLength: 32,
+      pattern: "^[0-9]*$",
       displayName: { en_US: "Object ID", zh_Hans: "作品 object_id" },
       hint: {
         en_US: "Preferred numeric objectId. Pass it as a string.",
@@ -49,6 +51,8 @@ export const tikhub_wechat_channels_video_detail: ToolDefinition = {
     wechatStringParameter({
       name: "export_id",
       default: "",
+      maxLength: 2048,
+      pattern: "^(export/.+)?$",
       displayName: { en_US: "Export ID", zh_Hans: "搜索 export_id" },
       hint: {
         en_US:
@@ -65,6 +69,8 @@ export const tikhub_wechat_channels_video_detail: ToolDefinition = {
     wechatStringParameter({
       name: "object_nonce_id",
       default: "",
+      maxLength: 32,
+      pattern: "^[0-9]*$",
       displayName: { en_US: "Object Nonce ID", zh_Hans: "object_nonce_id" },
       hint: {
         en_US:
@@ -81,6 +87,8 @@ export const tikhub_wechat_channels_video_detail: ToolDefinition = {
     wechatStringParameter({
       name: "share_url",
       default: "",
+      maxLength: 256,
+      pattern: "^(https?://weixin\\.qq\\.com/sph/[A-Za-z0-9]+/?)?$",
       displayName: { en_US: "Share URL", zh_Hans: "分享链接" },
       hint: {
         en_US:
@@ -100,10 +108,33 @@ export const tikhub_wechat_channels_video_detail: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     readAtLeastOneStringParam(p, ["object_id", "export_id", "share_url"])
     return invokeWeChatPost(endpoint, args, {
-      object_id: readOptionalStringIdParam(p, "object_id") ?? "",
-      export_id: readOptionalStringIdParam(p, "export_id") ?? "",
-      object_nonce_id: readOptionalStringIdParam(p, "object_nonce_id") ?? "",
-      share_url: readOptionalStringIdParam(p, "share_url") ?? "",
+      object_id:
+        readOptionalConstrainedStringParam(p, "object_id", {
+          label: "object_id",
+          maxLength: 32,
+          pattern: /^[0-9]*$/,
+          example: "14941130915890399732",
+        }) ?? "",
+      export_id:
+        readOptionalConstrainedStringParam(p, "export_id", {
+          label: "export_id",
+          maxLength: 2048,
+          pattern: /^(export\/.+)?$/,
+          example: "export/...",
+        }) ?? "",
+      object_nonce_id:
+        readOptionalConstrainedStringParam(p, "object_nonce_id", {
+          label: "object_nonce_id",
+          maxLength: 32,
+          pattern: /^[0-9]*$/,
+        }) ?? "",
+      share_url:
+        readOptionalConstrainedStringParam(p, "share_url", {
+          label: "share_url",
+          maxLength: 256,
+          pattern: /^(https?:\/\/weixin\.qq\.com\/sph\/[A-Za-z0-9]+\/?)?$/,
+          example: "https://weixin.qq.com/sph/...",
+        }) ?? "",
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

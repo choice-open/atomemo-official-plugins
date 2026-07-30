@@ -32,6 +32,9 @@ export const tikhub_wechat_channels_user_profile: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
+      minLength: 10,
+      maxLength: 256,
+      pattern: "^v2_[0-9a-fA-F]+@finder$",
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:

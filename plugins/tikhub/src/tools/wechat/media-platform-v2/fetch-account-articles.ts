@@ -6,6 +6,7 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
+  readOptionalConstrainedStringParam,
   readOptionalIntegerParam,
   readOptionalStringParam,
   readOfficialAccountUsername,
@@ -37,6 +38,8 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
+      maxLength: 64,
+      pattern: "^gh_[A-Za-z0-9_]+$",
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:
@@ -70,6 +73,8 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
     wechatStringParameter({
       name: "offset",
       default: "",
+      maxLength: 8192,
+      pattern: "^[A-Za-z0-9+/=_-]*$",
       displayName: { en_US: "Offset Cursor", zh_Hans: "分页 offset" },
       hint: {
         en_US:
@@ -106,7 +111,12 @@ export const tikhub_wechat_mp_account_articles: ToolDefinition = {
     return invokeWeChatPost(endpoint, args, {
       username: readOfficialAccountUsername(p),
       page_size: readOptionalIntegerParam(p, "page_size") ?? 20,
-      offset: readOptionalStringParam(p, "offset") ?? "",
+      offset:
+        readOptionalConstrainedStringParam(p, "offset", {
+          label: "offset",
+          maxLength: 8192,
+          pattern: /^[A-Za-z0-9+/=_-]*$/,
+        }) ?? "",
       item_show_type: readOptionalStringParam(p, "item_show_type") ?? "0",
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })

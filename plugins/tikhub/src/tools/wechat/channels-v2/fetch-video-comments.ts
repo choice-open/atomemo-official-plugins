@@ -5,7 +5,8 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
-  readOptionalStringIdParam,
+  readOptionalConstrainedStringParam,
+  readRequiredConstrainedStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -32,6 +33,8 @@ export const tikhub_wechat_channels_comments: ToolDefinition = {
     wechatStringParameter({
       name: "object_id",
       required: true,
+      maxLength: 32,
+      pattern: "^[0-9]+$",
       displayName: { en_US: "Object ID", zh_Hans: "作品 object_id" },
       hint: {
         en_US: "Required video objectId. Pass it as a string.",
@@ -47,6 +50,7 @@ export const tikhub_wechat_channels_comments: ToolDefinition = {
     wechatStringParameter({
       name: "last_buffer",
       default: "",
+      pattern: "^[A-Za-z0-9+/=_-]*$",
       displayName: { en_US: "Last Buffer", zh_Hans: "分页 last_buffer" },
       hint: {
         en_US:
@@ -62,6 +66,8 @@ export const tikhub_wechat_channels_comments: ToolDefinition = {
     wechatStringParameter({
       name: "comment_id",
       default: "",
+      maxLength: 32,
+      pattern: "^[0-9]*$",
       displayName: { en_US: "Comment ID", zh_Hans: "评论 comment_id" },
       hint: {
         en_US:
@@ -80,9 +86,23 @@ export const tikhub_wechat_channels_comments: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      object_id: readOptionalStringIdParam(p, "object_id"),
-      last_buffer: readOptionalStringIdParam(p, "last_buffer") ?? "",
-      comment_id: readOptionalStringIdParam(p, "comment_id") ?? "",
+      object_id: readRequiredConstrainedStringParam(p, "object_id", {
+        label: "object_id",
+        maxLength: 32,
+        pattern: /^[0-9]+$/,
+        example: "14941130915890399732",
+      }),
+      last_buffer:
+        readOptionalConstrainedStringParam(p, "last_buffer", {
+          label: "last_buffer",
+          pattern: /^[A-Za-z0-9+/=_-]*$/,
+        }) ?? "",
+      comment_id:
+        readOptionalConstrainedStringParam(p, "comment_id", {
+          label: "comment_id",
+          maxLength: 32,
+          pattern: /^[0-9]*$/,
+        }) ?? "",
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

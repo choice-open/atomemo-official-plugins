@@ -32,6 +32,8 @@ export const tikhub_wechat_mp_account_profile: ToolDefinition = {
     wechatStringParameter({
       name: "username",
       required: true,
+      maxLength: 64,
+      pattern: "^gh_[A-Za-z0-9_]+$",
       displayName: { en_US: "Username", zh_Hans: "Username" },
       hint: {
         en_US:

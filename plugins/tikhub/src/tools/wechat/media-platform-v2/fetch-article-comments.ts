@@ -5,7 +5,8 @@ import {
   invokeWeChatPost,
   rawParameter,
   readOptionalBooleanParam,
-  readOptionalStringParam,
+  readOptionalConstrainedStringParam,
+  readRequiredConstrainedStringParam,
   wechatStringParameter,
 } from "../shared"
 
@@ -32,6 +33,8 @@ export const tikhub_wechat_mp_article_comments: ToolDefinition = {
     wechatStringParameter({
       name: "url",
       required: true,
+      maxLength: 2048,
+      pattern: "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
       displayName: { en_US: "Article URL", zh_Hans: "文章 URL" },
       hint: {
         en_US: "Required WeChat official account article URL.",
@@ -45,6 +48,7 @@ export const tikhub_wechat_mp_article_comments: ToolDefinition = {
     wechatStringParameter({
       name: "buffer",
       default: "",
+      maxLength: 8192,
       displayName: { en_US: "Buffer", zh_Hans: "分页 buffer" },
       hint: {
         en_US:
@@ -62,8 +66,17 @@ export const tikhub_wechat_mp_article_comments: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      url: readOptionalStringParam(p, "url"),
-      buffer: readOptionalStringParam(p, "buffer") ?? "",
+      url: readRequiredConstrainedStringParam(p, "url", {
+        label: "article URL",
+        maxLength: 2048,
+        pattern: /^https?:\/\/mp\.weixin\.qq\.com\/s([/?].+)?$/,
+        example: "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+      }),
+      buffer:
+        readOptionalConstrainedStringParam(p, "buffer", {
+          label: "buffer",
+          maxLength: 8192,
+        }) ?? "",
       raw: readOptionalBooleanParam(p, "raw") ?? true,
     })
   },

@@ -73,6 +73,8 @@ export const tikhub_wechat_channels_resolve_username: ToolDefinition = {
     wechatStringParameter({
       name: "channel_id",
       required: true,
+      maxLength: 64,
+      pattern: "^sph[A-Za-z0-9_-]+$",
       displayName: { en_US: "Channel ID", zh_Hans: "视频号 ID" },
       hint: {
         en_US:

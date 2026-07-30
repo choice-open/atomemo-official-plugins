@@ -6,6 +6,7 @@ import {
   publishTimeValues,
   rawParameter,
   readOptionalBooleanParam,
+  readRequiredConstrainedStringParam,
   readOptionalIntegerParam,
   readOptionalStringParam,
   searchBusinessTypeValues,
@@ -38,6 +39,8 @@ export const tikhub_wechat_search_fetch_search: ToolDefinition = {
     wechatStringParameter({
       name: "keyword",
       required: true,
+      minLength: 1,
+      maxLength: 100,
       displayName: { en_US: "Keyword", zh_Hans: "关键词" },
       hint: {
         en_US: "Required search keyword, 1-100 characters.",
@@ -142,7 +145,12 @@ export const tikhub_wechat_search_fetch_search: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     return invokeWeChatPost(endpoint, args, {
-      keyword: readOptionalStringParam(p, "keyword"),
+      keyword: readRequiredConstrainedStringParam(p, "keyword", {
+        label: "keyword",
+        minLength: 1,
+        maxLength: 100,
+        example: "人民日报",
+      }),
       business_type: readOptionalStringParam(p, "business_type") ?? "all",
       sort: readOptionalStringParam(p, "sort") ?? "default",
       publish_time: readOptionalStringParam(p, "publish_time") ?? "all",
