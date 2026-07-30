@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -5703,25 +5703,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Keyword or phrase used to search X/Twitter content for social listening, topics, accounts, media, or lists.",
@@ -5729,7 +5728,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Search keyword or phrase, for example Elon Musk.",
               "zh_Hans": "搜索关键词或短语，例如 Elon Musk。"
@@ -5739,25 +5737,18 @@
               "zh_Hans": "Elon Musk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "search_type",
-          "type": "string",
-          "required": false,
-          "default": "Top",
-          "enum": [
-            "Top",
-            "Latest",
-            "Media",
-            "People",
-            "Lists"
-          ],
           "display_name": {
             "en_US": "Search Type",
             "zh_Hans": "搜索类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Search category. Must be one of: Top (default), Latest, Media, People, Lists.",
@@ -5765,23 +5756,31 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Top is the default. Use Latest for real-time monitoring, Media for media posts, People for accounts, Lists for lists.",
               "zh_Hans": "默认 Top。实时监测用 Latest，媒体内容用 Media，找账号用 People，找列表用 Lists。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "Top",
+          "enum": [
+            "Top",
+            "Latest",
+            "Media",
+            "People",
+            "Lists"
+          ]
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -5789,7 +5788,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -5799,8 +5797,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -5818,25 +5818,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "tweet_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Tweet ID",
             "zh_Hans": "推文 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
@@ -5844,7 +5843,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
               "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
@@ -5854,8 +5852,10 @@
               "zh_Hans": "1808168603721650364"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -5873,25 +5873,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "tweet_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Tweet ID",
             "zh_Hans": "推文 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
@@ -5899,7 +5898,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
               "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
@@ -5909,17 +5907,18 @@
               "zh_Hans": "1808168603721650364"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -5927,7 +5926,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -5937,8 +5935,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -5956,25 +5956,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "tweet_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Tweet ID",
             "zh_Hans": "推文 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
@@ -5982,7 +5981,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
               "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
@@ -5992,17 +5990,18 @@
               "zh_Hans": "1808168603721650364"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6010,7 +6009,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6020,8 +6018,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6039,25 +6039,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6065,7 +6064,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6075,17 +6073,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "rest_id",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "User ID",
             "zh_Hans": "用户 ID"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
@@ -6093,7 +6092,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
               "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
@@ -6103,8 +6101,10 @@
               "zh_Hans": "44196397"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6122,25 +6122,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6148,7 +6147,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6158,17 +6156,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "rest_id",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "User ID",
             "zh_Hans": "用户 ID"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
@@ -6176,7 +6175,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
               "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
@@ -6186,17 +6184,18 @@
               "zh_Hans": "44196397"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6204,7 +6203,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6214,8 +6212,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6233,25 +6233,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6259,7 +6258,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6269,17 +6267,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6287,7 +6286,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6297,8 +6295,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6316,21 +6316,40 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "country",
-          "type": "string",
+          "display_name": {
+            "en_US": "Country",
+            "zh_Hans": "国家"
+          },
           "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Country for trending topics. Default is UnitedStates. Must be one of: UnitedStates, China, India, Japan, Russia, Germany, Indonesia, Brazil, France, UnitedKingdom, Turkey, Italy, Mexico, SouthKorea, Canada, Spain, SaudiArabia, Egypt, Australia, Poland, Iran, Pakistan, Vietnam, Nigeria, Bangladesh, Netherlands, Argentina, Philippines, Malaysia, Colombia, UniteArabEmirates, Romania, Belgium, Switzerland, Singapore, Sweden, Norway, Austria, Kazakhstan, Algeria, Chile, Czechia, Peru, Iraq, Israel, Ukraine, Denmark, Portugal, Hungary, Greece, Finland, NewZealand, Belarus, Slovakia, Serbia, Lithuania, Luxembourg, Estonia.",
+              "zh_Hans": "趋势国家，默认 UnitedStates。可选值：UnitedStates、China、India、Japan、Russia、Germany、Indonesia、Brazil、France、UnitedKingdom、Turkey、Italy、Mexico、SouthKorea、Canada、Spain、SaudiArabia、Egypt、Australia、Poland、Iran、Pakistan、Vietnam、Nigeria、Bangladesh、Netherlands、Argentina、Philippines、Malaysia、Colombia、UniteArabEmirates、Romania、Belgium、Switzerland、Singapore、Sweden、Norway、Austria、Kazakhstan、Algeria、Chile、Czechia、Peru、Iraq、Israel、Ukraine、Denmark、Portugal、Hungary、Greece、Finland、NewZealand、Belarus、Slovakia、Serbia、Lithuania、Luxembourg、Estonia。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Select the country whose X/Twitter trends should be returned.",
+              "zh_Hans": "选择要获取 X/Twitter 趋势的国家。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
           "default": "UnitedStates",
           "enum": [
             "UnitedStates",
@@ -6391,26 +6410,7 @@
             "Lithuania",
             "Luxembourg",
             "Estonia"
-          ],
-          "display_name": {
-            "en_US": "Country",
-            "zh_Hans": "国家"
-          },
-          "ai": {
-            "llm_description": {
-              "en_US": "Country for trending topics. Default is UnitedStates. Must be one of: UnitedStates, China, India, Japan, Russia, Germany, Indonesia, Brazil, France, UnitedKingdom, Turkey, Italy, Mexico, SouthKorea, Canada, Spain, SaudiArabia, Egypt, Australia, Poland, Iran, Pakistan, Vietnam, Nigeria, Bangladesh, Netherlands, Argentina, Philippines, Malaysia, Colombia, UniteArabEmirates, Romania, Belgium, Switzerland, Singapore, Sweden, Norway, Austria, Kazakhstan, Algeria, Chile, Czechia, Peru, Iraq, Israel, Ukraine, Denmark, Portugal, Hungary, Greece, Finland, NewZealand, Belarus, Slovakia, Serbia, Lithuania, Luxembourg, Estonia.",
-              "zh_Hans": "趋势国家，默认 UnitedStates。可选值：UnitedStates、China、India、Japan、Russia、Germany、Indonesia、Brazil、France、UnitedKingdom、Turkey、Italy、Mexico、SouthKorea、Canada、Spain、SaudiArabia、Egypt、Australia、Poland、Iran、Pakistan、Vietnam、Nigeria、Bangladesh、Netherlands、Argentina、Philippines、Malaysia、Colombia、UniteArabEmirates、Romania、Belgium、Switzerland、Singapore、Sweden、Norway、Austria、Kazakhstan、Algeria、Chile、Czechia、Peru、Iraq、Israel、Ukraine、Denmark、Portugal、Hungary、Greece、Finland、NewZealand、Belarus、Slovakia、Serbia、Lithuania、Luxembourg、Estonia。"
-            }
-          },
-          "ui": {
-            "component": "select",
-            "hint": {
-              "en_US": "Select the country whose X/Twitter trends should be returned.",
-              "zh_Hans": "选择要获取 X/Twitter 趋势的国家。"
-            },
-            "support_expression": true,
-            "width": "full"
-          }
+          ]
         }
       ]
     },
@@ -6428,25 +6428,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "tweet_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Tweet ID",
             "zh_Hans": "推文 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Tweet ID to fetch. It must be provided as a string to avoid numeric precision loss.",
@@ -6454,7 +6453,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Tweet ID from the X/Twitter status URL, passed as a string.",
               "zh_Hans": "X/Twitter 推文链接中的 status ID，会以字符串传递。"
@@ -6464,17 +6462,18 @@
               "zh_Hans": "1808168603721650364"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6482,7 +6481,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6492,8 +6490,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6511,25 +6511,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6537,7 +6536,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6547,17 +6545,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "rest_id",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "User ID",
             "zh_Hans": "用户 ID"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional X/Twitter user ID. Provide it as a string to avoid numeric precision loss; it takes priority over screen_name when both are provided.",
@@ -6565,7 +6564,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter numeric user ID, passed as a string. When provided together with screen_name, TikHub uses rest_id first.",
               "zh_Hans": "X/Twitter 数字用户 ID，会以字符串传递。与用户名同时提供时 TikHub 优先使用 rest_id。"
@@ -6575,17 +6573,18 @@
               "zh_Hans": "44196397"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6593,7 +6592,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6603,8 +6601,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6622,25 +6622,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6648,7 +6647,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6658,17 +6656,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6676,7 +6675,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6686,8 +6684,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6705,25 +6705,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "screen_name",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Screen Name",
             "zh_Hans": "用户名"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "X/Twitter screen name without @. Use this when rest_id is unavailable.",
@@ -6731,7 +6730,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "X/Twitter handle without @, for example elonmusk.",
               "zh_Hans": "不带 @ 的 X/Twitter 用户名，例如 elonmusk。"
@@ -6741,17 +6739,18 @@
               "zh_Hans": "elonmusk"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "cursor",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Cursor",
             "zh_Hans": "分页游标"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional pagination cursor. Pass the previous response cursor exactly as returned; do not parse or rewrite it.",
@@ -6759,7 +6758,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty for the first page. For pagination, paste the cursor from the previous TikHub response unchanged.",
               "zh_Hans": "首次请求留空。翻页时原样粘贴上一次 TikHub 响应中的游标。"
@@ -6769,8 +6767,10 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -6788,30 +6788,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "request_mode",
-          "type": "string",
-          "required": false,
-          "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ],
           "display_name": {
             "en_US": "Request Mode",
             "zh_Hans": "请求模式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
@@ -6819,23 +6813,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
               "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
           },
+          "required": true,
           "display": {
             "show": {
               "request_mode": "first_page"
@@ -6848,7 +6847,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
               "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
@@ -6858,16 +6856,22 @@
               "zh_Hans": "AI 产品评测"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
+          },
+          "required": true,
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -6876,7 +6880,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
               "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
@@ -6886,29 +6889,18 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
+            "width": "full",
+            "component": "input"
           },
-          "display": {
-            "show": {
-              "request_mode": "next_page"
-            }
-          }
+          "type": "string"
         },
         {
           "name": "upload_date",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ],
           "display_name": {
             "en_US": "Upload Date",
             "zh_Hans": "上传时间"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Upload date filter. Valid values from TikHub OpenAPI: last_hour, today, this_week, this_month, this_year.",
@@ -6916,29 +6908,30 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional upload date filter: last_hour, today, this_week, this_month, this_year.",
               "zh_Hans": "可选上传时间过滤：last_hour、today、this_week、this_month、this_year。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ]
         },
         {
           "name": "type",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "video",
-            "channel",
-            "playlist",
-            "movie"
-          ],
           "display_name": {
             "en_US": "Content Type",
             "zh_Hans": "内容类型"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Type filter. Valid values from TikHub OpenAPI: video, channel, playlist, movie.",
@@ -6946,28 +6939,29 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional type filter: video, channel, playlist, movie.",
               "zh_Hans": "可选类型过滤：video、channel、playlist、movie。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "video",
+            "channel",
+            "playlist",
+            "movie"
+          ]
         },
         {
           "name": "duration",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "short",
-            "medium",
-            "long"
-          ],
           "display_name": {
             "en_US": "Duration",
             "zh_Hans": "时长"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Duration filter. Valid values: short for under 4 minutes, medium for 4-20 minutes, long for over 20 minutes.",
@@ -6975,23 +6969,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional duration filter: short (<4m), medium (4-20m), long (>20m).",
               "zh_Hans": "可选时长过滤：short（4 分钟内）、medium（4-20 分钟）、long（20 分钟以上）。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "short",
+            "medium",
+            "long"
+          ]
         },
         {
           "name": "features",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Features",
             "zh_Hans": "特性过滤"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional comma-separated YouTube feature filter. Pass only valid values from the OpenAPI description.",
@@ -6999,29 +6998,23 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Comma-separated features: live, 4k, hd, subtitles, creative_commons, 360, vr180, 3d, hdr.",
               "zh_Hans": "逗号分隔特性：live、4k、hd、subtitles、creative_commons、360、vr180、3d、hdr。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "sort_by",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ],
           "display_name": {
             "en_US": "Sort By",
             "zh_Hans": "排序方式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort order. Valid values from TikHub OpenAPI: relevance, upload_date, view_count, rating.",
@@ -7029,14 +7022,21 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional sort: relevance, upload_date, view_count, rating.",
               "zh_Hans": "可选排序：relevance、upload_date、view_count、rating。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ]
         }
       ]
     },
@@ -7054,30 +7054,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "request_mode",
-          "type": "string",
-          "required": false,
-          "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ],
           "display_name": {
             "en_US": "Request Mode",
             "zh_Hans": "请求模式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
@@ -7085,23 +7079,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
               "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
           },
+          "required": true,
           "display": {
             "show": {
               "request_mode": "first_page"
@@ -7114,7 +7113,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
               "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
@@ -7124,16 +7122,22 @@
               "zh_Hans": "AI 产品评测"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
+          },
+          "required": true,
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7142,7 +7146,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
               "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
@@ -7152,29 +7155,18 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
+            "width": "full",
+            "component": "input"
           },
-          "display": {
-            "show": {
-              "request_mode": "next_page"
-            }
-          }
+          "type": "string"
         },
         {
           "name": "upload_date",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ],
           "display_name": {
             "en_US": "Upload Date",
             "zh_Hans": "上传时间"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Upload date filter for Shorts search. Valid values: last_hour, today, this_week, this_month, this_year.",
@@ -7182,29 +7174,30 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional upload date filter: last_hour, today, this_week, this_month, this_year.",
               "zh_Hans": "可选上传时间过滤：last_hour、today、this_week、this_month、this_year。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ]
         },
         {
           "name": "sort_by",
-          "type": "string",
-          "required": false,
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ],
           "display_name": {
             "en_US": "Sort By",
             "zh_Hans": "排序方式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Sort order for Shorts search. Valid values from TikHub OpenAPI: relevance, upload_date, view_count, rating.",
@@ -7212,14 +7205,21 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Optional sort: relevance, upload_date, view_count, rating.",
               "zh_Hans": "可选排序：relevance、upload_date、view_count、rating。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ]
         }
       ]
     },
@@ -7237,30 +7237,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "lookup_by",
-          "type": "string",
-          "required": false,
-          "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ],
           "display_name": {
             "en_US": "Lookup By",
             "zh_Hans": "查询方式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
@@ -7268,23 +7262,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
               "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ]
         },
         {
           "name": "video_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频 ID"
           },
+          "required": true,
           "display": {
             "show": {
               "lookup_by": "video_id"
@@ -7297,7 +7296,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "YouTube video ID as a string. When video_url is also provided, TikHub uses video_id first.",
               "zh_Hans": "YouTube 视频 ID，字符串。与 video_url 同时提供时优先使用 video_id。"
@@ -7307,17 +7305,18 @@
               "zh_Hans": "dQw4w9WgXcQ"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "video_url",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video URL",
             "zh_Hans": "视频 URL"
           },
+          "required": true,
           "display": {
             "show": {
               "lookup_by": "video_url"
@@ -7330,7 +7329,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Full YouTube URL. Used only when video_id is empty for endpoints that support both.",
               "zh_Hans": "完整 YouTube 链接。仅在 video_id 为空时使用。"
@@ -7340,18 +7338,18 @@
               "zh_Hans": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "need_format",
-          "type": "boolean",
-          "required": false,
-          "default": true,
           "display_name": {
             "en_US": "Format Response",
             "zh_Hans": "格式化结果"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
@@ -7359,13 +7357,15 @@
             }
           },
           "ui": {
-            "component": "switch",
             "hint": {
               "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
               "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
             },
-            "support_expression": true
-          }
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         }
       ]
     },
@@ -7383,30 +7383,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "lookup_by",
-          "type": "string",
-          "required": false,
-          "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ],
           "display_name": {
             "en_US": "Lookup By",
             "zh_Hans": "查询方式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Controls which video identifier is required in the form. video_id is preferred and takes priority if both values are provided.",
@@ -7414,23 +7408,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Use video_id when available. Choose video_url only when you do not have the ID.",
               "zh_Hans": "有视频 ID 时使用 video_id。没有 ID 时选择 video_url。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "video_id",
+          "enum": [
+            "video_id",
+            "video_url"
+          ]
         },
         {
           "name": "video_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频 ID"
           },
+          "required": true,
           "display": {
             "show": {
               "lookup_by": "video_id"
@@ -7443,7 +7442,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "YouTube video ID as a string. When video_url is also provided, TikHub uses video_id first.",
               "zh_Hans": "YouTube 视频 ID，字符串。与 video_url 同时提供时优先使用 video_id。"
@@ -7453,17 +7451,18 @@
               "zh_Hans": "dQw4w9WgXcQ"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "video_url",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video URL",
             "zh_Hans": "视频 URL"
           },
+          "required": true,
           "display": {
             "show": {
               "lookup_by": "video_url"
@@ -7476,7 +7475,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Full YouTube URL. Used only when video_id is empty for endpoints that support both.",
               "zh_Hans": "完整 YouTube 链接。仅在 video_id 为空时使用。"
@@ -7486,17 +7484,18 @@
               "zh_Hans": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "language_code",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Language Code",
             "zh_Hans": "字幕语言代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Caption language code. Omit it to discover available captions first, then pass one returned code unchanged.",
@@ -7504,7 +7503,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Leave empty to list available captions. Set a returned language code, such as en, zh-Hans, or a.en, to fetch captions.",
               "zh_Hans": "留空返回可用字幕列表。填入返回的语言代码（如 en、zh-Hans、a.en）获取字幕。"
@@ -7514,24 +7512,18 @@
               "zh_Hans": "en"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "format",
-          "type": "string",
-          "required": false,
-          "default": "srt",
-          "enum": [
-            "srt",
-            "xml",
-            "json3",
-            "txt"
-          ],
           "display_name": {
             "en_US": "Caption Format",
             "zh_Hans": "字幕格式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Caption output format. srt keeps timestamps, xml returns raw XML, json3 returns YouTube JSON, txt returns plain text.",
@@ -7539,14 +7531,22 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Default srt. Valid values: srt, xml, json3, txt.",
               "zh_Hans": "默认 srt。有效值：srt、xml、json3、txt。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "srt",
+          "enum": [
+            "srt",
+            "xml",
+            "json3",
+            "txt"
+          ]
         }
       ]
     },
@@ -7564,25 +7564,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "video_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Video ID",
             "zh_Hans": "视频 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "YouTube video ID used to fetch first-level comments. Pass it as a string.",
@@ -7590,7 +7589,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "11-character YouTube video ID.",
               "zh_Hans": "11 位 YouTube 视频 ID。"
@@ -7600,18 +7598,18 @@
               "zh_Hans": "dQw4w9WgXcQ"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "language_code",
-          "type": "string",
-          "required": false,
-          "default": "zh-CN",
           "display_name": {
             "en_US": "Language Code",
             "zh_Hans": "语言代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional language code. TikHub default is zh-CN.",
@@ -7619,7 +7617,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Language code passed to YouTube, default zh-CN.",
               "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
@@ -7629,18 +7626,19 @@
               "zh_Hans": "zh-CN"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "zh-CN"
         },
         {
           "name": "country_code",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Country Code",
             "zh_Hans": "国家代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional country code. TikHub default is US.",
@@ -7648,7 +7646,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Country code passed to YouTube, default US.",
               "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
@@ -7658,22 +7655,19 @@
               "zh_Hans": "US"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         },
         {
           "name": "sort_by",
-          "type": "string",
-          "required": false,
-          "default": "top",
-          "enum": [
-            "top",
-            "newest"
-          ],
           "display_name": {
             "en_US": "Sort By",
             "zh_Hans": "排序方式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Comment sorting. TikHub OpenAPI enum values are top and newest; default is top.",
@@ -7681,23 +7675,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Default top. Valid values: top, newest.",
               "zh_Hans": "默认 top。有效值：top、newest。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "top",
+          "enum": [
+            "top",
+            "newest"
+          ]
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
@@ -7705,7 +7704,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
               "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
@@ -7715,18 +7713,18 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "need_format",
-          "type": "boolean",
-          "required": false,
-          "default": true,
           "display_name": {
             "en_US": "Format Response",
             "zh_Hans": "格式化结果"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
@@ -7734,13 +7732,15 @@
             }
           },
           "ui": {
-            "component": "switch",
             "hint": {
               "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
               "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
             },
-            "support_expression": true
-          }
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         }
       ]
     },
@@ -7758,25 +7758,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Reply Continuation Token",
             "zh_Hans": "回复分页 Token"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "Required reply continuation token from first-level comments. Pass it exactly as returned; do not parse or modify it.",
@@ -7784,7 +7783,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Required opaque reply token from reply_continuation_token in a first-level comment response.",
               "zh_Hans": "必填。从一级评论响应的 reply_continuation_token 原样复制。"
@@ -7794,18 +7792,18 @@
               "zh_Hans": "reply_continuation_token"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "language_code",
-          "type": "string",
-          "required": false,
-          "default": "zh-CN",
           "display_name": {
             "en_US": "Language Code",
             "zh_Hans": "语言代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional language code. TikHub default is zh-CN.",
@@ -7813,7 +7811,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Language code passed to YouTube, default zh-CN.",
               "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
@@ -7823,18 +7820,19 @@
               "zh_Hans": "zh-CN"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "zh-CN"
         },
         {
           "name": "country_code",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Country Code",
             "zh_Hans": "国家代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional country code. TikHub default is US.",
@@ -7842,7 +7840,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Country code passed to YouTube, default US.",
               "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
@@ -7852,18 +7849,19 @@
               "zh_Hans": "US"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         },
         {
           "name": "need_format",
-          "type": "boolean",
-          "required": false,
-          "default": true,
           "display_name": {
             "en_US": "Format Response",
             "zh_Hans": "格式化结果"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
@@ -7871,13 +7869,15 @@
             }
           },
           "ui": {
-            "component": "switch",
             "hint": {
               "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
               "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
             },
-            "support_expression": true
-          }
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         }
       ]
     },
@@ -7895,30 +7895,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "request_mode",
-          "type": "string",
-          "required": false,
-          "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ],
           "display_name": {
             "en_US": "Request Mode",
             "zh_Hans": "请求模式"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Search request mode. first_page requires keyword; next_page requires continuation_token from the previous TikHub response.",
@@ -7926,23 +7920,28 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Use first_page for a new keyword search. Use next_page when continuing from a previous response token.",
               "zh_Hans": "新的关键词搜索选择 first_page。使用上次响应 token 翻页时选择 next_page。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "first_page",
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Keyword",
             "zh_Hans": "关键词"
           },
+          "required": true,
           "display": {
             "show": {
               "request_mode": "first_page"
@@ -7955,7 +7954,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Required on the first search request. For pagination, you may pass only the continuation token.",
               "zh_Hans": "首次搜索必填。翻页时可只传 continuation token。"
@@ -7965,16 +7963,22 @@
               "zh_Hans": "AI 产品评测"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
+          },
+          "required": true,
+          "display": {
+            "show": {
+              "request_mode": "next_page"
+            }
           },
           "ai": {
             "llm_description": {
@@ -7983,7 +7987,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
               "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
@@ -7993,23 +7996,18 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
+            "width": "full",
+            "component": "input"
           },
-          "display": {
-            "show": {
-              "request_mode": "next_page"
-            }
-          }
+          "type": "string"
         },
         {
           "name": "need_format",
-          "type": "boolean",
-          "required": false,
-          "default": true,
           "display_name": {
             "en_US": "Format Response",
             "zh_Hans": "格式化结果"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
@@ -8017,13 +8015,15 @@
             }
           },
           "ui": {
-            "component": "switch",
             "hint": {
               "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
               "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
             },
-            "support_expression": true
-          }
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         }
       ]
     },
@@ -8041,25 +8041,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "channel_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Channel ID",
             "zh_Hans": "频道 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "YouTube channel ID. Provide it as a string for channel profile and historical video analysis.",
@@ -8067,7 +8066,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "YouTube channel ID as a string, for example UC...",
               "zh_Hans": "YouTube 频道 ID，字符串，例如 UC..."
@@ -8077,18 +8075,18 @@
               "zh_Hans": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "language_code",
-          "type": "string",
-          "required": false,
-          "default": "zh-CN",
           "display_name": {
             "en_US": "Language Code",
             "zh_Hans": "语言代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional language code. TikHub default is zh-CN.",
@@ -8096,7 +8094,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Language code passed to YouTube, default zh-CN.",
               "zh_Hans": "传给 YouTube 的语言代码，默认 zh-CN。"
@@ -8106,18 +8103,19 @@
               "zh_Hans": "zh-CN"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "zh-CN"
         },
         {
           "name": "country_code",
-          "type": "string",
-          "required": false,
-          "default": "US",
           "display_name": {
             "en_US": "Country Code",
             "zh_Hans": "国家代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional country code. TikHub default is US.",
@@ -8125,7 +8123,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Country code passed to YouTube, default US.",
               "zh_Hans": "传给 YouTube 的国家代码，默认 US。"
@@ -8135,17 +8132,19 @@
               "zh_Hans": "US"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "US"
         },
         {
           "name": "continuation_token",
-          "type": "string",
-          "required": false,
           "display_name": {
             "en_US": "Continuation Token",
             "zh_Hans": "分页 Token"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Pagination continuation token. Treat it as an opaque string from the previous response; do not parse, decode, or modify it.",
@@ -8153,7 +8152,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Opaque token from the previous TikHub response. Pass it unchanged.",
               "zh_Hans": "上一次 TikHub 响应返回的不透明 token，必须原样传入。"
@@ -8163,18 +8161,18 @@
               "zh_Hans": "首次请求留空"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         },
         {
           "name": "need_format",
-          "type": "boolean",
-          "required": false,
-          "default": true,
           "display_name": {
             "en_US": "Format Response",
             "zh_Hans": "格式化结果"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Whether TikHub should return cleaned, formatted data. Default is true; set false only when raw TikHub data is required.",
@@ -8182,13 +8180,15 @@
             }
           },
           "ui": {
-            "component": "switch",
             "hint": {
               "en_US": "Default true. Keep enabled for structured workflow and LLM-friendly fields.",
               "zh_Hans": "默认 true。建议保持开启，便于工作流和 LLM 使用结构化字段。"
             },
-            "support_expression": true
-          }
+            "support_expression": true,
+            "component": "switch"
+          },
+          "type": "boolean",
+          "default": true
         }
       ]
     },
@@ -8206,25 +8206,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "channel_id",
-          "type": "string",
-          "required": true,
           "display_name": {
             "en_US": "Channel ID",
             "zh_Hans": "频道 ID"
           },
+          "required": true,
           "ai": {
             "llm_description": {
               "en_US": "YouTube channel ID. Provide it as a string for channel profile and historical video analysis.",
@@ -8232,7 +8231,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "YouTube channel ID as a string, for example UC...",
               "zh_Hans": "YouTube 频道 ID，字符串，例如 UC..."
@@ -8242,8 +8240,10 @@
               "zh_Hans": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     },
@@ -8261,26 +8261,24 @@
       "parameters": [
         {
           "name": "credential_id",
-          "type": "credential_id",
-          "required": true,
-          "credential_name": "tikhub-api-key",
           "display_name": {
             "en_US": "Credential",
             "zh_Hans": "凭证"
           },
+          "required": true,
           "ui": {
             "component": "credential-select"
-          }
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
         },
         {
           "name": "language_code",
-          "type": "string",
-          "required": false,
-          "default": "en",
           "display_name": {
             "en_US": "Language Code",
             "zh_Hans": "语言代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional language code for YouTube trending videos. Default is en.",
@@ -8288,7 +8286,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Language code. TikHub default is en.",
               "zh_Hans": "语言代码。TikHub 默认值为 en。"
@@ -8298,18 +8295,19 @@
               "zh_Hans": "en"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "en"
         },
         {
           "name": "country_code",
-          "type": "string",
-          "required": false,
-          "default": "us",
           "display_name": {
             "en_US": "Country Code",
             "zh_Hans": "国家代码"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Optional country code for regional trending videos. Default is us.",
@@ -8317,7 +8315,6 @@
             }
           },
           "ui": {
-            "component": "input",
             "hint": {
               "en_US": "Country code. TikHub default is us.",
               "zh_Hans": "国家代码。TikHub 默认值为 us。"
@@ -8327,24 +8324,19 @@
               "zh_Hans": "us"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": "us"
         },
         {
           "name": "section",
-          "type": "string",
-          "required": false,
-          "default": "Now",
-          "enum": [
-            "Now",
-            "Music",
-            "Gaming",
-            "Movies"
-          ],
           "display_name": {
             "en_US": "Section",
             "zh_Hans": "趋势分区"
           },
+          "required": false,
           "ai": {
             "llm_description": {
               "en_US": "Trending section. Default is Now. Description lists optional values Music, Gaming, and Movies; Now is included because it is the schema default.",
@@ -8352,14 +8344,1158 @@
             }
           },
           "ui": {
-            "component": "select",
             "hint": {
               "en_US": "Default Now. Valid values from the description: Now, Music, Gaming, Movies.",
               "zh_Hans": "默认 Now。描述中的有效值：Now、Music、Gaming、Movies。"
             },
             "support_expression": true,
-            "width": "full"
-          }
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "Now",
+          "enum": [
+            "Now",
+            "Music",
+            "Gaming",
+            "Movies"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_advanced_search",
+      "display_name": {
+        "en_US": "Weibo · Advanced Search",
+        "zh_Hans": "微博 · 高级搜索"
+      },
+      "description": {
+        "en_US": "Search Weibo by keyword with type, media, time-scope, and page filters for social listening.",
+        "zh_Hans": "按关键词高级搜索微博，支持类型、媒体、时间范围和页码筛选。"
+      },
+      "icon": "🔎",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "q",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword used for Weibo advanced search.",
+              "zh_Hans": "微博高级搜索使用的必填关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Required Weibo search keyword.",
+              "zh_Hans": "必填微博搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "AI product launch",
+              "zh_Hans": "AI 产品发布"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "search_type",
+          "display_name": {
+            "en_US": "Search Type",
+            "zh_Hans": "搜索类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Search type. Valid values: all, hot, original, verified, media, viewpoint.",
+              "zh_Hans": "搜索类型。有效值：all、hot、original、verified、media、viewpoint。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional: all, hot, original, verified, media, or viewpoint.",
+              "zh_Hans": "可选：all、hot、original、verified、media、viewpoint。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "all",
+            "hot",
+            "original",
+            "verified",
+            "media",
+            "viewpoint"
+          ]
+        },
+        {
+          "name": "include_type",
+          "display_name": {
+            "en_US": "Include Type",
+            "zh_Hans": "包含类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Included content type. Valid values: all, pic, video, music, link.",
+              "zh_Hans": "包含内容类型。有效值：all、pic、video、music、link。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional: all, pic, video, music, or link.",
+              "zh_Hans": "可选：all、pic、video、music、link。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "all",
+            "pic",
+            "video",
+            "music",
+            "link"
+          ]
+        },
+        {
+          "name": "timescope",
+          "display_name": {
+            "en_US": "Time Scope",
+            "zh_Hans": "时间范围"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo time scope string. Keep the upstream format, for example custom:start-date-hour:end-date-hour.",
+              "zh_Hans": "可选微博时间范围字符串。保持上游格式，例如 custom:开始日期小时:结束日期小时。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional format: custom:start-date-hour:end-date-hour.",
+              "zh_Hans": "可选格式：custom:开始日期小时:结束日期小时。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number for Weibo pagination. Default is 1.",
+              "zh_Hans": "微博分页页码，默认 1。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number. Defaults to 1 for the first request.",
+              "zh_Hans": "页码。首次请求默认 1。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_realtime_search",
+      "display_name": {
+        "en_US": "Weibo · Realtime Search",
+        "zh_Hans": "微博 · 实时搜索"
+      },
+      "description": {
+        "en_US": "Fetch the latest Weibo posts sorted by time for real-time monitoring and incident tracking.",
+        "zh_Hans": "按时间获取最新微博，用于实时舆情、新增内容和突发事件监测。"
+      },
+      "icon": "🔎",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "query",
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword used to fetch latest Weibo search results.",
+              "zh_Hans": "用于获取最新微博搜索结果的必填关键词。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Required keyword for realtime Weibo search.",
+              "zh_Hans": "实时微博搜索的必填关键词。"
+            },
+            "placeholder": {
+              "en_US": "brand name",
+              "zh_Hans": "品牌名"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number for Weibo pagination. Default is 1.",
+              "zh_Hans": "微博分页页码，默认 1。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number. Defaults to 1 for the first request.",
+              "zh_Hans": "页码。首次请求默认 1。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_hot_search_summary",
+      "display_name": {
+        "en_US": "Weibo · Hot Search Summary",
+        "zh_Hans": "微博 · 完整热搜榜"
+      },
+      "description": {
+        "en_US": "Fetch the complete Weibo hot search ranking, currently about 50 items, for topic discovery.",
+        "zh_Hans": "获取微博完整热搜榜单，当前约 50 条，用于热点发现和监测词扩展。"
+      },
+      "icon": "📈",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_post_detail",
+      "display_name": {
+        "en_US": "Weibo · Get Post Detail",
+        "zh_Hans": "微博 · 获取微博正文"
+      },
+      "description": {
+        "en_US": "Get complete Weibo post content, author information, and engagement metrics by post ID.",
+        "zh_Hans": "根据微博 ID 获取完整正文、作者信息和互动指标。"
+      },
+      "icon": "📝",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "id",
+          "display_name": {
+            "en_US": "Weibo Post ID",
+            "zh_Hans": "微博 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo post ID. It must be supplied as a string and should not be converted to a number.",
+              "zh_Hans": "微博 ID。必须以字符串提供，不要转换为数字。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Weibo post ID, passed as a string to avoid numeric precision loss.",
+              "zh_Hans": "微博 ID，以字符串传递，避免数字精度丢失。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "is_get_long_text",
+          "display_name": {
+            "en_US": "Get Long Text",
+            "zh_Hans": "获取长微博全文"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to get full long Weibo text. Must be one of string values: true, false. Default is true.",
+              "zh_Hans": "是否获取长微博全文。必须是字符串值：true、false。默认 true。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Defaults to true. Keep as a string because TikHub OpenAPI requires true/false strings.",
+              "zh_Hans": "默认 true。根据 TikHub OpenAPI 要求以 true/false 字符串传递。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "true",
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_post_comments",
+      "display_name": {
+        "en_US": "Weibo · Get Post Comments",
+        "zh_Hans": "微博 · 获取一级评论"
+      },
+      "description": {
+        "en_US": "Fetch first-level comments for a Weibo post with count and max_id pagination.",
+        "zh_Hans": "根据微博 ID 获取一级评论，支持 count 和 max_id 翻页。"
+      },
+      "icon": "💬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "id",
+          "display_name": {
+            "en_US": "Weibo Post ID",
+            "zh_Hans": "微博 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo post ID. It must be supplied as a string and should not be converted to a number.",
+              "zh_Hans": "微博 ID。必须以字符串提供，不要转换为数字。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Weibo post ID, passed as a string to avoid numeric precision loss.",
+              "zh_Hans": "微博 ID，以字符串传递，避免数字精度丢失。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of comments requested from TikHub. Default is 10.",
+              "zh_Hans": "请求的一级评论数量，默认 10。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of comments to fetch. Defaults to 10.",
+              "zh_Hans": "一级评论数量，默认 10。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 10
+        },
+        {
+          "name": "max_id",
+          "display_name": {
+            "en_US": "Max ID",
+            "zh_Hans": "分页 max_id"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque Weibo pagination value. Pass the previous response max_id exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "微博不透明分页值。必须原样传入上次响应返回的 max_id，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for the first request. For pagination, pass the max_id from the previous response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样传入上次响应返回的 max_id。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_post_sub_comments",
+      "display_name": {
+        "en_US": "Weibo · Get Post Sub-comments",
+        "zh_Hans": "微博 · 获取子评论"
+      },
+      "description": {
+        "en_US": "Fetch replies under a first-level Weibo comment using the main comment ID.",
+        "zh_Hans": "根据一级评论 ID 获取评论回复，支持 count 和 max_id 翻页。"
+      },
+      "icon": "💬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "id",
+          "display_name": {
+            "en_US": "Main Comment ID",
+            "zh_Hans": "主评论 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Main first-level comment ID used to fetch replies. Provide it as a string and do not convert it to a number.",
+              "zh_Hans": "用于获取回复的一级评论 ID。请以字符串提供，不要转换为数字。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "First-level Weibo comment ID, not the post ID.",
+              "zh_Hans": "一级微博评论 ID，不是微博 ID。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "数量"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of sub-comments requested from TikHub. Default is 10.",
+              "zh_Hans": "请求的子评论数量，默认 10。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Number of sub-comments to fetch. Defaults to 10.",
+              "zh_Hans": "子评论数量，默认 10。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 10
+        },
+        {
+          "name": "max_id",
+          "display_name": {
+            "en_US": "Max ID",
+            "zh_Hans": "分页 max_id"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque Weibo pagination value. Pass the previous response max_id exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "微博不透明分页值。必须原样传入上次响应返回的 max_id，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for the first request. For pagination, pass the max_id from the previous response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样传入上次响应返回的 max_id。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_user_search",
+      "display_name": {
+        "en_US": "Weibo · Search Users",
+        "zh_Hans": "微博 · 搜索用户"
+      },
+      "description": {
+        "en_US": "Search Weibo users by keyword and profile filters for competitor, audience, and lead discovery.",
+        "zh_Hans": "按关键词和用户筛选条件搜索微博用户，用于竞对、受众和潜客发现。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "query",
+          "display_name": {
+            "en_US": "Query",
+            "zh_Hans": "搜索词"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo user search keyword. Providing it performs broad user search; leaving it empty applies only filters.",
+              "zh_Hans": "可选微博用户搜索关键词。提供则执行全部搜索；留空则仅应用筛选条件。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional user search keyword. If empty, only advanced filters are applied.",
+              "zh_Hans": "可选用户搜索关键词。留空时仅应用高级筛选参数。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number for Weibo pagination. Default is 1.",
+              "zh_Hans": "微博分页页码，默认 1。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number. Defaults to 1 for the first request.",
+              "zh_Hans": "页码。首次请求默认 1。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "region",
+          "display_name": {
+            "en_US": "Region Code",
+            "zh_Hans": "地区编码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo region code. Treat it as an upstream code string and pass it unchanged.",
+              "zh_Hans": "可选微博地区编码。作为上游编码字符串原样传递。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional Weibo region code. This release does not add city-list lookup.",
+              "zh_Hans": "可选微博地区编码。本期不新增城市列表查询。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "auth",
+          "display_name": {
+            "en_US": "Auth Type",
+            "zh_Hans": "认证类型"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo user auth filter. Valid values: org_vip for organization, per_vip for personal verified, ord for ordinary.",
+              "zh_Hans": "微博用户认证筛选。有效值：org_vip 机构认证、per_vip 个人认证、ord 普通用户。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional: org_vip, per_vip, or ord.",
+              "zh_Hans": "可选：org_vip、per_vip、ord。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "org_vip",
+            "per_vip",
+            "ord"
+          ]
+        },
+        {
+          "name": "gender",
+          "display_name": {
+            "en_US": "Gender",
+            "zh_Hans": "性别"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo gender filter. Valid values: man, women.",
+              "zh_Hans": "微博性别筛选。有效值：man、women。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional: man or women.",
+              "zh_Hans": "可选：man 或 women。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "man",
+            "women"
+          ]
+        },
+        {
+          "name": "age",
+          "display_name": {
+            "en_US": "Age Bucket",
+            "zh_Hans": "年龄段"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo age bucket filter. Valid values: 18y, 22y, 29y, 39y, 40y.",
+              "zh_Hans": "微博年龄段筛选。有效值：18y、22y、29y、39y、40y。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional: 18y, 22y, 29y, 39y, or 40y.",
+              "zh_Hans": "可选：18y、22y、29y、39y、40y。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "enum": [
+            "18y",
+            "22y",
+            "29y",
+            "39y",
+            "40y"
+          ]
+        },
+        {
+          "name": "nickname",
+          "display_name": {
+            "en_US": "Nickname Filter",
+            "zh_Hans": "昵称筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo nickname filter.",
+              "zh_Hans": "可选微博昵称筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional nickname filter.",
+              "zh_Hans": "可选昵称筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "tag",
+          "display_name": {
+            "en_US": "Tag Filter",
+            "zh_Hans": "标签筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo user tag filter.",
+              "zh_Hans": "可选微博用户标签筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional user tag filter.",
+              "zh_Hans": "可选用户标签筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "school",
+          "display_name": {
+            "en_US": "School Filter",
+            "zh_Hans": "学校筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo user school filter.",
+              "zh_Hans": "可选微博用户学校筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional school filter.",
+              "zh_Hans": "可选学校筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "work",
+          "display_name": {
+            "en_US": "Company Filter",
+            "zh_Hans": "公司筛选"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo user company or work filter.",
+              "zh_Hans": "可选微博用户公司或工作筛选。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Optional company/work filter.",
+              "zh_Hans": "可选公司或工作筛选。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_user_info",
+      "display_name": {
+        "en_US": "Weibo · Get User Info",
+        "zh_Hans": "微博 · 获取用户资料"
+      },
+      "description": {
+        "en_US": "Get detailed Weibo user profile information by uid or custom username; uid takes priority.",
+        "zh_Hans": "根据 uid 或 custom 获取微博用户详细资料；两者同时提供时 uid 优先。"
+      },
+      "icon": "👤",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "uid",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional Weibo uid. Provide it as a string. At least one of uid or custom is required; uid has priority.",
+              "zh_Hans": "可选微博 uid。请以字符串提供。uid 和 custom 至少提供一个；uid 优先。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Weibo uid as a string. Provide uid or custom; uid takes priority.",
+              "zh_Hans": "微博 uid，字符串。uid 和 custom 至少提供一个；uid 优先。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "custom",
+          "display_name": {
+            "en_US": "Custom Username",
+            "zh_Hans": "自定义用户名"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional custom Weibo username. Use only when uid is unavailable; uid takes priority if both are provided.",
+              "zh_Hans": "可选微博自定义用户名。没有 uid 时使用；同时提供时 uid 优先。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Custom Weibo username. Used only when uid is empty.",
+              "zh_Hans": "微博自定义用户名。仅在 uid 为空时使用。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_user_posts",
+      "display_name": {
+        "en_US": "Weibo · Get User Posts",
+        "zh_Hans": "微博 · 获取用户微博"
+      },
+      "description": {
+        "en_US": "Fetch historical Weibo posts for a user with page, feature, and since_id pagination.",
+        "zh_Hans": "根据 uid 获取用户历史微博，支持 page、feature 和 since_id 翻页。"
+      },
+      "icon": "🗂️",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "uid",
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo uid. Provide it as a string for user profile or historical posts.",
+              "zh_Hans": "微博 uid。用于用户资料或历史微博查询，请以字符串提供。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Weibo uid, passed as a string to avoid numeric precision loss.",
+              "zh_Hans": "微博 uid，以字符串传递，避免数字精度丢失。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Page number for Weibo pagination. Default is 1.",
+              "zh_Hans": "微博分页页码，默认 1。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Page number. Defaults to 1 for the first request.",
+              "zh_Hans": "页码。首次请求默认 1。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "number-input"
+          },
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "feature",
+          "display_name": {
+            "en_US": "Feature Type",
+            "zh_Hans": "返回特征"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Feature type. Valid values: 0 for 10 basic posts, 1 for 20 extended posts, 2 for 20 image-related posts, 3 for 20 video-related posts. Default is 0.",
+              "zh_Hans": "返回特征。有效值：0 返回 10 条基础数据，1 返回 20 条扩展数据，2 返回 20 条图片相关数据，3 返回 20 条视频相关数据。默认 0。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Default 0. 0=10 basic, 1=20 extended, 2=20 image-related, 3=20 video-related.",
+              "zh_Hans": "默认 0。0=10 条基础，1=20 条扩展，2=20 条图片相关，3=20 条视频相关。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "select"
+          },
+          "type": "string",
+          "default": "0",
+          "enum": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "name": "since_id",
+          "display_name": {
+            "en_US": "Since ID",
+            "zh_Hans": "分页 since_id"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination identifier for user posts. Pass it exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "用户微博不透明分页标识。必须原样传入上次响应返回的 since_id，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for the first request. For pagination, pass the since_id from the previous response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样传入上次响应返回的 since_id。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "tikhub_weibo_post_reposts",
+      "display_name": {
+        "en_US": "Weibo · Get Post Reposts",
+        "zh_Hans": "微博 · 获取转发用户"
+      },
+      "description": {
+        "en_US": "Fetch repost users for a Weibo status using the App API supplemental endpoint.",
+        "zh_Hans": "使用 App API 补充接口，根据 status_id 获取微博转发列表。"
+      },
+      "icon": "🔁",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "required": true,
+          "ui": {
+            "component": "credential-select"
+          },
+          "type": "credential_id",
+          "credential_name": "tikhub-api-key"
+        },
+        {
+          "name": "status_id",
+          "display_name": {
+            "en_US": "Status ID",
+            "zh_Hans": "微博 status_id"
+          },
+          "required": true,
+          "ai": {
+            "llm_description": {
+              "en_US": "Weibo status_id used to fetch repost users. Provide it as a string; do not convert it to a number.",
+              "zh_Hans": "用于获取转发用户的微博 status_id。请以字符串提供，不要转换为数字。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Weibo status ID, passed as a string to avoid numeric precision loss.",
+              "zh_Hans": "微博 status_id，以字符串传递，避免数字精度丢失。"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
+        },
+        {
+          "name": "max_id",
+          "display_name": {
+            "en_US": "Max ID",
+            "zh_Hans": "分页 max_id"
+          },
+          "required": false,
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque Weibo pagination value. Pass the previous response max_id exactly as returned; do not parse or rewrite it.",
+              "zh_Hans": "微博不透明分页值。必须原样传入上次响应返回的 max_id，不要解析或改写。"
+            }
+          },
+          "ui": {
+            "hint": {
+              "en_US": "Leave empty for the first request. For pagination, pass the max_id from the previous response unchanged.",
+              "zh_Hans": "首次请求留空。翻页时原样传入上次响应返回的 max_id。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full",
+            "component": "input"
+          },
+          "type": "string"
         }
       ]
     }

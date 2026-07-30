@@ -4,6 +4,8 @@ import { douyinSearchTools } from "./douyin/search"
 import { linkedinWebTools } from "./linkedin/web"
 import { tiktokAppV3Tools } from "./tiktok/app-v3"
 import { twitterWebTools } from "./twitter/web"
+import { weiboAppTools } from "./weibo/app"
+import { weiboWebV2Tools } from "./weibo/web-v2"
 import { xiaohongshuAppV2Tools } from "./xiaohongshu/app-v2"
 import { youtubeWebTools } from "./youtube/web"
 import { youtubeWebV2Tools } from "./youtube/web-v2"
@@ -17,4 +19,6 @@ export const allTools: ToolDefinition[] = [
   ...twitterWebTools,
   ...youtubeWebV2Tools,
   ...youtubeWebTools,
+  ...weiboWebV2Tools,
+  ...weiboAppTools,
 ]
