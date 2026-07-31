@@ -29,7 +29,7 @@ export const tikhub_reddit_subreddit_feed: ToolDefinition = {
       "Fetch posts from a subreddit feed for community and topic analysis.",
     zh_Hans: "获取指定 Subreddit 的帖子 Feed，用于社区和话题分析。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

@@ -11165,7 +11165,7 @@
         "en_US": "Search Reddit posts, communities, comments, media, or people by keyword.",
         "zh_Hans": "按关键词搜索 Reddit 帖子、社区、评论、媒体或用户。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11243,7 +11243,8 @@
         {
           "name": "sort",
           "type": "string",
-          "required": false,
+          "required": true,
+          "default": "RELEVANCE",
           "enum": [
             "RELEVANCE",
             "HOT",
@@ -11257,15 +11258,15 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Sort method. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
-              "zh_Hans": "排序方式。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。"
+              "en_US": "Required sort method, default RELEVANCE. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
+              "zh_Hans": "必填排序方式，默认 RELEVANCE。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。"
             }
           },
           "ui": {
             "component": "select",
             "hint": {
-              "en_US": "Only for post, comment, and media. COMMENTS is only valid for post.",
-              "zh_Hans": "仅适用于 post、comment、media。COMMENTS 仅适用于 post。"
+              "en_US": "Required, default RELEVANCE. Sent for post, comment, and media; ignored for community and people. COMMENTS is only valid for post.",
+              "zh_Hans": "必填，默认 RELEVANCE。post、comment、media 会发送；community、people 会忽略。COMMENTS 仅适用于 post。"
             },
             "support_expression": true,
             "width": "full"
@@ -11426,7 +11427,7 @@
         "en_US": "Fetch current Reddit trending searches for topic discovery.",
         "zh_Hans": "获取 Reddit 当前热门搜索，用于热点发现和关键词扩展。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11477,7 +11478,7 @@
         "en_US": "Fetch title, body, author, subreddit, media metadata, and engagement stats for one Reddit post.",
         "zh_Hans": "获取单个 Reddit 帖子的标题、正文、作者、社区、媒体元数据和互动统计。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11611,7 +11612,7 @@
         "en_US": "Fetch first-level comments for a Reddit post and discover more.cursor values for replies.",
         "zh_Hans": "获取 Reddit 帖子的一级评论，并发现用于回复分页的 more.cursor。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11746,7 +11747,7 @@
         "en_US": "Fetch replies below a Reddit comment node using the opaque more.cursor value.",
         "zh_Hans": "使用不透明 more.cursor 获取 Reddit 评论节点下的回复。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11884,7 +11885,7 @@
         "en_US": "Fetch subreddit profile, description, member count, and creation metadata.",
         "zh_Hans": "获取 Subreddit 社区资料、描述、成员数和创建信息。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -11964,7 +11965,7 @@
         "en_US": "Fetch posts from a subreddit feed for community and topic analysis.",
         "zh_Hans": "获取指定 Subreddit 的帖子 Feed，用于社区和话题分析。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -12101,7 +12102,7 @@
         "en_US": "Fetch Reddit user profile data such as account age, karma, bio, verification, and badges.",
         "zh_Hans": "获取 Reddit 用户资料，包括账号时间、Karma、简介、认证和徽章等。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -12180,7 +12181,7 @@
         "en_US": "Fetch posts submitted by a Reddit user for historical behavior analysis.",
         "zh_Hans": "获取指定 Reddit 用户发布的帖子，用于历史观点和活跃社区分析。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",
@@ -12311,7 +12312,7 @@
         "en_US": "Fetch comments written by a Reddit user for opinion, need, complaint, and intent analysis.",
         "zh_Hans": "获取指定 Reddit 用户发表的评论，用于观点、需求、抱怨和意向分析。"
       },
-      "icon": "🔴",
+      "icon": "👽",
       "parameters": [
         {
           "name": "credential_id",

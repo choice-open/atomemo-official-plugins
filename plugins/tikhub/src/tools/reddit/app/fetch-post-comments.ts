@@ -29,7 +29,7 @@ export const tikhub_reddit_post_comments: ToolDefinition = {
       "Fetch first-level comments for a Reddit post and discover more.cursor values for replies.",
     zh_Hans: "获取 Reddit 帖子的一级评论，并发现用于回复分页的 more.cursor。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

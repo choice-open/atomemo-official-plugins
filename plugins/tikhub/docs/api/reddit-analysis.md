@@ -20,7 +20,8 @@ tool. Set it to true only when you want TikHub to return cleaned/formatted data.
   - Searches Reddit by keyword across five search types:
     `post`, `community`, `comment`, `media`, and `people`.
   - `search_type` defaults to `post`.
-  - `sort` supports `RELEVANCE`, `HOT`, `TOP`, `NEW`, and `COMMENTS`.
+  - `sort` is required, defaults to `RELEVANCE`, and supports `RELEVANCE`,
+    `HOT`, `TOP`, `NEW`, and `COMMENTS`.
   - `time_range` supports `all`, `year`, `month`, `week`, `day`, and `hour`.
   - Applicability rules are enforced before the request:
     `post` and `media` may send `sort` and `time_range`; `comment` may send

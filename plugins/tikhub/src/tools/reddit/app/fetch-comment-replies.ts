@@ -30,7 +30,7 @@ export const tikhub_reddit_comment_replies: ToolDefinition = {
       "Fetch replies below a Reddit comment node using the opaque more.cursor value.",
     zh_Hans: "使用不透明 more.cursor 获取 Reddit 评论节点下的回复。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

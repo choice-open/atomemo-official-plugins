@@ -33,7 +33,7 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
       "Search Reddit posts, communities, comments, media, or people by keyword.",
     zh_Hans: "按关键词搜索 Reddit 帖子、社区、评论、媒体或用户。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({
@@ -72,17 +72,20 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
     redditSelectParameter({
       name: "sort",
       values: searchSortValues,
+      required: true,
+      default: "RELEVANCE",
       displayName: { en_US: "Sort", zh_Hans: "排序" },
       hint: {
         en_US:
-          "Only for post, comment, and media. COMMENTS is only valid for post.",
-        zh_Hans: "仅适用于 post、comment、media。COMMENTS 仅适用于 post。",
+          "Required, default RELEVANCE. Sent for post, comment, and media; ignored for community and people. COMMENTS is only valid for post.",
+        zh_Hans:
+          "必填，默认 RELEVANCE。post、comment、media 会发送；community、people 会忽略。COMMENTS 仅适用于 post。",
       },
       llmDescription: {
         en_US:
-          "Sort method. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
+          "Required sort method, default RELEVANCE. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
         zh_Hans:
-          "排序方式。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。",
+          "必填排序方式，默认 RELEVANCE。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。",
       },
     }),
     redditSelectParameter({
@@ -154,7 +157,7 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const searchType = readOptionalStringParam(p, "search_type") ?? "post"
-    const sort = readOptionalStringParam(p, "sort")
+    const sort = readOptionalStringParam(p, "sort") ?? "RELEVANCE"
     const timeRange = readOptionalStringParam(p, "time_range")
 
     if (sort === "COMMENTS" && searchType !== "post") {

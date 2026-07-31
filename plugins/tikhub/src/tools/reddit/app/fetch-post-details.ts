@@ -29,7 +29,7 @@ export const tikhub_reddit_post_details: ToolDefinition = {
     zh_Hans:
       "获取单个 Reddit 帖子的标题、正文、作者、社区、媒体元数据和互动统计。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

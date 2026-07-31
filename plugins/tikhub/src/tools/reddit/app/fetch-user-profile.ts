@@ -26,7 +26,7 @@ export const tikhub_reddit_user_profile: ToolDefinition = {
       "Fetch Reddit user profile data such as account age, karma, bio, verification, and badges.",
     zh_Hans: "获取 Reddit 用户资料，包括账号时间、Karma、简介、认证和徽章等。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

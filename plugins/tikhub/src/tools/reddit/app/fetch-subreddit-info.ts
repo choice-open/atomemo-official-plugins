@@ -26,7 +26,7 @@ export const tikhub_reddit_subreddit_info: ToolDefinition = {
       "Fetch subreddit profile, description, member count, and creation metadata.",
     zh_Hans: "获取 Subreddit 社区资料、描述、成员数和创建信息。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

@@ -31,7 +31,7 @@ export const tikhub_reddit_user_comments: ToolDefinition = {
       "Fetch comments written by a Reddit user for opinion, need, complaint, and intent analysis.",
     zh_Hans: "获取指定 Reddit 用户发表的评论，用于观点、需求、抱怨和意向分析。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({

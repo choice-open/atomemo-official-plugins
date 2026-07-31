@@ -23,7 +23,7 @@ export const tikhub_reddit_trending_searches: ToolDefinition = {
     en_US: "Fetch current Reddit trending searches for topic discovery.",
     zh_Hans: "获取 Reddit 当前热门搜索，用于热点发现和关键词扩展。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [credentialParameter, needFormatParameter],
   invoke: async ({ args }) => {
     const p = (args.parameters ?? {}) as Record<string, unknown>

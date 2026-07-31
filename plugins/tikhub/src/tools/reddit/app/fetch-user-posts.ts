@@ -29,7 +29,7 @@ export const tikhub_reddit_user_posts: ToolDefinition = {
       "Fetch posts submitted by a Reddit user for historical behavior analysis.",
     zh_Hans: "获取指定 Reddit 用户发布的帖子，用于历史观点和活跃社区分析。",
   },
-  icon: "🔴",
+  icon: "👽",
   parameters: [
     credentialParameter,
     redditStringParameter({
