@@ -2,6 +2,7 @@ import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
 import { douyinAppV3Tools } from "./douyin/app-v3"
 import { douyinSearchTools } from "./douyin/search"
 import { linkedinWebTools } from "./linkedin/web"
+import { redditAppTools } from "./reddit/app"
 import { tiktokAppV3Tools } from "./tiktok/app-v3"
 import { twitterWebTools } from "./twitter/web"
 import { wechatChannelsV2Tools } from "./wechat/channels-v2"
@@ -27,4 +28,5 @@ export const allTools: ToolDefinition[] = [
   ...wechatSearchV2Tools,
   ...wechatChannelsV2Tools,
   ...wechatMediaPlatformV2Tools,
+  ...redditAppTools,
 ]
