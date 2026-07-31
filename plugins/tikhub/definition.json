@@ -14,7 +14,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -14334,6 +14334,1120 @@
             "placeholder": {
               "en_US": "178360345",
               "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_video_search",
+      "display_name": {
+        "en_US": "Kuaishou · Video Search",
+        "zh_Hans": "快手 · 视频搜索"
+      },
+      "description": {
+        "en_US": "Search Kuaishou videos with the more stable V2 endpoint. This endpoint is higher-priced; check the latest price in the TikHub dashboard.",
+        "zh_Hans": "使用稳定性更好的 V2 接口搜索快手视频。该接口价格较高，请查看 TikHub 后台最新价格。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword for stable Kuaishou video search.",
+              "zh_Hans": "快手稳定版视频搜索的必填关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required keyword. This stable V2 endpoint is higher-priced; check the TikHub dashboard.",
+              "zh_Hans": "必填关键词。稳定版 V2 接口价格较高，请查看 TikHub 后台最新价格。"
+            },
+            "placeholder": {
+              "en_US": "Artificial intelligence",
+              "zh_Hans": "人工智能"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_user_search",
+      "display_name": {
+        "en_US": "Kuaishou · User Search",
+        "zh_Hans": "快手 · 用户搜索"
+      },
+      "description": {
+        "en_US": "Search Kuaishou users with the more stable V2 endpoint and relationship, gender, and fan-count filters. This endpoint is higher-priced; check the latest price in the TikHub dashboard.",
+        "zh_Hans": "使用稳定性更好的 V2 接口及关系、性别、粉丝数筛选搜索快手用户。该接口价格较高，请查看 TikHub 后台最新价格。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required user search keyword.",
+              "zh_Hans": "用户搜索必填关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required keyword. This stable V2 endpoint is higher-priced; check the TikHub dashboard.",
+              "zh_Hans": "必填关键词。稳定版 V2 接口价格较高，请查看 TikHub 后台最新价格。"
+            },
+            "placeholder": {
+              "en_US": "Artificial intelligence",
+              "zh_Hans": "人工智能"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "user_relation",
+          "type": "string",
+          "required": false,
+          "default": "all",
+          "enum": [
+            "all",
+            "same_city",
+            "verified",
+            "live",
+            "following"
+          ],
+          "display_name": {
+            "en_US": "Relationship",
+            "zh_Hans": "关系筛选"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Allowed values: all, same_city, verified, live, following.",
+              "zh_Hans": "只允许 all、same_city、verified、live、following。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default all.",
+              "zh_Hans": "OpenAPI 默认 all。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "user_gender",
+          "type": "string",
+          "required": false,
+          "default": "all",
+          "enum": [
+            "all",
+            "male",
+            "female"
+          ],
+          "display_name": {
+            "en_US": "Gender",
+            "zh_Hans": "性别筛选"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Allowed values: all, male, female.",
+              "zh_Hans": "只允许 all、male、female。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default all.",
+              "zh_Hans": "OpenAPI 默认 all。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "fans_sort",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": [
+            "default",
+            "most_to_least",
+            "least_to_most"
+          ],
+          "display_name": {
+            "en_US": "Fans Sort",
+            "zh_Hans": "粉丝数排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Allowed values: default, most_to_least, least_to_most.",
+              "zh_Hans": "只允许 default、most_to_least、least_to_most。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default default.",
+              "zh_Hans": "OpenAPI 默认 default。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_tag_search",
+      "display_name": {
+        "en_US": "Kuaishou · Tag Search",
+        "zh_Hans": "快手 · 话题标签搜索"
+      },
+      "description": {
+        "en_US": "Search Kuaishou topic tags by keyword.",
+        "zh_Hans": "按关键词搜索快手话题标签。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Tag Keyword",
+            "zh_Hans": "话题关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Kuaishou tag keyword.",
+              "zh_Hans": "快手话题标签搜索的必填关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required topic tag keyword.",
+              "zh_Hans": "必填话题标签关键词。"
+            },
+            "placeholder": {
+              "en_US": "Challenge",
+              "zh_Hans": "挑战"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_tag_feed",
+      "display_name": {
+        "en_US": "Kuaishou · Tag Feed",
+        "zh_Hans": "快手 · 话题聚合内容"
+      },
+      "description": {
+        "en_US": "Fetch hot, latest, image, or live aggregation results for a Kuaishou tag. It does not fetch live streams or media files.",
+        "zh_Hans": "获取快手话题的热门、最新、图片或直播聚合结果；不获取直播流或媒体文件。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "general_tag_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "General Tag ID",
+            "zh_Hans": "标签 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required tag identifier. Keep numeric and encoded identifiers as strings without rewriting them.",
+              "zh_Hans": "必填标签标识。数字或编码标识均按字符串原样保留。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required. Use a topic name or numeric ID from tag search; sound tags use their encoded string.",
+              "zh_Hans": "必填。话题标签使用标签名或搜索返回的数字 ID；声音标签使用其编码串。"
+            },
+            "placeholder": {
+              "en_US": "AI or 123456",
+              "zh_Hans": "人工智能 或 123456"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "tab",
+          "type": "string",
+          "required": false,
+          "default": "hot",
+          "enum": [
+            "hot",
+            "latest",
+            "image",
+            "live"
+          ],
+          "display_name": {
+            "en_US": "Tab",
+            "zh_Hans": "内容分类"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Allowed values: hot, latest, image, live.",
+              "zh_Hans": "只允许 hot、latest、image、live。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default hot. live returns aggregation only.",
+              "zh_Hans": "OpenAPI 默认 hot。live 仅返回聚合结果。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "tag_name",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Tag Name",
+            "zh_Hans": "标签显示名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional topic tag display name.",
+              "zh_Hans": "可选话题标签显示名。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Recommended for topic tags; use the exact tag name.",
+              "zh_Hans": "话题标签建议填写准确标签名。"
+            },
+            "placeholder": {
+              "en_US": "Artificial intelligence",
+              "zh_Hans": "人工智能"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "tag_type",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "display_name": {
+            "en_US": "Tag Type",
+            "zh_Hans": "标签类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tag type: 1 for topic, 29 for sound/music.",
+              "zh_Hans": "标签类型：1 为话题，29 为声音/音乐。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1. Use 1 for topics and 29 for sound/music tags.",
+              "zh_Hans": "OpenAPI 默认 1。话题使用 1，声音/音乐标签使用 29。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "tag_source",
+          "type": "integer",
+          "required": false,
+          "default": 2,
+          "display_name": {
+            "en_US": "Tag Source",
+            "zh_Hans": "标签来源"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Tag source: 2 for search, 3 for a photo sound tag.",
+              "zh_Hans": "标签来源：搜索使用 2，作品页声音标签使用 3。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 2. Use 2 from search or 3 from a photo sound tag.",
+              "zh_Hans": "OpenAPI 默认 2。搜索进入使用 2，作品页声音标签使用 3。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "from_photo_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Source Photo ID",
+            "zh_Hans": "源作品 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional source photo ID. Never convert long IDs to numbers.",
+              "zh_Hans": "可选源作品 ID。不要把长 ID 转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional source photoId. Keep it as a string.",
+              "zh_Hans": "可选源作品 photoId，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "3x7gxp2zhgjv832",
+              "zh_Hans": "3x7gxp2zhgjv832"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_video_details_by_url",
+      "display_name": {
+        "en_US": "Kuaishou · Video Details by URL",
+        "zh_Hans": "快手 · 分享链接作品详情"
+      },
+      "description": {
+        "en_US": "Fetch metadata for a Kuaishou post from its URL or complete share text without downloading media.",
+        "zh_Hans": "通过快手作品 URL 或完整分享文本获取元数据，不下载媒体。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "share_text",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Share Text",
+            "zh_Hans": "分享文本"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required post URL or share text. Do not use this tool to download media.",
+              "zh_Hans": "必填作品 URL 或分享文本。此工具不下载媒体。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Kuaishou post URL or complete share text containing the URL.",
+              "zh_Hans": "必填快手作品 URL，或包含 URL 的完整分享文本。"
+            },
+            "placeholder": {
+              "en_US": "https://v.kuaishou.com/cNYP0Z",
+              "zh_Hans": "https://v.kuaishou.com/cNYP0Z"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_video_comments",
+      "display_name": {
+        "en_US": "Kuaishou · Video Comments",
+        "zh_Hans": "快手 · 作品评论"
+      },
+      "description": {
+        "en_US": "Fetch first-level comments for a Kuaishou post.",
+        "zh_Hans": "获取快手作品的一级评论。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "photo_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Photo ID",
+            "zh_Hans": "作品 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Kuaishou photo ID. Never convert long numeric IDs to JavaScript numbers.",
+              "zh_Hans": "必填快手作品 ID。不要把长数字 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required numeric photoId or short eID. Keep it as a string.",
+              "zh_Hans": "必填数字 photoId 或短字符串 eID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "3x7gxp2zhgjv832",
+              "zh_Hans": "3x7gxp2zhgjv832"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_comment_replies",
+      "display_name": {
+        "en_US": "Kuaishou · Comment Replies",
+        "zh_Hans": "快手 · 评论回复"
+      },
+      "description": {
+        "en_US": "Fetch second-level replies under a Kuaishou root comment.",
+        "zh_Hans": "获取快手一级评论下的二级回复。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "photo_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Photo ID",
+            "zh_Hans": "作品 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required photo ID. Never convert long IDs to JavaScript numbers.",
+              "zh_Hans": "必填作品 ID。不要把长 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required numeric photoId or short eID. Keep it as a string.",
+              "zh_Hans": "必填数字 photoId 或短字符串 eID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "5218546261880462502",
+              "zh_Hans": "5218546261880462502"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "root_comment_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Root Comment ID",
+            "zh_Hans": "一级评论 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required root comment ID. Never convert it to a JavaScript number.",
+              "zh_Hans": "必填一级评论 ID。不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required root comment ID. Keep long IDs as strings.",
+              "zh_Hans": "必填一级评论 ID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "14000000123456789",
+              "zh_Hans": "14000000123456789"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "required": false,
+          "default": 8,
+          "minimum": 1,
+          "maximum": 20,
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reply count from 1 through 20. Default 8.",
+              "zh_Hans": "评论回复数量，范围 1-20，默认 8。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 8; allowed range 1-20.",
+              "zh_Hans": "OpenAPI 默认 8；允许范围 1-20。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_user_profile",
+      "display_name": {
+        "en_US": "Kuaishou · User Profile",
+        "zh_Hans": "快手 · 用户资料"
+      },
+      "description": {
+        "en_US": "Fetch a Kuaishou user profile by eID or numeric userId with the more stable V2 endpoint. This endpoint is higher-priced; check the latest price in the TikHub dashboard.",
+        "zh_Hans": "使用稳定性更好的 V2 接口，通过 eID 或数字 userId 获取快手用户资料。该接口价格较高，请查看 TikHub 后台最新价格。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required eID or numeric userId. Keep it as a string; use the returned numeric userId for the user videos tool.",
+              "zh_Hans": "必填 eID 或数字 userId。按字符串保留；用户投稿工具需使用资料响应中的纯数字 userId。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required eID or numeric userId. This stable V2 endpoint is higher-priced; check the TikHub dashboard.",
+              "zh_Hans": "必填 eID 或数字 userId。稳定版 V2 接口价格较高，请查看 TikHub 后台最新价格。"
+            },
+            "placeholder": {
+              "en_US": "3xz63mn6fngqtiq",
+              "zh_Hans": "3xz63mn6fngqtiq"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_user_videos",
+      "display_name": {
+        "en_US": "Kuaishou · User Videos",
+        "zh_Hans": "快手 · 用户投稿"
+      },
+      "description": {
+        "en_US": "Fetch latest or hot Kuaishou user posts with the more stable V2 endpoint. It requires a numeric userId, not an eID. This endpoint is higher-priced; check the latest price in the TikHub dashboard.",
+        "zh_Hans": "使用稳定性更好的 V2 接口获取快手用户最新或热门投稿。只接受纯数字 userId，不接受 eID。该接口价格较高，请查看 TikHub 后台最新价格。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Numeric User ID",
+            "zh_Hans": "纯数字用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required digits-only userId. Resolve eIDs with the user profile tool first and keep the numeric ID as a string.",
+              "zh_Hans": "必填纯数字 userId。先用用户资料工具解析 eID，并将数字 ID 作为字符串保留。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required numeric userId from the user profile response; eIDs are rejected. This stable V2 endpoint is higher-priced.",
+              "zh_Hans": "必填用户资料响应中的纯数字 userId；拒绝 eID。稳定版 V2 接口价格较高。"
+            },
+            "placeholder": {
+              "en_US": "903511772",
+              "zh_Hans": "903511772"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pcursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Pagination Cursor",
+            "zh_Hans": "分页游标"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Never parse, decode, rewrite, or convert it to a number.",
+              "zh_Hans": "不透明分页游标。不要解析、解码、改写或转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass the pcursor returned by the previous response unchanged.",
+              "zh_Hans": "第一页留空。翻页时将上一页响应的 pcursor 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "Opaque pcursor",
+              "zh_Hans": "不透明 pcursor"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "default": "latest",
+          "enum": [
+            "latest",
+            "hot"
+          ],
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Allowed values: latest, hot.",
+              "zh_Hans": "只允许 latest、hot。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default latest.",
+              "zh_Hans": "OpenAPI 默认 latest。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_hot_board_categories",
+      "display_name": {
+        "en_US": "Kuaishou · Hot Board Categories",
+        "zh_Hans": "快手 · 热榜分类"
+      },
+      "description": {
+        "en_US": "Fetch Kuaishou hot board categories and the boardType/boardId values needed for board details.",
+        "zh_Hans": "获取快手热榜分类，以及热榜详情所需的 boardType/boardId。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_kuaishou_hot_board_details",
+      "display_name": {
+        "en_US": "Kuaishou · Hot Board Details",
+        "zh_Hans": "快手 · 热榜详情"
+      },
+      "description": {
+        "en_US": "Fetch a Kuaishou hot board using integer boardType and boardId values returned by hot board categories.",
+        "zh_Hans": "使用热榜分类返回的整数 boardType 和 boardId 获取快手热榜详情。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "boardType",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "display_name": {
+            "en_US": "Board Type",
+            "zh_Hans": "榜单类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Integer boardType returned by hot board categories.",
+              "zh_Hans": "热榜分类返回的整数 boardType。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "Integer from hot board categories. OpenAPI default 1.",
+              "zh_Hans": "来自热榜分类响应的整数。OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "boardId",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "display_name": {
+            "en_US": "Board ID",
+            "zh_Hans": "榜单 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Integer boardId returned by hot board categories. Never silently coerce string input.",
+              "zh_Hans": "热榜分类返回的整数 boardId。不要静默转换字符串输入。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "Integer from hot board categories. The live OpenAPI declares integer but has an invalid string default; this tool uses numeric 1.",
+              "zh_Hans": "来自热榜分类响应的整数。实时 OpenAPI 声明 integer 却给出错误字符串默认值；本工具使用数字 1。"
             },
             "support_expression": true,
             "width": "full"
