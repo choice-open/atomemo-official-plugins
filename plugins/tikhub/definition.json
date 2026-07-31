@@ -14,7 +14,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -13387,6 +13387,953 @@
             "placeholder": {
               "en_US": "1234567890123456789",
               "zh_Hans": "1234567890123456789"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_general_search",
+      "display_name": {
+        "en_US": "Bilibili · General Search",
+        "zh_Hans": "哔哩哔哩 · 综合搜索"
+      },
+      "description": {
+        "en_US": "Search Bilibili Web video results by keyword and sorting filters.",
+        "zh_Hans": "通过 Bilibili Web 按关键词和排序筛选搜索视频结果。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword for Bilibili Web general search. Prefer this tool for video discovery because Web results can provide BV IDs for downstream video tools.",
+              "zh_Hans": "Bilibili Web 综合搜索的必填关键词。视频发现优先使用此工具，因为 Web 结果可提供下游视频工具需要的 BV 号。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required search keyword.",
+              "zh_Hans": "必填搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "AI tools",
+              "zh_Hans": "AI 工具"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": true,
+          "enum": ["totalrank", "click", "pubdate", "dm", "stow"],
+          "display_name": {
+            "en_US": "Order",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "General search sort order. Allowed values are totalrank, click, pubdate, dm, and stow.",
+              "zh_Hans": "综合搜索排序方式。只允许 totalrank、click、pubdate、dm、stow。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Required. totalrank=comprehensive, click=views, pubdate=latest, dm=danmaku, stow=favorites.",
+              "zh_Hans": "必填。totalrank 综合，click 播放量，pubdate 最新，dm 弹幕，stow 收藏。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "page",
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required general search page number. Use 1 for the first page.",
+              "zh_Hans": "必填综合搜索页码。第一页使用 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "Required page number. Use 1 for the first page.",
+              "zh_Hans": "必填页码。第一页使用 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "page_size",
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required number of general search results per page.",
+              "zh_Hans": "必填综合搜索每页结果数量。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "Required number of results per page. OpenAPI example uses 42.",
+              "zh_Hans": "必填每页结果数量。OpenAPI 示例使用 42。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "duration",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "enum": [0, 1, 2, 3, 4],
+          "display_name": {
+            "en_US": "Duration",
+            "zh_Hans": "时长筛选"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional duration filter. Allowed values are 0, 1, 2, 3, and 4.",
+              "zh_Hans": "可选时长筛选。只允许 0、1、2、3、4。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. 0=all, 1=under 10 min, 2=10-30 min, 3=30-60 min, 4=over 60 min.",
+              "zh_Hans": "OpenAPI 默认 0。0 全部，1 10 分钟以下，2 10-30 分钟，3 30-60 分钟，4 60 分钟以上。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pubtime_begin_s",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "display_name": {
+            "en_US": "Publish Start",
+            "zh_Hans": "发布开始时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional publish start timestamp in seconds. Use 0 when not filtering.",
+              "zh_Hans": "可选发布时间起始秒级时间戳。不筛选时使用 0。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. Optional 10-digit Unix timestamp, less than end timestamp.",
+              "zh_Hans": "OpenAPI 默认 0。可选 10 位 Unix 时间戳，需小于结束时间。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pubtime_end_s",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "display_name": {
+            "en_US": "Publish End",
+            "zh_Hans": "发布结束时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional publish end timestamp in seconds. Use 0 when not filtering.",
+              "zh_Hans": "可选发布时间结束秒级时间戳。不筛选时使用 0。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. Optional 10-digit Unix timestamp, greater than start timestamp.",
+              "zh_Hans": "OpenAPI 默认 0。可选 10 位 Unix 时间戳，需大于开始时间。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_details",
+      "display_name": {
+        "en_US": "Bilibili · Video Details",
+        "zh_Hans": "哔哩哔哩 · 视频详情"
+      },
+      "description": {
+        "en_US": "Fetch details for a known Bilibili video by BV ID.",
+        "zh_Hans": "通过 BV 号获取已知 Bilibili 视频详情。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_subtitles",
+      "display_name": {
+        "en_US": "Bilibili · Video Subtitles",
+        "zh_Hans": "哔哩哔哩 · 视频字幕"
+      },
+      "description": {
+        "en_US": "Fetch subtitle information for a known Bilibili video part.",
+        "zh_Hans": "获取已知 Bilibili 视频分 P 的字幕信息。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "a_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "AID",
+            "zh_Hans": "视频 a_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video a_id. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 a_id。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video a_id from video details. Keep it as a string.",
+              "zh_Hans": "必填视频 a_id，通常来自视频详情响应。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "114006081739452",
+              "zh_Hans": "114006081739452"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "c_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "CID",
+            "zh_Hans": "视频 c_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video c_id. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 c_id。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video c_id from video details or parts. Keep it as a string.",
+              "zh_Hans": "必填视频 c_id，通常来自视频详情或分 P 信息。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "28400484458",
+              "zh_Hans": "28400484458"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_comments",
+      "display_name": {
+        "en_US": "Bilibili · Video Comments",
+        "zh_Hans": "哔哩哔哩 · 视频评论"
+      },
+      "description": {
+        "en_US": "Fetch first-level comments for a known Bilibili video.",
+        "zh_Hans": "获取已知 Bilibili 视频的一级评论。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comments page number. OpenAPI default is 1.",
+              "zh_Hans": "评论页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_comment_replies",
+      "display_name": {
+        "en_US": "Bilibili · Comment Replies",
+        "zh_Hans": "哔哩哔哩 · 评论回复"
+      },
+      "description": {
+        "en_US": "Fetch replies under a specific Bilibili video comment.",
+        "zh_Hans": "获取 Bilibili 视频下指定评论的回复。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "rpid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Reply ID",
+            "zh_Hans": "评论 rpid"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili comment rpid. Treat it as a string and never convert long IDs to JavaScript numbers.",
+              "zh_Hans": "必填 Bilibili 评论 rpid。按字符串处理，不要把长 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required parent comment rpid. Keep it as a string.",
+              "zh_Hans": "必填父评论 rpid。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "237109455120",
+              "zh_Hans": "237109455120"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reply page number. OpenAPI default is 1.",
+              "zh_Hans": "评论回复页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_danmaku",
+      "display_name": {
+        "en_US": "Bilibili · Video Danmaku",
+        "zh_Hans": "哔哩哔哩 · 视频弹幕"
+      },
+      "description": {
+        "en_US": "Fetch real-time danmaku for a known Bilibili video cid.",
+        "zh_Hans": "通过 Bilibili 视频 cid 获取实时弹幕。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "cid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "CID",
+            "zh_Hans": "视频 cid"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video cid. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 cid。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video cid from video details or parts. Keep it as a string.",
+              "zh_Hans": "必填视频 cid，通常来自视频详情或分 P 信息。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "1639235405",
+              "zh_Hans": "1639235405"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_profile",
+      "display_name": {
+        "en_US": "Bilibili · User Profile",
+        "zh_Hans": "哔哩哔哩 · 用户资料"
+      },
+      "description": {
+        "en_US": "Fetch Bilibili user profile information by UID.",
+        "zh_Hans": "通过 UID 获取 Bilibili 用户资料。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_videos",
+      "display_name": {
+        "en_US": "Bilibili · User Videos",
+        "zh_Hans": "哔哩哔哩 · 用户投稿视频"
+      },
+      "description": {
+        "en_US": "Fetch posted videos from a Bilibili user homepage.",
+        "zh_Hans": "获取 Bilibili 用户主页投稿视频。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User videos page number. OpenAPI default is 1.",
+              "zh_Hans": "用户投稿视频页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": false,
+          "default": "pubdate",
+          "enum": ["pubdate", "click", "stow"],
+          "display_name": {
+            "en_US": "Order",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User video sort order. Allowed values are pubdate, click, and stow.",
+              "zh_Hans": "用户投稿排序方式。只允许 pubdate、click、stow。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default pubdate. pubdate=latest, click=views, stow=favorites.",
+              "zh_Hans": "OpenAPI 默认 pubdate。pubdate 最新，click 播放量，stow 收藏量。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_dynamics",
+      "display_name": {
+        "en_US": "Bilibili · User Dynamics",
+        "zh_Hans": "哔哩哔哩 · 用户动态"
+      },
+      "description": {
+        "en_US": "Fetch dynamic posts from a Bilibili user.",
+        "zh_Hans": "获取 Bilibili 用户动态列表。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "offset",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "动态 offset"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque dynamic pagination offset. Do not parse, decode, rewrite, or synthesize it.",
+              "zh_Hans": "不透明动态分页 offset。不要解析、解码、改写或自行生成。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass returned offsets unchanged.",
+              "zh_Hans": "首页留空。翻页时将响应返回的 offset 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "953154282154098691",
+              "zh_Hans": "953154282154098691"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_up_stats",
+      "display_name": {
+        "en_US": "Bilibili · User UP Stats",
+        "zh_Hans": "哔哩哔哩 · UP 主播放获赞统计"
+      },
+      "description": {
+        "en_US": "Fetch total video views and likes for a Bilibili UP creator.",
+        "zh_Hans": "获取 Bilibili UP 主总播放和总获赞统计。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_relation_stats",
+      "display_name": {
+        "en_US": "Bilibili · User Relation Stats",
+        "zh_Hans": "哔哩哔哩 · 用户关注粉丝统计"
+      },
+      "description": {
+        "en_US": "Fetch following and follower counts for a Bilibili user.",
+        "zh_Hans": "获取 Bilibili 用户关注数和粉丝数。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
             },
             "support_expression": true,
             "width": "full"
