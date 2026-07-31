@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -12480,6 +12480,867 @@
               "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
             },
             "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_search",
+      "display_name": {
+        "en_US": "Instagram · Search",
+        "zh_Hans": "Instagram · 搜索"
+      },
+      "description": {
+        "en_US": "Search Instagram users, hashtags, and places by keyword.",
+        "zh_Hans": "按关键词搜索 Instagram 用户、话题标签和地点。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Query",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword for Instagram social listening, hashtag discovery, places, competitors, or potential customers.",
+              "zh_Hans": "Instagram 搜索必填关键词，可用于舆情、话题、地点、竞对或潜在客户发现。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram search keyword.",
+              "zh_Hans": "必填 Instagram 搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "taylorswift",
+              "zh_Hans": "taylorswift"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "users",
+            "hashtags",
+            "places"
+          ],
+          "display_name": {
+            "en_US": "Filter Type",
+            "zh_Hans": "筛选类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional result filter. Valid values: users, hashtags, places. Omit it to return all types.",
+              "zh_Hans": "可选结果筛选。有效值：users、hashtags、places。不传则返回全部类型。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Optional. Choose users, hashtags, or places. Leave empty to return all result types.",
+              "zh_Hans": "可选。选择 users、hashtags 或 places；留空返回全部类型。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_hashtag_posts",
+      "display_name": {
+        "en_US": "Instagram · Hashtag Posts",
+        "zh_Hans": "Instagram · 话题帖子"
+      },
+      "description": {
+        "en_US": "Fetch Instagram posts under a hashtag.",
+        "zh_Hans": "获取 Instagram 话题标签下的帖子。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "hashtag",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Hashtag",
+            "zh_Hans": "话题标签"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram hashtag name. Do not include the # prefix.",
+              "zh_Hans": "必填 Instagram 话题标签名称，不要包含 # 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required hashtag name without the # prefix.",
+              "zh_Hans": "必填话题标签名称，不带 # 前缀。"
+            },
+            "placeholder": {
+              "en_US": "cat",
+              "zh_Hans": "cat"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "end_cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "End Cursor",
+            "zh_Hans": "分页 end_cursor"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor for hashtag posts. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "话题帖子分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor. Pass the returned end_cursor unchanged.",
+              "zh_Hans": "可选不透明分页 cursor。翻页时原样传回 end_cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_post_by_url",
+      "display_name": {
+        "en_US": "Instagram · Post by URL",
+        "zh_Hans": "Instagram · 按 URL 获取帖子"
+      },
+      "description": {
+        "en_US": "Fetch full Instagram post details by post URL.",
+        "zh_Hans": "通过帖子 URL 获取 Instagram 帖子完整详情。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "post_url",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Post URL",
+            "zh_Hans": "帖子 URL"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram post URL. This tool uses the base V1 endpoint for fuller post data.",
+              "zh_Hans": "必填 Instagram 帖子 URL。本工具使用 V1 基础接口以获取更完整帖子数据。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram post URL.",
+              "zh_Hans": "必填 Instagram 帖子 URL。"
+            },
+            "placeholder": {
+              "en_US": "https://www.instagram.com/p/DPwhVB-jo9k/",
+              "zh_Hans": "https://www.instagram.com/p/DPwhVB-jo9k/"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_post_by_id",
+      "display_name": {
+        "en_US": "Instagram · Post by ID",
+        "zh_Hans": "Instagram · 按 ID 获取帖子"
+      },
+      "description": {
+        "en_US": "Fetch Instagram post details by post ID.",
+        "zh_Hans": "通过帖子 ID 获取 Instagram 帖子详情。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "post_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram post ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 帖子 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram post ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 帖子 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "3742637871112032100",
+              "zh_Hans": "3742637871112032100"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_post_comments",
+      "display_name": {
+        "en_US": "Instagram · Post Comments",
+        "zh_Hans": "Instagram · 帖子评论"
+      },
+      "description": {
+        "en_US": "Fetch comments for an Instagram post.",
+        "zh_Hans": "获取 Instagram 帖子评论列表。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "media_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Media ID",
+            "zh_Hans": "媒体 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram post media ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 帖子媒体 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram media ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 媒体 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "3766120364183949816",
+              "zh_Hans": "3766120364183949816"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_order",
+          "type": "string",
+          "required": false,
+          "default": "recent",
+          "enum": [
+            "popular",
+            "recent"
+          ],
+          "display_name": {
+            "en_US": "Sort Order",
+            "zh_Hans": "评论排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comment sort order. Valid values: popular, recent. OpenAPI default is recent.",
+              "zh_Hans": "评论排序。有效值：popular、recent。OpenAPI 默认 recent。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default recent. Choose popular or recent.",
+              "zh_Hans": "OpenAPI 默认 recent。可选 popular 或 recent。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "min_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Min ID",
+            "zh_Hans": "分页 min_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque comments pagination cursor from next_min_id. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "评论分页 cursor，来自 next_min_id。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor from next_min_id. Pass it unchanged.",
+              "zh_Hans": "可选不透明分页 cursor，来自 next_min_id，翻页时原样传回。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_comment_replies",
+      "display_name": {
+        "en_US": "Instagram · Comment Replies",
+        "zh_Hans": "Instagram · 评论回复"
+      },
+      "description": {
+        "en_US": "Fetch replies under an Instagram comment.",
+        "zh_Hans": "获取 Instagram 评论下的回复列表。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "media_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Media ID",
+            "zh_Hans": "媒体 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram post media ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 帖子媒体 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram media ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 媒体 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "3766120364183949816",
+              "zh_Hans": "3766120364183949816"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "评论 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required parent comment ID for replies. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填父评论 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required parent comment ID. Keep it as a string.",
+              "zh_Hans": "必填父评论 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "17871667485468098",
+              "zh_Hans": "17871667485468098"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "min_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Min ID",
+            "zh_Hans": "分页 min_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque replies pagination cursor from next_min_id. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "回复分页 cursor，来自 next_min_id。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor from next_min_id. Pass it unchanged.",
+              "zh_Hans": "可选不透明分页 cursor，来自 next_min_id，翻页时原样传回。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_user_profile",
+      "display_name": {
+        "en_US": "Instagram · User Profile",
+        "zh_Hans": "Instagram · 用户资料"
+      },
+      "description": {
+        "en_US": "Fetch detailed Instagram user profile data by username.",
+        "zh_Hans": "按用户名获取 Instagram 用户详细资料。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram username. Do not include @. This endpoint is in the Instagram-V1-API group even though its name contains v3.",
+              "zh_Hans": "必填 Instagram 用户名，不带 @。该接口名称含 v3，但属于 Instagram-V1-API 分组。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram username without @.",
+              "zh_Hans": "必填 Instagram 用户名，不带 @。"
+            },
+            "placeholder": {
+              "en_US": "instagram",
+              "zh_Hans": "instagram"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_user_posts",
+      "display_name": {
+        "en_US": "Instagram · User Posts",
+        "zh_Hans": "Instagram · 用户历史帖子"
+      },
+      "description": {
+        "en_US": "Fetch historical posts for an Instagram user.",
+        "zh_Hans": "获取 Instagram 用户历史帖子列表。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram user ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 用户 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram user ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 用户 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "25025320",
+              "zh_Hans": "25025320"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "required": false,
+          "default": 12,
+          "minimum": 1,
+          "maximum": 50,
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of posts per page. OpenAPI default is 12, range 1-50.",
+              "zh_Hans": "每页帖子数量。OpenAPI 默认 12，范围 1-50。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 12. Valid range: 1 to 50.",
+              "zh_Hans": "OpenAPI 默认 12。有效范围：1 到 50。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "max_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Max ID",
+            "zh_Hans": "分页 max_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor for user posts. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "用户帖子分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor. Pass max_id unchanged.",
+              "zh_Hans": "可选不透明分页 cursor。翻页时原样传回 max_id。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_user_reels",
+      "display_name": {
+        "en_US": "Instagram · User Reels",
+        "zh_Hans": "Instagram · 用户 Reels"
+      },
+      "description": {
+        "en_US": "Fetch Reels for an Instagram user.",
+        "zh_Hans": "获取 Instagram 用户 Reels 列表。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram user ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 用户 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram user ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 用户 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "25025320",
+              "zh_Hans": "25025320"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "required": false,
+          "default": 12,
+          "minimum": 1,
+          "maximum": 50,
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of Reels per page. OpenAPI default is 12, range 1-50.",
+              "zh_Hans": "每页 Reels 数量。OpenAPI 默认 12，范围 1-50。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 12. Valid range: 1 to 50.",
+              "zh_Hans": "OpenAPI 默认 12。有效范围：1 到 50。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "max_id",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "Max ID",
+            "zh_Hans": "分页 max_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor for user Reels. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "用户 Reels 分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor. Pass max_id unchanged.",
+              "zh_Hans": "可选不透明分页 cursor。翻页时原样传回 max_id。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_instagram_user_tagged_posts",
+      "display_name": {
+        "en_US": "Instagram · Tagged Posts",
+        "zh_Hans": "Instagram · 用户被标记帖子"
+      },
+      "description": {
+        "en_US": "Fetch posts where an Instagram user is tagged.",
+        "zh_Hans": "获取 Instagram 用户被标记的帖子列表。"
+      },
+      "icon": "📸",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Instagram user ID. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Instagram 用户 ID。按字符串处理，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Instagram user ID. Keep it as a string.",
+              "zh_Hans": "必填 Instagram 用户 ID，按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "25025320",
+              "zh_Hans": "25025320"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "required": false,
+          "default": 12,
+          "minimum": 1,
+          "maximum": 50,
+          "display_name": {
+            "en_US": "Count",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of tagged posts per page. OpenAPI default is 12, range 1-50.",
+              "zh_Hans": "每页被标记帖子数量。OpenAPI 默认 12，范围 1-50。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 12. Valid range: 1 to 50.",
+              "zh_Hans": "OpenAPI 默认 12。有效范围：1 到 50。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "end_cursor",
+          "type": "string",
+          "required": false,
+          "display_name": {
+            "en_US": "End Cursor",
+            "zh_Hans": "分页 end_cursor"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor for tagged posts. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "被标记帖子分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Optional opaque pagination cursor. Pass end_cursor unchanged.",
+              "zh_Hans": "可选不透明分页 cursor。翻页时原样传回 end_cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
           }
         }
       ]
