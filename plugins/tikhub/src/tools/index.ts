@@ -5,6 +5,7 @@ import { instagramV1Tools } from "./instagram/v1"
 import { linkedinWebTools } from "./linkedin/web"
 import { redditAppTools } from "./reddit/app"
 import { tiktokAppV3Tools } from "./tiktok/app-v3"
+import { toutiaoAppTools } from "./toutiao/app"
 import { twitterWebTools } from "./twitter/web"
 import { wechatChannelsV2Tools } from "./wechat/channels-v2"
 import { wechatMediaPlatformV2Tools } from "./wechat/media-platform-v2"
@@ -31,4 +32,5 @@ export const allTools: ToolDefinition[] = [
   ...wechatMediaPlatformV2Tools,
   ...redditAppTools,
   ...instagramV1Tools,
+  ...toutiaoAppTools,
 ]
