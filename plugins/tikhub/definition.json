@@ -11256,6 +11256,17 @@
             "en_US": "Sort",
             "zh_Hans": "排序"
           },
+          "display": {
+            "show": {
+              "search_type": {
+                "$in": [
+                  "post",
+                  "comment",
+                  "media"
+                ]
+              }
+            }
+          },
           "ai": {
             "llm_description": {
               "en_US": "Required sort method, default RELEVANCE. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
@@ -11287,6 +11298,16 @@
           "display_name": {
             "en_US": "Time Range",
             "zh_Hans": "时间范围"
+          },
+          "display": {
+            "show": {
+              "search_type": {
+                "$in": [
+                  "post",
+                  "media"
+                ]
+              }
+            }
           },
           "ai": {
             "llm_description": {
@@ -11555,6 +11576,11 @@
           "display_name": {
             "en_US": "Comment ID",
             "zh_Hans": "评论 ID"
+          },
+          "display": {
+            "show": {
+              "include_comment_id": true
+            }
           },
           "ai": {
             "llm_description": {

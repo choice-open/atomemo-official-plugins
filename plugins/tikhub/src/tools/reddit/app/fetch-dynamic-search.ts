@@ -87,6 +87,9 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
         zh_Hans:
           "必填排序方式，默认 RELEVANCE。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。",
       },
+      display: {
+        show: { search_type: { $in: ["post", "comment", "media"] } },
+      },
     }),
     redditSelectParameter({
       name: "time_range",
@@ -103,6 +106,7 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
         zh_Hans:
           "时间范围筛选。有效值：all、year、month、week、day、hour。仅 post/media 发送。",
       },
+      display: { show: { search_type: { $in: ["post", "media"] } } },
     }),
     redditSelectParameter({
       name: "safe_search",
@@ -159,13 +163,12 @@ export const tikhub_reddit_dynamic_search: ToolDefinition = {
     const searchType = readOptionalStringParam(p, "search_type") ?? "post"
     const sort = readOptionalStringParam(p, "sort") ?? "RELEVANCE"
     const timeRange = readOptionalStringParam(p, "time_range")
-
-    if (sort === "COMMENTS" && searchType !== "post") {
-      throw new Error("sort=COMMENTS is only valid when search_type is post.")
-    }
-
     const allowsSort = ["post", "comment", "media"].includes(searchType)
     const allowsTimeRange = ["post", "media"].includes(searchType)
+
+    if (allowsSort && sort === "COMMENTS" && searchType !== "post") {
+      throw new Error("sort=COMMENTS is only valid when search_type is post.")
+    }
 
     return invokeRedditGet(endpoint, args, {
       query: readTrimmedRequired(p, "query", "query"),

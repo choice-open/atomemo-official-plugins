@@ -83,6 +83,7 @@ export const tikhub_reddit_post_details: ToolDefinition = {
           "Reddit 评论 fullname。include_comment_id 为 true 时必填，保留 t1_ 前缀。",
       },
       placeholder: { en_US: "t1_xyz789", zh_Hans: "t1_xyz789" },
+      display: { show: { include_comment_id: true } },
     }),
     needFormatParameter,
   ],
@@ -90,7 +91,7 @@ export const tikhub_reddit_post_details: ToolDefinition = {
     const p = (args.parameters ?? {}) as Record<string, unknown>
     const includeCommentId =
       readOptionalBooleanParam(p, "include_comment_id") ?? false
-    const commentId = readRedditCommentId(p)
+    const commentId = includeCommentId ? readRedditCommentId(p) : undefined
     if (includeCommentId && !commentId) {
       throw new Error("comment_id is required when include_comment_id is true.")
     }

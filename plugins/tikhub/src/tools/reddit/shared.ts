@@ -71,6 +71,7 @@ export function redditStringParameter<Name extends string>(options: {
   hint: { en_US: string; zh_Hans: string }
   llmDescription: { en_US: string; zh_Hans: string }
   placeholder?: { en_US: string; zh_Hans: string }
+  display?: Property<Name>["display"]
 }): Property<Name> {
   return {
     name: options.name,
@@ -79,6 +80,7 @@ export function redditStringParameter<Name extends string>(options: {
     ...(options.default !== undefined ? { default: options.default } : {}),
     ...(options.pattern !== undefined ? { pattern: options.pattern } : {}),
     display_name: options.displayName,
+    ...(options.display !== undefined ? { display: options.display } : {}),
     ai: { llm_description: options.llmDescription },
     ui: {
       component: "input",
@@ -122,6 +124,7 @@ export function redditSelectParameter<Name extends string>(options: {
   displayName: { en_US: string; zh_Hans: string }
   hint: { en_US: string; zh_Hans: string }
   llmDescription: { en_US: string; zh_Hans: string }
+  display?: Property<Name>["display"]
 }): Property<Name> {
   return {
     name: options.name,
@@ -130,6 +133,7 @@ export function redditSelectParameter<Name extends string>(options: {
     ...(options.default !== undefined ? { default: options.default } : {}),
     enum: [...options.values],
     display_name: options.displayName,
+    ...(options.display !== undefined ? { display: options.display } : {}),
     ai: { llm_description: options.llmDescription },
     ui: {
       component: "select",
