@@ -10,10 +10,7 @@
   },
   "icon": "https://avatars.githubusercontent.com/u/119824398?v=4",
   "lang": "typescript",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
@@ -382,10 +379,7 @@
           },
           "type": "string",
           "default": "UNFOLDED",
-          "enum": [
-            "UNFOLDED",
-            "FOLDED"
-          ]
+          "enum": ["UNFOLDED", "FOLDED"]
         },
         {
           "name": "sort_strategy",
@@ -410,11 +404,7 @@
           },
           "type": "string",
           "default": "latest_v2",
-          "enum": [
-            "default",
-            "latest_v2",
-            "like_count"
-          ]
+          "enum": ["default", "latest_v2", "like_count"]
         }
       ]
     },
@@ -715,12 +705,7 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": [
-            "不限",
-            "视频笔记",
-            "普通笔记",
-            "直播笔记"
-          ]
+          "enum": ["不限", "视频笔记", "普通笔记", "直播笔记"]
         },
         {
           "name": "time_filter",
@@ -745,12 +730,7 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": [
-            "不限",
-            "一天内",
-            "一周内",
-            "半年内"
-          ]
+          "enum": ["不限", "一天内", "一周内", "半年内"]
         },
         {
           "name": "search_id",
@@ -1033,10 +1013,7 @@
           },
           "type": "string",
           "default": "trend",
-          "enum": [
-            "trend",
-            "time"
-          ]
+          "enum": ["trend", "time"]
         },
         {
           "name": "cursor_score",
@@ -1714,11 +1691,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "past_month",
-            "past_week",
-            "past_24h"
-          ]
+          "enum": ["past_month", "past_week", "past_24h"]
         },
         {
           "name": "sort_by",
@@ -1742,10 +1715,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "date_posted",
-            "relevance"
-          ]
+          "enum": ["date_posted", "relevance"]
         },
         {
           "name": "from_member",
@@ -1934,10 +1904,7 @@
           },
           "type": "string",
           "default": "relevance",
-          "enum": [
-            "relevance",
-            "recent"
-          ]
+          "enum": ["relevance", "recent"]
         },
         {
           "name": "post_type",
@@ -1962,10 +1929,7 @@
           },
           "type": "string",
           "default": "activity",
-          "enum": [
-            "activity",
-            "ugc"
-          ]
+          "enum": ["activity", "ugc"]
         }
       ]
     },
@@ -2534,10 +2498,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2562,12 +2523,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -2695,10 +2651,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2723,12 +2676,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -2856,10 +2804,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2884,12 +2829,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -3120,10 +3060,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         }
       ]
     },
@@ -3251,10 +3188,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -3279,12 +3213,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -5766,13 +5695,7 @@
           },
           "type": "string",
           "default": "Top",
-          "enum": [
-            "Top",
-            "Latest",
-            "Media",
-            "People",
-            "Lists"
-          ]
+          "enum": ["Top", "Latest", "Media", "People", "Lists"]
         },
         {
           "name": "cursor",
@@ -6823,10 +6746,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -6917,13 +6837,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ]
+          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
         },
         {
           "name": "type",
@@ -6948,12 +6862,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "video",
-            "channel",
-            "playlist",
-            "movie"
-          ]
+          "enum": ["video", "channel", "playlist", "movie"]
         },
         {
           "name": "duration",
@@ -6978,11 +6887,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "short",
-            "medium",
-            "long"
-          ]
+          "enum": ["short", "medium", "long"]
         },
         {
           "name": "features",
@@ -7031,12 +6936,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ]
+          "enum": ["relevance", "upload_date", "view_count", "rating"]
         }
       ]
     },
@@ -7089,10 +6989,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -7183,13 +7080,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ]
+          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
         },
         {
           "name": "sort_by",
@@ -7214,12 +7105,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ]
+          "enum": ["relevance", "upload_date", "view_count", "rating"]
         }
       ]
     },
@@ -7272,10 +7158,7 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ]
+          "enum": ["video_id", "video_url"]
         },
         {
           "name": "video_id",
@@ -7418,10 +7301,7 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ]
+          "enum": ["video_id", "video_url"]
         },
         {
           "name": "video_id",
@@ -7541,12 +7421,7 @@
           },
           "type": "string",
           "default": "srt",
-          "enum": [
-            "srt",
-            "xml",
-            "json3",
-            "txt"
-          ]
+          "enum": ["srt", "xml", "json3", "txt"]
         }
       ]
     },
@@ -7685,10 +7560,7 @@
           },
           "type": "string",
           "default": "top",
-          "enum": [
-            "top",
-            "newest"
-          ]
+          "enum": ["top", "newest"]
         },
         {
           "name": "continuation_token",
@@ -7930,10 +7802,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -8354,12 +8223,7 @@
           },
           "type": "string",
           "default": "Now",
-          "enum": [
-            "Now",
-            "Music",
-            "Gaming",
-            "Movies"
-          ]
+          "enum": ["Now", "Music", "Gaming", "Movies"]
         }
       ]
     },
@@ -8439,14 +8303,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "all",
-            "hot",
-            "original",
-            "verified",
-            "media",
-            "viewpoint"
-          ]
+          "enum": ["all", "hot", "original", "verified", "media", "viewpoint"]
         },
         {
           "name": "include_type",
@@ -8471,13 +8328,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "all",
-            "pic",
-            "video",
-            "music",
-            "link"
-          ]
+          "enum": ["all", "pic", "video", "music", "link"]
         },
         {
           "name": "timescope",
@@ -8710,10 +8561,7 @@
           },
           "type": "string",
           "default": "true",
-          "enum": [
-            "true",
-            "false"
-          ]
+          "enum": ["true", "false"]
         }
       ]
     },
@@ -9048,11 +8896,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "org_vip",
-            "per_vip",
-            "ord"
-          ]
+          "enum": ["org_vip", "per_vip", "ord"]
         },
         {
           "name": "gender",
@@ -9077,10 +8921,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "man",
-            "women"
-          ]
+          "enum": ["man", "women"]
         },
         {
           "name": "age",
@@ -9105,13 +8946,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "18y",
-            "22y",
-            "29y",
-            "39y",
-            "40y"
-          ]
+          "enum": ["18y", "22y", "29y", "39y", "40y"]
         },
         {
           "name": "nickname",
@@ -9386,12 +9221,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "2",
-            "3"
-          ]
+          "enum": ["0", "1", "2", "3"]
         },
         {
           "name": "since_id",
@@ -9617,11 +9447,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "latest",
-            "hot"
-          ]
+          "enum": ["default", "latest", "hot"]
         },
         {
           "name": "publish_time",
@@ -9647,12 +9473,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "day",
-            "week",
-            "half_year"
-          ]
+          "enum": ["all", "day", "week", "half_year"]
         },
         {
           "name": "offset",
@@ -9809,12 +9630,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "short",
-            "medium",
-            "long"
-          ]
+          "enum": ["all", "short", "medium", "long"]
         },
         {
           "name": "sort",
@@ -9840,11 +9656,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "latest",
-            "hot"
-          ]
+          "enum": ["default", "latest", "hot"]
         },
         {
           "name": "publish_time",
@@ -9870,12 +9682,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "day",
-            "week",
-            "half_year"
-          ]
+          "enum": ["all", "day", "week", "half_year"]
         },
         {
           "name": "offset",
@@ -10711,12 +10518,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "5",
-            "7",
-            "8"
-          ]
+          "enum": ["0", "5", "7", "8"]
         },
         {
           "name": "raw",
@@ -11213,13 +11015,7 @@
           "type": "string",
           "required": false,
           "default": "post",
-          "enum": [
-            "post",
-            "community",
-            "comment",
-            "media",
-            "people"
-          ],
+          "enum": ["post", "community", "comment", "media", "people"],
           "display_name": {
             "en_US": "Search Type",
             "zh_Hans": "搜索类型"
@@ -11245,13 +11041,7 @@
           "type": "string",
           "required": true,
           "default": "RELEVANCE",
-          "enum": [
-            "RELEVANCE",
-            "HOT",
-            "TOP",
-            "NEW",
-            "COMMENTS"
-          ],
+          "enum": ["RELEVANCE", "HOT", "TOP", "NEW", "COMMENTS"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -11259,11 +11049,7 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": [
-                  "post",
-                  "comment",
-                  "media"
-                ]
+                "$in": ["post", "comment", "media"]
               }
             }
           },
@@ -11287,14 +11073,7 @@
           "name": "time_range",
           "type": "string",
           "required": false,
-          "enum": [
-            "all",
-            "year",
-            "month",
-            "week",
-            "day",
-            "hour"
-          ],
+          "enum": ["all", "year", "month", "week", "day", "hour"],
           "display_name": {
             "en_US": "Time Range",
             "zh_Hans": "时间范围"
@@ -11302,10 +11081,7 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": [
-                  "post",
-                  "media"
-                ]
+                "$in": ["post", "media"]
               }
             }
           },
@@ -11330,10 +11106,7 @@
           "type": "string",
           "required": false,
           "default": "unset",
-          "enum": [
-            "unset",
-            "strict"
-          ],
+          "enum": ["unset", "strict"],
           "display_name": {
             "en_US": "Safe Search",
             "zh_Hans": "安全搜索"
@@ -11359,10 +11132,7 @@
           "type": "string",
           "required": false,
           "default": "0",
-          "enum": [
-            "0",
-            "1"
-          ],
+          "enum": ["0", "1"],
           "display_name": {
             "en_US": "Allow NSFW",
             "zh_Hans": "允许 NSFW"
@@ -12039,14 +11809,7 @@
           "type": "string",
           "required": false,
           "default": "BEST",
-          "enum": [
-            "BEST",
-            "HOT",
-            "NEW",
-            "TOP",
-            "CONTROVERSIAL",
-            "RISING"
-          ],
+          "enum": ["BEST", "HOT", "NEW", "TOP", "CONTROVERSIAL", "RISING"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12251,12 +12014,7 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": [
-            "NEW",
-            "TOP",
-            "HOT",
-            "CONTROVERSIAL"
-          ],
+          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12382,12 +12140,7 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": [
-            "NEW",
-            "TOP",
-            "HOT",
-            "CONTROVERSIAL"
-          ],
+          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12541,11 +12294,7 @@
           "name": "select",
           "type": "string",
           "required": false,
-          "enum": [
-            "users",
-            "hashtags",
-            "places"
-          ],
+          "enum": ["users", "hashtags", "places"],
           "display_name": {
             "en_US": "Filter Type",
             "zh_Hans": "筛选类型"
@@ -12815,10 +12564,7 @@
           "type": "string",
           "required": false,
           "default": "recent",
-          "enum": [
-            "popular",
-            "recent"
-          ],
+          "enum": ["popular", "recent"],
           "display_name": {
             "en_US": "Sort Order",
             "zh_Hans": "评论排序"
@@ -13649,14 +13395,14 @@
       ]
     },
     {
-      "name": "tikhub_bilibili_search_by_type",
+      "name": "tikhub_bilibili_general_search",
       "display_name": {
-        "en_US": "Bilibili · Search By Type",
-        "zh_Hans": "哔哩哔哩 · 分类搜索"
+        "en_US": "Bilibili · General Search",
+        "zh_Hans": "哔哩哔哩 · 综合搜索"
       },
       "description": {
-        "en_US": "Search Bilibili videos, articles, users, and other result types.",
-        "zh_Hans": "按类型搜索 Bilibili 视频、专栏、用户等结果。"
+        "en_US": "Search Bilibili Web video results by keyword and sorting filters.",
+        "zh_Hans": "通过 Bilibili Web 按关键词和排序筛选搜索视频结果。"
       },
       "icon": "📺",
       "parameters": [
@@ -13683,8 +13429,8 @@
           },
           "ai": {
             "llm_description": {
-              "en_US": "Required keyword for Bilibili typed search.",
-              "zh_Hans": "Bilibili 分类搜索的必填关键词。"
+              "en_US": "Required keyword for Bilibili Web general search. Prefer this tool for video discovery because Web results can provide BV IDs for downstream video tools.",
+              "zh_Hans": "Bilibili Web 综合搜索的必填关键词。视频发现优先使用此工具，因为 Web 结果可提供下游视频工具需要的 BV 号。"
             }
           },
           "ui": {
@@ -13702,58 +13448,50 @@
           }
         },
         {
-          "name": "search_type",
+          "name": "order",
           "type": "string",
-          "required": false,
-          "default": "video",
-          "enum": [
-            "video",
-            "bangumi",
-            "pgc",
-            "live",
-            "article",
-            "user"
-          ],
+          "required": true,
+          "enum": ["totalrank", "click", "pubdate", "dm", "stow"],
           "display_name": {
-            "en_US": "Search Type",
-            "zh_Hans": "搜索类型"
+            "en_US": "Order",
+            "zh_Hans": "排序方式"
           },
           "ai": {
             "llm_description": {
-              "en_US": "Typed search category. Use video for videos, article for columns, user for accounts, live only for search metadata.",
-              "zh_Hans": "分类搜索类型。video 搜视频，article 搜专栏，user 搜账号；live 本期只返回搜索元数据。"
+              "en_US": "General search sort order. Allowed values are totalrank, click, pubdate, dm, and stow.",
+              "zh_Hans": "综合搜索排序方式。只允许 totalrank、click、pubdate、dm、stow。"
             }
           },
           "ui": {
             "component": "select",
             "hint": {
-              "en_US": "OpenAPI default video. Supports video, bangumi, pgc, live, article, and user.",
-              "zh_Hans": "OpenAPI 默认 video。支持 video、bangumi、pgc、live、article、user。"
+              "en_US": "Required. totalrank=comprehensive, click=views, pubdate=latest, dm=danmaku, stow=favorites.",
+              "zh_Hans": "必填。totalrank 综合，click 播放量，pubdate 最新，dm 弹幕，stow 收藏。"
             },
             "support_expression": true,
             "width": "full"
           }
         },
         {
-          "name": "cursor",
-          "type": "string",
-          "required": false,
-          "default": "",
+          "name": "page",
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
           "display_name": {
-            "en_US": "Cursor",
-            "zh_Hans": "分页 cursor"
+            "en_US": "Page",
+            "zh_Hans": "页码"
           },
           "ai": {
             "llm_description": {
-              "en_US": "Opaque pagination cursor. Do not parse, decode, rewrite, or synthesize it.",
-              "zh_Hans": "不透明分页 cursor。不要解析、解码、改写或自行生成。"
+              "en_US": "Required general search page number. Use 1 for the first page.",
+              "zh_Hans": "必填综合搜索页码。第一页使用 1。"
             }
           },
           "ui": {
-            "component": "input",
+            "component": "number-input",
             "hint": {
-              "en_US": "Leave empty for the first page. For next pages, pass data.pagination.next unchanged.",
-              "zh_Hans": "首页留空。翻页时将响应 data.pagination.next 原样传回。"
+              "en_US": "Required page number. Use 1 for the first page.",
+              "zh_Hans": "必填页码。第一页使用 1。"
             },
             "support_expression": true,
             "width": "full"
@@ -13762,54 +13500,101 @@
         {
           "name": "page_size",
           "type": "integer",
-          "required": false,
-          "default": 20,
+          "required": true,
+          "minimum": 1,
           "display_name": {
             "en_US": "Page Size",
             "zh_Hans": "每页数量"
           },
           "ai": {
             "llm_description": {
-              "en_US": "Number of search results per page. OpenAPI default is 20.",
-              "zh_Hans": "每页搜索结果数量。OpenAPI 默认 20。"
+              "en_US": "Required number of general search results per page.",
+              "zh_Hans": "必填综合搜索每页结果数量。"
             }
           },
           "ui": {
             "component": "number-input",
             "hint": {
-              "en_US": "OpenAPI default 20.",
-              "zh_Hans": "OpenAPI 默认 20。"
+              "en_US": "Required number of results per page. OpenAPI example uses 42.",
+              "zh_Hans": "必填每页结果数量。OpenAPI 示例使用 42。"
             },
             "support_expression": true,
             "width": "full"
           }
         },
         {
-          "name": "order",
+          "name": "duration",
           "type": "integer",
           "required": false,
           "default": 0,
-          "enum": [
-            0,
-            1,
-            2,
-            3
-          ],
+          "enum": [0, 1, 2, 3, 4],
           "display_name": {
-            "en_US": "Order",
-            "zh_Hans": "排序方式"
+            "en_US": "Duration",
+            "zh_Hans": "时长筛选"
           },
           "ai": {
             "llm_description": {
-              "en_US": "Search sort order. Allowed values are 0, 1, 2, and 3; send as the OpenAPI integer order query parameter.",
-              "zh_Hans": "搜索排序方式。只允许 0、1、2、3，并作为 OpenAPI integer order 查询参数发送。"
+              "en_US": "Optional duration filter. Allowed values are 0, 1, 2, 3, and 4.",
+              "zh_Hans": "可选时长筛选。只允许 0、1、2、3、4。"
             }
           },
           "ui": {
             "component": "number-input",
             "hint": {
-              "en_US": "OpenAPI default 0. 0=comprehensive, 1=latest, 2=views, 3=danmaku count.",
-              "zh_Hans": "OpenAPI 默认 0。0 综合，1 最新，2 播放量，3 弹幕数。"
+              "en_US": "OpenAPI default 0. 0=all, 1=under 10 min, 2=10-30 min, 3=30-60 min, 4=over 60 min.",
+              "zh_Hans": "OpenAPI 默认 0。0 全部，1 10 分钟以下，2 10-30 分钟，3 30-60 分钟，4 60 分钟以上。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pubtime_begin_s",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "display_name": {
+            "en_US": "Publish Start",
+            "zh_Hans": "发布开始时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional publish start timestamp in seconds. Use 0 when not filtering.",
+              "zh_Hans": "可选发布时间起始秒级时间戳。不筛选时使用 0。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. Optional 10-digit Unix timestamp, less than end timestamp.",
+              "zh_Hans": "OpenAPI 默认 0。可选 10 位 Unix 时间戳，需小于结束时间。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pubtime_end_s",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "display_name": {
+            "en_US": "Publish End",
+            "zh_Hans": "发布结束时间"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Optional publish end timestamp in seconds. Use 0 when not filtering.",
+              "zh_Hans": "可选发布时间结束秒级时间戳。不筛选时使用 0。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. Optional 10-digit Unix timestamp, greater than start timestamp.",
+              "zh_Hans": "OpenAPI 默认 0。可选 10 位 Unix 时间戳，需大于开始时间。"
             },
             "support_expression": true,
             "width": "full"
@@ -14339,11 +14124,7 @@
           "type": "string",
           "required": false,
           "default": "pubdate",
-          "enum": [
-            "pubdate",
-            "click",
-            "stow"
-          ],
+          "enum": ["pubdate", "click", "stow"],
           "display_name": {
             "en_US": "Order",
             "zh_Hans": "排序方式"

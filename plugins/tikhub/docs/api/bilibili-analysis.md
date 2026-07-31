@@ -3,8 +3,7 @@
 TikHub Bilibili analysis tools cover a compact workflow for keyword discovery,
 video understanding, interaction analysis, and UP creator/account analysis.
 
-This release includes 1 GET endpoint from `Bilibili-App-API` and 10 GET
-endpoints from `Bilibili-Web-API`. All tools use the shared `tikhub-api-key`
+This release includes 11 GET endpoints from `Bilibili-Web-API`. All tools use the shared `tikhub-api-key`
 credential and send business parameters as query parameters. The tools return
 TikHub responses as-is and do not summarize, score leads, score competitors,
 persist results, schedule monitoring, fetch video stream URLs, play media, or
@@ -12,26 +11,25 @@ download media files.
 
 ## Keyword Discovery
 
-- `tikhub_bilibili_search_by_type`
-  - GET `/api/v1/bilibili/app/fetch_search_by_type`
-  - Searches Bilibili by `keyword` and `search_type`.
-  - `search_type` defaults to `video` and supports `video`, `bangumi`, `pgc`,
-    `live`, `article`, and `user`.
-  - `order` defaults to `0`: `0` comprehensive, `1` latest, `2` views, and
-    `3` danmaku count.
-  - `page_size` defaults to 20.
-  - Pagination uses `cursor`; leave it empty for the first request, then pass
-    `data.pagination.next` from the previous response unchanged. Stop when that
-    field is missing or empty.
-  - `live` returns search metadata only in this release. No live stream data is
-    fetched.
+- `tikhub_bilibili_general_search`
+  - GET `/api/v1/bilibili/web/fetch_general_search`
+  - Searches Bilibili Web video results by `keyword`.
+  - `order` is required and supports `totalrank`, `click`, `pubdate`, `dm`,
+    and `stow`.
+  - `page` and `page_size` are required. Use `page=1` for the first request.
+  - `duration` defaults to `0`: `0` all, `1` under 10 minutes, `2` 10-30
+    minutes, `3` 30-60 minutes, and `4` over 60 minutes.
+  - `pubtime_begin_s` and `pubtime_end_s` default to `0` and use 10-digit Unix
+    timestamps when filtering by publish time.
+  - This Web search replaces the App typed search for video discovery because
+    App search returns AV-style numeric IDs and does not expose BV IDs needed by
+    the downstream Web video detail/comment tools.
 
 Keyword chain:
 
-1. Call `tikhub_bilibili_search_by_type` with `search_type=video`, `article`,
-   or `user`.
-2. Use video results with `tikhub_bilibili_video_details`.
-3. Use user results with the account analysis tools.
+1. Call `tikhub_bilibili_general_search`.
+2. Read `bvid`/`bv_id` from video search results when present.
+3. Use BV IDs with `tikhub_bilibili_video_details`.
 
 ## Video Understanding And Interaction
 
@@ -99,8 +97,7 @@ Known video chain:
 
 Account chain:
 
-1. Call `tikhub_bilibili_search_by_type` with `search_type=user`, or start from
-   a known `uid`.
+1. Start from a known `uid`, or read UP creator IDs from search/detail payloads.
 2. Call `tikhub_bilibili_user_profile`.
 3. Call `tikhub_bilibili_user_videos`, `tikhub_bilibili_user_dynamics`,
    `tikhub_bilibili_user_up_stats`, and
@@ -108,21 +105,21 @@ Account chain:
 
 ## ID And Pagination Handling
 
-`bv_id`, `a_id`, `c_id`, `cid`, `uid`, `rpid`, `cursor`, and `offset` are
+`bv_id`, `a_id`, `c_id`, `cid`, `uid`, `rpid`, and `offset` are
 passed as strings. The plugin does not parse, decode, rewrite, or convert these
 identifiers to JavaScript numbers.
 
-Bilibili uses two pagination patterns in this release:
+Bilibili uses these pagination patterns in this release:
 
-- App typed search uses opaque `cursor` from `data.pagination.next`.
+- Web general search uses `page`.
 - Web user dynamics uses opaque `offset` from the previous response.
 - Comment and user video lists use page number `pn`.
 
 ## Not Included
 
-This release does not implement App general search, recommendations, popular
-feeds, App duplicate video/comment/user endpoints, Web hot search, popular
-videos, collections, live room details, live streams, live areas, video stream
-URLs, VIP play URLs, media downloads, duplicate video detail V2/V3 endpoints,
-dynamic detail V1/V2, summaries, sentiment analysis, lead scoring, competitor
-scoring, persistence, or scheduled monitoring.
+This release does not implement Bilibili App endpoints, App typed search,
+recommendations, popular feeds, App duplicate video/comment/user endpoints, Web
+hot search, popular videos, collections, live room details, live streams, live
+areas, video stream URLs, VIP play URLs, media downloads, duplicate video detail
+V2/V3 endpoints, dynamic detail V1/V2, summaries, sentiment analysis, lead
+scoring, competitor scoring, persistence, or scheduled monitoring.

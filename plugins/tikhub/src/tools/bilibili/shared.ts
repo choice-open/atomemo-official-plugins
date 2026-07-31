@@ -14,15 +14,14 @@ export const credentialParameter = {
   ui: { component: "credential-select" },
 } satisfies Property<"credential_id">
 
-export const searchTypeValues = [
-  "video",
-  "bangumi",
-  "pgc",
-  "live",
-  "article",
-  "user",
+export const generalSearchOrderValues = [
+  "totalrank",
+  "click",
+  "pubdate",
+  "dm",
+  "stow",
 ] as const
-export const searchOrderValues = [0, 1, 2, 3] as const
+export const generalSearchDurationValues = [0, 1, 2, 3, 4] as const
 export const userVideoOrderValues = ["pubdate", "click", "stow"] as const
 
 export function bilibiliStringParameter<Name extends string>(options: {
@@ -145,28 +144,6 @@ export function readOptionalTrimmed(
   return value ? value : undefined
 }
 
-export function readSearchType(params: Record<string, unknown>): string {
-  const searchType = readOptionalStringParam(params, "search_type") ?? "video"
-  if (
-    !searchTypeValues.includes(searchType as (typeof searchTypeValues)[number])
-  ) {
-    throw new Error(
-      "search_type must be one of video, bangumi, pgc, live, article, or user.",
-    )
-  }
-  return searchType
-}
-
-export function readSearchOrder(params: Record<string, unknown>): number {
-  const order = readOptionalIntegerParam(params, "order") ?? 0
-  if (
-    !searchOrderValues.includes(order as (typeof searchOrderValues)[number])
-  ) {
-    throw new Error("order must be one of 0, 1, 2, or 3.")
-  }
-  return order
-}
-
 export function readUserVideoOrder(params: Record<string, unknown>): string {
   const order = readOptionalStringParam(params, "order") ?? "pubdate"
   if (
@@ -177,6 +154,60 @@ export function readUserVideoOrder(params: Record<string, unknown>): string {
     throw new Error("order must be one of pubdate, click, or stow.")
   }
   return order
+}
+
+export function readGeneralSearchOrder(
+  params: Record<string, unknown>,
+): string {
+  const order = readOptionalStringParam(params, "order")?.trim()
+  if (
+    !order ||
+    !generalSearchOrderValues.includes(
+      order as (typeof generalSearchOrderValues)[number],
+    )
+  ) {
+    throw new Error(
+      "order must be one of totalrank, click, pubdate, dm, or stow.",
+    )
+  }
+  return order
+}
+
+export function readGeneralSearchDuration(
+  params: Record<string, unknown>,
+): number {
+  const duration = readOptionalIntegerParam(params, "duration") ?? 0
+  if (
+    !generalSearchDurationValues.includes(
+      duration as (typeof generalSearchDurationValues)[number],
+    )
+  ) {
+    throw new Error("duration must be one of 0, 1, 2, 3, or 4.")
+  }
+  return duration
+}
+
+export function readRequiredIntegerParam(
+  params: Record<string, unknown>,
+  name: string,
+  label: string,
+): number {
+  const value = readOptionalIntegerParam(params, name)
+  if (value === undefined) {
+    throw new Error(`${label} is required.`)
+  }
+  return value
+}
+
+export function readOptionalNonNegativeInteger(
+  params: Record<string, unknown>,
+  name: string,
+): number {
+  const value = readOptionalIntegerParam(params, name) ?? 0
+  if (value < 0) {
+    throw new Error(`${name} must be greater than or equal to 0.`)
+  }
+  return value
 }
 
 export function readPageNumber(params: Record<string, unknown>): number {
