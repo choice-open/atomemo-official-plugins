@@ -10,14 +10,11 @@
   },
   "icon": "https://avatars.githubusercontent.com/u/119824398?v=4",
   "lang": "typescript",
-  "locales": [
-    "en-US",
-    "zh-Hans"
-  ],
+  "locales": ["en-US", "zh-Hans"],
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -382,10 +379,7 @@
           },
           "type": "string",
           "default": "UNFOLDED",
-          "enum": [
-            "UNFOLDED",
-            "FOLDED"
-          ]
+          "enum": ["UNFOLDED", "FOLDED"]
         },
         {
           "name": "sort_strategy",
@@ -410,11 +404,7 @@
           },
           "type": "string",
           "default": "latest_v2",
-          "enum": [
-            "default",
-            "latest_v2",
-            "like_count"
-          ]
+          "enum": ["default", "latest_v2", "like_count"]
         }
       ]
     },
@@ -715,12 +705,7 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": [
-            "不限",
-            "视频笔记",
-            "普通笔记",
-            "直播笔记"
-          ]
+          "enum": ["不限", "视频笔记", "普通笔记", "直播笔记"]
         },
         {
           "name": "time_filter",
@@ -745,12 +730,7 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": [
-            "不限",
-            "一天内",
-            "一周内",
-            "半年内"
-          ]
+          "enum": ["不限", "一天内", "一周内", "半年内"]
         },
         {
           "name": "search_id",
@@ -1033,10 +1013,7 @@
           },
           "type": "string",
           "default": "trend",
-          "enum": [
-            "trend",
-            "time"
-          ]
+          "enum": ["trend", "time"]
         },
         {
           "name": "cursor_score",
@@ -1714,11 +1691,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "past_month",
-            "past_week",
-            "past_24h"
-          ]
+          "enum": ["past_month", "past_week", "past_24h"]
         },
         {
           "name": "sort_by",
@@ -1742,10 +1715,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "date_posted",
-            "relevance"
-          ]
+          "enum": ["date_posted", "relevance"]
         },
         {
           "name": "from_member",
@@ -1934,10 +1904,7 @@
           },
           "type": "string",
           "default": "relevance",
-          "enum": [
-            "relevance",
-            "recent"
-          ]
+          "enum": ["relevance", "recent"]
         },
         {
           "name": "post_type",
@@ -1962,10 +1929,7 @@
           },
           "type": "string",
           "default": "activity",
-          "enum": [
-            "activity",
-            "ugc"
-          ]
+          "enum": ["activity", "ugc"]
         }
       ]
     },
@@ -2534,10 +2498,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2562,12 +2523,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -2695,10 +2651,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2723,12 +2676,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -2856,10 +2804,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -2884,12 +2829,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -3120,10 +3060,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         }
       ]
     },
@@ -3251,10 +3188,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "2"
-          ]
+          "enum": ["0", "2"]
         },
         {
           "name": "publish_time",
@@ -3279,12 +3213,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "7",
-            "30"
-          ]
+          "enum": ["0", "1", "7", "30"]
         }
       ]
     },
@@ -5766,13 +5695,7 @@
           },
           "type": "string",
           "default": "Top",
-          "enum": [
-            "Top",
-            "Latest",
-            "Media",
-            "People",
-            "Lists"
-          ]
+          "enum": ["Top", "Latest", "Media", "People", "Lists"]
         },
         {
           "name": "cursor",
@@ -6823,10 +6746,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -6917,13 +6837,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ]
+          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
         },
         {
           "name": "type",
@@ -6948,12 +6862,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "video",
-            "channel",
-            "playlist",
-            "movie"
-          ]
+          "enum": ["video", "channel", "playlist", "movie"]
         },
         {
           "name": "duration",
@@ -6978,11 +6887,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "short",
-            "medium",
-            "long"
-          ]
+          "enum": ["short", "medium", "long"]
         },
         {
           "name": "features",
@@ -7031,12 +6936,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ]
+          "enum": ["relevance", "upload_date", "view_count", "rating"]
         }
       ]
     },
@@ -7089,10 +6989,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -7183,13 +7080,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "last_hour",
-            "today",
-            "this_week",
-            "this_month",
-            "this_year"
-          ]
+          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
         },
         {
           "name": "sort_by",
@@ -7214,12 +7105,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "relevance",
-            "upload_date",
-            "view_count",
-            "rating"
-          ]
+          "enum": ["relevance", "upload_date", "view_count", "rating"]
         }
       ]
     },
@@ -7272,10 +7158,7 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ]
+          "enum": ["video_id", "video_url"]
         },
         {
           "name": "video_id",
@@ -7418,10 +7301,7 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": [
-            "video_id",
-            "video_url"
-          ]
+          "enum": ["video_id", "video_url"]
         },
         {
           "name": "video_id",
@@ -7541,12 +7421,7 @@
           },
           "type": "string",
           "default": "srt",
-          "enum": [
-            "srt",
-            "xml",
-            "json3",
-            "txt"
-          ]
+          "enum": ["srt", "xml", "json3", "txt"]
         }
       ]
     },
@@ -7685,10 +7560,7 @@
           },
           "type": "string",
           "default": "top",
-          "enum": [
-            "top",
-            "newest"
-          ]
+          "enum": ["top", "newest"]
         },
         {
           "name": "continuation_token",
@@ -7930,10 +7802,7 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": [
-            "first_page",
-            "next_page"
-          ]
+          "enum": ["first_page", "next_page"]
         },
         {
           "name": "keyword",
@@ -8354,12 +8223,7 @@
           },
           "type": "string",
           "default": "Now",
-          "enum": [
-            "Now",
-            "Music",
-            "Gaming",
-            "Movies"
-          ]
+          "enum": ["Now", "Music", "Gaming", "Movies"]
         }
       ]
     },
@@ -8439,14 +8303,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "all",
-            "hot",
-            "original",
-            "verified",
-            "media",
-            "viewpoint"
-          ]
+          "enum": ["all", "hot", "original", "verified", "media", "viewpoint"]
         },
         {
           "name": "include_type",
@@ -8471,13 +8328,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "all",
-            "pic",
-            "video",
-            "music",
-            "link"
-          ]
+          "enum": ["all", "pic", "video", "music", "link"]
         },
         {
           "name": "timescope",
@@ -8710,10 +8561,7 @@
           },
           "type": "string",
           "default": "true",
-          "enum": [
-            "true",
-            "false"
-          ]
+          "enum": ["true", "false"]
         }
       ]
     },
@@ -9048,11 +8896,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "org_vip",
-            "per_vip",
-            "ord"
-          ]
+          "enum": ["org_vip", "per_vip", "ord"]
         },
         {
           "name": "gender",
@@ -9077,10 +8921,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "man",
-            "women"
-          ]
+          "enum": ["man", "women"]
         },
         {
           "name": "age",
@@ -9105,13 +8946,7 @@
             "component": "select"
           },
           "type": "string",
-          "enum": [
-            "18y",
-            "22y",
-            "29y",
-            "39y",
-            "40y"
-          ]
+          "enum": ["18y", "22y", "29y", "39y", "40y"]
         },
         {
           "name": "nickname",
@@ -9386,12 +9221,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "1",
-            "2",
-            "3"
-          ]
+          "enum": ["0", "1", "2", "3"]
         },
         {
           "name": "since_id",
@@ -9617,11 +9447,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "latest",
-            "hot"
-          ]
+          "enum": ["default", "latest", "hot"]
         },
         {
           "name": "publish_time",
@@ -9647,12 +9473,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "day",
-            "week",
-            "half_year"
-          ]
+          "enum": ["all", "day", "week", "half_year"]
         },
         {
           "name": "offset",
@@ -9809,12 +9630,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "short",
-            "medium",
-            "long"
-          ]
+          "enum": ["all", "short", "medium", "long"]
         },
         {
           "name": "sort",
@@ -9840,11 +9656,7 @@
           },
           "type": "string",
           "default": "default",
-          "enum": [
-            "default",
-            "latest",
-            "hot"
-          ]
+          "enum": ["default", "latest", "hot"]
         },
         {
           "name": "publish_time",
@@ -9870,12 +9682,7 @@
           },
           "type": "string",
           "default": "all",
-          "enum": [
-            "all",
-            "day",
-            "week",
-            "half_year"
-          ]
+          "enum": ["all", "day", "week", "half_year"]
         },
         {
           "name": "offset",
@@ -10711,12 +10518,7 @@
           },
           "type": "string",
           "default": "0",
-          "enum": [
-            "0",
-            "5",
-            "7",
-            "8"
-          ]
+          "enum": ["0", "5", "7", "8"]
         },
         {
           "name": "raw",
@@ -11213,13 +11015,7 @@
           "type": "string",
           "required": false,
           "default": "post",
-          "enum": [
-            "post",
-            "community",
-            "comment",
-            "media",
-            "people"
-          ],
+          "enum": ["post", "community", "comment", "media", "people"],
           "display_name": {
             "en_US": "Search Type",
             "zh_Hans": "搜索类型"
@@ -11245,13 +11041,7 @@
           "type": "string",
           "required": true,
           "default": "RELEVANCE",
-          "enum": [
-            "RELEVANCE",
-            "HOT",
-            "TOP",
-            "NEW",
-            "COMMENTS"
-          ],
+          "enum": ["RELEVANCE", "HOT", "TOP", "NEW", "COMMENTS"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -11259,11 +11049,7 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": [
-                  "post",
-                  "comment",
-                  "media"
-                ]
+                "$in": ["post", "comment", "media"]
               }
             }
           },
@@ -11287,14 +11073,7 @@
           "name": "time_range",
           "type": "string",
           "required": false,
-          "enum": [
-            "all",
-            "year",
-            "month",
-            "week",
-            "day",
-            "hour"
-          ],
+          "enum": ["all", "year", "month", "week", "day", "hour"],
           "display_name": {
             "en_US": "Time Range",
             "zh_Hans": "时间范围"
@@ -11302,10 +11081,7 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": [
-                  "post",
-                  "media"
-                ]
+                "$in": ["post", "media"]
               }
             }
           },
@@ -11330,10 +11106,7 @@
           "type": "string",
           "required": false,
           "default": "unset",
-          "enum": [
-            "unset",
-            "strict"
-          ],
+          "enum": ["unset", "strict"],
           "display_name": {
             "en_US": "Safe Search",
             "zh_Hans": "安全搜索"
@@ -11359,10 +11132,7 @@
           "type": "string",
           "required": false,
           "default": "0",
-          "enum": [
-            "0",
-            "1"
-          ],
+          "enum": ["0", "1"],
           "display_name": {
             "en_US": "Allow NSFW",
             "zh_Hans": "允许 NSFW"
@@ -12039,14 +11809,7 @@
           "type": "string",
           "required": false,
           "default": "BEST",
-          "enum": [
-            "BEST",
-            "HOT",
-            "NEW",
-            "TOP",
-            "CONTROVERSIAL",
-            "RISING"
-          ],
+          "enum": ["BEST", "HOT", "NEW", "TOP", "CONTROVERSIAL", "RISING"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12251,12 +12014,7 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": [
-            "NEW",
-            "TOP",
-            "HOT",
-            "CONTROVERSIAL"
-          ],
+          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12382,12 +12140,7 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": [
-            "NEW",
-            "TOP",
-            "HOT",
-            "CONTROVERSIAL"
-          ],
+          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12541,11 +12294,7 @@
           "name": "select",
           "type": "string",
           "required": false,
-          "enum": [
-            "users",
-            "hashtags",
-            "places"
-          ],
+          "enum": ["users", "hashtags", "places"],
           "display_name": {
             "en_US": "Filter Type",
             "zh_Hans": "筛选类型"
@@ -12815,10 +12564,7 @@
           "type": "string",
           "required": false,
           "default": "recent",
-          "enum": [
-            "popular",
-            "recent"
-          ],
+          "enum": ["popular", "recent"],
           "display_name": {
             "en_US": "Sort Order",
             "zh_Hans": "评论排序"
@@ -13338,6 +13084,309 @@
             "hint": {
               "en_US": "Optional opaque pagination cursor. Pass end_cursor unchanged.",
               "zh_Hans": "可选不透明分页 cursor。翻页时原样传回 end_cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_toutiao_article_info",
+      "display_name": {
+        "en_US": "Toutiao · Article Info",
+        "zh_Hans": "今日头条 · 文章信息"
+      },
+      "description": {
+        "en_US": "Fetch metadata and content fields for a known Toutiao article.",
+        "zh_Hans": "获取已知今日头条文章的元数据和正文相关字段。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "group_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Group ID",
+            "zh_Hans": "作品 group_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Toutiao group_id. Treat it as a string and never convert long numeric IDs to JavaScript numbers.",
+              "zh_Hans": "必填今日头条 group_id。按字符串处理，不要把长数字 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required article group_id, e.g. from /article/{group_id}/ URL. Keep it as a string.",
+              "zh_Hans": "必填文章 group_id，可从 /article/{group_id}/ 链接中取得。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "7450114952884503059",
+              "zh_Hans": "7450114952884503059"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_toutiao_video_info",
+      "display_name": {
+        "en_US": "Toutiao · Video Info",
+        "zh_Hans": "今日头条 · 视频信息"
+      },
+      "description": {
+        "en_US": "Fetch metadata for a known Toutiao video post without downloading media.",
+        "zh_Hans": "获取已知今日头条视频作品元数据，不下载媒体文件。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "group_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Group ID",
+            "zh_Hans": "作品 group_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Toutiao group_id. Treat it as a string and never convert long numeric IDs to JavaScript numbers.",
+              "zh_Hans": "必填今日头条 group_id。按字符串处理，不要把长数字 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video group_id, e.g. from /video/{group_id}/ URL. Keep it as a string.",
+              "zh_Hans": "必填视频 group_id，可从 /video/{group_id}/ 链接中取得。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "7431543350882206242",
+              "zh_Hans": "7431543350882206242"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_toutiao_post_comments",
+      "display_name": {
+        "en_US": "Toutiao · Post Comments",
+        "zh_Hans": "今日头条 · 作品评论"
+      },
+      "description": {
+        "en_US": "Fetch comments for a known Toutiao article or video post.",
+        "zh_Hans": "获取已知今日头条文章或视频作品评论。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "group_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Group ID",
+            "zh_Hans": "作品 group_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Toutiao group_id. Treat it as a string and never convert long numeric IDs to JavaScript numbers.",
+              "zh_Hans": "必填今日头条 group_id。按字符串处理，不要把长数字 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Toutiao post group_id. Keep long IDs as strings.",
+              "zh_Hans": "必填今日头条作品 group_id。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "7450114952884503059",
+              "zh_Hans": "7450114952884503059"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "offset",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "分页 offset"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required comments pagination offset. OpenAPI declares it as a string; use \"0\" first and keep later offsets as strings.",
+              "zh_Hans": "必填评论分页 offset。OpenAPI 声明为 string；首次使用 \"0\"，后续 offset 也保持字符串。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required string offset. Use \"0\" for the first request, then increase by 20.",
+              "zh_Hans": "必填字符串 offset。首次请求使用 \"0\"，之后每页递增 20。"
+            },
+            "placeholder": {
+              "en_US": "0",
+              "zh_Hans": "0"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_toutiao_user_id_from_profile",
+      "display_name": {
+        "en_US": "Toutiao · User ID from Profile",
+        "zh_Hans": "今日头条 · 主页转用户 ID"
+      },
+      "description": {
+        "en_US": "Resolve a Toutiao user profile URL to a user ID.",
+        "zh_Hans": "将今日头条用户主页 URL 转换为 user_id。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_profile_url",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User Profile URL",
+            "zh_Hans": "用户主页 URL"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required full Toutiao user profile URL. This tool extracts the user_id through TikHub; do not pass a username or partial token.",
+              "zh_Hans": "必填完整今日头条用户主页 URL。该工具通过 TikHub 获取 user_id；不要传用户名或局部 token。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required full Toutiao user profile URL. Do not pass only a token fragment.",
+              "zh_Hans": "必填完整今日头条用户主页 URL，不要只传 token 片段。"
+            },
+            "placeholder": {
+              "en_US": "https://www.toutiao.com/c/user/token/...",
+              "zh_Hans": "https://www.toutiao.com/c/user/token/..."
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_toutiao_user_info",
+      "display_name": {
+        "en_US": "Toutiao · User Info",
+        "zh_Hans": "今日头条 · 用户资料"
+      },
+      "description": {
+        "en_US": "Fetch Toutiao user profile information by user ID.",
+        "zh_Hans": "通过 user_id 获取今日头条用户资料。"
+      },
+      "icon": "📰",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "User ID",
+            "zh_Hans": "用户 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Toutiao user_id. Treat it as a string and never convert long numeric IDs to JavaScript numbers.",
+              "zh_Hans": "必填今日头条 user_id。按字符串处理，不要把长数字 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Toutiao user_id, usually returned by the profile URL resolver. Keep it as a string.",
+              "zh_Hans": "必填今日头条 user_id，通常来自主页转用户 ID 工具。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "1234567890123456789",
+              "zh_Hans": "1234567890123456789"
             },
             "support_expression": true,
             "width": "full"
