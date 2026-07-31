@@ -1,4 +1,6 @@
 import type { ToolDefinition } from "@choiceopen/atomemo-plugin-sdk-js/types"
+import { bilibiliAppTools } from "./bilibili/app"
+import { bilibiliWebTools } from "./bilibili/web"
 import { douyinAppV3Tools } from "./douyin/app-v3"
 import { douyinSearchTools } from "./douyin/search"
 import { instagramV1Tools } from "./instagram/v1"
@@ -33,4 +35,6 @@ export const allTools: ToolDefinition[] = [
   ...redditAppTools,
   ...instagramV1Tools,
   ...toutiaoAppTools,
+  ...bilibiliAppTools,
+  ...bilibiliWebTools,
 ]

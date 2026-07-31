@@ -10,11 +10,14 @@
   },
   "icon": "https://avatars.githubusercontent.com/u/119824398?v=4",
   "lang": "typescript",
-  "locales": ["en-US", "zh-Hans"],
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -379,7 +382,10 @@
           },
           "type": "string",
           "default": "UNFOLDED",
-          "enum": ["UNFOLDED", "FOLDED"]
+          "enum": [
+            "UNFOLDED",
+            "FOLDED"
+          ]
         },
         {
           "name": "sort_strategy",
@@ -404,7 +410,11 @@
           },
           "type": "string",
           "default": "latest_v2",
-          "enum": ["default", "latest_v2", "like_count"]
+          "enum": [
+            "default",
+            "latest_v2",
+            "like_count"
+          ]
         }
       ]
     },
@@ -705,7 +715,12 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": ["不限", "视频笔记", "普通笔记", "直播笔记"]
+          "enum": [
+            "不限",
+            "视频笔记",
+            "普通笔记",
+            "直播笔记"
+          ]
         },
         {
           "name": "time_filter",
@@ -730,7 +745,12 @@
           },
           "type": "string",
           "default": "不限",
-          "enum": ["不限", "一天内", "一周内", "半年内"]
+          "enum": [
+            "不限",
+            "一天内",
+            "一周内",
+            "半年内"
+          ]
         },
         {
           "name": "search_id",
@@ -1013,7 +1033,10 @@
           },
           "type": "string",
           "default": "trend",
-          "enum": ["trend", "time"]
+          "enum": [
+            "trend",
+            "time"
+          ]
         },
         {
           "name": "cursor_score",
@@ -1691,7 +1714,11 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["past_month", "past_week", "past_24h"]
+          "enum": [
+            "past_month",
+            "past_week",
+            "past_24h"
+          ]
         },
         {
           "name": "sort_by",
@@ -1715,7 +1742,10 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["date_posted", "relevance"]
+          "enum": [
+            "date_posted",
+            "relevance"
+          ]
         },
         {
           "name": "from_member",
@@ -1904,7 +1934,10 @@
           },
           "type": "string",
           "default": "relevance",
-          "enum": ["relevance", "recent"]
+          "enum": [
+            "relevance",
+            "recent"
+          ]
         },
         {
           "name": "post_type",
@@ -1929,7 +1962,10 @@
           },
           "type": "string",
           "default": "activity",
-          "enum": ["activity", "ugc"]
+          "enum": [
+            "activity",
+            "ugc"
+          ]
         }
       ]
     },
@@ -2498,7 +2534,10 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "2"]
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2523,7 +2562,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "1", "7", "30"]
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2651,7 +2695,10 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "2"]
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2676,7 +2723,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "1", "7", "30"]
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -2804,7 +2856,10 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "2"]
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -2829,7 +2884,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "1", "7", "30"]
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -3060,7 +3120,10 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "2"]
+          "enum": [
+            "0",
+            "2"
+          ]
         }
       ]
     },
@@ -3188,7 +3251,10 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "2"]
+          "enum": [
+            "0",
+            "2"
+          ]
         },
         {
           "name": "publish_time",
@@ -3213,7 +3279,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "1", "7", "30"]
+          "enum": [
+            "0",
+            "1",
+            "7",
+            "30"
+          ]
         }
       ]
     },
@@ -5695,7 +5766,13 @@
           },
           "type": "string",
           "default": "Top",
-          "enum": ["Top", "Latest", "Media", "People", "Lists"]
+          "enum": [
+            "Top",
+            "Latest",
+            "Media",
+            "People",
+            "Lists"
+          ]
         },
         {
           "name": "cursor",
@@ -6746,7 +6823,10 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": ["first_page", "next_page"]
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
@@ -6837,7 +6917,13 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ]
         },
         {
           "name": "type",
@@ -6862,7 +6948,12 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["video", "channel", "playlist", "movie"]
+          "enum": [
+            "video",
+            "channel",
+            "playlist",
+            "movie"
+          ]
         },
         {
           "name": "duration",
@@ -6887,7 +6978,11 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["short", "medium", "long"]
+          "enum": [
+            "short",
+            "medium",
+            "long"
+          ]
         },
         {
           "name": "features",
@@ -6936,7 +7031,12 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["relevance", "upload_date", "view_count", "rating"]
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ]
         }
       ]
     },
@@ -6989,7 +7089,10 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": ["first_page", "next_page"]
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
@@ -7080,7 +7183,13 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["last_hour", "today", "this_week", "this_month", "this_year"]
+          "enum": [
+            "last_hour",
+            "today",
+            "this_week",
+            "this_month",
+            "this_year"
+          ]
         },
         {
           "name": "sort_by",
@@ -7105,7 +7214,12 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["relevance", "upload_date", "view_count", "rating"]
+          "enum": [
+            "relevance",
+            "upload_date",
+            "view_count",
+            "rating"
+          ]
         }
       ]
     },
@@ -7158,7 +7272,10 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": ["video_id", "video_url"]
+          "enum": [
+            "video_id",
+            "video_url"
+          ]
         },
         {
           "name": "video_id",
@@ -7301,7 +7418,10 @@
           },
           "type": "string",
           "default": "video_id",
-          "enum": ["video_id", "video_url"]
+          "enum": [
+            "video_id",
+            "video_url"
+          ]
         },
         {
           "name": "video_id",
@@ -7421,7 +7541,12 @@
           },
           "type": "string",
           "default": "srt",
-          "enum": ["srt", "xml", "json3", "txt"]
+          "enum": [
+            "srt",
+            "xml",
+            "json3",
+            "txt"
+          ]
         }
       ]
     },
@@ -7560,7 +7685,10 @@
           },
           "type": "string",
           "default": "top",
-          "enum": ["top", "newest"]
+          "enum": [
+            "top",
+            "newest"
+          ]
         },
         {
           "name": "continuation_token",
@@ -7802,7 +7930,10 @@
           },
           "type": "string",
           "default": "first_page",
-          "enum": ["first_page", "next_page"]
+          "enum": [
+            "first_page",
+            "next_page"
+          ]
         },
         {
           "name": "keyword",
@@ -8223,7 +8354,12 @@
           },
           "type": "string",
           "default": "Now",
-          "enum": ["Now", "Music", "Gaming", "Movies"]
+          "enum": [
+            "Now",
+            "Music",
+            "Gaming",
+            "Movies"
+          ]
         }
       ]
     },
@@ -8303,7 +8439,14 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["all", "hot", "original", "verified", "media", "viewpoint"]
+          "enum": [
+            "all",
+            "hot",
+            "original",
+            "verified",
+            "media",
+            "viewpoint"
+          ]
         },
         {
           "name": "include_type",
@@ -8328,7 +8471,13 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["all", "pic", "video", "music", "link"]
+          "enum": [
+            "all",
+            "pic",
+            "video",
+            "music",
+            "link"
+          ]
         },
         {
           "name": "timescope",
@@ -8561,7 +8710,10 @@
           },
           "type": "string",
           "default": "true",
-          "enum": ["true", "false"]
+          "enum": [
+            "true",
+            "false"
+          ]
         }
       ]
     },
@@ -8896,7 +9048,11 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["org_vip", "per_vip", "ord"]
+          "enum": [
+            "org_vip",
+            "per_vip",
+            "ord"
+          ]
         },
         {
           "name": "gender",
@@ -8921,7 +9077,10 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["man", "women"]
+          "enum": [
+            "man",
+            "women"
+          ]
         },
         {
           "name": "age",
@@ -8946,7 +9105,13 @@
             "component": "select"
           },
           "type": "string",
-          "enum": ["18y", "22y", "29y", "39y", "40y"]
+          "enum": [
+            "18y",
+            "22y",
+            "29y",
+            "39y",
+            "40y"
+          ]
         },
         {
           "name": "nickname",
@@ -9221,7 +9386,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "1", "2", "3"]
+          "enum": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ]
         },
         {
           "name": "since_id",
@@ -9447,7 +9617,11 @@
           },
           "type": "string",
           "default": "default",
-          "enum": ["default", "latest", "hot"]
+          "enum": [
+            "default",
+            "latest",
+            "hot"
+          ]
         },
         {
           "name": "publish_time",
@@ -9473,7 +9647,12 @@
           },
           "type": "string",
           "default": "all",
-          "enum": ["all", "day", "week", "half_year"]
+          "enum": [
+            "all",
+            "day",
+            "week",
+            "half_year"
+          ]
         },
         {
           "name": "offset",
@@ -9630,7 +9809,12 @@
           },
           "type": "string",
           "default": "all",
-          "enum": ["all", "short", "medium", "long"]
+          "enum": [
+            "all",
+            "short",
+            "medium",
+            "long"
+          ]
         },
         {
           "name": "sort",
@@ -9656,7 +9840,11 @@
           },
           "type": "string",
           "default": "default",
-          "enum": ["default", "latest", "hot"]
+          "enum": [
+            "default",
+            "latest",
+            "hot"
+          ]
         },
         {
           "name": "publish_time",
@@ -9682,7 +9870,12 @@
           },
           "type": "string",
           "default": "all",
-          "enum": ["all", "day", "week", "half_year"]
+          "enum": [
+            "all",
+            "day",
+            "week",
+            "half_year"
+          ]
         },
         {
           "name": "offset",
@@ -10518,7 +10711,12 @@
           },
           "type": "string",
           "default": "0",
-          "enum": ["0", "5", "7", "8"]
+          "enum": [
+            "0",
+            "5",
+            "7",
+            "8"
+          ]
         },
         {
           "name": "raw",
@@ -11015,7 +11213,13 @@
           "type": "string",
           "required": false,
           "default": "post",
-          "enum": ["post", "community", "comment", "media", "people"],
+          "enum": [
+            "post",
+            "community",
+            "comment",
+            "media",
+            "people"
+          ],
           "display_name": {
             "en_US": "Search Type",
             "zh_Hans": "搜索类型"
@@ -11041,7 +11245,13 @@
           "type": "string",
           "required": true,
           "default": "RELEVANCE",
-          "enum": ["RELEVANCE", "HOT", "TOP", "NEW", "COMMENTS"],
+          "enum": [
+            "RELEVANCE",
+            "HOT",
+            "TOP",
+            "NEW",
+            "COMMENTS"
+          ],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -11049,7 +11259,11 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": ["post", "comment", "media"]
+                "$in": [
+                  "post",
+                  "comment",
+                  "media"
+                ]
               }
             }
           },
@@ -11073,7 +11287,14 @@
           "name": "time_range",
           "type": "string",
           "required": false,
-          "enum": ["all", "year", "month", "week", "day", "hour"],
+          "enum": [
+            "all",
+            "year",
+            "month",
+            "week",
+            "day",
+            "hour"
+          ],
           "display_name": {
             "en_US": "Time Range",
             "zh_Hans": "时间范围"
@@ -11081,7 +11302,10 @@
           "display": {
             "show": {
               "search_type": {
-                "$in": ["post", "media"]
+                "$in": [
+                  "post",
+                  "media"
+                ]
               }
             }
           },
@@ -11106,7 +11330,10 @@
           "type": "string",
           "required": false,
           "default": "unset",
-          "enum": ["unset", "strict"],
+          "enum": [
+            "unset",
+            "strict"
+          ],
           "display_name": {
             "en_US": "Safe Search",
             "zh_Hans": "安全搜索"
@@ -11132,7 +11359,10 @@
           "type": "string",
           "required": false,
           "default": "0",
-          "enum": ["0", "1"],
+          "enum": [
+            "0",
+            "1"
+          ],
           "display_name": {
             "en_US": "Allow NSFW",
             "zh_Hans": "允许 NSFW"
@@ -11809,7 +12039,14 @@
           "type": "string",
           "required": false,
           "default": "BEST",
-          "enum": ["BEST", "HOT", "NEW", "TOP", "CONTROVERSIAL", "RISING"],
+          "enum": [
+            "BEST",
+            "HOT",
+            "NEW",
+            "TOP",
+            "CONTROVERSIAL",
+            "RISING"
+          ],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12014,7 +12251,12 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
+          "enum": [
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL"
+          ],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12140,7 +12382,12 @@
           "type": "string",
           "required": false,
           "default": "NEW",
-          "enum": ["NEW", "TOP", "HOT", "CONTROVERSIAL"],
+          "enum": [
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL"
+          ],
           "display_name": {
             "en_US": "Sort",
             "zh_Hans": "排序"
@@ -12294,7 +12541,11 @@
           "name": "select",
           "type": "string",
           "required": false,
-          "enum": ["users", "hashtags", "places"],
+          "enum": [
+            "users",
+            "hashtags",
+            "places"
+          ],
           "display_name": {
             "en_US": "Filter Type",
             "zh_Hans": "筛选类型"
@@ -12564,7 +12815,10 @@
           "type": "string",
           "required": false,
           "default": "recent",
-          "enum": ["popular", "recent"],
+          "enum": [
+            "popular",
+            "recent"
+          ],
           "display_name": {
             "en_US": "Sort Order",
             "zh_Hans": "评论排序"
@@ -13387,6 +13641,918 @@
             "placeholder": {
               "en_US": "1234567890123456789",
               "zh_Hans": "1234567890123456789"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_search_by_type",
+      "display_name": {
+        "en_US": "Bilibili · Search By Type",
+        "zh_Hans": "哔哩哔哩 · 分类搜索"
+      },
+      "description": {
+        "en_US": "Search Bilibili videos, articles, users, and other result types.",
+        "zh_Hans": "按类型搜索 Bilibili 视频、专栏、用户等结果。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Keyword",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required keyword for Bilibili typed search.",
+              "zh_Hans": "Bilibili 分类搜索的必填关键词。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required search keyword.",
+              "zh_Hans": "必填搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "AI tools",
+              "zh_Hans": "AI 工具"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "search_type",
+          "type": "string",
+          "required": false,
+          "default": "video",
+          "enum": [
+            "video",
+            "bangumi",
+            "pgc",
+            "live",
+            "article",
+            "user"
+          ],
+          "display_name": {
+            "en_US": "Search Type",
+            "zh_Hans": "搜索类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Typed search category. Use video for videos, article for columns, user for accounts, live only for search metadata.",
+              "zh_Hans": "分类搜索类型。video 搜视频，article 搜专栏，user 搜账号；live 本期只返回搜索元数据。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default video. Supports video, bangumi, pgc, live, article, and user.",
+              "zh_Hans": "OpenAPI 默认 video。支持 video、bangumi、pgc、live、article、user。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Cursor",
+            "zh_Hans": "分页 cursor"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Do not parse, decode, rewrite, or synthesize it.",
+              "zh_Hans": "不透明分页 cursor。不要解析、解码、改写或自行生成。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. For next pages, pass data.pagination.next unchanged.",
+              "zh_Hans": "首页留空。翻页时将响应 data.pagination.next 原样传回。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "page_size",
+          "type": "integer",
+          "required": false,
+          "default": 20,
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Number of search results per page. OpenAPI default is 20.",
+              "zh_Hans": "每页搜索结果数量。OpenAPI 默认 20。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 20.",
+              "zh_Hans": "OpenAPI 默认 20。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "order",
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "display_name": {
+            "en_US": "Order",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search sort order. Allowed values are 0, 1, 2, and 3; send as the OpenAPI integer order query parameter.",
+              "zh_Hans": "搜索排序方式。只允许 0、1、2、3，并作为 OpenAPI integer order 查询参数发送。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 0. 0=comprehensive, 1=latest, 2=views, 3=danmaku count.",
+              "zh_Hans": "OpenAPI 默认 0。0 综合，1 最新，2 播放量，3 弹幕数。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_details",
+      "display_name": {
+        "en_US": "Bilibili · Video Details",
+        "zh_Hans": "哔哩哔哩 · 视频详情"
+      },
+      "description": {
+        "en_US": "Fetch details for a known Bilibili video by BV ID.",
+        "zh_Hans": "通过 BV 号获取已知 Bilibili 视频详情。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_subtitles",
+      "display_name": {
+        "en_US": "Bilibili · Video Subtitles",
+        "zh_Hans": "哔哩哔哩 · 视频字幕"
+      },
+      "description": {
+        "en_US": "Fetch subtitle information for a known Bilibili video part.",
+        "zh_Hans": "获取已知 Bilibili 视频分 P 的字幕信息。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "a_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "AID",
+            "zh_Hans": "视频 a_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video a_id. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 a_id。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video a_id from video details. Keep it as a string.",
+              "zh_Hans": "必填视频 a_id，通常来自视频详情响应。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "114006081739452",
+              "zh_Hans": "114006081739452"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "c_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "CID",
+            "zh_Hans": "视频 c_id"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video c_id. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 c_id。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video c_id from video details or parts. Keep it as a string.",
+              "zh_Hans": "必填视频 c_id，通常来自视频详情或分 P 信息。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "28400484458",
+              "zh_Hans": "28400484458"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_comments",
+      "display_name": {
+        "en_US": "Bilibili · Video Comments",
+        "zh_Hans": "哔哩哔哩 · 视频评论"
+      },
+      "description": {
+        "en_US": "Fetch first-level comments for a known Bilibili video.",
+        "zh_Hans": "获取已知 Bilibili 视频的一级评论。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comments page number. OpenAPI default is 1.",
+              "zh_Hans": "评论页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_comment_replies",
+      "display_name": {
+        "en_US": "Bilibili · Comment Replies",
+        "zh_Hans": "哔哩哔哩 · 评论回复"
+      },
+      "description": {
+        "en_US": "Fetch replies under a specific Bilibili video comment.",
+        "zh_Hans": "获取 Bilibili 视频下指定评论的回复。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "bv_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "BV ID",
+            "zh_Hans": "BV 号"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili BV ID. Treat it as a string and never rewrite it.",
+              "zh_Hans": "必填 Bilibili BV 号。按字符串处理，不要改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili BV ID, for example BV1M1421t7hT.",
+              "zh_Hans": "必填 Bilibili BV 号，例如 BV1M1421t7hT。"
+            },
+            "placeholder": {
+              "en_US": "BV1M1421t7hT",
+              "zh_Hans": "BV1M1421t7hT"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "rpid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Reply ID",
+            "zh_Hans": "评论 rpid"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili comment rpid. Treat it as a string and never convert long IDs to JavaScript numbers.",
+              "zh_Hans": "必填 Bilibili 评论 rpid。按字符串处理，不要把长 ID 转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required parent comment rpid. Keep it as a string.",
+              "zh_Hans": "必填父评论 rpid。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "237109455120",
+              "zh_Hans": "237109455120"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reply page number. OpenAPI default is 1.",
+              "zh_Hans": "评论回复页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_video_danmaku",
+      "display_name": {
+        "en_US": "Bilibili · Video Danmaku",
+        "zh_Hans": "哔哩哔哩 · 视频弹幕"
+      },
+      "description": {
+        "en_US": "Fetch real-time danmaku for a known Bilibili video cid.",
+        "zh_Hans": "通过 Bilibili 视频 cid 获取实时弹幕。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "cid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "CID",
+            "zh_Hans": "视频 cid"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili video cid. Treat it as a string and never convert it to a number.",
+              "zh_Hans": "必填 Bilibili 视频 cid。按字符串处理，不要转成 number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required video cid from video details or parts. Keep it as a string.",
+              "zh_Hans": "必填视频 cid，通常来自视频详情或分 P 信息。按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "1639235405",
+              "zh_Hans": "1639235405"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_profile",
+      "display_name": {
+        "en_US": "Bilibili · User Profile",
+        "zh_Hans": "哔哩哔哩 · 用户资料"
+      },
+      "description": {
+        "en_US": "Fetch Bilibili user profile information by UID.",
+        "zh_Hans": "通过 UID 获取 Bilibili 用户资料。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_videos",
+      "display_name": {
+        "en_US": "Bilibili · User Videos",
+        "zh_Hans": "哔哩哔哩 · 用户投稿视频"
+      },
+      "description": {
+        "en_US": "Fetch posted videos from a Bilibili user homepage.",
+        "zh_Hans": "获取 Bilibili 用户主页投稿视频。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "pn",
+          "type": "integer",
+          "required": false,
+          "default": 1,
+          "minimum": 1,
+          "display_name": {
+            "en_US": "Page Number",
+            "zh_Hans": "页码"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User videos page number. OpenAPI default is 1.",
+              "zh_Hans": "用户投稿视频页码。OpenAPI 默认 1。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 1.",
+              "zh_Hans": "OpenAPI 默认 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "required": false,
+          "default": "pubdate",
+          "enum": [
+            "pubdate",
+            "click",
+            "stow"
+          ],
+          "display_name": {
+            "en_US": "Order",
+            "zh_Hans": "排序方式"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User video sort order. Allowed values are pubdate, click, and stow.",
+              "zh_Hans": "用户投稿排序方式。只允许 pubdate、click、stow。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default pubdate. pubdate=latest, click=views, stow=favorites.",
+              "zh_Hans": "OpenAPI 默认 pubdate。pubdate 最新，click 播放量，stow 收藏量。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_dynamics",
+      "display_name": {
+        "en_US": "Bilibili · User Dynamics",
+        "zh_Hans": "哔哩哔哩 · 用户动态"
+      },
+      "description": {
+        "en_US": "Fetch dynamic posts from a Bilibili user.",
+        "zh_Hans": "获取 Bilibili 用户动态列表。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "offset",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "Offset",
+            "zh_Hans": "动态 offset"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque dynamic pagination offset. Do not parse, decode, rewrite, or synthesize it.",
+              "zh_Hans": "不透明动态分页 offset。不要解析、解码、改写或自行生成。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Leave empty for the first page. Pass returned offsets unchanged.",
+              "zh_Hans": "首页留空。翻页时将响应返回的 offset 原样传回。"
+            },
+            "placeholder": {
+              "en_US": "953154282154098691",
+              "zh_Hans": "953154282154098691"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_up_stats",
+      "display_name": {
+        "en_US": "Bilibili · User UP Stats",
+        "zh_Hans": "哔哩哔哩 · UP 主播放获赞统计"
+      },
+      "description": {
+        "en_US": "Fetch total video views and likes for a Bilibili UP creator.",
+        "zh_Hans": "获取 Bilibili UP 主总播放和总获赞统计。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_bilibili_user_relation_stats",
+      "display_name": {
+        "en_US": "Bilibili · User Relation Stats",
+        "zh_Hans": "哔哩哔哩 · 用户关注粉丝统计"
+      },
+      "description": {
+        "en_US": "Fetch following and follower counts for a Bilibili user.",
+        "zh_Hans": "获取 Bilibili 用户关注数和粉丝数。"
+      },
+      "icon": "📺",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "UID",
+            "zh_Hans": "用户 UID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Bilibili user UID. Treat it as a string and never convert it to a JavaScript number.",
+              "zh_Hans": "必填 Bilibili 用户 UID。按字符串处理，不要转成 JavaScript number。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Bilibili user UID. Keep long IDs as strings.",
+              "zh_Hans": "必填 Bilibili 用户 UID。长 ID 按字符串保留。"
+            },
+            "placeholder": {
+              "en_US": "178360345",
+              "zh_Hans": "178360345"
             },
             "support_expression": true,
             "width": "full"
