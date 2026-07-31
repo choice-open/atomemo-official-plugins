@@ -17,7 +17,7 @@
   "repo": "https://github.com/choice-open/atomemo-official-plugins/plugins/tikhub",
   "author": "anya.qin",
   "email": "anya.qin@choiceform.com",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "credentials": [
     {
       "name": "tikhub-api-key",
@@ -11152,6 +11152,1308 @@
           },
           "type": "boolean",
           "default": true
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_dynamic_search",
+      "display_name": {
+        "en_US": "Reddit · Dynamic Search",
+        "zh_Hans": "Reddit · 动态关键词搜索"
+      },
+      "description": {
+        "en_US": "Search Reddit posts, communities, comments, media, or people by keyword.",
+        "zh_Hans": "按关键词搜索 Reddit 帖子、社区、评论、媒体或用户。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Query",
+            "zh_Hans": "关键词"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Reddit keyword for social listening, customer-demand discovery, competitor monitoring, or user research.",
+              "zh_Hans": "Reddit 搜索必填关键词，可用于舆情、需求、竞品口碑或用户研究。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit search keyword.",
+              "zh_Hans": "必填 Reddit 搜索关键词。"
+            },
+            "placeholder": {
+              "en_US": "AI coding agent",
+              "zh_Hans": "AI 编程助手"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "search_type",
+          "type": "string",
+          "required": false,
+          "default": "post",
+          "enum": [
+            "post",
+            "community",
+            "comment",
+            "media",
+            "people"
+          ],
+          "display_name": {
+            "en_US": "Search Type",
+            "zh_Hans": "搜索类型"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Search type. Valid values: post, community, comment, media, people. community and people ignore sort and time_range.",
+              "zh_Hans": "搜索类型。有效值：post、community、comment、media、people。community 和 people 会忽略 sort/time_range。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default post. Choose post, community, comment, media, or people.",
+              "zh_Hans": "OpenAPI 默认 post。可选帖子、社区、评论、媒体或用户。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "RELEVANCE",
+            "HOT",
+            "TOP",
+            "NEW",
+            "COMMENTS"
+          ],
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Sort method. Valid values: RELEVANCE, HOT, TOP, NEW, COMMENTS. Omit for community or people. COMMENTS is valid only when search_type is post.",
+              "zh_Hans": "排序方式。有效值：RELEVANCE、HOT、TOP、NEW、COMMENTS。community/people 省略。COMMENTS 仅允许 post。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Only for post, comment, and media. COMMENTS is only valid for post.",
+              "zh_Hans": "仅适用于 post、comment、media。COMMENTS 仅适用于 post。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "time_range",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "all",
+            "year",
+            "month",
+            "week",
+            "day",
+            "hour"
+          ],
+          "display_name": {
+            "en_US": "Time Range",
+            "zh_Hans": "时间范围"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Time range filter. Valid values: all, year, month, week, day, hour. Send only for search_type post or media.",
+              "zh_Hans": "时间范围筛选。有效值：all、year、month、week、day、hour。仅 post/media 发送。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "Only for post and media. Omit for comment, community, and people.",
+              "zh_Hans": "仅适用于 post 和 media。comment、community、people 会省略。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "safe_search",
+          "type": "string",
+          "required": false,
+          "default": "unset",
+          "enum": [
+            "unset",
+            "strict"
+          ],
+          "display_name": {
+            "en_US": "Safe Search",
+            "zh_Hans": "安全搜索"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Safe search setting. Valid values: unset, strict.",
+              "zh_Hans": "安全搜索设置。有效值：unset、strict。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default unset. Use strict for stricter filtering.",
+              "zh_Hans": "OpenAPI 默认 unset。strict 表示更严格过滤。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "allow_nsfw",
+          "type": "string",
+          "required": false,
+          "default": "0",
+          "enum": [
+            "0",
+            "1"
+          ],
+          "display_name": {
+            "en_US": "Allow NSFW",
+            "zh_Hans": "允许 NSFW"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to allow NSFW content. Valid values: 0 means no, 1 means yes.",
+              "zh_Hans": "是否允许 NSFW 内容。有效值：0 表示不允许，1 表示允许。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default 0. Use 1 only when NSFW results are intentionally allowed.",
+              "zh_Hans": "OpenAPI 默认 0。只有明确允许 NSFW 时使用 1。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "After",
+            "zh_Hans": "分页 after"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "不透明分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. For pagination, pass the returned after cursor unchanged.",
+              "zh_Hans": "OpenAPI 默认空字符串。翻页时原样传回响应中的 after cursor。"
+            },
+            "placeholder": {
+              "en_US": "Leave empty for first page",
+              "zh_Hans": "首次请求留空"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_trending_searches",
+      "display_name": {
+        "en_US": "Reddit · Trending Searches",
+        "zh_Hans": "Reddit · 热门搜索趋势"
+      },
+      "description": {
+        "en_US": "Fetch current Reddit trending searches for topic discovery.",
+        "zh_Hans": "获取 Reddit 当前热门搜索，用于热点发现和关键词扩展。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_post_details",
+      "display_name": {
+        "en_US": "Reddit · Get Post Details",
+        "zh_Hans": "Reddit · 获取帖子详情"
+      },
+      "description": {
+        "en_US": "Fetch title, body, author, subreddit, media metadata, and engagement stats for one Reddit post.",
+        "zh_Hans": "获取单个 Reddit 帖子的标题、正文、作者、社区、媒体元数据和互动统计。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "post_id",
+          "type": "string",
+          "required": true,
+          "pattern": "^t3_.+",
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit post fullname. It must be a string and include the t3_ prefix; never convert it to a number.",
+              "zh_Hans": "Reddit 帖子 fullname。必须是字符串并保留 t3_ 前缀；不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit post ID with the t3_ prefix.",
+              "zh_Hans": "必填 Reddit 帖子 ID，必须保留 t3_ 前缀。"
+            },
+            "placeholder": {
+              "en_US": "t3_abc123",
+              "zh_Hans": "t3_abc123"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "include_comment_id",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Include Comment ID",
+            "zh_Hans": "包含指定评论 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether to include a specific comment ID. If true, comment_id is required and must include t1_.",
+              "zh_Hans": "是否包含指定评论 ID。为 true 时 comment_id 必填且必须包含 t1_。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Turn on only when fetching around a specific comment.",
+              "zh_Hans": "OpenAPI 默认 false。只在需要指定评论上下文时打开。"
+            },
+            "support_expression": true
+          }
+        },
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "pattern": "^t1_.+",
+          "display_name": {
+            "en_US": "Comment ID",
+            "zh_Hans": "评论 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit comment fullname. Required when include_comment_id is true. Keep the t1_ prefix unchanged.",
+              "zh_Hans": "Reddit 评论 fullname。include_comment_id 为 true 时必填，保留 t1_ 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. Required only when Include Comment ID is on; keep the t1_ prefix.",
+              "zh_Hans": "OpenAPI 默认空字符串。仅打开包含评论 ID 时必填；保留 t1_ 前缀。"
+            },
+            "placeholder": {
+              "en_US": "t1_xyz789",
+              "zh_Hans": "t1_xyz789"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_post_comments",
+      "display_name": {
+        "en_US": "Reddit · Get Post Comments",
+        "zh_Hans": "Reddit · 获取帖子一级评论"
+      },
+      "description": {
+        "en_US": "Fetch first-level comments for a Reddit post and discover more.cursor values for replies.",
+        "zh_Hans": "获取 Reddit 帖子的一级评论，并发现用于回复分页的 more.cursor。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "post_id",
+          "type": "string",
+          "required": true,
+          "pattern": "^t3_.+",
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit post fullname. Keep the t3_ prefix and do not convert it to a number.",
+              "zh_Hans": "Reddit 帖子 fullname。保留 t3_ 前缀，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit post ID with the t3_ prefix.",
+              "zh_Hans": "必填 Reddit 帖子 ID，必须保留 t3_ 前缀。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_type",
+          "type": "string",
+          "required": false,
+          "default": "CONFIDENCE",
+          "enum": [
+            "CONFIDENCE",
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL",
+            "OLD",
+            "RANDOM"
+          ],
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "评论排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Comment sort. Valid values: CONFIDENCE, NEW, TOP, HOT, CONTROVERSIAL, OLD, RANDOM.",
+              "zh_Hans": "评论排序。有效值：CONFIDENCE、NEW、TOP、HOT、CONTROVERSIAL、OLD、RANDOM。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default CONFIDENCE.",
+              "zh_Hans": "OpenAPI 默认 CONFIDENCE。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "After",
+            "zh_Hans": "分页 after"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque comments pagination cursor. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "不透明评论分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. For next comments page, pass the returned after cursor unchanged.",
+              "zh_Hans": "OpenAPI 默认空字符串。翻页时原样传回响应中的 after cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_comment_replies",
+      "display_name": {
+        "en_US": "Reddit · Get Comment Replies",
+        "zh_Hans": "Reddit · 获取评论回复"
+      },
+      "description": {
+        "en_US": "Fetch replies below a Reddit comment node using the opaque more.cursor value.",
+        "zh_Hans": "使用不透明 more.cursor 获取 Reddit 评论节点下的回复。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "post_id",
+          "type": "string",
+          "required": true,
+          "pattern": "^t3_.+",
+          "display_name": {
+            "en_US": "Post ID",
+            "zh_Hans": "帖子 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit post fullname. Keep the t3_ prefix and do not convert it to a number.",
+              "zh_Hans": "Reddit 帖子 fullname。保留 t3_ 前缀，不要转成数字。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit post ID with the t3_ prefix.",
+              "zh_Hans": "必填 Reddit 帖子 ID，必须保留 t3_ 前缀。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Comment Cursor",
+            "zh_Hans": "评论 cursor"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque Reddit commenttree cursor, often like commenttree:ex:(...). Do not parse, decode, truncate, or rewrite it.",
+              "zh_Hans": "不透明 Reddit commenttree cursor，常形如 commenttree:ex:(...)。不要解析、解码、截断或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required more.cursor value from a first-level comment node; pass it unchanged.",
+              "zh_Hans": "必填一级评论节点的 more.cursor；必须原样传递。"
+            },
+            "placeholder": {
+              "en_US": "commenttree:ex:(...)",
+              "zh_Hans": "commenttree:ex:(...)"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort_type",
+          "type": "string",
+          "required": false,
+          "default": "CONFIDENCE",
+          "enum": [
+            "CONFIDENCE",
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL",
+            "OLD",
+            "RANDOM"
+          ],
+          "display_name": {
+            "en_US": "Sort Type",
+            "zh_Hans": "评论排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reply sort. Valid values: CONFIDENCE, NEW, TOP, HOT, CONTROVERSIAL, OLD, RANDOM.",
+              "zh_Hans": "回复排序。有效值：CONFIDENCE、NEW、TOP、HOT、CONTROVERSIAL、OLD、RANDOM。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default CONFIDENCE.",
+              "zh_Hans": "OpenAPI 默认 CONFIDENCE。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_subreddit_info",
+      "display_name": {
+        "en_US": "Reddit · Get Subreddit Info",
+        "zh_Hans": "Reddit · 获取社区资料"
+      },
+      "description": {
+        "en_US": "Fetch subreddit profile, description, member count, and creation metadata.",
+        "zh_Hans": "获取 Subreddit 社区资料、描述、成员数和创建信息。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "subreddit_name",
+          "type": "string",
+          "required": false,
+          "default": "pics",
+          "display_name": {
+            "en_US": "Subreddit Name",
+            "zh_Hans": "Subreddit 名称"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Subreddit name without the r/ prefix. Live OpenAPI schema.default is pics.",
+              "zh_Hans": "Subreddit 名称，不带 r/ 前缀。实时 OpenAPI schema.default 为 pics。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default pics. Enter the subreddit name without r/.",
+              "zh_Hans": "OpenAPI 默认 pics。填写不带 r/ 前缀的 subreddit 名称。"
+            },
+            "placeholder": {
+              "en_US": "SaaS",
+              "zh_Hans": "SaaS"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_subreddit_feed",
+      "display_name": {
+        "en_US": "Reddit · Get Subreddit Feed",
+        "zh_Hans": "Reddit · 获取社区帖子 Feed"
+      },
+      "description": {
+        "en_US": "Fetch posts from a subreddit feed for community and topic analysis.",
+        "zh_Hans": "获取指定 Subreddit 的帖子 Feed，用于社区和话题分析。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "subreddit_name",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Subreddit Name",
+            "zh_Hans": "Subreddit 名称"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Subreddit name without the r/ prefix.",
+              "zh_Hans": "Subreddit 名称，不带 r/ 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required subreddit name without r/.",
+              "zh_Hans": "必填 subreddit 名称，不带 r/ 前缀。"
+            },
+            "placeholder": {
+              "en_US": "startups",
+              "zh_Hans": "startups"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "default": "BEST",
+          "enum": [
+            "BEST",
+            "HOT",
+            "NEW",
+            "TOP",
+            "CONTROVERSIAL",
+            "RISING"
+          ],
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Subreddit feed sort. Valid values: BEST, HOT, NEW, TOP, CONTROVERSIAL, RISING.",
+              "zh_Hans": "社区 Feed 排序。有效值：BEST、HOT、NEW、TOP、CONTROVERSIAL、RISING。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default BEST.",
+              "zh_Hans": "OpenAPI 默认 BEST。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "After",
+            "zh_Hans": "分页 after"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "不透明分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. For pagination, pass the returned after cursor unchanged.",
+              "zh_Hans": "OpenAPI 默认空字符串。翻页时原样传回响应中的 after cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_user_profile",
+      "display_name": {
+        "en_US": "Reddit · Get User Profile",
+        "zh_Hans": "Reddit · 获取用户资料"
+      },
+      "description": {
+        "en_US": "Fetch Reddit user profile data such as account age, karma, bio, verification, and badges.",
+        "zh_Hans": "获取 Reddit 用户资料，包括账号时间、Karma、简介、认证和徽章等。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit username without the u/ prefix.",
+              "zh_Hans": "Reddit 用户名，不带 u/ 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit username without u/.",
+              "zh_Hans": "必填 Reddit 用户名，不带 u/ 前缀。"
+            },
+            "placeholder": {
+              "en_US": "spez",
+              "zh_Hans": "spez"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_user_posts",
+      "display_name": {
+        "en_US": "Reddit · Get User Posts",
+        "zh_Hans": "Reddit · 获取用户帖子"
+      },
+      "description": {
+        "en_US": "Fetch posts submitted by a Reddit user for historical behavior analysis.",
+        "zh_Hans": "获取指定 Reddit 用户发布的帖子，用于历史观点和活跃社区分析。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit username without the u/ prefix.",
+              "zh_Hans": "Reddit 用户名，不带 u/ 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit username without u/.",
+              "zh_Hans": "必填 Reddit 用户名，不带 u/ 前缀。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "default": "NEW",
+          "enum": [
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL"
+          ],
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User posts sort. Valid values: NEW, TOP, HOT, CONTROVERSIAL.",
+              "zh_Hans": "用户帖子排序。有效值：NEW、TOP、HOT、CONTROVERSIAL。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default NEW.",
+              "zh_Hans": "OpenAPI 默认 NEW。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "After",
+            "zh_Hans": "分页 after"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "不透明分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. For pagination, pass the returned after cursor unchanged.",
+              "zh_Hans": "OpenAPI 默认空字符串。翻页时原样传回响应中的 after cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "tikhub_reddit_user_comments",
+      "display_name": {
+        "en_US": "Reddit · Get User Comments",
+        "zh_Hans": "Reddit · 获取用户评论"
+      },
+      "description": {
+        "en_US": "Fetch comments written by a Reddit user for opinion, need, complaint, and intent analysis.",
+        "zh_Hans": "获取指定 Reddit 用户发表的评论，用于观点、需求、抱怨和意向分析。"
+      },
+      "icon": "🔴",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Username",
+            "zh_Hans": "用户名"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Reddit username without the u/ prefix.",
+              "zh_Hans": "Reddit 用户名，不带 u/ 前缀。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required Reddit username without u/.",
+              "zh_Hans": "必填 Reddit 用户名，不带 u/ 前缀。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "default": "NEW",
+          "enum": [
+            "NEW",
+            "TOP",
+            "HOT",
+            "CONTROVERSIAL"
+          ],
+          "display_name": {
+            "en_US": "Sort",
+            "zh_Hans": "排序"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "User comments sort. Valid values: NEW, TOP, HOT, CONTROVERSIAL.",
+              "zh_Hans": "用户评论排序。有效值：NEW、TOP、HOT、CONTROVERSIAL。"
+            }
+          },
+          "ui": {
+            "component": "select",
+            "hint": {
+              "en_US": "OpenAPI default NEW.",
+              "zh_Hans": "OpenAPI 默认 NEW。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "page_size",
+          "type": "integer",
+          "required": false,
+          "default": 25,
+          "display_name": {
+            "en_US": "Page Size",
+            "zh_Hans": "每页数量"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Page size for user comments. OpenAPI schema.default is 25 and no numeric range is declared.",
+              "zh_Hans": "用户评论每页数量。OpenAPI schema.default 为 25，未声明数值范围。"
+            }
+          },
+          "ui": {
+            "component": "number-input",
+            "hint": {
+              "en_US": "OpenAPI default 25. Live OpenAPI does not declare a min or max.",
+              "zh_Hans": "OpenAPI 默认 25。实时 OpenAPI 未声明最小值或最大值。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "display_name": {
+            "en_US": "After",
+            "zh_Hans": "分页 after"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Opaque pagination cursor. Do not parse, decode, or rewrite it.",
+              "zh_Hans": "不透明分页 cursor。不要解析、解码或改写。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "OpenAPI default empty. For pagination, pass the returned after cursor unchanged.",
+              "zh_Hans": "OpenAPI 默认空字符串。翻页时原样传回响应中的 after cursor。"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        },
+        {
+          "name": "need_format",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "display_name": {
+            "en_US": "Format Response",
+            "zh_Hans": "清洗格式化响应"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Whether TikHub should clean and format the response. OpenAPI schema.default is false.",
+              "zh_Hans": "是否让 TikHub 清洗和格式化响应。OpenAPI schema.default 为 false。"
+            }
+          },
+          "ui": {
+            "component": "switch",
+            "hint": {
+              "en_US": "OpenAPI default false. Set true to request TikHub-cleaned data.",
+              "zh_Hans": "OpenAPI 默认 false。设为 true 可请求 TikHub 清洗后的数据。"
+            },
+            "support_expression": true
+          }
         }
       ]
     }
