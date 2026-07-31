@@ -68,7 +68,7 @@ export const tikhub_reddit_post_details: ToolDefinition = {
     redditStringParameter({
       name: "comment_id",
       default: "",
-      pattern: "^t1_.+",
+      pattern: "^(?:t1_.+)?$",
       displayName: { en_US: "Comment ID", zh_Hans: "评论 ID" },
       hint: {
         en_US:

@@ -11551,7 +11551,7 @@
           "type": "string",
           "required": false,
           "default": "",
-          "pattern": "^t1_.+",
+          "pattern": "^(?:t1_.+)?$",
           "display_name": {
             "en_US": "Comment ID",
             "zh_Hans": "评论 ID"
