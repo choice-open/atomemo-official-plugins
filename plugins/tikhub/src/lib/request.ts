@@ -4,9 +4,27 @@ const BASE_URL = "https://api.tikhub.io"
 
 type TikHubCredential = { api_key?: string }
 
+export function sanitizeJsonValue(value: JsonValue): JsonValue {
+  if (typeof value === "string") {
+    return value.replaceAll("\u0000", "")
+  }
+  if (Array.isArray(value)) {
+    return value.map(sanitizeJsonValue)
+  }
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, child]) => [
+        key,
+        sanitizeJsonValue(child),
+      ]),
+    ) as JsonValue
+  }
+  return value
+}
+
 export function replacePathParams(
   path: string,
-  pathParams: Record<string, unknown>
+  pathParams: Record<string, unknown>,
 ): string {
   let finalPath = path
   const keys = [
@@ -27,10 +45,12 @@ export function replacePathParams(
 
 function getApiKey(
   credentials: Record<string, unknown> | undefined,
-  credentialId: string
+  credentialId: string,
 ): string {
-  if (!credentials || !credentials[credentialId]) {
-    throw new Error("Invalid credential_id. Please select a valid TikHub credential.")
+  if (!credentials?.[credentialId]) {
+    throw new Error(
+      "Invalid credential_id. Please select a valid TikHub credential.",
+    )
   }
   const cred = credentials[credentialId] as TikHubCredential
   if (!cred.api_key || cred.api_key.trim() === "") {
@@ -55,7 +75,7 @@ export interface TikHubRequestOptions {
 
 export async function invokeTikHubApi(
   endpoint: TikHubApiEndpoint,
-  options: TikHubRequestOptions
+  options: TikHubRequestOptions,
 ): Promise<JsonValue> {
   const apiKey = getApiKey(options.credentials, options.credentialId)
   const path = replacePathParams(endpoint.path, options.pathParams ?? {})
@@ -84,12 +104,12 @@ export async function invokeTikHubApi(
     const text = await response.text()
     throw new Error(`TikHub API error ${response.status}: ${text}`)
   }
-  return (await response.json()) as JsonValue
+  return sanitizeJsonValue((await response.json()) as JsonValue)
 }
 
 export function readRequiredStringParam(
   params: Record<string, unknown>,
-  name: string
+  name: string,
 ): string {
   const value = params[name]
   if (typeof value !== "string" || value.trim() === "") {
