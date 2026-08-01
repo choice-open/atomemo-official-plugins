@@ -22,6 +22,11 @@ export function sanitizeJsonValue(value: JsonValue): JsonValue {
   return value
 }
 
+export function parseTikHubJsonResponse(responseText: string): JsonValue {
+  const parseableText = responseText.replaceAll("\u0000", "")
+  return sanitizeJsonValue(JSON.parse(parseableText) as JsonValue)
+}
+
 export function replacePathParams(
   path: string,
   pathParams: Record<string, unknown>,
@@ -104,7 +109,7 @@ export async function invokeTikHubApi(
     const text = await response.text()
     throw new Error(`TikHub API error ${response.status}: ${text}`)
   }
-  return sanitizeJsonValue((await response.json()) as JsonValue)
+  return parseTikHubJsonResponse(await response.text())
 }
 
 export function readRequiredStringParam(
