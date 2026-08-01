@@ -4,7 +4,7 @@ TikHub Kuaishou App analysis tools provide compact workflows for video and
 topic monitoring, account research, competitor analysis, and hot-topic
 discovery.
 
-This release includes 11 GET endpoints from `Kuaishou-App-API`. All tools use
+This release includes 12 GET endpoints from `Kuaishou-App-API`. All tools use
 the shared `tikhub-api-key` credential, send business parameters as query
 parameters, and return TikHub responses as-is. The four V2 endpoints
 (`search_video_v2`, `search_user_v2`, `fetch_one_user_v2`, and
@@ -31,6 +31,15 @@ dashboard for current prices before use; no fixed amount is assumed here.
   - `tag_type` defaults to `1` and `tag_source` defaults to `2`. Sound/music
     tags may use `tag_type=29` and `tag_source=3`, but the tool does not add
     music download capability.
+- `tikhub_kuaishou_video_details`
+  - GET `/api/v1/kuaishou/app/fetch_one_video`
+  - Requires a numeric photoId or short eID in the string parameter `photo_id`.
+  - For video search results, extract the `photoId` query value from
+    `data.data.mixFeeds[].feed.share_info`. For example,
+    `userId=3x4afefkzbi6r8a&photoId=3xus5bdgm6wmzyk` yields
+    `3xus5bdgm6wmzyk`.
+  - Do not substitute `streamManifest.videoId`, a stream comment `videoId`,
+    `refer_photo_id`, or a media URL.
 - `tikhub_kuaishou_video_details_by_url`
   - GET `/api/v1/kuaishou/app/fetch_one_video_by_url`
   - Accepts a post URL or complete share text in `share_text`.
@@ -60,11 +69,20 @@ dashboard for current prices before use; no fixed amount is assumed here.
 
 ## Analysis Chains
 
-Video monitoring:
+Video search monitoring:
 
 1. Call `tikhub_kuaishou_video_search` with a keyword.
-2. Use a known share URL or share text with
+2. Extract the `photoId` query value from each selected result's
+   `data.data.mixFeeds[].feed.share_info`.
+3. Pass that value unchanged to `tikhub_kuaishou_video_details`.
+4. Pass the same `photo_id` to `tikhub_kuaishou_video_comments`.
+5. Pass selected root comment IDs to `tikhub_kuaishou_comment_replies`.
+
+Known share-link monitoring:
+
+1. Pass a known post URL or complete share text to
    `tikhub_kuaishou_video_details_by_url`.
+2. Read the post's `photo_id` from the response when available.
 3. Pass the returned `photo_id` to `tikhub_kuaishou_video_comments`.
 4. Pass selected root comment IDs to `tikhub_kuaishou_comment_replies`.
 
@@ -72,8 +90,8 @@ Topic monitoring:
 
 1. Call `tikhub_kuaishou_tag_search`.
 2. Pass a returned tag name or numeric ID to `tikhub_kuaishou_tag_feed`.
-3. Continue with video details and the comment chain when a share URL and
-   `photo_id` are available.
+3. Pass a selected result's `photoId` to
+   `tikhub_kuaishou_video_details`, then continue with the comment chain.
 
 Account and competitor analysis:
 
@@ -82,7 +100,8 @@ Account and competitor analysis:
 3. Read the digits-only numeric userId from the profile response.
 4. Pass that numeric ID as a string to `tikhub_kuaishou_user_videos`, using
    `latest` or `hot` sorting.
-5. Continue with video details and comments for selected posts.
+5. Pass selected post photoIds to `tikhub_kuaishou_video_details`, then fetch
+   comments and replies as needed.
 
 Hot-topic discovery:
 
@@ -94,7 +113,9 @@ Hot-topic discovery:
 ## Identifier And Pagination Rules
 
 `photo_id` may be a numeric ID or a short eID, but it is always passed as a
-string. `root_comment_id`, user IDs, tag IDs, source photo IDs, and every
+string. For video search results, use the `photoId` query value embedded in
+`feed.share_info`; do not use stream IDs, `refer_photo_id`, or media URLs.
+`root_comment_id`, user IDs, tag IDs, source photo IDs, and every
 `pcursor` are also kept as strings. The plugin never converts these identifiers
 to JavaScript numbers, preserving long-ID precision.
 
@@ -108,9 +129,9 @@ synthesize cursors.
 
 ## Not Included
 
-This release does not implement `Kuaishou-Web-API`, duplicate App search or V1
-detail endpoints, image/live/music search, selected feeds, favorites, shopping
-or brand boards, live information or replay, batch video queries, share-link
-generation, playback URLs, media download or playback, subtitles, ASR,
-summaries, sentiment analysis, lead scoring, competitor scoring, persistence,
-or scheduled monitoring.
+This release does not implement `Kuaishou-Web-API`, duplicate App search or
+detail endpoints outside this 12-tool scope, image/live/music search, selected
+feeds, favorites, shopping or brand boards, live information or replay, batch
+video queries, share-link generation, playback URLs, media download or
+playback, subtitles, ASR, summaries, sentiment analysis, lead scoring,
+competitor scoring, persistence, or scheduled monitoring.

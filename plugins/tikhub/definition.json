@@ -14907,6 +14907,61 @@
       ]
     },
     {
+      "name": "tikhub_kuaishou_video_details",
+      "display_name": {
+        "en_US": "Kuaishou · Video Details",
+        "zh_Hans": "快手 · 作品详情"
+      },
+      "description": {
+        "en_US": "Fetch Kuaishou post metadata by photoId without downloading or playing media.",
+        "zh_Hans": "通过 photoId 获取快手作品元数据，不下载或播放媒体。"
+      },
+      "icon": "🎬",
+      "parameters": [
+        {
+          "name": "credential_id",
+          "type": "credential_id",
+          "required": true,
+          "credential_name": "tikhub-api-key",
+          "display_name": {
+            "en_US": "Credential",
+            "zh_Hans": "凭证"
+          },
+          "ui": {
+            "component": "credential-select"
+          }
+        },
+        {
+          "name": "photo_id",
+          "type": "string",
+          "required": true,
+          "display_name": {
+            "en_US": "Photo ID",
+            "zh_Hans": "作品 ID"
+          },
+          "ai": {
+            "llm_description": {
+              "en_US": "Required Kuaishou photoId. From video search, extract the photoId query value in data.data.mixFeeds[].feed.share_info, for example 3xus5bdgm6wmzyk. Do not use streamManifest.videoId, stream comment videoId, refer_photo_id, or media URLs. Keep it as a string.",
+              "zh_Hans": "必填快手 photoId。视频搜索后，从 data.data.mixFeeds[].feed.share_info 提取 photoId 参数值，例如 3xus5bdgm6wmzyk。不要使用 streamManifest.videoId、码流 comment 中的 videoId、refer_photo_id 或媒体 URL。按字符串保留。"
+            }
+          },
+          "ui": {
+            "component": "input",
+            "hint": {
+              "en_US": "Required numeric photoId or short eID. For search results, use photoId from feed.share_info, not stream or media IDs.",
+              "zh_Hans": "必填数字 photoId 或短字符串 eID。搜索结果应使用 feed.share_info 中的 photoId，不要使用码流或媒体 ID。"
+            },
+            "placeholder": {
+              "en_US": "3xus5bdgm6wmzyk",
+              "zh_Hans": "3xus5bdgm6wmzyk"
+            },
+            "support_expression": true,
+            "width": "full"
+          }
+        }
+      ]
+    },
+    {
       "name": "tikhub_kuaishou_video_details_by_url",
       "display_name": {
         "en_US": "Kuaishou · Video Details by URL",

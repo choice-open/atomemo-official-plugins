@@ -6,6 +6,7 @@ import { tikhub_kuaishou_tag_feed } from "./fetch-tag-feed"
 import { tikhub_kuaishou_user_profile } from "./fetch-user-profile"
 import { tikhub_kuaishou_user_videos } from "./fetch-user-videos"
 import { tikhub_kuaishou_video_comments } from "./fetch-video-comments"
+import { tikhub_kuaishou_video_details } from "./fetch-video-details"
 import { tikhub_kuaishou_video_details_by_url } from "./fetch-video-details-by-url"
 import { tikhub_kuaishou_tag_search } from "./search-tag"
 import { tikhub_kuaishou_user_search } from "./search-user"
@@ -16,6 +17,7 @@ export const kuaishouAppTools: ToolDefinition[] = [
   tikhub_kuaishou_user_search,
   tikhub_kuaishou_tag_search,
   tikhub_kuaishou_tag_feed,
+  tikhub_kuaishou_video_details,
   tikhub_kuaishou_video_details_by_url,
   tikhub_kuaishou_video_comments,
   tikhub_kuaishou_comment_replies,
